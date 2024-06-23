@@ -221,12 +221,12 @@ void readRXD_1() {
     
     memset(serialData.BUFFER, 0, 2048);
     numBytes = (Serial1.readBytesUntil('\n', serialData.BUFFER, sizeof(serialData.BUFFER)));
-    // Serial.println(numBytes); // debug
+    Serial.println(numBytes); // debug
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GNGGA
     if (strncmp(serialData.BUFFER, "$GNGGA", 6) == 0) {
-      if (numBytes == 94) {
+      if ((numBytes == 94) || (numBytes == 90) ) {
         Serial.print(""); Serial.println(serialData.BUFFER);
         GNGGA();
       }
@@ -235,7 +235,7 @@ void readRXD_1() {
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GNRMC
     else if (strncmp(serialData.BUFFER, "$GNRMC", 6) == 0) {
-      if (numBytes == 78) {
+      if ((numBytes == 78) || (numBytes == 80)) {
         Serial.print(""); Serial.println(serialData.BUFFER);
         GNRMC();
       }
