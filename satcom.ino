@@ -7,7 +7,7 @@ For use with the WTGPS300 (chosen for its satellite compatibility) and may be hi
 Ensure good hard connections or risk interpreting garbage.
 
 Requries just 3 wires for WTGPS300:
-  WTGPS300 TX  --> ESP32 io26
+  WTGPS300 TX  --> ESP32 io26 as RXD
   WTGPS300 VCC -->
   WTGPS300 GND -->
 */
