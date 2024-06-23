@@ -99,7 +99,7 @@ void SSD_Display(OLEDDisplay* display, OLEDDisplayUiState* state, int16_t x, int
   display->drawString(display->getWidth()/2, 24, String(gnggaData.utc_time) + " " + String(gnrmcData.utc_date));
   display->drawString(display->getWidth()/2, 34, String(gnrmcData.latitude_hemisphere) + " " + String(gnrmcData.latitude));
   display->drawString(display->getWidth()/2, 44, String(gnrmcData.longitude_hemisphere) + " " + String(gnrmcData.longitude));
-  display->drawString(display->getWidth()/2, 54, String(gnrmcData.ground_speed) + " " + String(gnrmcData.ground_heading)) + " " + String(gnggaData.altitude);
+  display->drawString(display->getWidth()/2, 54, String(gnrmcData.ground_speed) + " " + String(gnrmcData.ground_heading) + " " + String(gnggaData.altitude));
 }
 FrameCallback frames[] = { SSD_Display }; // array keeps function pointers to all frames are the single views that slide in
 int frameCount = 1;
