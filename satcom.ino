@@ -46,7 +46,7 @@ struct GNGGAStruct {
   char latitude_hemisphere[56];                       // <3> Latitude hemisphere, N or S (north latitude or south latitude)
   char longitude[56];                                 // <4> Longitude, the format is dddmm.mmmmmmm
   char longitude_hemisphere[56];                      // <5> Longitude hemisphere, E or W (east longitude or west longitude)
-  char gnss_positioning_status[56];                   /* <6> GNSS positioning status: 0 not positioned, 1 single point positioning,
+  char positioning_status[56];                        /* <6> GNSS positioning status: 0 not positioned, 1 single point positioning,
                                                              2 differential GPS fixed solution, 4 fixed solution, 5 floating point
                                                              solution */
   char satellite_count[56];                           // <7> Number of satellites used
@@ -89,13 +89,13 @@ GNRMCStruct gnrmcData;
 
 /*
 this method of writing to the SSD1306 as provided in the library example, refreshes the display very satisfactorily and is far
-superior to clearing parts of the screen or indeed the whole screen manually (display.cls()) prior to writing to the display.
+superior to clearing parts of the screen or indeed the whole screen manually (display.cls()) prior to writing to the display. 
 */
 
 void SSD_Display(OLEDDisplay* display, OLEDDisplayUiState* state, int16_t x, int16_t y) {
   display->setTextAlignment(TEXT_ALIGN_CENTER);
   display->drawString(display->getWidth()/2, 0, "SATCOM");
-  display->drawString(display->getWidth()/2, 14, gnggaData.satellite_count);
+  display->drawString(display->getWidth()/2, 14, String(gnggaData.positioning_status) + " " + String(gnggaData.satellite_count) + " " + String(gnrmcData.positioning_status));
   display->drawString(display->getWidth()/2, 24, String(gnggaData.utc_time) + " " + String(gnrmcData.utc_date));
   display->drawString(display->getWidth()/2, 34, String(gnrmcData.latitude_hemisphere) + " " + String(gnrmcData.latitude));
   display->drawString(display->getWidth()/2, 44, String(gnrmcData.longitude_hemisphere) + " " + String(gnrmcData.longitude));
@@ -128,7 +128,6 @@ void setup() {
   display.println("starting..");
 }
 
-
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        GNGGA
 void GNGGA() {
@@ -138,7 +137,7 @@ void GNGGA() {
   memset(gnggaData.latitude_hemisphere, 0, 56);
   memset(gnggaData.longitude, 0, 56);
   memset(gnggaData.longitude_hemisphere, 0, 56);
-  memset(gnggaData.gnss_positioning_status, 0, 56);
+  memset(gnggaData.positioning_status, 0, 56);
   strcpy(gnggaData.satellite_count, "0");
   memset(gnggaData.hddp_precision_factor, 0, 56);
   memset(gnggaData.altitude, 0, 56);
@@ -157,7 +156,7 @@ void GNGGA() {
     else if (iter_vars ==3) {if (strlen(token) <= 1) {strcpy(gnggaData.latitude_hemisphere, token);}}
     else if (iter_vars ==4) {if (strlen(token) <= 17) {strcpy(gnggaData.longitude, token);}}
     else if (iter_vars ==5) {if (strlen(token) <= 1) {strcpy(gnggaData.longitude_hemisphere, token);}}
-    else if (iter_vars ==6) {if (strlen(token) <= 1) {strcpy(gnggaData.gnss_positioning_status, token);}}
+    else if (iter_vars ==6) {if (strlen(token) <= 1) {strcpy(gnggaData.positioning_status, token);}}
     else if (iter_vars ==7) {strcpy(gnggaData.satellite_count, token);}
     else if (iter_vars ==8) {strcpy(gnggaData.hddp_precision_factor, token);}
     else if (iter_vars ==9) {strcpy(gnggaData.altitude, token);}
@@ -171,6 +170,9 @@ void GNGGA() {
     iter_vars++;
   }
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                        GNRMC
 
 void GNRMC() {
   memset(gnrmcData.tag, 0, 56);
