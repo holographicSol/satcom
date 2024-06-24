@@ -7,5 +7,5 @@ development to ensure each displayed string(s) are no longer than SSD1306 column
 Ultimately RF24 with noaa/more sat compatibility will be added to this for another Rad node but I will keep this code here
 as a pure and simple WTGPS300 downlink.
 
-A TCA9548A i2C multiplexer ia required for satcom multiplexed, which allows more information to be displayed
+A TCA9548A i2C multiplexer is required for satcom multiplexed, which allows more information to be displayed
 without using a larger although possibly dimmer oled display over the bright monochrome SSD1306's, which I prefer.
