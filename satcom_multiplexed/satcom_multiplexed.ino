@@ -116,11 +116,7 @@ struct GNRMCStruct {
 GNRMCStruct gnrmcData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                SSD1306 FRAME
-
-/*
-*/
-
+//                                                                                                                    DISPLAY 0
 void SSD_Display_0() {
   tcaselect(6);
   display.setTextAlignment(TEXT_ALIGN_CENTER);
@@ -135,6 +131,8 @@ void SSD_Display_0() {
   display.display();
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    DISPLAY 1
 void SSD_Display_1() {
   tcaselect(7);
   display2.setTextAlignment(TEXT_ALIGN_CENTER);
