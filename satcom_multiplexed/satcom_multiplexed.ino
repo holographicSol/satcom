@@ -324,15 +324,13 @@ void extrapulatedSatData() {
   satData.abs_latitude_gnrmc_0 = atof(String(gnrmcData.latitude).c_str());
   satData.abs_longitude_gnrmc_0 = atof(String(gnrmcData.longitude).c_str());
 
-  // create converted lat and long longs
+  // create converted lat and long
   calculateCurrentLocation();
 
+  // add converted lat and long to sentence
   Serial.print(satData.currentDegreesLatGNGGA, 17); Serial.print(","); // sentence output: Create last seen satelits timestamp
-
   Serial.print(satData.currentDegreesLongGNGGA, 17); Serial.print(","); // sentence output: Create last seen satelits timestamp
-
   Serial.print(satData.currentDegreesLatGNRMC, 17); Serial.print(","); // sentence output: Create last seen satelits timestamp
-
   Serial.print(satData.currentDegreesLongGNRMC, 17); Serial.print(","); // sentence output: Create last seen satelits timestamp
 
   // latitude test range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1. this means we have ranged correctly
