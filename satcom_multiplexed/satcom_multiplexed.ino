@@ -251,7 +251,7 @@ void calculateCurrentLocation(){
   // Serial.print("(GNRMC ) Degrees Longitude: "); 
   // Serial.println(currentDegreesLongGNRMC, 4);
   satData.longitude_gnrmc_0 = currentDegreesLongGNRMC;
-  delay(500); 
+  // delay(500); 
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
