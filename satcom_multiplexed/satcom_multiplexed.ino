@@ -156,6 +156,23 @@ struct SatDatatruct {
   char   last_sat_seen_time_stamp_string[56] = "000000000000.00"; // record last time satellites were seen
   char   satDataTag[10]  = "$SATCOM"; // satcom sentence tag
 
+  double minutesLat;
+  double minutesLong;
+  double degreesLat;
+  double degreesLong;
+  double secondsLat;
+  double secondsLong;
+  double millisecondsLat;
+  double millisecondsLong;
+
+  double temporaryLatGNGGA;
+  double currentDegreesLatGNGGA;
+  double temporaryLongGNGGA;
+  double currentDegreesLongGNGGA;
+  double temporaryLatGNRMC;
+  double currentDegreesLatGNRMC;
+  double temporaryLongGNRMC;
+
   double abs_latitude_gngga_0  = 0.0; // type double absolute latitude
   double abs_longitude_gngga_0 = 0.0; // type double absolute longditude
   double abs_latitude_gngga_1  = 0.0; // previous absolute latitude
@@ -183,29 +200,10 @@ struct SatDatatruct {
 
   bool   area_range_bool_lat_0 = false; // latitude in range
   bool   area_range_bool_lon_0 = false; // longitude in range
-  double area_range_lat_0      = latitude_meter; // latitude range
-  double area_range_lon_0      = longitude_meter; //longitude range
-  double area_range_lat_conf_0 = 0.00000000; // latitude coordinates to range around
-  double area_range_lon_conf_0 = 0.000000000; // longitude coordinates to range around
-
-  double minutesLat;
-  double minutesLong;
-  double degreesLat;
-  double degreesLong;
-  double secondsLat;
-  double secondsLong;
-  double millisecondsLat;
-  double millisecondsLong;
-
-  double temporaryLatGNGGA;
-  double currentDegreesLatGNGGA;
-  double temporaryLongGNGGA;
-  double currentDegreesLongGNGGA;
-  double temporaryLatGNRMC;
-  double currentDegreesLatGNRMC;
-  double temporaryLongGNRMC;
-  
-
+  double area_range_lat_0      = latitude_meter; // latitude range (USER TUNE)
+  double area_range_lon_0      = longitude_meter; //longitude range (USER TUNE)
+  double area_range_lat_conf_0 = 0.00000000; // latitude coordinates to range around (USER TUNE)
+  double area_range_lon_conf_0 = 0.000000000; // longitude coordinates to range around (USER TUNE)
 };
 SatDatatruct satData;
 
