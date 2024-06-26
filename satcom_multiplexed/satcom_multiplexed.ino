@@ -169,12 +169,12 @@ struct SatDatatruct {
   double latitude_mile   = latitude_meter  * 1609.34;
   double longitude_mile  = longitude_meter * 1609.34;
 
-  bool   area_range_bool_lat_0   = false; // rangeing
-  bool   area_range_bool_lon_0   = false;
-  double area_range_lat_0        = latitude_meter;
-  double area_range_lon_0        = longitude_meter;
-  double area_range_lat_conf_0   = 0.00000000;
-  double area_range_lon_conf_0   = 0.000000000;
+  bool   area_range_bool_lat_0   = false; // in range
+  bool   area_range_bool_lon_0   = false; // in range
+  double area_range_lat_0        = latitude_meter; // latitude range
+  double area_range_lon_0        = longitude_meter; //longitude range
+  double area_range_lat_conf_0   = 0.00000000; // latitude coordinates to range around
+  double area_range_lon_conf_0   = 0.000000000; // longitude coordinates to range around
 };
 SatDatatruct satData;
 
