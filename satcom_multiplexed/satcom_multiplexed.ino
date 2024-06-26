@@ -241,7 +241,6 @@ void SSD_Display_2_Splash_0() {
   display3.drawString(display3.getWidth()/2, 30, "      '-:_      )  / `' '=.");
   display3.drawString(display3.getWidth()/2, 40, "        ) >     {_/,     /~)");
   display3.drawString(display3.getWidth()/2, 50, "snd     |/               `^ .'");
-
   display3.display();
 }
 
@@ -256,6 +255,7 @@ void SSD_Display_2() {
   display3.drawString(display3.getWidth()/2, 14, satData.sat_time_stamp_string);
   display3.drawString(display3.getWidth()/2, 24, String(satData.last_sat_seen_time_stamp_string));
   display3.drawString(display3.getWidth()/2, 34, String(satData.activity_level_lat_0) + String(satData.activity_level_lon_0));
+  display3.display();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
