@@ -356,7 +356,6 @@ void extrapulatedSatData() {
   if ( ( satData.latitude_gngga_0  >= satData.area_range_lat_conf_0 - satData.area_range_lat_0/2 ) && ( satData.latitude_gngga_0  <= satData.area_range_lat_conf_0 + satData.area_range_lat_0/2) ) {
     satData.area_range_bool_lat_0 = true;
   }
-  //
   Serial.print(String(satData.area_range_bool_lat_0) + ",");
 
   // DEBUG AND TESTING
