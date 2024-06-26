@@ -157,7 +157,7 @@ struct SatDatatruct {
 SatDatatruct satData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                   EXTRAPULATED SAT DATA DUMP
+//                                                                                          CREATE & DUMP EXTRAPULATED SAT DATA
 void extrapulatedSatData() {
 
   // start sentence output
