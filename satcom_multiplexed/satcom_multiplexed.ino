@@ -41,6 +41,9 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                     TCA9548A i2C Multiplexer --> ESP32 i2C
                                     x3 SSD1306               --> TCA9548A i2C Multiplexer 
 
+
+                        Create More Values For $ S sentences And Add More Satellite Hardware 
+
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
