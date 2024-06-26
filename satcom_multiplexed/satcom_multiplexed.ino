@@ -215,8 +215,8 @@ void extrapulatedSatData() {
   if (( satData.longitude_0 >= satData.area_range_lon_conf_0 - satData.area_range_lon_0/2 ) && (satData.longitude_0  <= satData.area_range_lon_conf_0 + satData.area_range_lon_0/2) ) {
     satData.area_range_bool_lon_0 = true;
   }
-  Serial.print(String(satData.area_range_bool_lat_0) + ","); // sentence output: Create activity level longitude
-  Serial.print(String(satData.area_range_bool_lon_0) + ","); // sentence output: Create activity level longitude
+  Serial.print(String(satData.area_range_bool_lat_0) + ","); // sentence output: Create range bool latitude
+  Serial.print(String(satData.area_range_bool_lon_0) + ","); // sentence output: Create range bool longitude
 
   // end sentence output
   Serial.println("*Z");
