@@ -2,17 +2,13 @@
 
 SatCom - Written by Benjamin Jack Cullen.
 
-For use with the WTGPS300 (chosen for its satellite compatibility) and may be highly compatible with much more than WTGPS300.
+Processes and dumps data received from satellites and some data extrapulated from the data being received.
 
-Ensure good hard connections or risk interpreting garbage.
-
-Requries just 3 wires for WTGPS300:
-  WTGPS300 TX  --> ESP32 io26 as RXD
-  WTGPS300 VCC -->
-  WTGPS300 GND -->
-
-
-This version requires an i2C multiplexer: TCA9548A. Which in this case enables running multiple SSD1306's on i2C.
+Wiring:
+  WTGPS300 TX              --> ESP32 io26 as RXD
+  WTGPS300 VCC             --> ESP32 3.3/5v
+  TCA9548A i2C Multiplexer --> ESP32 i2C
+  x3 SSD1306               --> TCA9548A i2C Multiplexer 
 
 */
 
@@ -21,12 +17,15 @@ This version requires an i2C multiplexer: TCA9548A. Which in this case enables r
 #include <Wire.h>
 #include <SSD1306Wire.h>   // SSD1306Wire                                https://gitlab.com/alexpr0/ssd1306wire
 #include <OLEDDisplayUi.h> // ESP8266 and ESP32 OLED driver for SSD1306  https://github.com/ThingPulse/esp8266-oled-ssd1306
+#include <Timezone.h>      // Timezone                                   https://github.com/JChristensen/Timezone
+
 #define TCAADDR 0x70
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       WIRING
 SSD1306Wire   display(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display2(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
+SSD1306Wire   display3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                  SERIAL DATA
@@ -67,6 +66,15 @@ void initDisplay2() {
   display2.cls();
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                          INITIALIZE DISPLAY
+void initDisplay3() {
+  display3.init();
+  display3.flipScreenVertically();
+  display3.setContrast(255);
+  display3.setFont(ArialMT_Plain_10);
+  display3.cls();
+}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GNGGA DATA
@@ -80,7 +88,7 @@ struct GNGGAStruct {
   char positioning_status[56];                        /* <6> GNSS positioning status: 0 not positioned, 1 single point positioning,
                                                              2 differential GPS fixed solution, 4 fixed solution, 5 floating point
                                                              solution */
-  char satellite_count[56];                           // <7> Number of satellites used
+  char satellite_count[56] = "0";                           // <7> Number of satellites used
   char hddp_precision_factor[56];                     // <8> HDOP level precision factor
   char altitude[56];                                  // <9> Altitude
   char height_earth_ellipsoid_relative_to_geoid[56];  // <10> The height of the earth ellipsoid relative to the geoid
@@ -116,6 +124,78 @@ struct GNRMCStruct {
 GNRMCStruct gnrmcData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                              SAT DATA STRUCT
+struct SatDatatruct {
+  /*
+  Calculate 1 meter in longitude and latitude:
+
+                               1 meter
+  Latitude change (degrees)  = _______ x 360° = 0.00000901°
+
+                               40075km
+
+                               1 meter
+  Longitude change (degrees) = _______ x 360° = 0.00000899°
+
+                               40075km
+  */
+  unsigned long satellite_count = 0;
+  char        sat_time_stamp_string[56];
+  char   last_sat_seen_time_stamp_string[56] = "000000000000.00";
+  char                   satDataTag[10] = "$SATCOM";
+  double latitude_0      = 0.0;
+  double longitude_0     = 0.0;
+  double latitude_1      = 0.0;
+  double longitude_1     = 0.0;
+  double latitude_meter  = 0.00000901;
+  double longitude_meter = 0.00000899;
+  double latitude_mile   = latitude_meter  * 1609.34;
+  double longitude_mile  = longitude_meter * 1609.34;
+  bool   activity_level_lat_0  = false;
+  bool   activity_level_lon_0  = false;
+};
+SatDatatruct satData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                   EXTRAPULATED SAT DATA DUMP
+void extrapulatedSatData() {
+
+  // start sentence output
+  Serial.print(satData.satDataTag + String(","));
+
+  // make datetime timestamp
+  memset(satData.sat_time_stamp_string, 0, 56);
+  strcat(satData.sat_time_stamp_string, gnrmcData.utc_date);
+  strcat(satData.sat_time_stamp_string, gnggaData.utc_time);
+  Serial.print(satData.sat_time_stamp_string + String(",")); // sentence output: Create datetime timestamp
+
+  // set last downlink time (helps know when WTGPS300 RTC was last updated by satellite data)
+  satData.satellite_count = atoi(gnggaData.satellite_count);
+  if (satData.satellite_count > 0) {
+    memset(satData.last_sat_seen_time_stamp_string, 0, 56);
+    strcpy(satData.last_sat_seen_time_stamp_string, satData.sat_time_stamp_string);
+  }
+  Serial.print(String(satData.last_sat_seen_time_stamp_string) + ","); // sentence output: Create last seen satelits timestamp
+  
+  // set move level zero
+  satData.latitude_0  = atof(gnggaData.latitude);
+  satData.longitude_0 = atof(gnggaData.longitude);
+  satData.activity_level_lat_0= false;
+  if ((satData.latitude_0 >= (satData.latitude_1 + satData.latitude_meter)) || (satData.latitude_0 <= (satData.latitude_1 - satData.latitude_meter))  ) {
+    satData.activity_level_lat_0 = true;
+  }
+  satData.activity_level_lon_0 = false;
+  if ((satData.longitude_0 >= (satData.longitude_1 + satData.longitude_meter)) || (satData.longitude_0 <= (satData.longitude_1 - satData.longitude_meter))  ) {
+    satData.activity_level_lon_0 = true;
+  }
+  Serial.print(String(satData.activity_level_lat_0) + ","); // sentence output: activity level latitude
+  Serial.print(String(satData.activity_level_lon_0) + ","); // sentence output: activity level longitude
+
+  // end sentence output
+  Serial.println("*Z");
+  }
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 0
 void SSD_Display_0() {
   tcaselect(6);
@@ -148,6 +228,37 @@ void SSD_Display_1() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    DISPLAY 2
+void SSD_Display_2_Splash_0() {
+  tcaselect(5);
+  display3.setTextAlignment(TEXT_ALIGN_CENTER);
+  display3.setColor(WHITE);
+  display3.clear();
+  display3.drawString(display3.getWidth()/2, 0, "        _,--',   _._.--._____");
+  display3.drawString(display3.getWidth()/2, 10, " .--.--';_'-.', ';_      _.,-'");
+  display3.drawString(display3.getWidth()/2, 20, ".'--'.  _.'    {`'-;_ .-.>.'");
+  display3.drawString(display3.getWidth()/2, 30, "      '-:_      )  / `' '=.");
+  display3.drawString(display3.getWidth()/2, 40, "        ) >     {_/,     /~)");
+  display3.drawString(display3.getWidth()/2, 50, "snd     |/               `^ .'");
+
+  display3.display();
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    DISPLAY 2
+void SSD_Display_2() {
+  tcaselect(5);
+  display3.setTextAlignment(TEXT_ALIGN_CENTER);
+  display3.setColor(WHITE);
+  display3.clear();
+  display3.drawString(display3.getWidth()/2, 0, "SATCOM");
+  display3.drawString(display3.getWidth()/2, 14, satData.sat_time_stamp_string);
+  display3.drawString(display3.getWidth()/2, 24, String(satData.last_sat_seen_time_stamp_string));
+  display3.drawString(display3.getWidth()/2, 34, String(satData.activity_level_lat_0) + String(satData.activity_level_lon_0));
+  display3.display();
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        SETUP
 void setup() {
 
@@ -163,10 +274,15 @@ void setup() {
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                              SETUP DISPLAY
+
+  tcaselect(5);
+  initDisplay3();
   tcaselect(6);
   initDisplay();
   tcaselect(7);
   initDisplay2();
+  SSD_Display_2_Splash_0();
+  delay(3000);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -179,7 +295,7 @@ void GNGGA() {
   memset(gnggaData.longitude, 0, 56);
   memset(gnggaData.longitude_hemisphere, 0, 56);
   memset(gnggaData.positioning_status, 0, 56);
-  strcpy(gnggaData.satellite_count, "0");
+  memset(gnggaData.satellite_count, 0, 56);
   memset(gnggaData.hddp_precision_factor, 0, 56);
   memset(gnggaData.altitude, 0, 56);
   memset(gnggaData.height_earth_ellipsoid_relative_to_geoid, 0, 56);
@@ -187,7 +303,6 @@ void GNGGA() {
   memset(gnggaData.differential_reference_base_station_label, 0, 56);
   memset(gnggaData.xor_check_value, 0, 56);
   memset(gnggaData.cr, 0, 56);
-
   serialData.iter_token = 0;
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
@@ -264,7 +379,7 @@ void readRXD_1() {
     
     memset(serialData.BUFFER, 0, 2048);
     serialData.nbytes = (Serial1.readBytesUntil('\n', serialData.BUFFER, sizeof(serialData.BUFFER)));
-    Serial.println(serialData.nbytes); // debug
+    // Serial.println(serialData.nbytes); // debug
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GNGGA
@@ -303,9 +418,10 @@ void readRXD_1() {
 void loop() {
 
   readRXD_1();
-
+  extrapulatedSatData();
   SSD_Display_0();
   SSD_Display_1();
+  SSD_Display_2();
 
   delay(1);
 }
