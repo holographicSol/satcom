@@ -300,71 +300,78 @@ void calculateCurrentLocation(){
 void extrapulatedSatData() {
 
   // --------------------------------------------------------------------------------------------------------------------------
-  //                                                                                                            SATCOM SENTENCE
+  //                                                                                                     SATCOM SENTENCE: BEGIN
 
   // start sentence output
   Serial.print(satData.satDataTag + String(","));
 
-  // create datetime timestamp
+  // --------------------------------------------------------------------------------------------------------------------------
+  //                                                                                   SATCOM SENTENCE: TIMESTAMP FROM SAT TIME
+
   memset(satData.sat_time_stamp_string, 0, 56);
   strcat(satData.sat_time_stamp_string, gnrmcData.utc_date);
   strcat(satData.sat_time_stamp_string, gnggaData.utc_time);
-  Serial.print(satData.sat_time_stamp_string + String(",")); // sentence output: Create datetime timestamp
+  Serial.print(satData.sat_time_stamp_string + String(","));
 
-  // create sat count int
+  // --------------------------------------------------------------------------------------------------------------------------
+  //                                                                                       SATCOM SENTENCE: LAST KNOWN DOWNLINK
+
   satData.satellite_count = atoi(gnggaData.satellite_count);
   if (satData.satellite_count > 0) {
     memset(satData.last_sat_seen_time_stamp_string, 0, 56);
     strcpy(satData.last_sat_seen_time_stamp_string, satData.sat_time_stamp_string);
   }
-  Serial.print(String(satData.last_sat_seen_time_stamp_string) + ","); // sentence output: Create last seen satelits timestamp
+  Serial.print(String(satData.last_sat_seen_time_stamp_string) + ",");
+
+  // --------------------------------------------------------------------------------------------------------------------------
+  //                                                                                 SATCOM SENTENCE: CONVERT DATA FROM STRINGS
   
-  // create lat and long longs
   satData.abs_latitude_gngga_0 = atof(String(gnggaData.latitude).c_str());
   satData.abs_longitude_gngga_0 = atof(String(gnggaData.longitude).c_str());
   satData.abs_latitude_gnrmc_0 = atof(String(gnrmcData.latitude).c_str());
   satData.abs_longitude_gnrmc_0 = atof(String(gnrmcData.longitude).c_str());
-
-  // create converted lat and long
   calculateCurrentLocation();
+  Serial.print(satData.currentDegreesLatGNGGA, 17); Serial.print(",");
+  Serial.print(satData.currentDegreesLongGNGGA, 17); Serial.print(",");
+  Serial.print(satData.currentDegreesLatGNRMC, 17); Serial.print(",");
+  Serial.print(satData.currentDegreesLongGNRMC, 17); Serial.print(",");
 
-  // add converted lat and long to sentence
-  Serial.print(satData.currentDegreesLatGNGGA, 17); Serial.print(","); // sentence output: Create last seen satelits timestamp
-  Serial.print(satData.currentDegreesLongGNGGA, 17); Serial.print(","); // sentence output: Create last seen satelits timestamp
-  Serial.print(satData.currentDegreesLatGNRMC, 17); Serial.print(","); // sentence output: Create last seen satelits timestamp
-  Serial.print(satData.currentDegreesLongGNRMC, 17); Serial.print(","); // sentence output: Create last seen satelits timestamp
+  // --------------------------------------------------------------------------------------------------------------------------
+  //                                                                                                   SATCOM SENTENCE: RANGING
 
-
+  // DEBUG AND TESTING
   // latitude range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1. this means we have ranged correctly
   // Serial.println(); // debug
   // satData.latitude_gngga_0 = 40.71211540899183;   // debug
   // Serial.print("latitude_gngga_0: "); Serial.println(satData.latitude_gngga_0, 17);    // debug
   // Serial.print("calc 0    :       "); Serial.println(satData.area_range_lat_conf_0 - (satData.area_range_lat_0 / 2), 17); // debug
   // Serial.print("calc 1    :       "); Serial.println(satData.area_range_lat_conf_0 + (satData.area_range_lat_0 / 2), 17); // debug
+
   // create latitude range bool
   satData.area_range_bool_lat_0 = false;
   if ( ( satData.latitude_gngga_0  >= satData.area_range_lat_conf_0 - satData.area_range_lat_0/2 ) && ( satData.latitude_gngga_0  <= satData.area_range_lat_conf_0 + satData.area_range_lat_0/2) ) {
     satData.area_range_bool_lat_0 = true;
   }
-  // add latitude ranging result to sentence
-  Serial.print(String(satData.area_range_bool_lat_0) + ","); // sentence output: Create range bool latitude
+  //
+  Serial.print(String(satData.area_range_bool_lat_0) + ",");
 
-
+  // DEBUG AND TESTING
   // longitude range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1. this means we have ranged correctly
   // Serial.println(); // debug
   // satData.longitude_gngga_0 = -74.01005488271014; // debug
   // Serial.print("longitude_gngga_0: "); Serial.println(satData.longitude_gngga_0, 17); // debug
   // Serial.print("calc 0    :        "); Serial.println(satData.area_range_lon_conf_0 - (satData.area_range_lon_0 / 2), 17); // debug
   // Serial.print("calc 1    :        "); Serial.println(satData.area_range_lon_conf_0 + (satData.area_range_lon_0 / 2), 17); // debug
+
   // create longitude range bool
   satData.area_range_bool_lon_0 = false;
   if ( ( satData.longitude_gngga_0 >= (satData.area_range_lon_conf_0 - satData.area_range_lon_0 ) ) && (satData.longitude_gngga_0  <= (satData.area_range_lon_conf_0 + satData.area_range_lon_0) )) {
     satData.area_range_bool_lon_0 = true;
   }
-  // add longitude ranging result to sentence
-  Serial.print(String(satData.area_range_bool_lon_0) + ","); // sentence output: Create range bool longitude
+  Serial.print(String(satData.area_range_bool_lon_0) + ",");
 
-  // end sentence output
+  // --------------------------------------------------------------------------------------------------------------------------
+  //                                                                                                       SATCOM SENTENCE: END
   Serial.println("*Z");
   }
 
