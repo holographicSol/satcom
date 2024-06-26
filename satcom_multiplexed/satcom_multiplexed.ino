@@ -289,8 +289,6 @@ void calculateCurrentLocation(){
     satData.currentDegreesLongGNRMC = 0-satData.currentDegreesLongGNRMC;
   }
   satData.longitude_gnrmc_0 = satData.temporaryLongGNRMC;
-
-  delay(100);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -365,7 +363,6 @@ void extrapulatedSatData() {
 
   // end sentence output
   Serial.println("*Z");
-  delay(1000);
   }
 
 // ----------------------------------------------------------------------------------------------------------------------------
