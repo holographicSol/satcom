@@ -35,11 +35,11 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                           Headless / Standalone / Serial.
 
 
-                         Wiring for Optional Multiplexed OLED Displays (SSD1306 Monochromes)
-                                  WTGPS300 TX              --> ESP32 io26 as RXD
-                                  WTGPS300 VCC             --> ESP32 3.3/5v
-                                  TCA9548A i2C Multiplexer --> ESP32 i2C
-                                  x3 SSD1306               --> TCA9548A i2C Multiplexer 
+                          Wiring for Optional Multiplexed OLED Displays (SSD1306 Monochromes)
+                                    WTGPS300 TX              --> ESP32 io26 as RXD
+                                    WTGPS300 VCC             --> ESP32 3.3/5v
+                                    TCA9548A i2C Multiplexer --> ESP32 i2C
+                                    x3 SSD1306               --> TCA9548A i2C Multiplexer 
 
 */
 
