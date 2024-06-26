@@ -200,8 +200,8 @@ struct SatDatatruct {
   bool   area_range_bool_lon_0 = false; // longitude in range
   double area_range_lat_0      = latitude_meter*100; // latitude range (USER TUNE)
   double area_range_lon_0      = longitude_meter*100; //longitude range (USER TUNE)
-  double area_range_lat_conf_0 = 51.45281030795304; // latitude coordinates to range around (USER TUNE)
-  double area_range_lon_conf_0 = -2.587487959432078; // longitude coordinates to range around (USER TUNE)
+  double area_range_lat_conf_0 = 0.000000; // latitude coordinates to range around (USER TUNE)
+  double area_range_lon_conf_0 = 00.00000; // longitude coordinates to range around (USER TUNE)
 };
 SatDatatruct satData;
 
