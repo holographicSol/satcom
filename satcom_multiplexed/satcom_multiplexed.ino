@@ -224,17 +224,16 @@ struct SatDatatruct {
   double longitude_gnrmc_1     = 0.0; // converted previous longditude 
 
   double latitude_meter        = 0.0000901; // one meter converted to latitude
-  double longitude_meter       = 0.0000899;  // one meter converted to longitude
+  double longitude_meter       = 0.0000899; // one meter converted to longitude
   double latitude_mile         = latitude_meter  * 1609.34; // one mile in latitude
   double longitude_mile        = longitude_meter * 1609.34; // one mile in longitude
 
-  // variable test range
   bool   area_range_bool_lat_0 = false; // latitude in range
   bool   area_range_bool_lon_0 = false; // longitude in range
-  double area_range_lat_0      = latitude_meter*1.5; // latitude range (USER TUNE)
-  double area_range_lon_0      = longitude_meter*1.5; //longitude range (USER TUNE)
-  double area_range_lat_conf_0 = 40.71211540899183; // latitude coordinates to range around (USER TUNE)
-  double area_range_lon_conf_0 = -74.01005488271014; // longitude coordinates to range around (USER TUNE)
+  double area_range_lat_0      = latitude_meter*1.5;  // latitude range (USER TUNE)
+  double area_range_lon_0      = longitude_meter*1.5; // longitude range (USER TUNE)
+  double area_range_lat_conf_0 = 40.71211540899183;   // latitude coordinates to range around (USER TUNE)
+  double area_range_lon_conf_0 = -74.01005488271014;  // longitude coordinates to range around (USER TUNE)
 };
 SatDatatruct satData;
 
