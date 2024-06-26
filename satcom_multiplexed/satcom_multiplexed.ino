@@ -27,8 +27,8 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                                 
                                                     Serial Dump
    All extra calculated data is dumped in its own $SATCOM sentence along with the other $ sentences which are passed through
-        as they would be seen as if the WTGPS300 is plugged in via USB. This way We're dumping more (information) and dumping in
-                                                  a standard way.
+        as they would be seen as if the WTGPS300 is plugged in via USB. Dumping more (sentences/information) and dumping in
+                                        a standard way and for generic use.
 
                                         
                                                   Compatibility
