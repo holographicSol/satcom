@@ -247,7 +247,7 @@ void SSD_Display_2_Splash_0() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 2
 void SSD_Display_2() {
-  tcaselect(0);
+  tcaselect(5);
   display3.setTextAlignment(TEXT_ALIGN_CENTER);
   display3.setColor(WHITE);
   display3.clear();
