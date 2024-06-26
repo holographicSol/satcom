@@ -14,21 +14,27 @@ Wiring:
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    LIBRARIES
+
 #include <Wire.h>
 #include <SSD1306Wire.h>   // SSD1306Wire                                https://gitlab.com/alexpr0/ssd1306wire
 #include <OLEDDisplayUi.h> // ESP8266 and ESP32 OLED driver for SSD1306  https://github.com/ThingPulse/esp8266-oled-ssd1306
 #include <Timezone.h>      // Timezone                                   https://github.com/JChristensen/Timezone
 
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                      DEFINES
+
 #define TCAADDR 0x70
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       WIRING
+
 SSD1306Wire   display(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display2(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                  SERIAL DATA
+
 struct SerialStruct {
   unsigned long nbytes;
   unsigned long iter_token;
@@ -39,6 +45,7 @@ SerialStruct serialData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                      MULTIPLEXER PORT SELECT
+
 void tcaselect(uint8_t channel) {
   if (channel > 7) return;
   Wire.beginTransmission(TCAADDR);
@@ -48,6 +55,7 @@ void tcaselect(uint8_t channel) {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          INITIALIZE DISPLAY
+
 void initDisplay() {
   display.init();
   display.flipScreenVertically();
@@ -58,6 +66,7 @@ void initDisplay() {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          INITIALIZE DISPLAY
+
 void initDisplay2() {
   display2.init();
   display2.flipScreenVertically();
@@ -68,6 +77,7 @@ void initDisplay2() {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          INITIALIZE DISPLAY
+
 void initDisplay3() {
   display3.init();
   display3.flipScreenVertically();
@@ -78,6 +88,7 @@ void initDisplay3() {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GNGGA DATA
+
 struct GNGGAStruct {
   char tag[56];                                       // <0> $GNGGA
   char utc_time[56];                                  // <1> UTC time, the format is hhmmss.sss
@@ -102,6 +113,7 @@ GNGGAStruct gnggaData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GNRMC DATA
+
 struct GNRMCStruct {
   char tag[56];                                       // <0> $GNRMC
   char utc_time[56];                                  // <1> UTC time, the format is hhmmss.sss
@@ -125,6 +137,7 @@ GNRMCStruct gnrmcData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                              SAT DATA STRUCT
+
 struct SatDatatruct {
   /*
   Calculate 1 meter in longitude and latitude:
@@ -198,10 +211,12 @@ SatDatatruct satData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                        CREATE COORDINTE DATA
+
 void calculateCurrentLocation(){
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNGGA COORDINATE CONVERSION
+
   satData.temporaryLatGNGGA = satData.abs_latitude_gngga_0;
   satData.degreesLat = trunc(satData.temporaryLatGNGGA/100);
   satData.minutesLat = satData.temporaryLatGNGGA - (satData.degreesLat*100);
@@ -228,6 +243,7 @@ void calculateCurrentLocation(){
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNRMC COORDINATE CONVERSION
+
   satData.temporaryLatGNRMC = satData.abs_latitude_gnrmc_0;
   satData.degreesLat = trunc(satData.temporaryLatGNRMC/100);
   satData.minutesLat = satData.temporaryLatGNRMC - (satData.degreesLat*100);
@@ -255,6 +271,7 @@ void calculateCurrentLocation(){
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                          CREATE & DUMP EXTRAPULATED SAT DATA
+
 void extrapulatedSatData() {
 
   // --------------------------------------------------------------------------------------------------------------------------
@@ -325,6 +342,7 @@ void extrapulatedSatData() {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 0
+
 void SSD_Display_0() {
   tcaselect(6);
   display.setTextAlignment(TEXT_ALIGN_CENTER);
@@ -341,6 +359,7 @@ void SSD_Display_0() {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 1
+
 void SSD_Display_1() {
   tcaselect(7);
   display2.setTextAlignment(TEXT_ALIGN_CENTER);
@@ -357,6 +376,7 @@ void SSD_Display_1() {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 2
+
 void SSD_Display_2_Splash_0() {
   tcaselect(5);
   display3.setTextAlignment(TEXT_ALIGN_CENTER);
@@ -373,6 +393,7 @@ void SSD_Display_2_Splash_0() {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 2
+
 void SSD_Display_2() {
   tcaselect(5);
   display3.setTextAlignment(TEXT_ALIGN_CENTER);
@@ -391,6 +412,7 @@ void SSD_Display_2() {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        SETUP
+
 void setup() {
 
   // --------------------------------------------------------------------------------------------------------------------------
@@ -401,6 +423,7 @@ void setup() {
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                 SETUP WIRE
+
   Wire.begin();
 
   // --------------------------------------------------------------------------------------------------------------------------
@@ -418,6 +441,7 @@ void setup() {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        GNGGA
+
 void GNGGA() {
   memset(gnggaData.tag, 0, 56);
   memset(gnggaData.utc_time, 0, 56);
@@ -505,6 +529,7 @@ void GNRMC() {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 1
+
 void readRXD_1() {
   if (Serial1.available() > 0) {
     
@@ -514,6 +539,7 @@ void readRXD_1() {
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GNGGA
+
     if (strncmp(serialData.BUFFER, "$GNGGA", 6) == 0) {
       if ((serialData.nbytes == 94) || (serialData.nbytes == 90) ) {
         Serial.print(""); Serial.println(serialData.BUFFER);
@@ -523,6 +549,7 @@ void readRXD_1() {
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GNRMC
+
     else if (strncmp(serialData.BUFFER, "$GNRMC", 6) == 0) {
       if ((serialData.nbytes == 78) || (serialData.nbytes == 80)) {
         Serial.print(""); Serial.println(serialData.BUFFER);
@@ -532,12 +559,14 @@ void readRXD_1() {
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    DESBI
+
     else if (strncmp(serialData.BUFFER, "$DESBI", 6) == 0) {
       Serial.print(""); Serial.println(serialData.BUFFER);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GPATT
+
     else if (strncmp(serialData.BUFFER, "$GPATT", 6) == 0) {
       Serial.print(""); Serial.println(serialData.BUFFER);
     }
@@ -546,6 +575,7 @@ void readRXD_1() {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    MAIN LOOP
+
 void loop() {
   readRXD_1();
   extrapulatedSatData();
@@ -557,3 +587,5 @@ void loop() {
 
   delay(1);
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------
