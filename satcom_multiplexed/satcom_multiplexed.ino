@@ -24,12 +24,11 @@ SATCOM - Written by Benjamin Jack Cullen.
 Specified coordinates at specified meter/mile ranges. For location pinning, guidance, tracking, motion detection, etc. these values
                                         can be added to the new $SATCOM sentence.
 
-
                                                 
                                                     Serial Dump
    All extra calculated data is dumped in its own $SATCOM sentence along with the other $ sentences which are passed through
-        as they would be seen as if the WTGPS300 is plugged in via USB. This way We're dumping more (for other computers/devices
-                                to process for any reason) and dumping in a standard way.
+        as they would be seen as if the WTGPS300 is plugged in via USB. This way We're dumping more (information) and dumping in
+                                                  a standard way.
 
                                         
                                                   Compatibility
