@@ -211,7 +211,7 @@ SatDatatruct satData;
 void calculateCurrentLocation(){
 
   // --------------------------------------------------------------------------------------------------------------------------
-  //                                                                                                GNGGA COORDINATE CONVERSION
+  //                                                                                                GNGGA COORDINATE CONVERSION (todo: convert to more decimal places)
 
   // latitude
   satData.temporaryLatGNGGA = satData.abs_latitude_gngga_0;
@@ -240,7 +240,7 @@ void calculateCurrentLocation(){
   satData.longitude_gngga_0 = satData.currentDegreesLongGNGGA;
 
   // --------------------------------------------------------------------------------------------------------------------------
-  //                                                                                                GNRMC COORDINATE CONVERSION
+  //                                                                                                GNRMC COORDINATE CONVERSION (todo: convert to more decimal places)
 
   // latitude
   satData.temporaryLatGNRMC = satData.abs_latitude_gnrmc_0;
