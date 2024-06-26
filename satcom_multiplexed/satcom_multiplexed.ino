@@ -202,7 +202,6 @@ struct SatDatatruct {
   double area_range_lon_0      = longitude_meter*100; //longitude range (USER TUNE)
   double area_range_lat_conf_0 = 51.45281030795304; // latitude coordinates to range around (USER TUNE)
   double area_range_lon_conf_0 = -2.587487959432078; // longitude coordinates to range around (USER TUNE)
-  // TEST DATA: 51.45281030795304, -2.587487959432078
 };
 SatDatatruct satData;
 
@@ -216,27 +215,27 @@ void calculateCurrentLocation(){
 
   // latitude
   satData.temporaryLatGNGGA = satData.abs_latitude_gngga_0;
-  satData.degreesLat = trunc(satData.temporaryLatGNGGA/100);
-  satData.minutesLat = satData.temporaryLatGNGGA - (satData.degreesLat*100);
+  satData.degreesLat = trunc(satData.temporaryLatGNGGA / 100);
+  satData.minutesLat = satData.temporaryLatGNGGA - (satData.degreesLat * 100);
   satData.secondsLat = (satData.minutesLat - trunc(satData.minutesLat)) * 60;
   satData.millisecondsLat = (satData.secondsLat - trunc(satData.secondsLat)) * 1000;
   satData.minutesLat = trunc(satData.minutesLat);
   satData.secondsLat = trunc(satData.secondsLat);
-  satData.currentDegreesLatGNGGA = satData.degreesLat + satData.minutesLat/60 + satData.secondsLat/3600 + satData.millisecondsLat/3600000;
+  satData.currentDegreesLatGNGGA = (double)satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000);
   if (strcmp(gnggaData.latitude_hemisphere, "S") == 0) {
-    satData.currentDegreesLatGNGGA = 0-satData.currentDegreesLatGNGGA;
+    satData.currentDegreesLatGNGGA = 0 - satData.currentDegreesLatGNGGA;
   }
   satData.latitude_gngga_0 = satData.currentDegreesLatGNGGA;
 
   // longitude
   satData.temporaryLongGNGGA = satData.abs_longitude_gngga_0;
-  satData.degreesLong = trunc(satData.temporaryLongGNGGA/100);
-  satData.minutesLong = satData.temporaryLongGNGGA - (satData.degreesLong*100);
+  satData.degreesLong = trunc(satData.temporaryLongGNGGA / 100);
+  satData.minutesLong = satData.temporaryLongGNGGA - (satData.degreesLong * 100);
   satData.secondsLong = (satData.minutesLong - trunc(satData.minutesLong)) * 60;
   satData.millisecondsLong = (satData.secondsLong - trunc(satData.secondsLong)) * 1000;
-  satData.currentDegreesLongGNGGA = satData.degreesLong + satData.minutesLong/60 + satData.secondsLong/3600 + satData.millisecondsLong/3600000;
+  satData.currentDegreesLongGNGGA = (double)(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000);
   if (strcmp(gnggaData.longitude_hemisphere, "W") == 0) {
-    satData.currentDegreesLongGNGGA = 0-satData.currentDegreesLongGNGGA;
+    satData.currentDegreesLongGNGGA = 0 - satData.currentDegreesLongGNGGA;
   }
   satData.longitude_gngga_0 = satData.currentDegreesLongGNGGA;
 
