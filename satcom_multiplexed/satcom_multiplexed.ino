@@ -39,7 +39,12 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                     WTGPS300 TX              --> ESP32 io26 as RXD
                                     WTGPS300 VCC             --> ESP32 3.3/5v
                                     TCA9548A i2C Multiplexer --> ESP32 i2C
-                                    x3 SSD1306               --> TCA9548A i2C Multiplexer 
+                                    x3 SSD1306               --> TCA9548A i2C Multiplexer
+
+
+
+                                              SENTENCE $SATCOM
+
 
 
                         Create More Values For $ Ssentences And Add More Satellite Hardware 
@@ -62,7 +67,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       WIRING
 
-SSD1306Wire   display(0x3c, SDA, SCL);v // let SSD1306Wire wire up our SSD1306 on the i2C bus
+SSD1306Wire   display(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display2(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 
