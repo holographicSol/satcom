@@ -48,7 +48,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
      START Tag        Last Sat Time                   GNGGAConvertedLon                GNRMCConvertedLonitude       END Tag
      |                      |                                 |                                   |                     |
      $SATCOM,000000000000.00,000000000000.00,00.00000000000000,00.00000000000000,00.00000000000000,00.00000000000000,0,0,*Z
-            |                               |                                   |                                   | | |
+            |                               |                                   |                                   | |
       DatetimeStamp              GNGGAConvertedLatitude              GNRMCConvertedLatitude                  In/Out Range Bools 
 
 
