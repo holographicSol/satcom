@@ -234,7 +234,7 @@ void calculateCurrentLocation(){
     satData.currentDegreesLatGNGGA = 0 - satData.currentDegreesLatGNGGA;
   }
   satData.latitude_gngga_0 = satData.currentDegreesLatGNGGA;
-  Serial.print("satData.currentDegreesLatGNGGA: "); Serial.println(satData.currentDegreesLatGNGGA, 17);
+  // Serial.print("satData.currentDegreesLatGNGGA: "); Serial.println(satData.currentDegreesLatGNGGA, 17);
 
   // longitude
   satData.temporaryLongGNGGA = satData.abs_longitude_gngga_0;
@@ -254,7 +254,7 @@ void calculateCurrentLocation(){
     satData.currentDegreesLongGNGGA = 0 - satData.currentDegreesLongGNGGA;
   }
   satData.longitude_gngga_0 = satData.currentDegreesLongGNGGA;
-  Serial.print("satData.currentDegreesLongGNGGA: "); Serial.println(satData.currentDegreesLongGNGGA, 17);
+  // Serial.print("satData.currentDegreesLongGNGGA: "); Serial.println(satData.currentDegreesLongGNGGA, 17);
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNRMC COORDINATE CONVERSION (todo: convert to more decimal places)
