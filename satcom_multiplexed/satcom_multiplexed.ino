@@ -153,6 +153,7 @@ struct SatDatatruct {
   double longitude_mile  = longitude_meter * 1609.34;
   bool   activity_level_lat_0  = false;
   bool   activity_level_lon_0  = false;
+  bool   activity_warmup_period = 5000000; // tune me
 };
 SatDatatruct satData;
 
@@ -188,8 +189,8 @@ void extrapulatedSatData() {
   if ((satData.longitude_0 >= (satData.longitude_1 + satData.longitude_meter)) || (satData.longitude_0 <= (satData.longitude_1 - satData.longitude_meter))  ) {
     satData.activity_level_lon_0 = true;
   }
-  Serial.print(String(satData.activity_level_lat_0) + ","); // sentence output: activity level latitude
-  Serial.print(String(satData.activity_level_lon_0) + ","); // sentence output: activity level longitude
+  Serial.print(String(satData.activity_level_lat_0) + ","); // sentence output: Create activity level latitude
+  Serial.print(String(satData.activity_level_lon_0) + ","); // sentence output: Create activity level longitude
 
   // end sentence output
   Serial.println("*Z");
@@ -247,7 +248,7 @@ void SSD_Display_2_Splash_0() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 2
 void SSD_Display_2() {
-  tcaselect(5);
+  tcaselect(0);
   display3.setTextAlignment(TEXT_ALIGN_CENTER);
   display3.setColor(WHITE);
   display3.clear();
@@ -255,7 +256,6 @@ void SSD_Display_2() {
   display3.drawString(display3.getWidth()/2, 14, satData.sat_time_stamp_string);
   display3.drawString(display3.getWidth()/2, 24, String(satData.last_sat_seen_time_stamp_string));
   display3.drawString(display3.getWidth()/2, 34, String(satData.activity_level_lat_0) + String(satData.activity_level_lon_0));
-  display3.display();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -416,7 +416,6 @@ void readRXD_1() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    MAIN LOOP
 void loop() {
-
   readRXD_1();
   extrapulatedSatData();
   SSD_Display_0();
