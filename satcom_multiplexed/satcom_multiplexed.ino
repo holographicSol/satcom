@@ -131,14 +131,13 @@ struct SatDatatruct {
 
                                1 meter
   Latitude change (degrees)  = _______ x 360° = 0.00000901°
-
                                40075km
 
                                1 meter
   Longitude change (degrees) = _______ x 360° = 0.00000899°
-
                                40075km
   */
+
   unsigned long satellite_count = 0;
   char   sat_time_stamp_string[56]; // datetime timestamp from satellite
   char   last_sat_seen_time_stamp_string[56] = "000000000000.00"; // record last time satellites were seen
@@ -175,80 +174,83 @@ struct SatDatatruct {
   double area_range_lon_0        = longitude_meter; //longitude range
   double area_range_lat_conf_0   = 0.00000000; // latitude coordinates to range around
   double area_range_lon_conf_0   = 0.000000000; // longitude coordinates to range around
+
+  double minutesLat;
+  double minutesLong;
+  double degreesLat;
+  double degreesLong;
+  double secondsLat;
+  double secondsLong;
+  double millisecondsLat;
+  double millisecondsLong;
+
+  double temporaryLatGNGGA;
+  double currentDegreesLatGNGGA;
+  double temporaryLongGNGGA;
+  double currentDegreesLongGNGGA;
+  double temporaryLatGNRMC;
+  double currentDegreesLatGNRMC;
+  double temporaryLongGNRMC;
+  
+
 };
 SatDatatruct satData;
 
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                        CREATE COORDINTE DATA
 void calculateCurrentLocation(){
-
-  double minutesLat; 
-  double minutesLong;
-  double degreesLat; 
-  double degreesLong; 
-  double secondsLat; 
-  double secondsLong; 
-  double millisecondsLat;
-  double millisecondsLong; 
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNGGA COORDINATE CONVERSION
-  double temporaryLatGNGGA = satData.abs_latitude_gngga_0;
-  degreesLat = trunc(temporaryLatGNGGA/100);
-  minutesLat = temporaryLatGNGGA - (degreesLat*100);
-  secondsLat = (minutesLat - trunc(minutesLat)) * 60;
-  millisecondsLat = (secondsLat - trunc(secondsLat)) * 1000;
-  minutesLat = trunc(minutesLat);
-  secondsLat = trunc(secondsLat);
-  double currentDegreesLatGNGGA = degreesLat + minutesLat/60 + secondsLat/3600 + millisecondsLat/3600000;
+  satData.temporaryLatGNGGA = satData.abs_latitude_gngga_0;
+  satData.degreesLat = trunc(satData.temporaryLatGNGGA/100);
+  satData.minutesLat = satData.temporaryLatGNGGA - (satData.degreesLat*100);
+  satData.secondsLat = (satData.minutesLat - trunc(satData.minutesLat)) * 60;
+  satData.millisecondsLat = (satData.secondsLat - trunc(satData.secondsLat)) * 1000;
+  satData.minutesLat = trunc(satData.minutesLat);
+  satData.secondsLat = trunc(satData.secondsLat);
+  satData.currentDegreesLatGNGGA = satData.degreesLat + satData.minutesLat/60 + satData.secondsLat/3600 + satData.millisecondsLat/3600000;
   if (strcmp(gnggaData.latitude_hemisphere, "S") == 0) {
-    currentDegreesLatGNGGA = 0-currentDegreesLatGNGGA;
+    satData.currentDegreesLatGNGGA = 0-satData.currentDegreesLatGNGGA;
   }
-  // Serial.print("(GNGGA ) Degrees Latitude: "); 
-  // Serial.println(currentDegreesLatGNGGA, 4);
-  satData.latitude_gngga_0 = currentDegreesLatGNGGA;
+  satData.latitude_gngga_0 = satData.currentDegreesLatGNGGA;
 
-  double temporaryLongGNGGA = satData.abs_longitude_gngga_0;
-  degreesLong = trunc(temporaryLongGNGGA/100);
-  minutesLong = temporaryLongGNGGA - (degreesLong*100);
-  secondsLong = (minutesLong - trunc(minutesLong)) * 60;
-  millisecondsLong = (secondsLong - trunc(secondsLong)) * 1000;
-  double currentDegreesLongGNGGA = degreesLong + minutesLong/60 + secondsLong/3600 + millisecondsLong/3600000;
+  satData.temporaryLongGNGGA = satData.abs_longitude_gngga_0;
+  satData.degreesLong = trunc(satData.temporaryLongGNGGA/100);
+  satData.minutesLong = satData.temporaryLongGNGGA - (satData.degreesLong*100);
+  satData.secondsLong = (satData.minutesLong - trunc(satData.minutesLong)) * 60;
+  satData.millisecondsLong = (satData.secondsLong - trunc(satData.secondsLong)) * 1000;
+  satData.currentDegreesLongGNGGA = satData.degreesLong + satData.minutesLong/60 + satData.secondsLong/3600 + satData.millisecondsLong/3600000;
   if (strcmp(gnggaData.longitude_hemisphere, "W") == 0) {
-    currentDegreesLongGNGGA = 0-currentDegreesLongGNGGA;
+    satData.currentDegreesLongGNGGA = 0-satData.currentDegreesLongGNGGA;
   }
-  // Serial.print("(GNGGA ) Degrees Longitude: "); 
-  // Serial.println(currentDegreesLongGNGGA, 4);
-  satData.longitude_gngga_0 = currentDegreesLongGNGGA;
+  satData.longitude_gngga_0 = satData.currentDegreesLongGNGGA;
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNRMC COORDINATE CONVERSION
-  double temporaryLatGNRMC = satData.abs_latitude_gnrmc_0;
-  degreesLat = trunc(temporaryLatGNRMC/100);
-  minutesLat = temporaryLatGNRMC - (degreesLat*100);
-  secondsLat = (minutesLat - trunc(minutesLat)) * 60;
-  millisecondsLat = (secondsLat - trunc(secondsLat)) * 1000;
-  minutesLat = trunc(minutesLat);
-  secondsLat = trunc(secondsLat);
-  double currentDegreesLatGNRMC = degreesLat + minutesLat/60 + secondsLat/3600 + millisecondsLat/3600000;
+  satData.temporaryLatGNRMC = satData.abs_latitude_gnrmc_0;
+  satData.degreesLat = trunc(satData.temporaryLatGNRMC/100);
+  satData.minutesLat = satData.temporaryLatGNRMC - (satData.degreesLat*100);
+  satData.secondsLat = (satData.minutesLat - trunc(satData.minutesLat)) * 60;
+  satData.millisecondsLat = (satData.secondsLat - trunc(satData.secondsLat)) * 1000;
+  satData.minutesLat = trunc(satData.minutesLat);
+  satData.secondsLat = trunc(satData.secondsLat);
+  satData.currentDegreesLatGNRMC = satData.degreesLat + satData.minutesLat/60 + satData.secondsLat/3600 + satData.millisecondsLat/3600000;
   if (strcmp(gnggaData.latitude_hemisphere, "S") == 0) {
-    currentDegreesLatGNRMC = 0-currentDegreesLatGNRMC;
+    satData.currentDegreesLatGNRMC = 0-satData.currentDegreesLatGNRMC;
   }
-  // Serial.print("(GNRMC ) Degrees Latitude: "); 
-  // Serial.println(currentDegreesLatGNRMC, 4);
-  satData.latitude_gnrmc_0 = currentDegreesLatGNRMC;
+  satData.latitude_gnrmc_0 = satData.currentDegreesLatGNRMC;
 
-  double temporaryLongGNRMC = satData.abs_longitude_gnrmc_0;
-  degreesLong = trunc(temporaryLongGNRMC/100);
-  minutesLong = temporaryLongGNRMC - (degreesLong*100);
-  secondsLong = (minutesLong - trunc(minutesLong)) * 60;
-  millisecondsLong = (secondsLong - trunc(secondsLong)) * 1000;
-  double currentDegreesLongGNRMC = degreesLong + minutesLong/60 + secondsLong/3600 + millisecondsLong/3600000;
+  satData.temporaryLongGNRMC = satData.abs_longitude_gnrmc_0;
+  satData.degreesLong = trunc(satData.temporaryLongGNRMC/100);
+  satData.minutesLong = satData.temporaryLongGNRMC - (satData.degreesLong*100);
+  satData.secondsLong = (satData.minutesLong - trunc(satData.minutesLong)) * 60;
+  satData.millisecondsLong = (satData.secondsLong - trunc(satData.secondsLong)) * 1000;
+  satData.temporaryLongGNRMC = satData.degreesLong + satData.minutesLong/60 + satData.secondsLong/3600 + satData.millisecondsLong/3600000;
   if (strcmp(gnggaData.longitude_hemisphere, "W") == 0) {
-    currentDegreesLongGNRMC = 0-currentDegreesLongGNRMC;
+    satData.temporaryLongGNRMC = 0-satData.temporaryLongGNRMC;
   }
-  // Serial.print("(GNRMC ) Degrees Longitude: "); 
-  // Serial.println(currentDegreesLongGNRMC, 4);
-  satData.longitude_gnrmc_0 = currentDegreesLongGNRMC;
-  // delay(500); 
+  satData.longitude_gnrmc_0 = satData.temporaryLongGNRMC;
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
