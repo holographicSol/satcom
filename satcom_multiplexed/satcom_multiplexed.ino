@@ -42,7 +42,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                     x3 SSD1306               --> TCA9548A i2C Multiplexer 
 
 
-                        Create More Values For $ S sentences And Add More Satellite Hardware 
+                        Create More Values For $ Ssentences And Add More Satellite Hardware 
 
 */
 
