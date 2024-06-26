@@ -59,7 +59,7 @@ Wiring for optional multiplexed OLEDs because we can dump headlessly:
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       WIRING
 
-SSD1306Wire   display(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
+SSD1306Wire   display(0x3c, SDA, SCL);v // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display2(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 
