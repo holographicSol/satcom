@@ -32,7 +32,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 
                                         
                                                   Compatibility
-                     To Be Potentially Anything And Function As A Hardware Plugin For ther Projects
+                     To Be Potentially Anything And Function As A Hardware Plugin For Other Projects
                                           Headless / Standalone / Serial.
 
 
