@@ -165,19 +165,16 @@ struct SatDatatruct {
   double longitude_gnrmc_1 = 0.0;
 
   double latitude_meter  = 0.00000901;
-  double longitude_meter = 0.00000899;
+  double longitude_meter = 0.000000899;
   double latitude_mile   = latitude_meter  * 1609.34;
   double longitude_mile  = longitude_meter * 1609.34;
 
-  bool   activity_level_bool_lat_0  = false; // activity
-  bool   activity_level_bool_lon_0  = false;
-
   bool   area_range_bool_lat_0   = false; // rangeing
   bool   area_range_bool_lon_0   = false;
-  double area_range_lat_0        = latitude_meter*10;
-  double area_range_lon_0        = longitude_meter*10;
-  double area_range_lat_conf_0   = 0.45281267995412;
-  double area_range_lon_conf_0   = -0.587524700912974;
+  double area_range_lat_0        = latitude_meter;
+  double area_range_lon_0        = longitude_meter;
+  double area_range_lat_conf_0   = 0.00000000;
+  double area_range_lon_conf_0   = 0.000000000;
 };
 SatDatatruct satData;
 
@@ -291,42 +288,34 @@ void extrapulatedSatData() {
   Serial.print(String(satData.latitude_gnrmc_0) + ","); // sentence output: Create last seen satelits timestamp
   Serial.print(String(satData.longitude_gnrmc_0) + ","); // sentence output: Create last seen satelits timestamp
 
-  // create activity bools
-  // satData.activity_level_bool_lat_0= false;
-  // if ((satData.longitude_gngga_0 >= (satData.latitude_gngga_1 + satData.latitude_meter)) || (satData.longitude_gngga_1 <= (satData.longitude_gngga_1 - satData.latitude_meter))  ) {
-  //   satData.activity_level_bool_lat_0 = true;
-  //   satData.latitude_gngga_1 = satData.latitude_gngga_0;
-  // }
-  // satData.activity_level_bool_lon_0 = false;
-  // if ((satData.longitude_gngga_0 >= (satData.longitude_gngga_1 + satData.longitude_meter)) || (satData.longitude_gngga_0 <= (satData.longitude_gngga_0 - satData.longitude_meter))  ) {
-  //   satData.activity_level_bool_lon_0 = true;
-  //   satData.longitude_gngga_0 = satData.longitude_gngga_1;
-  // }
-  // Serial.print(String(satData.activity_level_bool_lat_0) + ","); // sentence output: Create activity level latitude
-  // Serial.print(String(satData.activity_level_bool_lon_0) + ","); // sentence output: Create activity level longitude
+  // create ranging bools
+  Serial.println(); // debug
+  // satData.latitude_gngga_0 = satData.latitude_meter-(satData.latitude_meter/2);   // debug
+  // satData.longitude_gngga_0 = satData.longitude_meter-(satData.longitude_meter/2); // debug
 
-  // // create ranging bools
-  // // Serial.println(); // debug
-  // // satData.abs_longitude_gngga_1 += satData.latitude_meter*2;   // debug
-  // // satData.abs_longitude_gngga_0 += satData.longitude_meter*1.5; // debug
-  // // Serial.print("abs_longitude_gngga_1: "); Serial.println(satData.abs_longitude_gngga_1, 8); debug
-  // // Serial.print("calc 0    : "); Serial.println(satData.area_range_lat_conf_0 - (satData.area_range_lat_0/2), 8); // debug
-  // // Serial.print("calc 1    : "); Serial.println(satData.area_range_lat_conf_0 + (satData.area_range_lat_0/2), 8); // debug
-  // satData.area_range_bool_lat_0 = false;
-  // if (( satData.longitude_gngga_0  >= satData.area_range_lat_conf_0 - satData.area_range_lat_0/2 ) && (satData.longitude_gngga_0  <= satData.area_range_lat_conf_0 + (satData.area_range_lat_0/2)) ) {
-  //   satData.area_range_bool_lat_0 = true;
-  //   satData.longitude_gngga_1 = satData.longitude_gngga_0;
-  // }
-  // satData.area_range_bool_lon_0 = false;
-  // if (( satData.longitude_gngga_0 >= satData.area_range_lon_conf_0 - satData.area_range_lon_0/2 ) && (satData.longitude_gngga_0  <= satData.area_range_lon_conf_0 + satData.area_range_lon_0/2) ) {
-  //   satData.area_range_bool_lon_0 = true;
-  //   satData.longitude_gngga_1 = satData.longitude_gngga_0;
-  // }
-  // Serial.print(String(satData.area_range_bool_lat_0) + ","); // sentence output: Create range bool latitude
-  // Serial.print(String(satData.area_range_bool_lon_0) + ","); // sentence output: Create range bool longitude
+  // Serial.print("latitude_gngga_0: "); Serial.println(satData.latitude_gngga_0, 8); // debug
+  // Serial.print("calc 0    : "); Serial.println(satData.area_range_lat_conf_0 - (satData.area_range_lat_0/2), 8); // debug
+  // Serial.print("calc 1    : "); Serial.println(satData.area_range_lat_conf_0 + (satData.area_range_lat_0/2), 8); // debug
+
+  satData.area_range_bool_lat_0 = false;
+  if ( ( satData.latitude_gngga_0  >= satData.area_range_lat_conf_0 - satData.area_range_lat_0/2 ) && ( satData.latitude_gngga_0  <= satData.area_range_lat_conf_0 + satData.area_range_lat_0/2) ) {
+    satData.area_range_bool_lat_0 = true;
+  }
+  Serial.print(String(satData.area_range_bool_lat_0) + ","); // sentence output: Create range bool latitude
+
+  // Serial.print("longitude_gngga_0: "); Serial.println(satData.longitude_gngga_0, 8); // debug
+  // Serial.print("calc 0    : "); Serial.println(satData.area_range_lon_conf_0 - (satData.area_range_lon_0/2), 8); // debug
+  // Serial.print("calc 1    : "); Serial.println(satData.area_range_lon_conf_0 + (satData.area_range_lon_0/2), 8); // debug
+
+  satData.area_range_bool_lon_0 = false;
+  if ( ( satData.longitude_gngga_0 >= satData.area_range_lon_conf_0 - satData.area_range_lon_0/2 ) && (satData.longitude_gngga_0  <= satData.area_range_lon_conf_0 + satData.area_range_lon_0/2) ) {
+    satData.area_range_bool_lon_0 = true;
+  }
+  Serial.print(String(satData.area_range_bool_lon_0) + ","); // sentence output: Create range bool longitude
 
   // end sentence output
   Serial.println("*Z");
+  delay(1000);
   }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -387,7 +376,7 @@ void SSD_Display_2() {
   display3.drawString(display3.getWidth()/2, 0, "SATCOM");
   display3.drawString(display3.getWidth()/2, 14, satData.sat_time_stamp_string);
   display3.drawString(display3.getWidth()/2, 24, String(satData.last_sat_seen_time_stamp_string));
-  display3.drawString(display3.getWidth()/2, 34, "AX " + String(satData.activity_level_bool_lat_0) + " AY " + String(satData.activity_level_bool_lon_0) + " RX " + String(satData.area_range_bool_lat_0) + " RY " + String(satData.area_range_bool_lon_0));
+  display3.drawString(display3.getWidth()/2, 34, " RX " + String(satData.area_range_bool_lat_0) + " RY " + String(satData.area_range_bool_lon_0));
   display3.drawString(display3.getWidth()/2, 44, String(satData.latitude_gngga_0));
   display3.drawString(display3.getWidth()/2, 54, String(satData.longitude_gngga_0));
   // display3.fillRect(0, 0, display.getWidth() - 1, 10);
