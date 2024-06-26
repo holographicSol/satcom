@@ -333,32 +333,34 @@ void extrapulatedSatData() {
   Serial.print(satData.currentDegreesLatGNRMC, 17); Serial.print(","); // sentence output: Create last seen satelits timestamp
   Serial.print(satData.currentDegreesLongGNRMC, 17); Serial.print(","); // sentence output: Create last seen satelits timestamp
 
-  // latitude test range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1. this means we have ranged correctly
+
+  // latitude range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1. this means we have ranged correctly
   // Serial.println(); // debug
   // satData.latitude_gngga_0 = 40.71211540899183;   // debug
   // Serial.print("latitude_gngga_0: "); Serial.println(satData.latitude_gngga_0, 17);    // debug
   // Serial.print("calc 0    :       "); Serial.println(satData.area_range_lat_conf_0 - (satData.area_range_lat_0 / 2), 17); // debug
   // Serial.print("calc 1    :       "); Serial.println(satData.area_range_lat_conf_0 + (satData.area_range_lat_0 / 2), 17); // debug
-
   // create latitude range bool
   satData.area_range_bool_lat_0 = false;
   if ( ( satData.latitude_gngga_0  >= satData.area_range_lat_conf_0 - satData.area_range_lat_0/2 ) && ( satData.latitude_gngga_0  <= satData.area_range_lat_conf_0 + satData.area_range_lat_0/2) ) {
     satData.area_range_bool_lat_0 = true;
   }
+  // add latitude ranging result to sentence
   Serial.print(String(satData.area_range_bool_lat_0) + ","); // sentence output: Create range bool latitude
 
-  // longitude test range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1. this means we have ranged correctly
+
+  // longitude range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1. this means we have ranged correctly
   // Serial.println(); // debug
   // satData.longitude_gngga_0 = -74.01005488271014; // debug
   // Serial.print("longitude_gngga_0: "); Serial.println(satData.longitude_gngga_0, 17); // debug
   // Serial.print("calc 0    :        "); Serial.println(satData.area_range_lon_conf_0 - (satData.area_range_lon_0 / 2), 17); // debug
   // Serial.print("calc 1    :        "); Serial.println(satData.area_range_lon_conf_0 + (satData.area_range_lon_0 / 2), 17); // debug
-
   // create longitude range bool
   satData.area_range_bool_lon_0 = false;
   if ( ( satData.longitude_gngga_0 >= (satData.area_range_lon_conf_0 - satData.area_range_lon_0 ) ) && (satData.longitude_gngga_0  <= (satData.area_range_lon_conf_0 + satData.area_range_lon_0) )) {
     satData.area_range_bool_lon_0 = true;
   }
+  // add longitude ranging result to sentence
   Serial.print(String(satData.area_range_bool_lon_0) + ","); // sentence output: Create range bool longitude
 
   // end sentence output
