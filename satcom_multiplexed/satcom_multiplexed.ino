@@ -218,7 +218,7 @@ void calculateCurrentLocation(){
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNGGA COORDINATE CONVERSION
 
-  // convert latitude
+  // convert GNGGA latitude
   satData.temporaryLatGNGGA = satData.abs_latitude_gngga_0;
   satData.degreesLat = atof(String(trunc(satData.temporaryLatGNGGA / 100)).c_str());
   satData.minutesLat = atof(String(satData.temporaryLatGNGGA - (satData.degreesLat * 100)).c_str());
@@ -227,6 +227,8 @@ void calculateCurrentLocation(){
   satData.minutesLat = atof(String(trunc(satData.minutesLat)).c_str());
   satData.secondsLat = atof(String(trunc(satData.secondsLat)).c_str());
   satData.currentDegreesLatGNGGA = atof(String(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000).c_str());
+
+  // DEBUG AND TESTING
   // Serial.println("");
   // Serial.print("satData.temporaryLatGNGGA:      "); Serial.println(satData.temporaryLatGNGGA, 17); // from 5127.16480200
   // Serial.print("satData.degreesLat:             "); Serial.println(satData.degreesLat, 17);
@@ -234,21 +236,23 @@ void calculateCurrentLocation(){
   // Serial.print("satData.secondsLat:             "); Serial.println(satData.secondsLat, 17);
   // Serial.print("satData.millisecondsLat:        "); Serial.println(satData.millisecondsLat, 17);
   // Serial.print("satData.currentDegreesLatGNGGA: "); Serial.println(satData.currentDegreesLatGNGGA, 17);
+
+  // negative is Southern Hemisphere
   if (strcmp(gnggaData.latitude_hemisphere, "S") == 0) {
     satData.currentDegreesLatGNGGA = 0 - satData.currentDegreesLatGNGGA;
   }
-  // Serial.print("satData.currentDegreesLatGNGGA: "); Serial.println(satData.currentDegreesLatGNGGA, 17);
   satData.latitude_gngga_0 = satData.currentDegreesLatGNGGA;
-  // Serial.print("satData.latitude_gngga_0: "); Serial.println(satData.latitude_gngga_0, 17);
-  // Serial.print("satData.currentDegreesLatGNGGA: "); Serial.println(satData.currentDegreesLatGNGGA, 17);
+  // Serial.print("satData.latitude_gngga_0: "); Serial.println(satData.latitude_gngga_0, 17); // DEBUG AND TESTING
 
-  // convert longitude
+  // convert GNGGA longitude
   satData.temporaryLongGNGGA = satData.abs_longitude_gngga_0;
   satData.degreesLong = atof(String(trunc(satData.temporaryLongGNGGA / 100)).c_str());
   satData.minutesLong = atof(String(satData.temporaryLongGNGGA - (satData.degreesLong * 100)).c_str());
   satData.secondsLong = atof(String(satData.minutesLong - atof(String(trunc(satData.minutesLong)).c_str())).c_str()) * 60;
   satData.millisecondsLong = atof(String(satData.secondsLong - atof(String(trunc(satData.secondsLong)).c_str())).c_str()) * 1000;
   satData.currentDegreesLongGNGGA = atof(String(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000).c_str());
+
+  // DEBUG AND TESTING
   // Serial.println("");
   // Serial.print("satData.temporaryLongGNGGA:      "); Serial.println(satData.temporaryLongGNGGA, 17); // from 5127.16480200
   // Serial.print("satData.degreesLong:             "); Serial.println(satData.degreesLong, 17);
@@ -256,18 +260,18 @@ void calculateCurrentLocation(){
   // Serial.print("satData.secondsLong:             "); Serial.println(satData.secondsLong, 17);
   // Serial.print("satData.millisecondsLong:        "); Serial.println(satData.millisecondsLong, 17);
   // Serial.print("satData.currentDegreesLongGNGGA: "); Serial.println(satData.currentDegreesLongGNGGA, 17);
+
+  // negative is Western Hemisphere
   if (strcmp(gnggaData.longitude_hemisphere, "W") == 0) {
     satData.currentDegreesLongGNGGA = 0 - satData.currentDegreesLongGNGGA;
   }
-  // Serial.print("satData.currentDegreesLongGNGGA: "); Serial.println(satData.currentDegreesLongGNGGA, 17);
   satData.longitude_gngga_0 = satData.currentDegreesLongGNGGA;
-  // Serial.print("satData.longitude_gngga_0: "); Serial.println(satData.longitude_gngga_0, 17);
-  // Serial.print("satData.currentDegreesLongGNGGA: "); Serial.println(satData.currentDegreesLongGNGGA, 17);
+  // Serial.print("satData.longitude_gngga_0: "); Serial.println(satData.longitude_gngga_0, 17); // DEBUG AND TESTING
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNRMC COORDINATE CONVERSION
 
-  // convert latitude
+  // convert GNRMC latitude
   satData.temporaryLatGNRMC = satData.abs_latitude_gnrmc_0;
   satData.degreesLat = trunc(satData.temporaryLatGNRMC/100);
   satData.minutesLat = satData.temporaryLatGNRMC - (satData.degreesLat*100);
@@ -281,7 +285,7 @@ void calculateCurrentLocation(){
   }
   satData.latitude_gnrmc_0 = satData.currentDegreesLatGNRMC;
 
-  // convert longitude
+  // convert GNRMC longitude
   satData.temporaryLongGNRMC = satData.abs_longitude_gnrmc_0;
   satData.degreesLong = trunc(satData.temporaryLongGNRMC/100);
   satData.minutesLong = satData.temporaryLongGNRMC - (satData.degreesLong*100);
