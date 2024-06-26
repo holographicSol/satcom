@@ -3,6 +3,9 @@
 SatCom - Written by Benjamin Jack Cullen.
 
 Processes and dumps data received from satellites and some data extrapulated from the data being received.
+Converts absolute latitude & absolute londitude to decimal latitude and decimal londitude coordinates.
+Converted coordinates can be uses for knowing if inside/outside an area, coming/going, stionary or in stransit, etc.
+All extra calculated data is dumped in its own $SATCOM sentence along with the other $ sentences for parsing how you may desire.
 
 Wiring:
   WTGPS300 TX              --> ESP32 io26 as RXD
@@ -428,8 +431,8 @@ void SSD_Display_2() {
   display3.drawString(display3.getWidth()/2, 14, satData.sat_time_stamp_string);
   display3.drawString(display3.getWidth()/2, 24, String(satData.last_sat_seen_time_stamp_string));
   display3.drawString(display3.getWidth()/2, 34, " RX " + String(satData.area_range_bool_lat_0) + " RY " + String(satData.area_range_bool_lon_0));
-  display3.drawString(display3.getWidth()/2, 44, String(satData.latitude_gngga_0));
-  display3.drawString(display3.getWidth()/2, 54, String(satData.longitude_gngga_0));
+  display3.drawString(display3.getWidth()/2, 44, String(satData.currentDegreesLatGNGGA));
+  display3.drawString(display3.getWidth()/2, 54, String(satData.currentDegreesLongGNGGA));
   // display3.fillRect(0, 0, display.getWidth() - 1, 10);
   // display3.drawCircle(63, 63, 1);
   display3.display();
