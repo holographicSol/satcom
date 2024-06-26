@@ -223,13 +223,13 @@ void calculateCurrentLocation(){
   satData.minutesLat = trunc(satData.minutesLat);
   satData.secondsLat = trunc(satData.secondsLat);
   satData.currentDegreesLatGNGGA = (double)(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000);
-  Serial.println("");
-  Serial.print("satData.temporaryLatGNGGA:      "); Serial.println(satData.temporaryLatGNGGA, 17); // from 5127.16480200
-  Serial.print("satData.degreesLat:             "); Serial.println(satData.degreesLat, 17);
-  Serial.print("satData.minutesLat:             "); Serial.println(satData.minutesLat, 17);
-  Serial.print("satData.secondsLat:             "); Serial.println(satData.secondsLat, 17);
-  Serial.print("satData.millisecondsLat:        "); Serial.println(satData.millisecondsLat, 17);
-  Serial.print("satData.currentDegreesLatGNGGA: "); Serial.println(satData.currentDegreesLatGNGGA, 17);
+  // Serial.println("");
+  // Serial.print("satData.temporaryLatGNGGA:      "); Serial.println(satData.temporaryLatGNGGA, 17); // from 5127.16480200
+  // Serial.print("satData.degreesLat:             "); Serial.println(satData.degreesLat, 17);
+  // Serial.print("satData.minutesLat:             "); Serial.println(satData.minutesLat, 17);
+  // Serial.print("satData.secondsLat:             "); Serial.println(satData.secondsLat, 17);
+  // Serial.print("satData.millisecondsLat:        "); Serial.println(satData.millisecondsLat, 17);
+  // Serial.print("satData.currentDegreesLatGNGGA: "); Serial.println(satData.currentDegreesLatGNGGA, 17);
   if (strcmp(gnggaData.latitude_hemisphere, "S") == 0) {
     satData.currentDegreesLatGNGGA = 0 - satData.currentDegreesLatGNGGA;
   }
@@ -243,13 +243,13 @@ void calculateCurrentLocation(){
   satData.secondsLong = atof(String(satData.minutesLong - atof(String(trunc(satData.minutesLong)).c_str())).c_str()) * 60;
   satData.millisecondsLong = atof(String(satData.secondsLong - atof(String(trunc(satData.secondsLong)).c_str())).c_str()) * 1000;
   satData.currentDegreesLongGNGGA = atof(String(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000).c_str());
-  Serial.println("");
-  Serial.print("satData.temporaryLongGNGGA:      "); Serial.println(satData.temporaryLongGNGGA, 17); // from 5127.16480200
-  Serial.print("satData.degreesLong:             "); Serial.println(satData.degreesLong, 17);
-  Serial.print("satData.minutesLong:             "); Serial.println(satData.minutesLong, 17);
-  Serial.print("satData.secondsLong:             "); Serial.println(satData.secondsLong, 17);
-  Serial.print("satData.millisecondsLong:        "); Serial.println(satData.millisecondsLong, 17);
-  Serial.print("satData.currentDegreesLongGNGGA: "); Serial.println(satData.currentDegreesLongGNGGA, 17);
+  // Serial.println("");
+  // Serial.print("satData.temporaryLongGNGGA:      "); Serial.println(satData.temporaryLongGNGGA, 17); // from 5127.16480200
+  // Serial.print("satData.degreesLong:             "); Serial.println(satData.degreesLong, 17);
+  // Serial.print("satData.minutesLong:             "); Serial.println(satData.minutesLong, 17);
+  // Serial.print("satData.secondsLong:             "); Serial.println(satData.secondsLong, 17);
+  // Serial.print("satData.millisecondsLong:        "); Serial.println(satData.millisecondsLong, 17);
+  // Serial.print("satData.currentDegreesLongGNGGA: "); Serial.println(satData.currentDegreesLongGNGGA, 17);
   if (strcmp(gnggaData.longitude_hemisphere, "W") == 0) {
     satData.currentDegreesLongGNGGA = 0 - satData.currentDegreesLongGNGGA;
   }
