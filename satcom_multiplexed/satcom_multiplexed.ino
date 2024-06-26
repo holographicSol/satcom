@@ -198,10 +198,11 @@ struct SatDatatruct {
 
   bool   area_range_bool_lat_0 = false; // latitude in range
   bool   area_range_bool_lon_0 = false; // longitude in range
-  double area_range_lat_0      = latitude_meter; // latitude range (USER TUNE)
-  double area_range_lon_0      = longitude_meter; //longitude range (USER TUNE)
-  double area_range_lat_conf_0 = 0.00000000; // latitude coordinates to range around (USER TUNE)
-  double area_range_lon_conf_0 = 0.000000000; // longitude coordinates to range around (USER TUNE)
+  double area_range_lat_0      = latitude_meter*100; // latitude range (USER TUNE)
+  double area_range_lon_0      = longitude_meter*100; //longitude range (USER TUNE)
+  double area_range_lat_conf_0 = 51.45281030795304; // latitude coordinates to range around (USER TUNE)
+  double area_range_lon_conf_0 = -2.587487959432078; // longitude coordinates to range around (USER TUNE)
+  // TEST DATA: 51.45281030795304, -2.587487959432078
 };
 SatDatatruct satData;
 
@@ -213,6 +214,7 @@ void calculateCurrentLocation(){
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNGGA COORDINATE CONVERSION
 
+  // latitude
   satData.temporaryLatGNGGA = satData.abs_latitude_gngga_0;
   satData.degreesLat = trunc(satData.temporaryLatGNGGA/100);
   satData.minutesLat = satData.temporaryLatGNGGA - (satData.degreesLat*100);
@@ -226,6 +228,7 @@ void calculateCurrentLocation(){
   }
   satData.latitude_gngga_0 = satData.currentDegreesLatGNGGA;
 
+  // longitude
   satData.temporaryLongGNGGA = satData.abs_longitude_gngga_0;
   satData.degreesLong = trunc(satData.temporaryLongGNGGA/100);
   satData.minutesLong = satData.temporaryLongGNGGA - (satData.degreesLong*100);
@@ -240,6 +243,7 @@ void calculateCurrentLocation(){
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNRMC COORDINATE CONVERSION
 
+  // latitude
   satData.temporaryLatGNRMC = satData.abs_latitude_gnrmc_0;
   satData.degreesLat = trunc(satData.temporaryLatGNRMC/100);
   satData.minutesLat = satData.temporaryLatGNRMC - (satData.degreesLat*100);
@@ -253,6 +257,7 @@ void calculateCurrentLocation(){
   }
   satData.latitude_gnrmc_0 = satData.currentDegreesLatGNRMC;
 
+  // longitude
   satData.temporaryLongGNRMC = satData.abs_longitude_gnrmc_0;
   satData.degreesLong = trunc(satData.temporaryLongGNRMC/100);
   satData.minutesLong = satData.temporaryLongGNRMC - (satData.degreesLong*100);
