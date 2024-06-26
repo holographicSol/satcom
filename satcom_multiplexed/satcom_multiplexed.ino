@@ -289,10 +289,9 @@ void extrapulatedSatData() {
   Serial.print(String(satData.longitude_gnrmc_0) + ","); // sentence output: Create last seen satelits timestamp
 
   // create ranging bools
-  Serial.println(); // debug
+  // Serial.println(); // debug
   // satData.latitude_gngga_0 = satData.latitude_meter-(satData.latitude_meter/2);   // debug
   // satData.longitude_gngga_0 = satData.longitude_meter-(satData.longitude_meter/2); // debug
-
   // Serial.print("latitude_gngga_0: "); Serial.println(satData.latitude_gngga_0, 8); // debug
   // Serial.print("calc 0    : "); Serial.println(satData.area_range_lat_conf_0 - (satData.area_range_lat_0/2), 8); // debug
   // Serial.print("calc 1    : "); Serial.println(satData.area_range_lat_conf_0 + (satData.area_range_lat_0/2), 8); // debug
@@ -315,7 +314,7 @@ void extrapulatedSatData() {
 
   // end sentence output
   Serial.println("*Z");
-  delay(1000);
+  // delay(1000);
   }
 
 // ----------------------------------------------------------------------------------------------------------------------------
