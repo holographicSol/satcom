@@ -140,8 +140,6 @@ GNRMCStruct gnrmcData;
 
 struct SatDatatruct {
   /*
-  Calculate 1 meter in longitude and latitude:
-
                                1 meter
   Latitude change (degrees)  = _______ x 360° = 0.00000901°
                                40075km
