@@ -288,24 +288,28 @@ void extrapulatedSatData() {
   Serial.print(String(satData.latitude_gnrmc_0) + ","); // sentence output: Create last seen satelits timestamp
   Serial.print(String(satData.longitude_gnrmc_0) + ","); // sentence output: Create last seen satelits timestamp
 
-  // create ranging bools
+  // latitude test range
   // Serial.println(); // debug
   // satData.latitude_gngga_0 = satData.latitude_meter-(satData.latitude_meter/2);   // debug
-  // satData.longitude_gngga_0 = satData.longitude_meter-(satData.longitude_meter/2); // debug
   // Serial.print("latitude_gngga_0: "); Serial.println(satData.latitude_gngga_0, 8); // debug
   // Serial.print("calc 0    : "); Serial.println(satData.area_range_lat_conf_0 - (satData.area_range_lat_0/2), 8); // debug
   // Serial.print("calc 1    : "); Serial.println(satData.area_range_lat_conf_0 + (satData.area_range_lat_0/2), 8); // debug
 
+  // create latitude range bool
   satData.area_range_bool_lat_0 = false;
   if ( ( satData.latitude_gngga_0  >= satData.area_range_lat_conf_0 - satData.area_range_lat_0/2 ) && ( satData.latitude_gngga_0  <= satData.area_range_lat_conf_0 + satData.area_range_lat_0/2) ) {
     satData.area_range_bool_lat_0 = true;
   }
   Serial.print(String(satData.area_range_bool_lat_0) + ","); // sentence output: Create range bool latitude
 
+  // longitude test range
+  // Serial.println(); // debug
+  // satData.longitude_gngga_0 = satData.longitude_meter-(satData.longitude_meter/2); // debug
   // Serial.print("longitude_gngga_0: "); Serial.println(satData.longitude_gngga_0, 8); // debug
   // Serial.print("calc 0    : "); Serial.println(satData.area_range_lon_conf_0 - (satData.area_range_lon_0/2), 8); // debug
   // Serial.print("calc 1    : "); Serial.println(satData.area_range_lon_conf_0 + (satData.area_range_lon_0/2), 8); // debug
 
+  // create longitude range bool
   satData.area_range_bool_lon_0 = false;
   if ( ( satData.longitude_gngga_0 >= satData.area_range_lon_conf_0 - satData.area_range_lon_0/2 ) && (satData.longitude_gngga_0  <= satData.area_range_lon_conf_0 + satData.area_range_lon_0/2) ) {
     satData.area_range_bool_lon_0 = true;
