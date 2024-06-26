@@ -170,6 +170,7 @@ struct SatDatatruct {
   double temporaryLatGNRMC;
   double currentDegreesLatGNRMC;
   double temporaryLongGNRMC;
+  double currentDegreesLongGNRMC;
 
   double abs_latitude_gngga_0  = 0.0; // type double absolute latitude
   double abs_longitude_gngga_0 = 0.0; // type double absolute longditude
@@ -279,9 +280,9 @@ void calculateCurrentLocation(){
   satData.minutesLong = satData.temporaryLongGNRMC - (satData.degreesLong*100);
   satData.secondsLong = (satData.minutesLong - trunc(satData.minutesLong)) * 60;
   satData.millisecondsLong = (satData.secondsLong - trunc(satData.secondsLong)) * 1000;
-  satData.temporaryLongGNRMC = satData.degreesLong + satData.minutesLong/60 + satData.secondsLong/3600 + satData.millisecondsLong/3600000;
+  satData.currentDegreesLongGNRMC = satData.degreesLong + satData.minutesLong/60 + satData.secondsLong/3600 + satData.millisecondsLong/3600000;
   if (strcmp(gnggaData.longitude_hemisphere, "W") == 0) {
-    satData.temporaryLongGNRMC = 0-satData.temporaryLongGNRMC;
+    satData.currentDegreesLongGNRMC = 0-satData.currentDegreesLongGNRMC;
   }
   satData.longitude_gnrmc_0 = satData.temporaryLongGNRMC;
 
@@ -321,10 +322,10 @@ void extrapulatedSatData() {
 
   // create converted lat and long longs
   calculateCurrentLocation();
-  Serial.print(String(satData.latitude_gngga_0) + ","); // sentence output: Create last seen satelits timestamp
-  Serial.print(String(satData.longitude_gngga_0) + ","); // sentence output: Create last seen satelits timestamp
-  Serial.print(String(satData.latitude_gnrmc_0) + ","); // sentence output: Create last seen satelits timestamp
-  Serial.print(String(satData.longitude_gnrmc_0) + ","); // sentence output: Create last seen satelits timestamp
+  Serial.print(String(satData.currentDegreesLatGNGGA) + ","); // sentence output: Create last seen satelits timestamp
+  Serial.print(String(satData.currentDegreesLongGNGGA) + ","); // sentence output: Create last seen satelits timestamp
+  Serial.print(String(satData.currentDegreesLatGNRMC) + ","); // sentence output: Create last seen satelits timestamp
+  Serial.print(String(satData.currentDegreesLongGNRMC) + ","); // sentence output: Create last seen satelits timestamp
 
   // latitude test range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1. this means we have ranged correctly
   // Serial.println(); // debug
