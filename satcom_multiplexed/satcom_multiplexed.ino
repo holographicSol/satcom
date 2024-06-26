@@ -217,12 +217,12 @@ void calculateCurrentLocation(){
   // latitude
   satData.temporaryLatGNGGA = satData.abs_latitude_gngga_0;
   satData.degreesLat = atof(String(trunc(satData.temporaryLatGNGGA / 100)).c_str());
-  satData.minutesLat = satData.temporaryLatGNGGA - (satData.degreesLat * 100);
-  satData.secondsLat = (satData.minutesLat - atof(String(trunc(satData.minutesLat)).c_str())) * 60;
-  satData.millisecondsLat = (satData.secondsLat - atof(String(trunc(satData.secondsLat)).c_str())) * 1000;
-  satData.minutesLat = trunc(satData.minutesLat);
-  satData.secondsLat = trunc(satData.secondsLat);
-  satData.currentDegreesLatGNGGA = (double)(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000);
+  satData.minutesLat = atof(String(satData.temporaryLatGNGGA - (satData.degreesLat * 100)).c_str());
+  satData.secondsLat = atof(String(satData.minutesLat - atof(String(trunc(satData.minutesLat)).c_str())).c_str()) * 60;
+  satData.millisecondsLat = atof(String(satData.secondsLat - atof(String(trunc(satData.secondsLat)).c_str())).c_str()) * 1000;
+  satData.minutesLat = atof(String(trunc(satData.minutesLat)).c_str());
+  satData.secondsLat = atof(String(trunc(satData.secondsLat)).c_str());
+  satData.currentDegreesLatGNGGA = atof(String(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000).c_str());
   // Serial.println("");
   // Serial.print("satData.temporaryLatGNGGA:      "); Serial.println(satData.temporaryLatGNGGA, 17); // from 5127.16480200
   // Serial.print("satData.degreesLat:             "); Serial.println(satData.degreesLat, 17);
