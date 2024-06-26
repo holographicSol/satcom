@@ -7,7 +7,7 @@ Converts absolute latitude & absolute londitude to decimal latitude and decimal 
 Converted coordinates can be uses for knowing if X is inside/outside an area, coming/going, stionary or in stransit, etc.
 All extra calculated data is dumped in its own $SATCOM sentence along with the other $ sentences for parsing how you may desire.
 
-Wiring:
+Wiring for optional multiplexed OLEDs because we can dump headlessly:
   WTGPS300 TX              --> ESP32 io26 as RXD
   WTGPS300 VCC             --> ESP32 3.3/5v
   TCA9548A i2C Multiplexer --> ESP32 i2C
@@ -299,7 +299,7 @@ void calculateCurrentLocation(){
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                          CREATE & DUMP EXTRAPULATED SAT DATA
+//                                                                                                EXTRAPOLATE & DUMP EXTRA DATA
 
 void extrapulatedSatData() {
 
