@@ -143,37 +143,37 @@ struct SatDatatruct {
   char   last_sat_seen_time_stamp_string[56] = "000000000000.00"; // record last time satellites were seen
   char   satDataTag[10]  = "$SATCOM"; // satcom sentence tag
 
-  double abs_latitude_gngga_0      = 0.0; // type double lat
-  double abs_longitude_gngga_0     = 0.0; // type double lon
-  double abs_latitude_gngga_1      = 0.0; // previous lat
-  double abs_longitude_gngga_1     = 0.0; // previous lon
+  double abs_latitude_gngga_0  = 0.0; // type double absolute latitude
+  double abs_longitude_gngga_0 = 0.0; // type double absolute longditude
+  double abs_latitude_gngga_1  = 0.0; // previous absolute latitude
+  double abs_longitude_gngga_1 = 0.0; // previous absolute longditude
 
-  double abs_latitude_gnrmc_0      = 0.0; // type double lat
-  double abs_longitude_gnrmc_0     = 0.0; // type double lon
-  double abs_latitude_gnrmc_1      = 0.0; // previous lat
-  double abs_longitude_gnrmc_1     = 0.0; // previous lon
+  double abs_latitude_gnrmc_0  = 0.0; // type double absolute latitude
+  double abs_longitude_gnrmc_0 = 0.0; // type double absolute longditude
+  double abs_latitude_gnrmc_1  = 0.0; // previous absolute latitude
+  double abs_longitude_gnrmc_1 = 0.0; // previous absolute longditude
 
-  double latitude_gngga_0 = 0.0;
-  double longitude_gngga_0 = 0.0;
-  double latitude_gngga_1 = 0.0;
-  double longitude_gngga_1 = 0.0;
+  double latitude_gngga_0      = 0.0; // converted latitude
+  double longitude_gngga_0     = 0.0; // converted longditude 
+  double latitude_gngga_1      = 0.0; // converted previous latitude
+  double longitude_gngga_1     = 0.0; // converted previous longditude 
 
-  double latitude_gnrmc_0 = 0.0;
-  double longitude_gnrmc_0 = 0.0;
-  double latitude_gnrmc_1 = 0.0;
-  double longitude_gnrmc_1 = 0.0;
+  double latitude_gnrmc_0      = 0.0; // converted latitude
+  double longitude_gnrmc_0     = 0.0; // converted longditude 
+  double latitude_gnrmc_1      = 0.0; // converted previous latitude
+  double longitude_gnrmc_1     = 0.0; // converted previous longditude 
 
-  double latitude_meter  = 0.00000901;
-  double longitude_meter = 0.000000899;
-  double latitude_mile   = latitude_meter  * 1609.34;
-  double longitude_mile  = longitude_meter * 1609.34;
+  double latitude_meter        = 0.00000901; // one meter converted to latitude
+  double longitude_meter       = 0.000000899; // one meter converted to longitude
+  double latitude_mile         = latitude_meter  * 1609.34; // one mile in latitude
+  double longitude_mile        = longitude_meter * 1609.34; // one mile in longitude
 
-  bool   area_range_bool_lat_0   = false; // in range
-  bool   area_range_bool_lon_0   = false; // in range
-  double area_range_lat_0        = latitude_meter; // latitude range
-  double area_range_lon_0        = longitude_meter; //longitude range
-  double area_range_lat_conf_0   = 0.00000000; // latitude coordinates to range around
-  double area_range_lon_conf_0   = 0.000000000; // longitude coordinates to range around
+  bool   area_range_bool_lat_0 = false; // latitude in range
+  bool   area_range_bool_lon_0 = false; // longitude in range
+  double area_range_lat_0      = latitude_meter; // latitude range
+  double area_range_lon_0      = longitude_meter; //longitude range
+  double area_range_lat_conf_0 = 0.00000000; // latitude coordinates to range around
+  double area_range_lon_conf_0 = 0.000000000; // longitude coordinates to range around
 
   double minutesLat;
   double minutesLong;
