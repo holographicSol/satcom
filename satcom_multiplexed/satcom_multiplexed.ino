@@ -2,13 +2,39 @@
 
 SatCom - Written by Benjamin Jack Cullen.
 
-Processes and dumps data received from satellites and some data extrapulated from the data being received.
 
-Converts absolute latitude & absolute londitude to decimal latitude and decimal londitude coordinates.
+                                     Receives and Processes Transmissions from Satellites.
+         Tested with WTGPS300 (WITMOTION) Satellite module this project receives data from satellites, sorts that data into
+     variables that can be used later, and creates new $ sentences containing new data, calculated from the data received.
 
-Ranging. Specified coordinates at specified meter/mile ranges, for location pinning, guidance, tracking, motion detection, etc.
 
-All extra calculated data is dumped in its own $SATCOM sentence along with the other $ sentences for parsing how you may desire.
+                        Converts Latitude and Longitude from $ sentences into Decimal Latitude and Longitude.
+  This helps when compaing latitude and longitude with other maps, these values are then stored and placed into a new $ sentence.
+
+
+                                                     Timestamps
+      A datetime string is created from GNGGA and GNRMC $ sentence information, forms a part of the new $SATCOM sentence
+                                                     
+
+                                           Timestamp Zero Satellite Periods
+  A Timestamp is created for keeping track of when the system last heard satellites, forms part of the new $SATCOM sentence
+                        
+
+                                                      Ranging
+Specified coordinates at specified meter/mile ranges. For location pinning, guidance, tracking, motion detection, etc. these values
+                                        can be added to the new $SATCOM sentence.
+
+
+                                                
+                                                    Serial Dump
+   All extra calculated data is dumped in its own $SATCOM sentence along with the other $ sentences which are passed through
+        as they would be seen as if the WTGPS300 is plugged in via USB. This way We're dumping more (for other computers/devices
+                                to process for any reason) and dumping in a standard way.
+
+                                        
+                                                  Compatibility
+                                          Headless / Standalone / Serial.
+
 
 Wiring for optional multiplexed OLEDs because we can dump headlessly:
   WTGPS300 TX              --> ESP32 io26 as RXD
