@@ -1,6 +1,6 @@
 /*
 
-SATCOM - Written by Benjamin Jack Cullen.
+                                          SATCOM - Written by Benjamin Jack Cullen.
 
 
                                      Receives and Processes Transmissions from Satellites.
