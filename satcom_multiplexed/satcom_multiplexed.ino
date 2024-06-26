@@ -6,7 +6,7 @@ Processes and dumps data received from satellites and some data extrapulated fro
 
 Converts absolute latitude & absolute londitude to decimal latitude and decimal londitude coordinates.
 
-Ranging. Specified coordinates at specified meter/mile ranges, for guidance, tracking etc.
+Ranging. Specified coordinates at specified meter/mile ranges, for guidance, tracking, motion detection, etc.
 
 All extra calculated data is dumped in its own $SATCOM sentence along with the other $ sentences for parsing how you may desire.
 
