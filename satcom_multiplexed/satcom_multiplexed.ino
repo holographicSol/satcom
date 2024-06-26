@@ -3,8 +3,11 @@
 SatCom - Written by Benjamin Jack Cullen.
 
 Processes and dumps data received from satellites and some data extrapulated from the data being received.
+
 Converts absolute latitude & absolute londitude to decimal latitude and decimal londitude coordinates.
-Converted coordinates can be uses for knowing if X is inside/outside an area, coming/going, stionary or in stransit, etc.
+
+Ranging. Specified coordinates at specified meter/mile ranges, for guidance, tracking etc.
+
 All extra calculated data is dumped in its own $SATCOM sentence along with the other $ sentences for parsing how you may desire.
 
 Wiring for optional multiplexed OLEDs because we can dump headlessly:
