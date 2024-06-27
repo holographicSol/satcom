@@ -248,12 +248,8 @@ SatDatatruct satData;
 
 void calculateLocation(){
 
-  // int t0 = micros();
-
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNGGA COORDINATE CONVERSION
-
-  // int t1 = micros();
 
   // convert GNGGA latitude
   satData.temp_latitude_gngga = satData.abs_latitude_gngga_0;
@@ -264,23 +260,11 @@ void calculateLocation(){
   satData.minutesLat = atof(String(trunc(satData.minutesLat)).c_str());
   satData.secondsLat = atof(String(trunc(satData.secondsLat)).c_str());
   satData.location_latitude_gngga = atof(String(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000).c_str());
-
-  // DEBUG AND TESTING
-  // Serial.println("");
-  // Serial.print("satData.temp_latitude_gngga:      "); Serial.println(satData.temp_latitude_gngga, 17); // from 5127.16480200
-  // Serial.print("satData.degreesLat:             "); Serial.println(satData.degreesLat, 17);
-  // Serial.print("satData.minutesLat:             "); Serial.println(satData.minutesLat, 17);
-  // Serial.print("satData.secondsLat:             "); Serial.println(satData.secondsLat, 17);
-  // Serial.print("satData.millisecondsLat:        "); Serial.println(satData.millisecondsLat, 17);
-  // Serial.print("satData.location_latitude_gngga: "); Serial.println(satData.location_latitude_gngga, 17);
-
-  // negative is Southern Hemisphere
   if (strcmp(gnggaData.latitude_hemisphere, "S") == 0) {
     satData.location_latitude_gngga = atof(String(0 - satData.location_latitude_gngga).c_str());
   }
   scanf("%f17", &satData.location_latitude_gngga);
   sprintf(satData.location_latitude_gngga_str, "%f", satData.location_latitude_gngga);
-  // Serial.print("satData.location_latitude_gngga: "); Serial.println(satData.location_latitude_gngga, 17); // DEBUG AND TESTING
 
   // convert GNGGA longitude
   satData.temp_longitude_gngga = satData.abs_longitude_gngga_0;
@@ -289,30 +273,14 @@ void calculateLocation(){
   satData.secondsLong = atof(String(satData.minutesLong - atof(String(trunc(satData.minutesLong)).c_str())).c_str()) * 60;
   satData.millisecondsLong = atof(String(satData.secondsLong - atof(String(trunc(satData.secondsLong)).c_str())).c_str()) * 1000;
   satData.location_longitude_gngga = atof(String(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000).c_str());
-
-  // DEBUG AND TESTING
-  // Serial.println("");
-  // Serial.print("satData.temp_longitude_gngga:      "); Serial.println(satData.temp_longitude_gngga, 17); // from 5127.16480200
-  // Serial.print("satData.degreesLong:             "); Serial.println(satData.degreesLong, 17);
-  // Serial.print("satData.minutesLong:             "); Serial.println(satData.minutesLong, 17);
-  // Serial.print("satData.secondsLong:             "); Serial.println(satData.secondsLong, 17);
-  // Serial.print("satData.millisecondsLong:        "); Serial.println(satData.millisecondsLong, 17);
-  // Serial.print("satData.location_longitude_gngga: "); Serial.println(satData.location_longitude_gngga, 17);
-
-  // negative is Western Hemisphere
   if (strcmp(gnggaData.longitude_hemisphere, "W") == 0) {
     satData.location_longitude_gngga = 0 - satData.location_longitude_gngga;
   }
   scanf("%f17", &satData.location_longitude_gngga);
   sprintf(satData.location_longitude_gngga_str, "%f", satData.location_longitude_gngga);
-  // Serial.print("satData.location_longitude_gngga: "); Serial.println(satData.location_longitude_gngga, 17); // DEBUG AND TESTING
-
-  // Serial.print("[T] [calculateLocationGNGGA] "); Serial.println(micros() - t1);
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNRMC COORDINATE CONVERSION
-
-  // int t2 = micros();
 
   // convert GNRMC latitude
   satData.temp_latitude_gnrmc = satData.abs_latitude_gnrmc_0;
@@ -323,23 +291,11 @@ void calculateLocation(){
   satData.minutesLat = atof(String(trunc(satData.minutesLat)).c_str());
   satData.secondsLat = atof(String(trunc(satData.secondsLat)).c_str());
   satData.location_latitude_gnrmc = atof(String(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000).c_str());
-
-  // DEBUG AND TESTING
-  // Serial.println("");
-  // Serial.print("satData.temp_latitude_gnrmc:      "); Serial.println(satData.temp_latitude_gnrmc, 17); // from 5127.16480200
-  // Serial.print("satData.degreesLat:             "); Serial.println(satData.degreesLat, 17);
-  // Serial.print("satData.minutesLat:             "); Serial.println(satData.minutesLat, 17);
-  // Serial.print("satData.secondsLat:             "); Serial.println(satData.secondsLat, 17);
-  // Serial.print("satData.millisecondsLat:        "); Serial.println(satData.millisecondsLat, 17);
-  // Serial.print("satData.location_latitude_gnrmc: "); Serial.println(satData.location_latitude_gnrmc, 17);
-
-  // negative is Southern Hemisphere
   if (strcmp(gnrmcData.latitude_hemisphere, "S") == 0) {
     satData.location_latitude_gnrmc = atof(String(0 - satData.location_latitude_gnrmc).c_str());
   }
   scanf("%f17", &satData.location_latitude_gnrmc);
   sprintf(satData.location_latitude_gnrmc_str, "%f", satData.location_latitude_gnrmc);
-  // Serial.print("satData.location_latitude_gnrmc: "); Serial.println(satData.location_latitude_gnrmc, 17); // DEBUG AND TESTING
 
   // convert GNRMC longitude
   satData.temp_longitude_gnrmc = satData.abs_longitude_gnrmc_0;
@@ -348,27 +304,11 @@ void calculateLocation(){
   satData.secondsLong = atof(String(satData.minutesLong - atof(String(trunc(satData.minutesLong)).c_str())).c_str()) * 60;
   satData.millisecondsLong = atof(String(satData.secondsLong - atof(String(trunc(satData.secondsLong)).c_str())).c_str()) * 1000;
   satData.location_longitude_gnrmc = atof(String(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000).c_str());
-
-  // DEBUG AND TESTING
-  // Serial.println("");
-  // Serial.print("satData.temp_longitude_gnrmc:      "); Serial.println(satData.temp_longitude_gnrmc, 17); // from 5127.16480200
-  // Serial.print("satData.degreesLong:             "); Serial.println(satData.degreesLong, 17);
-  // Serial.print("satData.minutesLong:             "); Serial.println(satData.minutesLong, 17);
-  // Serial.print("satData.secondsLong:             "); Serial.println(satData.secondsLong, 17);
-  // Serial.print("satData.millisecondsLong:        "); Serial.println(satData.millisecondsLong, 17);
-  // Serial.print("satData.location_longitude_gnrmc: "); Serial.println(satData.location_longitude_gnrmc, 17);
-
-  // negative is Western Hemisphere
   if (strcmp(gnrmcData.longitude_hemisphere, "W") == 0) {
     satData.location_longitude_gnrmc = 0 - satData.location_longitude_gnrmc;
   }
   scanf("%f17", &satData.location_longitude_gnrmc);
   sprintf(satData.location_longitude_gnrmc_str, "%f", satData.location_longitude_gnrmc);
-  // Serial.print("satData.location_longitude_gnrmc: "); Serial.println(satData.location_longitude_gnrmc, 17); // DEBUG AND TESTING
-
-  // Serial.print("[T] [calculateLocationGNRMC] "); Serial.println(micros() - t2);
-
-  // Serial.print("[T] [calculateLocation] "); Serial.println(micros() - t0);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -376,12 +316,8 @@ void calculateLocation(){
 
 void extrapulatedSatData() {
 
-  // int t0 = micros();
-
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                     SATCOM SENTENCE: BEGIN
-
-  // int t1 = micros();
 
   Serial.print(satData.satDataTag + String(","));
 
@@ -403,8 +339,6 @@ void extrapulatedSatData() {
   }
   Serial.print(String(satData.last_sat_seen_time_stamp_string) + ",");
 
-  // Serial.print("[T] [extrapulatedSatDataTIMEsTAMP] "); Serial.println(micros() - t1);
-
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                 SATCOM SENTENCE: CONVERT DATA FROM STRINGS
 
@@ -419,8 +353,6 @@ void extrapulatedSatData() {
   Serial.print(satData.location_longitude_gngga, 17); Serial.print(",");
   Serial.print(satData.location_latitude_gnrmc, 17); Serial.print(",");
   Serial.print(satData.location_longitude_gnrmc, 17); Serial.print(",");
-
-  // Serial.print("[T] [SATCOM SENTENCE: CONVERT DATA FROM STRINGS] "); Serial.println(micros() - t2);
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                   SATCOM SENTENCE: RANGING
@@ -457,13 +389,10 @@ void extrapulatedSatData() {
   }
   Serial.print(String(satData.area_range_bool_lon_0) + ",");
 
-  // Serial.print("[T] [extrapulatedSatDataRANGING] "); Serial.println(micros() - t3);
-
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                       SATCOM SENTENCE: END
-  Serial.println("*Z");
 
-  // Serial.print("[T] [extrapulatedSatData] "); Serial.println(micros() - t0);
+  Serial.println("*Z");
   }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -531,8 +460,6 @@ void SSD_Display_2() {
   display3.drawString(display3.getWidth()/2, 34, " RX " + String(satData.area_range_bool_lat_0) + " RY " + String(satData.area_range_bool_lon_0));
   display3.drawString(display3.getWidth()/2, 44, String(gnggaData.latitude_hemisphere) + " " + satData.location_latitude_gngga_str);
   display3.drawString(display3.getWidth()/2, 54, String(gnggaData.longitude_hemisphere) + " " + satData.location_longitude_gngga_str);
-  // display3.fillRect(0, 0, display.getWidth() - 1, 10);
-  // display3.drawCircle(63, 63, 1);
   display3.display();
 }
 
@@ -569,8 +496,6 @@ void setup() {
 //                                                                                                                        GNGGA
 
 void GNGGA() {
-
-  // int t0 = micros();
   
   memset(gnggaData.tag, 0, 56);
   memset(gnggaData.utc_time, 0, 56);
@@ -609,15 +534,12 @@ void GNGGA() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-
-  // Serial.print("[T] [GNGGA] "); Serial.println(micros() - t0);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        GNRMC
 
 void GNRMC() {
-  // int t0 = micros();
   
   memset(gnrmcData.tag, 0, 56);
   memset(gnrmcData.utc_time, 0, 56);
@@ -658,14 +580,12 @@ void GNRMC() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  // Serial.print("[T] [GNRMC] "); Serial.println(micros() - t0);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 1
 
 void readRXD_1() {
-  // int t0 = micros();
 
   if (Serial1.available() > 0) {
     
@@ -707,7 +627,6 @@ void readRXD_1() {
       // Serial.print(""); Serial.println(serialData.BUFFER);
     }
   }
-  // Serial.print("[T] [readRXD_1] "); Serial.println(micros() - t0);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
