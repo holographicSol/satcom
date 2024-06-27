@@ -54,7 +54,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 
                           Create More Values For $ Ssentences And Add More Satellite Hardware.
                        Create Unique Ranging Sentences For Lists of Variable Specified Ranges.
-              This sketch is a layer between a satellite module and other systems to provide a new sentence.
+          This sketch is a layer between a satellite module and other systems to provide a new sentence and or the above+.
     Ranging and other activities can be performed here but it may be preferrable to make satcom a pure layer between systems.           
 
 */
