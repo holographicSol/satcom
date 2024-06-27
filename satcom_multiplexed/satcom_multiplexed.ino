@@ -284,7 +284,7 @@ void calculateLocation(){
 
   // negative is Southern Hemisphere
   if (strcmp(gnggaData.latitude_hemisphere, "S") == 0) {
-    satData.currentDegreesLatGNGGA = 0 - satData.currentDegreesLatGNGGA;
+    satData.currentDegreesLatGNGGA = atof(String(0 - satData.currentDegreesLatGNGGA).c_str());
   }
   satData.latitude_gngga_0 = satData.currentDegreesLatGNGGA;
   // Serial.print("satData.latitude_gngga_0: "); Serial.println(satData.latitude_gngga_0, 17); // DEBUG AND TESTING
@@ -509,8 +509,9 @@ void SSD_Display_2() {
   display3.drawString(display3.getWidth()/2, 14, satData.sat_time_stamp_string);
   display3.drawString(display3.getWidth()/2, 24, String(satData.last_sat_seen_time_stamp_string));
   display3.drawString(display3.getWidth()/2, 34, " RX " + String(satData.area_range_bool_lat_0) + " RY " + String(satData.area_range_bool_lon_0));
+  Serial.println(satData.currentDegreesLatGNGGA, 17);
   display3.drawString(display3.getWidth()/2, 44, String(satData.currentDegreesLatGNGGA));
-  display3.drawString(display3.getWidth()/2, 54, String(satData.currentDegreesLongGNRMC));
+  display3.drawString(display3.getWidth()/2, 54, String(satData.currentDegreesLongGNGGA));
   // display3.fillRect(0, 0, display.getWidth() - 1, 10);
   // display3.drawCircle(63, 63, 1);
   display3.display();
