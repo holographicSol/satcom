@@ -184,6 +184,7 @@ GNRMCStruct gnrmcData;
 //                                                                                                              SAT DATA STRUCT
 
 struct SatDatatruct {
+  
   /*
                                1 meter
   Latitude change (degrees)  = _______ x 360° = 0.00000901°
