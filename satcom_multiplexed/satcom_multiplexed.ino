@@ -60,7 +60,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
           If data is intened to be passed through to a more powerfull system then turning off coordinte_convert and using
           another (more powerfull) systems resources to perform the coordinate conversions may be preferrable however
                                     it can all be done here on the same system.
-                  Sytemcan be made more or less efficient/standalone by turning some bools on or off. 
+                  Sytem can be made more or less efficient/standalone by turning some bools on or off. 
  
 */
 
