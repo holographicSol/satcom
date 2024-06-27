@@ -199,34 +199,34 @@ struct SatDatatruct {
   char   last_sat_seen_time_stamp_string[56] = "000000000000.00"; // record last time satellites were seen
   char   satDataTag[10]  = "$SATCOM"; // satcom sentence tag
 
-  double minutesLat;
-  double minutesLong;
-  double degreesLat;
-  double degreesLong;
-  double secondsLat;
-  double secondsLong;
-  double millisecondsLat;
-  double millisecondsLong;
+  double minutesLat;       // used for converting absolute latitude and longitude
+  double minutesLong;      // used for converting absolute latitude and longitude
+  double degreesLat;       // used for converting absolute latitude and longitude
+  double degreesLong;      // used for converting absolute latitude and longitude
+  double secondsLat;       // used for converting absolute latitude and longitude
+  double secondsLong;      // used for converting absolute latitude and longitude
+  double millisecondsLat;  // used for converting absolute latitude and longitude
+  double millisecondsLong; // used for converting absolute latitude and longitude
 
   double abs_latitude_gngga_0  = 0.0; // absolute latitude from $ sentence
   double abs_longitude_gngga_0 = 0.0; // absolute longditude $ sentence
   double abs_latitude_gnrmc_0  = 0.0; // absolute latitude $ sentence
   double abs_longitude_gnrmc_0 = 0.0; // absolute longditude $ sentence
 
-  double temp_latitude_gngga;  // absolute converted to degrees
-  double temp_longitude_gngga; // absolute converted to degrees
-  double temp_latitude_gnrmc;  // absolute converted to degrees
-  double temp_longitude_gnrmc; // absolute converted to degrees
+  double temp_latitude_gngga;  // degrees converted from absolute
+  double temp_longitude_gngga; // degrees converted from absolute
+  double temp_latitude_gnrmc;  // degrees converted from absolute
+  double temp_longitude_gnrmc; // degrees converted from absolute
 
-  double location_latitude_gngga;  // absolute converted to degrees
-  double location_longitude_gngga; // absolute converted to degrees
-  double location_latitude_gnrmc;  // absolute converted to degrees
-  double location_longitude_gnrmc; // absolute converted to degrees
+  double location_latitude_gngga;  // degrees converted from absolute
+  double location_longitude_gngga; // degrees converted from absolute
+  double location_latitude_gnrmc;  // degrees converted from absolute
+  double location_longitude_gnrmc; // degrees converted from absolute
   
-  char location_latitude_gngga_str[56];  // absolute converted to degrees
-  char location_longitude_gngga_str[56]; // absolute converted to degrees
-  char location_latitude_gnrmc_str[56];  // absolute converted to degrees
-  char location_longitude_gnrmc_str[56]; // absolute converted to degrees
+  char location_latitude_gngga_str[56];  // degrees converted from absolute
+  char location_longitude_gngga_str[56]; // degrees converted from absolute
+  char location_latitude_gnrmc_str[56];  // degrees converted from absolute
+  char location_longitude_gnrmc_str[56]; // degrees converted from absolute
 
   double latitude_meter        = 0.0000901; // one meter
   double longitude_meter       = 0.0000899; // one meter
