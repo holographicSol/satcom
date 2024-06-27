@@ -396,8 +396,10 @@ void extrapulatedSatData() {
 
       // create latitude range bool
       satData.area_range_bool_lat_0 = false;
-      if ( ( satData.location_latitude_gngga  >= satData.area_range_lat_conf_0 - satData.area_range_lat_0/2 ) && ( satData.location_latitude_gngga  <= satData.area_range_lat_conf_0 + satData.area_range_lat_0/2) ) {
-        satData.area_range_bool_lat_0 = true;
+      if (satData.location_latitude_gngga  >= satData.area_range_lat_conf_0 - satData.area_range_lat_0/2) {
+        if (satData.location_latitude_gngga  <= satData.area_range_lat_conf_0 + satData.area_range_lat_0/2) {
+          satData.area_range_bool_lat_0 = true;
+        }
       }
       Serial.print(String((int)satData.area_range_bool_lat_0) + ",");
 
@@ -411,8 +413,10 @@ void extrapulatedSatData() {
 
       // create longitude range bool
       satData.area_range_bool_lon_0 = false;
-      if ( ( satData.location_longitude_gngga >= (satData.area_range_lon_conf_0 - satData.area_range_lon_0 ) ) && (satData.location_longitude_gngga  <= (satData.area_range_lon_conf_0 + satData.area_range_lon_0) )) {
-        satData.area_range_bool_lon_0 = true;
+      if (satData.location_longitude_gngga >= satData.area_range_lon_conf_0 - satData.area_range_lon_0) {
+        if (satData.location_longitude_gngga  <= satData.area_range_lon_conf_0 + satData.area_range_lon_0) {
+          satData.area_range_bool_lon_0 = true;
+        }
       }
       Serial.print(String((int)satData.area_range_bool_lon_0) + ",");
     }
