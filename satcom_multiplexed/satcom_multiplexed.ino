@@ -50,10 +50,11 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
               |                      |                                 |                     |   
               $SATCOM,000000000000.00,000000000000.00,00.00000000000000,00.00000000000000,0,0,*Z
                      |                               |                                   | |                    
-                DatetimeStamp                 ConvertedLatitude                  In/Out Range Bools 
+                DatetimeStamp                 ConvertedLatitude                  In/Out Range Bools
 
 
-                                  Create More Values For $ Ssentences And Add More Satellite Hardware
+                          Create More Values For $ Ssentences And Add More Satellite Hardware.
+                       Create Unique Ranging Sentences For Lists of Variable Specified Ranges.                      
 
 */
 
