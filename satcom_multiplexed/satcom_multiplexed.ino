@@ -246,8 +246,6 @@ struct SatDatatruct {
   bool   area_range_bool_lon_0 = false; // is longitude in range
   double area_range_lat_0      = latitude_meter*1.5;  // specify latitude range
   double area_range_lon_0      = longitude_meter*1.5; // specify longitude range
-  double area_range_lat_conf_0 = 00.00000000000000000;   // specify latitude coordinates to range around
-  double area_range_lon_conf_0 = 00.00000000000000000;  // specify longitude coordinates to range around
   char   location_range_name[1000][56];
   double location_range_latitude[1024];
   double location_range_longitude[1024];
