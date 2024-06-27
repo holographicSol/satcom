@@ -403,7 +403,7 @@ void extrapulatedSatData() {
 
           // 0.000067575000002765
 
-          // TEST RANGE: uncomment to view calculated target perimeter
+          // TEST RANGE: uncomment to view calculated target perimeter (note that this must be commented if satcom in use the satcom sentence)
           Serial.println();
           Serial.print("[T0] "); Serial.println(satData.location_range_name[i]);
           Serial.print("[X0] "); Serial.println(satData.location_range_latitude[i] - satData.area_range_lat_0/2, 17);
