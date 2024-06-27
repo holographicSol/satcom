@@ -249,7 +249,7 @@ struct SatDatatruct {
   double area_range_lon_conf_0 = -74.01005488271014;  // specify longitude coordinates to range around
 
   bool coordinte_convert = true; // if enabled then non zero coordinates (converted) data can occupy the $SATCOM sentence and can enable ranging 
-  char coordinate_conversion_mode[10] = "GNGGA"; // choose a sentence that absolute coordinates will be created from
+  char coordinate_conversion_mode[10] = "GNGGA"; // choose a sentence that degrees coordinates will be created from
 };
 SatDatatruct satData;
 
