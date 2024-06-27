@@ -316,27 +316,55 @@ void calculateLocation(){
 
   // convert GNRMC latitude
   satData.temp_latitude_gnrmc = satData.abs_latitude_gnrmc_0;
-  satData.degreesLat = trunc(satData.temp_latitude_gnrmc/100);
-  satData.minutesLat = satData.temp_latitude_gnrmc - (satData.degreesLat*100);
-  satData.secondsLat = (satData.minutesLat - trunc(satData.minutesLat)) * 60;
-  satData.millisecondsLat = (satData.secondsLat - trunc(satData.secondsLat)) * 1000;
-  satData.minutesLat = trunc(satData.minutesLat);
-  satData.secondsLat = trunc(satData.secondsLat);
-  satData.location_latitude_gnrmc = satData.degreesLat + satData.minutesLat/60 + satData.secondsLat/3600 + satData.millisecondsLat/3600000;
-  if (strcmp(gnggaData.latitude_hemisphere, "S") == 0) {
-    satData.location_latitude_gnrmc = 0-satData.location_latitude_gnrmc;
+  satData.degreesLat = atof(String(trunc(satData.temp_latitude_gnrmc / 100)).c_str());
+  satData.minutesLat = atof(String(satData.temp_latitude_gnrmc - (satData.degreesLat * 100)).c_str());
+  satData.secondsLat = atof(String(satData.minutesLat - trunc(satData.minutesLat)).c_str()) * 60;
+  satData.millisecondsLat = atof(String(satData.secondsLat - trunc(satData.secondsLat)).c_str()) * 1000;
+  satData.minutesLat = atof(String(trunc(satData.minutesLat)).c_str());
+  satData.secondsLat = atof(String(trunc(satData.secondsLat)).c_str());
+  satData.location_latitude_gnrmc = atof(String(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000).c_str());
+
+  // DEBUG AND TESTING
+  // Serial.println("");
+  // Serial.print("satData.temp_latitude_gnrmc:      "); Serial.println(satData.temp_latitude_gnrmc, 17); // from 5127.16480200
+  // Serial.print("satData.degreesLat:             "); Serial.println(satData.degreesLat, 17);
+  // Serial.print("satData.minutesLat:             "); Serial.println(satData.minutesLat, 17);
+  // Serial.print("satData.secondsLat:             "); Serial.println(satData.secondsLat, 17);
+  // Serial.print("satData.millisecondsLat:        "); Serial.println(satData.millisecondsLat, 17);
+  // Serial.print("satData.location_latitude_gnrmc: "); Serial.println(satData.location_latitude_gnrmc, 17);
+
+  // negative is Southern Hemisphere
+  if (strcmp(gnrmcData.latitude_hemisphere, "S") == 0) {
+    satData.location_latitude_gnrmc = atof(String(0 - satData.location_latitude_gnrmc).c_str());
   }
+  scanf("%f17", &satData.location_latitude_gnrmc);
+  sprintf(satData.location_latitude_gnrmc_str, "%f", satData.location_latitude_gnrmc);
+  // Serial.print("satData.location_latitude_gnrmc: "); Serial.println(satData.location_latitude_gnrmc, 17); // DEBUG AND TESTING
 
   // convert GNRMC longitude
   satData.temp_longitude_gnrmc = satData.abs_longitude_gnrmc_0;
-  satData.degreesLong = trunc(satData.temp_longitude_gnrmc/100);
-  satData.minutesLong = satData.temp_longitude_gnrmc - (satData.degreesLong*100);
-  satData.secondsLong = (satData.minutesLong - trunc(satData.minutesLong)) * 60;
-  satData.millisecondsLong = (satData.secondsLong - trunc(satData.secondsLong)) * 1000;
-  satData.location_longitude_gnrmc = satData.degreesLong + satData.minutesLong/60 + satData.secondsLong/3600 + satData.millisecondsLong/3600000;
-  if (strcmp(gnggaData.longitude_hemisphere, "W") == 0) {
-    satData.location_longitude_gnrmc = 0-satData.location_longitude_gnrmc;
+  satData.degreesLong = atof(String(trunc(satData.temp_longitude_gnrmc / 100)).c_str());
+  satData.minutesLong = atof(String(satData.temp_longitude_gnrmc - (satData.degreesLong * 100)).c_str());
+  satData.secondsLong = atof(String(satData.minutesLong - atof(String(trunc(satData.minutesLong)).c_str())).c_str()) * 60;
+  satData.millisecondsLong = atof(String(satData.secondsLong - atof(String(trunc(satData.secondsLong)).c_str())).c_str()) * 1000;
+  satData.location_longitude_gnrmc = atof(String(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000).c_str());
+
+  // DEBUG AND TESTING
+  // Serial.println("");
+  // Serial.print("satData.temp_longitude_gnrmc:      "); Serial.println(satData.temp_longitude_gnrmc, 17); // from 5127.16480200
+  // Serial.print("satData.degreesLong:             "); Serial.println(satData.degreesLong, 17);
+  // Serial.print("satData.minutesLong:             "); Serial.println(satData.minutesLong, 17);
+  // Serial.print("satData.secondsLong:             "); Serial.println(satData.secondsLong, 17);
+  // Serial.print("satData.millisecondsLong:        "); Serial.println(satData.millisecondsLong, 17);
+  // Serial.print("satData.location_longitude_gnrmc: "); Serial.println(satData.location_longitude_gnrmc, 17);
+
+  // negative is Western Hemisphere
+  if (strcmp(gnrmcData.longitude_hemisphere, "W") == 0) {
+    satData.location_longitude_gnrmc = 0 - satData.location_longitude_gnrmc;
   }
+  scanf("%f17", &satData.location_longitude_gnrmc);
+  sprintf(satData.location_longitude_gnrmc_str, "%f", satData.location_longitude_gnrmc);
+  // Serial.print("satData.location_longitude_gnrmc: "); Serial.println(satData.location_longitude_gnrmc, 17); // DEBUG AND TESTING
 
   // Serial.print("[T] [calculateLocationGNRMC] "); Serial.println(micros() - t2);
 
