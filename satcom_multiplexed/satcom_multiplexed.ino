@@ -253,7 +253,7 @@ void calculateLocation(){
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNGGA COORDINATE CONVERSION
 
-  if (satData.coordinate_conversion_mode == "GNGGA") {
+  if (String(satData.coordinate_conversion_mode) == "GNGGA") {
 
     // convert GNGGA latitude
     satData.temp_latitude_gngga = satData.abs_latitude_gngga_0;
@@ -287,7 +287,7 @@ void calculateLocation(){
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNRMC COORDINATE CONVERSION
 
-  else if (satData.coordinate_conversion_mode == "GNRMC") {
+  else if (String(satData.coordinate_conversion_mode) == "GNRMC") {
 
     // convert GNRMC latitude
     satData.temp_latitude_gnrmc = satData.abs_latitude_gnrmc_0;
