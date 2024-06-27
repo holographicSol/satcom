@@ -240,7 +240,7 @@ struct SatDatatruct {
   double latitude_mile         = latitude_meter  * 1609.34; // one mile
   double longitude_mile        = longitude_meter * 1609.34; // one mile
 
-  bool   area_range_enabled_0  = true; //enable/diable standalone ranging
+  bool   area_range_enabled_0  = true; //enable/diable standalone ranging (requires coordinte_convert)
   bool   area_range_bool_lat_0 = false; // is latitude in range
   bool   area_range_bool_lon_0 = false; // is longitude in range
   double area_range_lat_0      = latitude_meter*1.5;  // specify latitude range
