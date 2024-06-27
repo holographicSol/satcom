@@ -242,15 +242,15 @@ struct SatDatatruct {
   double longitude_mile        = longitude_meter * 1609.34; // one mile
 
   bool   area_range_enabled_0  = true; //enable/diable standalone ranging (requires coordinte_convert)
-  bool   area_range_bool_lat_0 = false; // is latitude in range
-  bool   area_range_bool_lon_0 = false; // is longitude in range
   double area_range_lat_0      = latitude_meter*1.5;  // specify latitude range
   double area_range_lon_0      = longitude_meter*1.5; // specify longitude range
-  char   location_range_name[1000][56];
-  double location_range_latitude[1024];
-  double location_range_longitude[1024];
-  double location_range_latitude_bool[1024];
-  double location_range_longitude_bool[1024];
+  double location_range_distance_latitude[200];
+  double location_range_distance_longitude[200];
+  char   location_range_name[200][56];
+  double location_range_latitude[200];
+  double location_range_longitude[200];
+  double location_range_latitude_bool[200];
+  double location_range_longitude_bool[200];
 
   bool coordinte_convert = true; // enable/diable standalone coordinate conversions
   char coordinate_conversion_mode[10] = "GNGGA"; // choose a sentence that degrees/decimal coordinates will be created from
@@ -400,7 +400,7 @@ void extrapulatedSatData() {
           Serial.print(satData.location_range_name[i] + String(","));
 
           // create latitude range bool
-          satData.area_range_bool_lat_0 = false;
+          satData.location_range_latitude_bool[i] = false;
           if (satData.location_latitude_gngga  >=  satData.location_range_latitude[i] - satData.area_range_lat_0/2) {
             if (satData.location_latitude_gngga  <= satData.location_range_latitude[i] + satData.area_range_lat_0/2) {
               satData.location_range_latitude_bool[i] = true;
@@ -409,7 +409,7 @@ void extrapulatedSatData() {
           Serial.print(String((int)satData.location_range_latitude_bool[i]) + ",");
 
           // create longitude range bool
-          satData.area_range_bool_lon_0 = false;
+          satData.location_range_longitude_bool[i] = false;
           if (satData.location_longitude_gngga >= satData.location_range_longitude[i] - satData.area_range_lon_0/2) {
             if (satData.location_longitude_gngga  <= satData.location_range_longitude[i] + satData.area_range_lon_0/2) {
               satData.location_range_longitude_bool[i] = true;
@@ -488,7 +488,6 @@ void SSD_Display_2() {
   display3.drawString(display3.getWidth()/2, 0, "SATCOM");
   display3.drawString(display3.getWidth()/2, 14, satData.sat_time_stamp_string);
   display3.drawString(display3.getWidth()/2, 24, String(satData.last_sat_seen_time_stamp_string));
-  display3.drawString(display3.getWidth()/2, 34, " RX " + String(satData.area_range_bool_lat_0) + " RY " + String(satData.area_range_bool_lon_0));
   display3.drawString(display3.getWidth()/2, 44, String(gnggaData.latitude_hemisphere) + " " + satData.location_latitude_gngga_str);
   display3.drawString(display3.getWidth()/2, 54, String(gnggaData.longitude_hemisphere) + " " + satData.location_longitude_gngga_str);
   display3.display();
@@ -501,11 +500,15 @@ void setup() {
 
   // uncomment to test rangeing
   strcpy(satData.location_range_name[0], "HelloWorld");
-  satData.location_range_latitude[0] =  0.00000000000000000;
+  satData.location_range_latitude[0]  =  0.00000000000000000;
   satData.location_range_longitude[0] = 0.00000000000000000;
+  satData.location_range_distance_latitude[0] = satData.latitude_meter*1.5;  // specify latitude range
+  satData.location_range_distance_longitude[0] = satData.longitude_meter*1.5; // specify longitude range
   strcpy(satData.location_range_name[1], "Foobar");
   satData.location_range_latitude[1] =  1.12300000000000000;
   satData.location_range_longitude[1] = 1.12300000000000000;
+  satData.location_range_distance_latitude[1] = 40074274.94;;  // specify latitude range
+  satData.location_range_distance_longitude[1] = 40074274.94;; // specify longitude range
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                               SETUP SERIAL
