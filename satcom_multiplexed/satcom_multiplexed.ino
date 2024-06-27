@@ -383,7 +383,6 @@ void extrapulatedSatData() {
   //                                                                                                   SATCOM SENTENCE: RANGING
 
   // coordinte_convert
-
   if (satData.coordinte_convert == true) {
     if (satData.area_range_enabled_0 == true) {
 
