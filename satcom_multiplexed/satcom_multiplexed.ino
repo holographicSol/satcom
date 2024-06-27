@@ -391,14 +391,6 @@ void extrapulatedSatData() {
   if (satData.coordinte_convert == true) {
     if (satData.area_range_enabled_0 == true) {
 
-      // DEBUG AND TESTING
-      // latitude range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1.
-      // Serial.println();
-      // satData.location_latitude_gngga = 40.71211540899183;
-      // Serial.print("location_latitude_gngga: "); Serial.println(satData.location_latitude_gngga, 17);
-      // Serial.print("calc 0    :       "); Serial.println(satData.area_range_lat_conf_0 - (satData.area_range_lat_0 / 2), 17);
-      // Serial.print("calc 1    :       "); Serial.println(satData.area_range_lat_conf_0 + (satData.area_range_lat_0 / 2), 17);
-
       // create latitude range bool
       satData.area_range_bool_lat_0 = false;
       if (satData.location_latitude_gngga  >= satData.area_range_lat_conf_0 - satData.area_range_lat_0/2) {
@@ -407,14 +399,6 @@ void extrapulatedSatData() {
         }
       }
       Serial.print(String((int)satData.area_range_bool_lat_0) + ",");
-
-      // DEBUG AND TESTING
-      // longitude range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1.
-      // Serial.println();
-      // satData.location_longitude_gngga = -74.01005488271014;
-      // Serial.print("location_longitude_gngga: "); Serial.println(satData.location_longitude_gngga, 17);
-      // Serial.print("calc 0    :        "); Serial.println(satData.area_range_lon_conf_0 - (satData.area_range_lon_0 / 2), 17);
-      // Serial.print("calc 1    :        "); Serial.println(satData.area_range_lon_conf_0 + (satData.area_range_lon_0 / 2), 17);
 
       // create longitude range bool
       satData.area_range_bool_lon_0 = false;
