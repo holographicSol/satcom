@@ -387,7 +387,7 @@ void extrapulatedSatData() {
     if (satData.area_range_enabled_0 == true) {
 
       // DEBUG AND TESTING
-      // latitude range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1. this means we have ranged correctly
+      // latitude range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1.
       // Serial.println();
       // satData.location_latitude_gngga = 40.71211540899183;
       // Serial.print("location_latitude_gngga: "); Serial.println(satData.location_latitude_gngga, 17);
@@ -404,7 +404,7 @@ void extrapulatedSatData() {
       Serial.print(String((int)satData.area_range_bool_lat_0) + ",");
 
       // DEBUG AND TESTING
-      // longitude range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1. this means we have ranged correctly
+      // longitude range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1.
       // Serial.println();
       // satData.location_longitude_gngga = -74.01005488271014;
       // Serial.print("location_longitude_gngga: "); Serial.println(satData.location_longitude_gngga, 17);
