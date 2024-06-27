@@ -184,7 +184,7 @@ GNRMCStruct gnrmcData;
 //                                                                                                              SAT DATA STRUCT
 
 struct SatDatatruct {
-  
+
   /*
                                1 meter
   Latitude change (degrees)  = _______ x 360° = 0.00000901°
@@ -236,10 +236,10 @@ struct SatDatatruct {
 
   bool   area_range_bool_lat_0 = false; // is latitude in range
   bool   area_range_bool_lon_0 = false; // is longitude in range
-  double area_range_lat_0      = latitude_meter*1.5;  // specify latitude range (USER TUNE)
-  double area_range_lon_0      = longitude_meter*1.5; // specify longitude range (USER TUNE)
-  double area_range_lat_conf_0 = 40.71211540899183;   // specify latitude coordinates to range around (USER TUNE)
-  double area_range_lon_conf_0 = -74.01005488271014;  // specify longitude coordinates to range around (USER TUNE)
+  double area_range_lat_0      = latitude_meter*1.5;  // specify latitude range
+  double area_range_lon_0      = longitude_meter*1.5; // specify longitude range
+  double area_range_lat_conf_0 = 40.71211540899183;   // specify latitude coordinates to range around
+  double area_range_lon_conf_0 = -74.01005488271014;  // specify longitude coordinates to range around
 };
 SatDatatruct satData;
 
