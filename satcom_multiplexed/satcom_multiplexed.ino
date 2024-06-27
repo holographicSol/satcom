@@ -56,8 +56,11 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                        Create Unique Ranging Sentences For Lists of Variable Specified Ranges.
           This sketch is a layer between a satellite module and other systems to provide a new sentence and or the above+.
     Ranging and other activities can be performed here but it may be preferrable to make satcom a pure layer between systems,
-                                          depending on performance.        
-
+                                          depending on performance.
+          If data is intened to be passed through to a more powerfull system then turning off coordinte_convert and using
+          another (more powerfull) systems resources to perform the coordinate conversions may be preferrable however
+                                    it can all be done here on the same system.
+ 
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -246,6 +249,7 @@ struct SatDatatruct {
   double area_range_lon_conf_0 = -74.01005488271014;  // specify longitude coordinates to range around
 
   char coordinate_conversion_mode[10] = "GNGGA";
+  bool coordinte_convert = true;
 };
 SatDatatruct satData;
 
@@ -257,70 +261,71 @@ void calculateLocation(){
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNGGA COORDINATE CONVERSION
 
-  if (String(satData.coordinate_conversion_mode) == "GNGGA") {
+  if (satData.coordinte_convert == true) {
+    if (String(satData.coordinate_conversion_mode) == "GNGGA") {
 
-    // convert GNGGA latitude
-    satData.temp_latitude_gngga = satData.abs_latitude_gngga_0;
-    satData.degreesLat = atof(String(trunc(satData.temp_latitude_gngga / 100)).c_str());
-    satData.minutesLat = atof(String(satData.temp_latitude_gngga - (satData.degreesLat * 100)).c_str());
-    satData.secondsLat = atof(String(satData.minutesLat - trunc(satData.minutesLat)).c_str()) * 60;
-    satData.millisecondsLat = atof(String(satData.secondsLat - trunc(satData.secondsLat)).c_str()) * 1000;
-    satData.minutesLat = atof(String(trunc(satData.minutesLat)).c_str());
-    satData.secondsLat = atof(String(trunc(satData.secondsLat)).c_str());
-    satData.location_latitude_gngga = atof(String(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000).c_str());
-    if (strcmp(gnggaData.latitude_hemisphere, "S") == 0) {
-      satData.location_latitude_gngga = atof(String(0 - satData.location_latitude_gngga).c_str());
+      // convert GNGGA latitude
+      satData.temp_latitude_gngga = satData.abs_latitude_gngga_0;
+      satData.degreesLat = atof(String(trunc(satData.temp_latitude_gngga / 100)).c_str());
+      satData.minutesLat = atof(String(satData.temp_latitude_gngga - (satData.degreesLat * 100)).c_str());
+      satData.secondsLat = atof(String(satData.minutesLat - trunc(satData.minutesLat)).c_str()) * 60;
+      satData.millisecondsLat = atof(String(satData.secondsLat - trunc(satData.secondsLat)).c_str()) * 1000;
+      satData.minutesLat = atof(String(trunc(satData.minutesLat)).c_str());
+      satData.secondsLat = atof(String(trunc(satData.secondsLat)).c_str());
+      satData.location_latitude_gngga = atof(String(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000).c_str());
+      if (strcmp(gnggaData.latitude_hemisphere, "S") == 0) {
+        satData.location_latitude_gngga = atof(String(0 - satData.location_latitude_gngga).c_str());
+      }
+      scanf("%f17", &satData.location_latitude_gngga);
+      sprintf(satData.location_latitude_gngga_str, "%f", satData.location_latitude_gngga);
+
+      // convert GNGGA longitude
+      satData.temp_longitude_gngga = satData.abs_longitude_gngga_0;
+      satData.degreesLong = atof(String(trunc(satData.temp_longitude_gngga / 100)).c_str());
+      satData.minutesLong = atof(String(satData.temp_longitude_gngga - (satData.degreesLong * 100)).c_str());
+      satData.secondsLong = atof(String(satData.minutesLong - atof(String(trunc(satData.minutesLong)).c_str())).c_str()) * 60;
+      satData.millisecondsLong = atof(String(satData.secondsLong - atof(String(trunc(satData.secondsLong)).c_str())).c_str()) * 1000;
+      satData.location_longitude_gngga = atof(String(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000).c_str());
+      if (strcmp(gnggaData.longitude_hemisphere, "W") == 0) {
+        satData.location_longitude_gngga = 0 - satData.location_longitude_gngga;
+      }
+      scanf("%f17", &satData.location_longitude_gngga);
+      sprintf(satData.location_longitude_gngga_str, "%f", satData.location_longitude_gngga);
     }
-    scanf("%f17", &satData.location_latitude_gngga);
-    sprintf(satData.location_latitude_gngga_str, "%f", satData.location_latitude_gngga);
 
-    // convert GNGGA longitude
-    satData.temp_longitude_gngga = satData.abs_longitude_gngga_0;
-    satData.degreesLong = atof(String(trunc(satData.temp_longitude_gngga / 100)).c_str());
-    satData.minutesLong = atof(String(satData.temp_longitude_gngga - (satData.degreesLong * 100)).c_str());
-    satData.secondsLong = atof(String(satData.minutesLong - atof(String(trunc(satData.minutesLong)).c_str())).c_str()) * 60;
-    satData.millisecondsLong = atof(String(satData.secondsLong - atof(String(trunc(satData.secondsLong)).c_str())).c_str()) * 1000;
-    satData.location_longitude_gngga = atof(String(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000).c_str());
-    if (strcmp(gnggaData.longitude_hemisphere, "W") == 0) {
-      satData.location_longitude_gngga = 0 - satData.location_longitude_gngga;
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                              GNRMC COORDINATE CONVERSION
+
+    else if (String(satData.coordinate_conversion_mode) == "GNRMC") {
+
+      // convert GNRMC latitude
+      satData.temp_latitude_gnrmc = satData.abs_latitude_gnrmc_0;
+      satData.degreesLat = atof(String(trunc(satData.temp_latitude_gnrmc / 100)).c_str());
+      satData.minutesLat = atof(String(satData.temp_latitude_gnrmc - (satData.degreesLat * 100)).c_str());
+      satData.secondsLat = atof(String(satData.minutesLat - trunc(satData.minutesLat)).c_str()) * 60;
+      satData.millisecondsLat = atof(String(satData.secondsLat - trunc(satData.secondsLat)).c_str()) * 1000;
+      satData.minutesLat = atof(String(trunc(satData.minutesLat)).c_str());
+      satData.secondsLat = atof(String(trunc(satData.secondsLat)).c_str());
+      satData.location_latitude_gnrmc = atof(String(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000).c_str());
+      if (strcmp(gnrmcData.latitude_hemisphere, "S") == 0) {
+        satData.location_latitude_gnrmc = atof(String(0 - satData.location_latitude_gnrmc).c_str());
+      }
+      scanf("%f17", &satData.location_latitude_gnrmc);
+      sprintf(satData.location_latitude_gnrmc_str, "%f", satData.location_latitude_gnrmc);
+
+      // convert GNRMC longitude
+      satData.temp_longitude_gnrmc = satData.abs_longitude_gnrmc_0;
+      satData.degreesLong = atof(String(trunc(satData.temp_longitude_gnrmc / 100)).c_str());
+      satData.minutesLong = atof(String(satData.temp_longitude_gnrmc - (satData.degreesLong * 100)).c_str());
+      satData.secondsLong = atof(String(satData.minutesLong - atof(String(trunc(satData.minutesLong)).c_str())).c_str()) * 60;
+      satData.millisecondsLong = atof(String(satData.secondsLong - atof(String(trunc(satData.secondsLong)).c_str())).c_str()) * 1000;
+      satData.location_longitude_gnrmc = atof(String(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000).c_str());
+      if (strcmp(gnrmcData.longitude_hemisphere, "W") == 0) {
+        satData.location_longitude_gnrmc = 0 - satData.location_longitude_gnrmc;
+      }
+      scanf("%f17", &satData.location_longitude_gnrmc);
+      sprintf(satData.location_longitude_gnrmc_str, "%f", satData.location_longitude_gnrmc);
     }
-    scanf("%f17", &satData.location_longitude_gngga);
-    sprintf(satData.location_longitude_gngga_str, "%f", satData.location_longitude_gngga);
-  }
-
-  // --------------------------------------------------------------------------------------------------------------------------
-  //                                                                                                GNRMC COORDINATE CONVERSION
-
-  else if (String(satData.coordinate_conversion_mode) == "GNRMC") {
-
-    // convert GNRMC latitude
-    satData.temp_latitude_gnrmc = satData.abs_latitude_gnrmc_0;
-    satData.degreesLat = atof(String(trunc(satData.temp_latitude_gnrmc / 100)).c_str());
-    satData.minutesLat = atof(String(satData.temp_latitude_gnrmc - (satData.degreesLat * 100)).c_str());
-    satData.secondsLat = atof(String(satData.minutesLat - trunc(satData.minutesLat)).c_str()) * 60;
-    satData.millisecondsLat = atof(String(satData.secondsLat - trunc(satData.secondsLat)).c_str()) * 1000;
-    satData.minutesLat = atof(String(trunc(satData.minutesLat)).c_str());
-    satData.secondsLat = atof(String(trunc(satData.secondsLat)).c_str());
-    satData.location_latitude_gnrmc = atof(String(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000).c_str());
-    if (strcmp(gnrmcData.latitude_hemisphere, "S") == 0) {
-      satData.location_latitude_gnrmc = atof(String(0 - satData.location_latitude_gnrmc).c_str());
-    }
-    scanf("%f17", &satData.location_latitude_gnrmc);
-    sprintf(satData.location_latitude_gnrmc_str, "%f", satData.location_latitude_gnrmc);
-
-    // convert GNRMC longitude
-    satData.temp_longitude_gnrmc = satData.abs_longitude_gnrmc_0;
-    satData.degreesLong = atof(String(trunc(satData.temp_longitude_gnrmc / 100)).c_str());
-    satData.minutesLong = atof(String(satData.temp_longitude_gnrmc - (satData.degreesLong * 100)).c_str());
-    satData.secondsLong = atof(String(satData.minutesLong - atof(String(trunc(satData.minutesLong)).c_str())).c_str()) * 60;
-    satData.millisecondsLong = atof(String(satData.secondsLong - atof(String(trunc(satData.secondsLong)).c_str())).c_str()) * 1000;
-    satData.location_longitude_gnrmc = atof(String(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000).c_str());
-    if (strcmp(gnrmcData.longitude_hemisphere, "W") == 0) {
-      satData.location_longitude_gnrmc = 0 - satData.location_longitude_gnrmc;
-    }
-    scanf("%f17", &satData.location_longitude_gnrmc);
-    sprintf(satData.location_longitude_gnrmc_str, "%f", satData.location_longitude_gnrmc);
-  }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
