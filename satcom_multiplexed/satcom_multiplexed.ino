@@ -195,9 +195,9 @@ struct SatDatatruct {
   */
 
   unsigned long satellite_count = 0;
-  char   sat_time_stamp_string[56]; // datetime timestamp from satellite
+  char   sat_time_stamp_string[56];                               // datetime timestamp from satellite
   char   last_sat_seen_time_stamp_string[56] = "000000000000.00"; // record last time satellites were seen
-  char   satDataTag[10]  = "$SATCOM"; // satcom sentence tag
+  char   satDataTag[10]                      = "$SATCOM";         // satcom sentence tag
 
   double minutesLat;       // used for converting absolute latitude and longitude
   double minutesLong;      // used for converting absolute latitude and longitude
