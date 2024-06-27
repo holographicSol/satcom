@@ -273,7 +273,8 @@ void calculateLocation(){
       satData.millisecondsLat = atof(String(satData.secondsLat - trunc(satData.secondsLat)).c_str()) * 1000;
       satData.minutesLat = atof(String(trunc(satData.minutesLat)).c_str());
       satData.secondsLat = atof(String(trunc(satData.secondsLat)).c_str());
-      satData.location_latitude_gngga = atof(String(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000).c_str());
+      satData.location_latitude_gngga =
+      atof(String(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000).c_str());
       if (strcmp(gnggaData.latitude_hemisphere, "S") == 0) {
         satData.location_latitude_gngga = atof(String(0 - satData.location_latitude_gngga).c_str());
       }
@@ -285,8 +286,10 @@ void calculateLocation(){
       satData.degreesLong = atof(String(trunc(satData.temp_longitude_gngga / 100)).c_str());
       satData.minutesLong = atof(String(satData.temp_longitude_gngga - (satData.degreesLong * 100)).c_str());
       satData.secondsLong = atof(String(satData.minutesLong - atof(String(trunc(satData.minutesLong)).c_str())).c_str()) * 60;
-      satData.millisecondsLong = atof(String(satData.secondsLong - atof(String(trunc(satData.secondsLong)).c_str())).c_str()) * 1000;
-      satData.location_longitude_gngga = atof(String(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000).c_str());
+      satData.millisecondsLong = 
+      atof(String(satData.secondsLong - atof(String(trunc(satData.secondsLong)).c_str())).c_str()) * 1000;
+      satData.location_longitude_gngga =
+      atof(String(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000).c_str());
       if (strcmp(gnggaData.longitude_hemisphere, "W") == 0) {
         satData.location_longitude_gngga = 0 - satData.location_longitude_gngga;
       }
@@ -307,7 +310,8 @@ void calculateLocation(){
       satData.millisecondsLat = atof(String(satData.secondsLat - trunc(satData.secondsLat)).c_str()) * 1000;
       satData.minutesLat = atof(String(trunc(satData.minutesLat)).c_str());
       satData.secondsLat = atof(String(trunc(satData.secondsLat)).c_str());
-      satData.location_latitude_gnrmc = atof(String(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000).c_str());
+      satData.location_latitude_gnrmc =
+      atof(String(satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000).c_str());
       if (strcmp(gnrmcData.latitude_hemisphere, "S") == 0) {
         satData.location_latitude_gnrmc = atof(String(0 - satData.location_latitude_gnrmc).c_str());
       }
@@ -320,7 +324,8 @@ void calculateLocation(){
       satData.minutesLong = atof(String(satData.temp_longitude_gnrmc - (satData.degreesLong * 100)).c_str());
       satData.secondsLong = atof(String(satData.minutesLong - atof(String(trunc(satData.minutesLong)).c_str())).c_str()) * 60;
       satData.millisecondsLong = atof(String(satData.secondsLong - atof(String(trunc(satData.secondsLong)).c_str())).c_str()) * 1000;
-      satData.location_longitude_gnrmc = atof(String(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000).c_str());
+      satData.location_longitude_gnrmc =
+      atof(String(satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000).c_str());
       if (strcmp(gnrmcData.longitude_hemisphere, "W") == 0) {
         satData.location_longitude_gnrmc = 0 - satData.location_longitude_gnrmc;
       }
