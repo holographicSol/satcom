@@ -390,7 +390,7 @@ void extrapulatedSatData() {
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                   SATCOM SENTENCE: RANGING
   
-  // TEST RANGE: uncomment to test a range with artificial coordinates
+  // TEST RANGE: uncomment to test a range with artificial coordinates (note that this must be commented if satcom in use the satcom sentence)
   satData.location_latitude_gngga = 40.68951821629331;
   satData.location_longitude_gngga = -74.04483714358342;
 
