@@ -232,15 +232,8 @@ struct SatDatatruct {
   double abs_latitude_gnrmc_1  = 0.0; // previous absolute latitude
   double abs_longitude_gnrmc_1 = 0.0; // previous absolute longditude
 
-  float latitude_gngga_0      = 0.0; // converted latitude
-  float longitude_gngga_0     = 0.0; // converted longditude 
-  float latitude_gngga_1      = 0.0; // converted previous latitude
-  float longitude_gngga_1     = 0.0; // converted previous longditude 
-
   double latitude_gnrmc_0      = 0.0; // converted latitude
   double longitude_gnrmc_0     = 0.0; // converted longditude 
-  double latitude_gnrmc_1      = 0.0; // converted previous latitude
-  double longitude_gnrmc_1     = 0.0; // converted previous longditude 
 
   double latitude_meter        = 0.0000901; // one meter converted to latitude
   double longitude_meter       = 0.0000899; // one meter converted to longitude
@@ -293,8 +286,7 @@ void calculateLocation(){
   }
   scanf("%f17", &satData.locationDegreesLatGNGGA);
   sprintf(satData.locationDegreesLatGNGGA_Str, "%f", satData.locationDegreesLatGNGGA);
-  satData.latitude_gngga_0 = satData.locationDegreesLatGNGGA;
-  // Serial.print("satData.latitude_gngga_0: "); Serial.println(satData.latitude_gngga_0, 17); // DEBUG AND TESTING
+  // Serial.print("satData.locationDegreesLatGNGGA: "); Serial.println(satData.locationDegreesLatGNGGA, 17); // DEBUG AND TESTING
 
   // convert GNGGA longitude
   satData.temporaryLongGNGGA = satData.abs_longitude_gngga_0;
@@ -319,8 +311,7 @@ void calculateLocation(){
   }
   scanf("%f17", &satData.locationDegreesLongGNGGA);
   sprintf(satData.locationDegreesLongGNGGA_Str, "%f", satData.locationDegreesLongGNGGA);
-  satData.longitude_gngga_0 = satData.locationDegreesLongGNGGA;
-  // Serial.print("satData.longitude_gngga_0: "); Serial.println(satData.longitude_gngga_0, 17); // DEBUG AND TESTING
+  // Serial.print("satData.locationDegreesLongGNGGA: "); Serial.println(satData.locationDegreesLongGNGGA, 17); // DEBUG AND TESTING
 
   // Serial.print("[T] [calculateLocationGNGGA] "); Serial.println(micros() - t1);
 
@@ -419,14 +410,14 @@ void extrapulatedSatData() {
   // DEBUG AND TESTING
   // latitude range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1. this means we have ranged correctly
   // Serial.println();
-  // satData.latitude_gngga_0 = 40.71211540899183;
-  // Serial.print("latitude_gngga_0: "); Serial.println(satData.latitude_gngga_0, 17);
+  // satData.locationDegreesLatGNGGA = 40.71211540899183;
+  // Serial.print("locationDegreesLatGNGGA: "); Serial.println(satData.locationDegreesLatGNGGA, 17);
   // Serial.print("calc 0    :       "); Serial.println(satData.area_range_lat_conf_0 - (satData.area_range_lat_0 / 2), 17);
   // Serial.print("calc 1    :       "); Serial.println(satData.area_range_lat_conf_0 + (satData.area_range_lat_0 / 2), 17);
 
   // create latitude range bool
   satData.area_range_bool_lat_0 = false;
-  if ( ( satData.latitude_gngga_0  >= satData.area_range_lat_conf_0 - satData.area_range_lat_0/2 ) && ( satData.latitude_gngga_0  <= satData.area_range_lat_conf_0 + satData.area_range_lat_0/2) ) {
+  if ( ( satData.locationDegreesLatGNGGA  >= satData.area_range_lat_conf_0 - satData.area_range_lat_0/2 ) && ( satData.locationDegreesLatGNGGA  <= satData.area_range_lat_conf_0 + satData.area_range_lat_0/2) ) {
     satData.area_range_bool_lat_0 = true;
   }
   Serial.print(String(satData.area_range_bool_lat_0) + ",");
@@ -434,14 +425,14 @@ void extrapulatedSatData() {
   // DEBUG AND TESTING
   // longitude range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1. this means we have ranged correctly
   // Serial.println();
-  // satData.longitude_gngga_0 = -74.01005488271014;
-  // Serial.print("longitude_gngga_0: "); Serial.println(satData.longitude_gngga_0, 17);
+  // satData.locationDegreesLongGNGGA = -74.01005488271014;
+  // Serial.print("locationDegreesLongGNGGA: "); Serial.println(satData.locationDegreesLongGNGGA, 17);
   // Serial.print("calc 0    :        "); Serial.println(satData.area_range_lon_conf_0 - (satData.area_range_lon_0 / 2), 17);
   // Serial.print("calc 1    :        "); Serial.println(satData.area_range_lon_conf_0 + (satData.area_range_lon_0 / 2), 17);
 
   // create longitude range bool
   satData.area_range_bool_lon_0 = false;
-  if ( ( satData.longitude_gngga_0 >= (satData.area_range_lon_conf_0 - satData.area_range_lon_0 ) ) && (satData.longitude_gngga_0  <= (satData.area_range_lon_conf_0 + satData.area_range_lon_0) )) {
+  if ( ( satData.locationDegreesLongGNGGA >= (satData.area_range_lon_conf_0 - satData.area_range_lon_0 ) ) && (satData.locationDegreesLongGNGGA  <= (satData.area_range_lon_conf_0 + satData.area_range_lon_0) )) {
     satData.area_range_bool_lon_0 = true;
   }
   Serial.print(String(satData.area_range_bool_lon_0) + ",");
