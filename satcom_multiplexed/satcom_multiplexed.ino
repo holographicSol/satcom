@@ -351,17 +351,23 @@ void extrapulatedSatData() {
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                 SATCOM SENTENCE: CONVERT DATA FROM STRINGS
 
-  // int t2 = micros();
-  
-  satData.abs_latitude_gngga_0 = atof(String(gnggaData.latitude).c_str());
-  satData.abs_longitude_gngga_0 = atof(String(gnggaData.longitude).c_str());
-  satData.abs_latitude_gnrmc_0 = atof(String(gnrmcData.latitude).c_str());
-  satData.abs_longitude_gnrmc_0 = atof(String(gnrmcData.longitude).c_str());
+  if (String(satData.coordinate_conversion_mode) == "GNGGA") {
+    satData.abs_latitude_gngga_0 = atof(String(gnggaData.latitude).c_str());
+    satData.abs_longitude_gngga_0 = atof(String(gnggaData.longitude).c_str());
+  }
+  else if (String(satData.coordinate_conversion_mode) == "GNRMC") {
+    satData.abs_latitude_gnrmc_0 = atof(String(gnrmcData.latitude).c_str());
+    satData.abs_longitude_gnrmc_0 = atof(String(gnrmcData.longitude).c_str());
+  }
   calculateLocation();
-  Serial.print(satData.location_latitude_gngga, 17); Serial.print(",");
-  Serial.print(satData.location_longitude_gngga, 17); Serial.print(",");
-  Serial.print(satData.location_latitude_gnrmc, 17); Serial.print(",");
-  Serial.print(satData.location_longitude_gnrmc, 17); Serial.print(",");
+  if (String(satData.coordinate_conversion_mode) == "GNGGA") {
+    Serial.print(satData.location_latitude_gngga, 17); Serial.print(",");
+    Serial.print(satData.location_longitude_gngga, 17); Serial.print(",");
+  }
+  else if (String(satData.coordinate_conversion_mode) == "GNRMC") {
+    Serial.print(satData.location_latitude_gnrmc, 17); Serial.print(",");
+    Serial.print(satData.location_longitude_gnrmc, 17); Serial.print(",");
+  }
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                   SATCOM SENTENCE: RANGING
@@ -381,7 +387,7 @@ void extrapulatedSatData() {
     if ( ( satData.location_latitude_gngga  >= satData.area_range_lat_conf_0 - satData.area_range_lat_0/2 ) && ( satData.location_latitude_gngga  <= satData.area_range_lat_conf_0 + satData.area_range_lat_0/2) ) {
       satData.area_range_bool_lat_0 = true;
     }
-    Serial.print(String(satData.area_range_bool_lat_0) + ",");
+    Serial.print(String((int)satData.area_range_bool_lat_0) + ",");
 
     // DEBUG AND TESTING
     // longitude range: note that we are aiming for target range coordinates to be at the epicenter of calc 0 and cal 1. this means we have ranged correctly
@@ -396,7 +402,7 @@ void extrapulatedSatData() {
     if ( ( satData.location_longitude_gngga >= (satData.area_range_lon_conf_0 - satData.area_range_lon_0 ) ) && (satData.location_longitude_gngga  <= (satData.area_range_lon_conf_0 + satData.area_range_lon_0) )) {
       satData.area_range_bool_lon_0 = true;
     }
-    Serial.print(String(satData.area_range_bool_lon_0) + ",");
+    Serial.print(String((int)satData.area_range_bool_lon_0) + ",");
   }
 
   // --------------------------------------------------------------------------------------------------------------------------
