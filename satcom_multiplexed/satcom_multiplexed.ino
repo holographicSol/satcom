@@ -254,7 +254,9 @@ SatDatatruct satData;
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                        CREATE COORDINTE DATA
 
-void calculateCurrentLocation(){
+void calculateLocation(){
+
+  int t0 = micros();
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNGGA COORDINATE CONVERSION
@@ -337,12 +339,16 @@ void calculateCurrentLocation(){
     satData.currentDegreesLongGNRMC = 0-satData.currentDegreesLongGNRMC;
   }
   satData.longitude_gnrmc_0 = satData.temporaryLongGNRMC;
+
+  Serial.print("[T] [calculateLocation] "); Serial.println(micros() - t0);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                EXTRAPOLATE & DUMP EXTRA DATA
 
 void extrapulatedSatData() {
+
+  int t0 = micros();
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                     SATCOM SENTENCE: BEGIN
@@ -369,16 +375,20 @@ void extrapulatedSatData() {
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                 SATCOM SENTENCE: CONVERT DATA FROM STRINGS
+
+  int t1 = micros();
   
   satData.abs_latitude_gngga_0 = atof(String(gnggaData.latitude).c_str());
   satData.abs_longitude_gngga_0 = atof(String(gnggaData.longitude).c_str());
   satData.abs_latitude_gnrmc_0 = atof(String(gnrmcData.latitude).c_str());
   satData.abs_longitude_gnrmc_0 = atof(String(gnrmcData.longitude).c_str());
-  calculateCurrentLocation();
+  calculateLocation();
   Serial.print(satData.currentDegreesLatGNGGA, 17); Serial.print(",");
   Serial.print(satData.currentDegreesLongGNGGA, 17); Serial.print(",");
   Serial.print(satData.currentDegreesLatGNRMC, 17); Serial.print(",");
   Serial.print(satData.currentDegreesLongGNRMC, 17); Serial.print(",");
+
+  Serial.print("[T] [SATCOM SENTENCE: CONVERT DATA FROM STRINGS] "); Serial.println(micros() - t1);
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                   SATCOM SENTENCE: RANGING
@@ -416,6 +426,8 @@ void extrapulatedSatData() {
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                       SATCOM SENTENCE: END
   Serial.println("*Z");
+
+  Serial.print("[T] [extrapulatedSatData] "); Serial.println(micros() - t0);
   }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -521,6 +533,9 @@ void setup() {
 //                                                                                                                        GNGGA
 
 void GNGGA() {
+
+  int t0 = micros();
+  
   memset(gnggaData.tag, 0, 56);
   memset(gnggaData.utc_time, 0, 56);
   memset(gnggaData.latitude, 0, 56);
@@ -558,12 +573,16 @@ void GNGGA() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
+
+  Serial.print("[T] [GNGGA] "); Serial.println(micros() - t0);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        GNRMC
 
 void GNRMC() {
+  int t0 = micros();
+  
   memset(gnrmcData.tag, 0, 56);
   memset(gnrmcData.utc_time, 0, 56);
   memset(gnrmcData.positioning_status, 0, 56);
@@ -603,12 +622,15 @@ void GNRMC() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
+  Serial.print("[T] [GNRMC] "); Serial.println(micros() - t0);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 1
 
 void readRXD_1() {
+  int t0 = micros();
+
   if (Serial1.available() > 0) {
     
     memset(serialData.BUFFER, 0, 2048);
@@ -649,6 +671,7 @@ void readRXD_1() {
       Serial.print(""); Serial.println(serialData.BUFFER);
     }
   }
+  Serial.print("[T] [readRXD_1] "); Serial.println(micros() - t0);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
