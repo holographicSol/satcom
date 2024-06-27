@@ -501,8 +501,8 @@ void SSD_Display_2() {
   display3.drawString(display3.getWidth()/2, 14, satData.sat_time_stamp_string);
   display3.drawString(display3.getWidth()/2, 24, String(satData.last_sat_seen_time_stamp_string));
   display3.drawString(display3.getWidth()/2, 34, " RX " + String(satData.area_range_bool_lat_0) + " RY " + String(satData.area_range_bool_lon_0));
-  display3.drawString(display3.getWidth()/2, 44, satData.location_latitude_gngga_str);
-  display3.drawString(display3.getWidth()/2, 54, String(satData.location_longitude_gngga_str));
+  display3.drawString(display3.getWidth()/2, 44, String(gnggaData.latitude_hemisphere) + " " + satData.location_latitude_gngga_str);
+  display3.drawString(display3.getWidth()/2, 54, String(gnggaData.longitude_hemisphere) + " " + satData.location_longitude_gngga_str);
   // display3.fillRect(0, 0, display.getWidth() - 1, 10);
   // display3.drawCircle(63, 63, 1);
   display3.display();
