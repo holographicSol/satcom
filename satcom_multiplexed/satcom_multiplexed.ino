@@ -236,8 +236,8 @@ struct SatDatatruct {
   char location_latitude_gnrmc_str[56];  // degrees converted from absolute
   char location_longitude_gnrmc_str[56]; // degrees converted from absolute
 
-  double latitude_meter        = 0.0000901; // one meter
-  double longitude_meter       = 0.0000899; // one meter
+  double latitude_meter        = 0.0000901; // one meter (tune)
+  double longitude_meter       = 0.0000899; // one meter (tune)
   double latitude_mile         = latitude_meter  * 1609.34; // one mile
   double longitude_mile        = longitude_meter * 1609.34; // one mile
 
