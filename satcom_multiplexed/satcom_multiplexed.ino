@@ -326,6 +326,7 @@ void calculateLocation(){
       scanf("%f17", &satData.location_longitude_gnrmc);
       sprintf(satData.location_longitude_gnrmc_str, "%f", satData.location_longitude_gnrmc);
     }
+  }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
