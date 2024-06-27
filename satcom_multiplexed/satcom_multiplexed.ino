@@ -208,31 +208,30 @@ struct SatDatatruct {
   double millisecondsLat;
   double millisecondsLong;
 
-  double temp_latitude_gngga;
-  double temp_longitude_gngga;
-  double temp_latitude_gnrmc;
-  double temp_longitude_gnrmc;
+  double abs_latitude_gngga_0  = 0.0; // absolute latitude from $ sentence
+  double abs_longitude_gngga_0 = 0.0; // absolute longditude $ sentence
+  double abs_latitude_gnrmc_0  = 0.0; // absolute latitude $ sentence
+  double abs_longitude_gnrmc_0 = 0.0; // absolute longditude $ sentence
 
-  double location_latitude_gngga;
-  double location_longitude_gngga;
-  double location_latitude_gnrmc;
-  double location_longitude_gnrmc;
+  double temp_latitude_gngga;  // absolute converted to degrees
+  double temp_longitude_gngga; // absolute converted to degrees
+  double temp_latitude_gnrmc;  // absolute converted to degrees
+  double temp_longitude_gnrmc; // absolute converted to degrees
+
+  double location_latitude_gngga;  // absolute converted to degrees
+  double location_longitude_gngga; // absolute converted to degrees
+  double location_latitude_gnrmc;  // absolute converted to degrees
+  double location_longitude_gnrmc; // absolute converted to degrees
   
-  char location_latitude_gngga_str[56];
-  char location_longitude_gngga_str[56];
-  char location_latitude_gnrmc_str[56];
-  char location_longitude_gnrmc_str[56];
+  char location_latitude_gngga_str[56];  // absolute converted to degrees
+  char location_longitude_gngga_str[56]; // absolute converted to degrees
+  char location_latitude_gnrmc_str[56];  // absolute converted to degrees
+  char location_longitude_gnrmc_str[56]; // absolute converted to degrees
 
-  double abs_latitude_gngga_0  = 0.0; // absolute latitude
-  double abs_longitude_gngga_0 = 0.0; // absolute longditude
-
-  double abs_latitude_gnrmc_0  = 0.0; // absolute latitude
-  double abs_longitude_gnrmc_0 = 0.0; // absolute longditude
-
-  double latitude_meter        = 0.0000901; // one meter converted to latitude
-  double longitude_meter       = 0.0000899; // one meter converted to longitude
-  double latitude_mile         = latitude_meter  * 1609.34; // one mile in latitude
-  double longitude_mile        = longitude_meter * 1609.34; // one mile in longitude
+  double latitude_meter        = 0.0000901; // one meter
+  double longitude_meter       = 0.0000899; // one meter
+  double latitude_mile         = latitude_meter  * 1609.34; // one mile
+  double longitude_mile        = longitude_meter * 1609.34; // one mile
 
   bool   area_range_bool_lat_0 = false; // latitude in range
   bool   area_range_bool_lon_0 = false; // longitude in range
