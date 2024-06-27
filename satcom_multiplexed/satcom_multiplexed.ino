@@ -46,14 +46,14 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 
                                                 SENTENCE $SATCOM
 
-     START Tag        Last Sat Time                   GNGGAConvertedLongitude          GNRMCConvertedLonitude       END Tag
-     |                      |                                 |                                   |                     |
-     $SATCOM,000000000000.00,000000000000.00,00.00000000000000,00.00000000000000,00.00000000000000,00.00000000000000,0,0,*Z
-            |                               |                                   |                                   | |
-      DatetimeStamp              GNGGAConvertedLatitude              GNRMCConvertedLatitude                  In/Out Range Bools 
+              START Tag        Last Sat Time                    ConvertedLongitude        END Tag
+              |                      |                                 |                     |   
+              $SATCOM,000000000000.00,000000000000.00,00.00000000000000,00.00000000000000,0,0,*Z
+                     |                               |                                   | |                    
+                DatetimeStamp                 ConvertedLatitude                  In/Out Range Bools 
 
 
-                        Create More Values For $ Ssentences And Add More Satellite Hardware
+                                  Create More Values For $ Ssentences And Add More Satellite Hardware
 
 */
 
