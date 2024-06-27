@@ -246,8 +246,8 @@ struct SatDatatruct {
   bool   area_range_bool_lon_0 = false; // is longitude in range
   double area_range_lat_0      = latitude_meter*1.5;  // specify latitude range
   double area_range_lon_0      = longitude_meter*1.5; // specify longitude range
-  double area_range_lat_conf_0 = 40.71211540899183;   // specify latitude coordinates to range around
-  double area_range_lon_conf_0 = -74.01005488271014;  // specify longitude coordinates to range around
+  double area_range_lat_conf_0 = 00.00000000000000000;   // specify latitude coordinates to range around
+  double area_range_lon_conf_0 = 00.00000000000000000;  // specify longitude coordinates to range around
 
   bool coordinte_convert = true; // enable/diable standalone coordinate conversions
   char coordinate_conversion_mode[10] = "GNGGA"; // choose a sentence that degrees/decimal coordinates will be created from
@@ -418,8 +418,8 @@ void extrapulatedSatData() {
 
       // create longitude range bool
       satData.area_range_bool_lon_0 = false;
-      if (satData.location_longitude_gngga >= satData.area_range_lon_conf_0 - satData.area_range_lon_0) {
-        if (satData.location_longitude_gngga  <= satData.area_range_lon_conf_0 + satData.area_range_lon_0) {
+      if (satData.location_longitude_gngga >= satData.area_range_lon_conf_0 - satData.area_range_lon_0/2) {
+        if (satData.location_longitude_gngga  <= satData.area_range_lon_conf_0 + satData.area_range_lon_0/2) {
           satData.area_range_bool_lon_0 = true;
         }
       }
