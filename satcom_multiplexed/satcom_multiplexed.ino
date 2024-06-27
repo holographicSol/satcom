@@ -390,7 +390,7 @@ void extrapulatedSatData() {
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                   SATCOM SENTENCE: RANGING
   
-  // TEST RANGE: uncomment to test a range with artificial coordinates (note that this must be commented if satcom in use the satcom sentence)
+  // TEST RANGE: uncomment to test a range with artificial coordinates (note that this must be commented if satcom sentence in use)
   satData.location_latitude_gngga = 40.68951821629331;
   satData.location_longitude_gngga = -74.04483714358342;
 
@@ -403,7 +403,7 @@ void extrapulatedSatData() {
 
           // 0.000067575000002765
 
-          // TEST RANGE: uncomment to view calculated target perimeter (note that this must be commented if satcom in use the satcom sentence)
+          // TEST RANGE: uncomment to view calculated target perimeter (note that this must be commented if satcom sentence in use)
           Serial.println();
           Serial.print("[T0] "); Serial.println(satData.location_range_name[i]);
           Serial.print("[X0] "); Serial.println(satData.location_range_latitude[i] - satData.area_range_lat_0/2, 17);
