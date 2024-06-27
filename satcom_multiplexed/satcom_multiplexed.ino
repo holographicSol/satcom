@@ -499,7 +499,7 @@ void SSD_Display_2() {
 void setup() {
 
   // uncomment to test rangeing
-  strcpy(satData.location_range_name[0], "HelloWorld");
+  strcpy(satData.location_range_name[0], "HelloGlobe");
   satData.location_range_latitude[0]  =  0.00000000000000000;
   satData.location_range_longitude[0] = 0.00000000000000000;
   satData.location_range_distance_latitude[0] = satData.latitude_meter*1.5;  // specify latitude range
