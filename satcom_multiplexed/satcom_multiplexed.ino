@@ -223,15 +223,11 @@ struct SatDatatruct {
   char location_latitude_gnrmc_str[56];
   char location_longitude_gnrmc_str[56];
 
-  double abs_latitude_gngga_0  = 0.0; // type double absolute latitude
-  double abs_longitude_gngga_0 = 0.0; // type double absolute longditude
-  double abs_latitude_gngga_1  = 0.0; // previous absolute latitude
-  double abs_longitude_gngga_1 = 0.0; // previous absolute longditude
+  double abs_latitude_gngga_0  = 0.0; // absolute latitude
+  double abs_longitude_gngga_0 = 0.0; // absolute longditude
 
   double abs_latitude_gnrmc_0  = 0.0; // type double absolute latitude
   double abs_longitude_gnrmc_0 = 0.0; // type double absolute longditude
-  double abs_latitude_gnrmc_1  = 0.0; // previous absolute latitude
-  double abs_longitude_gnrmc_1 = 0.0; // previous absolute longditude
 
   double latitude_meter        = 0.0000901; // one meter converted to latitude
   double longitude_meter       = 0.0000899; // one meter converted to longitude
