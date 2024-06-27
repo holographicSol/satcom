@@ -232,9 +232,6 @@ struct SatDatatruct {
   double abs_latitude_gnrmc_1  = 0.0; // previous absolute latitude
   double abs_longitude_gnrmc_1 = 0.0; // previous absolute longditude
 
-  double latitude_gnrmc_0      = 0.0; // converted latitude
-  double longitude_gnrmc_0     = 0.0; // converted longditude 
-
   double latitude_meter        = 0.0000901; // one meter converted to latitude
   double longitude_meter       = 0.0000899; // one meter converted to longitude
   double latitude_mile         = latitude_meter  * 1609.34; // one mile in latitude
@@ -332,7 +329,6 @@ void calculateLocation(){
   if (strcmp(gnggaData.latitude_hemisphere, "S") == 0) {
     satData.locationDegreesLatGNRMC = 0-satData.locationDegreesLatGNRMC;
   }
-  satData.latitude_gnrmc_0 = satData.locationDegreesLatGNRMC;
 
   // convert GNRMC longitude
   satData.temporaryLongGNRMC = satData.abs_longitude_gnrmc_0;
@@ -344,7 +340,6 @@ void calculateLocation(){
   if (strcmp(gnggaData.longitude_hemisphere, "W") == 0) {
     satData.locationDegreesLongGNRMC = 0-satData.locationDegreesLongGNRMC;
   }
-  satData.longitude_gnrmc_0 = satData.temporaryLongGNRMC;
 
   // Serial.print("[T] [calculateLocationGNRMC] "); Serial.println(micros() - t2);
 
