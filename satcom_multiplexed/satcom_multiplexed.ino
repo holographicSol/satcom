@@ -43,7 +43,6 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                     x3 SSD1306               --> TCA9548A i2C Multiplexer
 
 
-
                                                 SENTENCE $SATCOM
 
               START Tag        Last Sat Time                    ConvertedLongitude        END Tag
