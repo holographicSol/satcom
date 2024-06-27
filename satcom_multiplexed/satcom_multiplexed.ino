@@ -686,14 +686,14 @@ void readRXD_1() {
     //                                                                                                                    DESBI
 
     else if (strncmp(serialData.BUFFER, "$DESBI", 6) == 0) {
-      Serial.print(""); Serial.println(serialData.BUFFER);
+      // Serial.print(""); Serial.println(serialData.BUFFER);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GPATT
 
     else if (strncmp(serialData.BUFFER, "$GPATT", 6) == 0) {
-      Serial.print(""); Serial.println(serialData.BUFFER);
+      // Serial.print(""); Serial.println(serialData.BUFFER);
     }
   }
   // Serial.print("[T] [readRXD_1] "); Serial.println(micros() - t0);
