@@ -248,6 +248,11 @@ struct SatDatatruct {
   double area_range_lon_0      = longitude_meter*1.5; // specify longitude range
   double area_range_lat_conf_0 = 00.00000000000000000;   // specify latitude coordinates to range around
   double area_range_lon_conf_0 = 00.00000000000000000;  // specify longitude coordinates to range around
+  char   location_range_name[1000][56];
+  double location_range_latitude[1024];
+  double location_range_longitude[1024];
+  double location_range_latitude_bool[1024];
+  double location_range_longitude_bool[1024];
 
   bool coordinte_convert = true; // enable/diable standalone coordinate conversions
   char coordinate_conversion_mode[10] = "GNGGA"; // choose a sentence that degrees/decimal coordinates will be created from
@@ -386,34 +391,40 @@ void extrapulatedSatData() {
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                   SATCOM SENTENCE: RANGING
-
+  
   // coordinte_convert
   if (satData.coordinte_convert == true) {
     if (satData.area_range_enabled_0 == true) {
+      for (int i = 0; i < 100; i++) {
+        
+        if (strlen(satData.location_range_name[i]) > 0) {
+        
+          Serial.print(satData.location_range_name[i] + String(","));
 
-      // create latitude range bool
-      satData.area_range_bool_lat_0 = false;
-      if (satData.location_latitude_gngga  >= satData.area_range_lat_conf_0 - satData.area_range_lat_0/2) {
-        if (satData.location_latitude_gngga  <= satData.area_range_lat_conf_0 + satData.area_range_lat_0/2) {
-          satData.area_range_bool_lat_0 = true;
+          // create latitude range bool
+          satData.area_range_bool_lat_0 = false;
+          if (satData.location_latitude_gngga  >=  satData.location_range_latitude[i] - satData.area_range_lat_0/2) {
+            if (satData.location_latitude_gngga  <= satData.location_range_latitude[i] + satData.area_range_lat_0/2) {
+              satData.location_range_latitude_bool[i] = true;
+            }
+          }
+          Serial.print(String((int)satData.location_range_latitude_bool[i]) + ",");
+
+          // create longitude range bool
+          satData.area_range_bool_lon_0 = false;
+          if (satData.location_longitude_gngga >= satData.location_range_longitude[i] - satData.area_range_lon_0/2) {
+            if (satData.location_longitude_gngga  <= satData.location_range_longitude[i] + satData.area_range_lon_0/2) {
+              satData.location_range_longitude_bool[i] = true;
+            }
+          }
+          Serial.print(String((int)satData.location_range_longitude_bool[i]) + ",");
         }
       }
-      Serial.print(String((int)satData.area_range_bool_lat_0) + ",");
-
-      // create longitude range bool
-      satData.area_range_bool_lon_0 = false;
-      if (satData.location_longitude_gngga >= satData.area_range_lon_conf_0 - satData.area_range_lon_0/2) {
-        if (satData.location_longitude_gngga  <= satData.area_range_lon_conf_0 + satData.area_range_lon_0/2) {
-          satData.area_range_bool_lon_0 = true;
-        }
-      }
-      Serial.print(String((int)satData.area_range_bool_lon_0) + ",");
     }
   }
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                       SATCOM SENTENCE: END
-
   Serial.println("*Z");
   }
 
@@ -490,6 +501,14 @@ void SSD_Display_2() {
 
 void setup() {
 
+  // uncomment to test rangeing
+  strcpy(satData.location_range_name[0], "HelloWorld");
+  satData.location_range_latitude[0] =  0.00000000000000000;
+  satData.location_range_longitude[0] = 0.00000000000000000;
+  strcpy(satData.location_range_name[1], "Foobar");
+  satData.location_range_latitude[1] =  1.12300000000000000;
+  satData.location_range_longitude[1] = 1.12300000000000000;
+
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                               SETUP SERIAL
 
@@ -511,7 +530,7 @@ void setup() {
   tcaselect(7);
   initDisplay2();
   SSD_Display_2_Splash_0();
-  // delay(3000);
+  delay(2000);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
