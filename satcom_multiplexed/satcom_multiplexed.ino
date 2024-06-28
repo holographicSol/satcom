@@ -955,9 +955,19 @@ struct RelayStruct {
   char relay_7[10] = "$NONE";
   char relay_8[10] = "$NONE";
   char relay_9[10] = "$NONE";
+  bool bool_relay_0 = false; // specify function turns on/off the relay.
+  bool bool_relay_1 = false;
+  bool bool_relay_2 = false;
+  bool bool_relay_3 = false;
+  bool bool_relay_4 = false;
+  bool bool_relay_5 = false;
+  bool bool_relay_6 = false;
+  char bool_relay_7 = false;
+  bool bool_relay_8 = false;
+  bool bool_relay_9 = false;
 
   // default and specifiable value to indicate a relay should not be activated/deactivated
-  char NONE[10] = "$NONE";
+  char default_relay_function[56] = "$NONE";
 
   bool bool_satellite_count_over = false; // variably specify relay activates or deactivates
   char satellite_count_over[56] = "satellite_count_over"; // relay function name
@@ -1131,7 +1141,7 @@ Check each relays key and run a function for each relays corresponding key. Firs
 
 void systems_Check() {
 
-  if (strcmp(relayData.relay_0, relayData.NONE)) {}
+  if (strcmp(relayData.relay_0, relayData.default_relay_function)) {}
 
   else if (strcmp(relayData.relay_0, relayData.satellite_precision_factor_gngga_over)) {satellite_precision_factor_gngga_over();}
   else if (strcmp(relayData.relay_0, relayData.satellite_precision_factor_gngga_under)) {satellite_precision_factor_gngga_under();}
