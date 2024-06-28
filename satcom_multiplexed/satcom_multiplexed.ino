@@ -996,13 +996,10 @@ struct RelayStruct {
 
   bool bool_relay_function_satellite_hemisphere_NE = false; // variably specify relay activates or deactivates
   char relay_function_satellite_hemisphere_NE[56] = "relay_function_satellite_hemisphere_NE"; // relay function name
-
   bool bool_relay_function_satellite_hemisphere_SE = false;
   char relay_function_satellite_hemisphere_SE[56] = "relay_function_satellite_hemisphere_SE";
-
   bool bool_relay_function_satellite_hemisphere_NW = false;
   char relay_function_satellite_hemisphere_NW[56] = "relay_function_satellite_hemisphere_NW";
-
   bool bool_relay_function_satellite_hemisphere_SW = false;
   char relay_function_satellite_hemisphere_SW[56] = "relay_function_satellite_hemisphere_SW";
 
