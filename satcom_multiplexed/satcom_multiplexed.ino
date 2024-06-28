@@ -168,6 +168,17 @@ void initDisplay3() {
   display_3.cls();
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                   RELAY DATA
+
+/*
+A minimum of N relays would be required to satisfy various flags. This can allow satcom to be as general purpose as intended,
+from minimal to maximal operation/utilization of the WPS300 as and when required by different projects. 
+*/
+
+struct RelayStruct {
+};
+RelayStruct relayData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GNGGA DATA
