@@ -961,11 +961,16 @@ struct RelayStruct {
 
   bool bool_relay_function_satellite_count_over = false; // variably specify relay activates or deactivates
   char relay_function_satellite_count_over[56] = "relay_function_satellite_count_over"; // relay function name
-
   bool bool_relay_function_satellite_count_under = false;
   char relay_function_satellite_count_under[56] = "relay_function_satellite_count_under";
-
   bool bool_relay_function_satellite_count_equal = false;
+  char relay_function_satellite_count_equal[56] = "relay_function_satellite_count_equal";
+
+  bool bool_relay_function_satellite_time_over = false; // variably specify relay activates or deactivates
+  char relay_function_satellite_time_over[56] = "relay_function_satellite_time_over"; // relay function name
+  bool bool_relay_function_satellite_time_under = false;
+  char relay_function_satellite_time_under[56] = "relay_function_satellite_time_under";
+  bool bool_relay_function_satellite_time_equal = false;
   char relay_function_satellite_count_equal[56] = "relay_function_satellite_count_equal";
 
 };
@@ -1001,6 +1006,10 @@ void relay_function_satellite_time_equal() {
   // relay turns on/off when satellite count is equal to specified count
 }
 
+void relay_function_satellite_time_period() {
+  // relay turns on/off when satellite count is equal to specified count
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                SYSTEMS CHECK
 
@@ -1012,11 +1021,14 @@ void systems_Check() {
 
   if (strcmp(relayData.relay_0, relayData.relay_function_NONE)) {}
 
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_time_over)) {relay_function_satellite_time_over();}
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_time_under)) {relay_function_satellite_time_under();}
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_time_equal)) {relay_function_satellite_time_equal();}
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_time_equal)) {relay_function_satellite_time_equal();}
+
   else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_count_over)) {relay_function_satellite_count_over();}
-
   else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_count_under)) {relay_function_satellite_count_under();}
-
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_count_equal)) {relay_function_satellite_count_equal();}
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_time_period)) {relay_function_satellite_time_period();}
 
 }
 
