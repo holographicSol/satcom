@@ -971,23 +971,95 @@ struct RelayStruct {
   bool bool_relay_function_satellite_time_under = false;
   char relay_function_satellite_time_under[56] = "relay_function_satellite_time_under";
   bool bool_relay_function_satellite_time_equal = false;
-  char relay_function_satellite_count_equal[56] = "relay_function_satellite_count_equal";
+  char relay_function_satellite_time_equal[56] = "relay_function_satellite_count_equal";
+  bool bool_relay_function_satellite_time_period = false;
+  char relay_function_satellite_time_period[56] = "relay_function_satellite_time_period";
+
+  bool bool_relay_function_satellite_coord_over = false; // variably specify relay activates or deactivates
+  char relay_function_satellite_coord_over[56] = "relay_function_satellite_coord_over"; // relay function name
+  bool bool_relay_function_satellite_coord_under = false;
+  char relay_function_satellite_coord_under[56] = "relay_function_satellite_coord_under";
+  bool bool_relay_function_satellite_coord_equal = false;
+  char relay_function_satellite_coord_equal[56] = "relay_function_satellite_coord_equal";
+  bool bool_relay_function_satellite_coord_in_range = false;
+  char relay_function_satellite_coord_in_range[56] = "relay_function_satellite_coord_in_range";
+
+  
+  bool bool_relay_function_satellite_hemisphere_N = false; // variably specify relay activates or deactivates
+  char relay_function_satellite_hemisphere_N[56] = "relay_function_satellite_hemisphere_N"; // relay function name
+  bool bool_relay_function_satellite_hemisphere_E = false;
+  char relay_function_satellite_hemisphere_E[56] = "relay_function_satellite_hemisphere_E";
+  bool bool_relay_function_satellite_hemisphere_S = false;
+  char relay_function_satellite_hemisphere_S[56] = "relay_function_satellite_hemisphere_S";
+  bool bool_relay_function_satellite_hemisphere_W = false;
+  char relay_function_satellite_hemisphere_W[56] = "relay_function_satellite_hemisphere_W";
+
+  bool bool_relay_function_satellite_hemisphere_NE = false; // variably specify relay activates or deactivates
+  char relay_function_satellite_hemisphere_NE[56] = "relay_function_satellite_hemisphere_NE"; // relay function name
+
+  bool bool_relay_function_satellite_hemisphere_SE = false;
+  char relay_function_satellite_hemisphere_SE[56] = "relay_function_satellite_hemisphere_SE";
+
+  bool bool_relay_function_satellite_hemisphere_NW = false;
+  char relay_function_satellite_hemisphere_NW[56] = "relay_function_satellite_hemisphere_NW";
+
+  bool bool_relay_function_satellite_hemisphere_SW = false;
+  char relay_function_satellite_hemisphere_SW[56] = "relay_function_satellite_hemisphere_SW";
 
 };
 RelayStruct relayData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                             RELAY FUNCTIONS: SATELLITE COUNT
+//                                                                                                 RELAY FUNCTIONS: HEMISPHERE
 
-void relay_function_satellite_count_over() {
+void relay_function_satellite_hemisphere_N() {
   // relay turns on/off when satellite count is over specified count
 }
 
-void relay_function_satellite_count_under() {
+void relay_function_satellite_hemisphere_E() {
   // relay turns on/off when satellite count is under specified count
 }
 
-void relay_function_satellite_count_equal() {
+void relay_function_satellite_hemisphere_S() {
+  // relay turns on/off when satellite count is equal to specified count
+}
+
+void relay_function_satellite_hemisphere_W() {
+  // relay turns on/off when satellite count is equal to specified count
+}
+
+void relay_function_satellite_hemisphere_NE() {
+  // relay turns on/off when satellite count is over specified count
+}
+
+void relay_function_satellite_hemisphere_SE() {
+  // relay turns on/off when satellite count is under specified count
+}
+
+void relay_function_satellite_hemisphere_NW() {
+  // relay turns on/off when satellite count is equal to specified count
+}
+
+void relay_function_satellite_hemisphere_SW() {
+  // relay turns on/off when satellite count is equal to specified count
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                 RELAY FUNCTIONS: COORDINATES
+
+void relay_function_satellite_coord_over() {
+  // relay turns on/off when satellite count is over specified count
+}
+
+void relay_function_satellite_coord_under() {
+  // relay turns on/off when satellite count is under specified count
+}
+
+void relay_function_satellite_coord_equal() {
+  // relay turns on/off when satellite count is equal to specified count
+}
+
+void relay_function_satellite_coord_in_range() {
   // relay turns on/off when satellite count is equal to specified count
 }
 
@@ -1011,6 +1083,21 @@ void relay_function_satellite_time_period() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                             RELAY FUNCTIONS: SATELLITE COUNT
+
+void relay_function_satellite_count_over() {
+  // relay turns on/off when satellite count is over specified count
+}
+
+void relay_function_satellite_count_under() {
+  // relay turns on/off when satellite count is under specified count
+}
+
+void relay_function_satellite_count_equal() {
+  // relay turns on/off when satellite count is equal to specified count
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                SYSTEMS CHECK
 
 /*
@@ -1020,6 +1107,21 @@ Check each relays key and run a function for each relays corresponding key. Firs
 void systems_Check() {
 
   if (strcmp(relayData.relay_0, relayData.relay_function_NONE)) {}
+
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_NE)) {relay_function_satellite_hemisphere_NE();}
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_SE)) {relay_function_satellite_hemisphere_SE();}
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_NW)) {relay_function_satellite_hemisphere_NW();}
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_SW)) {relay_function_satellite_hemisphere_SW();}
+
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_N)) {relay_function_satellite_hemisphere_N();}
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_E)) {relay_function_satellite_hemisphere_E();}
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_S)) {relay_function_satellite_hemisphere_S();}
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_W)) {relay_function_satellite_hemisphere_W();}
+
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_coord_over)) {relay_function_satellite_coord_over();}
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_coord_under)) {relay_function_satellite_coord_under();}
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_coord_equal)) {relay_function_satellite_coord_equal();}
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_coord_in_range)) {relay_function_satellite_coord_in_range();}
 
   else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_time_over)) {relay_function_satellite_time_over();}
   else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_time_under)) {relay_function_satellite_time_under();}
