@@ -252,6 +252,7 @@ struct SatDatatruct {
   double location_range_longitude[200];
   double location_range_latitude_bool[200];
   double location_range_longitude_bool[200];
+  char   temporary_io_range_bool[4];
 
   char satcom_sentence[1024];
 
@@ -430,26 +431,26 @@ void extrapulatedSatData() {
 
           // create latitude range bool
           satData.location_range_latitude_bool[i] = false;
+          itoa(satData.location_range_latitude_bool[i], satData.temporary_io_range_bool, 10);
           if (satData.location_latitude_gngga  >=  satData.location_range_latitude[i] - satData.location_range_distance_latitude[i]/2) {
             if (satData.location_latitude_gngga  <= satData.location_range_latitude[i] + satData.location_range_distance_latitude[i]/2) {
               satData.location_range_latitude_bool[i] = true;
-              strcat(satData.satcom_sentence, "1");
+              itoa(satData.location_range_latitude_bool[i], satData.temporary_io_range_bool, 10);
             }
-            else {strcat(satData.satcom_sentence, "0");}
           }
-          else {strcat(satData.satcom_sentence, "0");}
+          strcat(satData.satcom_sentence, satData.temporary_io_range_bool);
           strcat(satData.satcom_sentence, ",");
 
           // create longitude range bool
           satData.location_range_longitude_bool[i] = false;
+          itoa(satData.location_range_latitude_bool[i], satData.temporary_io_range_bool, 10);
           if (satData.location_longitude_gngga >= satData.location_range_longitude[i] - satData.location_range_distance_longitude[i]/2) {
             if (satData.location_longitude_gngga  <= satData.location_range_longitude[i] + satData.location_range_distance_longitude[i]/2) {
               satData.location_range_longitude_bool[i] = true;
-              strcat(satData.satcom_sentence, "1");
+              itoa(satData.location_range_longitude_bool[i], satData.temporary_io_range_bool, 10);
             }
-            else {strcat(satData.satcom_sentence, "0");}
           }
-          else {strcat(satData.satcom_sentence, "0");}
+          strcat(satData.satcom_sentence, satData.temporary_io_range_bool);
           strcat(satData.satcom_sentence, ",");
         }
       }
