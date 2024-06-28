@@ -962,7 +962,7 @@ void loop() {
 
 /*
 A minimum of N relays would be required to satisfy various flags. This can allow satcom to be as general purpose as intended,
-from minimal to maximal operation/utilization of the WPS300 as and when required by different projects, even turning on/off other
+from minimal to maximal operation/utilization of the WTGPS300 as and when required by different projects, even turning on/off other
 systems that begin running their own routines, by having them turn on/off with these relays.
 each relay should have its own char array which can be checked each loop, after which a function corrrspinding to a relays char
 array will be ran if a selected condition is met, then the corresponding relay will be turned on/off when that condition is met.
