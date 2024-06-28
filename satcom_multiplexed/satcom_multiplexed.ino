@@ -1022,8 +1022,36 @@ struct RelayStruct {
   bool bool_satellite_precision_factor_gngga_in_range = false;
   char satellite_precision_factor_gngga_in_range[56] = "satellite_precision_factor_gngga_in_range";
 
+  bool bool_altitude_gngga_over = false; // variably specify relay activates or deactivates
+  char altitude_gngga_over[56] = "altitude_gngga_over"; // relay function name
+  bool bool_altitude_gngga_under = false;
+  char altitude_gngga_under[56] = "altitude_gngga_under";
+  bool bool_altitude_gngga_under_equal = false;
+  char altitude_gngga_equal[56] = "altitude_gngga_equal";
+  bool bool_altitude_gngga_in_range = false;
+  char altitude_gngga_in_range[56] = "altitude_gngga_in_range";
+
 };
 RelayStruct relayData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                              RELAY FUNCTIONS: ALTITUDE GNGGA
+
+void altitude_gngga_over() {
+  // relay turns on/off 
+}
+
+void altitude_gngga_under() {
+  // relay turns on/off
+}
+
+void altitude_gngga_equal() {
+  // relay turns on/off
+}
+
+void altitude_gngga_in_range() {
+  // relay turns on/off
+}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                      RELAY FUNCTIONS: PRECISION FACTOR GNGGA
@@ -1142,6 +1170,11 @@ Check each relays key and run a function for each relays corresponding key. Firs
 void systems_Check() {
 
   if (strcmp(relayData.relay_0, relayData.default_relay_function)) {}
+
+  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_over)) {altitude_gngga_over();}
+  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_under)) {altitude_gngga_under();}
+  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_equal)) {altitude_gngga_equal();}
+  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_in_range)) {altitude_gngga_in_range();}
 
   else if (strcmp(relayData.relay_0, relayData.satellite_precision_factor_gngga_over)) {satellite_precision_factor_gngga_over();}
   else if (strcmp(relayData.relay_0, relayData.satellite_precision_factor_gngga_under)) {satellite_precision_factor_gngga_under();}
