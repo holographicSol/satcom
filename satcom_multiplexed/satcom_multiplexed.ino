@@ -520,6 +520,7 @@ void setup() {
   // [X0] 40.68951145879330510
   // [X1] 40.68952497379331134
   // [X1 - X2] 0.00001351500000624
+  // y0 - y1 = 1.44679665999998974
   strcpy(satData.location_range_name[0], "HelloGlobe");
   satData.location_range_latitude[0]  =  40.68951821629331;
   satData.location_range_longitude[0] = -74.04483714358342;
@@ -528,8 +529,8 @@ void setup() {
   strcpy(satData.location_range_name[1], "Foobar");
   satData.location_range_latitude[1] =  40.68951821629331;
   satData.location_range_longitude[1] = -74.04483714358342;
-  satData.location_range_distance_latitude[1] =  satData.latitude_mile*100;  // specify latitude range
-  satData.location_range_distance_longitude[1] = satData.longitude_mile*100; // specify longitude range
+  satData.location_range_distance_latitude[1] =  satData.latitude_meter*100;  // specify latitude range
+  satData.location_range_distance_longitude[1] = satData.latitude_meter*100; // specify longitude range
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                               SETUP SERIAL
