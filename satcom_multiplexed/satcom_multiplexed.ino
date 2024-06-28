@@ -4,7 +4,7 @@
 
 
                                      Receives and Processes Transmissions from Satellites
-                        A global location Sensor & Time Sensor. For projects requiring location data and or time.
+    A global location Sensor & Time Sensor. For projects requiring location data and or time to be positionally aware and syncronized.
          Tested with WTGPS300 (WITMOTION) Satellite module this project receives data from satellites, sorts that data into
      variables that can be used later, and creates new $ sentences containing new data, calculated from the data received.
 
