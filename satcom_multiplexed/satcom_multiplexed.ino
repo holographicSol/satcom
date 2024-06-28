@@ -3,7 +3,8 @@
                                           SATCOM - Written by Benjamin Jack Cullen.
 
 
-                                     Receives and Processes Transmissions from Satellites.
+                                     Receives and Processes Transmissions from Satellites
+                                             A global location & time sensor.  
          Tested with WTGPS300 (WITMOTION) Satellite module this project receives data from satellites, sorts that data into
      variables that can be used later, and creates new $ sentences containing new data, calculated from the data received.
 
