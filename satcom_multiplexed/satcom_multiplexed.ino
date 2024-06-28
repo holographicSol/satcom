@@ -92,6 +92,32 @@ SSD1306Wire   display_4(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                  RELAYS DATA
+
+/*
+A minimum of N relays would be required to satisfy various flags. This can allow satcom to be as general purpose as intended,
+from minimal to maximal operation/utilization of the WTGPS300 as and when required by different projects, even turning on/off other
+systems that begin running their own routines, by having them turn on/off with these relays.
+each relay should have its own char array which can be checked each loop, after which a function corrrspinding to a relays char
+array will be ran if a selected condition is met, then the corresponding relay will be turned on/off when that condition is met.
+additional configuration could include running once, running each time etc. for systems/routines to be activated/deactivated.
+*/
+
+struct RelayStruct {
+  char relay_0[10] = "$NONE";
+  char relay_1[10] = "$NONE";
+  char relay_2[10] = "$NONE";
+  char relay_3[10] = "$NONE";
+  char relay_4[10] = "$NONE";
+  char relay_5[10] = "$NONE";
+  char relay_6[10] = "$NONE";
+  char relay_7[10] = "$NONE";
+  char relay_8[10] = "$NONE";
+  char relay_9[10] = "$NONE";
+};
+RelayStruct relayData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                  SERIAL DATA
 
 struct SerialStruct {
@@ -956,32 +982,6 @@ void loop() {
 
   delay(1);
 }
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                  RELAYS DATA
-
-/*
-A minimum of N relays would be required to satisfy various flags. This can allow satcom to be as general purpose as intended,
-from minimal to maximal operation/utilization of the WTGPS300 as and when required by different projects, even turning on/off other
-systems that begin running their own routines, by having them turn on/off with these relays.
-each relay should have its own char array which can be checked each loop, after which a function corrrspinding to a relays char
-array will be ran if a selected condition is met, then the corresponding relay will be turned on/off when that condition is met.
-additional configuration could include running once, running each time etc. for systems/routines to be activated/deactivated.
-*/
-
-struct RelayStruct {
-  char relay_0[10] = "$NONE";
-  char relay_1[10] = "$NONE";
-  char relay_2[10] = "$NONE";
-  char relay_3[10] = "$NONE";
-  char relay_4[10] = "$NONE";
-  char relay_5[10] = "$NONE";
-  char relay_6[10] = "$NONE";
-  char relay_7[10] = "$NONE";
-  char relay_8[10] = "$NONE";
-  char relay_9[10] = "$NONE";
-};
-RelayStruct relayData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 
