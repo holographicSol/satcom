@@ -253,6 +253,8 @@ struct SatDatatruct {
   double location_range_latitude_bool[200];
   double location_range_longitude_bool[200];
 
+  char satcom_sentence[1024];
+
   bool coordinte_convert = true; // enable/diable standalone coordinate conversions
   char coordinate_conversion_mode[10] = "GNGGA"; // choose a sentence that degrees/decimal coordinates will be created from
 };
@@ -347,7 +349,10 @@ void extrapulatedSatData() {
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                     SATCOM SENTENCE: BEGIN
 
-  Serial.print(satData.satDataTag + String(","));
+  memset(satData.satcom_sentence, 0, 1024);
+
+  strcat(satData.satcom_sentence, satData.satDataTag);
+  strcat(satData.satcom_sentence, ",");
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                   SATCOM SENTENCE: TIMESTAMP FROM SAT TIME
@@ -355,7 +360,9 @@ void extrapulatedSatData() {
   memset(satData.sat_time_stamp_string, 0, 56);
   strcat(satData.sat_time_stamp_string, gnrmcData.utc_date);
   strcat(satData.sat_time_stamp_string, gnggaData.utc_time);
-  Serial.print(satData.sat_time_stamp_string + String(","));
+
+  strcat(satData.satcom_sentence, satData.sat_time_stamp_string);
+  strcat(satData.satcom_sentence, ",");
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                       SATCOM SENTENCE: LAST KNOWN DOWNLINK
@@ -365,7 +372,8 @@ void extrapulatedSatData() {
     memset(satData.last_sat_seen_time_stamp_string, 0, 56);
     strcpy(satData.last_sat_seen_time_stamp_string, satData.sat_time_stamp_string);
   }
-  Serial.print(String(satData.last_sat_seen_time_stamp_string) + ",");
+  strcat(satData.satcom_sentence, satData.last_sat_seen_time_stamp_string);
+  strcat(satData.satcom_sentence, ",");
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                 SATCOM SENTENCE: CONVERT DATA FROM STRINGS
@@ -380,18 +388,24 @@ void extrapulatedSatData() {
   }
   calculateLocation();
   if (String(satData.coordinate_conversion_mode) == "GNGGA") {
-    Serial.print(satData.location_latitude_gngga, 17); Serial.print(",");
-    Serial.print(satData.location_longitude_gngga, 17); Serial.print(",");
+
+    strcat(satData.satcom_sentence, satData.location_latitude_gngga_str);
+    strcat(satData.satcom_sentence, ",");
+    strcat(satData.satcom_sentence, satData.location_longitude_gngga_str);
+    strcat(satData.satcom_sentence, ",");
   }
   else if (String(satData.coordinate_conversion_mode) == "GNRMC") {
-    Serial.print(satData.location_latitude_gnrmc, 17); Serial.print(",");
-    Serial.print(satData.location_longitude_gnrmc, 17); Serial.print(",");
+
+    strcat(satData.satcom_sentence, satData.location_latitude_gnrmc_str);
+    strcat(satData.satcom_sentence, ",");
+    strcat(satData.satcom_sentence, satData.location_longitude_gnrmc_str);
+    strcat(satData.satcom_sentence, ",");
   }
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                   SATCOM SENTENCE: RANGING
   
-  // TEST RANGE: uncomment to test a range with artificial coordinates (note that this must be commented if satcom sentence in use)
+  // TEST RANGE: uncomment to test a range with artificial coordinates
   // satData.location_latitude_gngga = 40.68951821629331;
   // satData.location_longitude_gngga = -74.04483714358342;
 
@@ -402,7 +416,7 @@ void extrapulatedSatData() {
         
         if (strlen(satData.location_range_name[i]) > 0) {
 
-          // TEST RANGE: uncomment to view calculated target perimeter (note that this must be commented if satcom sentence in use)
+          // TEST RANGE: uncomment to view calculated target perimeter
           // Serial.println();
           // Serial.print("[T0] "); Serial.println(satData.location_range_name[i]);
           // Serial.print("[X0] "); Serial.println(satData.location_range_latitude[i] - satData.location_range_distance_latitude[i]/2, 17);
@@ -412,25 +426,32 @@ void extrapulatedSatData() {
           // Serial.println();
 
           // name into satcom sentence
-          Serial.print(satData.location_range_name[i] + String(","));
+          strcat(satData.satcom_sentence, satData.location_range_name[i]);
+          strcat(satData.satcom_sentence, ",");
 
           // create latitude range bool
           satData.location_range_latitude_bool[i] = false;
           if (satData.location_latitude_gngga  >=  satData.location_range_latitude[i] - satData.location_range_distance_latitude[i]/2) {
             if (satData.location_latitude_gngga  <= satData.location_range_latitude[i] + satData.location_range_distance_latitude[i]/2) {
               satData.location_range_latitude_bool[i] = true;
+              strcat(satData.satcom_sentence, "1");
             }
+            else {strcat(satData.satcom_sentence, "0");}
           }
-          Serial.print(String((int)satData.location_range_latitude_bool[i]) + ",");
+          else {strcat(satData.satcom_sentence, "0");}
+          strcat(satData.satcom_sentence, ",");
 
           // create longitude range bool
           satData.location_range_longitude_bool[i] = false;
           if (satData.location_longitude_gngga >= satData.location_range_longitude[i] - satData.location_range_distance_longitude[i]/2) {
             if (satData.location_longitude_gngga  <= satData.location_range_longitude[i] + satData.location_range_distance_longitude[i]/2) {
               satData.location_range_longitude_bool[i] = true;
+              strcat(satData.satcom_sentence, "1");
             }
+            else {strcat(satData.satcom_sentence, "0");}
           }
-          Serial.print(String((int)satData.location_range_longitude_bool[i]) + ",");
+          else {strcat(satData.satcom_sentence, "0");}
+          strcat(satData.satcom_sentence, ",");
         }
       }
     }
@@ -438,7 +459,8 @@ void extrapulatedSatData() {
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                       SATCOM SENTENCE: END
-  Serial.println("*Z");
+  strcat(satData.satcom_sentence, "*Z");
+  Serial.println(satData.satcom_sentence);
   }
 
 // ----------------------------------------------------------------------------------------------------------------------------
