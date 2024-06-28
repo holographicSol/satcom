@@ -70,7 +70,38 @@ Although I do not have the resources to build for example a vehicle, I would lik
 to update to patch and add features, everything else should be plugged in, operational and interfaceable to various degrees.
 This way I have satcom for projects requiring anything from datetime from satellites and coordinates to tasks more advanced and inclusive
 of the WTG300's (and other GNS modules) full range of capabilities.
-1x Line Flag.
+Relay functions should be available to each relay.
+
+Relay Functions:
+Timeable.
+Satellite count.
+Coordinates.
+hemispherical.
+precision factor.
+altitude.
+differential_time
+differential_reference_base_station_label
+speed.
+heading.
+magnetic_declination.
+magnetic_declination_direction.
+mode_indication.
+pitch.
+roll
+yaw
+ins
+Run_State_Flag.
+static_flag.
+user_code.
+gst_data.
+line_flag.
+subi_car_kind.
+mileage.
+ang_dget_flag.
+run_inetial_flag.
+time_save_num.
+fix_angle_flag.
+ang_lock_flag.
 
 Communications:
 Serial.
