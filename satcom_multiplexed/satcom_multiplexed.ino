@@ -85,9 +85,11 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       WIRING
 
-SSD1306Wire   display(0x3c, SDA, SCL);  // let SSD1306Wire wire up our SSD1306 on the i2C bus
-SSD1306Wire   display2(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
-SSD1306Wire   display3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
+SSD1306Wire   display_7(0x3c, SDA, SCL);  // let SSD1306Wire wire up our SSD1306 on the i2C bus
+SSD1306Wire   display_6(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
+SSD1306Wire   display_5(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
+SSD1306Wire   display_4(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
+SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                  SERIAL DATA
@@ -113,35 +115,59 @@ void tcaselect(uint8_t channel) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          INITIALIZE DISPLAY
 
-void initDisplay() {
-  display.init();
-  display.flipScreenVertically();
-  display.setContrast(255);
-  display.setFont(ArialMT_Plain_10);
-  display.cls();
+void initDisplay7() {
+  display_7.init();
+  display_7.flipScreenVertically();
+  display_7.setContrast(255);
+  display_7.setFont(ArialMT_Plain_10);
+  display_7.cls();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          INITIALIZE DISPLAY
 
-void initDisplay2() {
-  display2.init();
-  display2.flipScreenVertically();
-  display2.setContrast(255);
-  display2.setFont(ArialMT_Plain_10);
-  display2.cls();
+void initDisplay6() {
+  display_6.init();
+  display_6.flipScreenVertically();
+  display_6.setContrast(255);
+  display_6.setFont(ArialMT_Plain_10);
+  display_6.cls();
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                          INITIALIZE DISPLAY
+
+void initDisplay5() {
+  display_5.init();
+  display_5.flipScreenVertically();
+  display_5.setContrast(255);
+  display_5.setFont(ArialMT_Plain_10);
+  display_5.cls();
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                          INITIALIZE DISPLAY
+
+void initDisplay4() {
+  display_4.init();
+  display_4.flipScreenVertically();
+  display_4.setContrast(255);
+  display_4.setFont(ArialMT_Plain_10);
+  display_4.cls();
+}
+
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          INITIALIZE DISPLAY
 
 void initDisplay3() {
-  display3.init();
-  display3.flipScreenVertically();
-  display3.setContrast(255);
-  display3.setFont(ArialMT_Plain_10);
-  display3.cls();
+  display_3.init();
+  display_3.flipScreenVertically();
+  display_3.setContrast(255);
+  display_3.setFont(ArialMT_Plain_10);
+  display_3.cls();
 }
+
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GNGGA DATA
@@ -393,35 +419,36 @@ void GPATT() {
     else if (serialData.iter_token == 8) {strcpy(gpattData.version_channel, serialData.token);}
     else if (serialData.iter_token == 9) {strcpy(gpattData.product_id, serialData.token);}
     else if (serialData.iter_token == 10) {strcpy(gpattData.id_channel, serialData.token);}
-    else if (serialData.iter_token == 11) {strcpy(gpattData.ins_channel, serialData.token);}
-    else if (serialData.iter_token == 12) {strcpy(gpattData.hardware_version, serialData.token);}
-    else if (serialData.iter_token == 13) {strcpy(gpattData.run_state_flag, serialData.token);}
-    else if (serialData.iter_token == 14) {strcpy(gpattData.mis_angle_num, serialData.token);}
-    else if (serialData.iter_token == 15) {strcpy(gpattData.custom_flag_0, serialData.token);}
-    else if (serialData.iter_token == 16) {strcpy(gpattData.custom_flag_1, serialData.token);}
-    else if (serialData.iter_token == 17) {strcpy(gpattData.mtk_version, serialData.token);}
-    else if (serialData.iter_token == 18) {strcpy(gpattData.static_flag, serialData.token);}
-    else if (serialData.iter_token == 19) {strcpy(gpattData.user_code, serialData.token);}
-    else if (serialData.iter_token == 20) {strcpy(gpattData.gst_data, serialData.token);}
-    else if (serialData.iter_token == 21) {strcpy(gpattData.line_flag, serialData.token);}
-    else if (serialData.iter_token == 22) {strcpy(gpattData.custom_flag_2, serialData.token);}
-    else if (serialData.iter_token == 23) {strcpy(gpattData.custom_flag_3, serialData.token);}
-    else if (serialData.iter_token == 24) {strcpy(gpattData.imu_kind, serialData.token);}
-    else if (serialData.iter_token == 25) {strcpy(gpattData.subi_car_kind, serialData.token);}
-    else if (serialData.iter_token == 26) {strcpy(gpattData.mileage, serialData.token);}
-    else if (serialData.iter_token == 27) {strcpy(gpattData.custom_flag_4, serialData.token);}
-    else if (serialData.iter_token == 28) {strcpy(gpattData.ang_dget_flag, serialData.token);}
-    else if (serialData.iter_token == 29) {strcpy(gpattData.run_inetial_flag, serialData.token);}
-    else if (serialData.iter_token == 30) {strcpy(gpattData.custom_flag_5, serialData.token);}
-    else if (serialData.iter_token == 31) {strcpy(gpattData.custom_flag_6, serialData.token);}
-    else if (serialData.iter_token == 32) {strcpy(gpattData.custom_flag_7, serialData.token);}
-    else if (serialData.iter_token == 33) {strcpy(gpattData.custom_flag_8, serialData.token);}
-    else if (serialData.iter_token == 34) {strcpy(gpattData.custom_flag_9, serialData.token);}
-    else if (serialData.iter_token == 35) {strcpy(gpattData.time_save_num, serialData.token);}
-    else if (serialData.iter_token == 36) {strcpy(gpattData.fix_angle_flag, serialData.token);}
-    else if (serialData.iter_token == 37) {strcpy(gpattData.ang_lock_flag, serialData.token);}
-    else if (serialData.iter_token == 38) {strcpy(gpattData.extensible, serialData.token);}
-    else if (serialData.iter_token == 39) {strcpy(gpattData.check_sum, serialData.token);}
+    else if (serialData.iter_token == 11) {strcpy(gpattData.ins, serialData.token);}
+    else if (serialData.iter_token == 12) {strcpy(gpattData.ins_channel, serialData.token);}
+    else if (serialData.iter_token == 13) {strcpy(gpattData.hardware_version, serialData.token);}
+    else if (serialData.iter_token == 14) {strcpy(gpattData.run_state_flag, serialData.token);}
+    else if (serialData.iter_token == 15) {strcpy(gpattData.mis_angle_num, serialData.token);}
+    else if (serialData.iter_token == 16) {strcpy(gpattData.custom_flag_0, serialData.token);}
+    else if (serialData.iter_token == 17) {strcpy(gpattData.custom_flag_1, serialData.token);}
+    else if (serialData.iter_token == 18) {strcpy(gpattData.mtk_version, serialData.token);}
+    else if (serialData.iter_token == 19) {strcpy(gpattData.static_flag, serialData.token);}
+    else if (serialData.iter_token == 20) {strcpy(gpattData.user_code, serialData.token);}
+    else if (serialData.iter_token == 21) {strcpy(gpattData.gst_data, serialData.token);}
+    else if (serialData.iter_token == 22) {strcpy(gpattData.line_flag, serialData.token);}
+    else if (serialData.iter_token == 23) {strcpy(gpattData.custom_flag_2, serialData.token);}
+    else if (serialData.iter_token == 24) {strcpy(gpattData.custom_flag_3, serialData.token);}
+    else if (serialData.iter_token == 25) {strcpy(gpattData.imu_kind, serialData.token);}
+    else if (serialData.iter_token == 26) {strcpy(gpattData.subi_car_kind, serialData.token);}
+    else if (serialData.iter_token == 27) {strcpy(gpattData.mileage, serialData.token);}
+    else if (serialData.iter_token == 28) {strcpy(gpattData.custom_flag_4, serialData.token);}
+    else if (serialData.iter_token == 29) {strcpy(gpattData.ang_dget_flag, serialData.token);}
+    else if (serialData.iter_token == 20) {strcpy(gpattData.run_inetial_flag, serialData.token);}
+    else if (serialData.iter_token == 31) {strcpy(gpattData.custom_flag_5, serialData.token);}
+    else if (serialData.iter_token == 32) {strcpy(gpattData.custom_flag_6, serialData.token);}
+    else if (serialData.iter_token == 33) {strcpy(gpattData.custom_flag_7, serialData.token);}
+    else if (serialData.iter_token == 34) {strcpy(gpattData.custom_flag_8, serialData.token);}
+    else if (serialData.iter_token == 35) {strcpy(gpattData.custom_flag_9, serialData.token);}
+    else if (serialData.iter_token == 36) {strcpy(gpattData.time_save_num, serialData.token);}
+    else if (serialData.iter_token == 37) {strcpy(gpattData.fix_angle_flag, serialData.token);}
+    else if (serialData.iter_token == 38) {strcpy(gpattData.ang_lock_flag, serialData.token);}
+    else if (serialData.iter_token == 39) {strcpy(gpattData.extensible, serialData.token);}
+    else if (serialData.iter_token == 40) {strcpy(gpattData.check_sum, serialData.token);}
 
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
@@ -706,68 +733,102 @@ void extrapulatedSatData() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 0
 
-void SSD_Display_0() {
+void SSD_Display_6() {
   tcaselect(6);
-  display.setTextAlignment(TEXT_ALIGN_CENTER);
-  display.setColor(WHITE);
-  display.clear();
-  display.drawString(display.getWidth()/2, 0, "GNGGA");
-  display.drawString(display.getWidth()/2, 14, "P " + String(gnggaData.positioning_status) + " S " + String(gnggaData.satellite_count));
-  display.drawString(display.getWidth()/2, 24, String(gnggaData.utc_time));
-  display.drawString(display.getWidth()/2, 34, String(gnggaData.latitude_hemisphere) + " " + String(gnggaData.latitude));
-  display.drawString(display.getWidth()/2, 44, String(gnggaData.longitude_hemisphere) + " " + String(gnggaData.longitude));
-  display.drawString(display.getWidth()/2, 54, "A " + String(gnggaData.altitude));
-  display.display();
+  display_7.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_7.setColor(WHITE);
+  display_7.clear();
+  display_7.drawString(display_7.getWidth()/2, 0, "GNGGA");
+  display_7.drawString(display_7.getWidth()/2, 14, "P " + String(gnggaData.positioning_status) + " S " + String(gnggaData.satellite_count));
+  display_7.drawString(display_7.getWidth()/2, 24, String(gnggaData.utc_time));
+  display_7.drawString(display_7.getWidth()/2, 34, String(gnggaData.latitude_hemisphere) + " " + String(gnggaData.latitude));
+  display_7.drawString(display_7.getWidth()/2, 44, String(gnggaData.longitude_hemisphere) + " " + String(gnggaData.longitude));
+  display_7.drawString(display_7.getWidth()/2, 54, "A " + String(gnggaData.altitude));
+  display_7.display();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 1
 
-void SSD_Display_1() {
+void SSD_Display_7() {
   tcaselect(7);
-  display2.setTextAlignment(TEXT_ALIGN_CENTER);
-  display2.setColor(WHITE);
-  display2.clear();
-  display2.drawString(display2.getWidth()/2, 0, "GNRMC");
-  display2.drawString(display2.getWidth()/2, 14, "P " + String(gnrmcData.positioning_status) + " M " + String(gnrmcData.mode_indication));
-  display2.drawString(display2.getWidth()/2, 24, String(gnrmcData.utc_time) + " " + String(gnrmcData.utc_date));
-  display2.drawString(display2.getWidth()/2, 34, String(gnrmcData.latitude_hemisphere) + " " + String(gnrmcData.latitude));
-  display2.drawString(display2.getWidth()/2, 44, String(gnrmcData.longitude_hemisphere) + " " + String(gnrmcData.longitude));
-  display2.drawString(display2.getWidth()/2, 54, "H " + String(gnrmcData.ground_heading) + " S " + String(gnrmcData.ground_speed));
-  display2.display();
+  display_6.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_6.setColor(WHITE);
+  display_6.clear();
+  display_6.drawString(display_6.getWidth()/2, 0, "GNRMC");
+  display_6.drawString(display_6.getWidth()/2, 14, "P " + String(gnrmcData.positioning_status) + " M " + String(gnrmcData.mode_indication));
+  display_6.drawString(display_6.getWidth()/2, 24, String(gnrmcData.utc_time) + " " + String(gnrmcData.utc_date));
+  display_6.drawString(display_6.getWidth()/2, 34, String(gnrmcData.latitude_hemisphere) + " " + String(gnrmcData.latitude));
+  display_6.drawString(display_6.getWidth()/2, 44, String(gnrmcData.longitude_hemisphere) + " " + String(gnrmcData.longitude));
+  display_6.drawString(display_6.getWidth()/2, 54, "H " + String(gnrmcData.ground_heading) + " S " + String(gnrmcData.ground_speed));
+  display_6.display();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 2
 
-void SSD_Display_2_Splash_0() {
+void SSD_Display_5_Splash_0() {
   tcaselect(5);
-  display3.setTextAlignment(TEXT_ALIGN_CENTER);
-  display3.setColor(WHITE);
-  display3.clear();
-  display3.drawString(display3.getWidth()/2, 0, "        _,--',   _._.--._____");
-  display3.drawString(display3.getWidth()/2, 10, " .--.--';_'-.', ';_      _.,-'");
-  display3.drawString(display3.getWidth()/2, 20, ".'--'.  _.'    {`'-;_ .-.>.'");
-  display3.drawString(display3.getWidth()/2, 30, "      '-:_      )  / `' '=.");
-  display3.drawString(display3.getWidth()/2, 40, "        ) >     {_/,     /~)");
-  display3.drawString(display3.getWidth()/2, 50, "snd     |/               `^ .'");
-  display3.display();
+  display_5.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_5.setColor(WHITE);
+  display_5.clear();
+  display_5.drawString(display_5.getWidth()/2, 0, "        _,--',   _._.--._____");
+  display_5.drawString(display_5.getWidth()/2, 10, " .--.--';_'-.', ';_      _.,-'");
+  display_5.drawString(display_5.getWidth()/2, 20, ".'--'.  _.'    {`'-;_ .-.>.'");
+  display_5.drawString(display_5.getWidth()/2, 30, "      '-:_      )  / `' '=.");
+  display_5.drawString(display_5.getWidth()/2, 40, "        ) >     {_/,     /~)");
+  display_5.drawString(display_5.getWidth()/2, 50, "snd     |/               `^ .'");
+  display_5.display();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 2
 
-void SSD_Display_2() {
+void SSD_Display_5() {
   tcaselect(5);
-  display3.setTextAlignment(TEXT_ALIGN_CENTER);
-  display3.setColor(WHITE);
-  display3.clear();
-  display3.drawString(display3.getWidth()/2, 0, "SATCOM");
-  display3.drawString(display3.getWidth()/2, 14, satData.sat_time_stamp_string);
-  display3.drawString(display3.getWidth()/2, 24, String(satData.last_sat_seen_time_stamp_string));
-  display3.drawString(display3.getWidth()/2, 44, String(gnggaData.latitude_hemisphere) + " " + satData.location_latitude_gngga_str);
-  display3.drawString(display3.getWidth()/2, 54, String(gnggaData.longitude_hemisphere) + " " + satData.location_longitude_gngga_str);
-  display3.display();
+  display_5.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_5.setColor(WHITE);
+  display_5.clear();
+  display_5.drawString(display_5.getWidth()/2, 0, "SATCOM");
+  display_5.drawString(display_5.getWidth()/2, 14, satData.sat_time_stamp_string);
+  display_5.drawString(display_5.getWidth()/2, 24, String(satData.last_sat_seen_time_stamp_string));
+  display_5.drawString(display_5.getWidth()/2, 44, String(gnggaData.latitude_hemisphere) + " " + satData.location_latitude_gngga_str);
+  display_5.drawString(display_5.getWidth()/2, 54, String(gnggaData.longitude_hemisphere) + " " + satData.location_longitude_gngga_str);
+  display_5.display();
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    DISPLAY 3
+
+void SSD_Display_4() {
+  tcaselect(4);
+  display_4.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_4.setColor(WHITE);
+  display_4.clear();
+  display_4.drawString(display_4.getWidth()/2, 0, "GPATT");
+  display_4.drawString(display_4.getWidth()/2, 14, "P " + String(gpattData.pitch));
+  display_4.drawString(display_4.getWidth()/2, 24, "R " + String(gpattData.roll));
+  display_4.drawString(display_4.getWidth()/2, 34, "Y " + String(gpattData.yaw));
+  display_4.drawString(display_4.getWidth()/2, 44, String("RSF " + String(gpattData.run_state_flag) + " GST " + String(gpattData.gst_data) + " RIF " + String(gpattData.run_inetial_flag)));
+  display_4.drawString(display_4.getWidth()/2, 54, String("E " + String(gpattData.time_save_num) + " FA " + String(gpattData.fix_angle_flag)));
+  display_4.display();
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    DISPLAY 4
+
+void SSD_Display_3() {
+  tcaselect(3);
+  display_3.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_3.setColor(WHITE);
+  display_3.clear();
+  display_3.drawString(display_3.getWidth()/2, 0, "        _,--',   _._.--._____");
+  display_3.drawString(display_3.getWidth()/2, 10, " .--.--';_'-.', ';_      _.,-'");
+  display_3.drawString(display_3.getWidth()/2, 20, ".'--'.  _.'    {`'-;_ .-.>.'");
+  display_3.drawString(display_3.getWidth()/2, 30, "      '-:_      )  / `' '=.");
+  display_3.drawString(display_3.getWidth()/2, 40, "        ) >     {_/,     /~)");
+  display_3.drawString(display_3.getWidth()/2, 50, "snd     |/               `^ .'");
+  display_3.display();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -801,13 +862,22 @@ void setup() {
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                              SETUP DISPLAY
 
-  tcaselect(5);
+  tcaselect(3);
   initDisplay3();
+
+  tcaselect(4);
+  initDisplay4();
+
+  tcaselect(5);
+  initDisplay5();
+
   tcaselect(6);
-  initDisplay();
+  initDisplay6();
+
   tcaselect(7);
-  initDisplay2();
-  SSD_Display_2_Splash_0();
+  initDisplay7();
+
+  SSD_Display_5_Splash_0();
   delay(2000);
 }
 
@@ -820,7 +890,7 @@ void readRXD_1() {
     
     memset(serialData.BUFFER, 0, 2048);
     serialData.nbytes = (Serial1.readBytesUntil('\n', serialData.BUFFER, sizeof(serialData.BUFFER)));
-    // Serial.println(serialData.nbytes); // debug
+    Serial.println(serialData.nbytes); // debug
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GNGGA
@@ -853,8 +923,10 @@ void readRXD_1() {
     //                                                                                                                    GPATT
 
     else if (strncmp(serialData.BUFFER, "$GPATT", 6) == 0) {
-      Serial.print(""); Serial.println(serialData.BUFFER);
-      GPATT();
+      if ((serialData.nbytes == 136) || (serialData.nbytes == 189)) {
+        Serial.print(""); Serial.println(serialData.BUFFER);
+        GPATT();
+      }
     }
   }
 }
@@ -865,9 +937,11 @@ void readRXD_1() {
 void loop() {
   readRXD_1();
   extrapulatedSatData();
-  SSD_Display_0();
-  SSD_Display_1();
-  SSD_Display_2();
+  SSD_Display_3();
+  SSD_Display_4();
+  SSD_Display_5();
+  SSD_Display_6();
+  SSD_Display_7();
 
   delay(1);
 }
