@@ -1010,88 +1010,88 @@ RelayStruct relayData;
 //                                                                                                 RELAY FUNCTIONS: HEMISPHERE
 
 void relay_function_satellite_hemisphere_N() {
-  // relay turns on/off when satellite count is over specified count
+  // relay turns on/off 
 }
 
 void relay_function_satellite_hemisphere_E() {
-  // relay turns on/off when satellite count is under specified count
+  // relay turns on/off
 }
 
 void relay_function_satellite_hemisphere_S() {
-  // relay turns on/off when satellite count is equal to specified count
+  // relay turns on/off
 }
 
 void relay_function_satellite_hemisphere_W() {
-  // relay turns on/off when satellite count is equal to specified count
+  // relay turns on/off
 }
 
 void relay_function_satellite_hemisphere_NE() {
-  // relay turns on/off when satellite count is over specified count
+  // relay turns on/off 
 }
 
 void relay_function_satellite_hemisphere_SE() {
-  // relay turns on/off when satellite count is under specified count
+  // relay turns on/off
 }
 
 void relay_function_satellite_hemisphere_NW() {
-  // relay turns on/off when satellite count is equal to specified count
+  // relay turns on/off
 }
 
 void relay_function_satellite_hemisphere_SW() {
-  // relay turns on/off when satellite count is equal to specified count
+  // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: COORDINATES
 
 void relay_function_satellite_coord_over() {
-  // relay turns on/off when satellite count is over specified count
+  // relay turns on/off 
 }
 
 void relay_function_satellite_coord_under() {
-  // relay turns on/off when satellite count is under specified count
+  // relay turns on/off
 }
 
 void relay_function_satellite_coord_equal() {
-  // relay turns on/off when satellite count is equal to specified count
+  // relay turns on/off
 }
 
 void relay_function_satellite_coord_in_range() {
-  // relay turns on/off when satellite count is equal to specified count
+  // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                        RELAY FUNCTIONS: TIME
 
 void relay_function_satellite_time_over() {
-  // relay turns on/off when satellite count is over specified count
+  // relay turns on/off 
 }
 
 void relay_function_satellite_time_under() {
-  // relay turns on/off when satellite count is under specified count
+  // relay turns on/off
 }
 
 void relay_function_satellite_time_equal() {
-  // relay turns on/off when satellite count is equal to specified count
+  // relay turns on/off 
 }
 
 void relay_function_satellite_time_period() {
-  // relay turns on/off when satellite count is equal to specified count
+  // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                             RELAY FUNCTIONS: SATELLITE COUNT
 
 void relay_function_satellite_count_over() {
-  // relay turns on/off when satellite count is over specified count
+  // relay turns on/off 
 }
 
 void relay_function_satellite_count_under() {
-  // relay turns on/off when satellite count is under specified count
+  // relay turns on/off
 }
 
 void relay_function_satellite_count_equal() {
-  // relay turns on/off when satellite count is equal to specified count
+  // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
