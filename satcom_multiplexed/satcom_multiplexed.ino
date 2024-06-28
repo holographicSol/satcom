@@ -391,8 +391,8 @@ void extrapulatedSatData() {
   //                                                                                                   SATCOM SENTENCE: RANGING
   
   // TEST RANGE: uncomment to test a range with artificial coordinates (note that this must be commented if satcom sentence in use)
-  satData.location_latitude_gngga = 40.68951821629331;
-  satData.location_longitude_gngga = -74.04483714358342;
+  // satData.location_latitude_gngga = 40.68951821629331;
+  // satData.location_longitude_gngga = -74.04483714358342;
 
   // coordinte_convert
   if (satData.coordinte_convert == true) {
@@ -401,16 +401,14 @@ void extrapulatedSatData() {
         
         if (strlen(satData.location_range_name[i]) > 0) {
 
-          // 0.000067575000002765
-
           // TEST RANGE: uncomment to view calculated target perimeter (note that this must be commented if satcom sentence in use)
-          Serial.println();
-          Serial.print("[T0] "); Serial.println(satData.location_range_name[i]);
-          Serial.print("[X0] "); Serial.println(satData.location_range_latitude[i] - satData.location_range_distance_latitude[i]/2, 17);
-          Serial.print("[X1] "); Serial.println(satData.location_range_latitude[i] + satData.location_range_distance_latitude[i]/2, 17);
-          Serial.print("[Y0] "); Serial.println(satData.location_range_longitude[i] - satData.location_range_distance_longitude[i]/2, 17);
-          Serial.print("[Y1] "); Serial.println(satData.location_range_longitude[i] + satData.location_range_distance_longitude[i]/2, 17);
-          Serial.println();
+          // Serial.println();
+          // Serial.print("[T0] "); Serial.println(satData.location_range_name[i]);
+          // Serial.print("[X0] "); Serial.println(satData.location_range_latitude[i] - satData.location_range_distance_latitude[i]/2, 17);
+          // Serial.print("[X1] "); Serial.println(satData.location_range_latitude[i] + satData.location_range_distance_latitude[i]/2, 17);
+          // Serial.print("[Y0] "); Serial.println(satData.location_range_longitude[i] - satData.location_range_distance_longitude[i]/2, 17);
+          // Serial.print("[Y1] "); Serial.println(satData.location_range_longitude[i] + satData.location_range_distance_longitude[i]/2, 17);
+          // Serial.println();
 
           // name into satcom sentence
           Serial.print(satData.location_range_name[i] + String(","));
@@ -515,22 +513,16 @@ void SSD_Display_2() {
 void setup() {
 
   // TEST RANGE: uncomment to test rangeing
-  // 40.68951821629331, -74.04483714358342
-  // meter: 0.00000901
-  // [X0] 40.68951145879330510
-  // [X1] 40.68952497379331134
-  // [X1 - X2] 0.00001351500000624
-  // y0 - y1 = 1.44679665999998974
-  strcpy(satData.location_range_name[0], "HelloGlobe");
-  satData.location_range_latitude[0]  =  40.68951821629331;
-  satData.location_range_longitude[0] = -74.04483714358342;
-  satData.location_range_distance_latitude[0] = satData.latitude_meter*1;  // specify latitude range
-  satData.location_range_distance_longitude[0] = satData.longitude_meter*1; // specify longitude range
-  strcpy(satData.location_range_name[1], "Foobar");
-  satData.location_range_latitude[1] =  40.68951821629331;
-  satData.location_range_longitude[1] = -74.04483714358342;
-  satData.location_range_distance_latitude[1] =  satData.latitude_meter*100;  // specify latitude range
-  satData.location_range_distance_longitude[1] = satData.latitude_meter*100; // specify longitude range
+  // strcpy(satData.location_range_name[0], "HelloGlobe");
+  // satData.location_range_latitude[0]  =  40.68951821629331;
+  // satData.location_range_longitude[0] = -74.04483714358342;
+  // satData.location_range_distance_latitude[0] = satData.latitude_meter*1;  // specify latitude range
+  // satData.location_range_distance_longitude[0] = satData.longitude_meter*1; // specify longitude range
+  // strcpy(satData.location_range_name[1], "Foobar");
+  // satData.location_range_latitude[1] =  40.68951821629331;
+  // satData.location_range_longitude[1] = -74.04483714358342;
+  // satData.location_range_distance_latitude[1] =  satData.latitude_meter*100;  // specify latitude range
+  // satData.location_range_distance_longitude[1] = satData.latitude_meter*100; // specify longitude range
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                               SETUP SERIAL
