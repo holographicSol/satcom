@@ -92,32 +92,6 @@ SSD1306Wire   display_4(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                  RELAYS DATA
-
-/*
-A minimum of N relays would be required to satisfy various flags. This can allow satcom to be as general purpose as intended,
-from minimal to maximal operation/utilization of the WTGPS300 as and when required by different projects, even turning on/off other
-systems that begin running their own routines, by having them turn on/off with these relays.
-each relay should have its own char array which can be checked each loop, after which a function corrrspinding to a relays char
-array will be ran if a selected condition is met, then the corresponding relay will be turned on/off when that condition is met.
-additional configuration could include running once, running each time etc. for systems/routines to be activated/deactivated.
-*/
-
-struct RelayStruct {
-  char relay_0[10] = "$NONE";
-  char relay_1[10] = "$NONE";
-  char relay_2[10] = "$NONE";
-  char relay_3[10] = "$NONE";
-  char relay_4[10] = "$NONE";
-  char relay_5[10] = "$NONE";
-  char relay_6[10] = "$NONE";
-  char relay_7[10] = "$NONE";
-  char relay_8[10] = "$NONE";
-  char relay_9[10] = "$NONE";
-};
-RelayStruct relayData;
-
-// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                  SERIAL DATA
 
 struct SerialStruct {
@@ -902,6 +876,7 @@ void setup() {
   tcaselect(7);
   initDisplay7();
 
+  SSD_Display_3_Splash_0();
   SSD_Display_5_Splash_0();
   delay(2000);
 }
@@ -957,6 +932,51 @@ void readRXD_1() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                  RELAYS DATA
+
+/*
+A minimum of N relays would be required to satisfy various flags. This can allow satcom to be as general purpose as intended,
+from minimal to maximal operation/utilization of the WTGPS300 as and when required by different projects, even turning on/off other
+systems that begin running their own routines, by having them turn on/off with these relays.
+each relay should have its own char array which can be checked each loop, after which a function corrrspinding to a relays char
+array will be ran if a selected condition is met, then the corresponding relay will be turned on/off when that condition is met.
+additional configuration could include running once, running each time etc. for systems/routines to be activated/deactivated.
+*/
+
+struct RelayStruct {
+  char relay_0[10] = "$NONE";
+  char relay_1[10] = "$NONE";
+  char relay_2[10] = "$NONE";
+  char relay_3[10] = "$NONE";
+  char relay_4[10] = "$NONE";
+  char relay_5[10] = "$NONE";
+  char relay_6[10] = "$NONE";
+  char relay_7[10] = "$NONE";
+  char relay_8[10] = "$NONE";
+  char relay_9[10] = "$NONE";
+  char relay_function_NONE[10] = "$NONE";
+  char  relay_function_satellite_count_over[56] = "relay_function_satellite_count_over";
+  char relay_function_satellite_count_under[56] = "relay_function_satellite_count_under";
+  char relay_function_satellite_count_equal[56] = "relay_function_satellite_count_equal";
+};
+RelayStruct relayData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                             RELAY FUNCTIONS: SATELLITE COUNT
+
+void relay_function_satellite_count_over() {
+  // relay turns on/off when satellite count is over specified count
+}
+
+void relay_function_satellite_count_under() {
+  // relay turns on/off when satellite count is under specified count
+}
+
+void relay_function_satellite_count_equal() {
+  // relay turns on/off when satellite count is equal to specified count
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                SYSTEMS CHECK
 
 /*
@@ -964,6 +984,14 @@ Check each relays key and run a function for each relays corresponding key. Firs
 */
 
 void systems_Check() {
+
+  if (strcmp(relayData.relay_0, relayData.relay_function_NONE)) {}
+
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_count_over)) {relay_function_satellite_count_over();}
+
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_count_under)) {relay_function_satellite_count_under();}
+
+  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_count_equal)) {relay_function_satellite_count_equal();}
 
 }
 
@@ -973,7 +1001,6 @@ void systems_Check() {
 void loop() {
   readRXD_1();
   extrapulatedSatData();
-  SSD_Display_3();
   SSD_Display_4();
   SSD_Display_5();
   SSD_Display_6();
