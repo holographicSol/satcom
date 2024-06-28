@@ -198,11 +198,11 @@ GNRMCStruct gnrmcData;
 struct GPATTStruct {
   char tag[56];              // <0> Log header
   char pitch[56];            // <1> pitch angle
-  char angle_channel[56];    // <2> P
+  char angle_channel_0[56];  // <2> P
   char roll[56];             // <3> Roll angle
-  char angle_channel[56];    // <4> R
+  char angle_channel_1[56];  // <4> R
   char yaw[56];              // <5> Yaw angle
-  char angle_channel[56];    // <6> Y
+  char angle_channel_2[56];  // <6> Y
   char software_version[56]; // <7> software verion
   char version_channel[56];  // <8> S
   char product_id[56];       // <9> Product ID: 96 bit unique ID
