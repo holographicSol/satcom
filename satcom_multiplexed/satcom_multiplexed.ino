@@ -1026,10 +1026,19 @@ struct RelayStruct {
   char altitude_gngga_over[56] = "altitude_gngga_over"; // relay function name
   bool bool_altitude_gngga_under = false;
   char altitude_gngga_under[56] = "altitude_gngga_under";
-  bool bool_altitude_gngga_under_equal = false;
+  bool bool_altitude_gngga_equal = false;
   char altitude_gngga_equal[56] = "altitude_gngga_equal";
   bool bool_altitude_gngga_in_range = false;
   char altitude_gngga_in_range[56] = "altitude_gngga_in_range";
+
+  bool bool_speed_gngga_over = false; // variably specify relay activates or deactivates
+  char speed_gngga_over[56] = "speed_gngga_over"; // relay function name
+  bool bool_speed_gngga_under = false;
+  char speed_gngga_under[56] = "speed_gngga_under";
+  bool bool_speed_gngga_equal = false;
+  char speed_gngga_equal[56] = "speed_gngga_equal";
+  bool bool_speed_gngga_in_range = false;
+  char speed_gngga_in_range[56] = "speed_gngga_in_range";
 
 };
 RelayStruct relayData;
