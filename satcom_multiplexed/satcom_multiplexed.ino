@@ -169,6 +169,50 @@ struct GNGGAStruct {
 GNGGAStruct gnggaData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                        GNGGA
+
+void GNGGA() {
+  
+  memset(gnggaData.tag, 0, 56);
+  memset(gnggaData.utc_time, 0, 56);
+  memset(gnggaData.latitude, 0, 56);
+  memset(gnggaData.latitude_hemisphere, 0, 56);
+  memset(gnggaData.longitude, 0, 56);
+  memset(gnggaData.longitude_hemisphere, 0, 56);
+  memset(gnggaData.positioning_status, 0, 56);
+  memset(gnggaData.satellite_count, 0, 56);
+  memset(gnggaData.hddp_precision_factor, 0, 56);
+  memset(gnggaData.altitude, 0, 56);
+  memset(gnggaData.height_earth_ellipsoid_relative_to_geoid, 0, 56);
+  memset(gnggaData.differential_time, 0, 56);
+  memset(gnggaData.differential_reference_base_station_label, 0, 56);
+  memset(gnggaData.xor_check_value, 0, 56);
+  memset(gnggaData.cr, 0, 56);
+  serialData.iter_token = 0;
+  serialData.token = strtok(serialData.BUFFER, ",");
+  while( serialData.token != NULL ) {
+    if     (serialData.iter_token == 0) {strcpy(gnggaData.tag, "GNGGA");}
+    else if (serialData.iter_token ==1) {if (strlen(serialData.token) <= 9) {strcpy(gnggaData.utc_time, serialData.token);}}
+    else if (serialData.iter_token ==2) {if (strlen(serialData.token) <= 17) {strcpy(gnggaData.latitude, serialData.token);}}
+    else if (serialData.iter_token ==3) {if (strlen(serialData.token) <= 1) {strcpy(gnggaData.latitude_hemisphere, serialData.token);}}
+    else if (serialData.iter_token ==4) {if (strlen(serialData.token) <= 17) {strcpy(gnggaData.longitude, serialData.token);}}
+    else if (serialData.iter_token ==5) {if (strlen(serialData.token) <= 1) {strcpy(gnggaData.longitude_hemisphere, serialData.token);}}
+    else if (serialData.iter_token ==6) {if (strlen(serialData.token) <= 1) {strcpy(gnggaData.positioning_status, serialData.token);}}
+    else if (serialData.iter_token ==7) {strcpy(gnggaData.satellite_count, serialData.token);}
+    else if (serialData.iter_token ==8) {strcpy(gnggaData.hddp_precision_factor, serialData.token);}
+    else if (serialData.iter_token ==9) {strcpy(gnggaData.altitude, serialData.token);}
+    else if (serialData.iter_token ==10) {strcpy(gnggaData.height_earth_ellipsoid_relative_to_geoid, serialData.token);}
+    else if (serialData.iter_token ==11) {strcpy(gnggaData.differential_time, serialData.token);}
+    else if (serialData.iter_token ==12) {strcpy(gnggaData.differential_reference_base_station_label, serialData.token);}                  
+    else if (serialData.iter_token ==13) {strcpy(gnggaData.xor_check_value, serialData.token);}  
+    else if (serialData.iter_token ==14) {strcpy(gnggaData.cr, serialData.token);}  
+    else if (serialData.iter_token ==15) {strcpy(gnggaData.lf, serialData.token);}
+    serialData.token = strtok(NULL, ",");
+    serialData.iter_token++;
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GNRMC DATA
 
 struct GNRMCStruct {
@@ -191,6 +235,54 @@ struct GNRMCStruct {
   char lf[56];                                        // <15> <LF> line feed, end tag
 };
 GNRMCStruct gnrmcData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                        GNRMC
+
+void GNRMC() {
+  
+  memset(gnrmcData.tag, 0, 56);
+  memset(gnrmcData.utc_time, 0, 56);
+  memset(gnrmcData.positioning_status, 0, 56);
+  memset(gnrmcData.latitude, 0, 56);
+  memset(gnrmcData.latitude_hemisphere, 0, 56);
+  memset(gnrmcData.longitude, 0, 56);
+  memset(gnrmcData.longitude_hemisphere, 0, 56);
+  memset(gnrmcData.ground_speed, 0, 56);
+  memset(gnrmcData.ground_heading, 0, 56);
+  memset(gnrmcData.utc_date, 0, 56);
+  memset(gnrmcData.magnetic_declination, 0, 56);
+  memset(gnrmcData.magnetic_declination_direction, 0, 56);
+  memset(gnrmcData.mode_indication, 0, 56);
+  memset(gnrmcData.xor_check_value, 0, 56);
+  memset(gnrmcData.cr, 0, 56);
+  memset(gnrmcData.lf, 0, 56);
+
+  serialData.iter_token = 0;
+  serialData.token = strtok(serialData.BUFFER, ",");
+  while( serialData.token != NULL ) {
+    if     (serialData.iter_token == 0) {strcpy(gnrmcData.tag, "GNGGA");}
+    else if (serialData.iter_token ==1) {if (strlen(serialData.token) <= 9) {strcpy(gnggaData.utc_time, serialData.token);}}
+    else if (serialData.iter_token ==2) {strcpy(gnrmcData.positioning_status, serialData.token);}
+    else if (serialData.iter_token ==3) {if (strlen(serialData.token) <= 17) {strcpy(gnrmcData.latitude, serialData.token);}}
+    else if (serialData.iter_token ==4) {if (strlen(serialData.token) <= 1) {strcpy(gnrmcData.latitude_hemisphere, serialData.token);}}
+    else if (serialData.iter_token ==5) {if (strlen(serialData.token) <= 17) {strcpy(gnrmcData.longitude, serialData.token);}}
+    else if (serialData.iter_token ==6) {if (strlen(serialData.token) <= 1) {strcpy(gnrmcData.longitude_hemisphere, serialData.token);}}
+    else if (serialData.iter_token ==7) {strcpy(gnrmcData.ground_speed, serialData.token);}
+    else if (serialData.iter_token ==8) {strcpy(gnrmcData.ground_heading, serialData.token);}
+    else if (serialData.iter_token ==9) {if (strlen(serialData.token) <= 6) {strcpy(gnrmcData.utc_date, serialData.token);}}
+    else if (serialData.iter_token ==10) {strcpy(gnrmcData.magnetic_declination, serialData.token);}
+    else if (serialData.iter_token ==11) {strcpy(gnrmcData.magnetic_declination_direction, serialData.token);}
+    else if (serialData.iter_token ==12) {strncpy(gnrmcData.mode_indication, serialData.token, 1);}                  
+    else if (serialData.iter_token ==13) {strcpy(gnrmcData.xor_check_value, serialData.token);}  
+    else if (serialData.iter_token ==14) {strcpy(gnrmcData.cr, serialData.token);}  
+    else if (serialData.iter_token ==15) {strcpy(gnrmcData.lf, serialData.token);}
+    serialData.token = strtok(NULL, ",");
+    serialData.iter_token++;
+  }
+}
+
+
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GPATT DATA
@@ -239,6 +331,103 @@ struct GPATTStruct {
   char check_sum[56];        // <40> *2c
 };
 GPATTStruct gpattData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                        GPATT
+
+void GPATT() {
+  memset(gpattData.tag, 0, 56);
+  memset(gpattData.pitch, 0, 56);
+  memset(gpattData.angle_channel_0, 0, 56);
+  memset(gpattData.roll, 0, 56);
+  memset(gpattData.angle_channel_1, 0, 56);
+  memset(gpattData.yaw, 0, 56);
+  memset(gpattData.angle_channel_2, 0, 56);
+  memset(gpattData.software_version, 0, 56);
+  memset(gpattData.version_channel, 0, 56);
+  memset(gpattData.product_id, 0, 56);
+  memset(gpattData.id_channel, 0, 56);
+  memset(gpattData.ins, 0, 56);
+  memset(gpattData.ins_channel, 0, 56);
+  memset(gpattData.hardware_version, 0, 56);
+  memset(gpattData.run_state_flag, 0, 56);
+  memset(gpattData.mis_angle_num, 0, 56);
+  memset(gpattData.custom_flag_0, 0, 56);
+  memset(gpattData.custom_flag_1, 0, 56);
+  memset(gpattData.mtk_version, 0, 56);
+  memset(gpattData.static_flag, 0, 56);
+  memset(gpattData.user_code, 0, 56);
+  memset(gpattData.gst_data, 0, 56);
+  memset(gpattData.line_flag, 0, 56);
+  memset(gpattData.custom_flag_2, 0, 56);
+  memset(gpattData.custom_flag_3, 0, 56);
+  memset(gpattData.imu_kind, 0, 56);
+  memset(gpattData.subi_car_kind, 0, 56);
+  memset(gpattData.mileage, 0, 56);
+  memset(gpattData.custom_flag_4, 0, 56);
+  memset(gpattData.ang_dget_flag, 0, 56);
+  memset(gpattData.run_inetial_flag, 0, 56);
+  memset(gpattData.custom_flag_5, 0, 56);
+  memset(gpattData.custom_flag_6, 0, 56);
+  memset(gpattData.custom_flag_7, 0, 56);
+  memset(gpattData.custom_flag_8, 0, 56);
+  memset(gpattData.custom_flag_9, 0, 56);
+  memset(gpattData.time_save_num, 0, 56);
+  memset(gpattData.fix_angle_flag, 0, 56);
+  memset(gpattData.ang_lock_flag, 0, 56);
+  memset(gpattData.extensible, 0, 56);
+  memset(gpattData.check_sum, 0, 56);
+  
+  serialData.iter_token = 0;
+  serialData.token = strtok(serialData.BUFFER, ",");
+  while( serialData.token != NULL ) {
+
+    if      (serialData.iter_token == 0) {strcpy(gpattData.tag, "GPATT");}
+    else if (serialData.iter_token == 1) {strcpy(gpattData.pitch, serialData.token);}
+    else if (serialData.iter_token == 2) {strcpy(gpattData.angle_channel_0, serialData.token);}
+    else if (serialData.iter_token == 3) {strcpy(gpattData.roll, serialData.token);}
+    else if (serialData.iter_token == 4) {strcpy(gpattData.angle_channel_1, serialData.token);}
+    else if (serialData.iter_token == 5) {strcpy(gpattData.yaw, serialData.token);}
+    else if (serialData.iter_token == 6) {strcpy(gpattData.angle_channel_2, serialData.token);}
+    else if (serialData.iter_token == 7) {strcpy(gpattData.software_version, serialData.token);}
+    else if (serialData.iter_token == 8) {strcpy(gpattData.version_channel, serialData.token);}
+    else if (serialData.iter_token == 9) {strcpy(gpattData.product_id, serialData.token);}
+    else if (serialData.iter_token == 10) {strcpy(gpattData.id_channel, serialData.token);}
+    else if (serialData.iter_token == 11) {strcpy(gpattData.ins_channel, serialData.token);}
+    else if (serialData.iter_token == 12) {strcpy(gpattData.hardware_version, serialData.token);}
+    else if (serialData.iter_token == 13) {strcpy(gpattData.run_state_flag, serialData.token);}
+    else if (serialData.iter_token == 14) {strcpy(gpattData.mis_angle_num, serialData.token);}
+    else if (serialData.iter_token == 15) {strcpy(gpattData.custom_flag_0, serialData.token);}
+    else if (serialData.iter_token == 16) {strcpy(gpattData.custom_flag_1, serialData.token);}
+    else if (serialData.iter_token == 17) {strcpy(gpattData.mtk_version, serialData.token);}
+    else if (serialData.iter_token == 18) {strcpy(gpattData.static_flag, serialData.token);}
+    else if (serialData.iter_token == 19) {strcpy(gpattData.user_code, serialData.token);}
+    else if (serialData.iter_token == 20) {strcpy(gpattData.gst_data, serialData.token);}
+    else if (serialData.iter_token == 21) {strcpy(gpattData.line_flag, serialData.token);}
+    else if (serialData.iter_token == 22) {strcpy(gpattData.custom_flag_2, serialData.token);}
+    else if (serialData.iter_token == 23) {strcpy(gpattData.custom_flag_3, serialData.token);}
+    else if (serialData.iter_token == 24) {strcpy(gpattData.imu_kind, serialData.token);}
+    else if (serialData.iter_token == 25) {strcpy(gpattData.subi_car_kind, serialData.token);}
+    else if (serialData.iter_token == 26) {strcpy(gpattData.mileage, serialData.token);}
+    else if (serialData.iter_token == 27) {strcpy(gpattData.custom_flag_4, serialData.token);}
+    else if (serialData.iter_token == 28) {strcpy(gpattData.ang_dget_flag, serialData.token);}
+    else if (serialData.iter_token == 29) {strcpy(gpattData.run_inetial_flag, serialData.token);}
+    else if (serialData.iter_token == 30) {strcpy(gpattData.custom_flag_5, serialData.token);}
+    else if (serialData.iter_token == 31) {strcpy(gpattData.custom_flag_6, serialData.token);}
+    else if (serialData.iter_token == 32) {strcpy(gpattData.custom_flag_7, serialData.token);}
+    else if (serialData.iter_token == 33) {strcpy(gpattData.custom_flag_8, serialData.token);}
+    else if (serialData.iter_token == 34) {strcpy(gpattData.custom_flag_9, serialData.token);}
+    else if (serialData.iter_token == 35) {strcpy(gpattData.time_save_num, serialData.token);}
+    else if (serialData.iter_token == 36) {strcpy(gpattData.fix_angle_flag, serialData.token);}
+    else if (serialData.iter_token == 37) {strcpy(gpattData.ang_lock_flag, serialData.token);}
+    else if (serialData.iter_token == 38) {strcpy(gpattData.extensible, serialData.token);}
+    else if (serialData.iter_token == 39) {strcpy(gpattData.check_sum, serialData.token);}
+
+    serialData.token = strtok(NULL, ",");
+    serialData.iter_token++;
+  }
+}
+
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                              SAT DATA STRUCT
@@ -315,7 +504,6 @@ SatDatatruct satData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                        CREATE COORDINTE DATA
-
 void calculateLocation(){
 
   // --------------------------------------------------------------------------------------------------------------------------
@@ -624,96 +812,6 @@ void setup() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                        GNGGA
-
-void GNGGA() {
-  
-  memset(gnggaData.tag, 0, 56);
-  memset(gnggaData.utc_time, 0, 56);
-  memset(gnggaData.latitude, 0, 56);
-  memset(gnggaData.latitude_hemisphere, 0, 56);
-  memset(gnggaData.longitude, 0, 56);
-  memset(gnggaData.longitude_hemisphere, 0, 56);
-  memset(gnggaData.positioning_status, 0, 56);
-  memset(gnggaData.satellite_count, 0, 56);
-  memset(gnggaData.hddp_precision_factor, 0, 56);
-  memset(gnggaData.altitude, 0, 56);
-  memset(gnggaData.height_earth_ellipsoid_relative_to_geoid, 0, 56);
-  memset(gnggaData.differential_time, 0, 56);
-  memset(gnggaData.differential_reference_base_station_label, 0, 56);
-  memset(gnggaData.xor_check_value, 0, 56);
-  memset(gnggaData.cr, 0, 56);
-  serialData.iter_token = 0;
-  serialData.token = strtok(serialData.BUFFER, ",");
-  while( serialData.token != NULL ) {
-    if     (serialData.iter_token == 0) {strcpy(gnggaData.tag, "GNGGA");}
-    else if (serialData.iter_token ==1) {if (strlen(serialData.token) <= 9) {strcpy(gnggaData.utc_time, serialData.token);}}
-    else if (serialData.iter_token ==2) {if (strlen(serialData.token) <= 17) {strcpy(gnggaData.latitude, serialData.token);}}
-    else if (serialData.iter_token ==3) {if (strlen(serialData.token) <= 1) {strcpy(gnggaData.latitude_hemisphere, serialData.token);}}
-    else if (serialData.iter_token ==4) {if (strlen(serialData.token) <= 17) {strcpy(gnggaData.longitude, serialData.token);}}
-    else if (serialData.iter_token ==5) {if (strlen(serialData.token) <= 1) {strcpy(gnggaData.longitude_hemisphere, serialData.token);}}
-    else if (serialData.iter_token ==6) {if (strlen(serialData.token) <= 1) {strcpy(gnggaData.positioning_status, serialData.token);}}
-    else if (serialData.iter_token ==7) {strcpy(gnggaData.satellite_count, serialData.token);}
-    else if (serialData.iter_token ==8) {strcpy(gnggaData.hddp_precision_factor, serialData.token);}
-    else if (serialData.iter_token ==9) {strcpy(gnggaData.altitude, serialData.token);}
-    else if (serialData.iter_token ==10) {strcpy(gnggaData.height_earth_ellipsoid_relative_to_geoid, serialData.token);}
-    else if (serialData.iter_token ==11) {strcpy(gnggaData.differential_time, serialData.token);}
-    else if (serialData.iter_token ==12) {strcpy(gnggaData.differential_reference_base_station_label, serialData.token);}                  
-    else if (serialData.iter_token ==13) {strcpy(gnggaData.xor_check_value, serialData.token);}  
-    else if (serialData.iter_token ==14) {strcpy(gnggaData.cr, serialData.token);}  
-    else if (serialData.iter_token ==15) {strcpy(gnggaData.lf, serialData.token);}
-    serialData.token = strtok(NULL, ",");
-    serialData.iter_token++;
-  }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                        GNRMC
-
-void GNRMC() {
-  
-  memset(gnrmcData.tag, 0, 56);
-  memset(gnrmcData.utc_time, 0, 56);
-  memset(gnrmcData.positioning_status, 0, 56);
-  memset(gnrmcData.latitude, 0, 56);
-  memset(gnrmcData.latitude_hemisphere, 0, 56);
-  memset(gnrmcData.longitude, 0, 56);
-  memset(gnrmcData.longitude_hemisphere, 0, 56);
-  memset(gnrmcData.ground_speed, 0, 56);
-  memset(gnrmcData.ground_heading, 0, 56);
-  memset(gnrmcData.utc_date, 0, 56);
-  memset(gnrmcData.magnetic_declination, 0, 56);
-  memset(gnrmcData.magnetic_declination_direction, 0, 56);
-  memset(gnrmcData.mode_indication, 0, 56);
-  memset(gnrmcData.xor_check_value, 0, 56);
-  memset(gnrmcData.cr, 0, 56);
-  memset(gnrmcData.lf, 0, 56);
-
-  serialData.iter_token = 0;
-  serialData.token = strtok(serialData.BUFFER, ",");
-  while( serialData.token != NULL ) {
-    if     (serialData.iter_token == 0) {strcpy(gnrmcData.tag, "GNGGA");}
-    else if (serialData.iter_token ==1) {if (strlen(serialData.token) <= 9) {strcpy(gnggaData.utc_time, serialData.token);}}
-    else if (serialData.iter_token ==2) {strcpy(gnrmcData.positioning_status, serialData.token);}
-    else if (serialData.iter_token ==3) {if (strlen(serialData.token) <= 17) {strcpy(gnrmcData.latitude, serialData.token);}}
-    else if (serialData.iter_token ==4) {if (strlen(serialData.token) <= 1) {strcpy(gnrmcData.latitude_hemisphere, serialData.token);}}
-    else if (serialData.iter_token ==5) {if (strlen(serialData.token) <= 17) {strcpy(gnrmcData.longitude, serialData.token);}}
-    else if (serialData.iter_token ==6) {if (strlen(serialData.token) <= 1) {strcpy(gnrmcData.longitude_hemisphere, serialData.token);}}
-    else if (serialData.iter_token ==7) {strcpy(gnrmcData.ground_speed, serialData.token);}
-    else if (serialData.iter_token ==8) {strcpy(gnrmcData.ground_heading, serialData.token);}
-    else if (serialData.iter_token ==9) {if (strlen(serialData.token) <= 6) {strcpy(gnrmcData.utc_date, serialData.token);}}
-    else if (serialData.iter_token ==10) {strcpy(gnrmcData.magnetic_declination, serialData.token);}
-    else if (serialData.iter_token ==11) {strcpy(gnrmcData.magnetic_declination_direction, serialData.token);}
-    else if (serialData.iter_token ==12) {strncpy(gnrmcData.mode_indication, serialData.token, 1);}                  
-    else if (serialData.iter_token ==13) {strcpy(gnrmcData.xor_check_value, serialData.token);}  
-    else if (serialData.iter_token ==14) {strcpy(gnrmcData.cr, serialData.token);}  
-    else if (serialData.iter_token ==15) {strcpy(gnrmcData.lf, serialData.token);}
-    serialData.token = strtok(NULL, ",");
-    serialData.iter_token++;
-  }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 1
 
 void readRXD_1() {
@@ -755,7 +853,8 @@ void readRXD_1() {
     //                                                                                                                    GPATT
 
     else if (strncmp(serialData.BUFFER, "$GPATT", 6) == 0) {
-      // Serial.print(""); Serial.println(serialData.BUFFER);
+      Serial.print(""); Serial.println(serialData.BUFFER);
+      GPATT();
     }
   }
 }
