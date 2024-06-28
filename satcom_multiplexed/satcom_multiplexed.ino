@@ -45,9 +45,9 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 
 
                                                 SENTENCE $SATCOM
-
-              START Tag        Last Sat Time                    ConvertedLongitude                      END Tag
-              |                      |                                 |                                   |   
+                                                                               Start Location Names and I/O Range Bools
+              START Tag        Last Sat Time                    ConvertedLongitude               |      END Tag
+              |                      |                                 |                         |         |   
               $SATCOM,000000000000.00,000000000000.00,00.00000000000000,00.00000000000000,location_name,0,0,*Z
                      |                               |                                                 | |                    
                 DatetimeStamp                 ConvertedLatitude                                 In/Out Range Bools
