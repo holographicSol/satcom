@@ -987,6 +987,21 @@ void relay_function_satellite_count_equal() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                        RELAY FUNCTIONS: TIME
+
+void relay_function_satellite_time_over() {
+  // relay turns on/off when satellite count is over specified count
+}
+
+void relay_function_satellite_time_under() {
+  // relay turns on/off when satellite count is under specified count
+}
+
+void relay_function_satellite_time_equal() {
+  // relay turns on/off when satellite count is equal to specified count
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                SYSTEMS CHECK
 
 /*
