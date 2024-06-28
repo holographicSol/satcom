@@ -944,7 +944,8 @@ additional configuration could include running once, running each time etc. for 
 */
 
 struct RelayStruct {
-  char relay_0[10] = "$NONE";
+
+  char relay_0[10] = "$NONE"; // variably specify relay function name 
   char relay_1[10] = "$NONE";
   char relay_2[10] = "$NONE";
   char relay_3[10] = "$NONE";
@@ -954,10 +955,19 @@ struct RelayStruct {
   char relay_7[10] = "$NONE";
   char relay_8[10] = "$NONE";
   char relay_9[10] = "$NONE";
+
+  // default and specifiable value to indicate a relay should not be activated/deactivated
   char relay_function_NONE[10] = "$NONE";
-  char  relay_function_satellite_count_over[56] = "relay_function_satellite_count_over";
+
+  bool bool_relay_function_satellite_count_over = false; // variably specify relay activates or deactivates
+  char relay_function_satellite_count_over[56] = "relay_function_satellite_count_over"; // relay function name
+
+  bool bool_relay_function_satellite_count_under = false;
   char relay_function_satellite_count_under[56] = "relay_function_satellite_count_under";
+
+  bool bool_relay_function_satellite_count_equal = false;
   char relay_function_satellite_count_equal[56] = "relay_function_satellite_count_equal";
+
 };
 RelayStruct relayData;
 
