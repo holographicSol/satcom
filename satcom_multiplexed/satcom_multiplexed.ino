@@ -957,140 +957,168 @@ struct RelayStruct {
   char relay_9[10] = "$NONE";
 
   // default and specifiable value to indicate a relay should not be activated/deactivated
-  char relay_function_NONE[10] = "$NONE";
+  char NONE[10] = "$NONE";
 
-  bool bool_relay_function_satellite_count_over = false; // variably specify relay activates or deactivates
-  char relay_function_satellite_count_over[56] = "relay_function_satellite_count_over"; // relay function name
-  bool bool_relay_function_satellite_count_under = false;
-  char relay_function_satellite_count_under[56] = "relay_function_satellite_count_under";
-  bool bool_relay_function_satellite_count_equal = false;
-  char relay_function_satellite_count_equal[56] = "relay_function_satellite_count_equal";
+  bool bool_satellite_count_over = false; // variably specify relay activates or deactivates
+  char satellite_count_over[56] = "satellite_count_over"; // relay function name
+  bool bool_satellite_count_under = false;
+  char satellite_count_under[56] = "satellite_count_under";
+  bool bool_satellite_count_equal = false;
+  char satellite_count_equal[56] = "satellite_count_equal";
 
-  bool bool_relay_function_satellite_time_over = false; // variably specify relay activates or deactivates
-  char relay_function_satellite_time_over[56] = "relay_function_satellite_time_over"; // relay function name
-  bool bool_relay_function_satellite_time_under = false;
-  char relay_function_satellite_time_under[56] = "relay_function_satellite_time_under";
-  bool bool_relay_function_satellite_time_equal = false;
-  char relay_function_satellite_time_equal[56] = "relay_function_satellite_count_equal";
-  bool bool_relay_function_satellite_time_period = false;
-  char relay_function_satellite_time_period[56] = "relay_function_satellite_time_period";
+  bool bool_satellite_time_over = false; // variably specify relay activates or deactivates
+  char satellite_time_over[56] = "satellite_time_over"; // relay function name
+  bool bool_satellite_time_under = false;
+  char satellite_time_under[56] = "satellite_time_under";
+  bool bool_satellite_time_equal = false;
+  char satellite_time_equal[56] = "satellite_count_equal";
+  bool bool_satellite_time_period = false;
+  char satellite_time_period[56] = "satellite_time_period";
 
-  bool bool_relay_function_satellite_coord_over = false; // variably specify relay activates or deactivates
-  char relay_function_satellite_coord_over[56] = "relay_function_satellite_coord_over"; // relay function name
-  bool bool_relay_function_satellite_coord_under = false;
-  char relay_function_satellite_coord_under[56] = "relay_function_satellite_coord_under";
-  bool bool_relay_function_satellite_coord_equal = false;
-  char relay_function_satellite_coord_equal[56] = "relay_function_satellite_coord_equal";
-  bool bool_relay_function_satellite_coord_in_range = false;
-  char relay_function_satellite_coord_in_range[56] = "relay_function_satellite_coord_in_range";
+  bool bool_satellite_coord_over = false; // variably specify relay activates or deactivates
+  char satellite_coord_over[56] = "satellite_coord_over"; // relay function name
+  bool bool_satellite_coord_under = false;
+  char satellite_coord_under[56] = "satellite_coord_under";
+  bool bool_satellite_coord_equal = false;
+  char satellite_coord_equal[56] = "satellite_coord_equal";
+  bool bool_satellite_coord_in_range = false;
+  char satellite_coord_in_range[56] = "satellite_coord_in_range";
 
   
-  bool bool_relay_function_satellite_hemisphere_N = false; // variably specify relay activates or deactivates
-  char relay_function_satellite_hemisphere_N[56] = "relay_function_satellite_hemisphere_N"; // relay function name
-  bool bool_relay_function_satellite_hemisphere_E = false;
-  char relay_function_satellite_hemisphere_E[56] = "relay_function_satellite_hemisphere_E";
-  bool bool_relay_function_satellite_hemisphere_S = false;
-  char relay_function_satellite_hemisphere_S[56] = "relay_function_satellite_hemisphere_S";
-  bool bool_relay_function_satellite_hemisphere_W = false;
-  char relay_function_satellite_hemisphere_W[56] = "relay_function_satellite_hemisphere_W";
+  bool bool_satellite_hemisphere_N = false; // variably specify relay activates or deactivates
+  char satellite_hemisphere_N[56] = "satellite_hemisphere_N"; // relay function name
+  bool bool_satellite_hemisphere_E = false;
+  char satellite_hemisphere_E[56] = "satellite_hemisphere_E";
+  bool bool_satellite_hemisphere_S = false;
+  char satellite_hemisphere_S[56] = "satellite_hemisphere_S";
+  bool bool_satellite_hemisphere_W = false;
+  char satellite_hemisphere_W[56] = "satellite_hemisphere_W";
 
-  bool bool_relay_function_satellite_hemisphere_NE = false; // variably specify relay activates or deactivates
-  char relay_function_satellite_hemisphere_NE[56] = "relay_function_satellite_hemisphere_NE"; // relay function name
-  bool bool_relay_function_satellite_hemisphere_SE = false;
-  char relay_function_satellite_hemisphere_SE[56] = "relay_function_satellite_hemisphere_SE";
-  bool bool_relay_function_satellite_hemisphere_NW = false;
-  char relay_function_satellite_hemisphere_NW[56] = "relay_function_satellite_hemisphere_NW";
-  bool bool_relay_function_satellite_hemisphere_SW = false;
-  char relay_function_satellite_hemisphere_SW[56] = "relay_function_satellite_hemisphere_SW";
+  bool bool_satellite_hemisphere_NE = false; // variably specify relay activates or deactivates
+  char satellite_hemisphere_NE[56] = "satellite_hemisphere_NE"; // relay function name
+  bool bool_satellite_hemisphere_SE = false;
+  char satellite_hemisphere_SE[56] = "satellite_hemisphere_SE";
+  bool bool_satellite_hemisphere_NW = false;
+  char satellite_hemisphere_NW[56] = "satellite_hemisphere_NW";
+  bool bool_satellite_hemisphere_SW = false;
+  char satellite_hemisphere_SW[56] = "satellite_hemisphere_SW";
+
+  bool bool_satellite_precision_factor_gngga_over = false; // variably specify relay activates or deactivates
+  char satellite_precision_factor_gngga_over[56] = "satellite_precision_factor_gngga_over"; // relay function name
+  bool bool_satellite_precision_factor_gngga_under = false;
+  char satellite_precision_factor_gngga_under[56] = "satellite_precision_factor_gngga_under";
+  bool bool_satellite_precision_gngga_factor_equal = false;
+  char satellite_precision_factor_gngga_equal[56] = "satellite_precision_factor_gngga_equal";
+  bool bool_satellite_precision_factor_gngga_in_range = false;
+  char satellite_precision_factor_gngga_in_range[56] = "satellite_precision_factor_gngga_in_range";
 
 };
 RelayStruct relayData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                      RELAY FUNCTIONS: PRECISION FACTOR GNGGA
+
+void satellite_precision_factor_gngga_over() {
+  // relay turns on/off 
+}
+
+void satellite_precision_factor_gngga_under() {
+  // relay turns on/off
+}
+
+void satellite_precision_factor_gngga_equal() {
+  // relay turns on/off
+}
+
+void satellite_precision_factor_gngga_in_range() {
+  // relay turns on/off
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: HEMISPHERE
 
-void relay_function_satellite_hemisphere_N() {
+void satellite_hemisphere_N() {
   // relay turns on/off 
 }
 
-void relay_function_satellite_hemisphere_E() {
+void satellite_hemisphere_E() {
   // relay turns on/off
 }
 
-void relay_function_satellite_hemisphere_S() {
+void satellite_hemisphere_S() {
   // relay turns on/off
 }
 
-void relay_function_satellite_hemisphere_W() {
+void satellite_hemisphere_W() {
   // relay turns on/off
 }
 
-void relay_function_satellite_hemisphere_NE() {
+void satellite_hemisphere_NE() {
   // relay turns on/off 
 }
 
-void relay_function_satellite_hemisphere_SE() {
+void satellite_hemisphere_SE() {
   // relay turns on/off
 }
 
-void relay_function_satellite_hemisphere_NW() {
+void satellite_hemisphere_NW() {
   // relay turns on/off
 }
 
-void relay_function_satellite_hemisphere_SW() {
+void satellite_hemisphere_SW() {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: COORDINATES
 
-void relay_function_satellite_coord_over() {
+void satellite_coord_over() {
   // relay turns on/off 
 }
 
-void relay_function_satellite_coord_under() {
+void satellite_coord_under() {
   // relay turns on/off
 }
 
-void relay_function_satellite_coord_equal() {
+void satellite_coord_equal() {
   // relay turns on/off
 }
 
-void relay_function_satellite_coord_in_range() {
+void satellite_coord_in_range() {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                        RELAY FUNCTIONS: TIME
 
-void relay_function_satellite_time_over() {
+void satellite_time_over() {
   // relay turns on/off 
 }
 
-void relay_function_satellite_time_under() {
+void satellite_time_under() {
   // relay turns on/off
 }
 
-void relay_function_satellite_time_equal() {
+void satellite_time_equal() {
   // relay turns on/off 
 }
 
-void relay_function_satellite_time_period() {
+void satellite_time_period() {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                             RELAY FUNCTIONS: SATELLITE COUNT
 
-void relay_function_satellite_count_over() {
+void satellite_count_over() {
   // relay turns on/off 
 }
 
-void relay_function_satellite_count_under() {
+void satellite_count_under() {
   // relay turns on/off
 }
 
-void relay_function_satellite_count_equal() {
+void satellite_count_equal() {
   // relay turns on/off
 }
 
@@ -1103,31 +1131,36 @@ Check each relays key and run a function for each relays corresponding key. Firs
 
 void systems_Check() {
 
-  if (strcmp(relayData.relay_0, relayData.relay_function_NONE)) {}
+  if (strcmp(relayData.relay_0, relayData.NONE)) {}
 
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_NE)) {relay_function_satellite_hemisphere_NE();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_SE)) {relay_function_satellite_hemisphere_SE();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_NW)) {relay_function_satellite_hemisphere_NW();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_SW)) {relay_function_satellite_hemisphere_SW();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_precision_factor_gngga_over)) {satellite_precision_factor_gngga_over();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_precision_factor_gngga_under)) {satellite_precision_factor_gngga_under();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_precision_factor_gngga_equal)) {satellite_precision_factor_gngga_equal();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_precision_factor_gngga_in_range)) {satellite_precision_factor_gngga_in_range();}
 
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_N)) {relay_function_satellite_hemisphere_N();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_E)) {relay_function_satellite_hemisphere_E();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_S)) {relay_function_satellite_hemisphere_S();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_hemisphere_W)) {relay_function_satellite_hemisphere_W();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_hemisphere_NE)) {satellite_hemisphere_NE();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_hemisphere_SE)) {satellite_hemisphere_SE();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_hemisphere_NW)) {satellite_hemisphere_NW();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_hemisphere_SW)) {satellite_hemisphere_SW();}
 
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_coord_over)) {relay_function_satellite_coord_over();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_coord_under)) {relay_function_satellite_coord_under();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_coord_equal)) {relay_function_satellite_coord_equal();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_coord_in_range)) {relay_function_satellite_coord_in_range();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_hemisphere_N)) {satellite_hemisphere_N();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_hemisphere_E)) {satellite_hemisphere_E();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_hemisphere_S)) {satellite_hemisphere_S();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_hemisphere_W)) {satellite_hemisphere_W();}
 
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_time_over)) {relay_function_satellite_time_over();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_time_under)) {relay_function_satellite_time_under();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_time_equal)) {relay_function_satellite_time_equal();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_time_equal)) {relay_function_satellite_time_equal();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_coord_over)) {satellite_coord_over();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_coord_under)) {satellite_coord_under();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_coord_equal)) {satellite_coord_equal();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_coord_in_range)) {satellite_coord_in_range();}
 
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_count_over)) {relay_function_satellite_count_over();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_count_under)) {relay_function_satellite_count_under();}
-  else if (strcmp(relayData.relay_0, relayData.relay_function_satellite_time_period)) {relay_function_satellite_time_period();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_over)) {satellite_time_over();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_under)) {satellite_time_under();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_equal)) {satellite_time_equal();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_equal)) {satellite_time_equal();}
+
+  else if (strcmp(relayData.relay_0, relayData.satellite_count_over)) {satellite_count_over();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_count_under)) {satellite_count_under();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_period)) {satellite_time_period();}
 
 }
 
