@@ -173,7 +173,8 @@ void initDisplay3() {
 
 /*
 A minimum of N relays would be required to satisfy various flags. This can allow satcom to be as general purpose as intended,
-from minimal to maximal operation/utilization of the WPS300 as and when required by different projects. 
+from minimal to maximal operation/utilization of the WPS300 as and when required by different projects, even turning on/off other
+systems that begin running their own routines, by having them turn on/off with these relays.
 */
 
 struct RelayStruct {
