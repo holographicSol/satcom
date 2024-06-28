@@ -350,7 +350,6 @@ void extrapulatedSatData() {
   //                                                                                                     SATCOM SENTENCE: BEGIN
 
   memset(satData.satcom_sentence, 0, 1024);
-
   strcat(satData.satcom_sentence, satData.satDataTag);
   strcat(satData.satcom_sentence, ",");
 
