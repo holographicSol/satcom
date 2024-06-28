@@ -12,7 +12,7 @@
                         Converts Latitude and Longitude from $ sentences into Decimal Latitude and Longitude.
   This helps when compaing latitude and longitude with other maps, these values are then stored and placed into a new $ sentence.
 
-
+ 
                                                      Timestamps
       A datetime string is created from GNGGA and GNRMC $ sentence information, forms a part of the new $SATCOM sentence
                                                      
@@ -22,8 +22,8 @@
                         
 
                                                       Ranging
-Specified coordinates at specified meter/mile ranges. For location pinning, guidance, tracking, motion detection, etc. these values
-                                        can be added to the new $SATCOM sentence.
+Specified coordinates at specified meter/mile ranges. For location pinning, guidance, tracking, motion detection, autonomy  etc.
+                                  these values can be added to the new $SATCOM sentence.
 
                                                 
                                                     Serial Dump
@@ -32,19 +32,19 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                         a standard way and for generic use.
 
                                         
-                                                  Compatibility
+                                                   Compatibility
                      To Be Potentially Anything And Function As A Hardware Plugin For Other Projects
                                          Headless / Standalone / Serial / Remote
 
 
-                          Wiring for Optional Multiplexed OLED Displays (SSD1306 Monochromes)
-                                    WTGPS300 TX              --> ESP32 io26 as RXD
-                                    WTGPS300 VCC             --> ESP32 3.3/5v
-                                    TCA9548A i2C Multiplexer --> ESP32 i2C
-                                    x3 SSD1306               --> TCA9548A i2C Multiplexer
+                              Wiring for Optional Multiplexed OLED Displays (SSD1306 Monochromes)
+                                       WTGPS300 TX              --> ESP32 io26 as RXD
+                                       WTGPS300 VCC             --> ESP32 3.3/5v
+                                       TCA9548A i2C Multiplexer --> ESP32 i2C
+                                       x3 SSD1306               --> TCA9548A i2C Multiplexer
 
 
-                                                SENTENCE $SATCOM
+                                                   SENTENCE $SATCOM
                                                                                Start Location Names and I/O Range Bools
               START Tag        Last Sat Time                    ConvertedLongitude               |      END Tag
               |                      |                                 |                         |         |   
@@ -53,16 +53,20 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                 DatetimeStamp                 ConvertedLatitude                                 In/Out Range Bools
 
 
-                          Create More Values For $ Ssentences And Add More Satellite Hardware.
-                       Create Unique Ranging Sentences For Lists of Variable Specified Ranges.
+                             Create More Values For $ Ssentences And Add More Satellite Hardware.
+                            Create Unique Ranging Sentences For Lists of Variable Specified Ranges.
           This sketch is a layer between a satellite module and other systems to provide a new sentence and or the above+.
     Ranging and other activities can be performed here but it may be preferrable to make satcom a pure layer between systems,
-                                          depending on performance.
+                                              depending on performance.
           If data is intened to be passed through to a more powerfull system then turning off coordinte_convert and using
           another (more powerfull) systems resources to perform the coordinate conversions may be preferrable however
-                                    it can all be done here on the same system.
-                  Sytem can be made more or less efficient/standalone by turning some bools on or off. 
- 
+                                      it can all be done here on the same system.
+                  Sytem can be made more or less efficient/standalone by turning some bools on or off.
+
+            Ultimately this system is being built to turn on/off many relays and will be interfaceable. The relays
+          will be switching on/off other MCU's for performance and efficiency reasons, so that I have an interfaceable
+        programmable satellite utility system with logging. plug everything in and make data easily useable for projects.
+    For security reasons The peripheral MCU's should be on hard switches to enable/disable features provided by those MCU's.
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -81,7 +85,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       WIRING
 
-SSD1306Wire   display(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
+SSD1306Wire   display(0x3c, SDA, SCL);  // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display2(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 
@@ -187,6 +191,54 @@ struct GNRMCStruct {
   char lf[56];                                        // <15> <LF> line feed, end tag
 };
 GNRMCStruct gnrmcData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                   GPATT DATA
+
+struct GPATTStruct {
+  char tag[56];              // <0> Log header
+  char pitch[56];            // <1> pitch angle
+  char angle_channel[56];    // <2> P
+  char roll[56];             // <3> Roll angle
+  char angle_channel[56];    // <4> R
+  char yaw[56];              // <5> Yaw angle
+  char angle_channel[56];    // <6> Y
+  char software_version[56]; // <7> software verion
+  char version_channel[56];  // <8> S
+  char product_id[56];       // <9> Product ID: 96 bit unique ID
+  char id_channel[56];       // <10> ID 
+  char ins[56];              // <11> INS Default open inertial navigation system
+  char ins_channel[56];      // <12> whether inertial navigation open
+  char hardware_version[56]; // <13> Named after master chip
+  char run_state_flag[56];   // <14> Algorithm status flag: 1->3
+  char mis_angle_num[56];    // <15> number of Installation
+  char custom_flag_0[56];    // <16> 
+  char custom_flag_1[56];    // <17> 
+  char mtk_version[56];      // <18> M:MTK1.6.0Version 7: MTK1.7.0Version
+  char static_flag[56];      // <19> 1:Static 0：dynamic
+  char user_code[56];        // <20> 1：Normal user X：Customuser
+  char gst_data[56];         // <21> User satellite accuracy
+  char line_flag[56];        // <22> 1：straight driving，0：curve driving
+  char custom_flag_2[56];    // <23> F:Full Update D:Full Update and Part Update
+  char custom_flag_3[56];    // <24> 
+  char imu_kind[56];         // <25> Sensor Type: 0->BIM055; 1->BMI160; 2->LSM6DS3TR-C; 3->LSM6DSOW 4->ICM-40607; 5->ICM-40608 6->ICM-42670; 7->LSM6DSR
+  char subi_car_kind[56];    // <26> 1: small car, 2: big car
+  char mileage[56];          // <27> kilometers: max 9999 kilometers
+  char custom_flag_4[56];    // <28> D
+  char ang_dget_flag[56];    // <29> 1: The Flash has an installation Angle 0: The Flash has no installation Angle
+  char run_inetial_flag[56]; // <30> 1->4
+  char custom_flag_5[56];    // <31> B
+  char custom_flag_6[56];    // <32> 
+  char custom_flag_7[56];    // <33> 
+  char custom_flag_8[56];    // <34> 
+  char custom_flag_9[56];    // <35> 
+  char time_save_num[56];    // <36> Ephemeris stored times
+  char fix_angle_flag[56];   // <37> F：Fix
+  char ang_lock_flag[56];    // <38> 1：fixed setting，0：Self adaptive installation
+  char extensible[56];       // <39> 
+  char check_sum[56];        // <40> *2c
+};
+GPATTStruct gpattData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                              SAT DATA STRUCT
