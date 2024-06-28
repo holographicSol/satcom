@@ -443,7 +443,7 @@ void extrapulatedSatData() {
 
           // create longitude range bool
           satData.location_range_longitude_bool[i] = false;
-          itoa(satData.location_range_latitude_bool[i], satData.temporary_io_range_bool, 10);
+          itoa(satData.location_range_longitude_bool[i], satData.temporary_io_range_bool, 10);
           if (satData.location_longitude_gngga >= satData.location_range_longitude[i] - satData.location_range_distance_longitude[i]/2) {
             if (satData.location_longitude_gngga  <= satData.location_range_longitude[i] + satData.location_range_distance_longitude[i]/2) {
               satData.location_range_longitude_bool[i] = true;
