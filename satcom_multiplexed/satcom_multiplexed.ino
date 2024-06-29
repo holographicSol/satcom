@@ -965,6 +965,7 @@ struct RelayStruct {
   char bool_relay_7 = false;
   bool bool_relay_8 = false;
   bool bool_relay_9 = false;
+
   double relay_num_less_0 = 20;
   double relay_num_greater_0 = 20;
   double relay_num_equal_0 = 0;
@@ -1456,17 +1457,29 @@ void satellite_time_period(int Ri) {
 
 void satellite_count_gngga_over(int Ri) {
   // relay turns on/off 
-  if (gnggaData.satellite_count_gngga > relayData.satellite_count_gngga_over) {
-    Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] true");
+  if (Ri == 0) {
+    if (String(gnggaData.satellite_count_gngga) > String(relayData.relay_num_greater_0)) {
+      Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] true");
+    }
   }
 }
 
 void satellite_count_gngga_under(int Ri) {
   // relay turns on/off
+  if (Ri == 0) {
+    if (String(gnggaData.satellite_count_gngga) < String(relayData.relay_num_less_0)) {
+      Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] true");
+    }
+  }
 }
 
 void satellite_count_gngga_equal(int Ri) {
   // relay turns on/off
+  if (Ri == 0) {
+    if (String(gnggaData.satellite_count_gngga) == String(relayData.relay_num_equal_0)) {
+      Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] true");
+    }
+  }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
