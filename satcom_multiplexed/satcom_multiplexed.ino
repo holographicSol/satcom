@@ -1044,6 +1044,25 @@ struct RelayStruct {
 RelayStruct relayData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
+
+void speed_gngga_over() {
+  // relay turns on/off 
+}
+
+void speed_gngga_under() {
+  // relay turns on/off
+}
+
+void speed_gngga_equal() {
+  // relay turns on/off
+}
+
+void speed_gngga_in_range() {
+  // relay turns on/off
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                              RELAY FUNCTIONS: ALTITUDE GNGGA
 
 void altitude_gngga_over() {
@@ -1179,6 +1198,11 @@ Check each relays key and run a function for each relays corresponding key. Firs
 void systems_Check() {
 
   if (strcmp(relayData.relay_0, relayData.default_relay_function)) {}
+
+  else if (strcmp(relayData.relay_0, relayData.speed_gngga_over)) {speed_gngga_over();}
+  else if (strcmp(relayData.relay_0, relayData.speed_gngga_under)) {speed_gngga_under();}
+  else if (strcmp(relayData.relay_0, relayData.speed_gngga_equal)) {speed_gngga_equal();}
+  else if (strcmp(relayData.relay_0, relayData.speed_gngga_in_range)) {speed_gngga_in_range();}
 
   else if (strcmp(relayData.relay_0, relayData.altitude_gngga_over)) {altitude_gngga_over();}
   else if (strcmp(relayData.relay_0, relayData.altitude_gngga_under)) {altitude_gngga_under();}
