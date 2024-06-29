@@ -947,45 +947,32 @@ additional configuration could include running once, running each time etc. for 
 
 struct RelayStruct {
 
-  /*
-  relay_N      Specifies which function should be ran for turning relay_N on/off.
-  bool_relay_N Specifies weather relay_N will be turned on/off.
-  relay_data   2D matrix containing specified values that turn relay_N on/off.
-  */
-
   int MAX_RELAYS = 9;
   
   char relays[200][56] = {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"};
 
+  /*
+  2 Dimensional Matrix Containing Values associated with relay functions.
+  0: >
+  1: <
+  2: ==
+  3: x range
+  4: y range
+  5: 0=turn_off 1=turn_on
+  */
+
   double relays_data[10][5] = {
-    {20, 1, 0, 0, 0},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0},
+    {1, 20, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0},
   };
-
-  bool bool_relay_0 = false; // specify function turns on/off the relay.
-  bool bool_relay_1 = false;
-  bool bool_relay_2 = false;
-  bool bool_relay_3 = false;
-  bool bool_relay_4 = false;
-  bool bool_relay_5 = false;
-  bool bool_relay_6 = false;
-  char bool_relay_7 = false;
-  bool bool_relay_8 = false;
-  bool bool_relay_9 = false;
-
-  double relay_num_less_0 = 20;
-  double relay_num_greater_0 = 1;
-  double relay_num_equal_0 = 0;
-  double relay_range_x_0 = 0;
-  double relay_range_y_0 = 0;
 
   // default and specifiable value to indicate a relay should not be activated/deactivated
   char default_relay_function[56] = "$NONE";
