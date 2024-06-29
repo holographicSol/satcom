@@ -1582,6 +1582,10 @@ Check each relays key and run a function for each relays corresponding key. Firs
 
 void systems_Check() {
 
+
+/*
+Remember always: why do you think you can trust this data? Are you transmitting this data to yourelf? How critical is your system>
+*/
   int Ri = 0;
   memset(relayData.relays[Ri], 0, sizeof(relayData.relays[Ri]));
   strcpy(relayData.relays[Ri], relayData.satellite_count_gngga_over); // uncomment to hardcode specify relay zero's function
