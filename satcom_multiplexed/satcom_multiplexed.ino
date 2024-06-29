@@ -181,7 +181,7 @@ struct GNGGAStruct {
   char positioning_status[56];                        /* <6> GNSS positioning status: 0 not positioned, 1 single point positioning,
                                                              2 differential GPS fixed solution, 4 fixed solution, 5 floating point
                                                              solution */
-  char satellite_count_gngga_[56] = "0";                           // <7> Number of satellites used
+  char satellite_count_gngga[56] = "0";                           // <7> Number of satellites used
   char hddp_precision_factor[56];                     // <8> HDOP level precision factor
   char altitude[56];                                  // <9> Altitude
   char height_earth_ellipsoid_relative_to_geoid[56];  // <10> The height of the earth ellipsoid relative to the geoid
@@ -205,7 +205,7 @@ void GNGGA() {
   memset(gnggaData.longitude, 0, 56);
   memset(gnggaData.longitude_hemisphere, 0, 56);
   memset(gnggaData.positioning_status, 0, 56);
-  memset(gnggaData.satellite_count_gngga_, 0, 56);
+  memset(gnggaData.satellite_count_gngga, 0, 56);
   memset(gnggaData.hddp_precision_factor, 0, 56);
   memset(gnggaData.altitude, 0, 56);
   memset(gnggaData.height_earth_ellipsoid_relative_to_geoid, 0, 56);
@@ -223,7 +223,7 @@ void GNGGA() {
     else if (serialData.iter_token ==4) {if (strlen(serialData.token) <= 17) {strcpy(gnggaData.longitude, serialData.token);}}
     else if (serialData.iter_token ==5) {if (strlen(serialData.token) <= 1) {strcpy(gnggaData.longitude_hemisphere, serialData.token);}}
     else if (serialData.iter_token ==6) {if (strlen(serialData.token) <= 1) {strcpy(gnggaData.positioning_status, serialData.token);}}
-    else if (serialData.iter_token ==7) {strcpy(gnggaData.satellite_count_gngga_, serialData.token);}
+    else if (serialData.iter_token ==7) {strcpy(gnggaData.satellite_count_gngga, serialData.token);}
     else if (serialData.iter_token ==8) {strcpy(gnggaData.hddp_precision_factor, serialData.token);}
     else if (serialData.iter_token ==9) {strcpy(gnggaData.altitude, serialData.token);}
     else if (serialData.iter_token ==10) {strcpy(gnggaData.height_earth_ellipsoid_relative_to_geoid, serialData.token);}
@@ -470,7 +470,7 @@ struct SatDatatruct {
                                40075km
   */
 
-  unsigned long satellite_count_gngga_ = 0;
+  unsigned long satellite_count_gngga = 0;
   char   sat_time_stamp_string[56];                               // datetime timestamp from satellite
   char   last_sat_seen_time_stamp_string[56] = "000000000000.00"; // record last time satellites were seen
   char   satDataTag[10]                      = "$SATCOM";         // satcom sentence tag
@@ -633,8 +633,8 @@ void extrapulatedSatData() {
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                       SATCOM SENTENCE: LAST KNOWN DOWNLINK
 
-  satData.satellite_count_gngga_ = atoi(gnggaData.satellite_count_gngga_);
-  if (satData.satellite_count_gngga_ > 0) {
+  satData.satellite_count_gngga = atoi(gnggaData.satellite_count_gngga);
+  if (satData.satellite_count_gngga > 0) {
     memset(satData.last_sat_seen_time_stamp_string, 0, 56);
     strcpy(satData.last_sat_seen_time_stamp_string, satData.sat_time_stamp_string);
   }
@@ -738,7 +738,7 @@ void SSD_Display_6() {
   display_7.setColor(WHITE);
   display_7.clear();
   display_7.drawString(display_7.getWidth()/2, 0, "GNGGA");
-  display_7.drawString(display_7.getWidth()/2, 14, "P " + String(gnggaData.positioning_status) + " S " + String(gnggaData.satellite_count_gngga_));
+  display_7.drawString(display_7.getWidth()/2, 14, "P " + String(gnggaData.positioning_status) + " S " + String(gnggaData.satellite_count_gngga));
   display_7.drawString(display_7.getWidth()/2, 24, String(gnggaData.utc_time));
   display_7.drawString(display_7.getWidth()/2, 34, String(gnggaData.latitude_hemisphere) + " " + String(gnggaData.latitude));
   display_7.drawString(display_7.getWidth()/2, 44, String(gnggaData.longitude_hemisphere) + " " + String(gnggaData.longitude));
@@ -965,13 +965,18 @@ struct RelayStruct {
   char bool_relay_7 = false;
   bool bool_relay_8 = false;
   bool bool_relay_9 = false;
+  double relay_num_less_0 = 20;
+  double relay_num_greater_0 = 20;
+  double relay_num_equal_0 = 0;
+  double relay_range_x_0 = 0;
+  double relay_range_y_0 = 0;
 
   // default and specifiable value to indicate a relay should not be activated/deactivated
   char default_relay_function[56] = "$NONE";
 
   // F=Fix=31
-  bool bool_fix_angle_flag_gpatt_over         = false; // specifies weather the function will run
-  char      fix_angle_flag_gpatt_over[56]     = "fix_angle_flag_gpatt_over"; // relay function name
+  bool bool_fix_angle_flag_gpatt_over         = false; 
+  char      fix_angle_flag_gpatt_over[56]     = "fix_angle_flag_gpatt_over";
   bool bool_fix_angle_flag_gpatt_under        = false;
   char      fix_angle_flag_gpatt_under[56]    = "fix_angle_flag_gpatt_under[";
   bool bool_fix_angle_flag_gpatt_equal        = false;
@@ -979,8 +984,8 @@ struct RelayStruct {
   bool bool_fix_angle_flag_gpatt_in_range     = false;
   char      fix_angle_flag_gpatt_in_range[56] = "fix_angle_flag_gpatt_in_range";
 
-  bool bool_time_save_num_gpatt_over          = false; // specifies weather the function will run
-  char      time_save_num_gpatt_over[56]      = "time_save_num_gpatt_over"; // relay function name
+  bool bool_time_save_num_gpatt_over          = false; 
+  char      time_save_num_gpatt_over[56]      = "time_save_num_gpatt_over";
   bool bool_time_save_num_gpatt_under         = false;
   char      time_save_num_gpatt_under[56]     = "time_save_num_gpatt_under[";
   bool bool_time_save_num_gpatt_equal         = false;
@@ -988,11 +993,11 @@ struct RelayStruct {
   bool bool_time_save_num_gpatt_in_range      = false;
   char      time_save_num_gpatt_in_range[56]  = "time_save_num_gpatt_in_range";
 
-  bool bool_run_inetial_flag_gpatt_equal      = false; // specifies weather the function will run
-  char      run_inetial_flag_gpatt_equal[56]  = "run_inetial_flag_gpatt_equal"; // relay function name
+  bool bool_run_inetial_flag_gpatt_equal      = false; 
+  char      run_inetial_flag_gpatt_equal[56]  = "run_inetial_flag_gpatt_equal";
 
-  bool bool_mileage_gpatt_over                = false; // specifies weather the function will run
-  char      mileage_gpatt_over[56]            = "mileage_gpatt_over"; // relay function name
+  bool bool_mileage_gpatt_over                = false; 
+  char      mileage_gpatt_over[56]            = "mileage_gpatt_over";
   bool bool_mileage_gpatt_under               = false;
   char      mileage_gpatt_under[56]           = "mileage_gpatt_under[";
   bool bool_mileage_gpatt_equal               = false;
@@ -1000,11 +1005,11 @@ struct RelayStruct {
   bool bool_mileage_gpatt_in_range            = false;
   char      mileage_gpatt_in_range[56]        = "mileage_gpatt_in_range";
 
-  bool bool_line_flag_gpatt_equal             = false; // specifies weather the function will run
-  char      line_flag_gpatt_equal[56]         = "line_flag_gpatt_equal"; // relay function name
+  bool bool_line_flag_gpatt_equal             = false; 
+  char      line_flag_gpatt_equal[56]         = "line_flag_gpatt_equal";
 
-  bool bool_gst_data_gpatt_over               = false; // specifies weather the function will run
-  char      gst_data_gpatt_over[56]           = "gst_data_gpatt_over"; // relay function name
+  bool bool_gst_data_gpatt_over               = false; 
+  char      gst_data_gpatt_over[56]           = "gst_data_gpatt_over";
   bool bool_gst_data_gpatt_under              = false;
   char      gst_data_gpatt_under[56]          = "gst_data_gpatt_under[";
   bool bool_gst_data_gpatt_equal              = false;
@@ -1012,17 +1017,17 @@ struct RelayStruct {
   bool bool_gst_data_gpatt_in_range           = false;
   char      gst_data_gpatt_in_range[56]       = "gst_data_gpatt_in_range";
 
-  bool bool_static_flag_gpatt_equal           = false; // specifies weather the function will run
-  char      static_flag_gpatt_equal[56]       = "static_flag_gpatt_equal"; // relay function name
+  bool bool_static_flag_gpatt_equal           = false; 
+  char      static_flag_gpatt_equal[56]       = "static_flag_gpatt_equal";
 
-  bool bool_run_state_flag_gpatt_equal        = false; // specifies weather the function will run
-  char      run_state_flag_gpatt_equal[56]    = "run_state_flag_gpatt_equal"; // relay function name
+  bool bool_run_state_flag_gpatt_equal        = false; 
+  char      run_state_flag_gpatt_equal[56]    = "run_state_flag_gpatt_equal";
 
-  bool bool_ins_gpatt_equal                   = false; // specifies weather the function will run
-  char      ins_gpatt_equal[56]               = "ins_gpatt_equal"; // relay function name
+  bool bool_ins_gpatt_equal                   = false; 
+  char      ins_gpatt_equal[56]               = "ins_gpatt_equal";
 
-  bool bool_yaw_gpatt_over                    = false; // specifies weather the function will run
-  char      yaw_gpatt_over[56]                = "yaw_gpatt_over"; // relay function name
+  bool bool_yaw_gpatt_over                    = false; 
+  char      yaw_gpatt_over[56]                = "yaw_gpatt_over";
   bool bool_yaw_gpatt_under                   = false;
   char      yaw_gpatt_under[56]               = "yaw_gpatt_under[";
   bool bool_yaw_gpatt_equal                   = false;
@@ -1030,8 +1035,8 @@ struct RelayStruct {
   bool bool_yaw_gpatt_in_range                = false;
   char      yaw_gpatt_in_range[56]            = "yaw_gpatt_in_range";
 
-  bool bool_roll_gpatt_over                   = false; // specifies weather the function will run
-  char      roll_gpatt_over[56]               = "roll_gpatt_over"; // relay function name
+  bool bool_roll_gpatt_over                   = false; 
+  char      roll_gpatt_over[56]               = "roll_gpatt_over";
   bool bool_roll_gpatt_under                  = false;
   char      roll_gpatt_under[56]              = "roll_gpatt_under[";
   bool bool_roll_gpatt_equal                  = false;
@@ -1039,8 +1044,8 @@ struct RelayStruct {
   bool bool_roll_gpatt_in_range               = false;
   char      roll_gpatt_in_range[56]           = "roll_gpatt_in_range";
 
-  bool bool_pitch_gpatt_over                  = false; // specifies weather the function will run
-  char      pitch_gpatt_over[56]              = "pitch_gpatt_over"; // relay function name
+  bool bool_pitch_gpatt_over                  = false; 
+  char      pitch_gpatt_over[56]              = "pitch_gpatt_over";
   bool bool_pitch_gpatt_under                 = false;
   char      pitch_gpatt_under[56]             = "pitch_gpatt_under[";
   bool bool_pitch_gpatt_equal                 = false;
@@ -1048,8 +1053,8 @@ struct RelayStruct {
   bool bool_pitch_gpatt_in_range              = false;
   char      pitch_gpatt_in_range[56]          = "pitch_gpatt_in_range";
 
-  bool bool_heading_gnrmc_over                = false; // specifies weather the function will run
-  char      heading_gnrmc_over[56]            = "heading_gnrmc_over"; // relay function name
+  bool bool_heading_gnrmc_over                = false; 
+  char      heading_gnrmc_over[56]            = "heading_gnrmc_over";
   bool bool_heading_gnrmc_under               = false;
   char      heading_gnrmc_under[56]           = "heading_gnrmc_under";
   bool bool_heading_gnrmc_equal               = false;
@@ -1057,15 +1062,15 @@ struct RelayStruct {
   bool bool_heading_gnrmc_in_range            = false;
   char      heading_gnrmc_in_range[56]        = "heading_gnrmc_in_range";
 
-  bool bool_satellite_count_gngga_over        = false; // specifies weather the function will run
-  char      satellite_count_gngga_over[56]    = "satellite_count_gngga_over"; // relay function name
+  bool bool_satellite_count_gngga_over        = false; 
+  char      satellite_count_gngga_over[56]    = "satellite_count_gngga_over";
   bool bool_satellite_count_gngga_under       = false;
   char      satellite_count_gngga_under[56]   = "satellite_count_gngga_under";
   bool bool_satellite_count_gngga_equal       = false;
   char      satellite_count_gngga_equal[56]   = "satellite_count_gngga_equal";
 
-  bool bool_satellite_time_over               = false; // specifies weather the function will run
-  char      satellite_time_over[56]           = "satellite_time_over"; // relay function name
+  bool bool_satellite_time_over               = false; 
+  char      satellite_time_over[56]           = "satellite_time_over";
   bool bool_satellite_time_under              = false;
   char      satellite_time_under[56]          = "satellite_time_under";
   bool bool_satellite_time_equal              = false;
@@ -1073,8 +1078,8 @@ struct RelayStruct {
   bool bool_satellite_time_period             = false;
   char      satellite_time_period[56]         = "satellite_time_period";
 
-  bool bool_satellite_coord_gngga_over         = false; // specifies weather the function will run
-  char      satellite_coord_gngga_over[56]     = "satellite_coord_gngga_over"; // relay function name
+  bool bool_satellite_coord_gngga_over         = false; 
+  char      satellite_coord_gngga_over[56]     = "satellite_coord_gngga_over";
   bool bool_satellite_coord_gngga_under        = false;
   char      satellite_coord_gngga_under[56]    = "satellite_coord_gngga_under";
   bool bool_satellite_coord_gngga_equal        = false;
@@ -1082,8 +1087,8 @@ struct RelayStruct {
   bool bool_satellite_coord_gngga_in_range     = false;
   char      satellite_coord_gngga_in_range[56] = "satellite_coord_gngga_in_range";
 
-  bool bool_hemisphere_gngga_N                 = false; // specifies weather the function will run
-  char      hemisphere_gngga_N[56]             = "hemisphere_gngga_N"; // relay function name
+  bool bool_hemisphere_gngga_N                 = false; 
+  char      hemisphere_gngga_N[56]             = "hemisphere_gngga_N";
   bool bool_hemisphere_gngga_E                 = false;
   char      hemisphere_gngga_E[56]             = "hemisphere_gngga_E";
   bool bool_hemisphere_gngga_S                 = false;
@@ -1091,8 +1096,8 @@ struct RelayStruct {
   bool bool_hemisphere_gngga_W                 = false;
   char      hemisphere_gngga_W[56]             = "hemisphere_gngga_W";
 
-  bool bool_hemisphere_gngga_NE                = false; // specifies weather the function will run
-  char      hemisphere_gngga_NE[56]            = "hemisphere_gngga_NE"; // relay function name
+  bool bool_hemisphere_gngga_NE                = false; 
+  char      hemisphere_gngga_NE[56]            = "hemisphere_gngga_NE";
   bool bool_hemisphere_gngga_SE                = false;
   char      hemisphere_gngga_SE[56]            = "hemisphere_gngga_SE";
   bool bool_hemisphere_gngga_NW                = false;
@@ -1100,8 +1105,8 @@ struct RelayStruct {
   bool bool_hemisphere_gngga_SW                = false;
   char      hemisphere_gngga_SW[56]            = "hemisphere_gngga_SW";
 
-  bool bool_precision_factor_gngga_over            = false; // specifies weather the function will run
-  char      precision_factor_gngga_over[56]        = "precision_factor_gngga_over"; // relay function name
+  bool bool_precision_factor_gngga_over            = false; 
+  char      precision_factor_gngga_over[56]        = "precision_factor_gngga_over";
   bool bool_precision_factor_gngga_under           = false;
   char      precision_factor_gngga_under[56]       = "precision_factor_gngga_under";
   bool bool_satellite_precision_gngga_factor_equal = false;
@@ -1109,8 +1114,8 @@ struct RelayStruct {
   bool bool_precision_factor_gngga_in_range        = false;
   char      precision_factor_gngga_in_range[56]    = "precision_factor_gngga_in_range";
 
-  bool bool_altitude_gngga_over                    = false; // specifies weather the function will run
-  char      altitude_gngga_over[56]                = "altitude_gngga_over"; // relay function name
+  bool bool_altitude_gngga_over                    = false; 
+  char      altitude_gngga_over[56]                = "altitude_gngga_over";
   bool bool_altitude_gngga_under                   = false;
   char      altitude_gngga_under[56]               = "altitude_gngga_under";
   bool bool_altitude_gngga_equal                   = false;
@@ -1118,8 +1123,8 @@ struct RelayStruct {
   bool bool_altitude_gngga_in_range                = false;
   char      altitude_gngga_in_range[56]            = "altitude_gngga_in_range";
 
-  bool bool_speed_gngga_over                       = false; // specifies weather the function will run
-  char      speed_gngga_over[56]                   = "speed_gngga_over"; // relay function name
+  bool bool_speed_gngga_over                       = false; 
+  char      speed_gngga_over[56]                   = "speed_gngga_over";
   bool bool_speed_gngga_under                      = false;
   char      speed_gngga_under[56]                  = "speed_gngga_under";
   bool bool_speed_gngga_equal                      = false;
@@ -1132,332 +1137,335 @@ RelayStruct relayData;
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                              RELAY FUNCTIONS: FIX ANGLE FLAG
 
-void fix_angle_flag_gpatt_over() {
+void fix_angle_flag_gpatt_over(int Ri) {
   // relay turns on/off 
 }
 
-void fix_angle_flag_gpatt_under() {
+void fix_angle_flag_gpatt_under(int Ri) {
   // relay turns on/off
 }
 
-void fix_angle_flag_gpatt_equal() {
+void fix_angle_flag_gpatt_equal(int Ri) {
   // relay turns on/off
 }
 
-void fix_angle_flag_gpatt_in_range() {
+void fix_angle_flag_gpatt_in_range(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                      RELAY FUNCTIONS: EPHEMERIS STORED TIMES
 
-void time_save_num_gpatt_over() {
+void time_save_num_gpatt_over(int Ri) {
   // relay turns on/off 
 }
 
-void time_save_num_gpatt_under() {
+void time_save_num_gpatt_under(int Ri) {
   // relay turns on/off
 }
 
-void time_save_num_gpatt_equal() {
+void time_save_num_gpatt_equal(int Ri) {
   // relay turns on/off
 }
 
-void time_save_num_gpatt_in_range() {
+void time_save_num_gpatt_in_range(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                            RELAY FUNCTIONS: RUN INETIAL FLAG
 
-void run_inetial_flag_gpatt_equal() {
+void run_inetial_flag_gpatt_equal(int Ri) {
   // relay turns on/off 
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                     RELAY FUNCTIONS: MILEAGE
 
-void mileage_gpatt_over() {
+void mileage_gpatt_over(int Ri) {
   // relay turns on/off 
 }
 
-void mileage_gpatt_under() {
+void mileage_gpatt_under(int Ri) {
   // relay turns on/off
 }
 
-void mileage_gpatt_equal() {
+void mileage_gpatt_equal(int Ri) {
   // relay turns on/off
 }
 
-void mileage_gpatt_in_range() {
+void mileage_gpatt_in_range(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: STATIC FLAG
 
-void line_flag_gpatt_equal() {
+void line_flag_gpatt_equal(int Ri) {
   // relay turns on/off 
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                    RELAY FUNCTIONS: GST DATA
 
-void gst_data_gpatt_over() {
+void gst_data_gpatt_over(int Ri) {
   // relay turns on/off 
 }
 
-void gst_data_gpatt_under() {
+void gst_data_gpatt_under(int Ri) {
   // relay turns on/off
 }
 
-void gst_data_gpatt_equal() {
+void gst_data_gpatt_equal(int Ri) {
   // relay turns on/off
 }
 
-void gst_data_gpatt_in_range() {
+void gst_data_gpatt_in_range(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: STATIC FLAG
 
-void static_flag_gpatt_equal() {
+void static_flag_gpatt_equal(int Ri) {
   // relay turns on/off 
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                               RELAY FUNCTIONS: RUNSTATE FLAG
 
-void run_state_flag_gpatt_equal() {
+void run_state_flag_gpatt_equal(int Ri) {
   // relay turns on/off 
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                         RELAY FUNCTIONS: INS
 
-void ins_gpatt_equal() {
+void ins_gpatt_equal(int Ri) {
   // relay turns on/off 
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                  RELAY FUNCTIONS: YAW GPATT
 
-void yaw_gpatt_over() {
+void yaw_gpatt_over(int Ri) {
   // relay turns on/off 
 }
 
-void yaw_gpatt_under() {
+void yaw_gpatt_under(int Ri) {
   // relay turns on/off
 }
 
-void yaw_gpatt_equal() {
+void yaw_gpatt_equal(int Ri) {
   // relay turns on/off
 }
 
-void yaw_gpatt_in_range() {
+void yaw_gpatt_in_range(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                  RELAY FUNCTIONS: ROLL GPATT
 
-void roll_gpatt_over() {
+void roll_gpatt_over(int Ri) {
   // relay turns on/off 
 }
 
-void roll_gpatt_under() {
+void roll_gpatt_under(int Ri) {
   // relay turns on/off
 }
 
-void roll_gpatt_equal() {
+void roll_gpatt_equal(int Ri) {
   // relay turns on/off
 }
 
-void roll_gpatt_in_range() {
+void roll_gpatt_in_range(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: PITCH GPATT
 
-void pitch_gpatt_over() {
+void pitch_gpatt_over(int Ri) {
   // relay turns on/off 
 }
 
-void pitch_gpatt_under() {
+void pitch_gpatt_under(int Ri) {
   // relay turns on/off
 }
 
-void pitch_gpatt_equal() {
+void pitch_gpatt_equal(int Ri) {
   // relay turns on/off
 }
 
-void pitch_gpatt_in_range() {
+void pitch_gpatt_in_range(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
 
-void heading_gnrmc_over() {
+void heading_gnrmc_over(int Ri) {
   // relay turns on/off 
 }
 
-void heading_gnrmc_under() {
+void heading_gnrmc_under(int Ri) {
   // relay turns on/off
 }
 
-void heading_gnrmc_equal() {
+void heading_gnrmc_equal(int Ri) {
   // relay turns on/off
 }
 
-void heading_gnrmc_in_range() {
+void heading_gnrmc_in_range(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
 
-void speed_gngga_over() {
+void speed_gngga_over(int Ri) {
   // relay turns on/off 
 }
 
-void speed_gngga_under() {
+void speed_gngga_under(int Ri) {
   // relay turns on/off
 }
 
-void speed_gngga_equal() {
+void speed_gngga_equal(int Ri) {
   // relay turns on/off
 }
 
-void speed_gngga_in_range() {
+void speed_gngga_in_range(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                              RELAY FUNCTIONS: ALTITUDE GNGGA
 
-void altitude_gngga_over() {
+void altitude_gngga_over(int Ri) {
   // relay turns on/off 
 }
 
-void altitude_gngga_under() {
+void altitude_gngga_under(int Ri) {
   // relay turns on/off
 }
 
-void altitude_gngga_equal() {
+void altitude_gngga_equal(int Ri) {
   // relay turns on/off
 }
 
-void altitude_gngga_in_range() {
+void altitude_gngga_in_range(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                      RELAY FUNCTIONS: PRECISION FACTOR GNGGA
 
-void precision_factor_gngga_over() {
+void precision_factor_gngga_over(int Ri) {
   // relay turns on/off 
 }
 
-void precision_factor_gngga_under() {
+void precision_factor_gngga_under(int Ri) {
   // relay turns on/off
 }
 
-void precision_factor_gngga_equal() {
+void precision_factor_gngga_equal(int Ri) {
   // relay turns on/off
 }
 
-void precision_factor_gngga_in_range() {
+void precision_factor_gngga_in_range(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: HEMISPHERE
 
-void hemisphere_gngga_N() {
+void hemisphere_gngga_N(int Ri) {
   // relay turns on/off 
 }
 
-void hemisphere_gngga_E() {
+void hemisphere_gngga_E(int Ri) {
   // relay turns on/off
 }
 
-void hemisphere_gngga_S() {
+void hemisphere_gngga_S(int Ri) {
   // relay turns on/off
 }
 
-void hemisphere_gngga_W() {
+void hemisphere_gngga_W(int Ri) {
   // relay turns on/off
 }
 
-void hemisphere_gngga_NE() {
+void hemisphere_gngga_NE(int Ri) {
   // relay turns on/off 
 }
 
-void hemisphere_gngga_SE() {
+void hemisphere_gngga_SE(int Ri) {
   // relay turns on/off
 }
 
-void hemisphere_gngga_NW() {
+void hemisphere_gngga_NW(int Ri) {
   // relay turns on/off
 }
 
-void hemisphere_gngga_SW() {
+void hemisphere_gngga_SW(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: COORDINATES
 
-void satellite_coord_gngga_over() {
+void satellite_coord_gngga_over(int Ri) {
   // relay turns on/off 
 }
 
-void satellite_coord_gngga_under() {
+void satellite_coord_gngga_under(int Ri) {
   // relay turns on/off
 }
 
-void satellite_coord_gngga_equal() {
+void satellite_coord_gngga_equal(int Ri) {
   // relay turns on/off
 }
 
-void satellite_coord_gngga_in_range() {
+void satellite_coord_gngga_in_range(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                        RELAY FUNCTIONS: TIME
 
-void satellite_time_over() {
+void satellite_time_over(int Ri) {
   // relay turns on/off 
 }
 
-void satellite_time_under() {
+void satellite_time_under(int Ri) {
   // relay turns on/off
 }
 
-void satellite_time_equal() {
+void satellite_time_equal(int Ri) {
   // relay turns on/off 
 }
 
-void satellite_time_period() {
+void satellite_time_period(int Ri) {
   // relay turns on/off
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                             RELAY FUNCTIONS: SATELLITE COUNT
 
-void satellite_count_gngga_over() {
+void satellite_count_gngga_over(int Ri) {
   // relay turns on/off 
+  if (gnggaData.satellite_count_gngga > relayData.satellite_count_gngga_over) {
+    Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] true");
+  }
 }
 
-void satellite_count_gngga_under() {
+void satellite_count_gngga_under(int Ri) {
   // relay turns on/off
 }
 
-void satellite_count_gngga_equal() {
+void satellite_count_gngga_equal(int Ri) {
   // relay turns on/off
 }
 
@@ -1470,93 +1478,94 @@ Check each relays key and run a function for each relays corresponding key. Firs
 
 void systems_Check() {
 
+  int Ri = 0;
+
   if (strcmp(relayData.relay_0, relayData.default_relay_function)) {}
-
   
-  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_over)) {fix_angle_flag_gpatt_over();}
-  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_under)) {fix_angle_flag_gpatt_under();}
-  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_equal)) {fix_angle_flag_gpatt_equal();}
-  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_in_range)) {fix_angle_flag_gpatt_in_range();}
+  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_over)) {fix_angle_flag_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_under)) {fix_angle_flag_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_equal)) {fix_angle_flag_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_in_range)) {fix_angle_flag_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_over)) {time_save_num_gpatt_over();}
-  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_under)) {time_save_num_gpatt_under();}
-  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_equal)) {time_save_num_gpatt_equal();}
-  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_in_range)) {time_save_num_gpatt_in_range();}
+  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_over)) {time_save_num_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_under)) {time_save_num_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_equal)) {time_save_num_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_in_range)) {time_save_num_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_over)) {mileage_gpatt_over();}
-  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_under)) {mileage_gpatt_under();}
-  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_equal)) {mileage_gpatt_equal();}
-  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_in_range)) {mileage_gpatt_in_range();}
+  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_over)) {mileage_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_under)) {mileage_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_equal)) {mileage_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_in_range)) {mileage_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_over)) {gst_data_gpatt_over();}
-  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_under)) {gst_data_gpatt_under();}
-  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_equal)) {gst_data_gpatt_equal();}
-  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_in_range)) {gst_data_gpatt_in_range();}
+  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_over)) {gst_data_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_under)) {gst_data_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_equal)) {gst_data_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_in_range)) {gst_data_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.run_inetial_flag_gpatt_equal)) {run_inetial_flag_gpatt_equal();}
-  else if (strcmp(relayData.relay_0, relayData.line_flag_gpatt_equal)) {line_flag_gpatt_equal();}
-  else if (strcmp(relayData.relay_0, relayData.static_flag_gpatt_equal)) {static_flag_gpatt_equal();}
-  else if (strcmp(relayData.relay_0, relayData.run_state_flag_gpatt_equal)) {run_state_flag_gpatt_equal();}
-  else if (strcmp(relayData.relay_0, relayData.ins_gpatt_equal)) {ins_gpatt_equal();}
+  else if (strcmp(relayData.relay_0, relayData.run_inetial_flag_gpatt_equal)) {run_inetial_flag_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.line_flag_gpatt_equal)) {line_flag_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.static_flag_gpatt_equal)) {static_flag_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.run_state_flag_gpatt_equal)) {run_state_flag_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.ins_gpatt_equal)) {ins_gpatt_equal(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_over)) {yaw_gpatt_over();}
-  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_under)) {yaw_gpatt_under();}
-  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_equal)) {yaw_gpatt_equal();}
-  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_in_range)) {yaw_gpatt_in_range();}
+  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_over)) {yaw_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_under)) {yaw_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_equal)) {yaw_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_in_range)) {yaw_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_over)) {roll_gpatt_over();}
-  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_under)) {roll_gpatt_under();}
-  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_equal)) {roll_gpatt_equal();}
-  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_in_range)) {roll_gpatt_in_range();}
+  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_over)) {roll_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_under)) {roll_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_equal)) {roll_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_in_range)) {roll_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_over)) {pitch_gpatt_over();}
-  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_under)) {pitch_gpatt_under();}
-  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_equal)) {pitch_gpatt_equal();}
-  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_in_range)) {pitch_gpatt_in_range();}
+  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_over)) {pitch_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_under)) {pitch_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_equal)) {pitch_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_in_range)) {pitch_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_over)) {heading_gnrmc_over();}
-  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_under)) {heading_gnrmc_under();}
-  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_equal)) {heading_gnrmc_equal();}
-  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_in_range)) {heading_gnrmc_in_range();}
+  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_over)) {heading_gnrmc_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_under)) {heading_gnrmc_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_equal)) {heading_gnrmc_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_in_range)) {heading_gnrmc_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.speed_gngga_over)) {speed_gngga_over();}
-  else if (strcmp(relayData.relay_0, relayData.speed_gngga_under)) {speed_gngga_under();}
-  else if (strcmp(relayData.relay_0, relayData.speed_gngga_equal)) {speed_gngga_equal();}
-  else if (strcmp(relayData.relay_0, relayData.speed_gngga_in_range)) {speed_gngga_in_range();}
+  else if (strcmp(relayData.relay_0, relayData.speed_gngga_over)) {speed_gngga_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.speed_gngga_under)) {speed_gngga_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.speed_gngga_equal)) {speed_gngga_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.speed_gngga_in_range)) {speed_gngga_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_over)) {altitude_gngga_over();}
-  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_under)) {altitude_gngga_under();}
-  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_equal)) {altitude_gngga_equal();}
-  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_in_range)) {altitude_gngga_in_range();}
+  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_over)) {altitude_gngga_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_under)) {altitude_gngga_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_equal)) {altitude_gngga_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_in_range)) {altitude_gngga_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_over)) {precision_factor_gngga_over();}
-  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_under)) {precision_factor_gngga_under();}
-  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_equal)) {precision_factor_gngga_equal();}
-  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_in_range)) {precision_factor_gngga_in_range();}
+  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_over)) {precision_factor_gngga_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_under)) {precision_factor_gngga_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_equal)) {precision_factor_gngga_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_in_range)) {precision_factor_gngga_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_NE)) {hemisphere_gngga_NE();}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_SE)) {hemisphere_gngga_SE();}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_NW)) {hemisphere_gngga_NW();}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_SW)) {hemisphere_gngga_SW();}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_NE)) {hemisphere_gngga_NE(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_SE)) {hemisphere_gngga_SE(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_NW)) {hemisphere_gngga_NW(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_SW)) {hemisphere_gngga_SW(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_N)) {hemisphere_gngga_N();}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_E)) {hemisphere_gngga_E();}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_S)) {hemisphere_gngga_S();}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_W)) {hemisphere_gngga_W();}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_N)) {hemisphere_gngga_N(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_E)) {hemisphere_gngga_E(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_S)) {hemisphere_gngga_S(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_W)) {hemisphere_gngga_W(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_over)) {satellite_coord_gngga_over();}
-  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_under)) {satellite_coord_gngga_under();}
-  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_equal)) {satellite_coord_gngga_equal();}
-  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_in_range)) {satellite_coord_gngga_in_range();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_over)) {satellite_coord_gngga_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_under)) {satellite_coord_gngga_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_equal)) {satellite_coord_gngga_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_in_range)) {satellite_coord_gngga_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_over)) {satellite_time_over();}
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_under)) {satellite_time_under();}
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_equal)) {satellite_time_equal();}
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_equal)) {satellite_time_equal();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_over)) {satellite_time_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_under)) {satellite_time_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_equal)) {satellite_time_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_equal)) {satellite_time_equal(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.satellite_count_gngga_over)) {satellite_count_gngga_over();}
-  else if (strcmp(relayData.relay_0, relayData.satellite_count_gngga_under)) {satellite_count_gngga_under();}
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_period)) {satellite_time_period();}
+  else if (strcmp(relayData.relay_0, relayData.satellite_count_gngga_over)) {satellite_count_gngga_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_count_gngga_under)) {satellite_count_gngga_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_period)) {satellite_time_period(Ri);}
 
 }
 
