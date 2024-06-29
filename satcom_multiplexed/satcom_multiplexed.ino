@@ -1531,6 +1531,10 @@ void satellite_count_gngga_over(int Ri) {
         if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] de-activating relay: " + String(Ri));}
         else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] activating relay: " + String(Ri));}
       }
+      else {
+        if      (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] de-activating relay: " + String(Ri));}
+        else if (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] activating relay: " + String(Ri));}
+      }
     }
   }
 }
@@ -1544,6 +1548,10 @@ void satellite_count_gngga_under(int Ri) {
         if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] de-activating: " + String(Ri));}
         else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] activating: " + String(Ri));}
       }
+      else {
+        if      (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] de-activating relay: " + String(Ri));}
+        else if (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] activating relay: " + String(Ri));}
+      }
     }
   }
 }
@@ -1556,6 +1564,10 @@ void satellite_count_gngga_equal(int Ri) {
       if (atoi(gnggaData.satellite_count_gngga) == relayData.relays_data[Ri][2]) {
         if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] de-activating: " + String(Ri));}
         else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] activating: " + String(Ri));}
+      }
+      else {
+        if      (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] de-activating relay: " + String(Ri));}
+        else if (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] activating relay: " + String(Ri));}
       }
     }
   }
