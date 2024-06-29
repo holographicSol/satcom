@@ -952,7 +952,7 @@ struct RelayStruct {
   char relays[200][56] = {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"};
 
   /*
-  2 Dimensional Matrix Containing Values associated with relay functions.
+  2 Dimensional Matrix containing values associated with relay functions.
   0: >
   1: <
   2: ==
