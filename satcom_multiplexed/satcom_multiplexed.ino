@@ -969,14 +969,14 @@ struct RelayStruct {
   // default and specifiable value to indicate a relay should not be activated/deactivated
   char default_relay_function[56] = "$NONE";
 
-  bool bool_satellite_count_over = false; // variably specify relay activates or deactivates
+  bool bool_satellite_count_over = false; // specifies weather the function will run
   char satellite_count_over[56] = "satellite_count_over"; // relay function name
   bool bool_satellite_count_under = false;
   char satellite_count_under[56] = "satellite_count_under";
   bool bool_satellite_count_equal = false;
   char satellite_count_equal[56] = "satellite_count_equal";
 
-  bool bool_satellite_time_over = false; // variably specify relay activates or deactivates
+  bool bool_satellite_time_over = false; // specifies weather the function will run
   char satellite_time_over[56] = "satellite_time_over"; // relay function name
   bool bool_satellite_time_under = false;
   char satellite_time_under[56] = "satellite_time_under";
@@ -985,7 +985,7 @@ struct RelayStruct {
   bool bool_satellite_time_period = false;
   char satellite_time_period[56] = "satellite_time_period";
 
-  bool bool_satellite_coord_over = false; // variably specify relay activates or deactivates
+  bool bool_satellite_coord_over = false; // specifies weather the function will run
   char satellite_coord_over[56] = "satellite_coord_over"; // relay function name
   bool bool_satellite_coord_under = false;
   char satellite_coord_under[56] = "satellite_coord_under";
@@ -995,7 +995,7 @@ struct RelayStruct {
   char satellite_coord_in_range[56] = "satellite_coord_in_range";
 
   
-  bool bool_satellite_hemisphere_N = false; // variably specify relay activates or deactivates
+  bool bool_satellite_hemisphere_N = false; // specifies weather the function will run
   char satellite_hemisphere_N[56] = "satellite_hemisphere_N"; // relay function name
   bool bool_satellite_hemisphere_E = false;
   char satellite_hemisphere_E[56] = "satellite_hemisphere_E";
@@ -1004,7 +1004,7 @@ struct RelayStruct {
   bool bool_satellite_hemisphere_W = false;
   char satellite_hemisphere_W[56] = "satellite_hemisphere_W";
 
-  bool bool_satellite_hemisphere_NE = false; // variably specify relay activates or deactivates
+  bool bool_satellite_hemisphere_NE = false; // specifies weather the function will run
   char satellite_hemisphere_NE[56] = "satellite_hemisphere_NE"; // relay function name
   bool bool_satellite_hemisphere_SE = false;
   char satellite_hemisphere_SE[56] = "satellite_hemisphere_SE";
@@ -1013,7 +1013,7 @@ struct RelayStruct {
   bool bool_satellite_hemisphere_SW = false;
   char satellite_hemisphere_SW[56] = "satellite_hemisphere_SW";
 
-  bool bool_satellite_precision_factor_gngga_over = false; // variably specify relay activates or deactivates
+  bool bool_satellite_precision_factor_gngga_over = false; // specifies weather the function will run
   char satellite_precision_factor_gngga_over[56] = "satellite_precision_factor_gngga_over"; // relay function name
   bool bool_satellite_precision_factor_gngga_under = false;
   char satellite_precision_factor_gngga_under[56] = "satellite_precision_factor_gngga_under";
@@ -1022,7 +1022,7 @@ struct RelayStruct {
   bool bool_satellite_precision_factor_gngga_in_range = false;
   char satellite_precision_factor_gngga_in_range[56] = "satellite_precision_factor_gngga_in_range";
 
-  bool bool_altitude_gngga_over = false; // variably specify relay activates or deactivates
+  bool bool_altitude_gngga_over = false; // specifies weather the function will run
   char altitude_gngga_over[56] = "altitude_gngga_over"; // relay function name
   bool bool_altitude_gngga_under = false;
   char altitude_gngga_under[56] = "altitude_gngga_under";
@@ -1031,7 +1031,7 @@ struct RelayStruct {
   bool bool_altitude_gngga_in_range = false;
   char altitude_gngga_in_range[56] = "altitude_gngga_in_range";
 
-  bool bool_speed_gngga_over = false; // variably specify relay activates or deactivates
+  bool bool_speed_gngga_over = false; // specifies weather the function will run
   char speed_gngga_over[56] = "speed_gngga_over"; // relay function name
   bool bool_speed_gngga_under = false;
   char speed_gngga_under[56] = "speed_gngga_under";
