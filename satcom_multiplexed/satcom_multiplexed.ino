@@ -950,19 +950,25 @@ struct RelayStruct {
   /*
   relay_N      Specifies which function should be ran for turning relay_N on/off.
   bool_relay_N Specifies weather relay_N will be turned on/off.
-  relay_num_N  Specifies number(s) that turn relay_N on/off.
+  relay_data   2D matrix containing specified values that turn relay_N on/off.
   */
 
-  char relay_0[56] = "$NONE"; // variably specify relay function name 
-  char relay_1[56] = "$NONE";
-  char relay_2[56] = "$NONE";
-  char relay_3[56] = "$NONE";
-  char relay_4[56] = "$NONE";
-  char relay_5[56] = "$NONE";
-  char relay_6[56] = "$NONE";
-  char relay_7[56] = "$NONE";
-  char relay_8[56] = "$NONE";
-  char relay_9[56] = "$NONE";
+  int MAX_RELAYS = 9;
+  
+  char relays[200][56] = {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"};
+
+  double relays_data[10][5] = {
+    {20, 1, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+  };
 
   bool bool_relay_0 = false; // specify function turns on/off the relay.
   bool bool_relay_1 = false;
@@ -1531,10 +1537,12 @@ void satellite_time_period(int Ri) {
 
 void satellite_count_gngga_over(int Ri) {
   Serial.println("[RUN] satellite_count_gngga_over");
-  // relay turns on/off 
-  if (Ri == 0) {
-    if (atoi(gnggaData.satellite_count_gngga) > relayData.relay_num_greater_0) {
-      Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] true");
+  // relay turns on/off
+  for (int CRi = 0; CRi < relayData.MAX_RELAYS; CRi++) {
+    if (CRi == Ri) {
+      if (atoi(gnggaData.satellite_count_gngga) > relayData.relays_data[Ri][0]) {
+        Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] true");
+      }
     }
   }
 }
@@ -1542,9 +1550,11 @@ void satellite_count_gngga_over(int Ri) {
 void satellite_count_gngga_under(int Ri) {
   Serial.println("[RUN] satellite_count_gngga_under");
   // relay turns on/off
-  if (Ri == 0) {
-    if (String(gnggaData.satellite_count_gngga) < String(relayData.relay_num_less_0)) {
-      Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] true");
+  for (int CRi = 0; CRi < relayData.MAX_RELAYS; CRi++) {
+    if (Ri == 0) {
+      if (String(gnggaData.satellite_count_gngga) < String(relayData.relays_data[Ri][1])) {
+        Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] true");
+      }
     }
   }
 }
@@ -1552,9 +1562,11 @@ void satellite_count_gngga_under(int Ri) {
 void satellite_count_gngga_equal(int Ri) {
   Serial.println("[RUN] satellite_count_gngga_equal");
   // relay turns on/off
-  if (Ri == 0) {
-    if (String(gnggaData.satellite_count_gngga) == String(relayData.relay_num_equal_0)) {
-      Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] true");
+  for (int CRi = 0; CRi < relayData.MAX_RELAYS; CRi++) {
+    if (Ri == 0) {
+      if (String(gnggaData.satellite_count_gngga) == String(relayData.relays_data[Ri][2])) {
+        Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] true");
+      }
     }
   }
 }
@@ -1569,101 +1581,104 @@ Check each relays key and run a function for each relays corresponding key. Firs
 void systems_Check() {
 
   int Ri = 0;
-  memset(relayData.relay_0, 0, sizeof(relayData.relay_0));
-  strcpy(relayData.relay_0, relayData.satellite_count_gngga_over); // uncomment to hardcode specify relay zero's function
-  // Serial.println("[R0] " + String(relayData.relay_0));
+  memset(relayData.relays[Ri], 0, sizeof(relayData.relays[Ri]));
+  strcpy(relayData.relays[Ri], relayData.satellite_count_gngga_over); // uncomment to hardcode specify relay zero's function
+  // Serial.println("[R0] " + String(relayData.relays[Ri]));
   // Serial.println("[K]  " + String(relayData.satellite_count_gngga_over));
-  // Serial.println("[C]  " + String(strcmp(relayData.relay_0, relayData.satellite_count_gngga_over)));
+  // Serial.println("[C]  " + String(strcmp(relayData.relays[Ri], relayData.satellite_count_gngga_over)));
 
-  if (strcmp(relayData.relay_0, relayData.default_relay_function) == 0) {Serial.println("[RELAY 0] $NONE");}
-  
-  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_over) == 0) {fix_angle_flag_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_under) == 0) {fix_angle_flag_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_equal) == 0) {fix_angle_flag_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_in_range) == 0) {fix_angle_flag_gpatt_in_range(Ri);}
+  for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
 
-  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_over) == 0) {time_save_num_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_under) == 0) {time_save_num_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_equal) == 0) {time_save_num_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_in_range) == 0) {time_save_num_gpatt_in_range(Ri);}
+    // if (strcmp(relayData.relays[Ri], relayData.default_relay_function) == 0) {Serial.println("[RELAY 0] $NONE");}
+    if (strcmp(relayData.relays[Ri], relayData.default_relay_function) == 0) {}
+    
+    else if (strcmp(relayData.relays[Ri], relayData.fix_angle_flag_gpatt_over) == 0) {fix_angle_flag_gpatt_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.fix_angle_flag_gpatt_under) == 0) {fix_angle_flag_gpatt_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.fix_angle_flag_gpatt_equal) == 0) {fix_angle_flag_gpatt_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.fix_angle_flag_gpatt_in_range) == 0) {fix_angle_flag_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_over) == 0) {mileage_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_under) == 0) {mileage_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_equal) == 0) {mileage_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_in_range) == 0) {mileage_gpatt_in_range(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.time_save_num_gpatt_over) == 0) {time_save_num_gpatt_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.time_save_num_gpatt_under) == 0) {time_save_num_gpatt_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.time_save_num_gpatt_equal) == 0) {time_save_num_gpatt_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.time_save_num_gpatt_in_range) == 0) {time_save_num_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_over) == 0) {gst_data_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_under) == 0) {gst_data_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_equal) == 0) {gst_data_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_in_range) == 0) {gst_data_gpatt_in_range(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.mileage_gpatt_over) == 0) {mileage_gpatt_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.mileage_gpatt_under) == 0) {mileage_gpatt_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.mileage_gpatt_equal) == 0) {mileage_gpatt_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.mileage_gpatt_in_range) == 0) {mileage_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.run_inetial_flag_gpatt_equal) == 0) {run_inetial_flag_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.line_flag_gpatt_equal) == 0) {line_flag_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.static_flag_gpatt_equal) == 0) {static_flag_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.run_state_flag_gpatt_equal) == 0) {run_state_flag_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.ins_gpatt_equal) == 0) {ins_gpatt_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.gst_data_gpatt_over) == 0) {gst_data_gpatt_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.gst_data_gpatt_under) == 0) {gst_data_gpatt_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.gst_data_gpatt_equal) == 0) {gst_data_gpatt_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.gst_data_gpatt_in_range) == 0) {gst_data_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_over) == 0) {yaw_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_under) == 0) {yaw_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_equal) == 0) {yaw_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_in_range) == 0) {yaw_gpatt_in_range(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.run_inetial_flag_gpatt_equal) == 0) {run_inetial_flag_gpatt_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.line_flag_gpatt_equal) == 0) {line_flag_gpatt_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.static_flag_gpatt_equal) == 0) {static_flag_gpatt_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.run_state_flag_gpatt_equal) == 0) {run_state_flag_gpatt_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.ins_gpatt_equal) == 0) {ins_gpatt_equal(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_over) == 0) {roll_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_under) == 0) {roll_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_equal) == 0) {roll_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_in_range) == 0) {roll_gpatt_in_range(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.yaw_gpatt_over) == 0) {yaw_gpatt_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.yaw_gpatt_under) == 0) {yaw_gpatt_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.yaw_gpatt_equal) == 0) {yaw_gpatt_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.yaw_gpatt_in_range) == 0) {yaw_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_over) == 0) {pitch_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_under) == 0) {pitch_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_equal) == 0) {pitch_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_in_range) == 0) {pitch_gpatt_in_range(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.roll_gpatt_over) == 0) {roll_gpatt_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.roll_gpatt_under) == 0) {roll_gpatt_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.roll_gpatt_equal) == 0) {roll_gpatt_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.roll_gpatt_in_range) == 0) {roll_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_over) == 0) {heading_gnrmc_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_under) == 0) {heading_gnrmc_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_equal) == 0) {heading_gnrmc_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_in_range) == 0) {heading_gnrmc_in_range(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.pitch_gpatt_over) == 0) {pitch_gpatt_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.pitch_gpatt_under) == 0) {pitch_gpatt_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.pitch_gpatt_equal) == 0) {pitch_gpatt_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.pitch_gpatt_in_range) == 0) {pitch_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.speed_gngga_over) == 0) {speed_gngga_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.speed_gngga_under) == 0) {speed_gngga_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.speed_gngga_equal) == 0) {speed_gngga_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.speed_gngga_in_range) == 0) {speed_gngga_in_range(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.heading_gnrmc_over) == 0) {heading_gnrmc_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.heading_gnrmc_under) == 0) {heading_gnrmc_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.heading_gnrmc_equal) == 0) {heading_gnrmc_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.heading_gnrmc_in_range) == 0) {heading_gnrmc_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_over) == 0) {altitude_gngga_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_under) == 0) {altitude_gngga_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_equal) == 0) {altitude_gngga_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_in_range) == 0) {altitude_gngga_in_range(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.speed_gngga_over) == 0) {speed_gngga_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.speed_gngga_under) == 0) {speed_gngga_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.speed_gngga_equal) == 0) {speed_gngga_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.speed_gngga_in_range) == 0) {speed_gngga_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_over) == 0) {precision_factor_gngga_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_under) == 0) {precision_factor_gngga_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_equal) == 0) {precision_factor_gngga_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_in_range) == 0) {precision_factor_gngga_in_range(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.altitude_gngga_over) == 0) {altitude_gngga_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.altitude_gngga_under) == 0) {altitude_gngga_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.altitude_gngga_equal) == 0) {altitude_gngga_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.altitude_gngga_in_range) == 0) {altitude_gngga_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_NE) == 0) {hemisphere_gngga_NE(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_SE) == 0) {hemisphere_gngga_SE(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_NW) == 0) {hemisphere_gngga_NW(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_SW) == 0) {hemisphere_gngga_SW(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.precision_factor_gngga_over) == 0) {precision_factor_gngga_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.precision_factor_gngga_under) == 0) {precision_factor_gngga_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.precision_factor_gngga_equal) == 0) {precision_factor_gngga_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.precision_factor_gngga_in_range) == 0) {precision_factor_gngga_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_N) == 0) {hemisphere_gngga_N(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_E) == 0) {hemisphere_gngga_E(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_S) == 0) {hemisphere_gngga_S(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_W) == 0) {hemisphere_gngga_W(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_NE) == 0) {hemisphere_gngga_NE(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_SE) == 0) {hemisphere_gngga_SE(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_NW) == 0) {hemisphere_gngga_NW(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_SW) == 0) {hemisphere_gngga_SW(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_over) == 0) {satellite_coord_gngga_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_under) == 0) {satellite_coord_gngga_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_equal) == 0) {satellite_coord_gngga_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_in_range) == 0) {satellite_coord_gngga_in_range(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_N) == 0) {hemisphere_gngga_N(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_E) == 0) {hemisphere_gngga_E(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_S) == 0) {hemisphere_gngga_S(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_W) == 0) {hemisphere_gngga_W(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_over) == 0) {satellite_time_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_under) == 0) {satellite_time_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_equal) == 0) {satellite_time_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_equal) == 0) {satellite_time_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.satellite_coord_gngga_over) == 0) {satellite_coord_gngga_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.satellite_coord_gngga_under) == 0) {satellite_coord_gngga_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.satellite_coord_gngga_equal) == 0) {satellite_coord_gngga_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.satellite_coord_gngga_in_range) == 0) {satellite_coord_gngga_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.satellite_count_gngga_over) == 0) {satellite_count_gngga_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_count_gngga_under) == 0) {satellite_count_gngga_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_period) == 0) {satellite_time_period(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.satellite_time_over) == 0) {satellite_time_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.satellite_time_under) == 0) {satellite_time_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.satellite_time_equal) == 0) {satellite_time_equal(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.satellite_time_equal) == 0) {satellite_time_equal(Ri);}
 
-  else {Serial.println("[RELAY 0] no function found");}
+    else if (strcmp(relayData.relays[Ri], relayData.satellite_count_gngga_over) == 0) {satellite_count_gngga_over(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.satellite_count_gngga_under) == 0) {satellite_count_gngga_under(Ri);}
+    else if (strcmp(relayData.relays[Ri], relayData.satellite_time_period) == 0) {satellite_time_period(Ri);}
 
+    // else {Serial.println("[RELAY 0] no function found");}
+  }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
