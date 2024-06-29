@@ -72,6 +72,8 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    LIBRARIES
 
+#include <stdio.h>
+#include <string.h>
 #include <Wire.h>
 #include <SSD1306Wire.h>   // SSD1306Wire                                https://gitlab.com/alexpr0/ssd1306wire
 #include <OLEDDisplayUi.h> // ESP8266 and ESP32 OLED driver for SSD1306  https://github.com/ThingPulse/esp8266-oled-ssd1306
@@ -890,7 +892,7 @@ void readRXD_1() {
     
     memset(serialData.BUFFER, 0, 2048);
     serialData.nbytes = (Serial1.readBytesUntil('\n', serialData.BUFFER, sizeof(serialData.BUFFER)));
-    Serial.println(serialData.nbytes); // debug
+    // Serial.println(serialData.nbytes); // debug
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GNGGA
@@ -945,16 +947,16 @@ additional configuration could include running once, running each time etc. for 
 
 struct RelayStruct {
 
-  char relay_0[10] = "$NONE"; // variably specify relay function name 
-  char relay_1[10] = "$NONE";
-  char relay_2[10] = "$NONE";
-  char relay_3[10] = "$NONE";
-  char relay_4[10] = "$NONE";
-  char relay_5[10] = "$NONE";
-  char relay_6[10] = "$NONE";
-  char relay_7[10] = "$NONE";
-  char relay_8[10] = "$NONE";
-  char relay_9[10] = "$NONE";
+  char relay_0[56] = "$NONE"; // variably specify relay function name 
+  char relay_1[56] = "$NONE";
+  char relay_2[56] = "$NONE";
+  char relay_3[56] = "$NONE";
+  char relay_4[56] = "$NONE";
+  char relay_5[56] = "$NONE";
+  char relay_6[56] = "$NONE";
+  char relay_7[56] = "$NONE";
+  char relay_8[56] = "$NONE";
+  char relay_9[56] = "$NONE";
   bool bool_relay_0 = false; // specify function turns on/off the relay.
   bool bool_relay_1 = false;
   bool bool_relay_2 = false;
@@ -967,7 +969,7 @@ struct RelayStruct {
   bool bool_relay_9 = false;
 
   double relay_num_less_0 = 20;
-  double relay_num_greater_0 = 20;
+  double relay_num_greater_0 = 1;
   double relay_num_equal_0 = 0;
   double relay_range_x_0 = 0;
   double relay_range_y_0 = 0;
@@ -1139,18 +1141,22 @@ RelayStruct relayData;
 //                                                                                              RELAY FUNCTIONS: FIX ANGLE FLAG
 
 void fix_angle_flag_gpatt_over(int Ri) {
+  Serial.println("[RUN] fix_angle_flag_gpatt_over");
   // relay turns on/off 
 }
 
 void fix_angle_flag_gpatt_under(int Ri) {
+  Serial.println("[RUN] fix_angle_flag_gpatt_under");
   // relay turns on/off
 }
 
 void fix_angle_flag_gpatt_equal(int Ri) {
+  Serial.println("[RUN] fix_angle_flag_gpatt_equal");
   // relay turns on/off
 }
 
 void fix_angle_flag_gpatt_in_range(int Ri) {
+  Serial.println("[RUN] fix_angle_flag_gpatt_in_range");
   // relay turns on/off
 }
 
@@ -1158,18 +1164,22 @@ void fix_angle_flag_gpatt_in_range(int Ri) {
 //                                                                                      RELAY FUNCTIONS: EPHEMERIS STORED TIMES
 
 void time_save_num_gpatt_over(int Ri) {
+  Serial.println("[RUN] time_save_num_gpatt_over");
   // relay turns on/off 
 }
 
 void time_save_num_gpatt_under(int Ri) {
+  Serial.println("[RUN] time_save_num_gpatt_under");
   // relay turns on/off
 }
 
 void time_save_num_gpatt_equal(int Ri) {
+  Serial.println("[RUN] time_save_num_gpatt_equal");
   // relay turns on/off
 }
 
 void time_save_num_gpatt_in_range(int Ri) {
+  Serial.println("[RUN] time_save_num_gpatt_in_range");
   // relay turns on/off
 }
 
@@ -1177,6 +1187,7 @@ void time_save_num_gpatt_in_range(int Ri) {
 //                                                                                            RELAY FUNCTIONS: RUN INETIAL FLAG
 
 void run_inetial_flag_gpatt_equal(int Ri) {
+  Serial.println("[RUN] run_inetial_flag_gpatt_equal");
   // relay turns on/off 
 }
 
@@ -1184,18 +1195,22 @@ void run_inetial_flag_gpatt_equal(int Ri) {
 //                                                                                                     RELAY FUNCTIONS: MILEAGE
 
 void mileage_gpatt_over(int Ri) {
+  Serial.println("[RUN] mileage_gpatt_over");
   // relay turns on/off 
 }
 
 void mileage_gpatt_under(int Ri) {
+  Serial.println("[RUN] mileage_gpatt_under");
   // relay turns on/off
 }
 
 void mileage_gpatt_equal(int Ri) {
+  Serial.println("[RUN] mileage_gpatt_equal");
   // relay turns on/off
 }
 
 void mileage_gpatt_in_range(int Ri) {
+  Serial.println("[RUN] mileage_gpatt_in_range");
   // relay turns on/off
 }
 
@@ -1203,6 +1218,7 @@ void mileage_gpatt_in_range(int Ri) {
 //                                                                                                 RELAY FUNCTIONS: STATIC FLAG
 
 void line_flag_gpatt_equal(int Ri) {
+  Serial.println("[RUN] line_flag_gpatt_equal");
   // relay turns on/off 
 }
 
@@ -1210,18 +1226,22 @@ void line_flag_gpatt_equal(int Ri) {
 //                                                                                                    RELAY FUNCTIONS: GST DATA
 
 void gst_data_gpatt_over(int Ri) {
+  Serial.println("[RUN] gst_data_gpatt_over");
   // relay turns on/off 
 }
 
 void gst_data_gpatt_under(int Ri) {
+  Serial.println("[RUN] gst_data_gpatt_under");
   // relay turns on/off
 }
 
 void gst_data_gpatt_equal(int Ri) {
+  Serial.println("[RUN] gst_data_gpatt_equal");
   // relay turns on/off
 }
 
 void gst_data_gpatt_in_range(int Ri) {
+  Serial.println("[RUN] gst_data_gpatt_in_range");
   // relay turns on/off
 }
 
@@ -1229,6 +1249,7 @@ void gst_data_gpatt_in_range(int Ri) {
 //                                                                                                 RELAY FUNCTIONS: STATIC FLAG
 
 void static_flag_gpatt_equal(int Ri) {
+  Serial.println("[RUN] static_flag_gpatt_equal");
   // relay turns on/off 
 }
 
@@ -1236,6 +1257,7 @@ void static_flag_gpatt_equal(int Ri) {
 //                                                                                               RELAY FUNCTIONS: RUNSTATE FLAG
 
 void run_state_flag_gpatt_equal(int Ri) {
+  Serial.println("[RUN] run_state_flag_gpatt_equal");
   // relay turns on/off 
 }
 
@@ -1243,6 +1265,7 @@ void run_state_flag_gpatt_equal(int Ri) {
 //                                                                                                         RELAY FUNCTIONS: INS
 
 void ins_gpatt_equal(int Ri) {
+  Serial.println("[RUN] ins_gpatt_equal");
   // relay turns on/off 
 }
 
@@ -1250,18 +1273,22 @@ void ins_gpatt_equal(int Ri) {
 //                                                                                                  RELAY FUNCTIONS: YAW GPATT
 
 void yaw_gpatt_over(int Ri) {
+  Serial.println("[RUN] yaw_gpatt_over");
   // relay turns on/off 
 }
 
 void yaw_gpatt_under(int Ri) {
+  Serial.println("[RUN] yaw_gpatt_under");
   // relay turns on/off
 }
 
 void yaw_gpatt_equal(int Ri) {
+  Serial.println("[RUN] yaw_gpatt_equal");
   // relay turns on/off
 }
 
 void yaw_gpatt_in_range(int Ri) {
+  Serial.println("[RUN] yaw_gpatt_in_range");
   // relay turns on/off
 }
 
@@ -1269,18 +1296,22 @@ void yaw_gpatt_in_range(int Ri) {
 //                                                                                                  RELAY FUNCTIONS: ROLL GPATT
 
 void roll_gpatt_over(int Ri) {
+  Serial.println("[RUN] roll_gpatt_over");
   // relay turns on/off 
 }
 
 void roll_gpatt_under(int Ri) {
+  Serial.println("[RUN] roll_gpatt_under");
   // relay turns on/off
 }
 
 void roll_gpatt_equal(int Ri) {
+  Serial.println("[RUN] roll_gpatt_equal");
   // relay turns on/off
 }
 
 void roll_gpatt_in_range(int Ri) {
+  Serial.println("[RUN] roll_gpatt_in_range");
   // relay turns on/off
 }
 
@@ -1288,18 +1319,22 @@ void roll_gpatt_in_range(int Ri) {
 //                                                                                                 RELAY FUNCTIONS: PITCH GPATT
 
 void pitch_gpatt_over(int Ri) {
+  Serial.println("[RUN] pitch_gpatt_over");
   // relay turns on/off 
 }
 
 void pitch_gpatt_under(int Ri) {
+  Serial.println("[RUN] pitch_gpatt_under");
   // relay turns on/off
 }
 
 void pitch_gpatt_equal(int Ri) {
+  Serial.println("[RUN] pitch_gpatt_equal");
   // relay turns on/off
 }
 
 void pitch_gpatt_in_range(int Ri) {
+  Serial.println("[RUN] pitch_gpatt_in_range");
   // relay turns on/off
 }
 
@@ -1307,18 +1342,22 @@ void pitch_gpatt_in_range(int Ri) {
 //                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
 
 void heading_gnrmc_over(int Ri) {
+  Serial.println("[RUN] heading_gnrmc_over");
   // relay turns on/off 
 }
 
 void heading_gnrmc_under(int Ri) {
+  Serial.println("[RUN] heading_gnrmc_under");
   // relay turns on/off
 }
 
 void heading_gnrmc_equal(int Ri) {
+  Serial.println("[RUN] heading_gnrmc_equal");
   // relay turns on/off
 }
 
 void heading_gnrmc_in_range(int Ri) {
+  Serial.println("[RUN] heading_gnrmc_in_range");
   // relay turns on/off
 }
 
@@ -1326,18 +1365,22 @@ void heading_gnrmc_in_range(int Ri) {
 //                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
 
 void speed_gngga_over(int Ri) {
+  Serial.println("[RUN] speed_gngga_over");
   // relay turns on/off 
 }
 
 void speed_gngga_under(int Ri) {
+  Serial.println("[RUN] speed_gngga_under");
   // relay turns on/off
 }
 
 void speed_gngga_equal(int Ri) {
+  Serial.println("[RUN] speed_gngga_equal");
   // relay turns on/off
 }
 
 void speed_gngga_in_range(int Ri) {
+  Serial.println("[RUN] speed_gngga_in_range");
   // relay turns on/off
 }
 
@@ -1345,18 +1388,22 @@ void speed_gngga_in_range(int Ri) {
 //                                                                                              RELAY FUNCTIONS: ALTITUDE GNGGA
 
 void altitude_gngga_over(int Ri) {
+  Serial.println("[RUN] altitude_gngga_over");
   // relay turns on/off 
 }
 
 void altitude_gngga_under(int Ri) {
+  Serial.println("[RUN] altitude_gngga_under");
   // relay turns on/off
 }
 
 void altitude_gngga_equal(int Ri) {
+  Serial.println("[RUN] altitude_gngga_equal");
   // relay turns on/off
 }
 
 void altitude_gngga_in_range(int Ri) {
+  Serial.println("[RUN] altitude_gngga_in_range");
   // relay turns on/off
 }
 
@@ -1364,18 +1411,22 @@ void altitude_gngga_in_range(int Ri) {
 //                                                                                      RELAY FUNCTIONS: PRECISION FACTOR GNGGA
 
 void precision_factor_gngga_over(int Ri) {
+  Serial.println("[RUN] precision_factor_gngga_over");
   // relay turns on/off 
 }
 
 void precision_factor_gngga_under(int Ri) {
+  Serial.println("[RUN] precision_factor_gngga_under");
   // relay turns on/off
 }
 
 void precision_factor_gngga_equal(int Ri) {
+  Serial.println("[RUN] precision_factor_gngga_equal");
   // relay turns on/off
 }
 
 void precision_factor_gngga_in_range(int Ri) {
+  Serial.println("[RUN] precision_factor_gngga_in_range");
   // relay turns on/off
 }
 
@@ -1383,34 +1434,42 @@ void precision_factor_gngga_in_range(int Ri) {
 //                                                                                                 RELAY FUNCTIONS: HEMISPHERE
 
 void hemisphere_gngga_N(int Ri) {
+  Serial.println("[RUN] hemisphere_gngga_N");
   // relay turns on/off 
 }
 
 void hemisphere_gngga_E(int Ri) {
+  Serial.println("[RUN] hemisphere_gngga_E");
   // relay turns on/off
 }
 
 void hemisphere_gngga_S(int Ri) {
+  Serial.println("[RUN] hemisphere_gngga_S");
   // relay turns on/off
 }
 
 void hemisphere_gngga_W(int Ri) {
+  Serial.println("[RUN] hemisphere_gngga_W");
   // relay turns on/off
 }
 
 void hemisphere_gngga_NE(int Ri) {
+  Serial.println("[RUN] hemisphere_gngga_NE");
   // relay turns on/off 
 }
 
 void hemisphere_gngga_SE(int Ri) {
+  Serial.println("[RUN] hemisphere_gngga_SE");
   // relay turns on/off
 }
 
 void hemisphere_gngga_NW(int Ri) {
+  Serial.println("[RUN] hemisphere_gngga_NW");
   // relay turns on/off
 }
 
 void hemisphere_gngga_SW(int Ri) {
+  Serial.println("[RUN] hemisphere_gngga_SW");
   // relay turns on/off
 }
 
@@ -1418,18 +1477,22 @@ void hemisphere_gngga_SW(int Ri) {
 //                                                                                                 RELAY FUNCTIONS: COORDINATES
 
 void satellite_coord_gngga_over(int Ri) {
+  Serial.println("[RUN] satellite_coord_gngga_over");
   // relay turns on/off 
 }
 
 void satellite_coord_gngga_under(int Ri) {
+  Serial.println("[RUN] satellite_coord_gngga_under");
   // relay turns on/off
 }
 
 void satellite_coord_gngga_equal(int Ri) {
+  Serial.println("[RUN] satellite_coord_gngga_equal");
   // relay turns on/off
 }
 
 void satellite_coord_gngga_in_range(int Ri) {
+  Serial.println("[RUN] satellite_coord_gngga_in_range");
   // relay turns on/off
 }
 
@@ -1437,18 +1500,22 @@ void satellite_coord_gngga_in_range(int Ri) {
 //                                                                                                        RELAY FUNCTIONS: TIME
 
 void satellite_time_over(int Ri) {
+  Serial.println("[RUN] satellite_time_over");
   // relay turns on/off 
 }
 
 void satellite_time_under(int Ri) {
+  Serial.println("[RUN] satellite_time_under");
   // relay turns on/off
 }
 
 void satellite_time_equal(int Ri) {
+  Serial.println("[RUN] satellite_time_equal");
   // relay turns on/off 
 }
 
 void satellite_time_period(int Ri) {
+  Serial.println("[RUN] satellite_time_period");
   // relay turns on/off
 }
 
@@ -1456,15 +1523,17 @@ void satellite_time_period(int Ri) {
 //                                                                                             RELAY FUNCTIONS: SATELLITE COUNT
 
 void satellite_count_gngga_over(int Ri) {
+  Serial.println("[RUN] satellite_count_gngga_over");
   // relay turns on/off 
   if (Ri == 0) {
-    if (String(gnggaData.satellite_count_gngga) > String(relayData.relay_num_greater_0)) {
+    if (atoi(gnggaData.satellite_count_gngga) > relayData.relay_num_greater_0) {
       Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] true");
     }
   }
 }
 
 void satellite_count_gngga_under(int Ri) {
+  Serial.println("[RUN] satellite_count_gngga_under");
   // relay turns on/off
   if (Ri == 0) {
     if (String(gnggaData.satellite_count_gngga) < String(relayData.relay_num_less_0)) {
@@ -1474,6 +1543,7 @@ void satellite_count_gngga_under(int Ri) {
 }
 
 void satellite_count_gngga_equal(int Ri) {
+  Serial.println("[RUN] satellite_count_gngga_equal");
   // relay turns on/off
   if (Ri == 0) {
     if (String(gnggaData.satellite_count_gngga) == String(relayData.relay_num_equal_0)) {
@@ -1492,93 +1562,100 @@ Check each relays key and run a function for each relays corresponding key. Firs
 void systems_Check() {
 
   int Ri = 0;
+  memset(relayData.relay_0, 0, sizeof(relayData.relay_0));
+  strcpy(relayData.relay_0, relayData.satellite_count_gngga_over); // uncomment to hardcode specify relay zero's function
+  // Serial.println("[R0] " + String(relayData.relay_0));
+  // Serial.println("[K]  " + String(relayData.satellite_count_gngga_over));
+  // Serial.println("[C]  " + String(strcmp(relayData.relay_0, relayData.satellite_count_gngga_over)));
 
-  if (strcmp(relayData.relay_0, relayData.default_relay_function)) {}
+  if (strcmp(relayData.relay_0, relayData.default_relay_function) == 0) {Serial.println("[RELAY 0] $NONE");}
   
-  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_over)) {fix_angle_flag_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_under)) {fix_angle_flag_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_equal)) {fix_angle_flag_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_in_range)) {fix_angle_flag_gpatt_in_range(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_over) == 0) {fix_angle_flag_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_under) == 0) {fix_angle_flag_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_equal) == 0) {fix_angle_flag_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_in_range) == 0) {fix_angle_flag_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_over)) {time_save_num_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_under)) {time_save_num_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_equal)) {time_save_num_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_in_range)) {time_save_num_gpatt_in_range(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_over) == 0) {time_save_num_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_under) == 0) {time_save_num_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_equal) == 0) {time_save_num_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_in_range) == 0) {time_save_num_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_over)) {mileage_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_under)) {mileage_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_equal)) {mileage_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_in_range)) {mileage_gpatt_in_range(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_over) == 0) {mileage_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_under) == 0) {mileage_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_equal) == 0) {mileage_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_in_range) == 0) {mileage_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_over)) {gst_data_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_under)) {gst_data_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_equal)) {gst_data_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_in_range)) {gst_data_gpatt_in_range(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_over) == 0) {gst_data_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_under) == 0) {gst_data_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_equal) == 0) {gst_data_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_in_range) == 0) {gst_data_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.run_inetial_flag_gpatt_equal)) {run_inetial_flag_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.line_flag_gpatt_equal)) {line_flag_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.static_flag_gpatt_equal)) {static_flag_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.run_state_flag_gpatt_equal)) {run_state_flag_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.ins_gpatt_equal)) {ins_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.run_inetial_flag_gpatt_equal) == 0) {run_inetial_flag_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.line_flag_gpatt_equal) == 0) {line_flag_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.static_flag_gpatt_equal) == 0) {static_flag_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.run_state_flag_gpatt_equal) == 0) {run_state_flag_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.ins_gpatt_equal) == 0) {ins_gpatt_equal(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_over)) {yaw_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_under)) {yaw_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_equal)) {yaw_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_in_range)) {yaw_gpatt_in_range(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_over) == 0) {yaw_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_under) == 0) {yaw_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_equal) == 0) {yaw_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_in_range) == 0) {yaw_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_over)) {roll_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_under)) {roll_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_equal)) {roll_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_in_range)) {roll_gpatt_in_range(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_over) == 0) {roll_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_under) == 0) {roll_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_equal) == 0) {roll_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_in_range) == 0) {roll_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_over)) {pitch_gpatt_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_under)) {pitch_gpatt_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_equal)) {pitch_gpatt_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_in_range)) {pitch_gpatt_in_range(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_over) == 0) {pitch_gpatt_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_under) == 0) {pitch_gpatt_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_equal) == 0) {pitch_gpatt_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_in_range) == 0) {pitch_gpatt_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_over)) {heading_gnrmc_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_under)) {heading_gnrmc_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_equal)) {heading_gnrmc_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_in_range)) {heading_gnrmc_in_range(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_over) == 0) {heading_gnrmc_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_under) == 0) {heading_gnrmc_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_equal) == 0) {heading_gnrmc_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_in_range) == 0) {heading_gnrmc_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.speed_gngga_over)) {speed_gngga_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.speed_gngga_under)) {speed_gngga_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.speed_gngga_equal)) {speed_gngga_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.speed_gngga_in_range)) {speed_gngga_in_range(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.speed_gngga_over) == 0) {speed_gngga_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.speed_gngga_under) == 0) {speed_gngga_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.speed_gngga_equal) == 0) {speed_gngga_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.speed_gngga_in_range) == 0) {speed_gngga_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_over)) {altitude_gngga_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_under)) {altitude_gngga_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_equal)) {altitude_gngga_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_in_range)) {altitude_gngga_in_range(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_over) == 0) {altitude_gngga_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_under) == 0) {altitude_gngga_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_equal) == 0) {altitude_gngga_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.altitude_gngga_in_range) == 0) {altitude_gngga_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_over)) {precision_factor_gngga_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_under)) {precision_factor_gngga_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_equal)) {precision_factor_gngga_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_in_range)) {precision_factor_gngga_in_range(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_over) == 0) {precision_factor_gngga_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_under) == 0) {precision_factor_gngga_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_equal) == 0) {precision_factor_gngga_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.precision_factor_gngga_in_range) == 0) {precision_factor_gngga_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_NE)) {hemisphere_gngga_NE(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_SE)) {hemisphere_gngga_SE(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_NW)) {hemisphere_gngga_NW(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_SW)) {hemisphere_gngga_SW(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_NE) == 0) {hemisphere_gngga_NE(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_SE) == 0) {hemisphere_gngga_SE(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_NW) == 0) {hemisphere_gngga_NW(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_SW) == 0) {hemisphere_gngga_SW(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_N)) {hemisphere_gngga_N(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_E)) {hemisphere_gngga_E(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_S)) {hemisphere_gngga_S(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_W)) {hemisphere_gngga_W(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_N) == 0) {hemisphere_gngga_N(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_E) == 0) {hemisphere_gngga_E(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_S) == 0) {hemisphere_gngga_S(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.hemisphere_gngga_W) == 0) {hemisphere_gngga_W(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_over)) {satellite_coord_gngga_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_under)) {satellite_coord_gngga_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_equal)) {satellite_coord_gngga_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_in_range)) {satellite_coord_gngga_in_range(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_over) == 0) {satellite_coord_gngga_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_under) == 0) {satellite_coord_gngga_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_equal) == 0) {satellite_coord_gngga_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_coord_gngga_in_range) == 0) {satellite_coord_gngga_in_range(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_over)) {satellite_time_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_under)) {satellite_time_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_equal)) {satellite_time_equal(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_equal)) {satellite_time_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_over) == 0) {satellite_time_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_under) == 0) {satellite_time_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_equal) == 0) {satellite_time_equal(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_equal) == 0) {satellite_time_equal(Ri);}
 
-  else if (strcmp(relayData.relay_0, relayData.satellite_count_gngga_over)) {satellite_count_gngga_over(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_count_gngga_under)) {satellite_count_gngga_under(Ri);}
-  else if (strcmp(relayData.relay_0, relayData.satellite_time_period)) {satellite_time_period(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_count_gngga_over) == 0) {satellite_count_gngga_over(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_count_gngga_under) == 0) {satellite_count_gngga_under(Ri);}
+  else if (strcmp(relayData.relay_0, relayData.satellite_time_period) == 0) {satellite_time_period(Ri);}
+
+  else {Serial.println("[RELAY 0] no function found");}
 
 }
 
