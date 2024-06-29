@@ -969,6 +969,16 @@ struct RelayStruct {
   // default and specifiable value to indicate a relay should not be activated/deactivated
   char default_relay_function[56] = "$NONE";
 
+  // F=Fix=31
+  bool bool_fix_angle_flag_gpatt_over         = false; // specifies weather the function will run
+  char      fix_angle_flag_gpatt_over[56]     = "fix_angle_flag_gpatt_over"; // relay function name
+  bool bool_fix_angle_flag_gpatt_under        = false;
+  char      fix_angle_flag_gpatt_under[56]    = "fix_angle_flag_gpatt_under[";
+  bool bool_fix_angle_flag_gpatt_equal        = false;
+  char      fix_angle_flag_gpatt_equal[56]    = "fix_angle_flag_gpatt_equal";
+  bool bool_fix_angle_flag_gpatt_in_range     = false;
+  char      fix_angle_flag_gpatt_in_range[56] = "fix_angle_flag_gpatt_in_range";
+
   bool bool_time_save_num_gpatt_over         = false; // specifies weather the function will run
   char      time_save_num_gpatt_over[56]     = "time_save_num_gpatt_over"; // relay function name
   bool bool_time_save_num_gpatt_under        = false;
@@ -1118,6 +1128,25 @@ struct RelayStruct {
   char      speed_gngga_in_range[56] = "speed_gngga_in_range";
 };
 RelayStruct relayData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                              RELAY FUNCTIONS: FIX ANGLE FLAG
+
+void fix_angle_flag_gpatt_over() {
+  // relay turns on/off 
+}
+
+void fix_angle_flag_gpatt_under() {
+  // relay turns on/off
+}
+
+void fix_angle_flag_gpatt_equal() {
+  // relay turns on/off
+}
+
+void fix_angle_flag_gpatt_in_range() {
+  // relay turns on/off
+}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                      RELAY FUNCTIONS: EPHEMERIS STORED TIMES
@@ -1442,6 +1471,12 @@ Check each relays key and run a function for each relays corresponding key. Firs
 void systems_Check() {
 
   if (strcmp(relayData.relay_0, relayData.default_relay_function)) {}
+
+  
+  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_over)) {fix_angle_flag_gpatt_over();}
+  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_under)) {fix_angle_flag_gpatt_under();}
+  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_equal)) {fix_angle_flag_gpatt_equal();}
+  else if (strcmp(relayData.relay_0, relayData.fix_angle_flag_gpatt_in_range)) {fix_angle_flag_gpatt_in_range();}
 
   else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_over)) {time_save_num_gpatt_over();}
   else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_under)) {time_save_num_gpatt_under();}
