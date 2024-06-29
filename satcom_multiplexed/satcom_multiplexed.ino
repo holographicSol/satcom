@@ -947,6 +947,12 @@ additional configuration could include running once, running each time etc. for 
 
 struct RelayStruct {
 
+  /*
+  relay_N      Specifies which function should be ran for turning relay_N on/off.
+  bool_relay_N Specifies weather relay_N will be turned on/off.
+  relay_num_N  Specifies number(s) that turn relay_N on/off.
+  */
+
   char relay_0[56] = "$NONE"; // variably specify relay function name 
   char relay_1[56] = "$NONE";
   char relay_2[56] = "$NONE";
@@ -957,6 +963,7 @@ struct RelayStruct {
   char relay_7[56] = "$NONE";
   char relay_8[56] = "$NONE";
   char relay_9[56] = "$NONE";
+
   bool bool_relay_0 = false; // specify function turns on/off the relay.
   bool bool_relay_1 = false;
   bool bool_relay_2 = false;
