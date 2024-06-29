@@ -962,7 +962,7 @@ struct RelayStruct {
   */
 
   double relays_data[10][6] = {
-    {1, 20, 0, 0, 0, 1},
+    {1, 20, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0},
@@ -1528,8 +1528,8 @@ void satellite_count_gngga_over(int Ri) {
   for (int CRi = 0; CRi < relayData.MAX_RELAYS; CRi++) {
     if (CRi == Ri) {
       if (atoi(gnggaData.satellite_count_gngga) > relayData.relays_data[Ri][0]) {
-        if      (relayData.relays_data[Ri][6] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] de-activating relay: " + String(Ri));}
-        else if (relayData.relays_data[Ri][6] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] activating relay: " + String(Ri));}
+        if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] de-activating relay: " + String(Ri));}
+        else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] activating relay: " + String(Ri));}
       }
     }
   }
@@ -1541,8 +1541,8 @@ void satellite_count_gngga_under(int Ri) {
   for (int CRi = 0; CRi < relayData.MAX_RELAYS; CRi++) {
     if (Ri == 0) {
       if (atoi(gnggaData.satellite_count_gngga) < relayData.relays_data[Ri][1]) {
-        if      (relayData.relays_data[Ri][6] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] de-activating: " + String(Ri));}
-        else if (relayData.relays_data[Ri][6] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] activating: " + String(Ri));}
+        if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] de-activating: " + String(Ri));}
+        else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] activating: " + String(Ri));}
       }
     }
   }
@@ -1554,8 +1554,8 @@ void satellite_count_gngga_equal(int Ri) {
   for (int CRi = 0; CRi < relayData.MAX_RELAYS; CRi++) {
     if (Ri == 0) {
       if (atoi(gnggaData.satellite_count_gngga) == relayData.relays_data[Ri][2]) {
-        if      (relayData.relays_data[Ri][6] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] de-activating: " + String(Ri));}
-        else if (relayData.relays_data[Ri][6] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] activating: " + String(Ri));}
+        if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] de-activating: " + String(Ri));}
+        else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] activating: " + String(Ri));}
       }
     }
   }
