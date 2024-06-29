@@ -969,6 +969,9 @@ struct RelayStruct {
   // default and specifiable value to indicate a relay should not be activated/deactivated
   char default_relay_function[56] = "$NONE";
 
+  bool bool_run_inetial_flag_gpatt_equal        = false; // specifies weather the function will run
+  char      run_inetial_flag_gpatt_equal[56]    = "run_inetial_flag_gpatt_equal"; // relay function name
+
   bool bool_mileage_gpatt_over         = false; // specifies weather the function will run
   char      mileage_gpatt_over[56]     = "mileage_gpatt_over"; // relay function name
   bool bool_mileage_gpatt_under        = false;
@@ -1106,6 +1109,13 @@ struct RelayStruct {
   char      speed_gngga_in_range[56] = "speed_gngga_in_range";
 };
 RelayStruct relayData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                            RELAY FUNCTIONS: RUN INETIAL FLAG
+
+void run_inetial_flag_gpatt_equal() {
+  // relay turns on/off 
+}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                     RELAY FUNCTIONS: MILEAGE
@@ -1415,6 +1425,7 @@ void systems_Check() {
   else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_equal)) {gst_data_gpatt_equal();}
   else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_in_range)) {gst_data_gpatt_in_range();}
 
+  else if (strcmp(relayData.relay_0, relayData.run_inetial_flag_gpatt_equal)) {run_inetial_flag_gpatt_equal();}
   else if (strcmp(relayData.relay_0, relayData.line_flag_gpatt_equal)) {line_flag_gpatt_equal();}
   else if (strcmp(relayData.relay_0, relayData.static_flag_gpatt_equal)) {static_flag_gpatt_equal();}
   else if (strcmp(relayData.relay_0, relayData.run_state_flag_gpatt_equal)) {run_state_flag_gpatt_equal();}
