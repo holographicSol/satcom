@@ -961,7 +961,7 @@ struct RelayStruct {
   5: 0=turn_off 1=turn_on
   */
 
-  double relays_data[10][5] = {
+  double relays_data[10][6] = {
     {1, 20, 0, 0, 0, 1},
     {0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0},
