@@ -70,7 +70,7 @@ Although I do not have the resources to build for example a vehicle, I would lik
 to update to patch and add features, everything else should be plugged in, operational and interfaceable to various degrees.
 This way I have satcom for projects requiring anything from datetime from satellites and coordinates to tasks more advanced and inclusive
 of the WTG300's (and other GNS modules) full range of capabilities.
-Currently relay on/off conditions are elemental which could be compunded in hardware, however relay conditions may be preferrably combounded conditions.
+Currently relay on/off conditions are elemental which could be compunded in hardware, however relay conditions may preferrably be compounded conditions in software.
 Relay functions should be available to each relay.
 
 Relay Functions:
