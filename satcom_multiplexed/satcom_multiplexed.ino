@@ -969,79 +969,285 @@ struct RelayStruct {
   // default and specifiable value to indicate a relay should not be activated/deactivated
   char default_relay_function[56] = "$NONE";
 
-  bool bool_satellite_count_over = false; // specifies weather the function will run
-  char satellite_count_over[56] = "satellite_count_over"; // relay function name
-  bool bool_satellite_count_under = false;
-  char satellite_count_under[56] = "satellite_count_under";
-  bool bool_satellite_count_equal = false;
-  char satellite_count_equal[56] = "satellite_count_equal";
+  bool bool_mileage_gpatt_over         = false; // specifies weather the function will run
+  char      mileage_gpatt_over[56]     = "mileage_gpatt_over"; // relay function name
+  bool bool_mileage_gpatt_under        = false;
+  char      mileage_gpatt_under[56]    = "mileage_gpatt_under[";
+  bool bool_mileage_gpatt_equal        = false;
+  char      mileage_gpatt_equal[56]    = "mileage_gpatt_equal";
+  bool bool_mileage_gpatt_in_range     = false;
+  char      mileage_gpatt_in_range[56] = "mileage_gpatt_in_range";
 
-  bool bool_satellite_time_over = false; // specifies weather the function will run
-  char satellite_time_over[56] = "satellite_time_over"; // relay function name
-  bool bool_satellite_time_under = false;
-  char satellite_time_under[56] = "satellite_time_under";
-  bool bool_satellite_time_equal = false;
-  char satellite_time_equal[56] = "satellite_count_equal";
-  bool bool_satellite_time_period = false;
-  char satellite_time_period[56] = "satellite_time_period";
+  bool bool_line_flag_gpatt_equal        = false; // specifies weather the function will run
+  char      line_flag_gpatt_equal[56]    = "line_flag_gpatt_equal"; // relay function name
 
-  bool bool_satellite_coord_over = false; // specifies weather the function will run
-  char satellite_coord_over[56] = "satellite_coord_over"; // relay function name
-  bool bool_satellite_coord_under = false;
-  char satellite_coord_under[56] = "satellite_coord_under";
-  bool bool_satellite_coord_equal = false;
-  char satellite_coord_equal[56] = "satellite_coord_equal";
-  bool bool_satellite_coord_in_range = false;
-  char satellite_coord_in_range[56] = "satellite_coord_in_range";
+  bool bool_gst_data_gpatt_over         = false; // specifies weather the function will run
+  char      gst_data_gpatt_over[56]     = "gst_data_gpatt_over"; // relay function name
+  bool bool_gst_data_gpatt_under        = false;
+  char      gst_data_gpatt_under[56]    = "gst_data_gpatt_under[";
+  bool bool_gst_data_gpatt_equal        = false;
+  char      gst_data_gpatt_equal[56]    = "gst_data_gpatt_equal";
+  bool bool_gst_data_gpatt_in_range     = false;
+  char      gst_data_gpatt_in_range[56] = "gst_data_gpatt_in_range";
 
-  
-  bool bool_satellite_hemisphere_N = false; // specifies weather the function will run
-  char satellite_hemisphere_N[56] = "satellite_hemisphere_N"; // relay function name
-  bool bool_satellite_hemisphere_E = false;
-  char satellite_hemisphere_E[56] = "satellite_hemisphere_E";
-  bool bool_satellite_hemisphere_S = false;
-  char satellite_hemisphere_S[56] = "satellite_hemisphere_S";
-  bool bool_satellite_hemisphere_W = false;
-  char satellite_hemisphere_W[56] = "satellite_hemisphere_W";
+  bool bool_static_flag_gpatt_equal        = false; // specifies weather the function will run
+  char      static_flag_gpatt_equal[56]    = "static_flag_gpatt_equal"; // relay function name
 
-  bool bool_satellite_hemisphere_NE = false; // specifies weather the function will run
-  char satellite_hemisphere_NE[56] = "satellite_hemisphere_NE"; // relay function name
-  bool bool_satellite_hemisphere_SE = false;
-  char satellite_hemisphere_SE[56] = "satellite_hemisphere_SE";
-  bool bool_satellite_hemisphere_NW = false;
-  char satellite_hemisphere_NW[56] = "satellite_hemisphere_NW";
-  bool bool_satellite_hemisphere_SW = false;
-  char satellite_hemisphere_SW[56] = "satellite_hemisphere_SW";
+  bool bool_run_state_flag_gpatt_equal        = false; // specifies weather the function will run
+  char      run_state_flag_gpatt_equal[56]    = "run_state_flag_gpatt_equal"; // relay function name
 
-  bool bool_satellite_precision_factor_gngga_over = false; // specifies weather the function will run
-  char satellite_precision_factor_gngga_over[56] = "satellite_precision_factor_gngga_over"; // relay function name
-  bool bool_satellite_precision_factor_gngga_under = false;
-  char satellite_precision_factor_gngga_under[56] = "satellite_precision_factor_gngga_under";
-  bool bool_satellite_precision_gngga_factor_equal = false;
-  char satellite_precision_factor_gngga_equal[56] = "satellite_precision_factor_gngga_equal";
-  bool bool_satellite_precision_factor_gngga_in_range = false;
-  char satellite_precision_factor_gngga_in_range[56] = "satellite_precision_factor_gngga_in_range";
+  bool bool_ins_gpatt_equal        = false; // specifies weather the function will run
+  char      ins_gpatt_equal[56]    = "ins_gpatt_equal"; // relay function name
 
-  bool bool_altitude_gngga_over = false; // specifies weather the function will run
-  char altitude_gngga_over[56] = "altitude_gngga_over"; // relay function name
-  bool bool_altitude_gngga_under = false;
-  char altitude_gngga_under[56] = "altitude_gngga_under";
-  bool bool_altitude_gngga_equal = false;
-  char altitude_gngga_equal[56] = "altitude_gngga_equal";
-  bool bool_altitude_gngga_in_range = false;
-  char altitude_gngga_in_range[56] = "altitude_gngga_in_range";
+  bool bool_yaw_gpatt_over         = false; // specifies weather the function will run
+  char      yaw_gpatt_over[56]     = "yaw_gpatt_over"; // relay function name
+  bool bool_yaw_gpatt_under        = false;
+  char      yaw_gpatt_under[56]    = "yaw_gpatt_under[";
+  bool bool_yaw_gpatt_equal        = false;
+  char      yaw_gpatt_equal[56]    = "yaw_gpatt_equal";
+  bool bool_yaw_gpatt_in_range     = false;
+  char      yaw_gpatt_in_range[56] = "yaw_gpatt_in_range";
 
-  bool bool_speed_gngga_over = false; // specifies weather the function will run
-  char speed_gngga_over[56] = "speed_gngga_over"; // relay function name
-  bool bool_speed_gngga_under = false;
-  char speed_gngga_under[56] = "speed_gngga_under";
-  bool bool_speed_gngga_equal = false;
-  char speed_gngga_equal[56] = "speed_gngga_equal";
-  bool bool_speed_gngga_in_range = false;
-  char speed_gngga_in_range[56] = "speed_gngga_in_range";
+  bool bool_roll_gpatt_over         = false; // specifies weather the function will run
+  char      roll_gpatt_over[56]     = "roll_gpatt_over"; // relay function name
+  bool bool_roll_gpatt_under        = false;
+  char      roll_gpatt_under[56]    = "roll_gpatt_under[";
+  bool bool_roll_gpatt_equal        = false;
+  char      roll_gpatt_equal[56]    = "roll_gpatt_equal";
+  bool bool_roll_gpatt_in_range     = false;
+  char      roll_gpatt_in_range[56] = "roll_gpatt_in_range";
 
+  bool bool_pitch_gpatt_over         = false; // specifies weather the function will run
+  char      pitch_gpatt_over[56]     = "pitch_gpatt_over"; // relay function name
+  bool bool_pitch_gpatt_under        = false;
+  char      pitch_gpatt_under[56]    = "pitch_gpatt_under[";
+  bool bool_pitch_gpatt_equal        = false;
+  char      pitch_gpatt_equal[56]    = "pitch_gpatt_equal";
+  bool bool_pitch_gpatt_in_range     = false;
+  char      pitch_gpatt_in_range[56] = "pitch_gpatt_in_range";
+
+  bool bool_heading_gnrmc_over         = false; // specifies weather the function will run
+  char      heading_gnrmc_over[56]     = "heading_gnrmc_over"; // relay function name
+  bool bool_heading_gnrmc_under        = false;
+  char      heading_gnrmc_under[56]    = "heading_gnrmc_under";
+  bool bool_heading_gnrmc_equal        = false;
+  char      heading_gnrmc_equal[56]    = "heading_gnrmc_equal";
+  bool bool_heading_gnrmc_in_range     = false;
+  char      heading_gnrmc_in_range[56] = "heading_gnrmc_in_range";
+
+  bool bool_satellite_count_over      = false; // specifies weather the function will run
+  char      satellite_count_over[56]  = "satellite_count_over"; // relay function name
+  bool bool_satellite_count_under     = false;
+  char      satellite_count_under[56] = "satellite_count_under";
+  bool bool_satellite_count_equal     = false;
+  char      satellite_count_equal[56] = "satellite_count_equal";
+
+  bool bool_satellite_time_over       = false; // specifies weather the function will run
+  char      satellite_time_over[56]   = "satellite_time_over"; // relay function name
+  bool bool_satellite_time_under      = false;
+  char      satellite_time_under[56]  = "satellite_time_under";
+  bool bool_satellite_time_equal      = false;
+  char      satellite_time_equal[56]  = "satellite_count_equal";
+  bool bool_satellite_time_period     = false;
+  char      satellite_time_period[56] = "satellite_time_period";
+
+  bool bool_satellite_coord_over         = false; // specifies weather the function will run
+  char      satellite_coord_over[56]     = "satellite_coord_over"; // relay function name
+  bool bool_satellite_coord_under        = false;
+  char      satellite_coord_under[56]    = "satellite_coord_under";
+  bool bool_satellite_coord_equal        = false;
+  char      satellite_coord_equal[56]    = "satellite_coord_equal";
+  bool bool_satellite_coord_in_range     = false;
+  char      satellite_coord_in_range[56] = "satellite_coord_in_range";
+
+  bool bool_satellite_hemisphere_N     = false; // specifies weather the function will run
+  char      satellite_hemisphere_N[56] = "satellite_hemisphere_N"; // relay function name
+  bool bool_satellite_hemisphere_E     = false;
+  char      satellite_hemisphere_E[56] = "satellite_hemisphere_E";
+  bool bool_satellite_hemisphere_S     = false;
+  char      satellite_hemisphere_S[56] = "satellite_hemisphere_S";
+  bool bool_satellite_hemisphere_W     = false;
+  char      satellite_hemisphere_W[56] = "satellite_hemisphere_W";
+
+  bool bool_satellite_hemisphere_NE     = false; // specifies weather the function will run
+  char      satellite_hemisphere_NE[56] = "satellite_hemisphere_NE"; // relay function name
+  bool bool_satellite_hemisphere_SE     = false;
+  char      satellite_hemisphere_SE[56] = "satellite_hemisphere_SE";
+  bool bool_satellite_hemisphere_NW     = false;
+  char      satellite_hemisphere_NW[56] = "satellite_hemisphere_NW";
+  bool bool_satellite_hemisphere_SW     = false;
+  char      satellite_hemisphere_SW[56] = "satellite_hemisphere_SW";
+
+  bool bool_satellite_precision_factor_gngga_over         = false; // specifies weather the function will run
+  char      satellite_precision_factor_gngga_over[56]     = "satellite_precision_factor_gngga_over"; // relay function name
+  bool bool_satellite_precision_factor_gngga_under        = false;
+  char      satellite_precision_factor_gngga_under[56]    = "satellite_precision_factor_gngga_under";
+  bool bool_satellite_precision_gngga_factor_equal        = false;
+  char      satellite_precision_factor_gngga_equal[56]    = "satellite_precision_factor_gngga_equal";
+  bool bool_satellite_precision_factor_gngga_in_range     = false;
+  char      satellite_precision_factor_gngga_in_range[56] = "satellite_precision_factor_gngga_in_range";
+
+  bool bool_altitude_gngga_over         = false; // specifies weather the function will run
+  char      altitude_gngga_over[56]     = "altitude_gngga_over"; // relay function name
+  bool bool_altitude_gngga_under        = false;
+  char      altitude_gngga_under[56]    = "altitude_gngga_under";
+  bool bool_altitude_gngga_equal        = false;
+  char      altitude_gngga_equal[56]    = "altitude_gngga_equal";
+  bool bool_altitude_gngga_in_range     = false;
+  char      altitude_gngga_in_range[56] = "altitude_gngga_in_range";
+
+  bool bool_speed_gngga_over         = false; // specifies weather the function will run
+  char      speed_gngga_over[56]     = "speed_gngga_over"; // relay function name
+  bool bool_speed_gngga_under        = false;
+  char      speed_gngga_under[56]    = "speed_gngga_under";
+  bool bool_speed_gngga_equal        = false;
+  char      speed_gngga_equal[56]    = "speed_gngga_equal";
+  bool bool_speed_gngga_in_range     = false;
+  char      speed_gngga_in_range[56] = "speed_gngga_in_range";
 };
 RelayStruct relayData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                     RELAY FUNCTIONS: MILEAGE
+
+void mileage_gpatt_over() {
+  // relay turns on/off 
+}
+
+void mileage_gpatt_under() {
+  // relay turns on/off
+}
+
+void mileage_gpatt_equal() {
+  // relay turns on/off
+}
+
+void mileage_gpatt_in_range() {
+  // relay turns on/off
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                 RELAY FUNCTIONS: STATIC FLAG
+
+void line_flag_gpatt_equal() {
+  // relay turns on/off 
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                    RELAY FUNCTIONS: GST DATA
+
+void gst_data_gpatt_over() {
+  // relay turns on/off 
+}
+
+void gst_data_gpatt_under() {
+  // relay turns on/off
+}
+
+void gst_data_gpatt_equal() {
+  // relay turns on/off
+}
+
+void gst_data_gpatt_in_range() {
+  // relay turns on/off
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                 RELAY FUNCTIONS: STATIC FLAG
+
+void static_flag_gpatt_equal() {
+  // relay turns on/off 
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                               RELAY FUNCTIONS: RUNSTATE FLAG
+
+void run_state_flag_gpatt_equal() {
+  // relay turns on/off 
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                         RELAY FUNCTIONS: INS
+
+void ins_gpatt_equal() {
+  // relay turns on/off 
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                  RELAY FUNCTIONS: YAW GPATT
+
+void yaw_gpatt_over() {
+  // relay turns on/off 
+}
+
+void yaw_gpatt_under() {
+  // relay turns on/off
+}
+
+void yaw_gpatt_equal() {
+  // relay turns on/off
+}
+
+void yaw_gpatt_in_range() {
+  // relay turns on/off
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                  RELAY FUNCTIONS: ROLL GPATT
+
+void roll_gpatt_over() {
+  // relay turns on/off 
+}
+
+void roll_gpatt_under() {
+  // relay turns on/off
+}
+
+void roll_gpatt_equal() {
+  // relay turns on/off
+}
+
+void roll_gpatt_in_range() {
+  // relay turns on/off
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                 RELAY FUNCTIONS: PITCH GPATT
+
+void pitch_gpatt_over() {
+  // relay turns on/off 
+}
+
+void pitch_gpatt_under() {
+  // relay turns on/off
+}
+
+void pitch_gpatt_equal() {
+  // relay turns on/off
+}
+
+void pitch_gpatt_in_range() {
+  // relay turns on/off
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
+
+void heading_gnrmc_over() {
+  // relay turns on/off 
+}
+
+void heading_gnrmc_under() {
+  // relay turns on/off
+}
+
+void heading_gnrmc_equal() {
+  // relay turns on/off
+}
+
+void heading_gnrmc_in_range() {
+  // relay turns on/off
+}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
@@ -1198,6 +1404,41 @@ Check each relays key and run a function for each relays corresponding key. Firs
 void systems_Check() {
 
   if (strcmp(relayData.relay_0, relayData.default_relay_function)) {}
+
+  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_over)) {mileage_gpatt_over();}
+  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_under)) {mileage_gpatt_under();}
+  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_equal)) {mileage_gpatt_equal();}
+  else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_in_range)) {mileage_gpatt_in_range();}
+
+  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_over)) {gst_data_gpatt_over();}
+  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_under)) {gst_data_gpatt_under();}
+  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_equal)) {gst_data_gpatt_equal();}
+  else if (strcmp(relayData.relay_0, relayData.gst_data_gpatt_in_range)) {gst_data_gpatt_in_range();}
+
+  else if (strcmp(relayData.relay_0, relayData.line_flag_gpatt_equal)) {line_flag_gpatt_equal();}
+  else if (strcmp(relayData.relay_0, relayData.static_flag_gpatt_equal)) {static_flag_gpatt_equal();}
+  else if (strcmp(relayData.relay_0, relayData.run_state_flag_gpatt_equal)) {run_state_flag_gpatt_equal();}
+  else if (strcmp(relayData.relay_0, relayData.ins_gpatt_equal)) {ins_gpatt_equal();}
+
+  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_over)) {yaw_gpatt_over();}
+  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_under)) {yaw_gpatt_under();}
+  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_equal)) {yaw_gpatt_equal();}
+  else if (strcmp(relayData.relay_0, relayData.yaw_gpatt_in_range)) {yaw_gpatt_in_range();}
+
+  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_over)) {roll_gpatt_over();}
+  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_under)) {roll_gpatt_under();}
+  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_equal)) {roll_gpatt_equal();}
+  else if (strcmp(relayData.relay_0, relayData.roll_gpatt_in_range)) {roll_gpatt_in_range();}
+
+  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_over)) {pitch_gpatt_over();}
+  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_under)) {pitch_gpatt_under();}
+  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_equal)) {pitch_gpatt_equal();}
+  else if (strcmp(relayData.relay_0, relayData.pitch_gpatt_in_range)) {pitch_gpatt_in_range();}
+
+  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_over)) {heading_gnrmc_over();}
+  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_under)) {heading_gnrmc_under();}
+  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_equal)) {heading_gnrmc_equal();}
+  else if (strcmp(relayData.relay_0, relayData.heading_gnrmc_in_range)) {heading_gnrmc_in_range();}
 
   else if (strcmp(relayData.relay_0, relayData.speed_gngga_over)) {speed_gngga_over();}
   else if (strcmp(relayData.relay_0, relayData.speed_gngga_under)) {speed_gngga_under();}
