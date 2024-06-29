@@ -1584,7 +1584,7 @@ void systems_Check() {
 
 
 /*
-Remember always: why do you think you can trust this data? Are you transmitting this data to yourelf? How critical is your system>
+Remember always: why do you think you can trust this data? Are you transmitting this data to yourelf (from sat or not)? How critical is your system>
 */
   int Ri = 0;
   memset(relayData.relays[Ri], 0, sizeof(relayData.relays[Ri]));
