@@ -969,6 +969,15 @@ struct RelayStruct {
   // default and specifiable value to indicate a relay should not be activated/deactivated
   char default_relay_function[56] = "$NONE";
 
+  bool bool_time_save_num_gpatt_over         = false; // specifies weather the function will run
+  char      time_save_num_gpatt_over[56]     = "time_save_num_gpatt_over"; // relay function name
+  bool bool_time_save_num_gpatt_under        = false;
+  char      time_save_num_gpatt_under[56]    = "time_save_num_gpatt_under[";
+  bool bool_time_save_num_gpatt_equal        = false;
+  char      time_save_num_gpatt_equal[56]    = "time_save_num_gpatt_equal";
+  bool bool_time_save_num_gpatt_in_range     = false;
+  char      time_save_num_gpatt_in_range[56] = "time_save_num_gpatt_in_range";
+
   bool bool_run_inetial_flag_gpatt_equal        = false; // specifies weather the function will run
   char      run_inetial_flag_gpatt_equal[56]    = "run_inetial_flag_gpatt_equal"; // relay function name
 
@@ -1109,6 +1118,25 @@ struct RelayStruct {
   char      speed_gngga_in_range[56] = "speed_gngga_in_range";
 };
 RelayStruct relayData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                      RELAY FUNCTIONS: EPHEMERIS STORED TIMES
+
+void time_save_num_gpatt_over() {
+  // relay turns on/off 
+}
+
+void time_save_num_gpatt_under() {
+  // relay turns on/off
+}
+
+void time_save_num_gpatt_equal() {
+  // relay turns on/off
+}
+
+void time_save_num_gpatt_in_range() {
+  // relay turns on/off
+}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                            RELAY FUNCTIONS: RUN INETIAL FLAG
@@ -1414,6 +1442,11 @@ Check each relays key and run a function for each relays corresponding key. Firs
 void systems_Check() {
 
   if (strcmp(relayData.relay_0, relayData.default_relay_function)) {}
+
+  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_over)) {time_save_num_gpatt_over();}
+  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_under)) {time_save_num_gpatt_under();}
+  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_equal)) {time_save_num_gpatt_equal();}
+  else if (strcmp(relayData.relay_0, relayData.time_save_num_gpatt_in_range)) {time_save_num_gpatt_in_range();}
 
   else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_over)) {mileage_gpatt_over();}
   else if (strcmp(relayData.relay_0, relayData.mileage_gpatt_under)) {mileage_gpatt_under();}
