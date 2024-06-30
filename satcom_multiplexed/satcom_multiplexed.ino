@@ -1607,6 +1607,8 @@ void systems_Check() {
       else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {
         tmp_matrix[0][Fi] = satellite_count_gngga_over(Ri);
         }
+      
+      // put true or false in the temporary matrix for every other elemental condition commented out below
     }
     
     // default final bool is true and if a single false is found final bool should be set to false and remain false
