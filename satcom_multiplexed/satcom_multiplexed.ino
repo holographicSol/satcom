@@ -1021,19 +1021,20 @@ struct RelayStruct {
   5: x2 range
   6: y2 range
   7: 0=turn_off 1=turn_on
+  8: 0=disabled 1=enabled 
   */
 
-  double relays_data[10][8] = {
-    {1, 20, 0, 0, 0, 0, 0, 1},
-    {0, 0, 0, 0, 0, 0, 0, 1},
-    {0, 0, 0, 0, 0, 0, 0, 1},
-    {0, 0, 0, 0, 0, 0, 0, 1},
-    {0, 0, 0, 0, 0, 0, 0, 1},
-    {0, 0, 0, 0, 0, 0, 0, 1},
-    {0, 0, 0, 0, 0, 0, 0, 1},
-    {0, 0, 0, 0, 0, 0, 0, 1},
-    {0, 0, 0, 0, 0, 0, 0, 1},
-    {0, 0, 0, 0, 0, 0, 0, 1},
+  double relays_data[10][9] = {
+    {1, 20, 0, 0, 0, 0, 0, 1, 1},
+    {0, 0, 0, 0, 0, 0, 0, 1, 1},
+    {0, 0, 0, 0, 0, 0, 0, 1, 0},
+    {0, 0, 0, 0, 0, 0, 0, 1, 0},
+    {0, 0, 0, 0, 0, 0, 0, 1, 0},
+    {0, 0, 0, 0, 0, 0, 0, 1, 0},
+    {0, 0, 0, 0, 0, 0, 0, 1, 0},
+    {0, 0, 0, 0, 0, 0, 0, 1, 0},
+    {0, 0, 0, 0, 0, 0, 0, 1, 0},
+    {0, 0, 0, 0, 0, 0, 0, 1, 0},
   };
 
   bool tmp_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -1633,36 +1634,40 @@ void systems_Check() {
   // iterate over each relay array
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
 
-    // temporary switch must be zero each time
-    bool tmp_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    if (relayData.relays_data[Ri][8] == 1) {
 
-    // iterate over each function name for current relay
-    for (int Fi = 0; Fi < 23; Fi++) {
+      // temporary switch must be zero each time
+      bool tmp_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-      // put true in the temporary matrix if no function is specified ($NONE). this will require a master switch being built later.
-      if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1;}
+      // iterate over each function name for current relay
+      for (int Fi = 0; Fi < 23; Fi++) {
 
-      // put true or false in the temporary matrix
-      else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {tmp_matrix[0][Fi] = satellite_count_gngga_over(Ri);}
+        // put true in the temporary matrix if no function is specified ($NONE). this will require a master switch being built later.
+        if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1;}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {tmp_matrix[0][Fi] = satellite_count_gngga_over(Ri);}
+        
+        // put true or false in the temporary matrix for every other elemental condition commented out below
+      }
       
-      // put true or false in the temporary matrix for every other elemental condition commented out below
-    }
-    
-    // default final bool is true and if a single false is found final bool should be set to false and remain false
-    bool final_bool = true;
-    for (int FC = 0; FC < 23; FC++) {
-      if (tmp_matrix[0][FC] == 0) {final_bool = false;}
-    }
+      // default final bool is true and if a single false is found final bool should be set to false and remain false
+      bool final_bool = true;
+      for (int FC = 0; FC < 23; FC++) {
+        if (tmp_matrix[0][FC] == 0) {final_bool = false;}
+      }
 
-    // activate/deactivate relay N
-    if (final_bool == true) {
-      if      (relayData.relays_data[Ri][8] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
-      else if (relayData.relays_data[Ri][8] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
+      // activate/deactivate relay N
+      if (final_bool == true) {
+        if      (relayData.relays_data[Ri][7] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
+        else if (relayData.relays_data[Ri][8] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
+      }
+      else if (final_bool == false) {
+        if      (relayData.relays_data[Ri][7] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
+        else if (relayData.relays_data[Ri][7] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
+      }
     }
-    else if (final_bool == false) {
-      if      (relayData.relays_data[Ri][8] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
-      else if (relayData.relays_data[Ri][8] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
-    }
+    else {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activated");}
   }
 }
 
