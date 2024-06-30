@@ -1690,7 +1690,7 @@ bool satellite_count_gngga_equal(int Ri, int Fi) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                SYSTEMS CHECK
+//                                                                                                               SYSTEMS CHECKS
 
 /*
 Check each relays key and run a function for each relays corresponding key. First check $NONE.
