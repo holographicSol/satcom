@@ -1700,11 +1700,13 @@ void systems_Check() {
 
 
   /*
-  Remember always: why do you think you can trust this data? Are you transmitting this data to yourelf (from sat or not)? How critical is your system?>
+  Remember always: why do you think you can trust this data? Are you transmitting this data to yourelf (from sat or not)? How critical are your system(s)?
+                   Once you plug something into this, the 'satellites' are in control unless you have a way to override.
 
   This system check condition was elemental however compounded check conditions are currently being built in so that each relay/function can
   be activated for a compound of conditions rather than just one condition. This is preferrable per relay/function and once interfaceable, more convenient.
   */
+
   // uncomment to hardcode specify relay zero's function(s) (because there is no HID yet)
   int Ri = 0; 
   strcpy(relayData.relays[Ri][0], relayData.satellite_count_gngga_over);
