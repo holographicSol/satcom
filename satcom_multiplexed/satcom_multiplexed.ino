@@ -1557,6 +1557,7 @@ void satellite_count_gngga_under(int Ri) {
   Serial.println("[CONNECTED] satellite_count_gngga_under");
   if (atoi(gnggaData.satellite_count_gngga) < relayData.relays_data[Ri][1]) {return true;}
   else {return false;}
+}
 
 void satellite_count_gngga_equal(int Ri) {
   Serial.println("[CONNECTED] satellite_count_gngga_equal");
