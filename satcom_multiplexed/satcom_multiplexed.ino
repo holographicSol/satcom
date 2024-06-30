@@ -1585,33 +1585,37 @@ void systems_Check() {
 
   */
   // uncomment to hardcode specify relay zero's function and reduce relays to 1
-  // relayData.MAX_RELAYS = 2;
+  // relayData.MAX_RELAYS = 1;
   int Ri = 0; 
   strcpy(relayData.relays[Ri][0], relayData.satellite_count_gngga_over);
 
+  // iterate over each relay array
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
+
+    // temporary switch must be zero each time
     bool tmp_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
+    // iterate over each function name for current relay
     for (int Fi = 0; Fi < 23; Fi++) {
 
-      // Serial.println("[RELAY " + String(Ri) + "] [RELAY FUNCTION " + String(Fi) + "] " + String(relayData.relays[Ri][Fi])); // debug
-
+      // put true in the temporary matrix if no function is specified ($NONE). this will require a master switch being built later.
       if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {
         tmp_matrix[0][Fi] = 1;
         }
 
+      // put true or false in the temporary matrix
       else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {
         tmp_matrix[0][Fi] = satellite_count_gngga_over(Ri);
         }
-      // Serial.println("[BOOL MATRIX] " + String(tmp_matrix[0][Fi])); // debug
     }
-
+    
+    // default final bool is true and if a single false is found final bool should be set to false and remain false
     bool final_bool = true;
     for (int FC = 0; FC < 23; FC++) {
       if (tmp_matrix[0][FC] == 0) {final_bool = false;}
-      // Serial.println("[MATRIX BOOL] " + String(tmp_matrix[0][FC]));
     }
-    // Serial.println("[FINAL BOOL] " + String(final_bool));
+
+    // activate/deactivate relat N
     if (final_bool == true) {
       if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
       else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
