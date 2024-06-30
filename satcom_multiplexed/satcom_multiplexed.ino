@@ -1661,7 +1661,7 @@ void systems_Check() {
       // activate/deactivate relay N
       if (final_bool == true) {
         if      (relayData.relays_data[Ri][7] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
-        else if (relayData.relays_data[Ri][8] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
+        else if (relayData.relays_data[Ri][7] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
       }
       else if (final_bool == false) {
         if      (relayData.relays_data[Ri][7] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
