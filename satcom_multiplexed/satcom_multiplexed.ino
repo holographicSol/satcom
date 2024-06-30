@@ -1634,6 +1634,7 @@ void systems_Check() {
   // iterate over each relay array
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
 
+    // check the master switch for current relay
     if (relayData.relays_data[Ri][8] == 1) {
 
       // temporary switch must be zero each time
@@ -1642,7 +1643,7 @@ void systems_Check() {
       // iterate over each function name for current relay
       for (int Fi = 0; Fi < 23; Fi++) {
 
-        // put true in the temporary matrix if no function is specified ($NONE). this will require a master switch being built later.
+        // put true in the temporary matrix if no function is specified ($NONE)
         if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1;}
 
         // put true or false in the temporary matrix
