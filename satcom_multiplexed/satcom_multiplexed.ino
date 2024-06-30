@@ -1599,14 +1599,10 @@ void systems_Check() {
     for (int Fi = 0; Fi < 23; Fi++) {
 
       // put true in the temporary matrix if no function is specified ($NONE). this will require a master switch being built later.
-      if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {
-        tmp_matrix[0][Fi] = 1;
-        }
+      if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1;}
 
       // put true or false in the temporary matrix
-      else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {
-        tmp_matrix[0][Fi] = satellite_count_gngga_over(Ri);
-        }
+      else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {tmp_matrix[0][Fi] = satellite_count_gngga_over(Ri);}
       
       // put true or false in the temporary matrix for every other elemental condition commented out below
     }
