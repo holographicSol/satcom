@@ -1592,7 +1592,7 @@ void systems_Check() {
 
     for (int Fi = 0; Fi < 23; Fi++) {
 
-      Serial.println("[RELAY " + String(Ri) + "] [RELAY FUNCTION " + String(Fi) + "] " + String(relayData.relays[Ri][Fi])); // debug
+      // Serial.println("[RELAY " + String(Ri) + "] [RELAY FUNCTION " + String(Fi) + "] " + String(relayData.relays[Ri][Fi])); // debug
 
       if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {
         tmp_matrix[Ri][Fi] = 1;
@@ -1601,7 +1601,7 @@ void systems_Check() {
       else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {
         tmp_matrix[Ri][Fi] = satellite_count_gngga_over(Ri);
         }
-      Serial.println("[BOOL MATRIX] " + String(tmp_matrix[0][Fi])); // debug
+      // Serial.println("[BOOL MATRIX] " + String(tmp_matrix[0][Fi])); // debug
     }
 
     bool final_bool = true;
