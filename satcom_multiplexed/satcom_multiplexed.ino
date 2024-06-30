@@ -1673,21 +1673,20 @@ bool satellite_time_period(int Ri) {
 
 bool satellite_count_gngga_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_count_gngga_over");
-  Serial.println("[Ri] " + String(Ri) + " [Fi] " + String(Fi) + " [RDAT] " + String(relayData.relays_data[Ri][Fi][0]));
   if (atoi(gnggaData.satellite_count_gngga) > relayData.relays_data[Ri][Fi][0]) {return true;}
   else {return false;}
 }
 
 bool satellite_count_gngga_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_count_gngga_under");
-  // if (atoi(gnggaData.satellite_count_gngga) < relayData.relays_data[Ri][1]) {return true;}
-  // else {return false;}
+  if (atoi(gnggaData.satellite_count_gngga) < relayData.relays_data[Ri][Fi][1]) {return true;}
+  else {return false;}
 }
 
 bool satellite_count_gngga_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_count_gngga_equal");
-  // if (atoi(gnggaData.satellite_count_gngga) == relayData.relays_data[Ri][2]) {return true;}
-  // else {return false;}
+  if (atoi(gnggaData.satellite_count_gngga) == relayData.relays_data[Ri][Fi][2]) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
