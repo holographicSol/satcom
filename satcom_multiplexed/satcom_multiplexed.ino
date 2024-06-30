@@ -1610,15 +1610,15 @@ void systems_Check() {
     }
 
     // default to true and if a single false is found then remain false
-    activation_bool = true;
+    relayData.activation_bool = true;
     for (int FC = 0; FC < 24; FC++) { if (activation_matrix[Ri][FC] == 0) {activation_bool = false;} }
 
     // activate/de-activate relay Ri
-    if (activation_bool == true) {
+    if (relayData.activation_bool == true) {
       if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
       else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
     }
-    else if (activation_bool == false) {
+    else if (relayData.activation_bool == false) {
       if      (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
       else if (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
     }
