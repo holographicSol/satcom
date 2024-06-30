@@ -1167,383 +1167,383 @@ RelayStruct relayData;
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                              RELAY FUNCTIONS: FIX ANGLE FLAG
 
-void fix_angle_flag_gpatt_over(int Ri) {
+bool fix_angle_flag_gpatt_over(int Ri) {
   Serial.println("[CONNECTED] fix_angle_flag_gpatt_over");
-  // relay turns on/off 
+   
 }
 
-void fix_angle_flag_gpatt_under(int Ri) {
+bool fix_angle_flag_gpatt_under(int Ri) {
   Serial.println("[CONNECTED] fix_angle_flag_gpatt_under");
-  // relay turns on/off
+  
 }
 
-void fix_angle_flag_gpatt_equal(int Ri) {
+bool fix_angle_flag_gpatt_equal(int Ri) {
   Serial.println("[CONNECTED] fix_angle_flag_gpatt_equal");
-  // relay turns on/off
+  
 }
 
-void fix_angle_flag_gpatt_in_range(int Ri) {
+bool fix_angle_flag_gpatt_in_range(int Ri) {
   Serial.println("[CONNECTED] fix_angle_flag_gpatt_in_range");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                      RELAY FUNCTIONS: EPHEMERIS STORED TIMES
 
-void time_save_num_gpatt_over(int Ri) {
+bool time_save_num_gpatt_over(int Ri) {
   Serial.println("[CONNECTED] time_save_num_gpatt_over");
-  // relay turns on/off 
+   
 }
 
-void time_save_num_gpatt_under(int Ri) {
+bool time_save_num_gpatt_under(int Ri) {
   Serial.println("[CONNECTED] time_save_num_gpatt_under");
-  // relay turns on/off
+  
 }
 
-void time_save_num_gpatt_equal(int Ri) {
+bool time_save_num_gpatt_equal(int Ri) {
   Serial.println("[CONNECTED] time_save_num_gpatt_equal");
-  // relay turns on/off
+  
 }
 
-void time_save_num_gpatt_in_range(int Ri) {
+bool time_save_num_gpatt_in_range(int Ri) {
   Serial.println("[CONNECTED] time_save_num_gpatt_in_range");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                            RELAY FUNCTIONS: RUN INETIAL FLAG
 
-void run_inetial_flag_gpatt_equal(int Ri) {
+bool run_inetial_flag_gpatt_equal(int Ri) {
   Serial.println("[CONNECTED] run_inetial_flag_gpatt_equal");
-  // relay turns on/off 
+   
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                     RELAY FUNCTIONS: MILEAGE
 
-void mileage_gpatt_over(int Ri) {
+bool mileage_gpatt_over(int Ri) {
   Serial.println("[CONNECTED] mileage_gpatt_over");
-  // relay turns on/off 
+   
 }
 
-void mileage_gpatt_under(int Ri) {
+bool mileage_gpatt_under(int Ri) {
   Serial.println("[CONNECTED] mileage_gpatt_under");
-  // relay turns on/off
+  
 }
 
-void mileage_gpatt_equal(int Ri) {
+bool mileage_gpatt_equal(int Ri) {
   Serial.println("[CONNECTED] mileage_gpatt_equal");
-  // relay turns on/off
+  
 }
 
-void mileage_gpatt_in_range(int Ri) {
+bool mileage_gpatt_in_range(int Ri) {
   Serial.println("[CONNECTED] mileage_gpatt_in_range");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: STATIC FLAG
 
-void line_flag_gpatt_equal(int Ri) {
+bool line_flag_gpatt_equal(int Ri) {
   Serial.println("[CONNECTED] line_flag_gpatt_equal");
-  // relay turns on/off 
+   
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                    RELAY FUNCTIONS: GST DATA
 
-void gst_data_gpatt_over(int Ri) {
+bool gst_data_gpatt_over(int Ri) {
   Serial.println("[CONNECTED] gst_data_gpatt_over");
-  // relay turns on/off 
+   
 }
 
-void gst_data_gpatt_under(int Ri) {
+bool gst_data_gpatt_under(int Ri) {
   Serial.println("[CONNECTED] gst_data_gpatt_under");
-  // relay turns on/off
+  
 }
 
-void gst_data_gpatt_equal(int Ri) {
+bool gst_data_gpatt_equal(int Ri) {
   Serial.println("[CONNECTED] gst_data_gpatt_equal");
-  // relay turns on/off
+  
 }
 
-void gst_data_gpatt_in_range(int Ri) {
+bool gst_data_gpatt_in_range(int Ri) {
   Serial.println("[CONNECTED] gst_data_gpatt_in_range");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: STATIC FLAG
 
-void static_flag_gpatt_equal(int Ri) {
+bool static_flag_gpatt_equal(int Ri) {
   Serial.println("[CONNECTED] static_flag_gpatt_equal");
-  // relay turns on/off 
+   
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                               RELAY FUNCTIONS: RUNSTATE FLAG
 
-void run_state_flag_gpatt_equal(int Ri) {
+bool run_state_flag_gpatt_equal(int Ri) {
   Serial.println("[CONNECTED] run_state_flag_gpatt_equal");
-  // relay turns on/off 
+   
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                         RELAY FUNCTIONS: INS
 
-void ins_gpatt_equal(int Ri) {
+bool ins_gpatt_equal(int Ri) {
   Serial.println("[CONNECTED] ins_gpatt_equal");
-  // relay turns on/off 
+   
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                  RELAY FUNCTIONS: YAW GPATT
 
-void yaw_gpatt_over(int Ri) {
+bool yaw_gpatt_over(int Ri) {
   Serial.println("[CONNECTED] yaw_gpatt_over");
-  // relay turns on/off 
+   
 }
 
-void yaw_gpatt_under(int Ri) {
+bool yaw_gpatt_under(int Ri) {
   Serial.println("[CONNECTED] yaw_gpatt_under");
-  // relay turns on/off
+  
 }
 
-void yaw_gpatt_equal(int Ri) {
+bool yaw_gpatt_equal(int Ri) {
   Serial.println("[CONNECTED] yaw_gpatt_equal");
-  // relay turns on/off
+  
 }
 
-void yaw_gpatt_in_range(int Ri) {
+bool yaw_gpatt_in_range(int Ri) {
   Serial.println("[CONNECTED] yaw_gpatt_in_range");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                  RELAY FUNCTIONS: ROLL GPATT
 
-void roll_gpatt_over(int Ri) {
+bool roll_gpatt_over(int Ri) {
   Serial.println("[CONNECTED] roll_gpatt_over");
-  // relay turns on/off 
+   
 }
 
-void roll_gpatt_under(int Ri) {
+bool roll_gpatt_under(int Ri) {
   Serial.println("[CONNECTED] roll_gpatt_under");
-  // relay turns on/off
+  
 }
 
-void roll_gpatt_equal(int Ri) {
+bool roll_gpatt_equal(int Ri) {
   Serial.println("[CONNECTED] roll_gpatt_equal");
-  // relay turns on/off
+  
 }
 
-void roll_gpatt_in_range(int Ri) {
+bool roll_gpatt_in_range(int Ri) {
   Serial.println("[CONNECTED] roll_gpatt_in_range");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: PITCH GPATT
 
-void pitch_gpatt_over(int Ri) {
+bool pitch_gpatt_over(int Ri) {
   Serial.println("[CONNECTED] pitch_gpatt_over");
-  // relay turns on/off 
+   
 }
 
-void pitch_gpatt_under(int Ri) {
+bool pitch_gpatt_under(int Ri) {
   Serial.println("[CONNECTED] pitch_gpatt_under");
-  // relay turns on/off
+  
 }
 
-void pitch_gpatt_equal(int Ri) {
+bool pitch_gpatt_equal(int Ri) {
   Serial.println("[CONNECTED] pitch_gpatt_equal");
-  // relay turns on/off
+  
 }
 
-void pitch_gpatt_in_range(int Ri) {
+bool pitch_gpatt_in_range(int Ri) {
   Serial.println("[CONNECTED] pitch_gpatt_in_range");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
 
-void heading_gnrmc_over(int Ri) {
+bool heading_gnrmc_over(int Ri) {
   Serial.println("[CONNECTED] heading_gnrmc_over");
-  // relay turns on/off 
+   
 }
 
-void heading_gnrmc_under(int Ri) {
+bool heading_gnrmc_under(int Ri) {
   Serial.println("[CONNECTED] heading_gnrmc_under");
-  // relay turns on/off
+  
 }
 
-void heading_gnrmc_equal(int Ri) {
+bool heading_gnrmc_equal(int Ri) {
   Serial.println("[CONNECTED] heading_gnrmc_equal");
-  // relay turns on/off
+  
 }
 
-void heading_gnrmc_in_range(int Ri) {
+bool heading_gnrmc_in_range(int Ri) {
   Serial.println("[CONNECTED] heading_gnrmc_in_range");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
 
-void speed_gngga_over(int Ri) {
+bool speed_gngga_over(int Ri) {
   Serial.println("[CONNECTED] speed_gngga_over");
-  // relay turns on/off 
+   
 }
 
-void speed_gngga_under(int Ri) {
+bool speed_gngga_under(int Ri) {
   Serial.println("[CONNECTED] speed_gngga_under");
-  // relay turns on/off
+  
 }
 
-void speed_gngga_equal(int Ri) {
+bool speed_gngga_equal(int Ri) {
   Serial.println("[CONNECTED] speed_gngga_equal");
-  // relay turns on/off
+  
 }
 
-void speed_gngga_in_range(int Ri) {
+bool speed_gngga_in_range(int Ri) {
   Serial.println("[CONNECTED] speed_gngga_in_range");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                              RELAY FUNCTIONS: ALTITUDE GNGGA
 
-void altitude_gngga_over(int Ri) {
+bool altitude_gngga_over(int Ri) {
   Serial.println("[CONNECTED] altitude_gngga_over");
-  // relay turns on/off 
+   
 }
 
-void altitude_gngga_under(int Ri) {
+bool altitude_gngga_under(int Ri) {
   Serial.println("[CONNECTED] altitude_gngga_under");
-  // relay turns on/off
+  
 }
 
-void altitude_gngga_equal(int Ri) {
+bool altitude_gngga_equal(int Ri) {
   Serial.println("[CONNECTED] altitude_gngga_equal");
-  // relay turns on/off
+  
 }
 
-void altitude_gngga_in_range(int Ri) {
+bool altitude_gngga_in_range(int Ri) {
   Serial.println("[CONNECTED] altitude_gngga_in_range");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                      RELAY FUNCTIONS: PRECISION FACTOR GNGGA
 
-void precision_factor_gngga_over(int Ri) {
+bool precision_factor_gngga_over(int Ri) {
   Serial.println("[CONNECTED] precision_factor_gngga_over");
-  // relay turns on/off 
+   
 }
 
-void precision_factor_gngga_under(int Ri) {
+bool precision_factor_gngga_under(int Ri) {
   Serial.println("[CONNECTED] precision_factor_gngga_under");
-  // relay turns on/off
+  
 }
 
-void precision_factor_gngga_equal(int Ri) {
+bool precision_factor_gngga_equal(int Ri) {
   Serial.println("[CONNECTED] precision_factor_gngga_equal");
-  // relay turns on/off
+  
 }
 
-void precision_factor_gngga_in_range(int Ri) {
+bool precision_factor_gngga_in_range(int Ri) {
   Serial.println("[CONNECTED] precision_factor_gngga_in_range");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: HEMISPHERE
 
-void hemisphere_gngga_N(int Ri) {
+bool hemisphere_gngga_N(int Ri) {
   Serial.println("[CONNECTED] hemisphere_gngga_N");
-  // relay turns on/off 
+   
 }
 
-void hemisphere_gngga_E(int Ri) {
+bool hemisphere_gngga_E(int Ri) {
   Serial.println("[CONNECTED] hemisphere_gngga_E");
-  // relay turns on/off
+  
 }
 
-void hemisphere_gngga_S(int Ri) {
+bool hemisphere_gngga_S(int Ri) {
   Serial.println("[CONNECTED] hemisphere_gngga_S");
-  // relay turns on/off
+  
 }
 
-void hemisphere_gngga_W(int Ri) {
+bool hemisphere_gngga_W(int Ri) {
   Serial.println("[CONNECTED] hemisphere_gngga_W");
-  // relay turns on/off
+  
 }
 
-void hemisphere_gngga_NE(int Ri) {
+bool hemisphere_gngga_NE(int Ri) {
   Serial.println("[CONNECTED] hemisphere_gngga_NE");
-  // relay turns on/off 
+   
 }
 
-void hemisphere_gngga_SE(int Ri) {
+bool hemisphere_gngga_SE(int Ri) {
   Serial.println("[CONNECTED] hemisphere_gngga_SE");
-  // relay turns on/off
+  
 }
 
-void hemisphere_gngga_NW(int Ri) {
+bool hemisphere_gngga_NW(int Ri) {
   Serial.println("[CONNECTED] hemisphere_gngga_NW");
-  // relay turns on/off
+  
 }
 
-void hemisphere_gngga_SW(int Ri) {
+bool hemisphere_gngga_SW(int Ri) {
   Serial.println("[CONNECTED] hemisphere_gngga_SW");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: COORDINATES
 
-void satellite_coord_gngga_over(int Ri) {
+bool satellite_coord_gngga_over(int Ri) {
   Serial.println("[CONNECTED] satellite_coord_gngga_over");
-  // relay turns on/off 
+   
 }
 
-void satellite_coord_gngga_under(int Ri) {
+bool satellite_coord_gngga_under(int Ri) {
   Serial.println("[CONNECTED] satellite_coord_gngga_under");
-  // relay turns on/off
+  
 }
 
-void satellite_coord_gngga_equal(int Ri) {
+bool satellite_coord_gngga_equal(int Ri) {
   Serial.println("[CONNECTED] satellite_coord_gngga_equal");
-  // relay turns on/off
+  
 }
 
-void satellite_coord_gngga_in_range(int Ri) {
+bool satellite_coord_gngga_in_range(int Ri) {
   Serial.println("[CONNECTED] satellite_coord_gngga_in_range");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                        RELAY FUNCTIONS: TIME
 
-void satellite_time_over(int Ri) {
+bool satellite_time_over(int Ri) {
   Serial.println("[CONNECTED] satellite_time_over");
-  // relay turns on/off 
+   
 }
 
-void satellite_time_under(int Ri) {
+bool satellite_time_under(int Ri) {
   Serial.println("[CONNECTED] satellite_time_under");
-  // relay turns on/off
+  
 }
 
-void satellite_time_equal(int Ri) {
+bool satellite_time_equal(int Ri) {
   Serial.println("[CONNECTED] satellite_time_equal");
-  // relay turns on/off 
+   
 }
 
-void satellite_time_period(int Ri) {
+bool satellite_time_period(int Ri) {
   Serial.println("[CONNECTED] satellite_time_period");
-  // relay turns on/off
+  
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
