@@ -1016,22 +1016,24 @@ struct RelayStruct {
   0: >
   1: <
   2: ==
-  3: x range
-  4: y range
-  5: 0=turn_off 1=turn_on
+  3: x1 range
+  4: y1 range
+  5: x2 range
+  6: y2 range
+  7: 0=turn_off 1=turn_on
   */
 
-  double relays_data[10][6] = {
-    {1, 20, 0, 0, 0, 1},
-    {0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0},
+  double relays_data[10][8] = {
+    {1, 20, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 1},
+    {0, 0, 0, 0, 0, 0, 0, 1},
   };
 
   bool tmp_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -1563,22 +1565,26 @@ bool satellite_coord_gngga_in_range(int Ri) {
 
 bool satellite_time_over(int Ri) {
   Serial.println("[CONNECTED] satellite_time_over");
-   
+  if (atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][0]) {return true;}
+  else {return false;}
 }
 
 bool satellite_time_under(int Ri) {
   Serial.println("[CONNECTED] satellite_time_under");
-  
+  if (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][1]) {return true;}
+  else {return false;}
 }
 
 bool satellite_time_equal(int Ri) {
   Serial.println("[CONNECTED] satellite_time_equal");
-   
+  if (atoi(satData.sat_time_stamp_string) == relayData.relays_data[Ri][2]) {return true;}
+  else {return false;}
 }
 
 bool satellite_time_period(int Ri) {
   Serial.println("[CONNECTED] satellite_time_period");
-  
+  if ((atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][3]) && (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][4])) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1650,12 +1656,12 @@ void systems_Check() {
 
     // activate/deactivate relay N
     if (final_bool == true) {
-      if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
-      else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
+      if      (relayData.relays_data[Ri][8] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
+      else if (relayData.relays_data[Ri][8] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
     }
     else if (final_bool == false) {
-      if      (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
-      else if (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
+      if      (relayData.relays_data[Ri][8] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
+      else if (relayData.relays_data[Ri][8] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
     }
   }
 }
