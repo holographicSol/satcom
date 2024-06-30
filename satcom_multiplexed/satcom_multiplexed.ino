@@ -1026,7 +1026,7 @@ struct RelayStruct {
 
   double relays_data[10][9] = {
     {1, 20, 0, 0, 0, 0, 0, 1, 1},
-    {0, 0, 0, 0, 0, 0, 0, 1, 1},
+    {0, 0, 0, 0, 0, 0, 0, 1, 0},
     {0, 0, 0, 0, 0, 0, 0, 1, 0},
     {0, 0, 0, 0, 0, 0, 0, 1, 0},
     {0, 0, 0, 0, 0, 0, 0, 1, 0},
@@ -1624,7 +1624,18 @@ void systems_Check() {
 
   This system check condition was elemental however compounded check conditions are currently being built in so that each realy/function can
   be activated for a compound of conditions rather than just one condition. This is preferrable per relay and once interfaceable, very convenient.
-
+  double relays_data[10][9] = {
+    {1, 20, 0, 0, 0, 0, 0, 1, 1},
+    {0,  0, 0, 0, 0, 0, 0, 1, 0},
+    {0,  0, 0, 0, 0, 0, 0, 1, 0},
+    {0,  0, 0, 0, 0, 0, 0, 1, 0},
+    {0,  0, 0, 0, 0, 0, 0, 1, 0},
+    {0,  0, 0, 0, 0, 0, 0, 1, 0},
+    {0,  0, 0, 0, 0, 0, 0, 1, 0},
+    {0,  0, 0, 0, 0, 0, 0, 1, 0},
+    {0,  0, 0, 0, 0, 0, 0, 1, 0},
+    {0,  0, 0, 0, 0, 0, 0, 1, 0},
+  };
   */
   // uncomment to hardcode specify relay zero's function and reduce relays to 1
   // relayData.MAX_RELAYS = 1;
@@ -1638,10 +1649,14 @@ void systems_Check() {
     if (relayData.relays_data[Ri][8] == 1) {
 
       // temporary switch must be zero each time
-      bool tmp_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+      bool tmp_matrix[1][50] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
 
       // iterate over each function name for current relay
-      for (int Fi = 0; Fi < 23; Fi++) {
+      for (int Fi = 0; Fi < 50; Fi++) {
 
         // put true in the temporary matrix if no function is specified ($NONE)
         if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1;}
@@ -1654,16 +1669,16 @@ void systems_Check() {
       
       // default final bool is true and if a single false is found final bool should be set to false and remain false
       bool final_bool = true;
-      for (int FC = 0; FC < 23; FC++) {
+      for (int FC = 0; FC < 50; FC++) {
         if (tmp_matrix[0][FC] == 0) {final_bool = false;}
       }
 
       // activate/deactivate relay N
-      if (final_bool == true) {
+      if (final_bool == false) {
         if      (relayData.relays_data[Ri][7] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
         else if (relayData.relays_data[Ri][7] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
       }
-      else if (final_bool == false) {
+      else if (final_bool == true) {
         if      (relayData.relays_data[Ri][7] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
         else if (relayData.relays_data[Ri][7] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
       }
