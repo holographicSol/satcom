@@ -1551,53 +1551,17 @@ bool satellite_count_gngga_over(int Ri) {
   Serial.println("[CONNECTED] satellite_count_gngga_over");
   if (atoi(gnggaData.satellite_count_gngga) > relayData.relays_data[Ri][0]) {return true;}
   else {return false;}
-  // relay turns on/off
-  // for (int CRi = 0; CRi < relayData.MAX_RELAYS; CRi++) {
-  //   if (CRi == Ri) {
-  //     if (atoi(gnggaData.satellite_count_gngga) > relayData.relays_data[Ri][0]) {
-  //       if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] de-activating relay: " + String(Ri));}
-  //       else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] activating relay: " + String(Ri));}
-  //     }
-  //     else {
-  //       if      (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] de-activating relay: " + String(Ri));}
-  //       else if (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] activating relay: " + String(Ri));}
-  //     }
-  //   }
-  // }
 }
 
 void satellite_count_gngga_under(int Ri) {
   Serial.println("[CONNECTED] satellite_count_gngga_under");
-  // relay turns on/off
-  for (int CRi = 0; CRi < relayData.MAX_RELAYS; CRi++) {
-    if (Ri == 0) {
-      if (atoi(gnggaData.satellite_count_gngga) < relayData.relays_data[Ri][1]) {
-        if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] de-activating: " + String(Ri));}
-        else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] activating: " + String(Ri));}
-      }
-      else {
-        if      (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] de-activating relay: " + String(Ri));}
-        else if (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_under] activating relay: " + String(Ri));}
-      }
-    }
-  }
-}
+  if (atoi(gnggaData.satellite_count_gngga) < relayData.relays_data[Ri][1]) {return true;}
+  else {return false;}
 
 void satellite_count_gngga_equal(int Ri) {
   Serial.println("[CONNECTED] satellite_count_gngga_equal");
-  // relay turns on/off
-  for (int CRi = 0; CRi < relayData.MAX_RELAYS; CRi++) {
-    if (Ri == 0) {
-      if (atoi(gnggaData.satellite_count_gngga) == relayData.relays_data[Ri][2]) {
-        if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] de-activating: " + String(Ri));}
-        else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] activating: " + String(Ri));}
-      }
-      else {
-        if      (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] de-activating relay: " + String(Ri));}
-        else if (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_equal] activating relay: " + String(Ri));}
-      }
-    }
-  }
+  if (atoi(gnggaData.satellite_count_gngga) == relayData.relays_data[Ri][2]) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
