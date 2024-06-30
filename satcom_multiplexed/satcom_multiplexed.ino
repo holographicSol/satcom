@@ -951,64 +951,24 @@ struct RelayStruct {
 
   char relays[10][50][100] = {
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
-     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },};
 
   /*
@@ -1024,17 +984,137 @@ struct RelayStruct {
   8: 0=disabled 1=enabled 
   */
 
-  double relays_data[10][9] = {
-    {1, 20, 0, 0, 0, 0, 0, 1, 1},
-    {0, 0, 0, 0, 0, 0, 0, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 1, 0},
+  double relays_data[10][11][8] = {
+    {
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1},
+    },
+    {
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
   };
 
   bool tmp_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -1566,47 +1646,48 @@ bool satellite_coord_gngga_in_range(int Ri) {
 
 bool satellite_time_over(int Ri) {
   Serial.println("[CONNECTED] satellite_time_over");
-  if (atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][0]) {return true;}
-  else {return false;}
+  // if (atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][0]) {return true;}
+  // else {return false;}
 }
 
 bool satellite_time_under(int Ri) {
   Serial.println("[CONNECTED] satellite_time_under");
-  if (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][1]) {return true;}
-  else {return false;}
+  // if (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][1]) {return true;}
+  // else {return false;}
 }
 
 bool satellite_time_equal(int Ri) {
   Serial.println("[CONNECTED] satellite_time_equal");
-  if (atoi(satData.sat_time_stamp_string) == relayData.relays_data[Ri][2]) {return true;}
-  else {return false;}
+  // if (atoi(satData.sat_time_stamp_string) == relayData.relays_data[Ri][2]) {return true;}
+  // else {return false;}
 }
 
 bool satellite_time_period(int Ri) {
   Serial.println("[CONNECTED] satellite_time_period");
-  if ((atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][3]) && (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][4])) {return true;}
-  else {return false;}
+  // if ((atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][3]) && (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][4])) {return true;}
+  // else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                             RELAY FUNCTIONS: SATELLITE COUNT
 
-bool satellite_count_gngga_over(int Ri) {
+bool satellite_count_gngga_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_count_gngga_over");
-  if (atoi(gnggaData.satellite_count_gngga) > relayData.relays_data[Ri][0]) {return true;}
+  Serial.println("[Ri] " + String(Ri) + " [Fi] " + String(Fi) + " [RDAT] " + String(relayData.relays_data[Ri][Fi][0]));
+  if (atoi(gnggaData.satellite_count_gngga) > relayData.relays_data[Ri][Fi][0]) {return true;}
   else {return false;}
 }
 
-bool satellite_count_gngga_under(int Ri) {
+bool satellite_count_gngga_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_count_gngga_under");
-  if (atoi(gnggaData.satellite_count_gngga) < relayData.relays_data[Ri][1]) {return true;}
-  else {return false;}
+  // if (atoi(gnggaData.satellite_count_gngga) < relayData.relays_data[Ri][1]) {return true;}
+  // else {return false;}
 }
 
-bool satellite_count_gngga_equal(int Ri) {
+bool satellite_count_gngga_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_count_gngga_equal");
-  if (atoi(gnggaData.satellite_count_gngga) == relayData.relays_data[Ri][2]) {return true;}
-  else {return false;}
+  // if (atoi(gnggaData.satellite_count_gngga) == relayData.relays_data[Ri][2]) {return true;}
+  // else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1641,49 +1722,40 @@ void systems_Check() {
   // relayData.MAX_RELAYS = 1;
   int Ri = 0; 
   strcpy(relayData.relays[Ri][0], relayData.satellite_count_gngga_over);
+  strcpy(relayData.relays[Ri][1], relayData.satellite_count_gngga_over);
 
   // iterate over each relay array
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
 
-    // check the master switch for current relay
-    if (relayData.relays_data[Ri][8] == 1) {
+    Serial.println("[Ri] " + String(Ri) + " [ENABLED] " + String(relayData.relays_data[Ri][10][0]));
+    if (relayData.relays_data[Ri][10][0] == 1) {
 
       // temporary switch must be zero each time
-      bool tmp_matrix[1][50] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
+      bool tmp_matrix[1][10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
       // iterate over each function name for current relay
-      for (int Fi = 0; Fi < 50; Fi++) {
+      for (int Fi = 0; Fi < 10; Fi++) {
 
         // put true in the temporary matrix if no function is specified ($NONE)
         if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1;}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {tmp_matrix[0][Fi] = satellite_count_gngga_over(Ri);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {tmp_matrix[0][Fi] = satellite_count_gngga_over(Ri, Fi);}
+
+        // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
         
         // put true or false in the temporary matrix for every other elemental condition commented out below
       }
       
       // default final bool is true and if a single false is found final bool should be set to false and remain false
       bool final_bool = true;
-      for (int FC = 0; FC < 50; FC++) {
-        if (tmp_matrix[0][FC] == 0) {final_bool = false;}
-      }
+      for (int FC = 0; FC < 10; FC++) {if (tmp_matrix[0][FC] == 0) {final_bool = false;}}
+      // Serial.println("[FINAL_BOOL] " + String(final_bool));
 
       // activate/deactivate relay N
-      if (final_bool == false) {
-        if      (relayData.relays_data[Ri][7] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
-        else if (relayData.relays_data[Ri][7] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
-      }
-      else if (final_bool == true) {
-        if      (relayData.relays_data[Ri][7] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
-        else if (relayData.relays_data[Ri][7] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
-      }
+      if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] de-activating");}
+      else if (final_bool == true) {Serial.println("[RELAY " + String(Ri) + "] activating");}
     }
-    else {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activated");}
   }
 }
 
