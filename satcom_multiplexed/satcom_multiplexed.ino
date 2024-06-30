@@ -1732,7 +1732,7 @@ void systems_Check() {
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
         
-        // put true or false in the temporary matrix for every other elemental condition commented out below
+        // put true or false in the temporary matrix for every other basic condition we currently have data for
       }
       
       // default final bool is true and if a single false is found final bool should be set to false and remain false
