@@ -948,6 +948,7 @@ additional configuration could include running once, running each time etc. for 
 struct RelayStruct {
 
   int MAX_RELAYS = 24;
+  int MAX_RELAY_FUNCTION = 24;
 
   char relays[24][24][100] = {
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
@@ -1584,23 +1585,24 @@ void systems_Check() {
   be activated for a compound of conditions rather than just one condition. This is preferrable per relay and once interfaceable, very convenient.
 
   */
+
+  // uncomment to hardcode specify relay zero's function (because there is no interface yet)
   int Ri = 0;
-  // uncomment to hardcode specify relay zero's function
-  // memset(relayData.relays[Ri][0], 0, sizeof(relayData.relays[Ri][0]));
   strcpy(relayData.relays[Ri][0], relayData.satellite_count_gngga_over);
 
-  relayData.MAX_RELAYS = 1;
-
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
-    activation_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-    for (int Fi = 0; Fi < 24; Fi++) {
+    activation_matrix[1][relayData.MAX_RELAY_FUNCTION] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+    for (int Fi = 0; Fi < relayData.MAX_RELAY_FUNCTION; Fi++) {
 
       // Serial.println("[RELAY " + String(Ri) + "] [RELAY FUNCTION " + String(Fi) + "] " + String(relayData.relays[Ri][Fi])); // debug
 
+      // put true in matrix if default function (requires a master switch which will be built later)
       if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {
         activation_matrix[Ri][Fi] = 1;
         }
+      // put true or false in the matrix
       else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {
         activation_matrix[Ri][Fi] = satellite_count_gngga_over(Ri);
         }
