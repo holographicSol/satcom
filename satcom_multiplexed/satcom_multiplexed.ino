@@ -1644,28 +1644,28 @@ bool satellite_coord_gngga_in_range(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                        RELAY FUNCTIONS: TIME
 
-bool satellite_time_over(int Ri) {
+bool satellite_time_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_time_over");
-  // if (atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][0]) {return true;}
-  // else {return false;}
+  if (atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][Fi][0]) {return true;}
+  else {return false;}
 }
 
-bool satellite_time_under(int Ri) {
+bool satellite_time_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_time_under");
-  // if (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][1]) {return true;}
-  // else {return false;}
+  if (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][Fi][1]) {return true;}
+  else {return false;}
 }
 
-bool satellite_time_equal(int Ri) {
+bool satellite_time_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_time_equal");
-  // if (atoi(satData.sat_time_stamp_string) == relayData.relays_data[Ri][2]) {return true;}
-  // else {return false;}
+  if (atoi(satData.sat_time_stamp_string) == relayData.relays_data[Ri][Fi][2]) {return true;}
+  else {return false;}
 }
 
-bool satellite_time_period(int Ri) {
+bool satellite_time_period(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_time_period");
-  // if ((atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][3]) && (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][4])) {return true;}
-  // else {return false;}
+  if ((atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][Fi][3]) && (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][4])) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
