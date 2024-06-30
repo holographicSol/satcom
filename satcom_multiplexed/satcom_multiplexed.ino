@@ -1582,19 +1582,17 @@ void systems_Check() {
   be activated for a compound of conditions rather than just one condition. This is preferrable per relay and once interfaceable, very convenient.
 
   */
-  int Ri = 0;
-  // uncomment to hardcode specify relay zero's function
-  // memset(relayData.relays[Ri][0], 0, sizeof(relayData.relays[Ri][0]));
-  strcpy(relayData.relays[Ri][0], relayData.satellite_count_gngga_over);
-
+  // uncomment to hardcode specify relay zero's function and reduce relays to 1
   relayData.MAX_RELAYS = 1;
+  int Ri = 0; 
+  strcpy(relayData.relays[Ri][0], relayData.satellite_count_gngga_over);
 
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
     bool tmp_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-    for (int Fi = 0; Fi < 24; Fi++) {
+    for (int Fi = 0; Fi < 23; Fi++) {
 
-      // Serial.println("[RELAY " + String(Ri) + "] [RELAY FUNCTION " + String(Fi) + "] " + String(relayData.relays[Ri][Fi])); // debug
+      Serial.println("[RELAY " + String(Ri) + "] [RELAY FUNCTION " + String(Fi) + "] " + String(relayData.relays[Ri][Fi])); // debug
 
       if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {
         tmp_matrix[Ri][Fi] = 1;
@@ -1603,7 +1601,7 @@ void systems_Check() {
       else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {
         tmp_matrix[Ri][Fi] = satellite_count_gngga_over(Ri);
         }
-      // Serial.println("[BOOL MATRIX] " + String(tmp_matrix[0][Fi])); // debug
+      Serial.println("[BOOL MATRIX] " + String(tmp_matrix[0][Fi])); // debug
     }
 
     bool final_bool = true;
@@ -1621,6 +1619,7 @@ void systems_Check() {
       else if (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
     }
   }
+}
 
 
 
@@ -1724,7 +1723,7 @@ void systems_Check() {
 
     // else {Serial.println("[RELAY 0] no function found");}
   // }
-}
+// }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    MAIN LOOP
