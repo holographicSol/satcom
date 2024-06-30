@@ -947,9 +947,34 @@ additional configuration could include running once, running each time etc. for 
 
 struct RelayStruct {
 
-  int MAX_RELAYS = 9;
-  
-  char relays[200][56] = {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"};
+  int MAX_RELAYS = 24;
+
+  char relays[24][24][100] = {
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"},
+    };
 
   /*
   2 Dimensional Matrix containing values associated with relay functions.
@@ -1522,21 +1547,23 @@ void satellite_time_period(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                             RELAY FUNCTIONS: SATELLITE COUNT
 
-void satellite_count_gngga_over(int Ri) {
+bool satellite_count_gngga_over(int Ri) {
   Serial.println("[CONNECTED] satellite_count_gngga_over");
+  if (atoi(gnggaData.satellite_count_gngga) > relayData.relays_data[Ri][0]) {return true;}
+  else {return false;}
   // relay turns on/off
-  for (int CRi = 0; CRi < relayData.MAX_RELAYS; CRi++) {
-    if (CRi == Ri) {
-      if (atoi(gnggaData.satellite_count_gngga) > relayData.relays_data[Ri][0]) {
-        if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] de-activating relay: " + String(Ri));}
-        else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] activating relay: " + String(Ri));}
-      }
-      else {
-        if      (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] de-activating relay: " + String(Ri));}
-        else if (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] activating relay: " + String(Ri));}
-      }
-    }
-  }
+  // for (int CRi = 0; CRi < relayData.MAX_RELAYS; CRi++) {
+  //   if (CRi == Ri) {
+  //     if (atoi(gnggaData.satellite_count_gngga) > relayData.relays_data[Ri][0]) {
+  //       if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] de-activating relay: " + String(Ri));}
+  //       else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] activating relay: " + String(Ri));}
+  //     }
+  //     else {
+  //       if      (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] de-activating relay: " + String(Ri));}
+  //       else if (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [satellite_count_gngga_over] activating relay: " + String(Ri));}
+  //     }
+  //   }
+  // }
 }
 
 void satellite_count_gngga_under(int Ri) {
@@ -1583,108 +1610,155 @@ Check each relays key and run a function for each relays corresponding key. Firs
 void systems_Check() {
 
 
-/*
-Remember always: why do you think you can trust this data? Are you transmitting this data to yourelf (from sat or not)? How critical is your system?>
-*/
+  /*
+  Remember always: why do you think you can trust this data? Are you transmitting this data to yourelf (from sat or not)? How critical is your system?>
+
+  This system check condition was elemental however compounded check conditions are currently being built in so that each realy/function can
+  be activated for a compound of conditions rather than just one condition. This is preferrable per relay and once interfaceable, very convenient.
+
+  */
   int Ri = 0;
-  memset(relayData.relays[Ri], 0, sizeof(relayData.relays[Ri]));
-  strcpy(relayData.relays[Ri], relayData.satellite_count_gngga_over); // uncomment to hardcode specify relay zero's function
-  // Serial.println("[R0] " + String(relayData.relays[Ri]));
-  // Serial.println("[K]  " + String(relayData.satellite_count_gngga_over));
-  // Serial.println("[C]  " + String(strcmp(relayData.relays[Ri], relayData.satellite_count_gngga_over)));
+  // uncomment to hardcode specify relay zero's function
+  // memset(relayData.relays[Ri][0], 0, sizeof(relayData.relays[Ri][0]));
+  strcpy(relayData.relays[Ri][0], relayData.satellite_count_gngga_over);
+
+  relayData.MAX_RELAYS = 1;
 
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
+    bool tmp_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-    // if (strcmp(relayData.relays[Ri], relayData.default_relay_function) == 0) {Serial.println("[RELAY 0] $NONE");}
-    if (strcmp(relayData.relays[Ri], relayData.default_relay_function) == 0) {}
+    for (int Fi = 0; Fi < 24; Fi++) {
+
+      // Serial.println("[RELAY " + String(Ri) + "] [RELAY FUNCTION " + String(Fi) + "] " + String(relayData.relays[Ri][Fi]));
+
+      if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {
+        tmp_matrix[Ri][Fi] = 1;
+        }
+
+      else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {
+        tmp_matrix[Ri][Fi] = satellite_count_gngga_over(Ri);
+        }
+      // Serial.println("[BOOL MATRIX] " + String(tmp_matrix[0][Fi]));
+    }
+
+    bool final_bool = true;
+    for (int FC = 0; FC < 24; FC++) {
+      if (tmp_matrix[Ri][FC] == 0) {final_bool = false;}
+      // Serial.println("[MATRIX BOOL] " + String(tmp_matrix[0][FC]));
+    }
+    // Serial.println("[FINAL BOOL] " + String(final_bool));
+    if (final_bool == true) {
+      if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
+      else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
+    }
+    else if (final_bool == false) {
+      if      (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
+      else if (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
+    }
+  }
+
+
+
+
+      // if (strcmp(relayData.relays[Ri], relayData.default_relay_function) == 0) {Serial.println("[RELAY 0] $NONE");}
+  //     else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {satellite_count_gngga_over(Ri);}
+  //     else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_under) == 0) {satellite_count_gngga_under(Ri);}
+  //     else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_period) == 0) {satellite_time_period(Ri);}
+  //   }
+  // }
+
+  // for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
+
+  //   // if (strcmp(relayData.relays[Ri], relayData.default_relay_function) == 0) {Serial.println("[RELAY 0] $NONE");}
+  //   if (strcmp(relayData.relays[Ri], relayData.default_relay_function) == 0) {}
     
-    else if (strcmp(relayData.relays[Ri], relayData.fix_angle_flag_gpatt_over) == 0) {fix_angle_flag_gpatt_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.fix_angle_flag_gpatt_under) == 0) {fix_angle_flag_gpatt_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.fix_angle_flag_gpatt_equal) == 0) {fix_angle_flag_gpatt_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.fix_angle_flag_gpatt_in_range) == 0) {fix_angle_flag_gpatt_in_range(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.fix_angle_flag_gpatt_over) == 0) {fix_angle_flag_gpatt_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.fix_angle_flag_gpatt_under) == 0) {fix_angle_flag_gpatt_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.fix_angle_flag_gpatt_equal) == 0) {fix_angle_flag_gpatt_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.fix_angle_flag_gpatt_in_range) == 0) {fix_angle_flag_gpatt_in_range(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.time_save_num_gpatt_over) == 0) {time_save_num_gpatt_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.time_save_num_gpatt_under) == 0) {time_save_num_gpatt_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.time_save_num_gpatt_equal) == 0) {time_save_num_gpatt_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.time_save_num_gpatt_in_range) == 0) {time_save_num_gpatt_in_range(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.time_save_num_gpatt_over) == 0) {time_save_num_gpatt_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.time_save_num_gpatt_under) == 0) {time_save_num_gpatt_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.time_save_num_gpatt_equal) == 0) {time_save_num_gpatt_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.time_save_num_gpatt_in_range) == 0) {time_save_num_gpatt_in_range(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.mileage_gpatt_over) == 0) {mileage_gpatt_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.mileage_gpatt_under) == 0) {mileage_gpatt_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.mileage_gpatt_equal) == 0) {mileage_gpatt_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.mileage_gpatt_in_range) == 0) {mileage_gpatt_in_range(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.mileage_gpatt_over) == 0) {mileage_gpatt_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.mileage_gpatt_under) == 0) {mileage_gpatt_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.mileage_gpatt_equal) == 0) {mileage_gpatt_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.mileage_gpatt_in_range) == 0) {mileage_gpatt_in_range(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.gst_data_gpatt_over) == 0) {gst_data_gpatt_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.gst_data_gpatt_under) == 0) {gst_data_gpatt_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.gst_data_gpatt_equal) == 0) {gst_data_gpatt_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.gst_data_gpatt_in_range) == 0) {gst_data_gpatt_in_range(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.gst_data_gpatt_over) == 0) {gst_data_gpatt_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.gst_data_gpatt_under) == 0) {gst_data_gpatt_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.gst_data_gpatt_equal) == 0) {gst_data_gpatt_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.gst_data_gpatt_in_range) == 0) {gst_data_gpatt_in_range(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.run_inetial_flag_gpatt_equal) == 0) {run_inetial_flag_gpatt_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.line_flag_gpatt_equal) == 0) {line_flag_gpatt_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.static_flag_gpatt_equal) == 0) {static_flag_gpatt_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.run_state_flag_gpatt_equal) == 0) {run_state_flag_gpatt_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.ins_gpatt_equal) == 0) {ins_gpatt_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.run_inetial_flag_gpatt_equal) == 0) {run_inetial_flag_gpatt_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.line_flag_gpatt_equal) == 0) {line_flag_gpatt_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.static_flag_gpatt_equal) == 0) {static_flag_gpatt_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.run_state_flag_gpatt_equal) == 0) {run_state_flag_gpatt_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.ins_gpatt_equal) == 0) {ins_gpatt_equal(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.yaw_gpatt_over) == 0) {yaw_gpatt_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.yaw_gpatt_under) == 0) {yaw_gpatt_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.yaw_gpatt_equal) == 0) {yaw_gpatt_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.yaw_gpatt_in_range) == 0) {yaw_gpatt_in_range(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.yaw_gpatt_over) == 0) {yaw_gpatt_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.yaw_gpatt_under) == 0) {yaw_gpatt_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.yaw_gpatt_equal) == 0) {yaw_gpatt_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.yaw_gpatt_in_range) == 0) {yaw_gpatt_in_range(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.roll_gpatt_over) == 0) {roll_gpatt_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.roll_gpatt_under) == 0) {roll_gpatt_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.roll_gpatt_equal) == 0) {roll_gpatt_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.roll_gpatt_in_range) == 0) {roll_gpatt_in_range(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.roll_gpatt_over) == 0) {roll_gpatt_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.roll_gpatt_under) == 0) {roll_gpatt_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.roll_gpatt_equal) == 0) {roll_gpatt_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.roll_gpatt_in_range) == 0) {roll_gpatt_in_range(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.pitch_gpatt_over) == 0) {pitch_gpatt_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.pitch_gpatt_under) == 0) {pitch_gpatt_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.pitch_gpatt_equal) == 0) {pitch_gpatt_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.pitch_gpatt_in_range) == 0) {pitch_gpatt_in_range(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.pitch_gpatt_over) == 0) {pitch_gpatt_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.pitch_gpatt_under) == 0) {pitch_gpatt_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.pitch_gpatt_equal) == 0) {pitch_gpatt_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.pitch_gpatt_in_range) == 0) {pitch_gpatt_in_range(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.heading_gnrmc_over) == 0) {heading_gnrmc_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.heading_gnrmc_under) == 0) {heading_gnrmc_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.heading_gnrmc_equal) == 0) {heading_gnrmc_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.heading_gnrmc_in_range) == 0) {heading_gnrmc_in_range(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.heading_gnrmc_over) == 0) {heading_gnrmc_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.heading_gnrmc_under) == 0) {heading_gnrmc_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.heading_gnrmc_equal) == 0) {heading_gnrmc_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.heading_gnrmc_in_range) == 0) {heading_gnrmc_in_range(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.speed_gngga_over) == 0) {speed_gngga_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.speed_gngga_under) == 0) {speed_gngga_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.speed_gngga_equal) == 0) {speed_gngga_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.speed_gngga_in_range) == 0) {speed_gngga_in_range(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.speed_gngga_over) == 0) {speed_gngga_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.speed_gngga_under) == 0) {speed_gngga_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.speed_gngga_equal) == 0) {speed_gngga_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.speed_gngga_in_range) == 0) {speed_gngga_in_range(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.altitude_gngga_over) == 0) {altitude_gngga_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.altitude_gngga_under) == 0) {altitude_gngga_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.altitude_gngga_equal) == 0) {altitude_gngga_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.altitude_gngga_in_range) == 0) {altitude_gngga_in_range(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.altitude_gngga_over) == 0) {altitude_gngga_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.altitude_gngga_under) == 0) {altitude_gngga_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.altitude_gngga_equal) == 0) {altitude_gngga_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.altitude_gngga_in_range) == 0) {altitude_gngga_in_range(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.precision_factor_gngga_over) == 0) {precision_factor_gngga_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.precision_factor_gngga_under) == 0) {precision_factor_gngga_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.precision_factor_gngga_equal) == 0) {precision_factor_gngga_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.precision_factor_gngga_in_range) == 0) {precision_factor_gngga_in_range(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.precision_factor_gngga_over) == 0) {precision_factor_gngga_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.precision_factor_gngga_under) == 0) {precision_factor_gngga_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.precision_factor_gngga_equal) == 0) {precision_factor_gngga_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.precision_factor_gngga_in_range) == 0) {precision_factor_gngga_in_range(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_NE) == 0) {hemisphere_gngga_NE(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_SE) == 0) {hemisphere_gngga_SE(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_NW) == 0) {hemisphere_gngga_NW(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_SW) == 0) {hemisphere_gngga_SW(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_NE) == 0) {hemisphere_gngga_NE(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_SE) == 0) {hemisphere_gngga_SE(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_NW) == 0) {hemisphere_gngga_NW(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_SW) == 0) {hemisphere_gngga_SW(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_N) == 0) {hemisphere_gngga_N(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_E) == 0) {hemisphere_gngga_E(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_S) == 0) {hemisphere_gngga_S(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_W) == 0) {hemisphere_gngga_W(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_N) == 0) {hemisphere_gngga_N(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_E) == 0) {hemisphere_gngga_E(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_S) == 0) {hemisphere_gngga_S(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.hemisphere_gngga_W) == 0) {hemisphere_gngga_W(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.satellite_coord_gngga_over) == 0) {satellite_coord_gngga_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.satellite_coord_gngga_under) == 0) {satellite_coord_gngga_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.satellite_coord_gngga_equal) == 0) {satellite_coord_gngga_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.satellite_coord_gngga_in_range) == 0) {satellite_coord_gngga_in_range(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.satellite_coord_gngga_over) == 0) {satellite_coord_gngga_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.satellite_coord_gngga_under) == 0) {satellite_coord_gngga_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.satellite_coord_gngga_equal) == 0) {satellite_coord_gngga_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.satellite_coord_gngga_in_range) == 0) {satellite_coord_gngga_in_range(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.satellite_time_over) == 0) {satellite_time_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.satellite_time_under) == 0) {satellite_time_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.satellite_time_equal) == 0) {satellite_time_equal(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.satellite_time_equal) == 0) {satellite_time_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.satellite_time_over) == 0) {satellite_time_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.satellite_time_under) == 0) {satellite_time_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.satellite_time_equal) == 0) {satellite_time_equal(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.satellite_time_equal) == 0) {satellite_time_equal(Ri);}
 
-    else if (strcmp(relayData.relays[Ri], relayData.satellite_count_gngga_over) == 0) {satellite_count_gngga_over(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.satellite_count_gngga_under) == 0) {satellite_count_gngga_under(Ri);}
-    else if (strcmp(relayData.relays[Ri], relayData.satellite_time_period) == 0) {satellite_time_period(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.satellite_count_gngga_over) == 0) {satellite_count_gngga_over(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.satellite_count_gngga_under) == 0) {satellite_count_gngga_under(Ri);}
+  //   else if (strcmp(relayData.relays[Ri], relayData.satellite_time_period) == 0) {satellite_time_period(Ri);}
 
     // else {Serial.println("[RELAY 0] no function found");}
-  }
+  // }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
