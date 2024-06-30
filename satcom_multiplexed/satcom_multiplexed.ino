@@ -1585,7 +1585,7 @@ void systems_Check() {
 
   */
   // uncomment to hardcode specify relay zero's function and reduce relays to 1
-  relayData.MAX_RELAYS = 1;
+  // relayData.MAX_RELAYS = 2;
   int Ri = 0; 
   strcpy(relayData.relays[Ri][0], relayData.satellite_count_gngga_over);
 
@@ -1594,24 +1594,24 @@ void systems_Check() {
 
     for (int Fi = 0; Fi < 23; Fi++) {
 
-      Serial.println("[RELAY " + String(Ri) + "] [RELAY FUNCTION " + String(Fi) + "] " + String(relayData.relays[Ri][Fi])); // debug
+      // Serial.println("[RELAY " + String(Ri) + "] [RELAY FUNCTION " + String(Fi) + "] " + String(relayData.relays[Ri][Fi])); // debug
 
       if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {
-        tmp_matrix[Ri][Fi] = 1;
+        tmp_matrix[0][Fi] = 1;
         }
 
       else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {
-        tmp_matrix[Ri][Fi] = satellite_count_gngga_over(Ri);
+        tmp_matrix[0][Fi] = satellite_count_gngga_over(Ri);
         }
-      Serial.println("[BOOL MATRIX] " + String(tmp_matrix[0][Fi])); // debug
+      // Serial.println("[BOOL MATRIX] " + String(tmp_matrix[0][Fi])); // debug
     }
 
     bool final_bool = true;
     for (int FC = 0; FC < 23; FC++) {
-      if (tmp_matrix[Ri][FC] == 0) {final_bool = false;}
-      Serial.println("[MATRIX BOOL] " + String(tmp_matrix[0][FC]));
+      if (tmp_matrix[0][FC] == 0) {final_bool = false;}
+      // Serial.println("[MATRIX BOOL] " + String(tmp_matrix[0][FC]));
     }
-    Serial.println("[FINAL BOOL] " + String(final_bool));
+    // Serial.println("[FINAL BOOL] " + String(final_bool));
     if (final_bool == true) {
       if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
       else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
