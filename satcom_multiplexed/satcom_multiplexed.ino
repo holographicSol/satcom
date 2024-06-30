@@ -1703,7 +1703,7 @@ void systems_Check() {
   Remember always: why do you think you can trust this data? Are you transmitting this data to yourelf (from sat or not)? How critical is your system?>
 
   This system check condition was elemental however compounded check conditions are currently being built in so that each relay/function can
-  be activated for a compound of conditions rather than just one condition. This is preferrable per relay and once interfaceable, very convenient.
+  be activated for a compound of conditions rather than just one condition. This is preferrable per relay/function and once interfaceable, more convenient.
   */
   // uncomment to hardcode specify relay zero's function(s) (because there is no HID yet)
   int Ri = 0; 
