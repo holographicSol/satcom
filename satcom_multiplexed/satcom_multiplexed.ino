@@ -1704,21 +1704,8 @@ void systems_Check() {
 
   This system check condition was elemental however compounded check conditions are currently being built in so that each realy/function can
   be activated for a compound of conditions rather than just one condition. This is preferrable per relay and once interfaceable, very convenient.
-  double relays_data[10][9] = {
-    {1, 20, 0, 0, 0, 0, 0, 1, 1},
-    {0,  0, 0, 0, 0, 0, 0, 1, 0},
-    {0,  0, 0, 0, 0, 0, 0, 1, 0},
-    {0,  0, 0, 0, 0, 0, 0, 1, 0},
-    {0,  0, 0, 0, 0, 0, 0, 1, 0},
-    {0,  0, 0, 0, 0, 0, 0, 1, 0},
-    {0,  0, 0, 0, 0, 0, 0, 1, 0},
-    {0,  0, 0, 0, 0, 0, 0, 1, 0},
-    {0,  0, 0, 0, 0, 0, 0, 1, 0},
-    {0,  0, 0, 0, 0, 0, 0, 1, 0},
-  };
   */
-  // uncomment to hardcode specify relay zero's function and reduce relays to 1
-  // relayData.MAX_RELAYS = 1;
+  // uncomment to hardcode specify relay zero's function(s) (because there is no HID yet)
   int Ri = 0; 
   strcpy(relayData.relays[Ri][0], relayData.satellite_count_gngga_over);
   strcpy(relayData.relays[Ri][1], relayData.satellite_count_gngga_over);
