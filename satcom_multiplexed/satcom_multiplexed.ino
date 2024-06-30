@@ -999,6 +999,9 @@ struct RelayStruct {
     {0, 0, 0, 0, 0, 0},
   };
 
+  bool activation_bool = true;
+  bool activation_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
   // default and specifiable value to indicate a relay should not be activated/deactivated
   char default_relay_function[56] = "$NONE";
 
@@ -1589,33 +1592,30 @@ void systems_Check() {
   relayData.MAX_RELAYS = 1;
 
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
-    bool tmp_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    activation_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
     for (int Fi = 0; Fi < 24; Fi++) {
 
-      // Serial.println("[RELAY " + String(Ri) + "] [RELAY FUNCTION " + String(Fi) + "] " + String(relayData.relays[Ri][Fi]));
+      // Serial.println("[RELAY " + String(Ri) + "] [RELAY FUNCTION " + String(Fi) + "] " + String(relayData.relays[Ri][Fi])); // debug
 
       if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {
-        tmp_matrix[Ri][Fi] = 1;
+        activation_matrix[Ri][Fi] = 1;
         }
-
       else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {
-        tmp_matrix[Ri][Fi] = satellite_count_gngga_over(Ri);
+        activation_matrix[Ri][Fi] = satellite_count_gngga_over(Ri);
         }
-      // Serial.println("[BOOL MATRIX] " + String(tmp_matrix[0][Fi]));
     }
 
-    bool final_bool = true;
-    for (int FC = 0; FC < 24; FC++) {
-      if (tmp_matrix[Ri][FC] == 0) {final_bool = false;}
-      // Serial.println("[MATRIX BOOL] " + String(tmp_matrix[0][FC]));
-    }
-    // Serial.println("[FINAL BOOL] " + String(final_bool));
-    if (final_bool == true) {
+    // default to true and if a single false is found then remain false
+    activation_bool = true;
+    for (int FC = 0; FC < 24; FC++) { if (activation_matrix[Ri][FC] == 0) {activation_bool = false;} }
+    
+    // Serial.println("[FINAL BOOL] " + String(activation_bool)); // debug
+    if (activation_bool == true) {
       if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
       else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
     }
-    else if (final_bool == false) {
+    else if (activation_bool == false) {
       if      (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
       else if (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
     }
