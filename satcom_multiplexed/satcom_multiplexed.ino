@@ -1617,7 +1617,7 @@ void systems_Check() {
       if (tmp_matrix[0][FC] == 0) {final_bool = false;}
     }
 
-    // activate/deactivate relat N
+    // activate/deactivate relay N
     if (final_bool == true) {
       if      (relayData.relays_data[Ri][5] == 0) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] de-activating");}
       else if (relayData.relays_data[Ri][5] == 1) {Serial.println("[R" + String(Ri) + "] [RELAY " + String(Ri) + "] activating");}
