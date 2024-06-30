@@ -972,7 +972,7 @@ struct RelayStruct {
      },};
 
   /*
-  2 Dimensional Matrix containing values associated with relay functions.
+  3 Dimensional Matrix containing 11 sets of values per relay.
   0: >
   1: <
   2: ==
@@ -981,7 +981,7 @@ struct RelayStruct {
   5: x2 range
   6: y2 range
   7: 0=turn_off 1=turn_on
-  8: 0=disabled 1=enabled 
+  relays_data[N][10][0] = completely enable/disbale
   */
 
   double relays_data[10][11][8] = {
