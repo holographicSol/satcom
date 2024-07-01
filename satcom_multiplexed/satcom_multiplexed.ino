@@ -940,10 +940,11 @@ void readRXD_1() {
 /*
 A minimum of N relays would be required to satisfy various flags. This can allow satcom to be as general purpose as intended,
 from minimal to maximal operation/utilization of the WTGPS300 as and when required by different projects, even turning on/off other
-systems that begin running their own routines, by having them turn on/off with these relays.
+systems that begin running their own routines, by having them turn on/off with these relays/functions.
 each relay should have its own char array which can be checked each loop, after which a function corrrspinding to a relays char
 array will be ran if a selected condition is met, then the corresponding relay will be turned on/off when that condition is met.
 additional configuration could include running once, running each time etc. for systems/routines to be activated/deactivated.
+Note: Each relay/function is activated/deactivated according to compound conditions, meaning we can be more or less strict.
 */
 
 struct RelayStruct {
