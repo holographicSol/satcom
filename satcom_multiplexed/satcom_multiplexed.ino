@@ -1451,22 +1451,26 @@ bool yaw_gpatt_in_range(int Ri, int Fi) {
 
 bool roll_gpatt_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] roll_gpatt_over");
-   
+  if (atoi(gpattData.roll) > relayData.relays_data[Ri][Fi][0]) {return true;}
+  else {return false;}
 }
 
 bool roll_gpatt_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] roll_gpatt_under");
-  
+  if (atoi(gpattData.roll) < relayData.relays_data[Ri][Fi][1]) {return true;}
+  else {return false;}
 }
 
 bool roll_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] roll_gpatt_equal");
-  
+  if (atoi(gpattData.roll) == relayData.relays_data[Ri][Fi][2]) {return true;}
+  else {return false;}
 }
 
 bool roll_gpatt_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] roll_gpatt_in_range");
-  
+  if ((atoi(gpattData.roll) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gpattData.roll) <= relayData.relays_data[Ri][Fi][4])) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1872,6 +1876,18 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = pitch_gpatt_in_range(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_over) == 0) {tmp_matrix[0][Fi] = roll_gpatt_over(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_under) == 0) {tmp_matrix[0][Fi] = roll_gpatt_under(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_equal) == 0) {tmp_matrix[0][Fi] = roll_gpatt_equal(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = roll_gpatt_in_range(Ri, Fi);}
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
       }
