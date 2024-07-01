@@ -1296,7 +1296,7 @@ bool check_in_range(double n0, double n1, double r) {
 //                                                                                                        FUNCTION: COORDINATES
 
 bool check_in_ranges(char * Fn0, char * Fn1, int Ri, int Fi) {
-  Serial.println("[CONNECTED] satellite_coord_gngga_in_range");
+  Serial.println("[CONNECTED] check_in_ranges");
   if (check_in_range(Fn0, relayData.relays_data[Ri][Fi][3], relayData.relays_data[Ri][Fi][5]) == true) {
     if (check_in_range(Fn1, relayData.relays_data[Ri][Fi][4], relayData.relays_data[Ri][Fi][5]) == true) {return true;}}
   else {return false;}
@@ -1306,25 +1306,25 @@ bool check_in_ranges(char * Fn0, char * Fn1, int Ri, int Fi) {
 //                                                                                                      RELAY FUNCTIONS: CHECKS
 
 bool check_over(char * Fn, int Ri, int Fi) {
-  Serial.println("[CHECKING] >: " + String(Fn) + "");
+  Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]));
   if (atoi(Fn) > relayData.relays_data[Ri][Fi][0]) {return true;}
   else {return false;}
 }
 
 bool check_under(char * Fn, int Ri, int Fi) {
-  Serial.println("[CHECKING] <: " + String(Fn));
+  Serial.println("[CHECKING] " + String(Fn) + " < " + String(relayData.relays_data[Ri][Fi][1]));
   if (atoi(Fn) < relayData.relays_data[Ri][Fi][1]) {return true;}
   else {return false;}
 }
 
 bool check_equal(char * Fn, int Ri, int Fi) {
-  Serial.println("[CHECKING] ==: " + String(Fn));
+  Serial.println("[CHECKING] " + String(Fn) + " == " + String(relayData.relays_data[Ri][Fi][2]));
   if (atoi(Fn) == relayData.relays_data[Ri][Fi][2]) {return true;}
   else {return false;}
 }
 
 bool check_in_range(char * Fn, int Ri, int Fi) {
-  Serial.println("[CHECKING] IN RANGE: " + String(Fn));
+  Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][3]) " && " + String(Fn) + " < " String(relayData.relays_data[Ri][Fi][4]));
   if ((atoi(Fn) >= relayData.relays_data[Ri][Fi][3]) && (atoi(Fn) <= relayData.relays_data[Ri][Fi][4])) {return true;}
   else {return false;}
 }
