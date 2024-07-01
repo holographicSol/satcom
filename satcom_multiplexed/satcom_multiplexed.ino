@@ -1222,8 +1222,8 @@ struct RelayStruct {
   char      satellite_time_under[56]          = "satellite_time_under";
   bool bool_satellite_time_equal              = false;
   char      satellite_time_equal[56]          = "satellite_time_equal";
-  bool bool_satellite_time_period             = false;
-  char      satellite_time_period[56]         = "satellite_time_period";
+  bool bool_satellite_time_in_range           = false;
+  char      satellite_time_in_range[56]       = "satellite_time_in_range";
 
   bool bool_satellite_coord_gngga_over         = false; 
   char      satellite_coord_gngga_over[56]     = "satellite_coord_gngga_over";
@@ -1579,7 +1579,6 @@ bool precision_factor_gngga_in_range(int Ri, int Fi) {
 
 bool hemisphere_gngga_N(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_N");
-   
 }
 
 bool hemisphere_gngga_E(int Ri, int Fi) {
@@ -1674,8 +1673,8 @@ bool satellite_time_equal(int Ri, int Fi) {
   else {return false;}
 }
 
-bool satellite_time_period(int Ri, int Fi) {
-  Serial.println("[CONNECTED] satellite_time_period");
+bool satellite_time_in_range(int Ri, int Fi) {
+  Serial.println("[CONNECTED] satellite_time_in_range");
   if ((atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][Fi][3]) && (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][Fi][4])) {return true;}
   else {return false;}
 }
@@ -1743,6 +1742,18 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {tmp_matrix[0][Fi] = satellite_count_gngga_over(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_over) == 0) {tmp_matrix[0][Fi] = satellite_time_over(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_under) == 0) {tmp_matrix[0][Fi] = satellite_time_under(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_equal) == 0) {tmp_matrix[0][Fi] = satellite_time_equal(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_in_range) == 0) {tmp_matrix[0][Fi] = satellite_time_in_range(Ri, Fi);}
         
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_coord_gngga_in_range) == 0) {tmp_matrix[0][Fi] = satellite_coord_gngga_in_range(Ri, Fi);}
