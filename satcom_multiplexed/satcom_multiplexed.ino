@@ -986,7 +986,7 @@ struct RelayStruct {
   relays_data[N][10][0] = completely enable/disbale
   */
 
-  // any none zero value here is for testing purposes. in production this matrix below should be zeroed and dialed in through an interface.
+  // any none zero value here is for testing purposes. in production this matrix below should be zeroed and dialed in through an interface/rf.
   double relays_data[10][10+1][7] = {
     {
       {1, 20, 0, 0, 0, 0, 1},
