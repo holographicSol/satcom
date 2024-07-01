@@ -1369,11 +1369,11 @@ bool mileage_gpatt_in_range(int Ri, int Fi) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                 RELAY FUNCTIONS: STATIC FLAG
+//                                                                                                   RELAY FUNCTIONS: LINE FLAG
 
 bool line_flag_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] line_flag_gpatt_equal");
-   
+
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
