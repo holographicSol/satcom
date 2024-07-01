@@ -1420,7 +1420,8 @@ bool run_state_flag_gpatt_equal(int Ri, int Fi) {
 
 bool ins_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] ins_gpatt_equal");
-   
+  if (atoi(gpattData.ins) == relayData.relays_data[Ri][Fi][2]) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1904,6 +1905,9 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = yaw_gpatt_in_range(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_gpatt_equal) == 0) {tmp_matrix[0][Fi] = ins_gpatt_equal(Ri, Fi);}
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
       }
