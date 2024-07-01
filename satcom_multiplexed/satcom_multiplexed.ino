@@ -76,7 +76,8 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                 The end system should consist of displays, control panel, relays at the back and sides and sufficient
                            RXD ports so that peripheral systems can share the WTGPS300 dump.
                   The control panel should provide direct access to the various matrices, allowing for the system
-                    to be anything from a time keeping device to a complex autonomous flight control system. 
+                    to be anything from a time keeping device to a complex autonomous flight control system, turning
+                        on/off peripheral systems forming a central part of a larger system as a whole.
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
