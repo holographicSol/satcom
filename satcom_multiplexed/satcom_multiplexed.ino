@@ -68,6 +68,13 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
           will be switching on/off other MCU's for performance and efficiency reasons, so that I have an interfaceable
         programmable satellite utility system with logging. plug everything in and make data easily useable for projects.
     For security reasons The peripheral MCU's should be on hard switches to enable/disable features provided by those MCU's.
+
+    Due to limited resources I may not currently be able to make full use of such a module as the WTGPS300, however, this
+    system once interfaceable, enables full utilization of the WTGPS300 should the resources become available. Use of the
+    inertial navigation system data alone would require vehicular devices, drones, robots, etc. This system intends to
+                              unlock the potential without having to modify the system later.
+                The end system should consist of displays, control panel, relays at the back and sides and sufficient
+                           RXD ports so that peripheral systems can share the WTGPS300 dump.
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1321,7 +1328,7 @@ void systems_Check() {
 
 
   /*
-  Remember always: why do you think you can trust this data? Are you transmitting this data to yourelf (from sat or not)? How critical are your system(s)?
+  Remember always: why do you think you can trust this data? Are you transmitting this data to yourelf (from satellite or not)? How critical are your system(s)?
                    Once you plug something into this, the 'satellites' are in control unless you have a way to override.
 
   This system check condition was elemental however compounded check conditions are currently being built in so that each relay/function can
