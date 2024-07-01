@@ -1989,9 +1989,11 @@ void systems_Check() {
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = fix_angle_flag_gpatt_in_range(Ri, Fi);}
 
-        // the above checks are the 'basic' checks. with that out the way we can now build 'advanced' checks which may be something like using datetime and coordinates to calculate sunrise
-        // for example, among infinite things we can calculate with all this data and then check for. checks should be as simple/light as possible so that this main system can try to run
-        // as fast as it can.
+        /*
+        the above checks are the 'basic' checks. with that out the way we can now build 'advanced' checks which may be something like using datetime and coordinates to calculate sunrise
+        for example, among infinite things we can calculate with all this data and then check for. checks should be as simple/light as possible so that this main system can try to run
+        as fast as it can.
+        */
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
       }
