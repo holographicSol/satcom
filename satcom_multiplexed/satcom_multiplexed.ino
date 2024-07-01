@@ -1672,7 +1672,7 @@ bool satellite_time_equal(int Ri, int Fi) {
 
 bool satellite_time_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_time_in_range");
-  if ((atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][Fi][3]) && (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][Fi][4])) {return true;}
+  if ((atoi(satData.sat_time_stamp_string) >= relayData.relays_data[Ri][Fi][3]) && (atoi(satData.sat_time_stamp_string) <= relayData.relays_data[Ri][Fi][4])) {return true;}
   else {return false;}
 }
 
