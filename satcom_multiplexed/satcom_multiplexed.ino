@@ -1270,14 +1270,14 @@ struct RelayStruct {
   bool bool_altitude_gngga_in_range                = false;
   char      altitude_gngga_in_range[56]            = "altitude_gngga_in_range";
 
-  bool bool_speed_gngga_over                       = false; 
-  char      speed_gngga_over[56]                   = "speed_gngga_over";
-  bool bool_speed_gngga_under                      = false;
-  char      speed_gngga_under[56]                  = "speed_gngga_under";
-  bool bool_speed_gngga_equal                      = false;
-  char      speed_gngga_equal[56]                  = "speed_gngga_equal";
-  bool bool_speed_gngga_in_range                   = false;
-  char      speed_gngga_in_range[56]               = "speed_gngga_in_range";
+  bool bool_ground_speed_gnrmc_over                       = false; 
+  char      ground_speed_gnrmc_over[56]                   = "ground_speed_gnrmc_over";
+  bool bool_ground_speed_gnrmc_under                      = false;
+  char      ground_speed_gnrmc_under[56]                  = "ground_speed_gnrmc_under";
+  bool bool_ground_speed_gnrmc_equal                      = false;
+  char      ground_speed_gnrmc_equal[56]                  = "ground_speed_gnrmc_equal";
+  bool bool_ground_speed_gnrmc_in_range                   = false;
+  char      ground_speed_gnrmc_in_range[56]               = "ground_speed_gnrmc_in_range";
 };
 RelayStruct relayData;
 
@@ -1517,24 +1517,28 @@ bool heading_gnrmc_in_range(int Ri, int Fi) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
 
-bool speed_gngga_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] speed_gngga_over");
-   
+bool ground_speed_gnrmc_over(int Ri, int Fi) {
+  Serial.println("[CONNECTED] ground_speed_gnrmc_over");
+  if (atoi(gnrmcData.ground_speed) > relayData.relays_data[Ri][Fi][0]) {return true;}
+  else {return false;}
 }
 
-bool speed_gngga_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] speed_gngga_under");
-  
+bool ground_speed_gnrmc_under(int Ri, int Fi) {
+  Serial.println("[CONNECTED] ground_speed_gnrmc_under");
+  if (atoi(gnrmcData.ground_speed) < relayData.relays_data[Ri][Fi][1]) {return true;}
+  else {return false;}
 }
 
-bool speed_gngga_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] speed_gngga_equal");
-  
+bool ground_speed_gnrmc_equal(int Ri, int Fi) {
+  Serial.println("[CONNECTED] ground_speed_gnrmc_equal");
+  if (atoi(gnrmcData.ground_speed) == relayData.relays_data[Ri][Fi][2]) {return true;}
+  else {return false;}
 }
 
-bool speed_gngga_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] speed_gngga_in_range");
-  
+bool ground_speed_gnrmc_in_range(int Ri, int Fi) {
+  Serial.println("[CONNECTED] ground_speed_gnrmc_in_range");
+  if ((atoi(gnrmcData.ground_speed) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gnrmcData.ground_speed) <= relayData.relays_data[Ri][Fi][4])) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1823,6 +1827,18 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_in_range) == 0) {tmp_matrix[0][Fi] = altitude_gngga_in_range(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_over) == 0) {tmp_matrix[0][Fi] = ground_speed_gnrmc_over(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_under) == 0) {tmp_matrix[0][Fi] = ground_speed_gnrmc_under(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_equal) == 0) {tmp_matrix[0][Fi] = ground_speed_gnrmc_equal(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_in_range) == 0) {tmp_matrix[0][Fi] = ground_speed_gnrmc_in_range(Ri, Fi);}
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
       }
