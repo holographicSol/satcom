@@ -1563,7 +1563,7 @@ void systems_Check() {
         for (int FC = 0; FC < 10; FC++) {if (tmp_matrix[0][FC] == 0) {final_bool = false;}}
         // Serial.println("[FINAL_BOOL] " + String(final_bool));
 
-        // activate/deactivate relay N
+        // activate/deactivate relay Ri (Ri=pinN)
         if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] de-activating");}
         else if (final_bool == true) {Serial.println("[RELAY " + String(Ri) + "] activating");}
       }
