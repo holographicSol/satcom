@@ -1281,6 +1281,15 @@ struct RelayStruct {
 };
 RelayStruct relayData;
 
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                        FUNCTION: CHECK RANGE
+
+bool check_in_range(double n0, double n1, double r) {
+  if (n0  >=  n1 - r/2) {if (n0  <= n1 + r/2) {return true;}}
+  else {return false;}
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                              RELAY FUNCTIONS: FIX ANGLE FLAG
 
@@ -1619,18 +1628,6 @@ bool hemisphere_gngga_SW(int Ri, int Fi) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: COORDINATES
 
-bool satellite_coord_gngga_in_range_check_latituude(double x, double m) {
-  bool in_range = false;
-  if (satData.location_latitude_gngga  >=  x - m/2) {if (satData.location_latitude_gngga  <= x + m/2) {in_range = true;}}
-  return in_range;
-}
-
-bool satellite_coord_gngga_in_range_check_longitude(double y, double m) {
-  bool in_range = false;
-  if (satData.location_longitude_gngga  >=  y - m/2) {if (satData.location_longitude_gngga  <= y + m/2) {in_range = true;}}
-  return in_range;
-}
-
 bool satellite_coord_gngga_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_coord_gngga_over");
    
@@ -1647,8 +1644,8 @@ bool satellite_coord_gngga_equal(int Ri, int Fi) {
 
 bool satellite_coord_gngga_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_coord_gngga_in_range");
-  if (satellite_coord_gngga_in_range_check_latituude(relayData.relays_data[Ri][Fi][3], relayData.relays_data[Ri][Fi][5]) == true) {
-    if (satellite_coord_gngga_in_range_check_longitude(relayData.relays_data[Ri][Fi][4], relayData.relays_data[Ri][Fi][5]) == true) {return true;}}
+  if (check_in_range(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][3], relayData.relays_data[Ri][Fi][5]) == true) {
+    if (check_in_range(satData.location_longitude_gngga, relayData.relays_data[Ri][Fi][4], relayData.relays_data[Ri][Fi][5]) == true) {return true;}}
   else {return false;}
 }
 
