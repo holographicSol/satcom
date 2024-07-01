@@ -1123,163 +1123,91 @@ struct RelayStruct {
   // default and specifiable value to indicate a relay should not be activated/deactivated
   char default_relay_function[56] = "$NONE";
 
+  char run_inetial_flag_gpatt_equal[56]    = "run_inetial_flag_gpatt_equal";
+  char line_flag_gpatt_equal[56]           = "line_flag_gpatt_equal";
+  char static_flag_gpatt_equal[56]         = "static_flag_gpatt_equal";
+  char run_state_flag_gpatt_equal[56]      = "run_state_flag_gpatt_equal";
+  char ins_gpatt_equal[56]                 = "ins_gpatt_equal";
+
   // F=Fix=31
-  bool bool_fix_angle_flag_gpatt_over         = false; 
-  char      fix_angle_flag_gpatt_over[56]     = "fix_angle_flag_gpatt_over";
-  bool bool_fix_angle_flag_gpatt_under        = false;
-  char      fix_angle_flag_gpatt_under[56]    = "fix_angle_flag_gpatt_under[";
-  bool bool_fix_angle_flag_gpatt_equal        = false;
-  char      fix_angle_flag_gpatt_equal[56]    = "fix_angle_flag_gpatt_equal";
-  bool bool_fix_angle_flag_gpatt_in_range     = false;
-  char      fix_angle_flag_gpatt_in_range[56] = "fix_angle_flag_gpatt_in_range";
+  char fix_angle_flag_gpatt_over[56]       = "fix_angle_flag_gpatt_over";
+  char fix_angle_flag_gpatt_under[56]      = "fix_angle_flag_gpatt_under[";
+  char fix_angle_flag_gpatt_equal[56]      = "fix_angle_flag_gpatt_equal";
+  char fix_angle_flag_gpatt_in_range[56]   = "fix_angle_flag_gpatt_in_range";
 
-  bool bool_time_save_num_gpatt_over          = false; 
-  char      time_save_num_gpatt_over[56]      = "time_save_num_gpatt_over";
-  bool bool_time_save_num_gpatt_under         = false;
-  char      time_save_num_gpatt_under[56]     = "time_save_num_gpatt_under[";
-  bool bool_time_save_num_gpatt_equal         = false;
-  char      time_save_num_gpatt_equal[56]     = "time_save_num_gpatt_equal";
-  bool bool_time_save_num_gpatt_in_range      = false;
-  char      time_save_num_gpatt_in_range[56]  = "time_save_num_gpatt_in_range";
+  char time_save_num_gpatt_over[56]        = "time_save_num_gpatt_over";
+  char time_save_num_gpatt_under[56]       = "time_save_num_gpatt_under[";
+  char time_save_num_gpatt_equal[56]       = "time_save_num_gpatt_equal";
+  char time_save_num_gpatt_in_range[56]    = "time_save_num_gpatt_in_range";
 
-  bool bool_run_inetial_flag_gpatt_equal      = false; 
-  char      run_inetial_flag_gpatt_equal[56]  = "run_inetial_flag_gpatt_equal";
+  char mileage_gpatt_over[56]              = "mileage_gpatt_over";
+  char mileage_gpatt_under[56]             = "mileage_gpatt_under[";
+  char mileage_gpatt_equal[56]             = "mileage_gpatt_equal";
+  char mileage_gpatt_in_range[56]          = "mileage_gpatt_in_range";
 
-  bool bool_mileage_gpatt_over                = false; 
-  char      mileage_gpatt_over[56]            = "mileage_gpatt_over";
-  bool bool_mileage_gpatt_under               = false;
-  char      mileage_gpatt_under[56]           = "mileage_gpatt_under[";
-  bool bool_mileage_gpatt_equal               = false;
-  char      mileage_gpatt_equal[56]           = "mileage_gpatt_equal";
-  bool bool_mileage_gpatt_in_range            = false;
-  char      mileage_gpatt_in_range[56]        = "mileage_gpatt_in_range";
+  char gst_data_gpatt_over[56]             = "gst_data_gpatt_over";
+  char gst_data_gpatt_under[56]            = "gst_data_gpatt_under[";
+  char gst_data_gpatt_equal[56]            = "gst_data_gpatt_equal";
+  char gst_data_gpatt_in_range[56]         = "gst_data_gpatt_in_range";
 
-  bool bool_line_flag_gpatt_equal             = false; 
-  char      line_flag_gpatt_equal[56]         = "line_flag_gpatt_equal";
+  char yaw_gpatt_over[56]                  = "yaw_gpatt_over";
+  char yaw_gpatt_under[56]                 = "yaw_gpatt_under[";
+  char yaw_gpatt_equal[56]                 = "yaw_gpatt_equal";
+  char yaw_gpatt_in_range[56]              = "yaw_gpatt_in_range";
 
-  bool bool_gst_data_gpatt_over               = false; 
-  char      gst_data_gpatt_over[56]           = "gst_data_gpatt_over";
-  bool bool_gst_data_gpatt_under              = false;
-  char      gst_data_gpatt_under[56]          = "gst_data_gpatt_under[";
-  bool bool_gst_data_gpatt_equal              = false;
-  char      gst_data_gpatt_equal[56]          = "gst_data_gpatt_equal";
-  bool bool_gst_data_gpatt_in_range           = false;
-  char      gst_data_gpatt_in_range[56]       = "gst_data_gpatt_in_range";
+  char roll_gpatt_over[56]                 = "roll_gpatt_over";
+  char roll_gpatt_under[56]                = "roll_gpatt_under[";
+  char roll_gpatt_equal[56]                = "roll_gpatt_equal";
+  char roll_gpatt_in_range[56]             = "roll_gpatt_in_range";
 
-  bool bool_static_flag_gpatt_equal           = false; 
-  char      static_flag_gpatt_equal[56]       = "static_flag_gpatt_equal";
+  char pitch_gpatt_over[56]                = "pitch_gpatt_over";
+  char pitch_gpatt_under[56]               = "pitch_gpatt_under[";
+  char pitch_gpatt_equal[56]               = "pitch_gpatt_equal";
+  char pitch_gpatt_in_range[56]            = "pitch_gpatt_in_range";
 
-  bool bool_run_state_flag_gpatt_equal        = false; 
-  char      run_state_flag_gpatt_equal[56]    = "run_state_flag_gpatt_equal";
+  char heading_gnrmc_over[56]              = "heading_gnrmc_over";
+  char heading_gnrmc_under[56]             = "heading_gnrmc_under";
+  char heading_gnrmc_equal[56]             = "heading_gnrmc_equal";
+  char heading_gnrmc_in_range[56]          = "heading_gnrmc_in_range";
 
-  bool bool_ins_gpatt_equal                   = false; 
-  char      ins_gpatt_equal[56]               = "ins_gpatt_equal";
+  char satellite_count_gngga_over[56]      = "satellite_count_gngga_over";
+  char satellite_count_gngga_under[56]     = "satellite_count_gngga_under";
+  char satellite_count_gngga_equal[56]     = "satellite_count_gngga_equal";
 
-  bool bool_yaw_gpatt_over                    = false; 
-  char      yaw_gpatt_over[56]                = "yaw_gpatt_over";
-  bool bool_yaw_gpatt_under                   = false;
-  char      yaw_gpatt_under[56]               = "yaw_gpatt_under[";
-  bool bool_yaw_gpatt_equal                   = false;
-  char      yaw_gpatt_equal[56]               = "yaw_gpatt_equal";
-  bool bool_yaw_gpatt_in_range                = false;
-  char      yaw_gpatt_in_range[56]            = "yaw_gpatt_in_range";
+  char satellite_time_over[56]             = "satellite_time_over";
+  char satellite_time_under[56]            = "satellite_time_under";
+  char satellite_time_equal[56]            = "satellite_time_equal";
+  char satellite_time_in_range[56]         = "satellite_time_in_range";
 
-  bool bool_roll_gpatt_over                   = false; 
-  char      roll_gpatt_over[56]               = "roll_gpatt_over";
-  bool bool_roll_gpatt_under                  = false;
-  char      roll_gpatt_under[56]              = "roll_gpatt_under[";
-  bool bool_roll_gpatt_equal                  = false;
-  char      roll_gpatt_equal[56]              = "roll_gpatt_equal";
-  bool bool_roll_gpatt_in_range               = false;
-  char      roll_gpatt_in_range[56]           = "roll_gpatt_in_range";
+  char satellite_coord_gngga_over[56]      = "satellite_coord_gngga_over";
+  char satellite_coord_gngga_under[56]     = "satellite_coord_gngga_under";
+  char satellite_coord_gngga_equal[56]     = "satellite_coord_gngga_equal";
+  char satellite_coord_gngga_in_range[56]  = "satellite_coord_gngga_in_range";
 
-  bool bool_pitch_gpatt_over                  = false; 
-  char      pitch_gpatt_over[56]              = "pitch_gpatt_over";
-  bool bool_pitch_gpatt_under                 = false;
-  char      pitch_gpatt_under[56]             = "pitch_gpatt_under[";
-  bool bool_pitch_gpatt_equal                 = false;
-  char      pitch_gpatt_equal[56]             = "pitch_gpatt_equal";
-  bool bool_pitch_gpatt_in_range              = false;
-  char      pitch_gpatt_in_range[56]          = "pitch_gpatt_in_range";
+  char hemisphere_gngga_N[56]              = "hemisphere_gngga_N";
+  char hemisphere_gngga_E[56]              = "hemisphere_gngga_E";
+  char hemisphere_gngga_S[56]              = "hemisphere_gngga_S";
+  char hemisphere_gngga_W[56]              = "hemisphere_gngga_W";
 
-  bool bool_heading_gnrmc_over                = false; 
-  char      heading_gnrmc_over[56]            = "heading_gnrmc_over";
-  bool bool_heading_gnrmc_under               = false;
-  char      heading_gnrmc_under[56]           = "heading_gnrmc_under";
-  bool bool_heading_gnrmc_equal               = false;
-  char      heading_gnrmc_equal[56]           = "heading_gnrmc_equal";
-  bool bool_heading_gnrmc_in_range            = false;
-  char      heading_gnrmc_in_range[56]        = "heading_gnrmc_in_range";
+  char hemisphere_gngga_NE[56]             = "hemisphere_gngga_NE";
+  char hemisphere_gngga_SE[56]             = "hemisphere_gngga_SE";
+  char hemisphere_gngga_NW[56]             = "hemisphere_gngga_NW";
+  char hemisphere_gngga_SW[56]             = "hemisphere_gngga_SW";
 
-  bool bool_satellite_count_gngga_over        = false; 
-  char      satellite_count_gngga_over[56]    = "satellite_count_gngga_over";
-  bool bool_satellite_count_gngga_under       = false;
-  char      satellite_count_gngga_under[56]   = "satellite_count_gngga_under";
-  bool bool_satellite_count_gngga_equal       = false;
-  char      satellite_count_gngga_equal[56]   = "satellite_count_gngga_equal";
+  char precision_factor_gngga_over[56]     = "precision_factor_gngga_over";
+  char precision_factor_gngga_under[56]    = "precision_factor_gngga_under";
+  char precision_factor_gngga_equal[56]    = "precision_factor_gngga_equal";
+  char precision_factor_gngga_in_range[56] = "precision_factor_gngga_in_range";
 
-  bool bool_satellite_time_over               = false; 
-  char      satellite_time_over[56]           = "satellite_time_over";
-  bool bool_satellite_time_under              = false;
-  char      satellite_time_under[56]          = "satellite_time_under";
-  bool bool_satellite_time_equal              = false;
-  char      satellite_time_equal[56]          = "satellite_time_equal";
-  bool bool_satellite_time_in_range           = false;
-  char      satellite_time_in_range[56]       = "satellite_time_in_range";
+  char altitude_gngga_over[56]             = "altitude_gngga_over";
+  char altitude_gngga_under[56]            = "altitude_gngga_under";
+  char altitude_gngga_equal[56]            = "altitude_gngga_equal";
+  char altitude_gngga_in_range[56]         = "altitude_gngga_in_range";
 
-  bool bool_satellite_coord_gngga_over         = false; 
-  char      satellite_coord_gngga_over[56]     = "satellite_coord_gngga_over";
-  bool bool_satellite_coord_gngga_under        = false;
-  char      satellite_coord_gngga_under[56]    = "satellite_coord_gngga_under";
-  bool bool_satellite_coord_gngga_equal        = false;
-  char      satellite_coord_gngga_equal[56]    = "satellite_coord_gngga_equal";
-  bool bool_satellite_coord_gngga_in_range     = false;
-  char      satellite_coord_gngga_in_range[56] = "satellite_coord_gngga_in_range";
-
-  bool bool_hemisphere_gngga_N                 = false; 
-  char      hemisphere_gngga_N[56]             = "hemisphere_gngga_N";
-  bool bool_hemisphere_gngga_E                 = false;
-  char      hemisphere_gngga_E[56]             = "hemisphere_gngga_E";
-  bool bool_hemisphere_gngga_S                 = false;
-  char      hemisphere_gngga_S[56]             = "hemisphere_gngga_S";
-  bool bool_hemisphere_gngga_W                 = false;
-  char      hemisphere_gngga_W[56]             = "hemisphere_gngga_W";
-
-  bool bool_hemisphere_gngga_NE                = false; 
-  char      hemisphere_gngga_NE[56]            = "hemisphere_gngga_NE";
-  bool bool_hemisphere_gngga_SE                = false;
-  char      hemisphere_gngga_SE[56]            = "hemisphere_gngga_SE";
-  bool bool_hemisphere_gngga_NW                = false;
-  char      hemisphere_gngga_NW[56]            = "hemisphere_gngga_NW";
-  bool bool_hemisphere_gngga_SW                = false;
-  char      hemisphere_gngga_SW[56]            = "hemisphere_gngga_SW";
-
-  bool bool_precision_factor_gngga_over            = false; 
-  char      precision_factor_gngga_over[56]        = "precision_factor_gngga_over";
-  bool bool_precision_factor_gngga_under           = false;
-  char      precision_factor_gngga_under[56]       = "precision_factor_gngga_under";
-  bool bool_satellite_precision_gngga_factor_equal = false;
-  char      precision_factor_gngga_equal[56]       = "precision_factor_gngga_equal";
-  bool bool_precision_factor_gngga_in_range        = false;
-  char      precision_factor_gngga_in_range[56]    = "precision_factor_gngga_in_range";
-
-  bool bool_altitude_gngga_over                    = false; 
-  char      altitude_gngga_over[56]                = "altitude_gngga_over";
-  bool bool_altitude_gngga_under                   = false;
-  char      altitude_gngga_under[56]               = "altitude_gngga_under";
-  bool bool_altitude_gngga_equal                   = false;
-  char      altitude_gngga_equal[56]               = "altitude_gngga_equal";
-  bool bool_altitude_gngga_in_range                = false;
-  char      altitude_gngga_in_range[56]            = "altitude_gngga_in_range";
-
-  bool bool_ground_speed_gnrmc_over                       = false; 
-  char      ground_speed_gnrmc_over[56]                   = "ground_speed_gnrmc_over";
-  bool bool_ground_speed_gnrmc_under                      = false;
-  char      ground_speed_gnrmc_under[56]                  = "ground_speed_gnrmc_under";
-  bool bool_ground_speed_gnrmc_equal                      = false;
-  char      ground_speed_gnrmc_equal[56]                  = "ground_speed_gnrmc_equal";
-  bool bool_ground_speed_gnrmc_in_range                   = false;
-  char      ground_speed_gnrmc_in_range[56]               = "ground_speed_gnrmc_in_range";
+  char ground_speed_gnrmc_over[56]         = "ground_speed_gnrmc_over";
+  char ground_speed_gnrmc_under[56]        = "ground_speed_gnrmc_under";
+  char ground_speed_gnrmc_equal[56]        = "ground_speed_gnrmc_equal";
+  char ground_speed_gnrmc_in_range[56]     = "ground_speed_gnrmc_in_range";
 };
 RelayStruct relayData;
 
