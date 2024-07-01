@@ -1565,22 +1565,26 @@ bool altitude_gngga_in_range(int Ri, int Fi) {
 
 bool precision_factor_gngga_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] precision_factor_gngga_over");
-   
+  if (atoi(gnggaData.hddp_precision_factor) > relayData.relays_data[Ri][Fi][0]) {return true;}
+  else {return false;}
 }
 
 bool precision_factor_gngga_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] precision_factor_gngga_under");
-  
+  if (atoi(gnggaData.hddp_precision_factor) < relayData.relays_data[Ri][Fi][1]) {return true;}
+  else {return false;}
 }
 
 bool precision_factor_gngga_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] precision_factor_gngga_equal");
-  
+  if (atoi(gnggaData.hddp_precision_factor) == relayData.relays_data[Ri][Fi][2]) {return true;}
+  else {return false;}
 }
 
 bool precision_factor_gngga_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] precision_factor_gngga_in_range");
-  
+  if ((atoi(gnggaData.hddp_precision_factor) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gnggaData.hddp_precision_factor) <= relayData.relays_data[Ri][Fi][4])) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1791,6 +1795,18 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_SW) == 0) {tmp_matrix[0][Fi] = hemisphere_gngga_SW(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_over) == 0) {tmp_matrix[0][Fi] = precision_factor_gngga_over(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_under) == 0) {tmp_matrix[0][Fi] = precision_factor_gngga_under(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_equal) == 0) {tmp_matrix[0][Fi] = precision_factor_gngga_equal(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_in_range) == 0) {tmp_matrix[0][Fi] = precision_factor_gngga_in_range(Ri, Fi);}
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
       }
