@@ -1319,22 +1319,26 @@ bool fix_angle_flag_gpatt_in_range(int Ri, int Fi) {
 
 bool time_save_num_gpatt_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] time_save_num_gpatt_over");
-   
+  if (atoi(gpattData.time_save_num) > relayData.relays_data[Ri][Fi][0]) {return true;}
+  else {return false;}
 }
 
 bool time_save_num_gpatt_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] time_save_num_gpatt_under");
-  
+  if (atoi(gpattData.time_save_num) < relayData.relays_data[Ri][Fi][1]) {return true;}
+  else {return false;}
 }
 
 bool time_save_num_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] time_save_num_gpatt_equal");
-  
+  if (atoi(gpattData.time_save_num) == relayData.relays_data[Ri][Fi][2]) {return true;}
+  else {return false;}
 }
 
 bool time_save_num_gpatt_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] time_save_num_gpatt_in_range");
-  
+  if ((atoi(gpattData.time_save_num) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gpattData.time_save_num) <= relayData.relays_data[Ri][Fi][4])) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1956,6 +1960,18 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.run_inetial_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = run_inetial_flag_gpatt_equal(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_save_num_gpatt_over) == 0) {tmp_matrix[0][Fi] = time_save_num_gpatt_over(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_save_num_gpatt_under) == 0) {tmp_matrix[0][Fi] = time_save_num_gpatt_under(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_save_num_gpatt_equal) == 0) {tmp_matrix[0][Fi] = time_save_num_gpatt_equal(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_save_num_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = time_save_num_gpatt_in_range(Ri, Fi);}
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
       }
