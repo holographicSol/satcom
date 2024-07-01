@@ -1588,41 +1588,50 @@ bool precision_factor_gngga_in_range(int Ri, int Fi) {
 
 bool hemisphere_gngga_N(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_N");
+  if (strcmp(gnggaData.latitude_hemisphere, "N") == 0 ) {return true;}
+  else {return false;}
 }
 
 bool hemisphere_gngga_E(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_E");
-  
+  if (strcmp(gnggaData.longitude_hemisphere, "E") == 0 ) {return true;}
+  else {return false;}
 }
 
 bool hemisphere_gngga_S(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_S");
-  
+  if (strcmp(gnggaData.latitude_hemisphere, "S") == 0 ) {return true;}
+  else {return false;}
 }
 
 bool hemisphere_gngga_W(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_W");
-  
+  if (strcmp(gnggaData.longitude_hemisphere, "W") == 0 ) {return true;}
+  else {return false;}
 }
 
 bool hemisphere_gngga_NE(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_NE");
-   
+  if ((strcmp(gnggaData.latitude_hemisphere, "N") == 0 ) && (strcmp(gnggaData.longitude_hemisphere, "E") == 0)) {return true;}
+  else {return false;}
 }
 
 bool hemisphere_gngga_SE(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_SE");
-  
+  if ((strcmp(gnggaData.latitude_hemisphere, "S") == 0 ) && (strcmp(gnggaData.longitude_hemisphere, "E") == 0)) {return true;}
+  else {return false;}
 }
 
 bool hemisphere_gngga_NW(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_NW");
-  
+  if ((strcmp(gnggaData.latitude_hemisphere, "N") == 0 ) && (strcmp(gnggaData.longitude_hemisphere, "W") == 0)) {return true;}
+  else {return false;}
 }
 
 bool hemisphere_gngga_SW(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_SW");
-  
+  if ((strcmp(gnggaData.latitude_hemisphere, "S") == 0 ) && (strcmp(gnggaData.longitude_hemisphere, "W") == 0)) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1758,6 +1767,30 @@ void systems_Check() {
         
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_coord_gngga_in_range) == 0) {tmp_matrix[0][Fi] = satellite_coord_gngga_in_range(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_N) == 0) {tmp_matrix[0][Fi] = hemisphere_gngga_N(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_E) == 0) {tmp_matrix[0][Fi] = hemisphere_gngga_E(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_S) == 0) {tmp_matrix[0][Fi] = hemisphere_gngga_S(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_W) == 0) {tmp_matrix[0][Fi] = hemisphere_gngga_W(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_NE) == 0) {tmp_matrix[0][Fi] = hemisphere_gngga_NE(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_NW) == 0) {tmp_matrix[0][Fi] = hemisphere_gngga_NW(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_SE) == 0) {tmp_matrix[0][Fi] = hemisphere_gngga_SE(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_SW) == 0) {tmp_matrix[0][Fi] = hemisphere_gngga_SW(Ri, Fi);}
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
       }
