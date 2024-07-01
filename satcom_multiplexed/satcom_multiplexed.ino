@@ -1293,344 +1293,39 @@ bool check_in_range(double n0, double n1, double r) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                              RELAY FUNCTIONS: FIX ANGLE FLAG
+//                                                                                                        FUNCTION: COORDINATES
 
-bool fix_angle_flag_gpatt_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] fix_angle_flag_gpatt_over");
-  if (atoi(gpattData.fix_angle_flag) > relayData.relays_data[Ri][Fi][0]) {return true;}
-  else {return false;}
-}
-
-bool fix_angle_flag_gpatt_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] fix_angle_flag_gpatt_under");
-  if (atoi(gpattData.fix_angle_flag) < relayData.relays_data[Ri][Fi][1]) {return true;}
-  else {return false;}
-}
-
-bool fix_angle_flag_gpatt_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] fix_angle_flag_gpatt_equal");
-  if (atoi(gpattData.fix_angle_flag) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-bool fix_angle_flag_gpatt_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] fix_angle_flag_gpatt_in_range");
-  if ((atoi(gpattData.fix_angle_flag) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gpattData.fix_angle_flag) <= relayData.relays_data[Ri][Fi][4])) {return true;}
+bool check_in_ranges(char * Fn0, char * Fn1, int Ri, int Fi) {
+  Serial.println("[CONNECTED] satellite_coord_gngga_in_range");
+  if (check_in_range(Fn0, relayData.relays_data[Ri][Fi][3], relayData.relays_data[Ri][Fi][5]) == true) {
+    if (check_in_range(Fn1, relayData.relays_data[Ri][Fi][4], relayData.relays_data[Ri][Fi][5]) == true) {return true;}}
   else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                      RELAY FUNCTIONS: EPHEMERIS STORED TIMES
+//                                                                                                      RELAY FUNCTIONS: CHECKS
 
-bool time_save_num_gpatt_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] time_save_num_gpatt_over");
-  if (atoi(gpattData.time_save_num) > relayData.relays_data[Ri][Fi][0]) {return true;}
+bool check_over(char * Fn, int Ri, int Fi) {
+  Serial.println("[CHECKING] >: " + String(Fn) + "");
+  if (atoi(Fn) > relayData.relays_data[Ri][Fi][0]) {return true;}
   else {return false;}
 }
 
-bool time_save_num_gpatt_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] time_save_num_gpatt_under");
-  if (atoi(gpattData.time_save_num) < relayData.relays_data[Ri][Fi][1]) {return true;}
+bool check_under(char * Fn, int Ri, int Fi) {
+  Serial.println("[CHECKING] <: " + String(Fn));
+  if (atoi(Fn) < relayData.relays_data[Ri][Fi][1]) {return true;}
   else {return false;}
 }
 
-bool time_save_num_gpatt_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] time_save_num_gpatt_equal");
-  if (atoi(gpattData.time_save_num) == relayData.relays_data[Ri][Fi][2]) {return true;}
+bool check_equal(char * Fn, int Ri, int Fi) {
+  Serial.println("[CHECKING] ==: " + String(Fn));
+  if (atoi(Fn) == relayData.relays_data[Ri][Fi][2]) {return true;}
   else {return false;}
 }
 
-bool time_save_num_gpatt_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] time_save_num_gpatt_in_range");
-  if ((atoi(gpattData.time_save_num) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gpattData.time_save_num) <= relayData.relays_data[Ri][Fi][4])) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                            RELAY FUNCTIONS: RUN INETIAL FLAG
-
-bool run_inetial_flag_gpatt_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] run_inetial_flag_gpatt_equal");
-  if (atoi(gpattData.run_inetial_flag) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                     RELAY FUNCTIONS: MILEAGE
-
-bool mileage_gpatt_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] mileage_gpatt_over");
-  if (atoi(gpattData.mileage) > relayData.relays_data[Ri][Fi][0]) {return true;}
-  else {return false;}
-}
-
-bool mileage_gpatt_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] mileage_gpatt_under");
-  if (atoi(gpattData.mileage) < relayData.relays_data[Ri][Fi][1]) {return true;}
-  else {return false;}
-}
-
-bool mileage_gpatt_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] mileage_gpatt_equal");
-  if (atoi(gpattData.mileage) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-bool mileage_gpatt_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] mileage_gpatt_in_range");
-  if ((atoi(gpattData.mileage) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gpattData.mileage) <= relayData.relays_data[Ri][Fi][4])) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                   RELAY FUNCTIONS: LINE FLAG
-
-bool line_flag_gpatt_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] line_flag_gpatt_equal");
-  if (atoi(gpattData.line_flag) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                    RELAY FUNCTIONS: GST DATA
-
-bool gst_data_gpatt_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] gst_data_gpatt_over");
-  if (atoi(gpattData.gst_data) > relayData.relays_data[Ri][Fi][0]) {return true;}
-  else {return false;}
-}
-
-bool gst_data_gpatt_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] gst_data_gpatt_under");
-  if (atoi(gpattData.gst_data) < relayData.relays_data[Ri][Fi][1]) {return true;}
-  else {return false;}
-}
-
-bool gst_data_gpatt_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] gst_data_gpatt_equal");
-  if (atoi(gpattData.gst_data) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-bool gst_data_gpatt_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] gst_data_gpatt_in_range");
-  if ((atoi(gpattData.gst_data) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gpattData.gst_data) <= relayData.relays_data[Ri][Fi][4])) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                 RELAY FUNCTIONS: STATIC FLAG
-
-bool static_flag_gpatt_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] static_flag_gpatt_equal");
-  if (atoi(gpattData.static_flag) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                               RELAY FUNCTIONS: RUNSTATE FLAG
-
-bool run_state_flag_gpatt_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] run_state_flag_gpatt_equal");
-  if (atoi(gpattData.run_state_flag) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                         RELAY FUNCTIONS: INS
-
-bool ins_gpatt_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] ins_gpatt_equal");
-  if (atoi(gpattData.ins) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                  RELAY FUNCTIONS: YAW GPATT
-
-bool yaw_gpatt_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] yaw_gpatt_over");
-  if (atoi(gpattData.yaw) > relayData.relays_data[Ri][Fi][0]) {return true;}
-  else {return false;}
-}
-
-bool yaw_gpatt_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] yaw_gpatt_under");
-  if (atoi(gpattData.yaw) < relayData.relays_data[Ri][Fi][1]) {return true;}
-  else {return false;}
-}
-
-bool yaw_gpatt_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] yaw_gpatt_equal");
-  if (atoi(gpattData.yaw) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-bool yaw_gpatt_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] yaw_gpatt_in_range");
-  if ((atoi(gpattData.yaw) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gpattData.yaw) <= relayData.relays_data[Ri][Fi][4])) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                  RELAY FUNCTIONS: ROLL GPATT
-
-bool roll_gpatt_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] roll_gpatt_over");
-  if (atoi(gpattData.roll) > relayData.relays_data[Ri][Fi][0]) {return true;}
-  else {return false;}
-}
-
-bool roll_gpatt_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] roll_gpatt_under");
-  if (atoi(gpattData.roll) < relayData.relays_data[Ri][Fi][1]) {return true;}
-  else {return false;}
-}
-
-bool roll_gpatt_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] roll_gpatt_equal");
-  if (atoi(gpattData.roll) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-bool roll_gpatt_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] roll_gpatt_in_range");
-  if ((atoi(gpattData.roll) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gpattData.roll) <= relayData.relays_data[Ri][Fi][4])) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                 RELAY FUNCTIONS: PITCH GPATT
-
-bool pitch_gpatt_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] pitch_gpatt_over");
-  if (atoi(gpattData.pitch) > relayData.relays_data[Ri][Fi][0]) {return true;}
-  else {return false;}
-}
-
-bool pitch_gpatt_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] pitch_gpatt_under");
-  if (atoi(gpattData.pitch) < relayData.relays_data[Ri][Fi][1]) {return true;}
-  else {return false;}
-}
-
-bool pitch_gpatt_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] pitch_gpatt_equal");
-  if (atoi(gpattData.pitch) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-bool pitch_gpatt_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] pitch_gpatt_in_range");
-  if ((atoi(gpattData.pitch) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gpattData.pitch) <= relayData.relays_data[Ri][Fi][4])) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                               RELAY FUNCTIONS: HEADING GNRMC
-
-bool heading_gnrmc_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] heading_gnrmc_over");
-  if (atoi(gnrmcData.ground_heading) > relayData.relays_data[Ri][Fi][0]) {return true;}
-  else {return false;}
-}
-
-bool heading_gnrmc_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] heading_gnrmc_under");
-  if (atoi(gnrmcData.ground_heading) < relayData.relays_data[Ri][Fi][1]) {return true;}
-  else {return false;}
-}
-
-bool heading_gnrmc_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] heading_gnrmc_equal");
-  if (atoi(gnrmcData.ground_heading) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-bool heading_gnrmc_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] heading_gnrmc_in_range");
-  if ((atoi(gnrmcData.ground_heading) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gnrmcData.ground_heading) <= relayData.relays_data[Ri][Fi][4])) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
-
-bool ground_speed_gnrmc_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] ground_speed_gnrmc_over");
-  if (atoi(gnrmcData.ground_speed) > relayData.relays_data[Ri][Fi][0]) {return true;}
-  else {return false;}
-}
-
-bool ground_speed_gnrmc_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] ground_speed_gnrmc_under");
-  if (atoi(gnrmcData.ground_speed) < relayData.relays_data[Ri][Fi][1]) {return true;}
-  else {return false;}
-}
-
-bool ground_speed_gnrmc_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] ground_speed_gnrmc_equal");
-  if (atoi(gnrmcData.ground_speed) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-bool ground_speed_gnrmc_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] ground_speed_gnrmc_in_range");
-  if ((atoi(gnrmcData.ground_speed) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gnrmcData.ground_speed) <= relayData.relays_data[Ri][Fi][4])) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                              RELAY FUNCTIONS: ALTITUDE GNGGA
-
-bool altitude_gngga_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] altitude_gngga_over");
-  if (atoi(gnggaData.altitude) > relayData.relays_data[Ri][Fi][0]) {return true;}
-  else {return false;}
-}
-
-bool altitude_gngga_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] altitude_gngga_under");
-  if (atoi(gnggaData.altitude) < relayData.relays_data[Ri][Fi][1]) {return true;}
-  else {return false;}
-}
-
-bool altitude_gngga_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] altitude_gngga_equal");
-  if (atoi(gnggaData.altitude) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-bool altitude_gngga_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] altitude_gngga_in_range");
-  if ((atoi(gnggaData.altitude) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gnggaData.altitude) <= relayData.relays_data[Ri][Fi][4])) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                      RELAY FUNCTIONS: PRECISION FACTOR GNGGA
-
-bool precision_factor_gngga_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] precision_factor_gngga_over");
-  if (atoi(gnggaData.hddp_precision_factor) > relayData.relays_data[Ri][Fi][0]) {return true;}
-  else {return false;}
-}
-
-bool precision_factor_gngga_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] precision_factor_gngga_under");
-  if (atoi(gnggaData.hddp_precision_factor) < relayData.relays_data[Ri][Fi][1]) {return true;}
-  else {return false;}
-}
-
-bool precision_factor_gngga_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] precision_factor_gngga_equal");
-  if (atoi(gnggaData.hddp_precision_factor) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-bool precision_factor_gngga_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] precision_factor_gngga_in_range");
-  if ((atoi(gnggaData.hddp_precision_factor) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gnggaData.hddp_precision_factor) <= relayData.relays_data[Ri][Fi][4])) {return true;}
+bool check_in_range(char * Fn, int Ri, int Fi) {
+  Serial.println("[CHECKING] IN RANGE: " + String(Fn));
+  if ((atoi(Fn) >= relayData.relays_data[Ri][Fi][3]) && (atoi(Fn) <= relayData.relays_data[Ri][Fi][4])) {return true;}
   else {return false;}
 }
 
@@ -1686,82 +1381,6 @@ bool hemisphere_gngga_SW(int Ri, int Fi) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                 RELAY FUNCTIONS: COORDINATES
-
-bool satellite_coord_gngga_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] satellite_coord_gngga_over");
-   
-}
-
-bool satellite_coord_gngga_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] satellite_coord_gngga_under");
-  
-}
-
-bool satellite_coord_gngga_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] satellite_coord_gngga_equal");
-}
-
-bool satellite_coord_gngga_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] satellite_coord_gngga_in_range");
-  if (check_in_range(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][3], relayData.relays_data[Ri][Fi][5]) == true) {
-    if (check_in_range(satData.location_longitude_gngga, relayData.relays_data[Ri][Fi][4], relayData.relays_data[Ri][Fi][5]) == true) {return true;}}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                        RELAY FUNCTIONS: TIME
-
-/*
-note: currently using atoi.
-*/
-
-bool satellite_time_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] satellite_time_over");
-  if (atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][Fi][0]) {return true;}
-  else {return false;}
-}
-
-bool satellite_time_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] satellite_time_under");
-  if (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][Fi][1]) {return true;}
-  else {return false;}
-}
-
-bool satellite_time_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] satellite_time_equal");
-  if (atoi(satData.sat_time_stamp_string) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-bool satellite_time_in_range(int Ri, int Fi) {
-  Serial.println("[CONNECTED] satellite_time_in_range");
-  if ((atoi(satData.sat_time_stamp_string) >= relayData.relays_data[Ri][Fi][3]) && (atoi(satData.sat_time_stamp_string) <= relayData.relays_data[Ri][Fi][4])) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                             RELAY FUNCTIONS: SATELLITE COUNT
-
-bool satellite_count_gngga_over(int Ri, int Fi) {
-  Serial.println("[CONNECTED] satellite_count_gngga_over");
-  if (atoi(gnggaData.satellite_count_gngga) > relayData.relays_data[Ri][Fi][0]) {return true;}
-  else {return false;}
-}
-
-bool satellite_count_gngga_under(int Ri, int Fi) {
-  Serial.println("[CONNECTED] satellite_count_gngga_under");
-  if (atoi(gnggaData.satellite_count_gngga) < relayData.relays_data[Ri][Fi][1]) {return true;}
-  else {return false;}
-}
-
-bool satellite_count_gngga_equal(int Ri, int Fi) {
-  Serial.println("[CONNECTED] satellite_count_gngga_equal");
-  if (atoi(gnggaData.satellite_count_gngga) == relayData.relays_data[Ri][Fi][2]) {return true;}
-  else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                               SYSTEMS CHECKS
 
 /*
@@ -1804,22 +1423,28 @@ void systems_Check() {
         if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1; count_none_function++;}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {tmp_matrix[0][Fi] = satellite_count_gngga_over(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_coord_gngga_in_range) == 0) {tmp_matrix[0][Fi] = check_in_ranges(satData.location_latitude_gngga_str, satData.location_longitude_gngga_str, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_over) == 0) {tmp_matrix[0][Fi] = satellite_time_over(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {tmp_matrix[0][Fi] = check_over(gnggaData.satellite_count_gngga, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_under) == 0) {tmp_matrix[0][Fi] = satellite_time_under(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_under) == 0) {tmp_matrix[0][Fi] = check_under(gnggaData.satellite_count_gngga, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_equal) == 0) {tmp_matrix[0][Fi] = satellite_time_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gnggaData.satellite_count_gngga, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_in_range) == 0) {tmp_matrix[0][Fi] = satellite_time_in_range(Ri, Fi);}
-        
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_over) == 0) {tmp_matrix[0][Fi] = check_over(satData.sat_time_stamp_string, Ri, Fi);}
+
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_coord_gngga_in_range) == 0) {tmp_matrix[0][Fi] = satellite_coord_gngga_in_range(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_under) == 0) {tmp_matrix[0][Fi] = check_under(satData.sat_time_stamp_string, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_equal) == 0) {tmp_matrix[0][Fi] = check_equal(satData.sat_time_stamp_string, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(satData.sat_time_stamp_string, Ri, Fi);}
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_N) == 0) {tmp_matrix[0][Fi] = hemisphere_gngga_N(Ri, Fi);}
@@ -1846,151 +1471,151 @@ void systems_Check() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_SW) == 0) {tmp_matrix[0][Fi] = hemisphere_gngga_SW(Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_over) == 0) {tmp_matrix[0][Fi] = precision_factor_gngga_over(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_over) == 0) {tmp_matrix[0][Fi] = check_over(gnggaData.hddp_precision_factor, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_under) == 0) {tmp_matrix[0][Fi] = precision_factor_gngga_under(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_under) == 0) {tmp_matrix[0][Fi] = check_under(gnggaData.hddp_precision_factor, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_equal) == 0) {tmp_matrix[0][Fi] = precision_factor_gngga_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gnggaData.hddp_precision_factor, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_in_range) == 0) {tmp_matrix[0][Fi] = precision_factor_gngga_in_range(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gnggaData.hddp_precision_factor, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_over) == 0) {tmp_matrix[0][Fi] = altitude_gngga_over(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_over) == 0) {tmp_matrix[0][Fi] = check_over(gnggaData.altitude, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_under) == 0) {tmp_matrix[0][Fi] = altitude_gngga_under(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_under) == 0) {tmp_matrix[0][Fi] = check_under(gnggaData.altitude, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_equal) == 0) {tmp_matrix[0][Fi] = altitude_gngga_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gnggaData.altitude, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_in_range) == 0) {tmp_matrix[0][Fi] = altitude_gngga_in_range(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gnggaData.altitude, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_over) == 0) {tmp_matrix[0][Fi] = ground_speed_gnrmc_over(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_over) == 0) {tmp_matrix[0][Fi] = check_over(gnrmcData.ground_speed, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_under) == 0) {tmp_matrix[0][Fi] = ground_speed_gnrmc_under(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_under) == 0) {tmp_matrix[0][Fi] = check_under(gnrmcData.ground_speed, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_equal) == 0) {tmp_matrix[0][Fi] = ground_speed_gnrmc_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gnrmcData.ground_speed, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_in_range) == 0) {tmp_matrix[0][Fi] = ground_speed_gnrmc_in_range(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gnrmcData.ground_speed, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_over) == 0) {tmp_matrix[0][Fi] = heading_gnrmc_over(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_over) == 0) {tmp_matrix[0][Fi] = check_over(gnrmcData.ground_heading, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_under) == 0) {tmp_matrix[0][Fi] = heading_gnrmc_under(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_under) == 0) {tmp_matrix[0][Fi] = check_under(gnrmcData.ground_heading, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_equal) == 0) {tmp_matrix[0][Fi] = heading_gnrmc_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gnrmcData.ground_heading, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_in_range) == 0) {tmp_matrix[0][Fi] = heading_gnrmc_in_range(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gnrmcData.ground_heading, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_over) == 0) {tmp_matrix[0][Fi] = pitch_gpatt_over(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_over) == 0) {tmp_matrix[0][Fi] = check_over(gpattData.pitch, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_under) == 0) {tmp_matrix[0][Fi] = pitch_gpatt_under(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_under) == 0) {tmp_matrix[0][Fi] = check_under(gpattData.pitch, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_equal) == 0) {tmp_matrix[0][Fi] = pitch_gpatt_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gpattData.pitch, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = pitch_gpatt_in_range(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gpattData.pitch, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_over) == 0) {tmp_matrix[0][Fi] = roll_gpatt_over(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_over) == 0) {tmp_matrix[0][Fi] = check_over(gpattData.roll, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_under) == 0) {tmp_matrix[0][Fi] = roll_gpatt_under(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_under) == 0) {tmp_matrix[0][Fi] = check_under(gpattData.roll, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_equal) == 0) {tmp_matrix[0][Fi] = roll_gpatt_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gpattData.roll, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = roll_gpatt_in_range(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gpattData.roll, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_over) == 0) {tmp_matrix[0][Fi] = yaw_gpatt_over(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_over) == 0) {tmp_matrix[0][Fi] = check_over(gpattData.yaw, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_under) == 0) {tmp_matrix[0][Fi] = yaw_gpatt_under(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_under) == 0) {tmp_matrix[0][Fi] = check_under(gpattData.yaw, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_equal) == 0) {tmp_matrix[0][Fi] = yaw_gpatt_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gpattData.yaw, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = yaw_gpatt_in_range(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gpattData.yaw, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_gpatt_equal) == 0) {tmp_matrix[0][Fi] = ins_gpatt_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_gpatt_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gpattData.ins, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.run_state_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = run_state_flag_gpatt_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.run_state_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gpattData.run_state_flag, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.static_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = static_flag_gpatt_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.static_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gpattData.static_flag, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_over) == 0) {tmp_matrix[0][Fi] = gst_data_gpatt_over(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_over) == 0) {tmp_matrix[0][Fi] = check_over(gpattData.gst_data, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_under) == 0) {tmp_matrix[0][Fi] = gst_data_gpatt_under(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_under) == 0) {tmp_matrix[0][Fi] = check_under(gpattData.gst_data, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_equal) == 0) {tmp_matrix[0][Fi] = gst_data_gpatt_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gpattData.gst_data, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = gst_data_gpatt_in_range(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gpattData.gst_data, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.line_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = line_flag_gpatt_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.line_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gpattData.line_flag, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_over) == 0) {tmp_matrix[0][Fi] = mileage_gpatt_over(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_over) == 0) {tmp_matrix[0][Fi] = check_over(gpattData.mileage, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_under) == 0) {tmp_matrix[0][Fi] = mileage_gpatt_under(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_under) == 0) {tmp_matrix[0][Fi] = check_under(gpattData.mileage, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_equal) == 0) {tmp_matrix[0][Fi] = mileage_gpatt_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gpattData.mileage, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = mileage_gpatt_in_range(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gpattData.mileage, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.run_inetial_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = run_inetial_flag_gpatt_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.run_inetial_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gpattData.run_inetial_flag, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_save_num_gpatt_over) == 0) {tmp_matrix[0][Fi] = time_save_num_gpatt_over(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_save_num_gpatt_over) == 0) {tmp_matrix[0][Fi] = check_over(gpattData.time_save_num, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_save_num_gpatt_under) == 0) {tmp_matrix[0][Fi] = time_save_num_gpatt_under(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_save_num_gpatt_under) == 0) {tmp_matrix[0][Fi] = check_under(gpattData.time_save_num, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_save_num_gpatt_equal) == 0) {tmp_matrix[0][Fi] = time_save_num_gpatt_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_save_num_gpatt_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gpattData.time_save_num, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_save_num_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = time_save_num_gpatt_in_range(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_save_num_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gpattData.time_save_num, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_over) == 0) {tmp_matrix[0][Fi] = fix_angle_flag_gpatt_over(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_over) == 0) {tmp_matrix[0][Fi] = check_over(gpattData.fix_angle_flag, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_under) == 0) {tmp_matrix[0][Fi] = fix_angle_flag_gpatt_under(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_under) == 0) {tmp_matrix[0][Fi] = check_under(gpattData.fix_angle_flag, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = fix_angle_flag_gpatt_equal(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gpattData.fix_angle_flag, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = fix_angle_flag_gpatt_in_range(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gpattData.fix_angle_flag, Ri, Fi);}
 
         /*
         the above checks are the 'basic' checks. with that out the way we can now build 'advanced' checks which may be something like using datetime and coordinates to calculate sunrise
