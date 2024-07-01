@@ -949,8 +949,9 @@ additional configuration could include running once, running each time etc. for 
 struct RelayStruct {
 
   int MAX_RELAYS = 10;
-
-  char relays[10][50][100] = {
+  int MAX_RELAY_ELEMENTS = 10;
+  
+  char relays[10][10][100] = {
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
@@ -984,7 +985,7 @@ struct RelayStruct {
   relays_data[N][10][0] = completely enable/disbale
   */
 
-  double relays_data[10][11][7] = {
+  double relays_data[10][10+1][7] = {
     {
       {1, 20, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 1.5, 1},
@@ -1116,8 +1117,6 @@ struct RelayStruct {
       {1},
     },
   };
-
-  bool tmp_matrix[1][24] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
   // default and specifiable value to indicate a relay should not be activated/deactivated
   char default_relay_function[56] = "$NONE";
