@@ -1296,22 +1296,26 @@ bool check_in_range(double n0, double n1, double r) {
 
 bool fix_angle_flag_gpatt_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] fix_angle_flag_gpatt_over");
-   
+  if (atoi(gpattData.fix_angle_flag) > relayData.relays_data[Ri][Fi][0]) {return true;}
+  else {return false;}
 }
 
 bool fix_angle_flag_gpatt_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] fix_angle_flag_gpatt_under");
-  
+  if (atoi(gpattData.fix_angle_flag) < relayData.relays_data[Ri][Fi][1]) {return true;}
+  else {return false;}
 }
 
 bool fix_angle_flag_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] fix_angle_flag_gpatt_equal");
-  
+  if (atoi(gpattData.fix_angle_flag) == relayData.relays_data[Ri][Fi][2]) {return true;}
+  else {return false;}
 }
 
 bool fix_angle_flag_gpatt_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] fix_angle_flag_gpatt_in_range");
-  
+  if ((atoi(gpattData.fix_angle_flag) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gpattData.fix_angle_flag) <= relayData.relays_data[Ri][Fi][4])) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1972,6 +1976,21 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.time_save_num_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = time_save_num_gpatt_in_range(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_over) == 0) {tmp_matrix[0][Fi] = fix_angle_flag_gpatt_over(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_under) == 0) {tmp_matrix[0][Fi] = fix_angle_flag_gpatt_under(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = fix_angle_flag_gpatt_equal(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = fix_angle_flag_gpatt_in_range(Ri, Fi);}
+
+        // the above checks are the 'basic' checks. with that out the way we can now build 'advanced' checks which may be something like using datetime and coordinates to calculate sunrise
+        // for example, among infinite things we can calculate with all this data.
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
       }
