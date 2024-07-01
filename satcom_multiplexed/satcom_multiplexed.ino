@@ -1373,7 +1373,8 @@ bool mileage_gpatt_in_range(int Ri, int Fi) {
 
 bool line_flag_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] line_flag_gpatt_equal");
-
+  if (atoi(gpattData.line_flag) == relayData.relays_data[Ri][Fi][2]) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1932,6 +1933,9 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = gst_data_gpatt_in_range(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.line_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = line_flag_gpatt_equal(Ri, Fi);}
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
       }
