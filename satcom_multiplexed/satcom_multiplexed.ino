@@ -1560,7 +1560,8 @@ void systems_Check() {
         /*
         the above checks are the 'basic' checks. with that out the way we can now build more 'advanced' checks/calculations from the basic data which may be something like using
         datetime and coordinates to calculate sunrise for example, among infinite things we can calculate with all this data and then check for. checks should be as simple/light
-        as possible so that this main system can try to run as fast as it can, while the systems being turned on/off may also have access to the sentence dumps.
+        as possible so that this main system can try to run as fast as it can, while the systems being turned on/off may also have access to the sentence dumps for any tasks
+        those systems require that information for.
         */
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
