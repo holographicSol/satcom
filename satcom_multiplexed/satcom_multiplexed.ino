@@ -1324,7 +1324,7 @@ bool check_equal(char * Fn, int Ri, int Fi) {
 }
 
 bool check_in_range(char * Fn, int Ri, int Fi) {
-  Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][3]) " && " + String(Fn) + " < " String(relayData.relays_data[Ri][Fi][4]));
+  Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][3]) " && " + String(Fn) + " < " + String(relayData.relays_data[Ri][Fi][4]));
   if ((atoi(Fn) >= relayData.relays_data[Ri][Fi][3]) && (atoi(Fn) <= relayData.relays_data[Ri][Fi][4])) {return true;}
   else {return false;}
 }
