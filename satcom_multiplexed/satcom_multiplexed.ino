@@ -976,144 +976,143 @@ struct RelayStruct {
   0: >
   1: <
   2: ==
-  3: x1 range
-  4: y1 range
-  5: x2 range
-  6: y2 range
-  7: 0=turn_off 1=turn_on
+  3: x n
+  4: y n
+  5: r range
+  6: 0=turn_off 1=turn_on
   relays_data[N][10][0] = completely enable/disbale
   */
 
-  double relays_data[10][11][8] = {
+  double relays_data[10][11][7] = {
     {
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 1.5, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
       {1},
     },
     {
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
       {1},
     },
     {
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0},
-    },
-    {
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0},
-    },
-    {
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0},
-    },
-    {
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0},
-    },
-    {
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0},
-    },
-    {
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0},
-    },
-    {
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0},
-    },
-    {
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 0, 0, 1},
-      {0},
+      {1, 20, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 1.5, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1, 20, 0, 0, 0, 0, 1},
+      {1},
     },
   };
 
@@ -1285,22 +1284,22 @@ RelayStruct relayData;
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                              RELAY FUNCTIONS: FIX ANGLE FLAG
 
-bool fix_angle_flag_gpatt_over(int Ri) {
+bool fix_angle_flag_gpatt_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] fix_angle_flag_gpatt_over");
    
 }
 
-bool fix_angle_flag_gpatt_under(int Ri) {
+bool fix_angle_flag_gpatt_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] fix_angle_flag_gpatt_under");
   
 }
 
-bool fix_angle_flag_gpatt_equal(int Ri) {
+bool fix_angle_flag_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] fix_angle_flag_gpatt_equal");
   
 }
 
-bool fix_angle_flag_gpatt_in_range(int Ri) {
+bool fix_angle_flag_gpatt_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] fix_angle_flag_gpatt_in_range");
   
 }
@@ -1308,22 +1307,22 @@ bool fix_angle_flag_gpatt_in_range(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                      RELAY FUNCTIONS: EPHEMERIS STORED TIMES
 
-bool time_save_num_gpatt_over(int Ri) {
+bool time_save_num_gpatt_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] time_save_num_gpatt_over");
    
 }
 
-bool time_save_num_gpatt_under(int Ri) {
+bool time_save_num_gpatt_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] time_save_num_gpatt_under");
   
 }
 
-bool time_save_num_gpatt_equal(int Ri) {
+bool time_save_num_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] time_save_num_gpatt_equal");
   
 }
 
-bool time_save_num_gpatt_in_range(int Ri) {
+bool time_save_num_gpatt_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] time_save_num_gpatt_in_range");
   
 }
@@ -1331,7 +1330,7 @@ bool time_save_num_gpatt_in_range(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                            RELAY FUNCTIONS: RUN INETIAL FLAG
 
-bool run_inetial_flag_gpatt_equal(int Ri) {
+bool run_inetial_flag_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] run_inetial_flag_gpatt_equal");
    
 }
@@ -1339,22 +1338,22 @@ bool run_inetial_flag_gpatt_equal(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                     RELAY FUNCTIONS: MILEAGE
 
-bool mileage_gpatt_over(int Ri) {
+bool mileage_gpatt_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] mileage_gpatt_over");
    
 }
 
-bool mileage_gpatt_under(int Ri) {
+bool mileage_gpatt_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] mileage_gpatt_under");
   
 }
 
-bool mileage_gpatt_equal(int Ri) {
+bool mileage_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] mileage_gpatt_equal");
   
 }
 
-bool mileage_gpatt_in_range(int Ri) {
+bool mileage_gpatt_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] mileage_gpatt_in_range");
   
 }
@@ -1362,7 +1361,7 @@ bool mileage_gpatt_in_range(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: STATIC FLAG
 
-bool line_flag_gpatt_equal(int Ri) {
+bool line_flag_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] line_flag_gpatt_equal");
    
 }
@@ -1370,22 +1369,22 @@ bool line_flag_gpatt_equal(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                    RELAY FUNCTIONS: GST DATA
 
-bool gst_data_gpatt_over(int Ri) {
+bool gst_data_gpatt_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] gst_data_gpatt_over");
    
 }
 
-bool gst_data_gpatt_under(int Ri) {
+bool gst_data_gpatt_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] gst_data_gpatt_under");
   
 }
 
-bool gst_data_gpatt_equal(int Ri) {
+bool gst_data_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] gst_data_gpatt_equal");
   
 }
 
-bool gst_data_gpatt_in_range(int Ri) {
+bool gst_data_gpatt_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] gst_data_gpatt_in_range");
   
 }
@@ -1393,7 +1392,7 @@ bool gst_data_gpatt_in_range(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: STATIC FLAG
 
-bool static_flag_gpatt_equal(int Ri) {
+bool static_flag_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] static_flag_gpatt_equal");
    
 }
@@ -1401,7 +1400,7 @@ bool static_flag_gpatt_equal(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                               RELAY FUNCTIONS: RUNSTATE FLAG
 
-bool run_state_flag_gpatt_equal(int Ri) {
+bool run_state_flag_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] run_state_flag_gpatt_equal");
    
 }
@@ -1409,7 +1408,7 @@ bool run_state_flag_gpatt_equal(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                         RELAY FUNCTIONS: INS
 
-bool ins_gpatt_equal(int Ri) {
+bool ins_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] ins_gpatt_equal");
    
 }
@@ -1417,22 +1416,22 @@ bool ins_gpatt_equal(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                  RELAY FUNCTIONS: YAW GPATT
 
-bool yaw_gpatt_over(int Ri) {
+bool yaw_gpatt_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] yaw_gpatt_over");
    
 }
 
-bool yaw_gpatt_under(int Ri) {
+bool yaw_gpatt_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] yaw_gpatt_under");
   
 }
 
-bool yaw_gpatt_equal(int Ri) {
+bool yaw_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] yaw_gpatt_equal");
   
 }
 
-bool yaw_gpatt_in_range(int Ri) {
+bool yaw_gpatt_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] yaw_gpatt_in_range");
   
 }
@@ -1440,22 +1439,22 @@ bool yaw_gpatt_in_range(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                  RELAY FUNCTIONS: ROLL GPATT
 
-bool roll_gpatt_over(int Ri) {
+bool roll_gpatt_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] roll_gpatt_over");
    
 }
 
-bool roll_gpatt_under(int Ri) {
+bool roll_gpatt_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] roll_gpatt_under");
   
 }
 
-bool roll_gpatt_equal(int Ri) {
+bool roll_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] roll_gpatt_equal");
   
 }
 
-bool roll_gpatt_in_range(int Ri) {
+bool roll_gpatt_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] roll_gpatt_in_range");
   
 }
@@ -1463,22 +1462,22 @@ bool roll_gpatt_in_range(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: PITCH GPATT
 
-bool pitch_gpatt_over(int Ri) {
+bool pitch_gpatt_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] pitch_gpatt_over");
    
 }
 
-bool pitch_gpatt_under(int Ri) {
+bool pitch_gpatt_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] pitch_gpatt_under");
   
 }
 
-bool pitch_gpatt_equal(int Ri) {
+bool pitch_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] pitch_gpatt_equal");
   
 }
 
-bool pitch_gpatt_in_range(int Ri) {
+bool pitch_gpatt_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] pitch_gpatt_in_range");
   
 }
@@ -1486,22 +1485,22 @@ bool pitch_gpatt_in_range(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
 
-bool heading_gnrmc_over(int Ri) {
+bool heading_gnrmc_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] heading_gnrmc_over");
    
 }
 
-bool heading_gnrmc_under(int Ri) {
+bool heading_gnrmc_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] heading_gnrmc_under");
   
 }
 
-bool heading_gnrmc_equal(int Ri) {
+bool heading_gnrmc_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] heading_gnrmc_equal");
   
 }
 
-bool heading_gnrmc_in_range(int Ri) {
+bool heading_gnrmc_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] heading_gnrmc_in_range");
   
 }
@@ -1509,22 +1508,22 @@ bool heading_gnrmc_in_range(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
 
-bool speed_gngga_over(int Ri) {
+bool speed_gngga_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] speed_gngga_over");
    
 }
 
-bool speed_gngga_under(int Ri) {
+bool speed_gngga_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] speed_gngga_under");
   
 }
 
-bool speed_gngga_equal(int Ri) {
+bool speed_gngga_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] speed_gngga_equal");
   
 }
 
-bool speed_gngga_in_range(int Ri) {
+bool speed_gngga_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] speed_gngga_in_range");
   
 }
@@ -1532,22 +1531,22 @@ bool speed_gngga_in_range(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                              RELAY FUNCTIONS: ALTITUDE GNGGA
 
-bool altitude_gngga_over(int Ri) {
+bool altitude_gngga_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] altitude_gngga_over");
    
 }
 
-bool altitude_gngga_under(int Ri) {
+bool altitude_gngga_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] altitude_gngga_under");
   
 }
 
-bool altitude_gngga_equal(int Ri) {
+bool altitude_gngga_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] altitude_gngga_equal");
   
 }
 
-bool altitude_gngga_in_range(int Ri) {
+bool altitude_gngga_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] altitude_gngga_in_range");
   
 }
@@ -1555,22 +1554,22 @@ bool altitude_gngga_in_range(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                      RELAY FUNCTIONS: PRECISION FACTOR GNGGA
 
-bool precision_factor_gngga_over(int Ri) {
+bool precision_factor_gngga_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] precision_factor_gngga_over");
    
 }
 
-bool precision_factor_gngga_under(int Ri) {
+bool precision_factor_gngga_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] precision_factor_gngga_under");
   
 }
 
-bool precision_factor_gngga_equal(int Ri) {
+bool precision_factor_gngga_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] precision_factor_gngga_equal");
   
 }
 
-bool precision_factor_gngga_in_range(int Ri) {
+bool precision_factor_gngga_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] precision_factor_gngga_in_range");
   
 }
@@ -1578,42 +1577,42 @@ bool precision_factor_gngga_in_range(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: HEMISPHERE
 
-bool hemisphere_gngga_N(int Ri) {
+bool hemisphere_gngga_N(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_N");
    
 }
 
-bool hemisphere_gngga_E(int Ri) {
+bool hemisphere_gngga_E(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_E");
   
 }
 
-bool hemisphere_gngga_S(int Ri) {
+bool hemisphere_gngga_S(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_S");
   
 }
 
-bool hemisphere_gngga_W(int Ri) {
+bool hemisphere_gngga_W(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_W");
   
 }
 
-bool hemisphere_gngga_NE(int Ri) {
+bool hemisphere_gngga_NE(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_NE");
    
 }
 
-bool hemisphere_gngga_SE(int Ri) {
+bool hemisphere_gngga_SE(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_SE");
   
 }
 
-bool hemisphere_gngga_NW(int Ri) {
+bool hemisphere_gngga_NW(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_NW");
   
 }
 
-bool hemisphere_gngga_SW(int Ri) {
+bool hemisphere_gngga_SW(int Ri, int Fi) {
   Serial.println("[CONNECTED] hemisphere_gngga_SW");
   
 }
@@ -1621,24 +1620,39 @@ bool hemisphere_gngga_SW(int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 RELAY FUNCTIONS: COORDINATES
 
-bool satellite_coord_gngga_over(int Ri) {
+bool satellite_coord_gngga_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_coord_gngga_over");
    
 }
 
-bool satellite_coord_gngga_under(int Ri) {
+bool satellite_coord_gngga_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_coord_gngga_under");
   
 }
 
-bool satellite_coord_gngga_equal(int Ri) {
+bool satellite_coord_gngga_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_coord_gngga_equal");
   
 }
 
-bool satellite_coord_gngga_in_range(int Ri) {
+bool satellite_coord_gngga_in_range_check_latituude(double x, double m) {
+  bool in_range = false;
+  if (satData.location_latitude_gngga  >=  x - m/2) {if (satData.location_latitude_gngga  <= x + m/2) {in_range = true;}}
+  return in_range;
+}
+
+bool satellite_coord_gngga_in_range_check_longitude(double y, double m) {
+  bool in_range = false;
+  if (satData.location_longitude_gngga  >=  y - m/2) {if (satData.location_longitude_gngga  <= y + m/2) {in_range = true;}}
+  return in_range;
+}
+
+bool satellite_coord_gngga_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_coord_gngga_in_range");
-  
+  if (satellite_coord_gngga_in_range_check_latituude(relayData.relays_data[Ri][Fi][3], relayData.relays_data[Ri][Fi][5]) == true) {
+    if (satellite_coord_gngga_in_range_check_longitude(relayData.relays_data[Ri][Fi][4], relayData.relays_data[Ri][Fi][5]) == true) {return true;}
+  }
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1664,7 +1678,7 @@ bool satellite_time_equal(int Ri, int Fi) {
 
 bool satellite_time_period(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_time_period");
-  if ((atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][Fi][3]) && (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][4])) {return true;}
+  if ((atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][Fi][3]) && (atoi(satData.sat_time_stamp_string) < relayData.relays_data[Ri][Fi][4])) {return true;}
   else {return false;}
 }
 
@@ -1707,10 +1721,11 @@ void systems_Check() {
   be activated for a compound of conditions rather than just one condition. This is preferrable per relay/function and once interfaceable, more convenient.
   */
 
-  // uncomment to hardcode specify relay zero's function(s) (because there is no HID yet)
-  int Ri = 0; 
-  strcpy(relayData.relays[Ri][0], relayData.satellite_count_gngga_over);
-  strcpy(relayData.relays[Ri][1], relayData.satellite_count_gngga_over);
+  // uncomment to hardcode specify relay N's function(s) (because there is no HID yet)
+  strcpy(relayData.relays[0][0], relayData.satellite_count_gngga_over);
+  strcpy(relayData.relays[0][1], relayData.satellite_coord_gngga_in_range);
+  strcpy(relayData.relays[9][0], relayData.satellite_count_gngga_over);
+  strcpy(relayData.relays[9][1], relayData.satellite_coord_gngga_in_range);
 
   // iterate over each relay array
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
@@ -1720,29 +1735,34 @@ void systems_Check() {
 
       // temporary switch must be zero each time
       bool tmp_matrix[1][10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+      int count_none_function = 0;
 
       // iterate over each function name for current relay
       for (int Fi = 0; Fi < 10; Fi++) {
 
         // put true in the temporary matrix if no function is specified ($NONE)
-        if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1;}
+        if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1; count_none_function++;}
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {tmp_matrix[0][Fi] = satellite_count_gngga_over(Ri, Fi);}
+        
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_coord_gngga_in_range) == 0) {tmp_matrix[0][Fi] = satellite_coord_gngga_in_range(Ri, Fi);}
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
-        
-        // put true or false in the temporary matrix for every other basic condition we currently have data for
       }
       
-      // default final bool is true and if a single false is found final bool should be set to false and remain false
-      bool final_bool = true;
-      for (int FC = 0; FC < 10; FC++) {if (tmp_matrix[0][FC] == 0) {final_bool = false;}}
-      // Serial.println("[FINAL_BOOL] " + String(final_bool));
+      // safety layer: ignore $NONE unless all entries are $NONE (else if master switch enabled then relay/function will be activated despite all $NONE entries)
+      if (count_none_function <= 9) {
+        // default final bool is true and if a single false is found final bool should be set to false and remain false
+        bool final_bool = true;
+        for (int FC = 0; FC < 10; FC++) {if (tmp_matrix[0][FC] == 0) {final_bool = false;}}
+        // Serial.println("[FINAL_BOOL] " + String(final_bool));
 
-      // activate/deactivate relay N
-      if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] de-activating");}
-      else if (final_bool == true) {Serial.println("[RELAY " + String(Ri) + "] activating");}
+        // activate/deactivate relay N
+        if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] de-activating");}
+        else if (final_bool == true) {Serial.println("[RELAY " + String(Ri) + "] activating");}
+      }
     }
   }
 }
