@@ -1287,7 +1287,7 @@ RelayStruct relayData;
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                            FUNCTION: CHECK RANGE CALCULATION
 
-// calculate if x1 in range of specified x0 +- specified range
+// calculate if x1 in range of specified x0 +- ( specified range / 2 )
 bool in_range_check(double n0, double n1, double r) {
   if (n0  >=  n1 - r/2) {if (n0  <= n1 + r/2) {return true;}}
   else {return false;}
