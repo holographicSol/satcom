@@ -1342,7 +1342,8 @@ bool time_save_num_gpatt_in_range(int Ri, int Fi) {
 
 bool run_inetial_flag_gpatt_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] run_inetial_flag_gpatt_equal");
-   
+  if (atoi(gpattData.run_inetial_flag) == relayData.relays_data[Ri][Fi][2]) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1952,6 +1953,9 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = mileage_gpatt_in_range(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.run_inetial_flag_gpatt_equal) == 0) {tmp_matrix[0][Fi] = run_inetial_flag_gpatt_equal(Ri, Fi);}
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
       }
