@@ -1652,6 +1652,10 @@ bool satellite_coord_gngga_in_range(int Ri, int Fi) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                        RELAY FUNCTIONS: TIME
 
+/*
+note: currently using atoi.
+*/
+
 bool satellite_time_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] satellite_time_over");
   if (atoi(satData.sat_time_stamp_string) > relayData.relays_data[Ri][Fi][0]) {return true;}
