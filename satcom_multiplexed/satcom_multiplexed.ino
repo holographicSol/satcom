@@ -1285,8 +1285,9 @@ RelayStruct relayData;
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                        FUNCTION: CHECK RANGE
+//                                                                                            FUNCTION: CHECK RANGE CALCULATION
 
+// calculate if x1 in range of specified x0 +- specified range
 bool in_range_check(double n0, double n1, double r) {
   if (n0  >=  n1 - r/2) {if (n0  <= n1 + r/2) {return true;}}
   else {return false;}
@@ -1323,6 +1324,7 @@ bool check_equal(char * Fn, int Ri, int Fi) {
   else {return false;}
 }
 
+// check range from specified x to specify y
 bool check_in_range(char * Fn, int Ri, int Fi) {
   Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][3]) + " && " + String(Fn) + " < " + String(relayData.relays_data[Ri][Fi][4]));
   if ((atoi(Fn) >= relayData.relays_data[Ri][Fi][3]) && (atoi(Fn) <= relayData.relays_data[Ri][Fi][4])) {return true;}
