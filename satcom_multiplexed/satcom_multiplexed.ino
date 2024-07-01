@@ -986,20 +986,20 @@ struct RelayStruct {
   relays_data[N][10][0] = completely enable/disbale
   */
 
-  // any none zero value here is for testing purposes. in production this matrix below should be zeroed and dialed in through an interface/rf.
+  // calibratable matrix data (via local interface devices / RF / serial / baked-in if required)
   double relays_data[10][10+1][7] = {
     {
-      {1, 20, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 1.5, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0},
     },
     {
       {0, 0, 0, 0, 0, 0, 1},
@@ -1779,11 +1779,13 @@ void systems_Check() {
   be activated for a compound of conditions rather than just one condition. This is preferrable per relay/function and once interfaceable, more convenient.
   */
 
-  // uncomment to hardcode specify relay N's function(s) (because there is no HID yet)
-  strcpy(relayData.relays[0][0], relayData.satellite_count_gngga_over);
-  strcpy(relayData.relays[0][1], relayData.satellite_coord_gngga_in_range);
-  strcpy(relayData.relays[9][0], relayData.satellite_count_gngga_over);
-  strcpy(relayData.relays[9][1], relayData.satellite_coord_gngga_in_range);
+  // system test: uncomment to calibrate a relay's function(s) (because there is no HID yet)
+  strcpy(relayData.relays[0][0], relayData.satellite_count_gngga_over); // 1: set relay zero's first check condition.
+  relayData.relays_data[0][0][0]  = 1;                                  // 2: set relays first function data. in this case we will use the column 'over' element.
+  relayData.relays_data[0][10][0] = 1;                                  // 3: lastly, soft enable the check/relay
+
+  strcpy(relayData.relays[0][1], relayData.hemisphere_gngga_N);         // 1: optionally set relay zero's second check condition (because checks can be elemental or compounded).
+  relayData.relays_data[0][10][0] = 1;                                  // 2: lastly, soft enable the check/relay
 
   // iterate over each relay array
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
