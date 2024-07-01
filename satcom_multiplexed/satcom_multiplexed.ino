@@ -1492,26 +1492,30 @@ bool pitch_gpatt_in_range(int Ri, int Fi) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                 RELAY FUNCTIONS: SPEED GNGGA
+//                                                                                               RELAY FUNCTIONS: HEADING GNRMC
 
 bool heading_gnrmc_over(int Ri, int Fi) {
   Serial.println("[CONNECTED] heading_gnrmc_over");
-   
+  if (atoi(gnrmcData.ground_heading) > relayData.relays_data[Ri][Fi][0]) {return true;}
+  else {return false;}
 }
 
 bool heading_gnrmc_under(int Ri, int Fi) {
   Serial.println("[CONNECTED] heading_gnrmc_under");
-  
+  if (atoi(gnrmcData.ground_heading) < relayData.relays_data[Ri][Fi][1]) {return true;}
+  else {return false;}
 }
 
 bool heading_gnrmc_equal(int Ri, int Fi) {
   Serial.println("[CONNECTED] heading_gnrmc_equal");
-  
+  if (atoi(gnrmcData.ground_heading) == relayData.relays_data[Ri][Fi][2]) {return true;}
+  else {return false;}
 }
 
 bool heading_gnrmc_in_range(int Ri, int Fi) {
   Serial.println("[CONNECTED] heading_gnrmc_in_range");
-  
+  if ((atoi(gnrmcData.ground_heading) >= relayData.relays_data[Ri][Fi][3]) && (atoi(gnrmcData.ground_heading) <= relayData.relays_data[Ri][Fi][4])) {return true;}
+  else {return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1839,6 +1843,18 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_in_range) == 0) {tmp_matrix[0][Fi] = ground_speed_gnrmc_in_range(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_over) == 0) {tmp_matrix[0][Fi] = heading_gnrmc_over(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_under) == 0) {tmp_matrix[0][Fi] = heading_gnrmc_under(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_equal) == 0) {tmp_matrix[0][Fi] = heading_gnrmc_equal(Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_in_range) == 0) {tmp_matrix[0][Fi] = heading_gnrmc_in_range(Ri, Fi);}
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
       }
