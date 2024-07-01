@@ -1287,7 +1287,7 @@ RelayStruct relayData;
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                        FUNCTION: CHECK RANGE
 
-bool check_in_range(double n0, double n1, double r) {
+bool in_range_check(double n0, double n1, double r) {
   if (n0  >=  n1 - r/2) {if (n0  <= n1 + r/2) {return true;}}
   else {return false;}
 }
@@ -1295,10 +1295,10 @@ bool check_in_range(double n0, double n1, double r) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                        FUNCTION: COORDINATES
 
-bool check_in_ranges(char * Fn0, char * Fn1, int Ri, int Fi) {
-  Serial.println("[CONNECTED] check_in_ranges");
-  if (check_in_range(Fn0, relayData.relays_data[Ri][Fi][3], relayData.relays_data[Ri][Fi][5]) == true) {
-    if (check_in_range(Fn1, relayData.relays_data[Ri][Fi][4], relayData.relays_data[Ri][Fi][5]) == true) {return true;}}
+bool in_ranges_check(char * Fn0, char * Fn1, int Ri, int Fi) {
+  Serial.println("[CONNECTED] in_ranges_check");
+  if (in_range_check(atoi(Fn0), relayData.relays_data[Ri][Fi][3], relayData.relays_data[Ri][Fi][5]) == true) {
+    if (in_range_check(atoi(Fn1), relayData.relays_data[Ri][Fi][4], relayData.relays_data[Ri][Fi][5]) == true) {return true;}}
   else {return false;}
 }
 
@@ -1423,7 +1423,7 @@ void systems_Check() {
         if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1; count_none_function++;}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_coord_gngga_in_range) == 0) {tmp_matrix[0][Fi] = check_in_ranges(satData.location_latitude_gngga_str, satData.location_longitude_gngga_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_coord_gngga_in_range) == 0) {tmp_matrix[0][Fi] = in_ranges_check(satData.location_latitude_gngga_str, satData.location_longitude_gngga_str, Ri, Fi);}
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {tmp_matrix[0][Fi] = check_over(gnggaData.satellite_count_gngga, Ri, Fi);}
