@@ -192,17 +192,16 @@ struct GNGGAStruct {
   char longitude[56];                                 // <4> Longitude, the format is dddmm.mmmmmmm
   char longitude_hemisphere[56];                      // <5> Longitude hemisphere, E or W (east longitude or west longitude)
   char positioning_status[56];                        /* <6> GNSS positioning status: 0 not positioned, 1 single point positioning,
-                                                             2 differential GPS fixed solution, 4 fixed solution, 5 floating point
-                                                             solution */
-  char satellite_count_gngga[56] = "0";                           // <7> Number of satellites used
+                                                             2: pseudorange difference, 6: pure INS */
+  char satellite_count_gngga[56] = "0";               // <7> Number of satellites used
   char hddp_precision_factor[56];                     // <8> HDOP level precision factor
   char altitude[56];                                  // <9> Altitude
-  char height_earth_ellipsoid_relative_to_geoid[56];  // <10> The height of the earth ellipsoid relative to the geoid
+  char altitude_units[56];                            // <10> The height of the earth ellipsoid relative to the geoid
   char differential_time[56];                         // <11> Differential time
-  char differential_reference_base_station_label[56]; // <12> Differential reference base station label (* Statement end marker)
-  char xor_check_value[56];                           // <13> xx XOR check value of all bytes starting from $ to *
-  char cr[56];                                        // <14> <CR> Carriage return, end tag
-  char lf[56];                                        // <15> <LF> line feed, end tag
+  char differential_time_units[56];                   // <12> Differential reference base station label (* Statement end marker)
+  char id[56];                                        // <13> base station ID
+  char check_sum[56];                                 // <14> 
+  char temporary_data[56];
 };
 GNGGAStruct gnggaData;
 
@@ -221,11 +220,12 @@ void GNGGA() {
   memset(gnggaData.satellite_count_gngga, 0, 56);
   memset(gnggaData.hddp_precision_factor, 0, 56);
   memset(gnggaData.altitude, 0, 56);
-  memset(gnggaData.height_earth_ellipsoid_relative_to_geoid, 0, 56);
+  memset(gnggaData.altitude_units, 0, 56);
   memset(gnggaData.differential_time, 0, 56);
-  memset(gnggaData.differential_reference_base_station_label, 0, 56);
-  memset(gnggaData.xor_check_value, 0, 56);
-  memset(gnggaData.cr, 0, 56);
+  memset(gnggaData.differential_time_units, 0, 56);
+  memset(gnggaData.id, 0, 56);
+  memset(gnggaData.check_sum, 0, 56);
+  memset(gnggaData.temporary_data, 0, 56);
   serialData.iter_token = 0;
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
@@ -239,15 +239,34 @@ void GNGGA() {
     else if (serialData.iter_token ==7) {strcpy(gnggaData.satellite_count_gngga, serialData.token);}
     else if (serialData.iter_token ==8) {strcpy(gnggaData.hddp_precision_factor, serialData.token);}
     else if (serialData.iter_token ==9) {strcpy(gnggaData.altitude, serialData.token);}
-    else if (serialData.iter_token ==10) {strcpy(gnggaData.height_earth_ellipsoid_relative_to_geoid, serialData.token);}
+    else if (serialData.iter_token ==10) {strcpy(gnggaData.altitude_units, serialData.token);}
     else if (serialData.iter_token ==11) {strcpy(gnggaData.differential_time, serialData.token);}
-    else if (serialData.iter_token ==12) {strcpy(gnggaData.differential_reference_base_station_label, serialData.token);}                  
-    else if (serialData.iter_token ==13) {strcpy(gnggaData.xor_check_value, serialData.token);}  
-    else if (serialData.iter_token ==14) {strcpy(gnggaData.cr, serialData.token);}  
-    else if (serialData.iter_token ==15) {strcpy(gnggaData.lf, serialData.token);}
+    else if (serialData.iter_token ==12) {strcpy(gnggaData.differential_time_units, serialData.token);}                  
+    else if (serialData.iter_token ==14) {
+      strcpy(gnggaData.temporary_data, serialData.token);
+      strncpy(gnggaData.id, gnggaData.temporary_data, 4);
+      serialData.token = strtok(gnggaData.temporary_data, "*");
+      serialData.token = strtok(NULL, "*");
+      strcpy(gnggaData.check_sum, serialData.token);
+      }
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
+  Serial.println("[tag] " +                     String(gnggaData.tag));
+  Serial.println("[utc_time] " +                String(gnggaData.utc_time));
+  Serial.println("[latitude] " +                String(gnggaData.latitude));
+  Serial.println("[latitude_hemisphere] " +     String(gnggaData.latitude_hemisphere));
+  Serial.println("[longitude] " +               String(gnggaData.longitude));
+  Serial.println("[longitude_hemisphere] " +    String(gnggaData.longitude_hemisphere));
+  Serial.println("[positioning_status] " +      String(gnggaData.positioning_status));
+  Serial.println("[satellite_count_gngga] " +   String(gnggaData.satellite_count_gngga));
+  Serial.println("[hddp_precision_factor] " +   String(gnggaData.hddp_precision_factor));
+  Serial.println("[altitude] " +                String(gnggaData.altitude));
+  Serial.println("[altitude_units] " +          String(gnggaData.altitude_units));
+  Serial.println("[differential_time] " +       String(gnggaData.differential_time));
+  Serial.println("[differential_time_units] " + String(gnggaData.differential_time_units));
+  Serial.println("[id] " +                      String(gnggaData.id));
+  Serial.println("[check_sum] " +               String(gnggaData.check_sum));
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -268,9 +287,8 @@ struct GNRMCStruct {
   char magnetic_declination_direction[56];            // <11> Magnetic declination direction, E (east) or W (west)
   char mode_indication[56];                           /* <12> Mode indication (A=autonomous positioning, D=differential
                                                               E=estimation, N=invalid data) */
-  char xor_check_value[56];                           // <13> xx XOR check value of all bytes starting from $ to *
-  char cr[56];                                        // <14> <CR> Carriage return, end tag
-  char lf[56];                                        // <15> <LF> line feed, end tag
+  char check_sum[56];                           // <13> xx XOR check value of all bytes starting from $ to *
+  char temporary_data[56];
 };
 GNRMCStruct gnrmcData;
 
@@ -292,9 +310,7 @@ void GNRMC() {
   memset(gnrmcData.magnetic_declination, 0, 56);
   memset(gnrmcData.magnetic_declination_direction, 0, 56);
   memset(gnrmcData.mode_indication, 0, 56);
-  memset(gnrmcData.xor_check_value, 0, 56);
-  memset(gnrmcData.cr, 0, 56);
-  memset(gnrmcData.lf, 0, 56);
+  memset(gnrmcData.check_sum, 0, 56);
 
   serialData.iter_token = 0;
   serialData.token = strtok(serialData.BUFFER, ",");
@@ -311,13 +327,30 @@ void GNRMC() {
     else if (serialData.iter_token ==9) {if (strlen(serialData.token) <= 6) {strcpy(gnrmcData.utc_date, serialData.token);}}
     else if (serialData.iter_token ==10) {strcpy(gnrmcData.magnetic_declination, serialData.token);}
     else if (serialData.iter_token ==11) {strcpy(gnrmcData.magnetic_declination_direction, serialData.token);}
-    else if (serialData.iter_token ==12) {strncpy(gnrmcData.mode_indication, serialData.token, 1);}                  
-    else if (serialData.iter_token ==13) {strcpy(gnrmcData.xor_check_value, serialData.token);}  
-    else if (serialData.iter_token ==14) {strcpy(gnrmcData.cr, serialData.token);}  
-    else if (serialData.iter_token ==15) {strcpy(gnrmcData.lf, serialData.token);}
+    else if (serialData.iter_token ==12) {
+      strcpy(gnrmcData.temporary_data, serialData.token);
+      strncpy(gnrmcData.mode_indication, gnrmcData.temporary_data, 1);
+      serialData.token = strtok(gnrmcData.temporary_data, "*");
+      serialData.token = strtok(NULL, "*");
+      strcpy(gnrmcData.check_sum, serialData.token);
+      }
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
+  Serial.println("[tag] " +                            String(gnrmcData.tag));
+  Serial.println("[utc_time] " +                       String(gnrmcData.utc_time));
+  Serial.println("[positioning_status] " +             String(gnrmcData.positioning_status));
+  Serial.println("[latitude] " +                       String(gnrmcData.latitude));
+  Serial.println("[latitude_hemisphere] " +            String(gnrmcData.latitude_hemisphere));
+  Serial.println("[longitude] " +                      String(gnrmcData.longitude));
+  Serial.println("[longitude_hemisphere] " +           String(gnrmcData.longitude_hemisphere));
+  Serial.println("[ground_speed] " +                   String(gnrmcData.ground_speed));
+  Serial.println("[ground_heading] " +                 String(gnrmcData.ground_heading));
+  Serial.println("[utc_date] " +                       String(gnrmcData.utc_date));
+  Serial.println("[magnetic_declination] " +           String(gnrmcData.magnetic_declination));
+  Serial.println("[magnetic_declination_direction] " + String(gnrmcData.magnetic_declination_direction));
+  Serial.println("[mode_indication] " +                String(gnrmcData.mode_indication));
+  Serial.println("[check_sum] " +                      String(gnrmcData.check_sum));
 }
 
 
@@ -866,8 +899,6 @@ void setup() {
   initDisplay7();
 
   SSD_Display_3_Splash_0();
-  SSD_Display_5_Splash_0();
-  delay(2000);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -886,8 +917,8 @@ void readRXD_1() {
 
     if (strncmp(serialData.BUFFER, "$GNGGA", 6) == 0) {
       if ((serialData.nbytes == 94) || (serialData.nbytes == 90) ) {
-        Serial.print(""); Serial.println(serialData.BUFFER);
-        GNGGA();
+        // Serial.print(""); Serial.println(serialData.BUFFER);
+        // GNGGA();
       }
     }
 
@@ -896,8 +927,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$GNRMC", 6) == 0) {
       if ((serialData.nbytes == 78) || (serialData.nbytes == 80)) {
-        Serial.print(""); Serial.println(serialData.BUFFER);
-        GNRMC();
+        // Serial.print(""); Serial.println(serialData.BUFFER);
+        // GNRMC();
       }
     }
 
@@ -905,7 +936,7 @@ void readRXD_1() {
     //                                                                                                                    DESBI
 
     else if (strncmp(serialData.BUFFER, "$DESBI", 6) == 0) {
-      Serial.print(""); Serial.println(serialData.BUFFER);
+      // Serial.print(""); Serial.println(serialData.BUFFER);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1558,12 +1589,12 @@ void systems_Check() {
 
 void loop() {
   readRXD_1();
-  extrapulatedSatData();
-  SSD_Display_4();
-  SSD_Display_5();
-  SSD_Display_6();
-  SSD_Display_7();
-  systems_Check();
+  // extrapulatedSatData();
+  // SSD_Display_4();
+  // SSD_Display_5();
+  // SSD_Display_6();
+  // SSD_Display_7();
+  // systems_Check();
 
   delay(1);
 }
