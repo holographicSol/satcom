@@ -1279,7 +1279,7 @@ void systems_Check() {
   Remember always: why do you think you can trust this data? Are you transmitting this data to yourelf (from satellite or not)? How critical are your system(s)?
                    Once you plug something into this, the 'satellites' are in control unless you have a way to override.
 
-  Compund conditions can be created for each zero/one result at the final_bool. This allows for trillions of combinations with the current data alone.
+  Compound conditions can be created for each zero/one result at the final_bool. This allows for trillions of combinations with the current data alone.
   */
 
   // system test (simulate interface with matrix because there is no control panel/other HID yet):                       
