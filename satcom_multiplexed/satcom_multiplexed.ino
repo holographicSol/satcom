@@ -252,21 +252,21 @@ void GNGGA() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  Serial.println("[tag] " +                    String(gnggaData.tag));
-  Serial.println("[utc_time] " +               String(gnggaData.utc_time));
-  Serial.println("[latitude] " +               String(gnggaData.latitude));
-  Serial.println("[latitude_hemisphere] " +    String(gnggaData.latitude_hemisphere));
-  Serial.println("[longitude] " +              String(gnggaData.longitude));
-  Serial.println("[longitude_hemisphere] " +   String(gnggaData.longitude_hemisphere));
-  Serial.println("[positioning_status] " +     String(gnggaData.positioning_status));
-  Serial.println("[satellite_count_gngga] " +  String(gnggaData.satellite_count_gngga));
-  Serial.println("[hddp_precision_factor] " +  String(gnggaData.hddp_precision_factor));
-  Serial.println("[altitude] " +               String(gnggaData.altitude));
-  Serial.println("[altitude_units] " +         String(gnggaData.altitude_units));
-  Serial.println("[differential_time] " +      String(gnggaData.differential_time));
-  Serial.println("[differential_time_units] " + String(gnggaData.differential_time_units));
-  Serial.println("[id] " +                     String(gnggaData.id));
-  Serial.println("[check_sum] " +              String(gnggaData.check_sum));
+  // Serial.println("[tag] " +                    String(gnggaData.tag));
+  // Serial.println("[utc_time] " +               String(gnggaData.utc_time));
+  // Serial.println("[latitude] " +               String(gnggaData.latitude));
+  // Serial.println("[latitude_hemisphere] " +    String(gnggaData.latitude_hemisphere));
+  // Serial.println("[longitude] " +              String(gnggaData.longitude));
+  // Serial.println("[longitude_hemisphere] " +   String(gnggaData.longitude_hemisphere));
+  // Serial.println("[positioning_status] " +     String(gnggaData.positioning_status));
+  // Serial.println("[satellite_count_gngga] " +  String(gnggaData.satellite_count_gngga));
+  // Serial.println("[hddp_precision_factor] " +  String(gnggaData.hddp_precision_factor));
+  // Serial.println("[altitude] " +               String(gnggaData.altitude));
+  // Serial.println("[altitude_units] " +         String(gnggaData.altitude_units));
+  // Serial.println("[differential_time] " +      String(gnggaData.differential_time));
+  // Serial.println("[differential_time_units] " + String(gnggaData.differential_time_units));
+  // Serial.println("[id] " +                     String(gnggaData.id));
+  // Serial.println("[check_sum] " +              String(gnggaData.check_sum));
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -337,20 +337,20 @@ void GNRMC() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  Serial.println("[tag] " +                           String(gnrmcData.tag));
-  Serial.println("[utc_time] " +                      String(gnrmcData.utc_time));
-  Serial.println("[positioning_status] " +            String(gnrmcData.positioning_status));
-  Serial.println("[latitude] " +                      String(gnrmcData.latitude));
-  Serial.println("[latitude_hemisphere] " +           String(gnrmcData.latitude_hemisphere));
-  Serial.println("[longitude] " +                     String(gnrmcData.longitude));
-  Serial.println("[longitude_hemisphere] " +          String(gnrmcData.longitude_hemisphere));
-  Serial.println("[ground_speed] " +                  String(gnrmcData.ground_speed));
-  Serial.println("[ground_heading] " +                String(gnrmcData.ground_heading));
-  Serial.println("[utc_date] " +                      String(gnrmcData.utc_date));
-  Serial.println("[magnetic_declination] " +          String(gnrmcData.magnetic_declination));
-  Serial.println("[magnetic_declination_direction] " + String(gnrmcData.magnetic_declination_direction));
-  Serial.println("[mode_indication] " +               String(gnrmcData.mode_indication));
-  Serial.println("[check_sum] " +                     String(gnrmcData.check_sum));
+  // Serial.println("[tag] " +                           String(gnrmcData.tag));
+  // Serial.println("[utc_time] " +                      String(gnrmcData.utc_time));
+  // Serial.println("[positioning_status] " +            String(gnrmcData.positioning_status));
+  // Serial.println("[latitude] " +                      String(gnrmcData.latitude));
+  // Serial.println("[latitude_hemisphere] " +           String(gnrmcData.latitude_hemisphere));
+  // Serial.println("[longitude] " +                     String(gnrmcData.longitude));
+  // Serial.println("[longitude_hemisphere] " +          String(gnrmcData.longitude_hemisphere));
+  // Serial.println("[ground_speed] " +                  String(gnrmcData.ground_speed));
+  // Serial.println("[ground_heading] " +                String(gnrmcData.ground_heading));
+  // Serial.println("[utc_date] " +                      String(gnrmcData.utc_date));
+  // Serial.println("[magnetic_declination] " +          String(gnrmcData.magnetic_declination));
+  // Serial.println("[magnetic_declination_direction] " + String(gnrmcData.magnetic_declination_direction));
+  // Serial.println("[mode_indication] " +               String(gnrmcData.mode_indication));
+  // Serial.println("[check_sum] " +                     String(gnrmcData.check_sum));
 }
 
 
