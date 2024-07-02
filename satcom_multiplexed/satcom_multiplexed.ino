@@ -467,6 +467,37 @@ void GPATT() {
   }
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                   DESBI DATA
+//        1 2 3  4     5   6 7  8 9  11  13  15  17     19    21   23  25  27
+// $DESBI,4,1,0,0.00,0.00, 0,0, 0,0,0,0,0,0,0,0,0,0,  0,0,0,0.00,N,0,0,0,0,0,0*0C
+// $DESBI,4,1,0,0.00,0.00,19,2,55,0,0,0,0,0,0,0,0,0,243,0,1,0.00,N,0,0,27,0,0,0*37
+//                                 10  12  14  16   18   20     22  24  26   28
+struct DESBIStruct {
+  char tag[56];                     // <0> Log header
+  char rapid_acceleration[56];      // <1> rapid acceleration
+  char rapid_deceleration[56];      // <2> rapid deceleration
+  char sharp_right_lane_change[56]; // <3> sharp right lane change
+  char sharp_left_lane_change[56];  // <4> sharp left lane change
+  char horizontal_impact[56];       // <5> horizontal impact
+  char vehicle_stability[56];       // <6> vehicle stability
+  char vehicle_flip[56];            // <7> vehicle flip
+  char abnormal_posture[56];        // <8> abnormal posture
+  char fill_0[56];                  // <9> ?
+  char fill_1[56];                  // <10> ?
+  char normal_acceleration[56];     // <11> normal acceleration
+  char normal_deceleration[56];     // <12> normal deceleration
+  char sharp_right_turn[56];        // <13> sharp right turn
+  char sharp_left_turn[56];         // <14> sharp left turn
+  char right_normal_turn[56];       // <15> right normal turn
+  char left_normal_turn[56];        // <16> left normal turn
+  char fill_2[56];                  // <17> ?
+  char fill_3[56];                  // <18> ?
+  char bumpy_road[56];              // <19> bumpy road
+  // 20-28 ?
+};
+DESBIStruct desbiData;
+
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                              SAT DATA STRUCT
@@ -953,8 +984,8 @@ struct RelayStruct {
 
   Matrix containing sets of values per relay.
                
-      0      1     2     3     4       5           6
-      >     <     ==     X     Y     Range     Standard/Inverted    
+      0      1     2     3     4       5            6
+      >     <     ==     X     Y     Range     Standard/Inverted On/Off   
   {   0.0,  0.0,  0.0,   0.0,  0.0,   0.0,          1              }
 
   6: 0 = turn off if condition is true, turn on if condition is false
@@ -1283,7 +1314,7 @@ void systems_Check() {
       bool tmp_matrix[1][30] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
       int count_none_function = 0;
 
-      // iterate over each function name for current relay, building the temporary matrix switch according to check reults 
+      // iterate over each function name for current relay, building the temporary matrix switch according to check reults
       for (int Fi = 0; Fi < 30; Fi++) {
 
         /*
