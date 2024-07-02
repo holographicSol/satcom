@@ -568,7 +568,7 @@ void GPATT() {
 // $DESBI,  1,  1,  0,  0.000,  0.000,  5,  2,  55,  10,  0,  0,  0,  0,  0,  0,  0,  0,   48,  0,  0*6B
 // $DESBI,  4,  1,  0,  0.00 ,  0.00,   0,  0,   0,   0,  0,  0,  0,  0,  0,  0,  0,  0,    0,  0,  0,    0.00,  N,  0,  0,  0,  0,  0,  0*0C
 // $DESBI,  4,  1,  0,  0.00,   0.00,  19,  2,  55,   0,  0,  0,  0,  0,  0,  0,  0,  0,  243,  0,  1,    0.00,  N,  0,  0,  27, 0,  0,  0*37
-// currently in contact with the manufacturer to assertain the missing data on DESBI protocol. they have provided me with a datasheet
+// i am currently in contact with the manufacturer to assertain the missing data on DESBI protocol. they have provided me with a datasheet
 // which helps although there is still some communication yet to come because the datasheet has missing elements in its table for DESBI and
 // this struct as the others, must be absolutely correct. 
 
