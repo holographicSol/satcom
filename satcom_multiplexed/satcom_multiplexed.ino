@@ -105,6 +105,17 @@ SSD1306Wire   display_4(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                   DEBUG DATA
+
+struct DebugStruct {
+  bool gngga_sentence = false;
+  bool gnrmc_sentence = false;
+  bool gpatt_sentence = false;
+  bool desbi_sentence = false;
+};
+DebugStruct debugData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                  SERIAL DATA
 
 struct SerialStruct {
@@ -252,21 +263,23 @@ void GNGGA() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  // Serial.println("[gnggaData.tag] "                     + String(gnggaData.tag));
-  // Serial.println("[gnggaData.utc_time] "                + String(gnggaData.utc_time));
-  // Serial.println("[gnggaData.latitude] "                + String(gnggaData.latitude));
-  // Serial.println("[gnggaData.latitude_hemisphere] "     + String(gnggaData.latitude_hemisphere));
-  // Serial.println("[gnggaData.longitude] "               + String(gnggaData.longitude));
-  // Serial.println("[gnggaData.longitude_hemisphere] "    + String(gnggaData.longitude_hemisphere));
-  // Serial.println("[gnggaData.positioning_status] "      + String(gnggaData.positioning_status));
-  // Serial.println("[gnggaData.satellite_count_gngga] "   + String(gnggaData.satellite_count_gngga));
-  // Serial.println("[gnggaData.hddp_precision_factor] "   + String(gnggaData.hddp_precision_factor));
-  // Serial.println("[gnggaData.altitude] "                + String(gnggaData.altitude));
-  // Serial.println("[gnggaData.altitude_units] "          + String(gnggaData.altitude_units));
-  // Serial.println("[gnggaData.differential_time] "       + String(gnggaData.differential_time));
-  // Serial.println("[gnggaData.differential_time_units] " + String(gnggaData.differential_time_units));
-  // Serial.println("[gnggaData.id] "                      + String(gnggaData.id));
-  // Serial.println("[gnggaData.check_sum] "               + String(gnggaData.check_sum));
+  if (debugData.gngga_sentence == true) {
+    Serial.println("[gnggaData.tag] "                     + String(gnggaData.tag));
+    Serial.println("[gnggaData.utc_time] "                + String(gnggaData.utc_time));
+    Serial.println("[gnggaData.latitude] "                + String(gnggaData.latitude));
+    Serial.println("[gnggaData.latitude_hemisphere] "     + String(gnggaData.latitude_hemisphere));
+    Serial.println("[gnggaData.longitude] "               + String(gnggaData.longitude));
+    Serial.println("[gnggaData.longitude_hemisphere] "    + String(gnggaData.longitude_hemisphere));
+    Serial.println("[gnggaData.positioning_status] "      + String(gnggaData.positioning_status));
+    Serial.println("[gnggaData.satellite_count_gngga] "   + String(gnggaData.satellite_count_gngga));
+    Serial.println("[gnggaData.hddp_precision_factor] "   + String(gnggaData.hddp_precision_factor));
+    Serial.println("[gnggaData.altitude] "                + String(gnggaData.altitude));
+    Serial.println("[gnggaData.altitude_units] "          + String(gnggaData.altitude_units));
+    Serial.println("[gnggaData.differential_time] "       + String(gnggaData.differential_time));
+    Serial.println("[gnggaData.differential_time_units] " + String(gnggaData.differential_time_units));
+    Serial.println("[gnggaData.id] "                      + String(gnggaData.id));
+    Serial.println("[gnggaData.check_sum] "               + String(gnggaData.check_sum));
+  }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -337,20 +350,22 @@ void GNRMC() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  // Serial.println("[gnrmcData.tag] "                            + String(gnrmcData.tag));
-  // Serial.println("[gnrmcData.utc_time] "                       + String(gnrmcData.utc_time));
-  // Serial.println("[gnrmcData.positioning_status] "             + String(gnrmcData.positioning_status));
-  // Serial.println("[gnrmcData.latitude] "                       + String(gnrmcData.latitude));
-  // Serial.println("[gnrmcData.latitude_hemisphere] "            + String(gnrmcData.latitude_hemisphere));
-  // Serial.println("[gnrmcData.longitude] "                      + String(gnrmcData.longitude));
-  // Serial.println("[gnrmcData.longitude_hemisphere] "           + String(gnrmcData.longitude_hemisphere));
-  // Serial.println("[gnrmcData.ground_speed] "                   + String(gnrmcData.ground_speed));
-  // Serial.println("[gnrmcData.ground_heading] "                 + String(gnrmcData.ground_heading));
-  // Serial.println("[gnrmcData.utc_date] "                       + String(gnrmcData.utc_date));
-  // Serial.println("[gnrmcData.magnetic_declination] "           + String(gnrmcData.magnetic_declination));
-  // Serial.println("[gnrmcData.magnetic_declination_direction] " + String(gnrmcData.magnetic_declination_direction));
-  // Serial.println("[gnrmcData.mode_indication] "                + String(gnrmcData.mode_indication));
-  // Serial.println("[gnrmcData.check_sum] "                      + String(gnrmcData.check_sum));
+  if (debugData.gnrmc_sentence == true) {
+    Serial.println("[gnrmcData.tag] "                            + String(gnrmcData.tag));
+    Serial.println("[gnrmcData.utc_time] "                       + String(gnrmcData.utc_time));
+    Serial.println("[gnrmcData.positioning_status] "             + String(gnrmcData.positioning_status));
+    Serial.println("[gnrmcData.latitude] "                       + String(gnrmcData.latitude));
+    Serial.println("[gnrmcData.latitude_hemisphere] "            + String(gnrmcData.latitude_hemisphere));
+    Serial.println("[gnrmcData.longitude] "                      + String(gnrmcData.longitude));
+    Serial.println("[gnrmcData.longitude_hemisphere] "           + String(gnrmcData.longitude_hemisphere));
+    Serial.println("[gnrmcData.ground_speed] "                   + String(gnrmcData.ground_speed));
+    Serial.println("[gnrmcData.ground_heading] "                 + String(gnrmcData.ground_heading));
+    Serial.println("[gnrmcData.utc_date] "                       + String(gnrmcData.utc_date));
+    Serial.println("[gnrmcData.magnetic_declination] "           + String(gnrmcData.magnetic_declination));
+    Serial.println("[gnrmcData.magnetic_declination_direction] " + String(gnrmcData.magnetic_declination_direction));
+    Serial.println("[gnrmcData.mode_indication] "                + String(gnrmcData.mode_indication));
+    Serial.println("[gnrmcData.check_sum] "                      + String(gnrmcData.check_sum));
+  }
 }
 
 
@@ -503,47 +518,49 @@ void GPATT() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  // Serial.println("[tag] "              + String(gpattData.tag));
-  // Serial.println("[pitch] "            + String(gpattData.pitch));
-  // Serial.println("[angle_channel_0] "  + String(gpattData.angle_channel_0));
-  // Serial.println("[roll] "             + String(gpattData.roll));
-  // Serial.println("[angle_channel_1] "  + String(gpattData.angle_channel_1));
-  // Serial.println("[yaw] "              + String(gpattData.yaw)); 
-  // Serial.println("[angle_channel_2] "  + String(gpattData.angle_channel_2));
-  // Serial.println("[software_version] " + String(gpattData.software_version));
-  // Serial.println("[version_channel] "  + String(gpattData.version_channel));
-  // Serial.println("[product_id] "       + String(gpattData.product_id));
-  // Serial.println("[id_channel] "       + String(gpattData.id_channel));
-  // Serial.println("[ins] "              + String(gpattData.ins));
-  // Serial.println("[ins_channel] "      + String(gpattData.ins_channel));
-  // Serial.println("[hardware_version] " + String(gpattData.hardware_version));
-  // Serial.println("[run_state_flag] "   + String(gpattData.run_state_flag));
-  // Serial.println("[mis_angle_num] "    + String(gpattData.mis_angle_num));
-  // Serial.println("[custom_flag_0] "    + String(gpattData.custom_flag_0));
-  // Serial.println("[custom_flag_1] "    + String(gpattData.custom_flag_1));
-  // Serial.println("[mtk_version] "      + String(gpattData.mtk_version));
-  // Serial.println("[static_flag] "      + String(gpattData.static_flag));
-  // Serial.println("[user_code] "        + String(gpattData.user_code));
-  // Serial.println("[gst_data] "         + String(gpattData.gst_data));
-  // Serial.println("[line_flag] "        + String(gpattData.line_flag));
-  // Serial.println("[custom_flag_2] "    + String(gpattData.custom_flag_2));
-  // Serial.println("[custom_flag_3] "    + String(gpattData.custom_flag_3));
-  // Serial.println("[imu_kind] "         + String(gpattData.imu_kind));
-  // Serial.println("[subi_car_kind] "    + String(gpattData.subi_car_kind));
-  // Serial.println("[mileage] "          + String(gpattData.mileage));
-  // Serial.println("[custom_flag_4] "    + String(gpattData.custom_flag_4));
-  // Serial.println("[ang_dget_flag] "    + String(gpattData.ang_dget_flag));
-  // Serial.println("[run_inetial_flag] " + String(gpattData.run_inetial_flag));
-  // Serial.println("[custom_flag_5] "    + String(gpattData.custom_flag_5));
-  // Serial.println("[custom_flag_6] "    + String(gpattData.custom_flag_6));
-  // Serial.println("[custom_flag_7] "    + String(gpattData.custom_flag_7));
-  // Serial.println("[custom_flag_8] "    + String(gpattData.custom_flag_8));
-  // Serial.println("[custom_flag_9] "    + String(gpattData.custom_flag_9));
-  // Serial.println("[time_save_num] "    + String(gpattData.time_save_num));
-  // Serial.println("[fix_angle_flag] "   + String(gpattData.fix_angle_flag));
-  // Serial.println("[ang_lock_flag] "    + String(gpattData.ang_lock_flag));
-  // Serial.println("[extensible] "       + String(gpattData.extensible));
-  // Serial.println("[check_sum] "        + String(gpattData.check_sum));
+  if (debugData.gpatt_sentence == true) {
+    Serial.println("[tag] "              + String(gpattData.tag));
+    Serial.println("[pitch] "            + String(gpattData.pitch));
+    Serial.println("[angle_channel_0] "  + String(gpattData.angle_channel_0));
+    Serial.println("[roll] "             + String(gpattData.roll));
+    Serial.println("[angle_channel_1] "  + String(gpattData.angle_channel_1));
+    Serial.println("[yaw] "              + String(gpattData.yaw)); 
+    Serial.println("[angle_channel_2] "  + String(gpattData.angle_channel_2));
+    Serial.println("[software_version] " + String(gpattData.software_version));
+    Serial.println("[version_channel] "  + String(gpattData.version_channel));
+    Serial.println("[product_id] "       + String(gpattData.product_id));
+    Serial.println("[id_channel] "       + String(gpattData.id_channel));
+    Serial.println("[ins] "              + String(gpattData.ins));
+    Serial.println("[ins_channel] "      + String(gpattData.ins_channel));
+    Serial.println("[hardware_version] " + String(gpattData.hardware_version));
+    Serial.println("[run_state_flag] "   + String(gpattData.run_state_flag));
+    Serial.println("[mis_angle_num] "    + String(gpattData.mis_angle_num));
+    Serial.println("[custom_flag_0] "    + String(gpattData.custom_flag_0));
+    Serial.println("[custom_flag_1] "    + String(gpattData.custom_flag_1));
+    Serial.println("[mtk_version] "      + String(gpattData.mtk_version));
+    Serial.println("[static_flag] "      + String(gpattData.static_flag));
+    Serial.println("[user_code] "        + String(gpattData.user_code));
+    Serial.println("[gst_data] "         + String(gpattData.gst_data));
+    Serial.println("[line_flag] "        + String(gpattData.line_flag));
+    Serial.println("[custom_flag_2] "    + String(gpattData.custom_flag_2));
+    Serial.println("[custom_flag_3] "    + String(gpattData.custom_flag_3));
+    Serial.println("[imu_kind] "         + String(gpattData.imu_kind));
+    Serial.println("[subi_car_kind] "    + String(gpattData.subi_car_kind));
+    Serial.println("[mileage] "          + String(gpattData.mileage));
+    Serial.println("[custom_flag_4] "    + String(gpattData.custom_flag_4));
+    Serial.println("[ang_dget_flag] "    + String(gpattData.ang_dget_flag));
+    Serial.println("[run_inetial_flag] " + String(gpattData.run_inetial_flag));
+    Serial.println("[custom_flag_5] "    + String(gpattData.custom_flag_5));
+    Serial.println("[custom_flag_6] "    + String(gpattData.custom_flag_6));
+    Serial.println("[custom_flag_7] "    + String(gpattData.custom_flag_7));
+    Serial.println("[custom_flag_8] "    + String(gpattData.custom_flag_8));
+    Serial.println("[custom_flag_9] "    + String(gpattData.custom_flag_9));
+    Serial.println("[time_save_num] "    + String(gpattData.time_save_num));
+    Serial.println("[fix_angle_flag] "   + String(gpattData.fix_angle_flag));
+    Serial.println("[ang_lock_flag] "    + String(gpattData.ang_lock_flag));
+    Serial.println("[extensible] "       + String(gpattData.extensible));
+    Serial.println("[check_sum] "        + String(gpattData.check_sum));
+  }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
