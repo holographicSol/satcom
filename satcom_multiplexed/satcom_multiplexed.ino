@@ -609,14 +609,14 @@ DESBIStruct desbiData;
 //                                                                                                                   ERROR DATA
 
 struct ERRORStruct {
-  char tag[56];                     // <0> Log header
-  char utc[56];                     // <1> utc time
-  char code_flag[56];               // <2> encryption chip: 1=problem, 0=normal
-  char gset_flag[56];               // <3> positioning chip: 1=problem, 0=normal
-  char sset_flag[56];               // <4> sensor chip: 1=problem, 0=normal
-  char customize_0[56];             // <5> customize 0-20
-  char customize_1[56];             // <6> customize float
-  char check_sum[56];               // <7> XOR check value of all bytes starting from $ to *
+  char tag[56];         // <0> Log header
+  char utc[56];         // <1> utc time
+  char code_flag[56];   // <2> encryption chip: 1=problem, 0=normal
+  char gset_flag[56];   // <3> positioning chip: 1=problem, 0=normal
+  char sset_flag[56];   // <4> sensor chip: 1=problem, 0=normal
+  char customize_0[56]; // <5> customize 0-20
+  char customize_1[56]; // <6> customize float
+  char check_sum[56];   // <7> XOR check value of all bytes starting from $ to *
 };
 ERRORStruct errorData;
 
@@ -624,35 +624,35 @@ ERRORStruct errorData;
 //                                                                                                                   DEBUG DATA
 
 struct DEBUGStruct {
-  char tag[56];                     // <0> log header
-  char ang_dget_flag[56];           // <1> installation azimuth: 1=with azimuth, 0=without azimuth
-  char fix_kind_flag[56];           // <2> type of installed coordinate system
-  char ins_run_flag[56];            // <3> forced ins: 1=forced, 0=normal
-  char fix_roll_flag[56];           // <4> installation roll angle
-  char fix_pitch_flag[56];          // <5> installation pitch angle
-  char ubi_on_flag[56];             // <6> 0 to 8
-  char ubi_kind_flag[56];           // <7> 0=none, 1=ubi event, 2=ubi alarm
-  char ubi_a_set[56];               // <8> ubi a parameter setting value
-  char ubi_b_set[56];               // <9> ubi b parameter setting value
-  char acc_X_data[56];              // <10> vehicle longitudinal acceleration: 0.1m/s2
-  char acc_Y_data[56];              // <11> vehicle lateral acceleration: 0.1m/s2
-  char gyro_Z_data[56];             // <12> vehicle z axis angular velocity: degrees
-  char pitch_angle[56];             // <13> vehicle pitch angle: degrees
-  char roll_angle[56];              // <14> vehicle roll angle: degrees
-  char yaw_angle[56];               // <15> vehicle direction change angle: degrees
-  char car_speed[56];               // <16> vehicle speed: m/s
-  char ins_flag[56];                // <17> intertial navigation convergence flag
-  char ubi_num[56];                 // <18> serial number
-  char ubi_valid[56];               // <19> ubi valid flag: 1=valid, 0=invalid
-  char coll_T_data[56];             // <20> collision factor
-  char coll_T_heading[56];          // <21> collision direction
-  char custom_logo_0[56];           // <22> 
-  char custom_logo_1[56];           // <23> 
-  char custom_logo_2[56];           // <24> 
-  char custom_logo_3[56];           // <25> 
-  char custom_logo_4[56];           // <26> 
-  char custom_logo_5[56];           // <27> 
-  char check_sum[56];               // <28> XOR check value of all bytes starting from $ to *
+  char tag[56];            // <0> log header
+  char ang_dget_flag[56];  // <1> installation azimuth: 1=with azimuth, 0=without azimuth
+  char fix_kind_flag[56];  // <2> type of installed coordinate system
+  char ins_run_flag[56];   // <3> forced ins: 1=forced, 0=normal
+  char fix_roll_flag[56];  // <4> installation roll angle
+  char fix_pitch_flag[56]; // <5> installation pitch angle
+  char ubi_on_flag[56];    // <6> 0 to 8
+  char ubi_kind_flag[56];  // <7> 0=none, 1=ubi event, 2=ubi alarm
+  char ubi_a_set[56];      // <8> ubi a parameter setting value
+  char ubi_b_set[56];      // <9> ubi b parameter setting value
+  char acc_X_data[56];     // <10> vehicle longitudinal acceleration: 0.1m/s2
+  char acc_Y_data[56];     // <11> vehicle lateral acceleration: 0.1m/s2
+  char gyro_Z_data[56];    // <12> vehicle z axis angular velocity: degrees
+  char pitch_angle[56];    // <13> vehicle pitch angle: degrees
+  char roll_angle[56];     // <14> vehicle roll angle: degrees
+  char yaw_angle[56];      // <15> vehicle direction change angle: degrees
+  char car_speed[56];      // <16> vehicle speed: m/s
+  char ins_flag[56];       // <17> intertial navigation convergence flag
+  char ubi_num[56];        // <18> serial number
+  char ubi_valid[56];      // <19> ubi valid flag: 1=valid, 0=invalid
+  char coll_T_data[56];    // <20> collision factor
+  char coll_T_heading[56]; // <21> collision direction
+  char custom_logo_0[56];  // <22> 
+  char custom_logo_1[56];  // <23> 
+  char custom_logo_2[56];  // <24> 
+  char custom_logo_3[56];  // <25> 
+  char custom_logo_4[56];  // <26> 
+  char custom_logo_5[56];  // <27> 
+  char check_sum[56];      // <28> XOR check value of all bytes starting from $ to *
 };
 DEBUGStruct debugData;
 
