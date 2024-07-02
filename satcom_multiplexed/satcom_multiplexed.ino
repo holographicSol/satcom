@@ -107,13 +107,13 @@ SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   DEBUG DATA
 
-struct DebugStruct {
+struct sysDebugStruct {
   bool gngga_sentence = false;
   bool gnrmc_sentence = false;
   bool gpatt_sentence = false;
   bool desbi_sentence = false;
 };
-DebugStruct debugData;
+sysDebugStruct sysDebugData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                  SERIAL DATA
@@ -262,7 +262,7 @@ void GNGGA() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  if (debugData.gngga_sentence == true) {
+  if (sysDebugData.gngga_sentence == true) {
     Serial.println("[gnggaData.tag] "                     + String(gnggaData.tag));
     Serial.println("[gnggaData.utc_time] "                + String(gnggaData.utc_time));
     Serial.println("[gnggaData.latitude] "                + String(gnggaData.latitude));
@@ -348,7 +348,7 @@ void GNRMC() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  if (debugData.gnrmc_sentence == true) {
+  if (sysDebugData.gnrmc_sentence == true) {
     Serial.println("[gnrmcData.tag] "                            + String(gnrmcData.tag));
     Serial.println("[gnrmcData.utc_time] "                       + String(gnrmcData.utc_time));
     Serial.println("[gnrmcData.positioning_status] "             + String(gnrmcData.positioning_status));
@@ -516,7 +516,7 @@ void GPATT() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  if (debugData.gpatt_sentence == true) {
+  if (sysDebugData.gpatt_sentence == true) {
     Serial.println("[tag] "              + String(gpattData.tag));
     Serial.println("[pitch] "            + String(gpattData.pitch));
     Serial.println("[angle_channel_0] "  + String(gpattData.angle_channel_0));
@@ -623,7 +623,7 @@ ERRORStruct errorData;
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   DEBUG DATA
 
-struct WTDEBUGStruct {
+struct DEBUGStruct {
   char tag[56];                     // <0> log header
   char ang_dget_flag[56];           // <1> installation azimuth: 1=with azimuth, 0=without azimuth
   char fix_kind_flag[56];           // <2> type of installed coordinate system
@@ -654,7 +654,7 @@ struct WTDEBUGStruct {
   char custom_logo_5[56];           // <27> 
   char check_sum[56];               // <28> XOR check value of all bytes starting from $ to *
 };
-WTDEBUGStruct wtdebugData;
+DEBUGStruct debugData;
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
