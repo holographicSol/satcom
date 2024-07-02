@@ -1530,7 +1530,7 @@ void systems_Check() {
         case the price potentially payed is performance.
 
         Put true in the temporary matrix if no function is specified ($NONE). this allows 1-N elemental conditions to be set and result in true/false at the final bool.
-        IMPORTANT: this also means if soft enable true, then final_bool defaults to true if no function at all is specified within a switches matrix.
+        IMPORTANT: this also means if soft enable true, then final_bool defaults to true if no function at all is specified within a switches matrix. There is one check to catch you if you do soft enable with no functions set.
         */
         if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1; count_none_function++;}
 
