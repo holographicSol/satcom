@@ -950,18 +950,19 @@ struct RelayStruct {
      },};
 
   /*
-  3 Dimensional Matrix containing 11 sets of values per relay.
-  0: >
-  1: <
-  2: ==
-  3: x n
-  4: y n
-  5: r range
-  6: |    0 = turn off if condition is true, turn on if condition is false    |     1 = turn on if condition is true, turn off if condition is false
-  relays_data[N][10][0] = completely enable/disbale
+
+  Matrix containing sets of values per relay.
+               
+      0      1     2     3     4       5           6
+      >     <     ==     X     Y     Range     Standard/Inverted    
+  {   0.0,  0.0,  0.0,   0.0,  0.0,   0.0,          1              }
+
+  6: 0 = turn off if condition is true, turn on if condition is false
+     1 = turn on if condition is true, turn off if condition is false
+
   */
 
-  // calibratable matrix data (via local interface devices / RF / serial / baked-in if required)
+  // calibratable matrix data (via local interface devices / RF / serial / baked-in here below if required)
   double relays_data[10][30+1][7] = {
     {
       {0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 1},
