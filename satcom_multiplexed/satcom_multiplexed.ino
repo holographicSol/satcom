@@ -917,8 +917,8 @@ void readRXD_1() {
 
     if (strncmp(serialData.BUFFER, "$GNGGA", 6) == 0) {
       if ((serialData.nbytes == 94) || (serialData.nbytes == 90) ) {
-        // Serial.print(""); Serial.println(serialData.BUFFER);
-        // GNGGA();
+        Serial.print(""); Serial.println(serialData.BUFFER);
+        GNGGA();
       }
     }
 
@@ -927,8 +927,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$GNRMC", 6) == 0) {
       if ((serialData.nbytes == 78) || (serialData.nbytes == 80)) {
-        // Serial.print(""); Serial.println(serialData.BUFFER);
-        // GNRMC();
+        Serial.print(""); Serial.println(serialData.BUFFER);
+        GNRMC();
       }
     }
 
@@ -936,7 +936,7 @@ void readRXD_1() {
     //                                                                                                                    DESBI
 
     else if (strncmp(serialData.BUFFER, "$DESBI", 6) == 0) {
-      // Serial.print(""); Serial.println(serialData.BUFFER);
+      Serial.print(""); Serial.println(serialData.BUFFER);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
