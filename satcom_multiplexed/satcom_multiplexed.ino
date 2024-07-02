@@ -1302,7 +1302,7 @@ void systems_Check() {
       bool tmp_matrix[1][10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
       int count_none_function = 0;
 
-      // iterate over each function name for current relay, building the temporary matrix switch
+      // iterate over each function name for current relay, building the temporary matrix switch according to check reults 
       for (int Fi = 0; Fi < 10; Fi++) {
 
         /*
