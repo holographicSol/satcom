@@ -517,47 +517,47 @@ void GPATT() {
     serialData.iter_token++;
   }
   if (sysDebugData.gpatt_sentence == true) {
-    Serial.println("[tag] "              + String(gpattData.tag));
-    Serial.println("[pitch] "            + String(gpattData.pitch));
-    Serial.println("[angle_channel_0] "  + String(gpattData.angle_channel_0));
-    Serial.println("[roll] "             + String(gpattData.roll));
-    Serial.println("[angle_channel_1] "  + String(gpattData.angle_channel_1));
-    Serial.println("[yaw] "              + String(gpattData.yaw)); 
-    Serial.println("[angle_channel_2] "  + String(gpattData.angle_channel_2));
-    Serial.println("[software_version] " + String(gpattData.software_version));
-    Serial.println("[version_channel] "  + String(gpattData.version_channel));
-    Serial.println("[product_id] "       + String(gpattData.product_id));
-    Serial.println("[id_channel] "       + String(gpattData.id_channel));
-    Serial.println("[ins] "              + String(gpattData.ins));
-    Serial.println("[ins_channel] "      + String(gpattData.ins_channel));
-    Serial.println("[hardware_version] " + String(gpattData.hardware_version));
-    Serial.println("[run_state_flag] "   + String(gpattData.run_state_flag));
-    Serial.println("[mis_angle_num] "    + String(gpattData.mis_angle_num));
-    Serial.println("[custom_flag_0] "    + String(gpattData.custom_flag_0));
-    Serial.println("[custom_flag_1] "    + String(gpattData.custom_flag_1));
-    Serial.println("[mtk_version] "      + String(gpattData.mtk_version));
-    Serial.println("[static_flag] "      + String(gpattData.static_flag));
-    Serial.println("[user_code] "        + String(gpattData.user_code));
-    Serial.println("[gst_data] "         + String(gpattData.gst_data));
-    Serial.println("[line_flag] "        + String(gpattData.line_flag));
-    Serial.println("[custom_flag_2] "    + String(gpattData.custom_flag_2));
-    Serial.println("[custom_flag_3] "    + String(gpattData.custom_flag_3));
-    Serial.println("[imu_kind] "         + String(gpattData.imu_kind));
-    Serial.println("[subi_car_kind] "    + String(gpattData.subi_car_kind));
-    Serial.println("[mileage] "          + String(gpattData.mileage));
-    Serial.println("[custom_flag_4] "    + String(gpattData.custom_flag_4));
-    Serial.println("[ang_dget_flag] "    + String(gpattData.ang_dget_flag));
-    Serial.println("[run_inetial_flag] " + String(gpattData.run_inetial_flag));
-    Serial.println("[custom_flag_5] "    + String(gpattData.custom_flag_5));
-    Serial.println("[custom_flag_6] "    + String(gpattData.custom_flag_6));
-    Serial.println("[custom_flag_7] "    + String(gpattData.custom_flag_7));
-    Serial.println("[custom_flag_8] "    + String(gpattData.custom_flag_8));
-    Serial.println("[custom_flag_9] "    + String(gpattData.custom_flag_9));
-    Serial.println("[time_save_num] "    + String(gpattData.time_save_num));
-    Serial.println("[fix_angle_flag] "   + String(gpattData.fix_angle_flag));
-    Serial.println("[ang_lock_flag] "    + String(gpattData.ang_lock_flag));
-    Serial.println("[extensible] "       + String(gpattData.extensible));
-    Serial.println("[check_sum] "        + String(gpattData.check_sum));
+    Serial.println("[gpattData.tag] "              + String(gpattData.tag));
+    Serial.println("[gpattData.pitch] "            + String(gpattData.pitch));
+    Serial.println("[gpattData.angle_channel_0] "  + String(gpattData.angle_channel_0));
+    Serial.println("[gpattData.roll] "             + String(gpattData.roll));
+    Serial.println("[gpattData.angle_channel_1] "  + String(gpattData.angle_channel_1));
+    Serial.println("[gpattData.yaw] "              + String(gpattData.yaw)); 
+    Serial.println("[gpattData.angle_channel_2] "  + String(gpattData.angle_channel_2));
+    Serial.println("[gpattData.software_version] " + String(gpattData.software_version));
+    Serial.println("[gpattData.version_channel] "  + String(gpattData.version_channel));
+    Serial.println("[gpattData.product_id] "       + String(gpattData.product_id));
+    Serial.println("[gpattData.id_channel] "       + String(gpattData.id_channel));
+    Serial.println("[gpattData.ins] "              + String(gpattData.ins));
+    Serial.println("[gpattData.ins_channel] "      + String(gpattData.ins_channel));
+    Serial.println("[gpattData.hardware_version] " + String(gpattData.hardware_version));
+    Serial.println("[gpattData.run_state_flag] "   + String(gpattData.run_state_flag));
+    Serial.println("[gpattData.mis_angle_num] "    + String(gpattData.mis_angle_num));
+    Serial.println("[gpattData.custom_flag_0] "    + String(gpattData.custom_flag_0));
+    Serial.println("[gpattData.custom_flag_1] "    + String(gpattData.custom_flag_1));
+    Serial.println("[gpattData.mtk_version] "      + String(gpattData.mtk_version));
+    Serial.println("[gpattData.static_flag] "      + String(gpattData.static_flag));
+    Serial.println("[gpattData.user_code] "        + String(gpattData.user_code));
+    Serial.println("[gpattData.gst_data] "         + String(gpattData.gst_data));
+    Serial.println("[gpattData.line_flag] "        + String(gpattData.line_flag));
+    Serial.println("[gpattData.custom_flag_2] "    + String(gpattData.custom_flag_2));
+    Serial.println("[gpattData.custom_flag_3] "    + String(gpattData.custom_flag_3));
+    Serial.println("[gpattData.imu_kind] "         + String(gpattData.imu_kind));
+    Serial.println("[gpattData.subi_car_kind] "    + String(gpattData.subi_car_kind));
+    Serial.println("[gpattData.mileage] "          + String(gpattData.mileage));
+    Serial.println("[gpattData.custom_flag_4] "    + String(gpattData.custom_flag_4));
+    Serial.println("[gpattData.ang_dget_flag] "    + String(gpattData.ang_dget_flag));
+    Serial.println("[gpattData.run_inetial_flag] " + String(gpattData.run_inetial_flag));
+    Serial.println("[gpattData.custom_flag_5] "    + String(gpattData.custom_flag_5));
+    Serial.println("[gpattData.custom_flag_6] "    + String(gpattData.custom_flag_6));
+    Serial.println("[gpattData.custom_flag_7] "    + String(gpattData.custom_flag_7));
+    Serial.println("[gpattData.custom_flag_8] "    + String(gpattData.custom_flag_8));
+    Serial.println("[gpattData.custom_flag_9] "    + String(gpattData.custom_flag_9));
+    Serial.println("[gpattData.time_save_num] "    + String(gpattData.time_save_num));
+    Serial.println("[gpattData.fix_angle_flag] "   + String(gpattData.fix_angle_flag));
+    Serial.println("[gpattData.ang_lock_flag] "    + String(gpattData.ang_lock_flag));
+    Serial.println("[gpattData.extensible] "       + String(gpattData.extensible));
+    Serial.println("[gpattData.check_sum] "        + String(gpattData.check_sum));
   }
 }
 
@@ -617,8 +617,51 @@ struct ERRORStruct {
   char customize_0[56]; // <5> customize 0-20
   char customize_1[56]; // <6> customize float
   char check_sum[56];   // <7> XOR check value of all bytes starting from $ to *
+  char temporary_data[56];
 };
 ERRORStruct errorData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                        ERROR
+
+void ERROR() {
+  memset(errorData.tag, 0, 56);
+  memset(errorData.utc, 0, 56);
+  memset(errorData.code_flag, 0, 56);
+  memset(errorData.gset_flag, 0, 56);
+  memset(errorData.sset_flag, 0, 56);
+  memset(errorData.customize_0, 0, 56);
+  memset(errorData.customize_1, 0, 56);
+  memset(errorData.check_sum, 0, 56);
+  serialData.iter_token = 0;
+  serialData.token = strtok(serialData.BUFFER, ",");
+  while( serialData.token != NULL ) {
+    if      (serialData.iter_token == 0) {strcpy(errorData.tag, "ERROR");}
+    else if (serialData.iter_token == 1) {strcpy(errorData.utc, serialData.token);}
+    else if (serialData.iter_token == 2) {strcpy(errorData.code_flag, serialData.token);}
+    else if (serialData.iter_token == 3) {strcpy(errorData.gset_flag, serialData.token);}
+    else if (serialData.iter_token == 4) {strcpy(errorData.sset_flag, serialData.token);}
+    else if (serialData.iter_token == 5) {strcpy(errorData.customize_0, serialData.token);}
+    else if (serialData.iter_token == 6) {
+      strcpy(errorData.temporary_data, serialData.token);
+      serialData.token = strtok(errorData.temporary_data, "*");
+      serialData.token = strtok(NULL, "*");
+      strcpy(errorData.check_sum, serialData.token);
+      }
+    serialData.token = strtok(NULL, ",");
+    serialData.iter_token++;
+  }
+  if (sysDebugData.gpatt_sentence == true) {
+    Serial.println("[errorData.tag] "         + String(errorData.tag));
+    Serial.println("[errorData.utc] "         + String(errorData.utc));
+    Serial.println("[errorData.code_flag] "   + String(errorData.code_flag));
+    Serial.println("[errorData.gset_flag] "   + String(errorData.gset_flag));
+    Serial.println("[errorData.sset_flag] "   + String(errorData.sset_flag));
+    Serial.println("[errorData.customize_0] " + String(errorData.customize_0));
+    Serial.println("[errorData.customize_1] " + String(errorData.customize_1));
+    Serial.println("[errorData.check_sum] "   + String(errorData.check_sum));
+  }
+}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   DEBUG DATA
