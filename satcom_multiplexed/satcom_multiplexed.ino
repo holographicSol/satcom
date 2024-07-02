@@ -14,26 +14,26 @@
   This helps when compaing latitude and longitude with other maps, these values are then stored and placed into a new $ sentence.
 
  
-                                                     Timestamps
+                                                       Timestamps
       A datetime string is created from GNGGA and GNRMC $ sentence information, forms a part of the new $SATCOM sentence
                                                      
 
-                                           Timestamp Zero Satellite Periods
+                                             Timestamp Zero Satellite Periods
   A Timestamp is created for keeping track of when the system last heard satellites, forms part of the new $SATCOM sentence
                         
 
-                                                      Ranging
+                                                        Ranging
 Specified coordinates at specified meter/mile ranges. For location pinning, guidance, tracking, motion detection, autonomy  etc.
                                   these values can be added to the new $SATCOM sentence.
 
                                                 
-                                                    Serial Dump
+                                                       Serial Dump
    All extra calculated data is dumped in its own $SATCOM sentence along with the other $ sentences which are passed through
         as they would be seen as if the WTGPS300 is plugged in via USB. Dumping more (sentences/information) and dumping in
                                         a standard way and for generic use.
 
                                         
-                                                   Compatibility
+                                                       Compatibility
                      To Be Potentially Anything And Function As A Hardware Plugin For Other Projects
                                          Headless / Standalone / Serial / Remote
 
@@ -45,13 +45,13 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                        x3 SSD1306               --> TCA9548A i2C Multiplexer
 
 
-                                                   SENTENCE $SATCOM
-                                                                               Start Location Names and I/O Range Bools
-              START Tag        Last Sat Time                    ConvertedLongitude               |      END Tag
-              |                      |                                 |                         |         |   
-              $SATCOM,000000000000.00,000000000000.00,00.00000000000000,00.00000000000000,location_name,0,0,*Z
-                     |                               |                                                 | |                    
-                DatetimeStamp                 ConvertedLatitude                                 In/Out Range Bools
+                                                      SENTENCE $SATCOM
+                                                                                    
+                      START Tag                Last Sat Time                     Converted Longitude        
+                         |                   |               |                   |                |                  
+                      $SATCOM,000000000000.00,000000000000.00,00.00000000000000,00.00000000000000,*Z
+                             |               |               |                 |                              
+                               DatetimeStamp                  Converted Latitude                                 
 
 
                              Create More Values For $ Ssentences And Add More Satellite Hardware.
@@ -679,61 +679,6 @@ void extrapulatedSatData() {
     strcat(satData.satcom_sentence, ",");
     strcat(satData.satcom_sentence, satData.location_longitude_gnrmc_str);
     strcat(satData.satcom_sentence, ",");
-  }
-
-  // --------------------------------------------------------------------------------------------------------------------------
-  //                                                                                                   SATCOM SENTENCE: RANGING
-  
-  // TEST RANGE: uncomment to test a range with artificial coordinates
-  // satData.location_latitude_gngga = 40.68951821629331;
-  // satData.location_longitude_gngga = -74.04483714358342;
-
-  // coordinte_convert
-  if (satData.coordinte_convert == true) {
-    if (satData.area_range_enabled_0 == true) {
-      for (int i = 0; i < 100; i++) {
-        
-        if (strlen(satData.location_range_name[i]) > 0) {
-
-          // TEST RANGE: uncomment to view calculated target perimeter
-          // Serial.println();
-          // Serial.print("[T0] "); Serial.println(satData.location_range_name[i]);
-          // Serial.print("[X0] "); Serial.println(satData.location_range_latitude[i] - satData.location_range_distance_latitude[i]/2, 17);
-          // Serial.print("[X1] "); Serial.println(satData.location_range_latitude[i] + satData.location_range_distance_latitude[i]/2, 17);
-          // Serial.print("[Y0] "); Serial.println(satData.location_range_longitude[i] - satData.location_range_distance_longitude[i]/2, 17);
-          // Serial.print("[Y1] "); Serial.println(satData.location_range_longitude[i] + satData.location_range_distance_longitude[i]/2, 17);
-          // Serial.println();
-
-          // name into satcom sentence
-          strcat(satData.satcom_sentence, satData.location_range_name[i]);
-          strcat(satData.satcom_sentence, ",");
-
-          // create latitude range bool
-          satData.location_range_latitude_bool[i] = false;
-          itoa(satData.location_range_latitude_bool[i], satData.temporary_io_range_bool, 10);
-          if (satData.location_latitude_gngga  >=  satData.location_range_latitude[i] - satData.location_range_distance_latitude[i]/2) {
-            if (satData.location_latitude_gngga  <= satData.location_range_latitude[i] + satData.location_range_distance_latitude[i]/2) {
-              satData.location_range_latitude_bool[i] = true;
-              itoa(satData.location_range_latitude_bool[i], satData.temporary_io_range_bool, 10);
-            }
-          }
-          strcat(satData.satcom_sentence, satData.temporary_io_range_bool);
-          strcat(satData.satcom_sentence, ",");
-
-          // create longitude range bool
-          satData.location_range_longitude_bool[i] = false;
-          itoa(satData.location_range_longitude_bool[i], satData.temporary_io_range_bool, 10);
-          if (satData.location_longitude_gngga >= satData.location_range_longitude[i] - satData.location_range_distance_longitude[i]/2) {
-            if (satData.location_longitude_gngga  <= satData.location_range_longitude[i] + satData.location_range_distance_longitude[i]/2) {
-              satData.location_range_longitude_bool[i] = true;
-              itoa(satData.location_range_longitude_bool[i], satData.temporary_io_range_bool, 10);
-            }
-          }
-          strcat(satData.satcom_sentence, satData.temporary_io_range_bool);
-          strcat(satData.satcom_sentence, ",");
-        }
-      }
-    }
   }
 
   // --------------------------------------------------------------------------------------------------------------------------
