@@ -1283,7 +1283,7 @@ void systems_Check() {
   be activated for a compound of conditions rather than just one condition. This is preferrable per relay/function and once interfaceable, more convenient.
   */
 
-  // system test: uncomment to calibrate a relay's function(s) (because there is no HID yet):
+  // system test (simulate interface with matrix because there is no control panel/other HID yet):                       
   strcpy(relayData.relays[0][0], relayData.satellite_count_gngga_over); // 1: set relay zero's first check condition.
   relayData.relays_data[0][0][0]  = 1;                                  // 2: set relays first function data. in this case we will use the column 'over' element.
   relayData.relays_data[0][10][0] = 1;                                  // 3: lastly, soft enable the check/relay
