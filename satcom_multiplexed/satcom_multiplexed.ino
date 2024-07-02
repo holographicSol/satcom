@@ -196,7 +196,7 @@ void initDisplay3() {
 //                                                                                                                   GNGGA DATA
 
 struct GNGGAStruct {
-  char tag[56];                         // <0> $GNGGA
+  char tag[56];                         // <0> Log header
   char utc_time[56];                    // <1> UTC time, the format is hhmmss.sss
   char latitude[56];                    // <2> Latitude, the format is  ddmm.mmmmmmm
   char latitude_hemisphere[56];         // <3> Latitude hemisphere, N or S (north latitude or south latitude)
@@ -285,7 +285,7 @@ void GNGGA() {
 //                                                                                                                   GNRMC DATA
 
 struct GNRMCStruct {
-  char tag[56];                            // <0> $GNRMC
+  char tag[56];                            // <0> Log header
   char utc_time[56];                       // <1> UTC time, the format is hhmmss.sss
   char positioning_status[56];             // <2> Positioning status, A=effective positioning, V=invalid positioning
   char latitude[56];                       // <3> Latitude, the format is  ddmm.mmmmmmm
