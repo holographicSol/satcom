@@ -626,7 +626,6 @@ struct SatDatatruct {
   char location_longitude_gngga_str[56];      // degrees converted from absolute
   char location_latitude_gnrmc_str[56];       // degrees converted from absolute
   char location_longitude_gnrmc_str[56];      // degrees converted from absolute
-  unsigned long satellite_count_gngga = 0;
   double latitude_meter               = 0.00000901;                // one meter (tune)
   double longitude_meter              = 0.00000899;                // one meter (tune)
   double latitude_mile                = latitude_meter  * 1609.34; // one mile
@@ -744,8 +743,7 @@ void extrapulatedSatData() {
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                       SATCOM SENTENCE: LAST KNOWN DOWNLINK
 
-  satData.satellite_count_gngga = atoi(gnggaData.satellite_count_gngga);
-  if (satData.satellite_count_gngga > 0) {
+  if (atoi(gnggaData.satellite_count_gngga) > 0) {
     memset(satData.last_sat_time_stamp_str, 0, 56);
     strcpy(satData.last_sat_time_stamp_str, satData.sat_time_stamp_string);
   }
