@@ -1306,11 +1306,11 @@ void systems_Check() {
       for (int Fi = 0; Fi < 10; Fi++) {
 
         /*
-        put true in the temporary matrix if no function is specified ($NONE). this allows 1-N elemental conditions to be set and result in true/false at the final bool.
-        IMPORTANT: this also means if soft enable true default final_bool is true if no function is set, because then tmp_matrix would be all true.
-
         Possible combinations example: 100 checks ^ 10 functions = 100,000,000,000,000,000,000 combinations. We can pay the price by writing those combinations manually or by something like the following below, in which
         case the price potentially payed is performance.
+
+        Put true in the temporary matrix if no function is specified ($NONE). this allows 1-N elemental conditions to be set and result in true/false at the final bool.
+        IMPORTANT: this also means if soft enable true default final_bool is true if no function is set, because then tmp_matrix would be all true.
         */
         if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1; count_none_function++;}
 
