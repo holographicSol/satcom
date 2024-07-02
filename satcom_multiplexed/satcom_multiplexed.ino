@@ -607,6 +607,46 @@ struct DESBIStruct {
 DESBIStruct desbiData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                   SPEED DATA
+
+/*
+
+status        ubi_state_kind
+0             normal driving status
+1             normal acceleration state
+2             rapid acceleration state
+3             normal decceleration state
+4             rapid decceleration state
+5             emergency road status
+6             normal turning state
+7             sharp turn state
+8             abnormal posture
+
+*/
+
+struct SPEEDStruct {
+  char tag[56];                              // <0> log header
+  char utc_time[56];                         // <1> utc time
+  char speed[56];                            // <2> ground speed: knots
+  char status[56];                           // <3> 0=invalid data, 1=converging, 2=valid data
+  char acceleration_delimiter[56];           // <4> represents acceleration
+  char acc_X[56];                            // <5> x-axis acceleration
+  char acc_Y[56];                            // <6> y-axis acceleration
+  char acc_Z[56];                            // <7> z-axis acceleration
+  char angular_velocity_delimiter[56] = "0"; // <8> represents angular velocity
+  char gyro_X[56];                           // <9> x-axis angular velocity
+  char gyro_Y[56];                           // <10> y-axis angular velocity
+  char gyro_Z[56];                           // <11> z-axis angular velocity
+  char status_delimiter[56];                 // <12> represents status
+  char ubi_state_flag[56];                   // <13> 0=smooth driving, 1=unsteady driving
+  char ubi_state_kind[56];                   // <14> status tyoe: see ubi_state_kind table
+  char ubi_state_value[56];                  // <15> status threshold: see ubi_state_kind table
+  char check_sum[56];                        // <16> XOR check value of all bytes starting from $ to *
+  char temporary_data[56];
+};
+SPEEDStruct speedData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   ERROR DATA
 
 struct ERRORStruct {
