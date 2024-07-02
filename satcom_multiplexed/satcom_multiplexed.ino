@@ -959,13 +959,6 @@ void readRXD_1() {
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    DESBI
-
-    else if (strncmp(serialData.BUFFER, "$DESBI", 6) == 0) {
-      Serial.print(""); Serial.println(serialData.BUFFER);
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GPATT
 
     else if (strncmp(serialData.BUFFER, "$GPATT", 6) == 0) {
@@ -973,6 +966,34 @@ void readRXD_1() {
         Serial.print(""); Serial.println(serialData.BUFFER);
         GPATT();
       }
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                                    DESBI
+
+    else if (strncmp(serialData.BUFFER, "$DESBI", 6) == 0) {
+      Serial.print(""); Serial.println(serialData.BUFFER);
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                                    SPEED
+
+    else if (strncmp(serialData.BUFFER, "$SPEED", 6) == 0) {
+      Serial.print(""); Serial.println(serialData.BUFFER);
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                                    ERROR
+
+    else if (strncmp(serialData.BUFFER, "$ERROR", 6) == 0) {
+      Serial.print(""); Serial.println(serialData.BUFFER);
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                                    DEBUG
+
+    else if (strncmp(serialData.BUFFER, "$DEBUG", 6) == 0) {
+      Serial.print(""); Serial.println(serialData.BUFFER);
     }
   }
 }
