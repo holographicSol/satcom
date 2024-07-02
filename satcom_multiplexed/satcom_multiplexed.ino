@@ -210,7 +210,7 @@ struct GNGGAStruct {
   char differential_time[56];           // <11> Differential time
   char differential_time_units[56];     // <12> Differential reference base station label (* Statement end marker)
   char id[56];                          // <13> base station ID
-  char check_sum[56];                   // <14> xx XOR check value of all bytes starting from $ to *
+  char check_sum[56];                   // <14> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
 };
 GNGGAStruct gnggaData;
@@ -298,7 +298,7 @@ struct GNRMCStruct {
   char magnetic_declination[56];           // <10> Magnetic declination (000.0~180.0 degrees)
   char magnetic_declination_direction[56]; // <11> Magnetic declination direction, E (east) or W (west)
   char mode_indication[56];                // <12> Mode indication (A=autonomous positioning, D=differential E=estimation, N=invalid data) */
-  char check_sum[56];                      // <13> xx XOR check value of all bytes starting from $ to *
+  char check_sum[56];                      // <13> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
 };
 GNRMCStruct gnrmcData;
@@ -412,7 +412,7 @@ struct GPATTStruct {
   char fix_angle_flag[56];   // <37> F：Fix
   char ang_lock_flag[56];    // <38> 1：fixed setting，0：Self adaptive installation
   char extensible[56];       // <39> 
-  char check_sum[56];        // <40> xx XOR check value of all bytes starting from $ to *
+  char check_sum[56];        // <40> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
 };
 GPATTStruct gpattData;
@@ -604,6 +604,21 @@ struct DESBIStruct {
   char fill_28[56];                 // <28> ?
 };
 DESBIStruct desbiData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                   ERROR DATA
+
+struct ERRORStruct {
+  char tag[56];                     // <0> Log header
+  char utc[56];                     // <1> utc time
+  char code_flag[56];               // <2> encryption chip: 1=problem, 0=normal
+  char gset_flag[56];               // <3> positioning chip: 1=problem, 0=normal
+  char sset_flag[56];               // <4> sensor chip: 1=problem, 0=normal
+  char customize_0[56];             // <5> customize 0-20
+  char customize_1[56];             // <6> customize float
+  char check_sum[56];               // <7> XOR check value of all bytes starting from $ to *
+};
+ERRORStruct errorData;
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
