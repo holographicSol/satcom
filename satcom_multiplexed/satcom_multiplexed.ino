@@ -647,11 +647,11 @@ struct DEBUGStruct {
   char coll_T_data[56];             // <20> collision factor
   char coll_T_heading[56];          // <21> collision direction
   char custom_logo_0[56];           // <22> 
-  char custom_logo_0[56];           // <23> 
-  char custom_logo_0[56];           // <24> 
-  char custom_logo_0[56];           // <25> 
-  char custom_logo_0[56];           // <26> 
-  char custom_logo_0[56];           // <27> 
+  char custom_logo_1[56];           // <23> 
+  char custom_logo_2[56];           // <24> 
+  char custom_logo_3[56];           // <25> 
+  char custom_logo_4[56];           // <26> 
+  char custom_logo_5[56];           // <27> 
   char check_sum[56];               // <28> XOR check value of all bytes starting from $ to *
 };
 DEBUGStruct debugData;
