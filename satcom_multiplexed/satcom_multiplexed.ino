@@ -623,14 +623,14 @@ ERRORStruct errorData;
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   DEBUG DATA
 
-struct DEBUGStruct {
+struct WTDEBUGStruct {
   char tag[56];                     // <0> log header
   char ang_dget_flag[56];           // <1> installation azimuth: 1=with azimuth, 0=without azimuth
   char fix_kind_flag[56];           // <2> type of installed coordinate system
   char ins_run_flag[56];            // <3> forced ins: 1=forced, 0=normal
   char fix_roll_flag[56];           // <4> installation roll angle
   char fix_pitch_flag[56];          // <5> installation pitch angle
-  char ubi_on_flag[56];             // <6> 
+  char ubi_on_flag[56];             // <6> 0 to 8
   char ubi_kind_flag[56];           // <7> 0=none, 1=ubi event, 2=ubi alarm
   char ubi_a_set[56];               // <8> ubi a parameter setting value
   char ubi_b_set[56];               // <9> ubi b parameter setting value
@@ -654,7 +654,7 @@ struct DEBUGStruct {
   char custom_logo_5[56];           // <27> 
   char check_sum[56];               // <28> XOR check value of all bytes starting from $ to *
 };
-DEBUGStruct debugData;
+WTDEBUGStruct wtdebugData;
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
