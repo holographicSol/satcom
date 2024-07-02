@@ -252,21 +252,21 @@ void GNGGA() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  // Serial.println("[tag] " +                     String(gnggaData.tag));
-  // Serial.println("[utc_time] " +                String(gnggaData.utc_time));
-  // Serial.println("[latitude] " +                String(gnggaData.latitude));
-  // Serial.println("[latitude_hemisphere] " +     String(gnggaData.latitude_hemisphere));
-  // Serial.println("[longitude] " +               String(gnggaData.longitude));
-  // Serial.println("[longitude_hemisphere] " +    String(gnggaData.longitude_hemisphere));
-  // Serial.println("[positioning_status] " +      String(gnggaData.positioning_status));
-  // Serial.println("[satellite_count_gngga] " +   String(gnggaData.satellite_count_gngga));
-  // Serial.println("[hddp_precision_factor] " +   String(gnggaData.hddp_precision_factor));
-  // Serial.println("[altitude] " +                String(gnggaData.altitude));
-  // Serial.println("[altitude_units] " +          String(gnggaData.altitude_units));
-  // Serial.println("[differential_time] " +       String(gnggaData.differential_time));
-  // Serial.println("[differential_time_units] " + String(gnggaData.differential_time_units));
-  // Serial.println("[id] " +                      String(gnggaData.id));
-  // Serial.println("[check_sum] " +               String(gnggaData.check_sum));
+  Serial.println("[tag] " +                    String(gnggaData.tag));
+  Serial.println("[utc_time] " +               String(gnggaData.utc_time));
+  Serial.println("[latitude] " +               String(gnggaData.latitude));
+  Serial.println("[latitude_hemisphere] " +    String(gnggaData.latitude_hemisphere));
+  Serial.println("[longitude] " +              String(gnggaData.longitude));
+  Serial.println("[longitude_hemisphere] " +   String(gnggaData.longitude_hemisphere));
+  Serial.println("[positioning_status] " +     String(gnggaData.positioning_status));
+  Serial.println("[satellite_count_gngga] " +  String(gnggaData.satellite_count_gngga));
+  Serial.println("[hddp_precision_factor] " +  String(gnggaData.hddp_precision_factor));
+  Serial.println("[altitude] " +               String(gnggaData.altitude));
+  Serial.println("[altitude_units] " +         String(gnggaData.altitude_units));
+  Serial.println("[differential_time] " +      String(gnggaData.differential_time));
+  Serial.println("[differential_time_units] " + String(gnggaData.differential_time_units));
+  Serial.println("[id] " +                     String(gnggaData.id));
+  Serial.println("[check_sum] " +              String(gnggaData.check_sum));
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -337,20 +337,20 @@ void GNRMC() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  // Serial.println("[tag] " +                            String(gnrmcData.tag));
-  // Serial.println("[utc_time] " +                       String(gnrmcData.utc_time));
-  // Serial.println("[positioning_status] " +             String(gnrmcData.positioning_status));
-  // Serial.println("[latitude] " +                       String(gnrmcData.latitude));
-  // Serial.println("[latitude_hemisphere] " +            String(gnrmcData.latitude_hemisphere));
-  // Serial.println("[longitude] " +                      String(gnrmcData.longitude));
-  // Serial.println("[longitude_hemisphere] " +           String(gnrmcData.longitude_hemisphere));
-  // Serial.println("[ground_speed] " +                   String(gnrmcData.ground_speed));
-  // Serial.println("[ground_heading] " +                 String(gnrmcData.ground_heading));
-  // Serial.println("[utc_date] " +                       String(gnrmcData.utc_date));
-  // Serial.println("[magnetic_declination] " +           String(gnrmcData.magnetic_declination));
-  // Serial.println("[magnetic_declination_direction] " + String(gnrmcData.magnetic_declination_direction));
-  // Serial.println("[mode_indication] " +                String(gnrmcData.mode_indication));
-  // Serial.println("[check_sum] " +                      String(gnrmcData.check_sum));
+  Serial.println("[tag] " +                           String(gnrmcData.tag));
+  Serial.println("[utc_time] " +                      String(gnrmcData.utc_time));
+  Serial.println("[positioning_status] " +            String(gnrmcData.positioning_status));
+  Serial.println("[latitude] " +                      String(gnrmcData.latitude));
+  Serial.println("[latitude_hemisphere] " +           String(gnrmcData.latitude_hemisphere));
+  Serial.println("[longitude] " +                     String(gnrmcData.longitude));
+  Serial.println("[longitude_hemisphere] " +          String(gnrmcData.longitude_hemisphere));
+  Serial.println("[ground_speed] " +                  String(gnrmcData.ground_speed));
+  Serial.println("[ground_heading] " +                String(gnrmcData.ground_heading));
+  Serial.println("[utc_date] " +                      String(gnrmcData.utc_date));
+  Serial.println("[magnetic_declination] " +          String(gnrmcData.magnetic_declination));
+  Serial.println("[magnetic_declination_direction] " + String(gnrmcData.magnetic_declination_direction));
+  Serial.println("[mode_indication] " +               String(gnrmcData.mode_indication));
+  Serial.println("[check_sum] " +                     String(gnrmcData.check_sum));
 }
 
 
@@ -400,6 +400,7 @@ struct GPATTStruct {
   char ang_lock_flag[56];    // <38> 1：fixed setting，0：Self adaptive installation
   char extensible[56];       // <39> 
   char check_sum[56];        // <40> *2c
+  char temporary_data[56];
 };
 GPATTStruct gpattData;
 
@@ -492,12 +493,57 @@ void GPATT() {
     else if (serialData.iter_token == 36) {strcpy(gpattData.time_save_num, serialData.token);}
     else if (serialData.iter_token == 37) {strcpy(gpattData.fix_angle_flag, serialData.token);}
     else if (serialData.iter_token == 38) {strcpy(gpattData.ang_lock_flag, serialData.token);}
-    else if (serialData.iter_token == 39) {strcpy(gpattData.extensible, serialData.token);}
-    else if (serialData.iter_token == 40) {strcpy(gpattData.check_sum, serialData.token);}
+    else if (serialData.iter_token == 39) {
+      strcpy(gpattData.temporary_data, serialData.token);
+      serialData.token = strtok(gpattData.temporary_data, "*");
+      serialData.token = strtok(NULL, "*");
+      strcpy(gpattData.check_sum, serialData.token);
+      }
 
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
+  // Serial.println("[tag] "              + String(gpattData.tag));              // <0> Log header
+  // Serial.println("[pitch] "            + String(gpattData.pitch));            // <1> pitch angle
+  // Serial.println("[angle_channel_0] "  + String(gpattData.angle_channel_0));  // <2> P
+  // Serial.println("[roll] "             + String(gpattData.roll));             // <3> Roll angle
+  // Serial.println("[angle_channel_1] "  + String(gpattData.angle_channel_1));  // <4> R
+  // Serial.println("[yaw] "              + String(gpattData.yaw));              // <5> Yaw angle
+  // Serial.println("[angle_channel_2] "  + String(gpattData.angle_channel_2));  // <6> Y
+  // Serial.println("[software_version] " + String(gpattData.software_version)); // <7> software verion
+  // Serial.println("[version_channel] "  + String(gpattData.version_channel));  // <8> S
+  // Serial.println("[product_id] "       + String(gpattData.product_id));       // <9> Product ID: 96 bit unique ID
+  // Serial.println("[id_channel] "       + String(gpattData.id_channel));       // <10> ID 
+  // Serial.println("[ins] "              + String(gpattData.ins));              // <11> INS Default open inertial navigation system
+  // Serial.println("[ins_channel] "      + String(gpattData.ins_channel));      // <12> whether inertial navigation open
+  // Serial.println("[hardware_version] " + String(gpattData.hardware_version)); // <13> Named after master chip
+  // Serial.println("[run_state_flag] "   + String(gpattData.run_state_flag));   // <14> Algorithm status flag: 1->3
+  // Serial.println("[mis_angle_num] "    + String(gpattData.mis_angle_num));    // <15> number of Installation
+  // Serial.println("[custom_flag_0] "    + String(gpattData.custom_flag_0));    // <16> 
+  // Serial.println("[custom_flag_1] "    + String(gpattData.custom_flag_1));    // <17> 
+  // Serial.println("[mtk_version] "      + String(gpattData.mtk_version));      // <18> M:MTK1.6.0Version 7: MTK1.7.0Version
+  // Serial.println("[static_flag] "      + String(gpattData.static_flag));      // <19> 1:Static 0：dynamic
+  // Serial.println("[user_code] "        + String(gpattData.user_code));        // <20> 1：Normal user X：Customuser
+  // Serial.println("[gst_data] "         + String(gpattData.gst_data));         // <21> User satellite accuracy
+  // Serial.println("[line_flag] "        + String(gpattData.line_flag));        // <22> 1：straight driving，0：curve driving
+  // Serial.println("[custom_flag_2] "    + String(gpattData.custom_flag_2));    // <23> F:Full Update D:Full Update and Part Update
+  // Serial.println("[custom_flag_3] "    + String(gpattData.custom_flag_3));    // <24> 
+  // Serial.println("[imu_kind] "         + String(gpattData.imu_kind));         // <25> Sensor Type: 0->BIM055; 1->BMI160; 2->LSM6DS3TR-C; 3->LSM6DSOW 4->ICM-40607; 5->ICM-40608 6->ICM-42670; 7->LSM6DSR
+  // Serial.println("[subi_car_kind] "    + String(gpattData.subi_car_kind));    // <26> 1: small car, 2: big car
+  // Serial.println("[mileage] "          + String(gpattData.mileage));          // <27> kilometers: max 9999 kilometers
+  // Serial.println("[custom_flag_4] "    + String(gpattData.custom_flag_4));    // <28> D
+  // Serial.println("[ang_dget_flag] "    + String(gpattData.ang_dget_flag));    // <29> 1: The Flash has an installation Angle 0: The Flash has no installation Angle
+  // Serial.println("[run_inetial_flag] " + String(gpattData.run_inetial_flag)); // <30> 1->4
+  // Serial.println("[custom_flag_5] "    + String(gpattData.custom_flag_5));    // <31> B
+  // Serial.println("[custom_flag_6] "    + String(gpattData.custom_flag_6));    // <32> 
+  // Serial.println("[custom_flag_7] "    + String(gpattData.custom_flag_7));    // <33> 
+  // Serial.println("[custom_flag_8] "    + String(gpattData.custom_flag_8));    // <34> 
+  // Serial.println("[custom_flag_9] "    + String(gpattData.custom_flag_9));    // <35> 
+  // Serial.println("[time_save_num] "    + String(gpattData.time_save_num));    // <36> Ephemeris stored times
+  // Serial.println("[fix_angle_flag] "   + String(gpattData.fix_angle_flag));   // <37> F：Fix
+  // Serial.println("[ang_lock_flag] "    + String(gpattData.ang_lock_flag));    // <38> 1：fixed setting，0：Self adaptive installation
+  // Serial.println("[extensible] "       + String(gpattData.extensible));       // <39> 
+  // Serial.println("[check_sum] "        + String(gpattData.check_sum));        // <40> checksum
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
