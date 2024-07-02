@@ -937,7 +937,7 @@ struct RelayStruct {
   3: x n
   4: y n
   5: r range
-  6: 0=turn_off 1=turn_on
+  6: |    0 = turn off if condition is true, turn on if condition is false    |     1 = turn on if condition is true, turn off if condition is false
   relays_data[N][10][0] = completely enable/disbale
   */
 
