@@ -904,8 +904,8 @@ Note: Each relay/function is activated/deactivated according to compound conditi
 
 struct RelayStruct {
 
-  int MAX_RELAYS = 10;
-  int MAX_RELAY_ELEMENTS = 10;
+  int MAX_RELAYS = 30;
+  int MAX_RELAY_ELEMENTS = 30;
   
   char relays[10][30][100] = {
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
