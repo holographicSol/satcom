@@ -196,22 +196,21 @@ void initDisplay3() {
 //                                                                                                                   GNGGA DATA
 
 struct GNGGAStruct {
-  char tag[56];                                       // <0> $GNGGA
-  char utc_time[56];                                  // <1> UTC time, the format is hhmmss.sss
-  char latitude[56];                                  // <2> Latitude, the format is  ddmm.mmmmmmm
-  char latitude_hemisphere[56];                       // <3> Latitude hemisphere, N or S (north latitude or south latitude)
-  char longitude[56];                                 // <4> Longitude, the format is dddmm.mmmmmmm
-  char longitude_hemisphere[56];                      // <5> Longitude hemisphere, E or W (east longitude or west longitude)
-  char positioning_status[56];                        /* <6> GNSS positioning status: 0 not positioned, 1 single point positioning,
-                                                             2: pseudorange difference, 6: pure INS */
-  char satellite_count_gngga[56] = "0";               // <7> Number of satellites used
-  char hddp_precision_factor[56];                     // <8> HDOP level precision factor
-  char altitude[56];                                  // <9> Altitude
-  char altitude_units[56];                            // <10> The height of the earth ellipsoid relative to the geoid
-  char differential_time[56];                         // <11> Differential time
-  char differential_time_units[56];                   // <12> Differential reference base station label (* Statement end marker)
-  char id[56];                                        // <13> base station ID
-  char check_sum[56];                                 // <14> 
+  char tag[56];                         // <0> $GNGGA
+  char utc_time[56];                    // <1> UTC time, the format is hhmmss.sss
+  char latitude[56];                    // <2> Latitude, the format is  ddmm.mmmmmmm
+  char latitude_hemisphere[56];         // <3> Latitude hemisphere, N or S (north latitude or south latitude)
+  char longitude[56];                   // <4> Longitude, the format is dddmm.mmmmmmm
+  char longitude_hemisphere[56];        // <5> Longitude hemisphere, E or W (east longitude or west longitude)
+  char positioning_status[56];          // <6> GNSS positioning status: 0 not positioned, 1 single point positioning, 2: pseudorange difference, 6: pure INS */
+  char satellite_count_gngga[56] = "0"; // <7> Number of satellites used
+  char hddp_precision_factor[56];       // <8> HDOP level precision factor
+  char altitude[56];                    // <9> Altitude
+  char altitude_units[56];              // <10> The height of the earth ellipsoid relative to the geoid
+  char differential_time[56];           // <11> Differential time
+  char differential_time_units[56];     // <12> Differential reference base station label (* Statement end marker)
+  char id[56];                          // <13> base station ID
+  char check_sum[56];                   // <14> xx XOR check value of all bytes starting from $ to *
   char temporary_data[56];
 };
 GNGGAStruct gnggaData;
@@ -286,21 +285,20 @@ void GNGGA() {
 //                                                                                                                   GNRMC DATA
 
 struct GNRMCStruct {
-  char tag[56];                                       // <0> $GNRMC
-  char utc_time[56];                                  // <1> UTC time, the format is hhmmss.sss
-  char positioning_status[56];                        // <2> Positioning status, A=effective positioning, V=invalid positioning
-  char latitude[56];                                  // <3> Latitude, the format is  ddmm.mmmmmmm
-  char latitude_hemisphere[56];                       // <4> Latitude hemisphere, N or S (north latitude or south latitude)
-  char longitude[56];                                 // <5> Longitude, the format is dddmm.mmmmmmm
-  char longitude_hemisphere[56];                      // <6> Longitude hemisphere, E or W (east longitude or west longitude)
-  char ground_speed[56];                              // <7> Ground speed
-  char ground_heading[56];                            // <8> Ground heading (take true north as the reference datum)
-  char utc_date[56];                                  // <9> UTC date, the format is ddmmyy (day, month, year)
-  char magnetic_declination[56];                      // <10> Magnetic declination (000.0~180.0 degrees)
-  char magnetic_declination_direction[56];            // <11> Magnetic declination direction, E (east) or W (west)
-  char mode_indication[56];                           /* <12> Mode indication (A=autonomous positioning, D=differential
-                                                              E=estimation, N=invalid data) */
-  char check_sum[56];                           // <13> xx XOR check value of all bytes starting from $ to *
+  char tag[56];                            // <0> $GNRMC
+  char utc_time[56];                       // <1> UTC time, the format is hhmmss.sss
+  char positioning_status[56];             // <2> Positioning status, A=effective positioning, V=invalid positioning
+  char latitude[56];                       // <3> Latitude, the format is  ddmm.mmmmmmm
+  char latitude_hemisphere[56];            // <4> Latitude hemisphere, N or S (north latitude or south latitude)
+  char longitude[56];                      // <5> Longitude, the format is dddmm.mmmmmmm
+  char longitude_hemisphere[56];           // <6> Longitude hemisphere, E or W (east longitude or west longitude)
+  char ground_speed[56];                   // <7> Ground speed
+  char ground_heading[56];                 // <8> Ground heading (take true north as the reference datum)
+  char utc_date[56];                       // <9> UTC date, the format is ddmmyy (day, month, year)
+  char magnetic_declination[56];           // <10> Magnetic declination (000.0~180.0 degrees)
+  char magnetic_declination_direction[56]; // <11> Magnetic declination direction, E (east) or W (west)
+  char mode_indication[56];                // <12> Mode indication (A=autonomous positioning, D=differential E=estimation, N=invalid data) */
+  char check_sum[56];                      // <13> xx XOR check value of all bytes starting from $ to *
   char temporary_data[56];
 };
 GNRMCStruct gnrmcData;
@@ -414,7 +412,7 @@ struct GPATTStruct {
   char fix_angle_flag[56];   // <37> F：Fix
   char ang_lock_flag[56];    // <38> 1：fixed setting，0：Self adaptive installation
   char extensible[56];       // <39> 
-  char check_sum[56];        // <40> *2c
+  char check_sum[56];        // <40> xx XOR check value of all bytes starting from $ to *
   char temporary_data[56];
 };
 GPATTStruct gpattData;
