@@ -907,26 +907,46 @@ struct RelayStruct {
   int MAX_RELAYS = 10;
   int MAX_RELAY_ELEMENTS = 10;
   
-  char relays[10][10][100] = {
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE"
+  char relays[10][30][100] = {
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
+     "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE",
      },};
 
   /*
@@ -942,8 +962,28 @@ struct RelayStruct {
   */
 
   // calibratable matrix data (via local interface devices / RF / serial / baked-in if required)
-  double relays_data[10][10+1][7] = {
+  double relays_data[10][30+1][7] = {
     {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
@@ -967,9 +1007,16 @@ struct RelayStruct {
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
-      {0},
-    },
-    {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
@@ -993,9 +1040,16 @@ struct RelayStruct {
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
-      {0},
-    },
-    {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
@@ -1019,9 +1073,16 @@ struct RelayStruct {
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
-      {0},
-    },
-    {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
@@ -1045,6 +1106,26 @@ struct RelayStruct {
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
       {0},
     },
     {
@@ -1058,20 +1139,159 @@ struct RelayStruct {
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
       {0, 0, 0, 0, 0, 0, 1},
-      {1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0},
     },
     {
-      {1, 20, 0, 0, 0, 0, 1},
-      {0, 0, 0, 0, 0, 1.5, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1, 20, 0, 0, 0, 0, 1},
-      {1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0},
+    },
+    {
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0, 0, 0, 0, 0, 0, 1},
+      {0},
     },
   };
 
@@ -1299,11 +1519,11 @@ void systems_Check() {
     if (relayData.relays_data[Ri][10][0] == 1) {
 
       // temporary switch must be zero each time
-      bool tmp_matrix[1][10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+      bool tmp_matrix[1][30] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
       int count_none_function = 0;
 
       // iterate over each function name for current relay, building the temporary matrix switch according to check reults 
-      for (int Fi = 0; Fi < 10; Fi++) {
+      for (int Fi = 0; Fi < 30; Fi++) {
 
         /*
         Possible combinations example: 100 checks ^ 10 functions = 100,000,000,000,000,000,000 combinations. We can pay the price by writing those combinations manually or by something like the following below, in which
@@ -1313,6 +1533,9 @@ void systems_Check() {
         IMPORTANT: this also means if soft enable true default final_bool is true if no function is set, because then tmp_matrix would be all true.
         */
         if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1; count_none_function++;}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                        SYSTEMS CHECKS: GNGGA
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_coord_gngga_in_range) == 0) {tmp_matrix[0][Fi] = in_ranges_check(satData.location_latitude_gngga_str, satData.location_longitude_gngga_str, Ri, Fi);}
@@ -1386,6 +1609,9 @@ void systems_Check() {
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gnggaData.altitude, Ri, Fi);}
 
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                        SYSTEMS CHECKS: GNRMC
+
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_over) == 0) {tmp_matrix[0][Fi] = check_over(gnrmcData.ground_speed, Ri, Fi);}
 
@@ -1409,6 +1635,9 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gnrmcData.ground_heading, Ri, Fi);}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                        SYSTEMS CHECKS: GPATT
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_over) == 0) {tmp_matrix[0][Fi] = check_over(gpattData.pitch, Ri, Fi);}
@@ -1517,10 +1746,10 @@ void systems_Check() {
       }
       
       // safety layer: ignore $NONE unless all entries are $NONE (else if master switch enabled then relay/function will be activated despite all $NONE entries)
-      if (count_none_function <= 9) {
+      if (count_none_function <= 29) {
         // default final bool is true and if a single false is found final bool should be set to false and remain false
         bool final_bool = true;
-        for (int FC = 0; FC < 10; FC++) {if (tmp_matrix[0][FC] == 0) {final_bool = false;}}
+        for (int FC = 0; FC < 30; FC++) {if (tmp_matrix[0][FC] == 0) {final_bool = false;}}
         // Serial.println("[FINAL_BOOL] " + String(final_bool));
 
         // activate/deactivate relay Ri (Ri=pinN): pin number matrix required for relay selcection via Ri->PIN column access in non-linear form (multiplex relays)
