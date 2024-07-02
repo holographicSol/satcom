@@ -1305,7 +1305,10 @@ void systems_Check() {
       // iterate over each function name for current relay
       for (int Fi = 0; Fi < 10; Fi++) {
 
-        // put true in the temporary matrix if no function is specified ($NONE)
+        /*
+        put true in the temporary matrix if no function is specified ($NONE). this allows 1-N elemental conditions to be set and reult true/false.
+        IMPORTANT: this also means if soft enable true default final_bool is true if no function is set, becaue then tmp_matrix would be all true.
+        */
         if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1; count_none_function++;}
 
         // put true or false in the temporary matrix
