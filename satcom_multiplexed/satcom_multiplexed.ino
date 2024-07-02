@@ -602,6 +602,7 @@ struct DESBIStruct {
   char fill_26[56];                 // <26> ?
   char fill_27[56];                 // <27> ?
   char fill_28[56];                 // <28> ?
+  char temporary_data[56];
 };
 DESBIStruct desbiData;
 
@@ -696,8 +697,113 @@ struct DEBUGStruct {
   char custom_logo_4[56];  // <26> 
   char custom_logo_5[56];  // <27> 
   char check_sum[56];      // <28> XOR check value of all bytes starting from $ to *
+  char temporary_data[56];
 };
 DEBUGStruct debugData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                        DEBUG
+
+void DEBUG() {
+  memset(debugData.tag, 0, 56);
+  memset(debugData.ang_dget_flag, 0, 56);
+  memset(debugData.fix_kind_flag, 0, 56);
+  memset(debugData.ins_run_flag, 0, 56);
+  memset(debugData.fix_roll_flag, 0, 56);
+  memset(debugData.fix_pitch_flag, 0, 56);
+  memset(debugData.ubi_on_flag, 0, 56);
+  memset(debugData.ubi_kind_flag, 0, 56);
+  memset(debugData.ubi_a_set, 0, 56);
+  memset(debugData.ubi_b_set, 0, 56);
+  memset(debugData.acc_X_data, 0, 56);
+  memset(debugData.acc_Y_data, 0, 56);
+  memset(debugData.gyro_Z_data, 0, 56);
+  memset(debugData.pitch_angle, 0, 56);
+  memset(debugData.roll_angle, 0, 56);
+  memset(debugData.yaw_angle, 0, 56);
+  memset(debugData.car_speed, 0, 56);
+  memset(debugData.ins_flag, 0, 56);
+  memset(debugData.ubi_num, 0, 56);
+  memset(debugData.ubi_valid, 0, 56);
+  memset(debugData.coll_T_data, 0, 56);
+  memset(debugData.coll_T_heading, 0, 56);
+  memset(debugData.custom_logo_0, 0, 56);
+  memset(debugData.custom_logo_1, 0, 56);
+  memset(debugData.custom_logo_2, 0, 56);
+  memset(debugData.custom_logo_4, 0, 56);
+  memset(debugData.custom_logo_5, 0, 56);
+  memset(debugData.check_sum, 0, 56);
+  serialData.iter_token = 0;
+  serialData.token = strtok(serialData.BUFFER, ",");
+  while( serialData.token != NULL ) {
+    if      (serialData.iter_token == 0) {strcpy(debugData.tag, "DEBUG");}
+    else if (serialData.iter_token == 1) {strcpy(debugData.ang_dget_flag, serialData.token);}
+    else if (serialData.iter_token == 2) {strcpy(debugData.fix_kind_flag, serialData.token);}
+    else if (serialData.iter_token == 3) {strcpy(debugData.ins_run_flag, serialData.token);}
+    else if (serialData.iter_token == 4) {strcpy(debugData.fix_roll_flag, serialData.token);}
+    else if (serialData.iter_token == 5) {strcpy(debugData.fix_pitch_flag, serialData.token);}
+    else if (serialData.iter_token == 6) {strcpy(debugData.ubi_on_flag, serialData.token);}
+    else if (serialData.iter_token == 7) {strcpy(debugData.ubi_kind_flag, serialData.token);}
+    else if (serialData.iter_token == 8) {strcpy(debugData.ubi_a_set, serialData.token);}
+    else if (serialData.iter_token == 9) {strcpy(debugData.ubi_b_set, serialData.token);}
+    else if (serialData.iter_token == 10) {strcpy(debugData.acc_X_data, serialData.token);}
+    else if (serialData.iter_token == 11) {strcpy(debugData.acc_Y_data, serialData.token);}
+    else if (serialData.iter_token == 12) {strcpy(debugData.gyro_Z_data, serialData.token);}
+    else if (serialData.iter_token == 13) {strcpy(debugData.pitch_angle, serialData.token);}
+    else if (serialData.iter_token == 14) {strcpy(debugData.roll_angle, serialData.token);}
+    else if (serialData.iter_token == 15) {strcpy(debugData.yaw_angle, serialData.token);}
+    else if (serialData.iter_token == 16) {strcpy(debugData.car_speed, serialData.token);}
+    else if (serialData.iter_token == 17) {strcpy(debugData.ins_flag, serialData.token);}
+    else if (serialData.iter_token == 18) {strcpy(debugData.ubi_num, serialData.token);}
+    else if (serialData.iter_token == 19) {strcpy(debugData.ubi_valid, serialData.token);}
+    else if (serialData.iter_token == 20) {strcpy(debugData.coll_T_data, serialData.token);}
+    else if (serialData.iter_token == 21) {strcpy(debugData.coll_T_heading, serialData.token);}
+    else if (serialData.iter_token == 22) {strcpy(debugData.custom_logo_0, serialData.token);}
+    else if (serialData.iter_token == 23) {strcpy(debugData.custom_logo_1, serialData.token);}
+    else if (serialData.iter_token == 24) {strcpy(debugData.custom_logo_2, serialData.token);}
+    else if (serialData.iter_token == 25) {strcpy(debugData.custom_logo_3, serialData.token);}
+    else if (serialData.iter_token == 26) {strcpy(debugData.custom_logo_4, serialData.token);}
+    else if (serialData.iter_token == 27) {
+      strcpy(debugData.temporary_data, serialData.token);
+      serialData.token = strtok(debugData.temporary_data, "*");
+      serialData.token = strtok(NULL, "*");
+      strcpy(debugData.check_sum, serialData.token);
+      }
+    serialData.token = strtok(NULL, ",");
+    serialData.iter_token++;
+  }
+  if (sysDebugData.gpatt_sentence == true) {
+    Serial.println("[debugData.tag] "            + String(debugData.tag));
+    Serial.println("[debugData.ang_dget_flag] "  + String(debugData.ang_dget_flag));
+    Serial.println("[debugData.fix_kind_flag] "  + String(debugData.fix_kind_flag));
+    Serial.println("[debugData.ins_run_flag] "   + String(debugData.ins_run_flag));
+    Serial.println("[debugData.fix_roll_flag] "  + String(debugData.fix_roll_flag));
+    Serial.println("[debugData.fix_pitch_flag] " + String(debugData.fix_pitch_flag));
+    Serial.println("[debugData.ubi_on_flag] "    + String(debugData.ubi_on_flag));
+    Serial.println("[debugData.ubi_kind_flag] "  + String(debugData.ubi_kind_flag));
+    Serial.println("[debugData.ubi_a_set] "      + String(debugData.ubi_a_set));
+    Serial.println("[debugData.ubi_b_set] "      + String(debugData.ubi_b_set));
+    Serial.println("[debugData.acc_X_data] "     + String(debugData.acc_X_data));
+    Serial.println("[debugData.acc_Y_data] "     + String(debugData.acc_Y_data));
+    Serial.println("[debugData.gyro_Z_data] "    + String(debugData.gyro_Z_data));
+    Serial.println("[debugData.pitch_angle] "    + String(debugData.pitch_angle));
+    Serial.println("[debugData.roll_angle] "     + String(debugData.roll_angle));
+    Serial.println("[debugData.yaw_angle] "      + String(debugData.yaw_angle));
+    Serial.println("[debugData.car_speed] "      + String(debugData.car_speed));
+    Serial.println("[debugData.ins_flag] "       + String(debugData.ins_flag));
+    Serial.println("[debugData.ubi_num] "        + String(debugData.ubi_num));
+    Serial.println("[debugData.ubi_valid] "      + String(debugData.ubi_valid));
+    Serial.println("[debugData.coll_T_data] "    + String(debugData.coll_T_data));
+    Serial.println("[debugData.coll_T_heading] " + String(debugData.coll_T_heading));
+    Serial.println("[debugData.custom_logo_0] "  + String(debugData.custom_logo_0));
+    Serial.println("[debugData.custom_logo_1] "  + String(debugData.custom_logo_1));
+    Serial.println("[debugData.custom_logo_2] "  + String(debugData.custom_logo_2));
+    Serial.println("[debugData.custom_logo_3] "  + String(debugData.custom_logo_3));
+    Serial.println("[debugData.custom_logo_4] "  + String(debugData.custom_logo_4));
+    Serial.println("[debugData.custom_logo_5] "  + String(debugData.custom_logo_5));
+    Serial.println("[debugData.check_sum] "      + String(debugData.check_sum));
+  }
+}
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
