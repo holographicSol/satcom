@@ -594,75 +594,48 @@ DESBIStruct desbiData;
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                              SAT DATA STRUCT
+//                                                                                                          SATCOM DATA STRUCT
 
 struct SatDatatruct {
 
-  /*
-                               1 meter
-  Latitude change (degrees)  = ____ x 360° = 0.00000901°
-                               40075km
-
-                               1 meter
-  Longitude change (degrees) = ____ x 360° = 0.00000899°
-                               40075km
-  */
-
-  unsigned long satellite_count_gngga = 0;
-  char   sat_time_stamp_string[56];                               // datetime timestamp from satellite
-  char   last_sat_seen_time_stamp_string[56] = "000000000000.00"; // record last time satellites were seen
-  char   satDataTag[10]                      = "$SATCOM";         // satcom sentence tag
-
-  double minutesLat;       // used for converting absolute latitude and longitude
-  double minutesLong;      // used for converting absolute latitude and longitude
-  double degreesLat;       // used for converting absolute latitude and longitude
-  double degreesLong;      // used for converting absolute latitude and longitude
-  double secondsLat;       // used for converting absolute latitude and longitude
-  double secondsLong;      // used for converting absolute latitude and longitude
-  double millisecondsLat;  // used for converting absolute latitude and longitude
-  double millisecondsLong; // used for converting absolute latitude and longitude
-
-  double abs_latitude_gngga_0  = 0.0; // absolute latitude from $ sentence
-  double abs_longitude_gngga_0 = 0.0; // absolute longditude $ sentence
-  double abs_latitude_gnrmc_0  = 0.0; // absolute latitude $ sentence
-  double abs_longitude_gnrmc_0 = 0.0; // absolute longditude $ sentence
-
-  double temp_latitude_gngga;  // degrees converted from absolute
-  double temp_longitude_gngga; // degrees converted from absolute
-  double temp_latitude_gnrmc;  // degrees converted from absolute
-  double temp_longitude_gnrmc; // degrees converted from absolute
-
-  double location_latitude_gngga;  // degrees converted from absolute
-  double location_longitude_gngga; // degrees converted from absolute
-  double location_latitude_gnrmc;  // degrees converted from absolute
-  double location_longitude_gnrmc; // degrees converted from absolute
-  
-  char location_latitude_gngga_str[56];  // degrees converted from absolute
-  char location_longitude_gngga_str[56]; // degrees converted from absolute
-  char location_latitude_gnrmc_str[56];  // degrees converted from absolute
-  char location_longitude_gnrmc_str[56]; // degrees converted from absolute
-
-  double latitude_meter        = 0.00000901; // one meter (tune)
-  double longitude_meter       = 0.00000899; // one meter (tune)
-  double latitude_mile         = latitude_meter  * 1609.34; // one mile
-  double longitude_mile        = longitude_meter * 1609.34; // one mile
-
-  bool   area_range_enabled_0  = true; //enable/diable standalone ranging (requires coordinte_convert)
-  double area_range_lat_0      = latitude_meter*1.5;  // specify latitude range
-  double area_range_lon_0      = longitude_meter*1.5; // specify longitude range
-  double location_range_distance_latitude[200];
-  double location_range_distance_longitude[200];
-  char   location_range_name[200][56];
-  double location_range_latitude[200];
-  double location_range_longitude[200];
-  double location_range_latitude_bool[200];
-  double location_range_longitude_bool[200];
-  char   temporary_io_range_bool[4];
-
   char satcom_sentence[1024];
-
-  bool coordinte_convert = true; // enable/diable standalone coordinate conversions
-  char coordinate_conversion_mode[10] = "GNGGA"; // choose a sentence that degrees/decimal coordinates will be created from
+  char satDataTag[10] = "$SATCOM";            // satcom sentence tag
+  char sat_time_stamp_string[56];             // datetime timestamp from satellite
+  char last_sat_time_stamp_str[56] = "00.00"; // record last time satellites were seen
+  double minutesLat;                          // used for converting absolute latitude and longitude
+  double minutesLong;                         // used for converting absolute latitude and longitude
+  double degreesLat;                          // used for converting absolute latitude and longitude
+  double degreesLong;                         // used for converting absolute latitude and longitude
+  double secondsLat;                          // used for converting absolute latitude and longitude
+  double secondsLong;                         // used for converting absolute latitude and longitude
+  double millisecondsLat;                     // used for converting absolute latitude and longitude
+  double millisecondsLong;                    // used for converting absolute latitude and longitude
+  double abs_latitude_gngga_0  = 0.0;         // absolute latitude from $ sentence
+  double abs_longitude_gngga_0 = 0.0;         // absolute longditude $ sentence
+  double abs_latitude_gnrmc_0  = 0.0;         // absolute latitude $ sentence
+  double abs_longitude_gnrmc_0 = 0.0;         // absolute longditude $ sentence
+  double temp_latitude_gngga;                 // degrees converted from absolute
+  double temp_longitude_gngga;                // degrees converted from absolute
+  double temp_latitude_gnrmc;                 // degrees converted from absolute
+  double temp_longitude_gnrmc;                // degrees converted from absolute
+  double location_latitude_gngga;             // degrees converted from absolute
+  double location_longitude_gngga;            // degrees converted from absolute
+  double location_latitude_gnrmc;             // degrees converted from absolute
+  double location_longitude_gnrmc;            // degrees converted from absolute
+  char location_latitude_gngga_str[56];       // degrees converted from absolute
+  char location_longitude_gngga_str[56];      // degrees converted from absolute
+  char location_latitude_gnrmc_str[56];       // degrees converted from absolute
+  char location_longitude_gnrmc_str[56];      // degrees converted from absolute
+  unsigned long satellite_count_gngga = 0;
+  double latitude_meter               = 0.00000901;                // one meter (tune)
+  double longitude_meter              = 0.00000899;                // one meter (tune)
+  double latitude_mile                = latitude_meter  * 1609.34; // one mile
+  double longitude_mile               = longitude_meter * 1609.34; // one mile
+  bool   area_range_enabled_0         = true;                      // enable/diable standalone ranging (requires coordinte_convert)
+  double area_range_lat_0             = latitude_meter*1.5;        // specify latitude range
+  double area_range_lon_0             = longitude_meter*1.5;       // specify longitude range
+  bool coordinte_convert              = true;                      // enable/diable standalone coordinate conversions
+  char coordinate_conversion_mode[10] = "GNGGA";                   // choose a sentence that degrees/decimal coordinates will be created from
 };
 SatDatatruct satData;
 
@@ -773,10 +746,10 @@ void extrapulatedSatData() {
 
   satData.satellite_count_gngga = atoi(gnggaData.satellite_count_gngga);
   if (satData.satellite_count_gngga > 0) {
-    memset(satData.last_sat_seen_time_stamp_string, 0, 56);
-    strcpy(satData.last_sat_seen_time_stamp_string, satData.sat_time_stamp_string);
+    memset(satData.last_sat_time_stamp_str, 0, 56);
+    strcpy(satData.last_sat_time_stamp_str, satData.sat_time_stamp_string);
   }
-  strcat(satData.satcom_sentence, satData.last_sat_seen_time_stamp_string);
+  strcat(satData.satcom_sentence, satData.last_sat_time_stamp_str);
   strcat(satData.satcom_sentence, ",");
 
   // --------------------------------------------------------------------------------------------------------------------------
@@ -873,7 +846,7 @@ void SSD_Display_5() {
   display_5.clear();
   display_5.drawString(display_5.getWidth()/2, 0, "SATCOM");
   display_5.drawString(display_5.getWidth()/2, 14, satData.sat_time_stamp_string);
-  display_5.drawString(display_5.getWidth()/2, 24, String(satData.last_sat_seen_time_stamp_string));
+  display_5.drawString(display_5.getWidth()/2, 24, String(satData.last_sat_time_stamp_str));
   display_5.drawString(display_5.getWidth()/2, 44, String(gnggaData.latitude_hemisphere) + " " + satData.location_latitude_gngga_str);
   display_5.drawString(display_5.getWidth()/2, 54, String(gnggaData.longitude_hemisphere) + " " + satData.location_longitude_gngga_str);
   display_5.display();
@@ -917,18 +890,6 @@ void SSD_Display_3_Splash_0() {
 //                                                                                                                        SETUP
 
 void setup() {
-
-  // TEST RANGE: uncomment to test rangeing
-  strcpy(satData.location_range_name[0], "location_0");
-  satData.location_range_latitude[0]  =  40.68951821629331;
-  satData.location_range_longitude[0] = -74.04483714358342;
-  satData.location_range_distance_latitude[0] = satData.latitude_meter*1;  // specify latitude range
-  satData.location_range_distance_longitude[0] = satData.longitude_meter*1; // specify longitude range
-  strcpy(satData.location_range_name[1], "location_1");
-  satData.location_range_latitude[1] =  40.68951821629331;
-  satData.location_range_longitude[1] = -74.04483714358342;
-  satData.location_range_distance_latitude[1] =  satData.latitude_meter*100;  // specify latitude range
-  satData.location_range_distance_longitude[1] = satData.latitude_meter*100; // specify longitude range
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                               SETUP SERIAL
