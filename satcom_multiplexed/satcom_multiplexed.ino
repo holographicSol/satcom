@@ -1716,7 +1716,7 @@ RelayStruct relayData;
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                            FUNCTION: CHECK RANGE CALCULATION
+//                                                                                       MATRIX CHECKS: CHECK RANGE CALCULATION
 
 // calculate if x1 in range of specified x0 +- ( specified range / 2 )
 bool in_range_check(double n0, double n1, double r) {
@@ -1725,7 +1725,7 @@ bool in_range_check(double n0, double n1, double r) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                        FUNCTION: COORDINATES
+//                                                                                                   MATRIX CHECKS: COORDINATES
 
 bool in_ranges_check(char * Fn0, char * Fn1, int Ri, int Fi) {
   Serial.println("[CHECKING] in_ranges_check");
@@ -1735,7 +1735,7 @@ bool in_ranges_check(char * Fn0, char * Fn1, int Ri, int Fi) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                      RELAY FUNCTIONS: CHECKS
+//                                                                                                    MATRIX CHECKS: PRIMITIVES
 
 bool check_over(char * Fn, int Ri, int Fi) {
   Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]));
@@ -1763,7 +1763,7 @@ bool check_in_range(char * Fn, int Ri, int Fi) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                 RELAY FUNCTIONS: HEMISPHERE
+//                                                                                                          CHECKS: HEMISPHERES
 
 bool hemisphere_gngga_N(int Ri, int Fi) {
   Serial.println("[CHECKING] hemisphere_gngga_N");
