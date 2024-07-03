@@ -577,8 +577,8 @@ void GPATT() {
 //                                                                                                              undocumented.
 //                                                                                       column 23 'N' value not in $DEBUG and is outside scope
 //                                                                                       of documented $DESBI. so the merging of $DEBUG and
-//                                                                                       $DESBI is still yet unclear in the form of this
-//                                                                                       special sentence; undocumented sentence.
+//                                                                                       $DESBI is still yet unclear as to the consistency of this
+//                                                                                       special sentence.
 
 // i am currently in contact with the manufacturer to assertain the missing data on DESBI protocol. they have provided me with a datasheet
 // which helps and there is still some communication yet to come because the datasheet has missing elements in its table for DESBI and
