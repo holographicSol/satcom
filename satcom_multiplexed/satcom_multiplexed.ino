@@ -557,7 +557,7 @@ void GPATT() {
     Serial.println("[gpattData.time_save_num] "    + String(gpattData.time_save_num));
     Serial.println("[gpattData.fix_angle_flag] "   + String(gpattData.fix_angle_flag));
     Serial.println("[gpattData.ang_lock_flag] "    + String(gpattData.ang_lock_flag));
-    Serial.println("[gpattData.extensible] "       + String(gpattData.extensible));
+    Serial.println("[gpattData.extensible] "       + String(gpattData.extensible)); // intentionally unpopulated
     Serial.println("[gpattData.check_sum] "        + String(gpattData.check_sum));
   }
 }
@@ -565,45 +565,58 @@ void GPATT() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   DESBI DATA
 // final sentence still in development: desbi
-//    0     1   2   3   4       5       6   7    8    9  10  11  12  13   14 15   16 17    18  19   20      21   22  23  24  25 26   27   28
+// according to the manufacturer, this sentence is a special version as in this sentence is a blend of $DEBUG and $DESBI. 9-10
+// belong to $DEBUG (ubi_a_set & ubi_b_set) while 18 appears to be ins_flag from $DEBUG, leaving 17 unclear as well as anything after 19.
+
+//    1     2   3   4   5       6       7   8    9   10  11  12  13   14 15  16  17  18    19  20   21      22   23  24  25  26  27 28   29
 // $DESBI,  1,  1,  0,  0.000,  0.000,  5,  2,  55,  10,  0,  0,  0,  0,  0,  0,  0,  0,   48,  0,  0*6B
 // $DESBI,  4,  1,  0,  0.00 ,  0.00,   0,  0,   0,   0,  0,  0,  0,  0,  0,  0,  0,  0,    0,  0,  0,    0.00,  N,  0,  0,  0,  0,  0,  0*0C
 // $DESBI,  4,  1,  0,  0.00,   0.00,  19,  2,  55,   0,  0,  0,  0,  0,  0,  0,  0,  0,  243,  0,  1,    0.00,  N,  0,  0,  27, 0,  0,  0*37
+//                                                                                        |                                                 |
+//                                                                                        |_________________________________________________|
+//                                                                                                              undocumented.
+//                                                                                       column 23 'N' value not in $DEBUG and is outside scope
+//                                                                                       of documented $DESBI. so the merging of $DEBUG and
+//                                                                                       $DESBI is still yet unclear in the form of this
+//                                                                                       special sentence; undocumented sentence.
+
 // i am currently in contact with the manufacturer to assertain the missing data on DESBI protocol. they have provided me with a datasheet
 // which helps although there is still some communication yet to come because the datasheet has missing elements in its table for DESBI and
 // this struct as the others, must be absolutely correct. once clarification is received then desbi data can be parsed and plugged into the matrix
 // with everything else.
 
 struct DESBIStruct {
-  char tag[56];                     // <0> Log header
-  char rapid_acceleration[56];      // <1> rapid acceleration
-  char rapid_deceleration[56];      // <2> rapid deceleration
-  char sharp_right_lane_change[56]; // <3> sharp right lane change
-  char sharp_left_lane_change[56];  // <4> sharp left lane change
-  char horizontal_impact[56];       // <5> horizontal impact
-  char vehicle_stability[56];       // <6> vehicle stability
-  char vehicle_flip[56];            // <7> vehicle flip
-  char abnormal_posture[56];        // <8> abnormal posture
-  char fill_9[56];                  // <9> ?
-  char fill_10[56];                 // <10> ?
-  char normal_acceleration[56];     // <11> normal acceleration
-  char normal_deceleration[56];     // <12> normal deceleration
-  char sharp_right_turn[56];        // <13> sharp right turn
-  char sharp_left_turn[56];         // <14> sharp left turn
-  char right_normal_turn[56];       // <15> right normal turn
-  char left_normal_turn[56];        // <16> left normal turn
-  char fill_17[56];                 // <17> ?
-  char fill_18[56];                 // <18> ?
-  char bumpy_road[56];              // <19> bumpy road
-  char fill_20[56];                 // <20> ?
-  char fill_21[56];                 // <21> ?
-  char fill_22[56];                 // <22> ?
-  char fill_23[56];                 // <23> ?
-  char fill_24[56];                 // <24> ?
-  char fill_25[56];                 // <25> ?
-  char fill_26[56];                 // <26> ?
-  char fill_27[56];                 // <27> ?
-  char fill_28[56];                 // <28> ?
+  char tag[56];                     // <1> Log header
+  char rapid_acceleration[56];      // <2> rapid acceleration
+  char rapid_deceleration[56];      // <3> rapid deceleration
+  char sharp_right_lane_change[56]; // <4> sharp right lane change
+  char sharp_left_lane_change[56];  // <5> sharp left lane change
+  char horizontal_impact[56];       // <6> horizontal impact
+  
+  char vehicle_stability[56];       // <7> vehicle stability
+  char vehicle_flip[56];            // <8> vehicle flip
+  char abnormal_posture[56];        // <9> abnormal posture
+  char ubi_a_set[56];               // <10> special version uses data from $DEBUG
+  char ubi_b_set[56];               // <11> special version uses data from $DEBUG
+  
+  char normal_acceleration[56];     // <12> normal acceleration
+  char normal_deceleration[56];     // <13> normal deceleration
+  char sharp_right_turn[56];        // <14> sharp right turn
+  char sharp_left_turn[56];         // <15> sharp left turn
+  char right_normal_turn[56];       // <16> right normal turn
+  char left_normal_turn[56];        // <17> left normal turn
+  char fill_17[56];                 // <18> ?
+  char ins_flag[56];                // <19> special version uses data from $DEBUG
+  char bumpy_road[56];              // <20> bumpy road
+  char fill_20[56];                 // <21> ?
+  char fill_21[56];                 // <22> ?
+  char fill_22[56];                 // <23> ?
+  char fill_23[56];                 // <24> ?
+  char fill_24[56];                 // <25> ?
+  char fill_25[56];                 // <26> ?
+  char fill_26[56];                 // <27> ?
+  char fill_27[56];                 // <28> ?
+  char fill_28[56];                 // <29> ?
   char temporary_data[56];
 };
 DESBIStruct desbiData;
@@ -772,7 +785,7 @@ void ERROR() {
     Serial.println("[errorData.gset_flag] "   + String(errorData.gset_flag));
     Serial.println("[errorData.sset_flag] "   + String(errorData.sset_flag));
     Serial.println("[errorData.customize_0] " + String(errorData.customize_0));
-    Serial.println("[errorData.customize_1] " + String(errorData.customize_1));
+    Serial.println("[errorData.customize_1] " + String(errorData.customize_1)); // intentionally unpopulated
     Serial.println("[errorData.check_sum] "   + String(errorData.check_sum));
   }
 }
