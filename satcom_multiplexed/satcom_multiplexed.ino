@@ -1581,20 +1581,20 @@ struct RelayStruct {
   char status_speed_equal[56]              = "status_speed_equal";
   char status_speed_in_range[56]           = "status_speed_in_range";
 
-  char acc_X_speed_over[56]               = "acc_X_speed_over";
-  char acc_X_speed_under[56]              = "acc_X_speed_under";
-  char acc_X_speed_equal[56]              = "acc_X_speed_equal";
-  char acc_X_speed_in_range[56]           = "acc_X_speed_in_range";
+  char acc_X_speed_over[56]                = "acc_X_speed_over";
+  char acc_X_speed_under[56]               = "acc_X_speed_under";
+  char acc_X_speed_equal[56]               = "acc_X_speed_equal";
+  char acc_X_speed_in_range[56]            = "acc_X_speed_in_range";
 
-  char acc_Y_speed_over[56]               = "acc_Y_speed_over";
-  char acc_Y_speed_under[56]              = "acc_Y_speed_under";
-  char acc_Y_speed_equal[56]              = "acc_Y_speed_equal";
-  char acc_Y_speed_in_range[56]           = "acc_Y_speed_in_range";
+  char acc_Y_speed_over[56]                = "acc_Y_speed_over";
+  char acc_Y_speed_under[56]               = "acc_Y_speed_under";
+  char acc_Y_speed_equal[56]               = "acc_Y_speed_equal";
+  char acc_Y_speed_in_range[56]            = "acc_Y_speed_in_range";
 
-  char acc_Z_speed_over[56]               = "acc_Z_speed_over";
-  char acc_Z_speed_under[56]              = "acc_Z_speed_under";
-  char acc_Z_speed_equal[56]              = "acc_Z_speed_equal";
-  char acc_Z_speed_in_range[56]           = "acc_Z_speed_in_range";
+  char acc_Z_speed_over[56]                = "acc_Z_speed_over";
+  char acc_Z_speed_under[56]               = "acc_Z_speed_under";
+  char acc_Z_speed_equal[56]               = "acc_Z_speed_equal";
+  char acc_Z_speed_in_range[56]            = "acc_Z_speed_in_range";
 
   char gyro_X_speed_over[56]               = "gyro_X_speed_over";
   char gyro_X_speed_under[56]              = "gyro_X_speed_under";
@@ -1631,86 +1631,86 @@ struct RelayStruct {
   char utc_time_error_equal[56]            = "utc_time_error_equal";
   char utc_time_error_in_range[56]         = "utc_time_error_in_range";
 
-  char code_flag_error_over[56]             = "code_flag_error_over";
-  char code_flag_error_under[56]            = "code_flag_error_under";
-  char code_flag_error_equal[56]            = "code_flag_error_equal";
-  char code_flag_error_in_range[56]         = "code_flag_error_in_range";
+  char code_flag_error_over[56]            = "code_flag_error_over";
+  char code_flag_error_under[56]           = "code_flag_error_under";
+  char code_flag_error_equal[56]           = "code_flag_error_equal";
+  char code_flag_error_in_range[56]        = "code_flag_error_in_range";
 
-  char gset_flag_error_equal[56]            = "gset_flag_error_equal";
-  char sset_flag_error_equal[56]            = "sset_flag_error_equal";
+  char gset_flag_error_equal[56]           = "gset_flag_error_equal";
+  char sset_flag_error_equal[56]           = "sset_flag_error_equal";
 
-  char coll_T_heading_debug_over[56]        = "coll_T_heading_debug_over";
-  char coll_T_heading_debug_under[56]       = "coll_T_heading_debug_under";
-  char coll_T_heading_debug_equal[56]       = "coll_T_heading_debug_equal";
-  char coll_T_heading_debug_in_range[56]    = "coll_T_heading_debug_in_range";
+  char coll_T_heading_debug_over[56]       = "coll_T_heading_debug_over";
+  char coll_T_heading_debug_under[56]      = "coll_T_heading_debug_under";
+  char coll_T_heading_debug_equal[56]      = "coll_T_heading_debug_equal";
+  char coll_T_heading_debug_in_range[56]   = "coll_T_heading_debug_in_range";
 
-  char coll_T_data_debug_over[56]           = "coll_T_data_debug_over";
-  char coll_T_data_debug_under[56]          = "coll_T_data_debug_under";
-  char coll_T_data_debug_equal[56]          = "coll_T_data_debug_equal";
-  char coll_T_data_debug_in_range[56]       = "coll_T_data_debug_in_range";
+  char coll_T_data_debug_over[56]          = "coll_T_data_debug_over";
+  char coll_T_data_debug_under[56]         = "coll_T_data_debug_under";
+  char coll_T_data_debug_equal[56]         = "coll_T_data_debug_equal";
+  char coll_T_data_debug_in_range[56]      = "coll_T_data_debug_in_range";
 
-  char ubi_valid_debug_equal[56]            = "ubi_valid_debug_equal";
+  char ubi_valid_debug_equal[56]           = "ubi_valid_debug_equal";
 
-  char ins_flag_debug_over[56]              = "ins_flag_debug_over";
-  char ins_flag_debug_under[56]             = "ins_flag_debug_under";
-  char ins_flag_debug_equal[56]             = "ins_flag_debug_equal";
-  char ins_flag_debug_in_range[56]          = "ins_flag_debug_in_range";
+  char ins_flag_debug_over[56]             = "ins_flag_debug_over";
+  char ins_flag_debug_under[56]            = "ins_flag_debug_under";
+  char ins_flag_debug_equal[56]            = "ins_flag_debug_equal";
+  char ins_flag_debug_in_range[56]         = "ins_flag_debug_in_range";
 
-  char car_speed_debug_over[56]             = "car_speed_debug_over";
-  char car_speed_debug_under[56]            = "car_speed_debug_under";
-  char car_speed_debug_equal[56]            = "car_speed_debug_equal";
-  char car_speed_debug_in_range[56]         = "car_speed_debug_in_range";
+  char car_speed_debug_over[56]            = "car_speed_debug_over";
+  char car_speed_debug_under[56]           = "car_speed_debug_under";
+  char car_speed_debug_equal[56]           = "car_speed_debug_equal";
+  char car_speed_debug_in_range[56]        = "car_speed_debug_in_range";
 
-  char yaw_angle_debug_over[56]             = "yaw_angle_debug_over";
-  char yaw_angle_debug_under[56]            = "yaw_angle_debug_under";
-  char yaw_angle_debug_equal[56]            = "yaw_angle_debug_equal";
-  char yaw_angle_debug_in_range[56]         = "yaw_angle_debug_in_range";
+  char yaw_angle_debug_over[56]            = "yaw_angle_debug_over";
+  char yaw_angle_debug_under[56]           = "yaw_angle_debug_under";
+  char yaw_angle_debug_equal[56]           = "yaw_angle_debug_equal";
+  char yaw_angle_debug_in_range[56]        = "yaw_angle_debug_in_range";
 
-  char roll_angle_debug_over[56]            = "roll_angle_debug_over";
-  char roll_angle_debug_under[56]           = "roll_angle_debug_under";
-  char roll_angle_debug_equal[56]           = "roll_angle_debug_equal";
-  char roll_angle_debug_in_range[56]        = "roll_angle_debug_in_range";
+  char roll_angle_debug_over[56]           = "roll_angle_debug_over";
+  char roll_angle_debug_under[56]          = "roll_angle_debug_under";
+  char roll_angle_debug_equal[56]          = "roll_angle_debug_equal";
+  char roll_angle_debug_in_range[56]       = "roll_angle_debug_in_range";
 
-  char pitch_angle_debug_over[56]           = "pitch_angle_debug_over";
-  char pitch_angle_debug_under[56]          = "pitch_angle_debug_under";
-  char pitch_angle_debug_equal[56]          = "pitch_angle_debug_equal";
-  char pitch_angle_debug_in_range[56]       = "pitch_angle_debug_in_range";
+  char pitch_angle_debug_over[56]          = "pitch_angle_debug_over";
+  char pitch_angle_debug_under[56]         = "pitch_angle_debug_under";
+  char pitch_angle_debug_equal[56]         = "pitch_angle_debug_equal";
+  char pitch_angle_debug_in_range[56]      = "pitch_angle_debug_in_range";
 
-  char ang_dget_flag_debug_equal[56]        = "ang_dget_flag_debug_equal";
-  char ins_run_flag_debug_equal[56]         = "ins_run_flag_debug_equal";
-  char fix_roll_flag_debug_equal[56]        = "fix_roll_flag_debug_equal";
-  char fix_pitch_flag_debug_equal[56]       = "fix_pitch_flag_debug_equal";
-  char ubi_kind_flag_debug_equal[56]        = "ubi_kind_flag_debug_equal";
+  char ang_dget_flag_debug_equal[56]       = "ang_dget_flag_debug_equal";
+  char ins_run_flag_debug_equal[56]        = "ins_run_flag_debug_equal";
+  char fix_roll_flag_debug_equal[56]       = "fix_roll_flag_debug_equal";
+  char fix_pitch_flag_debug_equal[56]      = "fix_pitch_flag_debug_equal";
+  char ubi_kind_flag_debug_equal[56]       = "ubi_kind_flag_debug_equal";
   
-  char ubi_on_flag_debug_over[56]           = "ubi_on_flag_debug_over";
-  char ubi_on_flag_debug_under[56]          = "ubi_on_flag_debug_under";
-  char ubi_on_flag_debug_equal[56]          = "ubi_on_flag_debug_equal";
-  char ubi_on_flag_debug_in_range[56]       = "ubi_on_flag_debug_in_range";
+  char ubi_on_flag_debug_over[56]          = "ubi_on_flag_debug_over";
+  char ubi_on_flag_debug_under[56]         = "ubi_on_flag_debug_under";
+  char ubi_on_flag_debug_equal[56]         = "ubi_on_flag_debug_equal";
+  char ubi_on_flag_debug_in_range[56]      = "ubi_on_flag_debug_in_range";
 
-  char ubi_a_set_debug_over[56]             = "ubi_a_set_debug_over";
-  char ubi_a_set_debug_under[56]            = "ubi_a_set_debug_under";
-  char ubi_a_set_debug_equal[56]            = "ubi_a_set_debug_equal";
-  char ubi_a_set_debug_in_range[56]         = "ubi_a_set_debug_in_range";
+  char ubi_a_set_debug_over[56]            = "ubi_a_set_debug_over";
+  char ubi_a_set_debug_under[56]           = "ubi_a_set_debug_under";
+  char ubi_a_set_debug_equal[56]           = "ubi_a_set_debug_equal";
+  char ubi_a_set_debug_in_range[56]        = "ubi_a_set_debug_in_range";
 
-  char ubi_b_set_debug_over[56]             = "ubi_b_set_debug_over";
-  char ubi_b_set_debug_under[56]            = "ubi_b_set_debug_under";
-  char ubi_b_set_debug_equal[56]            = "ubi_b_set_debug_equal";
-  char ubi_b_set_debug_in_range[56]         = "ubi_b_set_debug_in_range";
+  char ubi_b_set_debug_over[56]            = "ubi_b_set_debug_over";
+  char ubi_b_set_debug_under[56]           = "ubi_b_set_debug_under";
+  char ubi_b_set_debug_equal[56]           = "ubi_b_set_debug_equal";
+  char ubi_b_set_debug_in_range[56]        = "ubi_b_set_debug_in_range";
 
-  char acc_X_data_debug_over[56]            = "acc_X_data_debug_over";
-  char acc_X_data_debug_under[56]           = "acc_X_data_debug_under";
-  char acc_X_data_debug_equal[56]           = "acc_X_data_debug_equal";
-  char acc_X_data_debug_in_range[56]        = "acc_X_data_debug_in_range";
+  char acc_X_data_debug_over[56]           = "acc_X_data_debug_over";
+  char acc_X_data_debug_under[56]          = "acc_X_data_debug_under";
+  char acc_X_data_debug_equal[56]          = "acc_X_data_debug_equal";
+  char acc_X_data_debug_in_range[56]       = "acc_X_data_debug_in_range";
 
-  char acc_Y_data_debug_over[56]            = "acc_Y_data_debug_over";
-  char acc_Y_data_debug_under[56]           = "acc_Y_data_debug_under";
-  char acc_Y_data_debug_equal[56]           = "acc_Y_data_debug_equal";
-  char acc_Y_data_debug_in_range[56]        = "acc_Y_data_debug_in_range";
+  char acc_Y_data_debug_over[56]           = "acc_Y_data_debug_over";
+  char acc_Y_data_debug_under[56]          = "acc_Y_data_debug_under";
+  char acc_Y_data_debug_equal[56]          = "acc_Y_data_debug_equal";
+  char acc_Y_data_debug_in_range[56]       = "acc_Y_data_debug_in_range";
 
-  char gyro_Z_data_debug_over[56]           = "gyro_Z_data_debug_over";
-  char gyro_Z_data_debug_under[56]          = "gyro_Z_data_debug_under";
-  char gyro_Z_data_debug_equal[56]          = "gyro_Z_data_debug_equal";
-  char gyro_Z_data_debug_in_range[56]       = "gyro_Z_data_debug_in_range";
+  char gyro_Z_data_debug_over[56]          = "gyro_Z_data_debug_over";
+  char gyro_Z_data_debug_under[56]         = "gyro_Z_data_debug_under";
+  char gyro_Z_data_debug_equal[56]         = "gyro_Z_data_debug_equal";
+  char gyro_Z_data_debug_in_range[56]      = "gyro_Z_data_debug_in_range";
 };
 RelayStruct relayData;
 
