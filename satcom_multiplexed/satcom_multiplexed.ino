@@ -1625,8 +1625,22 @@ struct RelayStruct {
   char ubi_state_value_speed_equal[56]     = "ubi_state_value_speed_equal";
   char ubi_state_value_speed_in_range[56]  = "ubi_state_value_speed_in_range";
 
+  char utc_time_error_over[56]             = "utc_time_error_over";
+  char utc_time_error_under[56]            = "utc_time_error_under";
+  char utc_time_error_equal[56]            = "utc_time_error_equal";
+  char utc_time_error_in_range[56]         = "utc_time_error_in_range";
+
+  char code_flag_error_over[56]             = "code_flag_error_over";
+  char code_flag_error_under[56]            = "code_flag_error_under";
+  char code_flag_error_equal[56]            = "code_flag_error_equal";
+  char code_flag_error_in_range[56]         = "code_flag_error_in_range";
+
+  char gset_flag_error_equal[56]            = "gset_flag_error_equal";
+  char sset_flag_error_equal[56]            = "sset_flag_error_equal";
+
   /*
   */
+
 };
 RelayStruct relayData;
 
@@ -2128,6 +2142,39 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_speed_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(speedData.utc_time, Ri, Fi);}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                        SYSTEMS CHECKS: ERROR
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gset_flag_error_equal) == 0) {tmp_matrix[0][Fi] = check_over(errorData.gset_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.sset_flag_error_equal) == 0) {tmp_matrix[0][Fi] = check_under(errorData.sset_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.code_flag_error_over) == 0) {tmp_matrix[0][Fi] = check_over(errorData.code_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.code_flag_error_under) == 0) {tmp_matrix[0][Fi] = check_under(errorData.code_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.code_flag_error_equal) == 0) {tmp_matrix[0][Fi] = check_equal(errorData.code_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.code_flag_error_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(errorData.code_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_error_over) == 0) {tmp_matrix[0][Fi] = check_over(errorData.utc, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_error_under) == 0) {tmp_matrix[0][Fi] = check_under(errorData.utc, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_error_equal) == 0) {tmp_matrix[0][Fi] = check_equal(errorData.utc, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_error_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(errorData.utc, Ri, Fi);}
 
         /*
         the above checks are the 'basic' checks. with that out the way, we can now build more 'advanced' checks/calculations, using the same format.
