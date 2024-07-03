@@ -1564,6 +1564,69 @@ struct RelayStruct {
   char ground_speed_gnrmc_under[56]        = "ground_speed_gnrmc_under";
   char ground_speed_gnrmc_equal[56]        = "ground_speed_gnrmc_equal";
   char ground_speed_gnrmc_in_range[56]     = "ground_speed_gnrmc_in_range";
+
+  char utc_time_speed_over[56]             = "utc_time_speed_over";
+  char utc_time_speed_under[56]            = "utc_time_speed_under";
+  char utc_time_speed_equal[56]            = "utc_time_speed_equal";
+  char utc_time_speed_in_range[56]         = "utc_time_speed_in_range";
+
+  char ground_speed_speed_over[56]         = "ground_speed_speed_over";
+  char ground_speed_speed_under[56]        = "ground_speed_speed_under";
+  char ground_speed_speed_equal[56]        = "ground_speed_speed_equal";
+  char ground_speed_speed_in_range[56]     = "ground_speed_speed_in_range";
+
+  char status_speed_over[56]               = "status_speed_over";
+  char status_speed_under[56]              = "status_speed_under";
+  char status_speed_equal[56]              = "status_speed_equal";
+  char status_speed_in_range[56]           = "status_speed_in_range";
+
+  char acc_X_speed_over[56]               = "acc_X_speed_over";
+  char acc_X_speed_under[56]              = "acc_X_speed_under";
+  char acc_X_speed_equal[56]              = "acc_X_speed_equal";
+  char acc_X_speed_in_range[56]           = "acc_X_speed_in_range";
+
+  char acc_Y_speed_over[56]               = "acc_Y_speed_over";
+  char acc_Y_speed_under[56]              = "acc_Y_speed_under";
+  char acc_Y_speed_equal[56]              = "acc_Y_speed_equal";
+  char acc_Y_speed_in_range[56]           = "acc_Y_speed_in_range";
+
+  char acc_Z_speed_over[56]               = "acc_Z_speed_over";
+  char acc_Z_speed_under[56]              = "acc_Z_speed_under";
+  char acc_Z_speed_equal[56]              = "acc_Z_speed_equal";
+  char acc_Z_speed_in_range[56]           = "acc_Z_speed_in_range";
+
+  char gyro_X_speed_over[56]               = "gyro_X_speed_over";
+  char gyro_X_speed_under[56]              = "gyro_X_speed_under";
+  char gyro_X_speed_equal[56]              = "gyro_X_speed_equal";
+  char gyro_X_speed_in_range[56]           = "gyro_X_speed_in_range";
+
+  char gyro_Y_speed_over[56]               = "gyro_Y_speed_over";
+  char gyro_Y_speed_under[56]              = "gyro_Y_speed_under";
+  char gyro_Y_speed_equal[56]              = "gyro_Y_speed_equal";
+  char gyro_Y_speed_in_range[56]           = "gyro_Y_speed_in_range";
+
+  char gyro_Z_speed_over[56]               = "gyro_Z_speed_over";
+  char gyro_Z_speed_under[56]              = "gyro_Z_speed_under";
+  char gyro_Z_speed_equal[56]              = "gyro_Z_speed_equal";
+  char gyro_Z_speed_in_range[56]           = "gyro_Z_speed_in_range";
+
+  char ubi_state_flag_speed_over[56]       = "ubi_state_flag_speed_over";
+  char ubi_state_flag_speed_under[56]      = "ubi_state_flag_speed_under";
+  char ubi_state_flag_speed_equal[56]      = "ubi_state_flag_speed_equal";
+  char ubi_state_flag_speed_in_range[56]   = "gyro_Z_speed_in_range";
+
+  char ubi_state_kind_speed_over[56]       = "ubi_state_kind_speed_over";
+  char ubi_state_kind_speed_under[56]      = "ubi_state_kind_speed_under";
+  char ubi_state_kind_speed_equal[56]      = "ubi_state_kind_speed_equal";
+  char ubi_state_kind_speed_in_range[56]   = "ubi_state_kind_speed_in_range";
+
+  char ubi_state_value_speed_over[56]      = "ubi_state_value_speed_over";
+  char ubi_state_value_speed_under[56]     = "ubi_state_value_speed_under";
+  char ubi_state_value_speed_equal[56]     = "ubi_state_value_speed_equal";
+  char ubi_state_value_speed_in_range[56]  = "ubi_state_value_speed_in_range";
+
+  /*
+  */
 };
 RelayStruct relayData;
 
@@ -1919,8 +1982,156 @@ void systems_Check() {
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_angle_flag_gpatt_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gpattData.fix_angle_flag, Ri, Fi);}
 
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                        SYSTEMS CHECKS: SPEED
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_over) == 0) {tmp_matrix[0][Fi] = check_over(speedData.ubi_state_value, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_under) == 0) {tmp_matrix[0][Fi] = check_under(speedData.ubi_state_value, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_equal) == 0) {tmp_matrix[0][Fi] = check_equal(speedData.ubi_state_value, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(speedData.ubi_state_value, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_kind_speed_over) == 0) {tmp_matrix[0][Fi] = check_over(speedData.ubi_state_kind, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_kind_speed_under) == 0) {tmp_matrix[0][Fi] = check_under(speedData.ubi_state_kind, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_kind_speed_equal) == 0) {tmp_matrix[0][Fi] = check_equal(speedData.ubi_state_kind, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_kind_speed_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(speedData.ubi_state_kind, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_flag_speed_over) == 0) {tmp_matrix[0][Fi] = check_over(speedData.ubi_state_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_flag_speed_under) == 0) {tmp_matrix[0][Fi] = check_under(speedData.ubi_state_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_flag_speed_equal) == 0) {tmp_matrix[0][Fi] = check_equal(speedData.ubi_state_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_flag_speed_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(speedData.ubi_state_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_speed_over) == 0) {tmp_matrix[0][Fi] = check_over(speedData.gyro_Z, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_speed_under) == 0) {tmp_matrix[0][Fi] = check_under(speedData.gyro_Z, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_speed_equal) == 0) {tmp_matrix[0][Fi] = check_equal(speedData.gyro_Z, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_speed_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(speedData.gyro_Z, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Y_speed_over) == 0) {tmp_matrix[0][Fi] = check_over(speedData.gyro_Y, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Y_speed_under) == 0) {tmp_matrix[0][Fi] = check_under(speedData.gyro_Y, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Y_speed_equal) == 0) {tmp_matrix[0][Fi] = check_equal(speedData.gyro_Y, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Y_speed_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(speedData.gyro_Y, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_X_speed_over) == 0) {tmp_matrix[0][Fi] = check_over(speedData.gyro_X, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_X_speed_under) == 0) {tmp_matrix[0][Fi] = check_under(speedData.gyro_X, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_X_speed_equal) == 0) {tmp_matrix[0][Fi] = check_equal(speedData.gyro_X, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_X_speed_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(speedData.gyro_X, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Z_speed_over) == 0) {tmp_matrix[0][Fi] = check_over(speedData.acc_Z, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Z_speed_under) == 0) {tmp_matrix[0][Fi] = check_under(speedData.acc_Z, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Z_speed_equal) == 0) {tmp_matrix[0][Fi] = check_equal(speedData.acc_Z, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Z_speed_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(speedData.acc_Z, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_speed_over) == 0) {tmp_matrix[0][Fi] = check_over(speedData.acc_Y, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_speed_under) == 0) {tmp_matrix[0][Fi] = check_under(speedData.acc_Y, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_speed_equal) == 0) {tmp_matrix[0][Fi] = check_equal(speedData.acc_Y, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_speed_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(speedData.acc_Y, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_speed_over) == 0) {tmp_matrix[0][Fi] = check_over(speedData.acc_X, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_speed_under) == 0) {tmp_matrix[0][Fi] = check_under(speedData.acc_X, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_speed_equal) == 0) {tmp_matrix[0][Fi] = check_equal(speedData.acc_X, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_speed_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(speedData.acc_X, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.status_speed_over) == 0) {tmp_matrix[0][Fi] = check_over(speedData.status, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.status_speed_under) == 0) {tmp_matrix[0][Fi] = check_under(speedData.status, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.status_speed_equal) == 0) {tmp_matrix[0][Fi] = check_equal(speedData.status, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.status_speed_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(speedData.status, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_speed_over) == 0) {tmp_matrix[0][Fi] = check_over(speedData.speed, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_speed_under) == 0) {tmp_matrix[0][Fi] = check_under(speedData.speed, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_speed_equal) == 0) {tmp_matrix[0][Fi] = check_equal(speedData.speed, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_speed_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(speedData.speed, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_speed_over) == 0) {tmp_matrix[0][Fi] = check_over(speedData.utc_time, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_speed_under) == 0) {tmp_matrix[0][Fi] = check_under(speedData.utc_time, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_speed_equal) == 0) {tmp_matrix[0][Fi] = check_equal(speedData.utc_time, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_speed_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(speedData.utc_time, Ri, Fi);}
+
         /*
         the above checks are the 'basic' checks. with that out the way, we can now build more 'advanced' checks/calculations, using the same format.
+        a way to make this more efficient would also be as preferrable as the degree to which we can currently formulate compund expressions. 
         */
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
