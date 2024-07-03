@@ -78,6 +78,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                   The control panel should provide direct access to the various matrices, allowing for the system
                     to be anything from a time keeping device to a complex autonomous flight control system, turning
                         on/off peripheral systems forming a central part of a larger system as a whole.
+          Short of Inertial Navigation System that does not require trining from satellites, this is practically a UAP.
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
