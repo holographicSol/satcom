@@ -2132,6 +2132,7 @@ void systems_Check() {
         /*
         the above checks are the 'basic' checks. with that out the way, we can now build more 'advanced' checks/calculations, using the same format.
         a way to make this more efficient would also be as preferrable as the degree to which we can currently formulate compund expressions via the matrices and matrix switch.
+        if the data/system is critical then this all needs to happen as fast as possible. 
         */
 
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
