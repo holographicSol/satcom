@@ -581,7 +581,7 @@ void GPATT() {
 //                                                                                       special sentence; undocumented sentence.
 
 // i am currently in contact with the manufacturer to assertain the missing data on DESBI protocol. they have provided me with a datasheet
-// which helps although there is still some communication yet to come because the datasheet has missing elements in its table for DESBI and
+// which helps and there is still some communication yet to come because the datasheet has missing elements in its table for DESBI and
 // this struct as the others, must be absolutely correct. once clarification is received then desbi data can be parsed and plugged into the matrix
 // with everything else.
 
