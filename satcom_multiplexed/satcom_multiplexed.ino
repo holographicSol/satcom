@@ -1285,6 +1285,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$DESBI", 6) == 0) {
       Serial.print(""); Serial.println(serialData.BUFFER);
+      // awaiting length checks and clarification: wait for clarification, take a ride with the laptop
+      // DESBI();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1292,7 +1294,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$SPEED", 6) == 0) {
       Serial.print(""); Serial.println(serialData.BUFFER);
-      SPEED();
+      // awaiting length checks: take a ride with the laptop
+      // SPEED();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1300,7 +1303,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$ERROR", 6) == 0) {
       Serial.print(""); Serial.println(serialData.BUFFER);
-      ERROR();
+      // awaiting length checks: take a ride with the laptop
+      // ERROR();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1308,7 +1312,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$DEBUG", 6) == 0) {
       Serial.print(""); Serial.println(serialData.BUFFER);
-      DEBUG();
+      // awaiting length checks: take a ride with the laptop
+      // DEBUG();
     }
   }
 }
