@@ -1292,6 +1292,7 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$SPEED", 6) == 0) {
       Serial.print(""); Serial.println(serialData.BUFFER);
+      SPEED();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1299,6 +1300,7 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$ERROR", 6) == 0) {
       Serial.print(""); Serial.println(serialData.BUFFER);
+      ERROR();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1306,6 +1308,7 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$DEBUG", 6) == 0) {
       Serial.print(""); Serial.println(serialData.BUFFER);
+      DEBUG();
     }
   }
 }
