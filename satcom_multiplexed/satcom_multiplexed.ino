@@ -1638,9 +1638,78 @@ struct RelayStruct {
   char gset_flag_error_equal[56]            = "gset_flag_error_equal";
   char sset_flag_error_equal[56]            = "sset_flag_error_equal";
 
-  /*
-  */
+  char coll_T_heading_debug_over[56]        = "coll_T_heading_debug_over";
+  char coll_T_heading_debug_under[56]       = "coll_T_heading_debug_under";
+  char coll_T_heading_debug_equal[56]       = "coll_T_heading_debug_equal";
+  char coll_T_heading_debug_in_range[56]    = "coll_T_heading_debug_in_range";
 
+  char coll_T_data_debug_over[56]           = "coll_T_data_debug_over";
+  char coll_T_data_debug_under[56]          = "coll_T_data_debug_under";
+  char coll_T_data_debug_equal[56]          = "coll_T_data_debug_equal";
+  char coll_T_data_debug_in_range[56]       = "coll_T_data_debug_in_range";
+
+  char ubi_valid_debug_equal[56]            = "ubi_valid_debug_equal";
+
+  char ins_flag_debug_over[56]              = "ins_flag_debug_over";
+  char ins_flag_debug_under[56]             = "ins_flag_debug_under";
+  char ins_flag_debug_equal[56]             = "ins_flag_debug_equal";
+  char ins_flag_debug_in_range[56]          = "ins_flag_debug_in_range";
+
+  char car_speed_debug_over[56]             = "car_speed_debug_over";
+  char car_speed_debug_under[56]            = "car_speed_debug_under";
+  char car_speed_debug_equal[56]            = "car_speed_debug_equal";
+  char car_speed_debug_in_range[56]         = "car_speed_debug_in_range";
+
+  char yaw_angle_debug_over[56]             = "yaw_angle_debug_over";
+  char yaw_angle_debug_under[56]            = "yaw_angle_debug_under";
+  char yaw_angle_debug_equal[56]            = "yaw_angle_debug_equal";
+  char yaw_angle_debug_in_range[56]         = "yaw_angle_debug_in_range";
+
+  char roll_angle_debug_over[56]            = "roll_angle_debug_over";
+  char roll_angle_debug_under[56]           = "roll_angle_debug_under";
+  char roll_angle_debug_equal[56]           = "roll_angle_debug_equal";
+  char roll_angle_debug_in_range[56]        = "roll_angle_debug_in_range";
+
+  char pitch_angle_debug_over[56]           = "pitch_angle_debug_over";
+  char pitch_angle_debug_under[56]          = "pitch_angle_debug_under";
+  char pitch_angle_debug_equal[56]          = "pitch_angle_debug_equal";
+  char pitch_angle_debug_in_range[56]       = "pitch_angle_debug_in_range";
+
+  char ang_dget_flag_debug_equal[56]        = "ang_dget_flag_debug_equal";
+  char ins_run_flag_debug_equal[56]         = "ins_run_flag_debug_equal";
+  char fix_roll_flag_debug_equal[56]        = "fix_roll_flag_debug_equal";
+  char fix_pitch_flag_debug_equal[56]       = "fix_pitch_flag_debug_equal";
+  char ubi_kind_flag_debug_equal[56]        = "ubi_kind_flag_debug_equal";
+  
+  char ubi_on_flag_debug_over[56]           = "ubi_on_flag_debug_over";
+  char ubi_on_flag_debug_under[56]          = "ubi_on_flag_debug_under";
+  char ubi_on_flag_debug_equal[56]          = "ubi_on_flag_debug_equal";
+  char ubi_on_flag_debug_in_range[56]       = "ubi_on_flag_debug_in_range";
+
+  char ubi_a_set_debug_over[56]             = "ubi_a_set_debug_over";
+  char ubi_a_set_debug_under[56]            = "ubi_a_set_debug_under";
+  char ubi_a_set_debug_equal[56]            = "ubi_a_set_debug_equal";
+  char ubi_a_set_debug_in_range[56]         = "ubi_a_set_debug_in_range";
+
+  char ubi_b_set_debug_over[56]             = "ubi_b_set_debug_over";
+  char ubi_b_set_debug_under[56]            = "ubi_b_set_debug_under";
+  char ubi_b_set_debug_equal[56]            = "ubi_b_set_debug_equal";
+  char ubi_b_set_debug_in_range[56]         = "ubi_b_set_debug_in_range";
+
+  char acc_X_data_debug_over[56]            = "acc_X_data_debug_over";
+  char acc_X_data_debug_under[56]           = "acc_X_data_debug_under";
+  char acc_X_data_debug_equal[56]           = "acc_X_data_debug_equal";
+  char acc_X_data_debug_in_range[56]        = "acc_X_data_debug_in_range";
+
+  char acc_Y_data_debug_over[56]            = "acc_Y_data_debug_over";
+  char acc_Y_data_debug_under[56]           = "acc_Y_data_debug_under";
+  char acc_Y_data_debug_equal[56]           = "acc_Y_data_debug_equal";
+  char acc_Y_data_debug_in_range[56]        = "acc_Y_data_debug_in_range";
+
+  char gyro_Z_data_debug_over[56]           = "gyro_Z_data_debug_over";
+  char gyro_Z_data_debug_under[56]          = "gyro_Z_data_debug_under";
+  char gyro_Z_data_debug_equal[56]          = "gyro_Z_data_debug_equal";
+  char gyro_Z_data_debug_in_range[56]       = "gyro_Z_data_debug_in_range";
 };
 RelayStruct relayData;
 
@@ -2175,6 +2244,183 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_error_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(errorData.utc, Ri, Fi);}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                        SYSTEMS CHECKS: DEBUG
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_heading_debug_over) == 0) {tmp_matrix[0][Fi] = check_over(debugData.coll_T_heading, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_heading_debug_under) == 0) {tmp_matrix[0][Fi] = check_under(debugData.coll_T_heading, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_heading_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.coll_T_heading, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_heading_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.coll_T_heading, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_data_debug_over) == 0) {tmp_matrix[0][Fi] = check_over(debugData.coll_T_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_data_debug_under) == 0) {tmp_matrix[0][Fi] = check_under(debugData.coll_T_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_data_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.coll_T_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_data_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.coll_T_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_valid_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.ubi_valid, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_flag_debug_over) == 0) {tmp_matrix[0][Fi] = check_over(debugData.ins_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_flag_debug_under) == 0) {tmp_matrix[0][Fi] = check_under(debugData.ins_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_flag_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.ins_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_flag_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.ins_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.car_speed_debug_over) == 0) {tmp_matrix[0][Fi] = check_over(debugData.car_speed, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.car_speed_debug_under) == 0) {tmp_matrix[0][Fi] = check_under(debugData.car_speed, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.car_speed_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.car_speed, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.car_speed_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.car_speed, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_angle_debug_over) == 0) {tmp_matrix[0][Fi] = check_over(debugData.yaw_angle, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_angle_debug_under) == 0) {tmp_matrix[0][Fi] = check_under(debugData.yaw_angle, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_angle_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.yaw_angle, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_angle_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.yaw_angle, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_angle_debug_over) == 0) {tmp_matrix[0][Fi] = check_over(debugData.roll_angle, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_angle_debug_under) == 0) {tmp_matrix[0][Fi] = check_under(debugData.roll_angle, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_angle_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.roll_angle, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_angle_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.roll_angle, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_angle_debug_over) == 0) {tmp_matrix[0][Fi] = check_over(debugData.pitch_angle, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_angle_debug_under) == 0) {tmp_matrix[0][Fi] = check_under(debugData.pitch_angle, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_angle_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.pitch_angle, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_angle_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.pitch_angle, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ang_dget_flag_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.ang_dget_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_run_flag_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.ins_run_flag, Ri, Fi);}
+
+         // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_roll_flag_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.fix_roll_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_pitch_flag_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.fix_pitch_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_kind_flag_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.ubi_kind_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_on_flag_debug_over) == 0) {tmp_matrix[0][Fi] = check_over(debugData.ubi_on_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_on_flag_debug_under) == 0) {tmp_matrix[0][Fi] = check_under(debugData.ubi_on_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_on_flag_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.ubi_on_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_on_flag_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.ubi_on_flag, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_a_set_debug_over) == 0) {tmp_matrix[0][Fi] = check_over(debugData.ubi_a_set, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_a_set_debug_under) == 0) {tmp_matrix[0][Fi] = check_under(debugData.ubi_a_set, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_a_set_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.ubi_a_set, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_a_set_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.ubi_a_set, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_b_set_debug_over) == 0) {tmp_matrix[0][Fi] = check_over(debugData.ubi_b_set, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_b_set_debug_under) == 0) {tmp_matrix[0][Fi] = check_under(debugData.ubi_b_set, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_b_set_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.ubi_b_set, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_b_set_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.ubi_b_set, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_data_debug_over) == 0) {tmp_matrix[0][Fi] = check_over(debugData.acc_X_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_data_debug_under) == 0) {tmp_matrix[0][Fi] = check_under(debugData.acc_X_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_data_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.acc_X_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_data_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.acc_X_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_data_debug_over) == 0) {tmp_matrix[0][Fi] = check_over(debugData.acc_Y_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_data_debug_under) == 0) {tmp_matrix[0][Fi] = check_under(debugData.acc_Y_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_data_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.acc_Y_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_data_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.acc_Y_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_over) == 0) {tmp_matrix[0][Fi] = check_over(debugData.gyro_Z_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_under) == 0) {tmp_matrix[0][Fi] = check_under(debugData.gyro_Z_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_equal) == 0) {tmp_matrix[0][Fi] = check_equal(debugData.gyro_Z_data, Ri, Fi);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.gyro_Z_data, Ri, Fi);}
 
         /*
         the above checks are the 'basic' checks. with that out the way, we can now build more 'advanced' checks/calculations, using the same format.
