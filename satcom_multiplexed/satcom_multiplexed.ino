@@ -567,7 +567,7 @@ struct GNGGAStruct {
   char id[56];                          // <14> base station ID
   char check_sum[56];                   // <15> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
-  int check_data = 0;                   // should be 16
+  int check_data = 0;                   // should result in 16
 };
 GNGGAStruct gnggaData;
 
@@ -660,7 +660,7 @@ struct GNRMCStruct {
   char mode_indication[56];                // <12> Mode indication (A=autonomous positioning, D=differential E=estimation, N=invalid data) */
   char check_sum[56];                      // <13> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
-  int check_data = 0;                      // should be 14
+  int check_data = 0;                      // should result in 14
 };
 GNRMCStruct gnrmcData;
 
@@ -770,7 +770,7 @@ struct GPATTStruct {
   char scalable[56];         // <39> 
   char check_sum[56];        // <40> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
-  int check_data = 0;        // should be 40
+  int check_data = 0;        // should result in 40
 };
 GPATTStruct gpattData;
 
