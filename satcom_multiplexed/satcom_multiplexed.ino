@@ -530,7 +530,7 @@ void GNRMC() {
   serialData.iter_token = 0;
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
-    if     (serialData.iter_token == 0)                                                                   {strcpy(gnrmcData.tag, "GNGGA");                                   gnrmcData.check_data++;}
+    if     (serialData.iter_token == 0)                                                                   {strcpy(gnrmcData.tag, "GNRMC");                                   gnrmcData.check_data++;}
     else if (serialData.iter_token ==1)  {if (val_utc_time(serialData.token) == true)                     {strcpy(gnrmcData.utc_time, serialData.token);                     gnrmcData.check_data++;}}
     else if (serialData.iter_token ==2)  {if (val_positioning_status_gnrmc(serialData.token) == true)     {strcpy(gnrmcData.positioning_status, serialData.token);           gnrmcData.check_data++;}}
     else if (serialData.iter_token ==3)  {if (val_latitude(serialData.token) == true)                     {strcpy(gnrmcData.latitude, serialData.token);                     gnrmcData.check_data++;}}
