@@ -393,7 +393,7 @@ void GNGGA() {
     else if (serialData.iter_token ==9)  {if (val_altitude(serialData.token) == true)              {strcpy(gnggaData.altitude, serialData.token);              gnggaData.check_data++;}}
     else if (serialData.iter_token ==10) {if (val_altitude_units(serialData.token) == true)        {strcpy(gnggaData.altitude_units, serialData.token);        gnggaData.check_data++;}}
     else if (serialData.iter_token ==11) {if (val_geoidal(serialData.token) == true)               {strcpy(gnggaData.geoidal, serialData.token);               gnggaData.check_data++;}}
-    else if (serialData.iter_token ==12) {if (val_geoidal_units(serialData.token) == 1)            {strcpy(gnggaData.geoidal_units, serialData.token);         gnggaData.check_data++;}}
+    else if (serialData.iter_token ==12) {if (val_geoidal_units(serialData.token) == true)         {strcpy(gnggaData.geoidal_units, serialData.token);         gnggaData.check_data++;}}
     else if (serialData.iter_token ==13) {if (val_differential_delay(serialData.token) == true)    {strcpy(gnggaData.differential_delay, serialData.token);    gnggaData.check_data++;}}
     else if (serialData.iter_token ==14) {if (strlen(serialData.token) == 8) {strncpy(gnggaData.temporary_data, serialData.token, 4);
     if (val_basestation_id(gnggaData.temporary_data) == true) {strcpy(gnggaData.id, gnggaData.temporary_data); gnggaData.check_data++;} serialData.token = strtok(serialData.token, "*"); serialData.token = strtok(NULL, "*");}
