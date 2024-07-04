@@ -342,11 +342,11 @@ struct GNGGAStruct {
   char hdop_precision_factor[56];       // <8> HDOP level precision factor
   char altitude[56];                    // <9> Altitude
   char altitude_units[56];              // <10> The height of the earth ellipsoid relative to the geoid
-  char geoidal[56];           // <11> Differential time
-  char geoidal_units[56];     // <12> Differential reference base station label (* Statement end marker)
-  char differential_delay[56];
-  char id[56];                          // <13> base station ID
-  char check_sum[56];                   // <14> XOR check value of all bytes starting from $ to *
+  char geoidal[56];                     // <11> 
+  char geoidal_units[56];               // <12> 
+  char differential_delay[56];          // <13>
+  char id[56];                          // <14> base station ID
+  char check_sum[56];                   // <15> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
   int check_data = 0;                   // should be 15
 };
