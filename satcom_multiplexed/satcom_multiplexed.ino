@@ -2372,7 +2372,7 @@ void systems_Check() {
         // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
       }
       
-      // safety layer: ignore $NONE unless all entries are $NONE (else if master switch enabled then relay/function will be activated despite all $NONE entries)
+      // safety layer: disengage if all entries are $NONE. if you enabled a master switch with no functions set then this could save you.
       if (count_none_function <= 29) {
 
         // default final bool is true and if a single false is found final bool should be set to false and remain false
