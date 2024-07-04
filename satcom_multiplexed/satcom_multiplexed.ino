@@ -108,7 +108,7 @@ SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 //                                                                                                                   DEBUG DATA
 
 struct sysDebugStruct {
-  bool gngga_sentence = false;
+  bool gngga_sentence = true;
   bool gnrmc_sentence = false;
   bool gpatt_sentence = false;
   bool desbi_sentence = false;
@@ -204,21 +204,166 @@ struct GNGGAStruct {
   char longitude_hemisphere[56];        // <5> Longitude hemisphere, E or W (east longitude or west longitude)
   char positioning_status[56];          // <6> GNSS positioning status: 0 not positioned, 1 single point positioning, 2: pseudorange difference, 6: pure INS */
   char satellite_count_gngga[56] = "0"; // <7> Number of satellites used
-  char hddp_precision_factor[56];       // <8> HDOP level precision factor
+  char hdop_precision_factor[56];       // <8> HDOP level precision factor
   char altitude[56];                    // <9> Altitude
   char altitude_units[56];              // <10> The height of the earth ellipsoid relative to the geoid
-  char differential_time[56];           // <11> Differential time
-  char differential_time_units[56];     // <12> Differential reference base station label (* Statement end marker)
+  char geoidal[56];           // <11> Differential time
+  char geoidal_units[56];     // <12> Differential reference base station label (* Statement end marker)
+  char differential_delay[56];
   char id[56];                          // <13> base station ID
   char check_sum[56];                   // <14> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
+  int check_data = 0;                   // should be 15
 };
 GNGGAStruct gnggaData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                     VALIDATE
+
+/*
+checks can be ellaborated upon individually
+*/
+
+bool val_utc_time(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 9) {
+    if (data[6] == '.') {
+      if ((atoi(data) >= 0.0) && (atoi(data) <= 235959.99)) {check_pass = true;}
+    }
+  }
+  return check_pass;
+}
+
+// ddmm.mmmmmmm
+// 5127.14582400
+bool val_latitude(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 13) {
+    if (data[4] == '.') {
+      check_pass = true;
+    }
+  }
+  return check_pass;
+}
+
+// dddmm.mmmmmmm
+// 00235.20969200
+bool val_longitude(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 14) {
+    if (data[5] == '.') {
+      check_pass = true;
+    }
+  }
+  return check_pass;
+}
+
+bool val_latitude_H(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 1) {
+    if ((data == "N") || (data == "S")) {
+      check_pass = true;
+    }
+  }
+  return check_pass;
+}
+
+bool val_longitude_H(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 1) {
+    if ((data == "W") || (data == "E")) {
+      check_pass = true;
+    }
+  }
+  return check_pass;
+}
+
+bool val_positioning_status(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 1) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 6)) {
+      check_pass = true;
+    }
+  }
+  return check_pass;
+}
+
+bool val_satellite_count(char * data) {
+  bool check_pass = false;
+  if (atoi(data) >= 0){
+      check_pass = true;
+    }
+  return check_pass;
+}
+
+bool val_hdop_precision_factor(char * data) {
+  bool check_pass = false;
+  if (atoi(data) >= 0){
+      check_pass = true;
+    }
+  return check_pass;
+}
+
+bool val_altitude(char * data) {
+  bool check_pass = false;
+  if (atoi(data) >= -20000000){
+      check_pass = true;
+    }
+  return check_pass;
+}
+
+bool val_altitude_units(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 1) {
+    if (data[0] == 'M') {
+      check_pass = true;
+    }
+  }
+  return check_pass;
+}
+
+bool val_geoidal(char * data) {
+  bool check_pass = false;
+  if (atoi(data) >= 0){
+    check_pass = true;
+  }
+  return check_pass;
+}
+
+bool val_geoidal_units(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 1) {
+    if (data[0] == 'M') {
+      check_pass = true;
+    }
+  }
+  return check_pass;
+}
+
+bool val_differential_delay(char * data) {
+  bool check_pass = false;
+  if (atoi(data) >= 0){
+    check_pass = true;
+  }
+  return check_pass;
+}
+
+bool val_basestation_id(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 4) {
+    check_pass = true;
+  }
+  return check_pass;
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        GNGGA
 
+//
+
 void GNGGA() {
+
+  gnggaData.check_data = 0;
   
   memset(gnggaData.tag, 0, 56);
   memset(gnggaData.utc_time, 0, 56);
@@ -228,37 +373,35 @@ void GNGGA() {
   memset(gnggaData.longitude_hemisphere, 0, 56);
   memset(gnggaData.positioning_status, 0, 56);
   memset(gnggaData.satellite_count_gngga, 0, 56);
-  memset(gnggaData.hddp_precision_factor, 0, 56);
+  memset(gnggaData.hdop_precision_factor, 0, 56);
   memset(gnggaData.altitude, 0, 56);
   memset(gnggaData.altitude_units, 0, 56);
-  memset(gnggaData.differential_time, 0, 56);
-  memset(gnggaData.differential_time_units, 0, 56);
+  memset(gnggaData.geoidal, 0, 56);
+  memset(gnggaData.geoidal_units, 0, 56);
+  memset(gnggaData.differential_delay, 0, 56);
   memset(gnggaData.id, 0, 56);
   memset(gnggaData.check_sum, 0, 56);
   memset(gnggaData.temporary_data, 0, 56);
   serialData.iter_token = 0;
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
-    if     (serialData.iter_token == 0) {strcpy(gnggaData.tag, "GNGGA");}
-    else if (serialData.iter_token ==1) {if (strlen(serialData.token) <= 9) {strcpy(gnggaData.utc_time, serialData.token);}}
-    else if (serialData.iter_token ==2) {if (strlen(serialData.token) <= 17) {strcpy(gnggaData.latitude, serialData.token);}}
-    else if (serialData.iter_token ==3) {if (strlen(serialData.token) <= 1) {strcpy(gnggaData.latitude_hemisphere, serialData.token);}}
-    else if (serialData.iter_token ==4) {if (strlen(serialData.token) <= 17) {strcpy(gnggaData.longitude, serialData.token);}}
-    else if (serialData.iter_token ==5) {if (strlen(serialData.token) <= 1) {strcpy(gnggaData.longitude_hemisphere, serialData.token);}}
-    else if (serialData.iter_token ==6) {if (strlen(serialData.token) <= 1) {strcpy(gnggaData.positioning_status, serialData.token);}}
-    else if (serialData.iter_token ==7) {strcpy(gnggaData.satellite_count_gngga, serialData.token);}
-    else if (serialData.iter_token ==8) {strcpy(gnggaData.hddp_precision_factor, serialData.token);}
-    else if (serialData.iter_token ==9) {strcpy(gnggaData.altitude, serialData.token);}
-    else if (serialData.iter_token ==10) {strcpy(gnggaData.altitude_units, serialData.token);}
-    else if (serialData.iter_token ==11) {strcpy(gnggaData.differential_time, serialData.token);}
-    else if (serialData.iter_token ==12) {strcpy(gnggaData.differential_time_units, serialData.token);}                  
-    else if (serialData.iter_token ==14) {
-      strcpy(gnggaData.temporary_data, serialData.token);
-      strncpy(gnggaData.id, gnggaData.temporary_data, 4);
-      serialData.token = strtok(gnggaData.temporary_data, "*");
-      serialData.token = strtok(NULL, "*");
-      strcpy(gnggaData.check_sum, serialData.token);
-      }
+    if     (serialData.iter_token == 0)                                                            {strcpy(gnggaData.tag, "GNGGA");                            gnggaData.check_data++;}
+    else if (serialData.iter_token ==1)  {if (val_utc_time(serialData.token) == true)              {strcpy(gnggaData.utc_time, serialData.token);              gnggaData.check_data++;}}
+    else if (serialData.iter_token ==2)  {if (val_latitude(serialData.token) == true)              {strcpy(gnggaData.latitude, serialData.token);              gnggaData.check_data++;}}
+    else if (serialData.iter_token ==3)  {if (val_latitude_H(serialData.token) == true)            {strcpy(gnggaData.latitude_hemisphere, serialData.token);   gnggaData.check_data++;}}
+    else if (serialData.iter_token ==4)  {if (val_longitude(serialData.token) == true)             {strcpy(gnggaData.longitude, serialData.token);             gnggaData.check_data++;}}
+    else if (serialData.iter_token ==5)  {if (val_longitude_H(serialData.token) == true)           {strcpy(gnggaData.longitude_hemisphere, serialData.token);  gnggaData.check_data++;}}
+    else if (serialData.iter_token ==6)  {if (val_positioning_status(serialData.token) == true)    {strcpy(gnggaData.positioning_status, serialData.token);    gnggaData.check_data++;}}
+    else if (serialData.iter_token ==7)  {if (val_satellite_count(serialData.token) == true)       {strcpy(gnggaData.satellite_count_gngga, serialData.token); gnggaData.check_data++;}}
+    else if (serialData.iter_token ==8)  {if (val_hdop_precision_factor(serialData.token) == true) {strcpy(gnggaData.hdop_precision_factor, serialData.token); gnggaData.check_data++;}}
+    else if (serialData.iter_token ==9)  {if (val_altitude(serialData.token) == true)              {strcpy(gnggaData.altitude, serialData.token);              gnggaData.check_data++;}}
+    else if (serialData.iter_token ==10) {if (val_altitude_units(serialData.token) == true)        {strcpy(gnggaData.altitude_units, serialData.token);        gnggaData.check_data++;}}
+    else if (serialData.iter_token ==11) {if (val_geoidal(serialData.token) == true)               {strcpy(gnggaData.geoidal, serialData.token);               gnggaData.check_data++;}}
+    else if (serialData.iter_token ==12) {if (val_geoidal_units(serialData.token) == 1)            {strcpy(gnggaData.geoidal_units, serialData.token);         gnggaData.check_data++;}}
+    else if (serialData.iter_token ==13) {if (val_differential_delay(serialData.token) == true)    {strcpy(gnggaData.differential_delay, serialData.token);    gnggaData.check_data++;}}
+    else if (serialData.iter_token ==14) {if (strlen(serialData.token) == 8) {strncpy(gnggaData.temporary_data, serialData.token, 4);
+    if (val_basestation_id(gnggaData.temporary_data) == true) {strcpy(gnggaData.id, gnggaData.temporary_data); gnggaData.check_data++;} serialData.token = strtok(serialData.token, "*"); serialData.token = strtok(NULL, "*");}
+    if (strlen(serialData.token) == 3) {strcpy(gnggaData.check_sum, serialData.token); gnggaData.check_data++;}}
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
@@ -271,13 +414,15 @@ void GNGGA() {
     Serial.println("[gnggaData.longitude_hemisphere] "    + String(gnggaData.longitude_hemisphere));
     Serial.println("[gnggaData.positioning_status] "      + String(gnggaData.positioning_status));
     Serial.println("[gnggaData.satellite_count_gngga] "   + String(gnggaData.satellite_count_gngga));
-    Serial.println("[gnggaData.hddp_precision_factor] "   + String(gnggaData.hddp_precision_factor));
+    Serial.println("[gnggaData.hdop_precision_factor] "   + String(gnggaData.hdop_precision_factor));
     Serial.println("[gnggaData.altitude] "                + String(gnggaData.altitude));
     Serial.println("[gnggaData.altitude_units] "          + String(gnggaData.altitude_units));
-    Serial.println("[gnggaData.differential_time] "       + String(gnggaData.differential_time));
-    Serial.println("[gnggaData.differential_time_units] " + String(gnggaData.differential_time_units));
+    Serial.println("[gnggaData.geoidal] "       + String(gnggaData.geoidal));
+    Serial.println("[gnggaData.geoidal_units] " + String(gnggaData.geoidal_units));
+    Serial.println("[gnggaData.differential_delay] " + String(gnggaData.differential_delay));
     Serial.println("[gnggaData.id] "                      + String(gnggaData.id));
     Serial.println("[gnggaData.check_sum] "               + String(gnggaData.check_sum));
+    Serial.println("[gnggaData.check_data] "              + String(gnggaData.check_data));
   }
 }
 
@@ -1209,8 +1354,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$GNRMC", 6) == 0) {
       if ((serialData.nbytes == 78) || (serialData.nbytes == 80)) {
-        Serial.print(""); Serial.println(serialData.BUFFER);
-        GNRMC();
+        // Serial.print(""); Serial.println(serialData.BUFFER);
+        // GNRMC();
       }
     }
 
@@ -1219,8 +1364,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$GPATT", 6) == 0) {
       if ((serialData.nbytes == 136) || (serialData.nbytes == 189)) {
-        Serial.print(""); Serial.println(serialData.BUFFER);
-        GPATT();
+        // Serial.print(""); Serial.println(serialData.BUFFER);
+        // GPATT();
       }
     }
 
@@ -1228,7 +1373,7 @@ void readRXD_1() {
     //                                                                                                                    DESBI
 
     else if (strncmp(serialData.BUFFER, "$DESBI", 6) == 0) {
-      Serial.print(""); Serial.println(serialData.BUFFER);
+      // Serial.print(""); Serial.println(serialData.BUFFER);
       // awaiting length checks and clarification: wait for clarification, take a ride with the laptop
       // DESBI();
     }
@@ -1237,7 +1382,7 @@ void readRXD_1() {
     //                                                                                                                    SPEED
 
     else if (strncmp(serialData.BUFFER, "$SPEED", 6) == 0) {
-      Serial.print(""); Serial.println(serialData.BUFFER);
+      // Serial.print(""); Serial.println(serialData.BUFFER);
       // awaiting length checks: take a ride with the laptop
       // SPEED();
     }
@@ -1246,7 +1391,7 @@ void readRXD_1() {
     //                                                                                                                    ERROR
 
     else if (strncmp(serialData.BUFFER, "$ERROR", 6) == 0) {
-      Serial.print(""); Serial.println(serialData.BUFFER);
+      // Serial.print(""); Serial.println(serialData.BUFFER);
       // awaiting length checks: take a ride with the laptop
       // ERROR();
     }
@@ -1255,7 +1400,7 @@ void readRXD_1() {
     //                                                                                                                    DEBUG
 
     else if (strncmp(serialData.BUFFER, "$DEBUG", 6) == 0) {
-      Serial.print(""); Serial.println(serialData.BUFFER);
+      // Serial.print(""); Serial.println(serialData.BUFFER);
       // awaiting length checks: take a ride with the laptop
       // DEBUG();
     }
@@ -1854,16 +1999,16 @@ void systems_Check() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_SW) == 0) {tmp_matrix[0][Fi] = hemisphere_gngga_SW(Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_over) == 0) {tmp_matrix[0][Fi] = check_over(gnggaData.hddp_precision_factor, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_over) == 0) {tmp_matrix[0][Fi] = check_over(gnggaData.hdop_precision_factor, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_under) == 0) {tmp_matrix[0][Fi] = check_under(gnggaData.hddp_precision_factor, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_under) == 0) {tmp_matrix[0][Fi] = check_under(gnggaData.hdop_precision_factor, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gnggaData.hddp_precision_factor, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_equal) == 0) {tmp_matrix[0][Fi] = check_equal(gnggaData.hdop_precision_factor, Ri, Fi);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gnggaData.hddp_precision_factor, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(gnggaData.hdop_precision_factor, Ri, Fi);}
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_over) == 0) {tmp_matrix[0][Fi] = check_over(gnggaData.altitude, Ri, Fi);}
@@ -2400,12 +2545,12 @@ void systems_Check() {
 
 void loop() {
   readRXD_1();
-  extrapulatedSatData();
-  SSD_Display_4();
-  SSD_Display_5();
-  SSD_Display_6();
-  SSD_Display_7();
-  systems_Check();
+  // extrapulatedSatData();
+  // SSD_Display_4();
+  // SSD_Display_5();
+  // SSD_Display_6();
+  // SSD_Display_7();
+  // systems_Check();
 
   delay(1);
 }
