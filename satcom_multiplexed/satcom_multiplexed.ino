@@ -108,7 +108,7 @@ SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 //                                                                                                                   DEBUG DATA
 
 struct sysDebugStruct {
-  bool gngga_sentence = true;
+  bool gngga_sentence = false;
   bool gnrmc_sentence = false;
   bool gpatt_sentence = false;
   bool desbi_sentence = false;
@@ -1350,8 +1350,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$GNRMC", 6) == 0) {
       if ((serialData.nbytes == 78) || (serialData.nbytes == 80)) {
-        // Serial.print(""); Serial.println(serialData.BUFFER);
-        // GNRMC();
+        Serial.print(""); Serial.println(serialData.BUFFER);
+        GNRMC();
       }
     }
 
@@ -1360,8 +1360,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$GPATT", 6) == 0) {
       if ((serialData.nbytes == 136) || (serialData.nbytes == 189)) {
-        // Serial.print(""); Serial.println(serialData.BUFFER);
-        // GPATT();
+        Serial.print(""); Serial.println(serialData.BUFFER);
+        GPATT();
       }
     }
 
@@ -2541,12 +2541,12 @@ void systems_Check() {
 
 void loop() {
   readRXD_1();
-  // extrapulatedSatData();
-  // SSD_Display_4();
-  // SSD_Display_5();
-  // SSD_Display_6();
-  // SSD_Display_7();
-  // systems_Check();
+  extrapulatedSatData();
+  SSD_Display_4();
+  SSD_Display_5();
+  SSD_Display_6();
+  SSD_Display_7();
+  systems_Check();
 
   delay(1);
 }
