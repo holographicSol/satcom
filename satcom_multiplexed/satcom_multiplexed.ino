@@ -1787,7 +1787,7 @@ void systems_Check() {
     // Serial.println("[Ri] " + String(Ri) + " [ENABLED] " + String(relayData.relays_data[Ri][10][0]));
     if (relayData.relays_data[Ri][10][0] == 1) {
 
-      // temporary switch must be zero each time
+      // temporary switch must be zero each time. allows for polynomial expressions.
       bool tmp_matrix[1][30] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
       int count_none_function = 0;
 
