@@ -209,8 +209,6 @@ bool val_utc_time(char * data) {
   return check_pass;
 }
 
-// ddmm.mmmmmmm
-// 5127.14582400
 bool val_latitude(char * data) {
   bool check_pass = false;
   if (strlen(data) == 13) {
@@ -221,8 +219,6 @@ bool val_latitude(char * data) {
   return check_pass;
 }
 
-// dddmm.mmmmmmm
-// 00235.20969200
 bool val_longitude(char * data) {
   bool check_pass = false;
   if (strlen(data) == 14) {
