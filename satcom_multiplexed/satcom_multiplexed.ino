@@ -1768,12 +1768,7 @@ Check each relays key and run a function for each relays corresponding key. Firs
 
 void systems_Check() {
 
-
   /*
-  Remember always: why do you think you can trust this data? Are you transmitting this data to yourelf (from satellite or not)?
-                   How critical are your system(s)?
-                   Once you plug something into this, the 'satellites' are in control unless you have a way to override.
-
   Compound conditions can be created for each zero/one result at the final_bool. This allows for trillions of combinations with
   the current data alone.
   */
@@ -2380,10 +2375,17 @@ void systems_Check() {
       
       // safety layer: ignore $NONE unless all entries are $NONE (else if master switch enabled then relay/function will be activated despite all $NONE entries)
       if (count_none_function <= 29) {
+
         // default final bool is true and if a single false is found final bool should be set to false and remain false
         bool final_bool = true;
         for (int FC = 0; FC < 30; FC++) {if (tmp_matrix[0][FC] == 0) {final_bool = false;}}
         // Serial.println("[FINAL_BOOL] " + String(final_bool));
+
+        /*
+        Remember always: why do you think you can trust this data? are you transmitting this data to yourelf (from satellite or not)?
+                         how critical are your system(s)?
+                         once you plug something into this, the 'satellites' are in control unless you have a way to override.
+        */
 
         // activate/deactivate relay Ri (Ri=pinN): pin number matrix required for relay selcection via Ri->PIN column access in non-linear form (multiplex relays)
         if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] de-activating");}
