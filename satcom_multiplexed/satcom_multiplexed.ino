@@ -587,38 +587,6 @@ void GPATT() {
 // with everything else.
 
 struct DESBIStruct {
-  char tag[56];                     // <1> Log header
-  char rapid_acceleration[56];      // <2> rapid acceleration
-  char rapid_deceleration[56];      // <3> rapid deceleration
-  char sharp_right_lane_change[56]; // <4> sharp right lane change
-  char sharp_left_lane_change[56];  // <5> sharp left lane change
-  char horizontal_impact[56];       // <6> horizontal impact
-  
-  char vehicle_stability[56];       // <7> vehicle stability
-  char vehicle_flip[56];            // <8> vehicle flip
-  char abnormal_posture[56];        // <9> abnormal posture
-  char ubi_a_set[56];               // <10> special version uses data from $DEBUG
-  char ubi_b_set[56];               // <11> special version uses data from $DEBUG
-  
-  char normal_acceleration[56];     // <12> normal acceleration
-  char normal_deceleration[56];     // <13> normal deceleration
-  char sharp_right_turn[56];        // <14> sharp right turn
-  char sharp_left_turn[56];         // <15> sharp left turn
-  char right_normal_turn[56];       // <16> right normal turn
-  char left_normal_turn[56];        // <17> left normal turn
-  char fill_17[56];                 // <18> ?
-  char ins_flag[56];                // <19> special version uses data from $DEBUG
-  char bumpy_road[56];              // <20> bumpy road
-  char fill_20[56];                 // <21> ?
-  char fill_21[56];                 // <22> ?
-  char fill_22[56];                 // <23> ?
-  char fill_23[56];                 // <24> ?
-  char fill_24[56];                 // <25> ?
-  char fill_25[56];                 // <26> ?
-  char fill_26[56];                 // <27> ?
-  char fill_27[56];                 // <28> ?
-  char fill_28[56];                 // <29> ?
-  char temporary_data[56];
 };
 DESBIStruct desbiData;
 
@@ -1148,23 +1116,6 @@ void SSD_Display_7() {
   display_6.drawString(display_6.getWidth()/2, 44, String(gnrmcData.longitude_hemisphere) + " " + String(gnrmcData.longitude));
   display_6.drawString(display_6.getWidth()/2, 54, "H " + String(gnrmcData.ground_heading) + " S " + String(gnrmcData.ground_speed));
   display_6.display();
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    DISPLAY 2
-
-void SSD_Display_5_Splash_0() {
-  tcaselect(5);
-  display_5.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_5.setColor(WHITE);
-  display_5.clear();
-  display_5.drawString(display_5.getWidth()/2, 0, "        _,--',   _._.--.___");
-  display_5.drawString(display_5.getWidth()/2, 10, " .--.--';_'-.', ';_      _.,-'");
-  display_5.drawString(display_5.getWidth()/2, 20, ".'--'.  _.'    {`'-;_ .-.>.'");
-  display_5.drawString(display_5.getWidth()/2, 30, "      '-:_      )  / `' '=.");
-  display_5.drawString(display_5.getWidth()/2, 40, "        ) >     {_/,     /~)");
-  display_5.drawString(display_5.getWidth()/2, 50, "snd     |/               `^ .'");
-  display_5.display();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
