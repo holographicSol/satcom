@@ -341,8 +341,8 @@ struct GNGGAStruct {
   char satellite_count_gngga[56] = "0"; // <7> Number of satellites used
   char hdop_precision_factor[56];       // <8> HDOP level precision factor
   char altitude[56];                    // <9> Altitude
-  char altitude_units[56];              // <10> The height of the earth ellipsoid relative to the geoid
-  char geoidal[56];                     // <11> 
+  char altitude_units[56];              // <10> 
+  char geoidal[56];                     // <11> The height of the earth ellipsoid relative to the geoid 
   char geoidal_units[56];               // <12> 
   char differential_delay[56];          // <13>
   char id[56];                          // <14> base station ID
