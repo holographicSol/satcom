@@ -1795,8 +1795,7 @@ void systems_Check() {
       for (int Fi = 0; Fi < 30; Fi++) {
 
         /*
-        Possible combinations example: 100 checks ^ 10 functions = 100,000,000,000,000,000,000 combinations. We can pay the price by writing those combinations manually or by something like the following below, in which
-        case the price potentially payed is performance.
+        Possible combinations example: 100 checks ^ 10 functions = 100,000,000,000,000,000,000 combinations.
 
         Put true in the temporary matrix if no function is specified ($NONE). this allows 1-N elemental conditions to be set and result in true/false at the final bool.
         IMPORTANT: this also means if soft enable true, then final_bool defaults to true if no function at all is specified within a switches matrix. There is one check to catch you if you do soft enable with no functions set.
