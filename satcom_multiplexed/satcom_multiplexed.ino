@@ -209,6 +209,14 @@ bool val_utc_time(char * data) {
   return check_pass;
 }
 
+bool val_utc_date(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 6) {
+    if ((atoi(data) >= 0.0) && (atoi(data) <= 999999)) {check_pass = true;}
+  }
+  return check_pass;
+}
+
 bool val_latitude(char * data) {
   bool check_pass = false;
   if (strlen(data) == 13) {
@@ -249,7 +257,7 @@ bool val_longitude_H(char * data) {
   return check_pass;
 }
 
-bool val_positioning_status(char * data) {
+bool val_positioning_status_gngga(char * data) {
   bool check_pass = false;
   if (strlen(data) == 1) {
     if ((atoi(data) >= 0) && (atoi(data) <= 6)) {
@@ -327,6 +335,60 @@ bool val_basestation_id(char * data) {
   return check_pass;
 }
 
+bool val_positioning_status_gnrmc(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 1) {
+    if ((data[0] == 'A') || (data[0] == 'V')) {
+      check_pass = true;
+    }
+  }
+  return check_pass;
+}
+
+bool val_ground_speed(char * data) {
+  bool check_pass = false;
+  if (atoi(data) >= 0){
+    check_pass = true;
+  }
+  return check_pass;
+}
+
+bool val_ground_heading(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 360)) {
+    check_pass = true;
+  }
+  return check_pass;
+}
+
+bool val_installation_angle(char * data) {
+  bool check_pass = false;
+  if (atoi(data) >= 0) {
+    check_pass = true;
+  }
+  return check_pass;
+}
+
+bool val_installation_angle_direction(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 1) {
+    if ((data[0] == 'E') || (data[0] == 'W') || (data[0] == 'M')) {
+      check_pass = true;
+    }
+  }
+  return check_pass;
+}
+
+bool val_mode_indication(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 1) {
+    if ((data[0] == 'A') || (data[0] == 'D') || (data[0] == 'E') || (data[0] == 'N')) {
+      check_pass = true;
+    }
+  }
+  return check_pass;
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GNGGA DATA
 
@@ -381,20 +443,20 @@ void GNGGA() {
   serialData.iter_token = 0;
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
-    if     (serialData.iter_token == 0)                                                            {strcpy(gnggaData.tag, "GNGGA");                            gnggaData.check_data++;}
-    else if (serialData.iter_token ==1)  {if (val_utc_time(serialData.token) == true)              {strcpy(gnggaData.utc_time, serialData.token);              gnggaData.check_data++;}}
-    else if (serialData.iter_token ==2)  {if (val_latitude(serialData.token) == true)              {strcpy(gnggaData.latitude, serialData.token);              gnggaData.check_data++;}}
-    else if (serialData.iter_token ==3)  {if (val_latitude_H(serialData.token) == true)            {strcpy(gnggaData.latitude_hemisphere, serialData.token);   gnggaData.check_data++;}}
-    else if (serialData.iter_token ==4)  {if (val_longitude(serialData.token) == true)             {strcpy(gnggaData.longitude, serialData.token);             gnggaData.check_data++;}}
-    else if (serialData.iter_token ==5)  {if (val_longitude_H(serialData.token) == true)           {strcpy(gnggaData.longitude_hemisphere, serialData.token);  gnggaData.check_data++;}}
-    else if (serialData.iter_token ==6)  {if (val_positioning_status(serialData.token) == true)    {strcpy(gnggaData.positioning_status, serialData.token);    gnggaData.check_data++;}}
-    else if (serialData.iter_token ==7)  {if (val_satellite_count(serialData.token) == true)       {strcpy(gnggaData.satellite_count_gngga, serialData.token); gnggaData.check_data++;}}
-    else if (serialData.iter_token ==8)  {if (val_hdop_precision_factor(serialData.token) == true) {strcpy(gnggaData.hdop_precision_factor, serialData.token); gnggaData.check_data++;}}
-    else if (serialData.iter_token ==9)  {if (val_altitude(serialData.token) == true)              {strcpy(gnggaData.altitude, serialData.token);              gnggaData.check_data++;}}
-    else if (serialData.iter_token ==10) {if (val_altitude_units(serialData.token) == true)        {strcpy(gnggaData.altitude_units, serialData.token);        gnggaData.check_data++;}}
-    else if (serialData.iter_token ==11) {if (val_geoidal(serialData.token) == true)               {strcpy(gnggaData.geoidal, serialData.token);               gnggaData.check_data++;}}
-    else if (serialData.iter_token ==12) {if (val_geoidal_units(serialData.token) == true)         {strcpy(gnggaData.geoidal_units, serialData.token);         gnggaData.check_data++;}}
-    else if (serialData.iter_token ==13) {if (val_differential_delay(serialData.token) == true)    {strcpy(gnggaData.differential_delay, serialData.token);    gnggaData.check_data++;}}
+    if     (serialData.iter_token == 0)                                                               {strcpy(gnggaData.tag, "GNGGA");                            gnggaData.check_data++;}
+    else if (serialData.iter_token ==1)  {if (val_utc_time(serialData.token) == true)                 {strcpy(gnggaData.utc_time, serialData.token);              gnggaData.check_data++;}}
+    else if (serialData.iter_token ==2)  {if (val_latitude(serialData.token) == true)                 {strcpy(gnggaData.latitude, serialData.token);              gnggaData.check_data++;}}
+    else if (serialData.iter_token ==3)  {if (val_latitude_H(serialData.token) == true)               {strcpy(gnggaData.latitude_hemisphere, serialData.token);   gnggaData.check_data++;}}
+    else if (serialData.iter_token ==4)  {if (val_longitude(serialData.token) == true)                {strcpy(gnggaData.longitude, serialData.token);             gnggaData.check_data++;}}
+    else if (serialData.iter_token ==5)  {if (val_longitude_H(serialData.token) == true)              {strcpy(gnggaData.longitude_hemisphere, serialData.token);  gnggaData.check_data++;}}
+    else if (serialData.iter_token ==6)  {if (val_positioning_status_gngga(serialData.token) == true) {strcpy(gnggaData.positioning_status, serialData.token);    gnggaData.check_data++;}}
+    else if (serialData.iter_token ==7)  {if (val_satellite_count(serialData.token) == true)          {strcpy(gnggaData.satellite_count_gngga, serialData.token); gnggaData.check_data++;}}
+    else if (serialData.iter_token ==8)  {if (val_hdop_precision_factor(serialData.token) == true)    {strcpy(gnggaData.hdop_precision_factor, serialData.token); gnggaData.check_data++;}}
+    else if (serialData.iter_token ==9)  {if (val_altitude(serialData.token) == true)                 {strcpy(gnggaData.altitude, serialData.token);              gnggaData.check_data++;}}
+    else if (serialData.iter_token ==10) {if (val_altitude_units(serialData.token) == true)           {strcpy(gnggaData.altitude_units, serialData.token);        gnggaData.check_data++;}}
+    else if (serialData.iter_token ==11) {if (val_geoidal(serialData.token) == true)                  {strcpy(gnggaData.geoidal, serialData.token);               gnggaData.check_data++;}}
+    else if (serialData.iter_token ==12) {if (val_geoidal_units(serialData.token) == true)            {strcpy(gnggaData.geoidal_units, serialData.token);         gnggaData.check_data++;}}
+    else if (serialData.iter_token ==13) {if (val_differential_delay(serialData.token) == true)       {strcpy(gnggaData.differential_delay, serialData.token);    gnggaData.check_data++;}}
     else if (serialData.iter_token ==14) {if (strlen(serialData.token) == 8) {strncpy(gnggaData.temporary_data, serialData.token, 4);
     if (val_basestation_id(gnggaData.temporary_data) == true) {strcpy(gnggaData.id, gnggaData.temporary_data); gnggaData.check_data++;} serialData.token = strtok(serialData.token, "*"); serialData.token = strtok(NULL, "*");}
     if (strlen(serialData.token) == 3) {strcpy(gnggaData.check_sum, serialData.token); gnggaData.check_data++;}}
@@ -413,9 +475,9 @@ void GNGGA() {
     Serial.println("[gnggaData.hdop_precision_factor] "   + String(gnggaData.hdop_precision_factor));
     Serial.println("[gnggaData.altitude] "                + String(gnggaData.altitude));
     Serial.println("[gnggaData.altitude_units] "          + String(gnggaData.altitude_units));
-    Serial.println("[gnggaData.geoidal] "       + String(gnggaData.geoidal));
-    Serial.println("[gnggaData.geoidal_units] " + String(gnggaData.geoidal_units));
-    Serial.println("[gnggaData.differential_delay] " + String(gnggaData.differential_delay));
+    Serial.println("[gnggaData.geoidal] "                 + String(gnggaData.geoidal));
+    Serial.println("[gnggaData.geoidal_units] "           + String(gnggaData.geoidal_units));
+    Serial.println("[gnggaData.differential_delay] "      + String(gnggaData.differential_delay));
     Serial.println("[gnggaData.id] "                      + String(gnggaData.id));
     Serial.println("[gnggaData.check_sum] "               + String(gnggaData.check_sum));
     Serial.println("[gnggaData.check_data] "              + String(gnggaData.check_data));
@@ -436,11 +498,12 @@ struct GNRMCStruct {
   char ground_speed[56];                   // <7> Ground speed
   char ground_heading[56];                 // <8> Ground heading (take true north as the reference datum)
   char utc_date[56];                       // <9> UTC date, the format is ddmmyy (day, month, year)
-  char magnetic_declination[56];           // <10> Magnetic declination (000.0~180.0 degrees)
-  char magnetic_declination_direction[56]; // <11> Magnetic declination direction, E (east) or W (west)
+  char installation_angle[56];             // <10> Magnetic declination (000.0~180.0 degrees)
+  char installation_angle_direction[56];   // <11> Magnetic declination direction, E (east) or W (west)
   char mode_indication[56];                // <12> Mode indication (A=autonomous positioning, D=differential E=estimation, N=invalid data) */
   char check_sum[56];                      // <13> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
+  int check_data = 0;                      // should be 
 };
 GNRMCStruct gnrmcData;
 
@@ -459,51 +522,47 @@ void GNRMC() {
   memset(gnrmcData.ground_speed, 0, 56);
   memset(gnrmcData.ground_heading, 0, 56);
   memset(gnrmcData.utc_date, 0, 56);
-  memset(gnrmcData.magnetic_declination, 0, 56);
-  memset(gnrmcData.magnetic_declination_direction, 0, 56);
+  memset(gnrmcData.installation_angle, 0, 56);
+  memset(gnrmcData.installation_angle_direction, 0, 56);
   memset(gnrmcData.mode_indication, 0, 56);
   memset(gnrmcData.check_sum, 0, 56);
-
   serialData.iter_token = 0;
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
-    if     (serialData.iter_token == 0) {strcpy(gnrmcData.tag, "GNGGA");}
-    else if (serialData.iter_token ==1) {if (strlen(serialData.token) <= 9) {strcpy(gnggaData.utc_time, serialData.token);}}
-    else if (serialData.iter_token ==2) {strcpy(gnrmcData.positioning_status, serialData.token);}
-    else if (serialData.iter_token ==3) {if (strlen(serialData.token) <= 17) {strcpy(gnrmcData.latitude, serialData.token);}}
-    else if (serialData.iter_token ==4) {if (strlen(serialData.token) <= 1) {strcpy(gnrmcData.latitude_hemisphere, serialData.token);}}
-    else if (serialData.iter_token ==5) {if (strlen(serialData.token) <= 17) {strcpy(gnrmcData.longitude, serialData.token);}}
-    else if (serialData.iter_token ==6) {if (strlen(serialData.token) <= 1) {strcpy(gnrmcData.longitude_hemisphere, serialData.token);}}
-    else if (serialData.iter_token ==7) {strcpy(gnrmcData.ground_speed, serialData.token);}
-    else if (serialData.iter_token ==8) {strcpy(gnrmcData.ground_heading, serialData.token);}
-    else if (serialData.iter_token ==9) {if (strlen(serialData.token) <= 6) {strcpy(gnrmcData.utc_date, serialData.token);}}
-    else if (serialData.iter_token ==10) {strcpy(gnrmcData.magnetic_declination, serialData.token);}
-    else if (serialData.iter_token ==11) {strcpy(gnrmcData.magnetic_declination_direction, serialData.token);}
-    else if (serialData.iter_token ==12) {
-      strcpy(gnrmcData.temporary_data, serialData.token);
-      strncpy(gnrmcData.mode_indication, gnrmcData.temporary_data, 1);
-      serialData.token = strtok(gnrmcData.temporary_data, "*");
-      serialData.token = strtok(NULL, "*");
-      strcpy(gnrmcData.check_sum, serialData.token);
-      }
+    if     (serialData.iter_token == 0)                                                                   {strcpy(gnrmcData.tag, "GNGGA");                                   gnrmcData.check_data++;}
+    else if (serialData.iter_token ==1)  {if (val_utc_time(serialData.token) == true)                     {strcpy(gnggaData.utc_time, serialData.token);                     gnrmcData.check_data++;}}
+    else if (serialData.iter_token ==2)  {if (val_positioning_status_gnrmc(serialData.token) == true)     {strcpy(gnrmcData.positioning_status, serialData.token);           gnrmcData.check_data++;}}
+    else if (serialData.iter_token ==3)  {if (val_latitude(serialData.token) == true)                     {strcpy(gnrmcData.latitude, serialData.token);                     gnrmcData.check_data++;}}
+    else if (serialData.iter_token ==4)  {if (val_latitude_H(serialData.token) == true)                   {strcpy(gnrmcData.latitude_hemisphere, serialData.token);          gnrmcData.check_data++;}}
+    else if (serialData.iter_token ==5)  {if (val_longitude(serialData.token) == true)                    {strcpy(gnrmcData.longitude, serialData.token);                    gnrmcData.check_data++;}}
+    else if (serialData.iter_token ==6)  {if (val_longitude_H(serialData.token) == true)                  {strcpy(gnrmcData.longitude_hemisphere, serialData.token);         gnrmcData.check_data++;}}
+    else if (serialData.iter_token ==7)  {if (val_ground_speed(serialData.token) == true)                 {strcpy(gnrmcData.ground_speed, serialData.token);                 gnrmcData.check_data++;}}
+    else if (serialData.iter_token ==8)  {if (val_ground_heading(serialData.token) == true)               {strcpy(gnrmcData.ground_heading, serialData.token);               gnrmcData.check_data++;}}
+    else if (serialData.iter_token ==9)  {if (val_utc_date(serialData.token) == true)                     {strcpy(gnrmcData.utc_date, serialData.token);                     gnrmcData.check_data++;}}
+    else if (serialData.iter_token ==10) {if (val_installation_angle(serialData.token) == true)           {strcpy(gnrmcData.installation_angle, serialData.token);           gnrmcData.check_data++;}}
+    else if (serialData.iter_token ==11) {if (val_installation_angle_direction(serialData.token) == true) {strcpy(gnrmcData.installation_angle_direction, serialData.token); gnrmcData.check_data++;}}
+    else if (serialData.iter_token ==12) {strcpy(gnrmcData.temporary_data, serialData.token);
+      if (val_mode_indication(serialData.token) == true)                                                  {strncpy(gnrmcData.mode_indication, gnrmcData.temporary_data, 1);  gnrmcData.check_data++;
+      serialData.token = strtok(gnrmcData.temporary_data, "*"); serialData.token = strtok(NULL, "*"); if (strlen(serialData.token) == 3) {strcpy(gnrmcData.check_sum, serialData.token); gnrmcData.check_data++;}}}
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
   if (sysDebugData.gnrmc_sentence == true) {
-    Serial.println("[gnrmcData.tag] "                            + String(gnrmcData.tag));
-    Serial.println("[gnrmcData.utc_time] "                       + String(gnrmcData.utc_time));
-    Serial.println("[gnrmcData.positioning_status] "             + String(gnrmcData.positioning_status));
-    Serial.println("[gnrmcData.latitude] "                       + String(gnrmcData.latitude));
-    Serial.println("[gnrmcData.latitude_hemisphere] "            + String(gnrmcData.latitude_hemisphere));
-    Serial.println("[gnrmcData.longitude] "                      + String(gnrmcData.longitude));
-    Serial.println("[gnrmcData.longitude_hemisphere] "           + String(gnrmcData.longitude_hemisphere));
-    Serial.println("[gnrmcData.ground_speed] "                   + String(gnrmcData.ground_speed));
-    Serial.println("[gnrmcData.ground_heading] "                 + String(gnrmcData.ground_heading));
-    Serial.println("[gnrmcData.utc_date] "                       + String(gnrmcData.utc_date));
-    Serial.println("[gnrmcData.magnetic_declination] "           + String(gnrmcData.magnetic_declination));
-    Serial.println("[gnrmcData.magnetic_declination_direction] " + String(gnrmcData.magnetic_declination_direction));
-    Serial.println("[gnrmcData.mode_indication] "                + String(gnrmcData.mode_indication));
-    Serial.println("[gnrmcData.check_sum] "                      + String(gnrmcData.check_sum));
+    Serial.println("[gnrmcData.tag] "                          + String(gnrmcData.tag));
+    Serial.println("[gnrmcData.utc_time] "                     + String(gnrmcData.utc_time));
+    Serial.println("[gnrmcData.positioning_status] "           + String(gnrmcData.positioning_status));
+    Serial.println("[gnrmcData.latitude] "                     + String(gnrmcData.latitude));
+    Serial.println("[gnrmcData.latitude_hemisphere] "          + String(gnrmcData.latitude_hemisphere));
+    Serial.println("[gnrmcData.longitude] "                    + String(gnrmcData.longitude));
+    Serial.println("[gnrmcData.longitude_hemisphere] "         + String(gnrmcData.longitude_hemisphere));
+    Serial.println("[gnrmcData.ground_speed] "                 + String(gnrmcData.ground_speed));
+    Serial.println("[gnrmcData.ground_heading] "               + String(gnrmcData.ground_heading));
+    Serial.println("[gnrmcData.utc_date] "                     + String(gnrmcData.utc_date));
+    Serial.println("[gnrmcData.installation_angle] "           + String(gnrmcData.installation_angle));
+    Serial.println("[gnrmcData.installation_angle_direction] " + String(gnrmcData.installation_angle_direction));
+    Serial.println("[gnrmcData.mode_indication] "              + String(gnrmcData.mode_indication));
+    Serial.println("[gnrmcData.check_sum] "                    + String(gnrmcData.check_sum));
+    Serial.println("[gnrmcData.check_data] "                   + String(gnrmcData.check_data));
   }
 }
 
