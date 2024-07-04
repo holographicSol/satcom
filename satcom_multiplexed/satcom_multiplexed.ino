@@ -193,32 +193,7 @@ void initDisplay3() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   GNGGA DATA
-
-struct GNGGAStruct {
-  char tag[56];                         // <0> Log header
-  char utc_time[56];                    // <1> UTC time, the format is hhmmss.sss
-  char latitude[56];                    // <2> Latitude, the format is  ddmm.mmmmmmm
-  char latitude_hemisphere[56];         // <3> Latitude hemisphere, N or S (north latitude or south latitude)
-  char longitude[56];                   // <4> Longitude, the format is dddmm.mmmmmmm
-  char longitude_hemisphere[56];        // <5> Longitude hemisphere, E or W (east longitude or west longitude)
-  char positioning_status[56];          // <6> GNSS positioning status: 0 not positioned, 1 single point positioning, 2: pseudorange difference, 6: pure INS */
-  char satellite_count_gngga[56] = "0"; // <7> Number of satellites used
-  char hdop_precision_factor[56];       // <8> HDOP level precision factor
-  char altitude[56];                    // <9> Altitude
-  char altitude_units[56];              // <10> The height of the earth ellipsoid relative to the geoid
-  char geoidal[56];           // <11> Differential time
-  char geoidal_units[56];     // <12> Differential reference base station label (* Statement end marker)
-  char differential_delay[56];
-  char id[56];                          // <13> base station ID
-  char check_sum[56];                   // <14> XOR check value of all bytes starting from $ to *
-  char temporary_data[56];
-  int check_data = 0;                   // should be 15
-};
-GNGGAStruct gnggaData;
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                     VALIDATE
+//                                                                                                                   VALIDATION
 
 /*
 checks can be ellaborated upon individually
@@ -355,6 +330,31 @@ bool val_basestation_id(char * data) {
   }
   return check_pass;
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                   GNGGA DATA
+
+struct GNGGAStruct {
+  char tag[56];                         // <0> Log header
+  char utc_time[56];                    // <1> UTC time, the format is hhmmss.sss
+  char latitude[56];                    // <2> Latitude, the format is  ddmm.mmmmmmm
+  char latitude_hemisphere[56];         // <3> Latitude hemisphere, N or S (north latitude or south latitude)
+  char longitude[56];                   // <4> Longitude, the format is dddmm.mmmmmmm
+  char longitude_hemisphere[56];        // <5> Longitude hemisphere, E or W (east longitude or west longitude)
+  char positioning_status[56];          // <6> GNSS positioning status: 0 not positioned, 1 single point positioning, 2: pseudorange difference, 6: pure INS */
+  char satellite_count_gngga[56] = "0"; // <7> Number of satellites used
+  char hdop_precision_factor[56];       // <8> HDOP level precision factor
+  char altitude[56];                    // <9> Altitude
+  char altitude_units[56];              // <10> The height of the earth ellipsoid relative to the geoid
+  char geoidal[56];           // <11> Differential time
+  char geoidal_units[56];     // <12> Differential reference base station label (* Statement end marker)
+  char differential_delay[56];
+  char id[56];                          // <13> base station ID
+  char check_sum[56];                   // <14> XOR check value of all bytes starting from $ to *
+  char temporary_data[56];
+  int check_data = 0;                   // should be 15
+};
+GNGGAStruct gnggaData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        GNGGA
