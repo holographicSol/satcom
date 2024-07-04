@@ -503,7 +503,7 @@ struct GNRMCStruct {
   char mode_indication[56];                // <12> Mode indication (A=autonomous positioning, D=differential E=estimation, N=invalid data) */
   char check_sum[56];                      // <13> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
-  int check_data = 0;                      // should be 
+  int check_data = 0;                      // should be 14
 };
 GNRMCStruct gnrmcData;
 
@@ -512,6 +512,7 @@ GNRMCStruct gnrmcData;
 
 void GNRMC() {
   
+  gnrmcData.check_data = 0;
   memset(gnrmcData.tag, 0, 56);
   memset(gnrmcData.utc_time, 0, 56);
   memset(gnrmcData.positioning_status, 0, 56);
@@ -530,7 +531,7 @@ void GNRMC() {
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
     if     (serialData.iter_token == 0)                                                                   {strcpy(gnrmcData.tag, "GNGGA");                                   gnrmcData.check_data++;}
-    else if (serialData.iter_token ==1)  {if (val_utc_time(serialData.token) == true)                     {strcpy(gnggaData.utc_time, serialData.token);                     gnrmcData.check_data++;}}
+    else if (serialData.iter_token ==1)  {if (val_utc_time(serialData.token) == true)                     {strcpy(gnrmcData.utc_time, serialData.token);                     gnrmcData.check_data++;}}
     else if (serialData.iter_token ==2)  {if (val_positioning_status_gnrmc(serialData.token) == true)     {strcpy(gnrmcData.positioning_status, serialData.token);           gnrmcData.check_data++;}}
     else if (serialData.iter_token ==3)  {if (val_latitude(serialData.token) == true)                     {strcpy(gnrmcData.latitude, serialData.token);                     gnrmcData.check_data++;}}
     else if (serialData.iter_token ==4)  {if (val_latitude_H(serialData.token) == true)                   {strcpy(gnrmcData.latitude_hemisphere, serialData.token);          gnrmcData.check_data++;}}
@@ -541,8 +542,9 @@ void GNRMC() {
     else if (serialData.iter_token ==9)  {if (val_utc_date(serialData.token) == true)                     {strcpy(gnrmcData.utc_date, serialData.token);                     gnrmcData.check_data++;}}
     else if (serialData.iter_token ==10) {if (val_installation_angle(serialData.token) == true)           {strcpy(gnrmcData.installation_angle, serialData.token);           gnrmcData.check_data++;}}
     else if (serialData.iter_token ==11) {if (val_installation_angle_direction(serialData.token) == true) {strcpy(gnrmcData.installation_angle_direction, serialData.token); gnrmcData.check_data++;}}
-    else if (serialData.iter_token ==12) {strcpy(gnrmcData.temporary_data, serialData.token); if (val_mode_indication(serialData.token) == true) {strncpy(gnrmcData.mode_indication, gnrmcData.temporary_data, 1);  gnrmcData.check_data++;
-    serialData.token = strtok(gnrmcData.temporary_data, "*"); serialData.token = strtok(NULL, "*"); if (strlen(serialData.token) == 3) {strcpy(gnrmcData.check_sum, serialData.token); gnrmcData.check_data++;}}}
+    else if (serialData.iter_token ==12) {if (strlen(serialData.token) == 5) {strncpy(gnrmcData.temporary_data, serialData.token, 1);
+    if (val_mode_indication(gnrmcData.temporary_data) == true) {strcpy(gnrmcData.mode_indication, gnrmcData.temporary_data); gnrmcData.check_data++;} serialData.token = strtok(serialData.token, "*"); serialData.token = strtok(NULL, "*");}
+    if (strlen(serialData.token) == 3) {strcpy(gnrmcData.check_sum, serialData.token); gnrmcData.check_data++;}}
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
