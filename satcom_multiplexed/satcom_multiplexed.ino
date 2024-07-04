@@ -562,35 +562,6 @@ void GPATT() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   DESBI DATA
-// final sentence still in development: desbi
-// according to the manufacturer, this sentence is a special version as in this sentence is a blend of $DEBUG and $DESBI. 9-10
-// belong to $DEBUG (ubi_a_set & ubi_b_set) while 18 appears to be ins_flag from $DEBUG, leaving 17 unclear as well as anything after 19.
-
-//    1     2   3   4   5       6       7   8    9   10  11  12  13   14 15  16  17  18    19  20   21      22   23  24  25  26  27 28   29
-// Documented:
-// $DESBI,  1,  1,  0,  0.000,  0.000,  5,  2,  55,  10,  0,  0,  0,  0,  0,  0,  0,  0,   48,  0,  0*6B
-// Actual Data:
-// $DESBI,  4,  1,  0,  0.00 ,  0.00,   0,  0,   0,   0,  0,  0,  0,  0,  0,  0,  0,  0,    0,  0,  0,    0.00,  N,  0,  0,  0,  0,  0,  0*0C
-// $DESBI,  4,  1,  0,  0.00,   0.00,  19,  2,  55,   0,  0,  0,  0,  0,  0,  0,  0,  0,  243,  0,  1,    0.00,  N,  0,  0,  27, 0,  0,  0*37
-//                                                                                        |                                                 |
-//                                                                                        |_________________________________________________|
-//                                                                                                              undocumented.
-//                                                                                       column 23 'N' value not in $DEBUG and is outside scope
-//                                                                                       of documented $DESBI. so the merging of $DEBUG and
-//                                                                                       $DESBI is still yet unclear as to the consistency of this
-//                                                                                       special sentence.
-
-// i am currently in contact with the manufacturer to assertain the missing data on DESBI protocol. they have provided me with a datasheet
-// which helps and there is still some communication yet to come because the datasheet has missing elements in its table for DESBI and
-// this struct as the others, must be absolutely correct. once clarification is received then desbi data can be parsed and plugged into the matrix
-// with everything else.
-
-struct DESBIStruct {
-};
-DESBIStruct desbiData;
-
-// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   SPEED DATA
 
 /*
