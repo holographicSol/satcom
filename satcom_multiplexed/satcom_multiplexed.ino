@@ -232,7 +232,7 @@ bool val_longitude(char * data) {
 bool val_latitude_H(char * data) {
   bool check_pass = false;
   if (strlen(data) == 1) {
-    if ((data == "N") || (data == "S")) {
+    if ((data[0] == 'N') || (data[0] == 'S')) {
       check_pass = true;
     }
   }
@@ -242,7 +242,7 @@ bool val_latitude_H(char * data) {
 bool val_longitude_H(char * data) {
   bool check_pass = false;
   if (strlen(data) == 1) {
-    if ((data == "W") || (data == "E")) {
+    if ((data[0] == 'E') || (data[0] == 'W')) {
       check_pass = true;
     }
   }
@@ -348,7 +348,7 @@ struct GNGGAStruct {
   char id[56];                          // <14> base station ID
   char check_sum[56];                   // <15> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
-  int check_data = 0;                   // should be 15
+  int check_data = 0;                   // should be 16
 };
 GNGGAStruct gnggaData;
 
