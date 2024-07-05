@@ -98,7 +98,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       WIRING
 
-SSD1306Wire   display_7(0x3c, SDA, SCL);  // let SSD1306Wire wire up our SSD1306 on the i2C bus
+SSD1306Wire   display_7(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display_6(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display_5(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display_4(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
