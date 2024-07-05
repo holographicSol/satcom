@@ -864,6 +864,19 @@ struct GNRMCStruct {
   char check_sum[56];                      // <13> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
   int check_data = 0;                      // should result in 14
+  unsigned long bad_utc_time_i;
+  unsigned long bad_positioning_status_i;
+  unsigned long bad_latitude_i;
+  unsigned long bad_latitude_hemisphere_i;
+  unsigned long bad_longitude_i;
+  unsigned long bad_longitude_hemisphere_i;
+  unsigned long bad_ground_speed_i;
+  unsigned long bad_ground_heading_i;
+  unsigned long bad_utc_date_i;
+  unsigned long bad_installation_angle_i;
+  unsigned long bad_installation_angle_direction_i;
+  unsigned long bad_mode_indication_i;
+  unsigned long bad_check_sum_i;
 };
 GNRMCStruct gnrmcData;
 
@@ -891,20 +904,20 @@ void GNRMC() {
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
     if     (serialData.iter_token == 0)                                                                   {strcpy(gnrmcData.tag, "GNRMC");                                   gnrmcData.check_data++;}
-    else if (serialData.iter_token ==1)  {if (val_utc_time(serialData.token) == true)                     {strcpy(gnrmcData.utc_time, serialData.token);                     gnrmcData.check_data++;}}
-    else if (serialData.iter_token ==2)  {if (val_positioning_status_gnrmc(serialData.token) == true)     {strcpy(gnrmcData.positioning_status, serialData.token);           gnrmcData.check_data++;}}
-    else if (serialData.iter_token ==3)  {if (val_latitude(serialData.token) == true)                     {strcpy(gnrmcData.latitude, serialData.token);                     gnrmcData.check_data++;}}
-    else if (serialData.iter_token ==4)  {if (val_latitude_H(serialData.token) == true)                   {strcpy(gnrmcData.latitude_hemisphere, serialData.token);          gnrmcData.check_data++;}}
-    else if (serialData.iter_token ==5)  {if (val_longitude(serialData.token) == true)                    {strcpy(gnrmcData.longitude, serialData.token);                    gnrmcData.check_data++;}}
-    else if (serialData.iter_token ==6)  {if (val_longitude_H(serialData.token) == true)                  {strcpy(gnrmcData.longitude_hemisphere, serialData.token);         gnrmcData.check_data++;}}
-    else if (serialData.iter_token ==7)  {if (val_ground_speed(serialData.token) == true)                 {strcpy(gnrmcData.ground_speed, serialData.token);                 gnrmcData.check_data++;}}
-    else if (serialData.iter_token ==8)  {if (val_ground_heading(serialData.token) == true)               {strcpy(gnrmcData.ground_heading, serialData.token);               gnrmcData.check_data++;}}
-    else if (serialData.iter_token ==9)  {if (val_utc_date(serialData.token) == true)                     {strcpy(gnrmcData.utc_date, serialData.token);                     gnrmcData.check_data++;}}
-    else if (serialData.iter_token ==10) {if (val_installation_angle(serialData.token) == true)           {strcpy(gnrmcData.installation_angle, serialData.token);           gnrmcData.check_data++;}}
-    else if (serialData.iter_token ==11) {if (val_installation_angle_direction(serialData.token) == true) {strcpy(gnrmcData.installation_angle_direction, serialData.token); gnrmcData.check_data++;}}
-    else if (serialData.iter_token ==12) {if (strlen(serialData.token) == 5) {strncpy(gnrmcData.temporary_data, serialData.token, 1);
-    if (val_mode_indication(gnrmcData.temporary_data) == true) {strcpy(gnrmcData.mode_indication, gnrmcData.temporary_data); gnrmcData.check_data++;} serialData.token = strtok(serialData.token, "*"); serialData.token = strtok(NULL, "*");}
-    if (strlen(serialData.token) == 3) {strcpy(gnrmcData.check_sum, serialData.token); gnrmcData.check_data++;}}
+    else if (serialData.iter_token ==1)  {if (val_utc_time(serialData.token) == true)                     {strcpy(gnrmcData.utc_time, serialData.token);                     gnrmcData.check_data++;} else {gnrmcData.bad_utc_time_i++;}}
+    else if (serialData.iter_token ==2)  {if (val_positioning_status_gnrmc(serialData.token) == true)     {strcpy(gnrmcData.positioning_status, serialData.token);           gnrmcData.check_data++;} else {gnrmcData.bad_positioning_status_i++;}}
+    else if (serialData.iter_token ==3)  {if (val_latitude(serialData.token) == true)                     {strcpy(gnrmcData.latitude, serialData.token);                     gnrmcData.check_data++;} else {gnrmcData.bad_latitude_i++;}}
+    else if (serialData.iter_token ==4)  {if (val_latitude_H(serialData.token) == true)                   {strcpy(gnrmcData.latitude_hemisphere, serialData.token);          gnrmcData.check_data++;} else {gnrmcData.bad_latitude_hemisphere_i++;}}
+    else if (serialData.iter_token ==5)  {if (val_longitude(serialData.token) == true)                    {strcpy(gnrmcData.longitude, serialData.token);                    gnrmcData.check_data++;} else {gnrmcData.bad_longitude_i++;}}
+    else if (serialData.iter_token ==6)  {if (val_longitude_H(serialData.token) == true)                  {strcpy(gnrmcData.longitude_hemisphere, serialData.token);         gnrmcData.check_data++;} else {gnrmcData.bad_longitude_hemisphere_i++;}}
+    else if (serialData.iter_token ==7)  {if (val_ground_speed(serialData.token) == true)                 {strcpy(gnrmcData.ground_speed, serialData.token);                 gnrmcData.check_data++;} else {gnrmcData.bad_ground_speed_i++;}}
+    else if (serialData.iter_token ==8)  {if (val_ground_heading(serialData.token) == true)               {strcpy(gnrmcData.ground_heading, serialData.token);               gnrmcData.check_data++;} else {gnrmcData.bad_ground_heading_i++;}}
+    else if (serialData.iter_token ==9)  {if (val_utc_date(serialData.token) == true)                     {strcpy(gnrmcData.utc_date, serialData.token);                     gnrmcData.check_data++;} else {gnrmcData.bad_utc_date_i++;}}
+    else if (serialData.iter_token ==10) {if (val_installation_angle(serialData.token) == true)           {strcpy(gnrmcData.installation_angle, serialData.token);           gnrmcData.check_data++;} else {gnrmcData.bad_installation_angle_i++;}}
+    else if (serialData.iter_token ==11) {if (val_installation_angle_direction(serialData.token) == true) {strcpy(gnrmcData.installation_angle_direction, serialData.token); gnrmcData.check_data++;} else {gnrmcData.bad_installation_angle_direction_i++;}}
+    else if (serialData.iter_token ==12) {if (strlen(serialData.token) == 5) {strncpy(gnrmcData.temporary_data, serialData.token, 1); if (val_mode_indication(gnrmcData.temporary_data) == true) {strcpy(gnrmcData.mode_indication, gnrmcData.temporary_data); gnrmcData.check_data++;} else {gnrmcData.bad_mode_indication_i++;}
+    serialData.token = strtok(serialData.token, "*"); serialData.token = strtok(NULL, "*");}
+    if (strlen(serialData.token) == 3) {strcpy(gnrmcData.check_sum, serialData.token); gnrmcData.check_data++;} else {gnrmcData.bad_check_sum_i++;}}
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
