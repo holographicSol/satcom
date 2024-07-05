@@ -203,6 +203,32 @@ element of the sentence. reulting bools can be used each loop to test data progr
 to get all validation setup (which it is) some of these validating functions are crude and should be ellaborated upon and refined.
 */
 
+int getCheckSum(char *string) {
+    int i;
+    int XOR;
+    int c;
+    for (XOR = 0, i = 0; i < strlen(string); i++) {
+      c = (unsigned char)string[i];
+      if (c == '*') break;
+      if (c != '$') XOR ^= c;
+    }
+    return XOR;
+}
+
+uint8_t h2d(char hex) {if(hex > 0x39) hex -= 7; return(hex & 0xf);}
+
+uint8_t h2d2(char h1, char h2) {return (h2d(h1)<<4) | h2d(h2);}
+
+bool validateChecksum(char * buffer) {
+    char gotSum[2];
+    gotSum[0] = buffer[strlen(buffer) - 3];
+    gotSum[1] = buffer[strlen(buffer) - 2];
+    // Serial.println("gotSum[0]: " + String(gotSum[0]) + "    gotSum[1]: " + String(gotSum[1]));
+    uint8_t checksum_of_buffer =  getCheckSum(buffer);
+    uint8_t checksum_in_buffer = h2d2(gotSum[0], gotSum[1]);
+    if (checksum_of_buffer == checksum_in_buffer) {return true;} else {return false;}
+}
+
 bool val_utc_time(char * data) {
   bool check_pass = false;
   if (strlen(data) == 9) {
@@ -783,6 +809,7 @@ struct GNGGAStruct {
   char temporary_data[56];
   char temporary_data_1[56];
   int check_data = 0; // should result in 16
+  bool valid_checksum = false;
 };
 GNGGAStruct gnggaData;
 
@@ -876,6 +903,7 @@ struct GNRMCStruct {
   char temporary_data[56];
   char temporary_data_1[56];
   int check_data = 0; // should result in 14
+  bool valid_checksum = false;
 };
 GNRMCStruct gnrmcData;
 
@@ -989,6 +1017,7 @@ struct GPATTStruct {
   char temporary_data[56];
   char temporary_data_1[56];
   int check_data = 0; // should result in 40
+  bool valid_checksum = false;
 };
 GPATTStruct gpattData;
 
@@ -1179,6 +1208,7 @@ struct SPEEDStruct {
   char temporary_data[56];
   char temporary_data_1[56];
   int check_data = 0; // should result in 40
+  bool valid_checksum = false;
 };
 SPEEDStruct speedData;
 
@@ -1268,6 +1298,7 @@ struct ERRORStruct {
   char temporary_data[56];
   char temporary_data_1[56];
   int check_data = 0; // should result in 8
+  bool valid_checksum = false;
 };
 ERRORStruct errorData;
 
@@ -1351,6 +1382,7 @@ struct DEBUGStruct {
   char temporary_data[56];
   char temporary_data_1[56];
   int check_data = 0; // should result in 29
+  bool valid_checksum = false;
 };
 DEBUGStruct debugData;
 
@@ -1781,7 +1813,8 @@ void readRXD_1() {
     if (strncmp(serialData.BUFFER, "$GNGGA", 6) == 0) {
       if ((serialData.nbytes == 94) || (serialData.nbytes == 90) ) {
         Serial.print(""); Serial.println(serialData.BUFFER);
-        GNGGA();
+        gnggaData.valid_checksum = validateChecksum(serialData.BUFFER);
+        if (gnggaData.valid_checksum == true) {GNGGA();}
       }
     }
 
@@ -1791,7 +1824,8 @@ void readRXD_1() {
     else if (strncmp(serialData.BUFFER, "$GNRMC", 6) == 0) {
       if ((serialData.nbytes == 78) || (serialData.nbytes == 80)) {
         Serial.print(""); Serial.println(serialData.BUFFER);
-        GNRMC();
+        gnrmcData.valid_checksum = validateChecksum(serialData.BUFFER);
+        if (gnrmcData.valid_checksum == true) {GNRMC();}
       }
     }
 
@@ -1801,7 +1835,8 @@ void readRXD_1() {
     else if (strncmp(serialData.BUFFER, "$GPATT", 6) == 0) {
       if ((serialData.nbytes == 136) || (serialData.nbytes == 189)) {
         Serial.print(""); Serial.println(serialData.BUFFER);
-        GPATT();
+        gpattData.valid_checksum = validateChecksum(serialData.BUFFER);
+        if (gpattData.valid_checksum == true) {GPATT();}
       }
     }
 
