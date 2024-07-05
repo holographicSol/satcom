@@ -1544,7 +1544,6 @@ void DEBUG() {
       serialData.token = strtok(NULL, "*");
       strcpy(debugData.temporary_data_1, strtok(serialData.token, "*"));
       if (val_checksum(debugData.temporary_data_1) == true)                                  {strcpy(debugData.check_sum, debugData.temporary_data_1); debugData.check_data++;} else {debugData.bad_check_sum_i++;}}
-
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
