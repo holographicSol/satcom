@@ -108,7 +108,7 @@ SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 //                                                                                                                   DEBUG DATA
 
 struct sysDebugStruct {
-  bool gngga_sentence = true;
+  bool gngga_sentence = false;
   bool gnrmc_sentence = false;
   bool gpatt_sentence = false;
   bool desbi_sentence = false;
@@ -750,6 +750,12 @@ bool val_checksum(char * data) {
   return check_pass;
 }
 
+bool val_scalable(char * data) {
+  bool check_pass = false;
+  if (strlen(data) >= 1) {check_pass = true;}
+  return check_pass;
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GNGGA DATA
 
@@ -883,6 +889,7 @@ struct GNRMCStruct {
   char mode_indication[56];                // <12> Mode indication (A=autonomous positioning, D=differential E=estimation, N=invalid data) */
   char check_sum[56];                      // <13> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
+  char temporary_data_1[56];
   int check_data = 0;                      // should result in 14
   unsigned long bad_utc_time_i;
   unsigned long bad_positioning_status_i;
@@ -935,9 +942,13 @@ void GNRMC() {
     else if (serialData.iter_token ==9)  {if (val_utc_date(serialData.token) == true)                     {strcpy(gnrmcData.utc_date, serialData.token);                     gnrmcData.check_data++;} else {gnrmcData.bad_utc_date_i++;}}
     else if (serialData.iter_token ==10) {if (val_installation_angle(serialData.token) == true)           {strcpy(gnrmcData.installation_angle, serialData.token);           gnrmcData.check_data++;} else {gnrmcData.bad_installation_angle_i++;}}
     else if (serialData.iter_token ==11) {if (val_installation_angle_direction(serialData.token) == true) {strcpy(gnrmcData.installation_angle_direction, serialData.token); gnrmcData.check_data++;} else {gnrmcData.bad_installation_angle_direction_i++;}}
-    else if (serialData.iter_token ==12) {if (strlen(serialData.token) == 5) {strncpy(gnrmcData.temporary_data, serialData.token, 1); if (val_mode_indication(gnrmcData.temporary_data) == true) {strcpy(gnrmcData.mode_indication, gnrmcData.temporary_data); gnrmcData.check_data++;} else {gnrmcData.bad_mode_indication_i++;}
-    serialData.token = strtok(serialData.token, "*"); serialData.token = strtok(NULL, "*");}
-    if (strlen(serialData.token) == 3) {strcpy(gnrmcData.check_sum, serialData.token); gnrmcData.check_data++;} else {gnrmcData.bad_check_sum_i++;}}
+    else if (serialData.iter_token ==12) {
+      strcpy(gnrmcData.temporary_data, strtok(serialData.token, "*"));
+      if (val_mode_indication(gnrmcData.temporary_data) == true)                                          {strcpy(gnrmcData.mode_indication, gnrmcData.temporary_data);      gnrmcData.check_data++;} else {gnrmcData.bad_mode_indication_i++;}
+      serialData.token = strtok(NULL, "*");
+      strcpy(gnrmcData.temporary_data_1, strtok(serialData.token, "*"));
+      if (val_checksum(gnrmcData.temporary_data_1) == true)                                               {strcpy(gnrmcData.check_sum, gnrmcData.temporary_data_1);          gnrmcData.check_data++;} else {gnrmcData.bad_check_sum_i++;}}
+
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
@@ -1006,6 +1017,7 @@ struct GPATTStruct {
   char scalable[56];         // <39> 
   char check_sum[56];        // <40> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
+  char temporary_data_1[56];
   unsigned long bad_pitch_i;
   unsigned long bad_angle_channel_0_i; 
   unsigned long bad_roll_i; 
@@ -1138,13 +1150,11 @@ void GPATT() {
     else if (serialData.iter_token == 37) {if (val_custom_flag(serialData.token) == true)            {strcpy(gpattData.custom_logo_11, serialData.token);   gpattData.check_data++;} else {gpattData.bad_custom_logo_11_i++;}}
     else if (serialData.iter_token == 38) {if (val_speed_num_gpatt(serialData.token) == true)        {strcpy(gpattData.speed_num, serialData.token);        gpattData.check_data++;} else {gpattData.bad_speed_num_i++;}}
     else if (serialData.iter_token == 39) {
-      gpattData.check_data++;
-      strcpy(gpattData.temporary_data, serialData.token);
-      serialData.token = strtok(gpattData.temporary_data, "*");
+      strcpy(gpattData.temporary_data, strtok(serialData.token, "*"));
+      if (val_scalable(gpattData.temporary_data) == true)                                            {strcpy(gpattData.scalable, gpattData.temporary_data); gpattData.check_data++;} else {gpattData.bad_scalable_i++;}
       serialData.token = strtok(NULL, "*");
-      if (strlen(serialData.token) == 3) {strcpy(gpattData.check_sum, serialData.token); gpattData.check_data++;}
-      else {gpattData.bad_speed_num_i++;}
-      }
+      strcpy(gpattData.temporary_data_1, strtok(serialData.token, "*"));
+      if (val_checksum(gpattData.temporary_data_1) == true)                                          {strcpy(gpattData.check_sum, gpattData.temporary_data_1); gpattData.check_data++;} else {gpattData.bad_check_sum_i++;}}
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
@@ -1237,6 +1247,7 @@ struct SPEEDStruct {
   char ubi_state_value[56];                  // <15> status threshold: see ubi_state_kind table
   char check_sum[56];                        // <16> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
+  char temporary_data_1[56];
   int check_data = 0;        // should result in 40
   unsigned long bad_utc_time_i;
   unsigned long bad_speed_i;
@@ -1297,14 +1308,11 @@ void SPEED() {
     else if (serialData.iter_token == 13) {if (val_ubi_state_flag(serialData.token) == true)             {strcpy(speedData.ubi_state_flag, serialData.token);             speedData.check_data++;} else {speedData.bad_ubi_state_flag_i++;}}
     else if (serialData.iter_token == 14) {if (val_ubi_state_kind_flag(serialData.token) == true)        {strcpy(speedData.ubi_state_kind, serialData.token);             speedData.check_data++;} else {speedData.bad_ubi_state_kind_i++;}}
     else if (serialData.iter_token == 15) {
-      speedData.check_data++;
-      strcpy(speedData.temporary_data, serialData.token);
-      strncpy(speedData.ubi_state_value, speedData.temporary_data, 1);
-      serialData.token = strtok(speedData.temporary_data, "*");
+      strcpy(speedData.temporary_data, strtok(serialData.token, "*"));
+      if (val_scalable(speedData.temporary_data) == true)                                                {strcpy(speedData.ubi_state_value, speedData.temporary_data);    speedData.check_data++;} else {speedData.bad_ubi_state_value_i++;}
       serialData.token = strtok(NULL, "*");
-      if (strlen(serialData.token) == 3) {strcpy(speedData.check_sum, serialData.token); speedData.check_data++;} else {speedData.bad_check_sum_i++;}
-      }
-
+      strcpy(speedData.temporary_data_1, strtok(serialData.token, "*"));
+      if (val_checksum(speedData.temporary_data_1) == true)                                              {strcpy(speedData.check_sum, speedData.temporary_data_1);        speedData.check_data++;} else {speedData.bad_check_sum_i++;}}
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
@@ -1901,8 +1909,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$GNRMC", 6) == 0) {
       if ((serialData.nbytes == 78) || (serialData.nbytes == 80)) {
-        // Serial.print(""); Serial.println(serialData.BUFFER);
-        // GNRMC();
+        Serial.print(""); Serial.println(serialData.BUFFER);
+        GNRMC();
       }
     }
 
@@ -1911,8 +1919,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$GPATT", 6) == 0) {
       if ((serialData.nbytes == 136) || (serialData.nbytes == 189)) {
-        // Serial.print(""); Serial.println(serialData.BUFFER);
-        // GPATT();
+        Serial.print(""); Serial.println(serialData.BUFFER);
+        GPATT();
       }
     }
 
@@ -3075,12 +3083,12 @@ void systems_Check() {
 
 void loop() {
   readRXD_1();
-  // extrapulatedSatData();
-  // SSD_Display_4();
-  // SSD_Display_5();
-  // SSD_Display_6();
-  // SSD_Display_7();
-  // systems_Check();
+  extrapulatedSatData();
+  SSD_Display_4();
+  SSD_Display_5();
+  SSD_Display_6();
+  SSD_Display_7();
+  systems_Check();
 
   delay(1);
 }
