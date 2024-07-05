@@ -1229,16 +1229,16 @@ void SPEED() {
 //                                                                                                                   ERROR DATA
 
 struct ERRORStruct {
-  char tag[56];         // <0> Log header
-  char utc[56];         // <1> utc time
-  char code_flag[56];   // <2> encryption chip: 1=problem, 0=normal
-  char gset_flag[56];   // <3> positioning chip: 1=problem, 0=normal
-  char sset_flag[56];   // <4> sensor chip: 1=problem, 0=normal
-  char customize_0[56]; // <5> customize 0-20
-  char customize_1[56]; // <6> customize float
-  char check_sum[56];   // <7> XOR check value of all bytes starting from $ to *
+  char tag[56];            // <0> Log header
+  char utc[56];            // <1> utc time
+  char code_flag[56];      // <2> encryption chip: 1=problem, 0=normal
+  char gset_flag[56];      // <3> positioning chip: 1=problem, 0=normal
+  char sset_flag[56];      // <4> sensor chip: 1=problem, 0=normal
+  char customize_0[56];    // <5> customize 0-20
+  char customize_1[56];    // <6> customize float
+  char check_sum[56];      // <7> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
-  int check_data = 0;
+  int check_data = 0;      // should result in 8
 };
 ERRORStruct errorData;
 
@@ -1258,12 +1258,12 @@ void ERROR() {
   serialData.iter_token = 0;
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
-    if      (serialData.iter_token == 0)                                               {strcpy(errorData.tag, "ERROR");                errorData.check_data++;}
-    else if (serialData.iter_token == 1) {if (val_utc_time(serialData.token) == true)  {strcpy(errorData.utc, serialData.token);       errorData.check_data++;}}
-    else if (serialData.iter_token == 2) {if (val_code_flag(serialData.token) == true) {strcpy(errorData.code_flag, serialData.token); errorData.check_data++;}}
-    else if (serialData.iter_token == 3) {if (val_gset_flag(serialData.token) == true) {strcpy(errorData.gset_flag, serialData.token); errorData.check_data++;}}
-    else if (serialData.iter_token == 4) {if (val_sset_flag(serialData.token) == true) {strcpy(errorData.sset_flag, serialData.token); errorData.check_data++;}}
-    else if (serialData.iter_token == 5) {strcpy(errorData.customize_0, serialData.token);                                             errorData.check_data++;}
+    if      (serialData.iter_token == 0)                                               {strcpy(errorData.tag, "ERROR");                  errorData.check_data++;}
+    else if (serialData.iter_token == 1) {if (val_utc_time(serialData.token) == true)  {strcpy(errorData.utc, serialData.token);         errorData.check_data++;}}
+    else if (serialData.iter_token == 2) {if (val_code_flag(serialData.token) == true) {strcpy(errorData.code_flag, serialData.token);   errorData.check_data++;}}
+    else if (serialData.iter_token == 3) {if (val_gset_flag(serialData.token) == true) {strcpy(errorData.gset_flag, serialData.token);   errorData.check_data++;}}
+    else if (serialData.iter_token == 4) {if (val_sset_flag(serialData.token) == true) {strcpy(errorData.sset_flag, serialData.token);   errorData.check_data++;}}
+    else if (serialData.iter_token == 5)                                               {strcpy(errorData.customize_0, serialData.token); errorData.check_data++;}
     else if (serialData.iter_token == 6) {
       strcpy(errorData.temporary_data, serialData.token);
       serialData.token = strtok(errorData.temporary_data, "*");
@@ -1320,7 +1320,8 @@ struct DEBUGStruct {
   char custom_logo_5[56];  // <27> 
   char check_sum[56];      // <28> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
-  int check_data = 0;
+  int check_data = 0;      // should result in 29
+};
 DEBUGStruct debugData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -1362,25 +1363,25 @@ void DEBUG() {
     if      (serialData.iter_token == 0)                                                     {strcpy(debugData.tag, "DEBUG");                     debugData.check_data++;}
     else if (serialData.iter_token == 1)  {if (val_ang_dget_flag(serialData.token) == true)  {strcpy(debugData.ang_dget_flag, serialData.token);  debugData.check_data++;}}
     else if (serialData.iter_token == 2)                                                     {strcpy(debugData.fix_kind_flag, serialData.token);  debugData.check_data++;}
-    else if (serialData.iter_token == 3)  {if (val_ins_run_flag(serialData.token) == true)   {strcpy(debugData.ins_run_flag, serialData.token);   debugData.check_data++;}
-    else if (serialData.iter_token == 4)  {if (val_fix_roll_flag(serialData.token) == true)  {strcpy(debugData.fix_roll_flag, serialData.token);  debugData.check_data++;}
-    else if (serialData.iter_token == 5)  {if (val_fix_pitch_flag(serialData.token) == true) {strcpy(debugData.fix_pitch_flag, serialData.token); debugData.check_data++;}
-    else if (serialData.iter_token == 6)  {if (val_ubi_on_flag(serialData.token) == true)    {strcpy(debugData.ubi_on_flag, serialData.token);    debugData.check_data++;}
-    else if (serialData.iter_token == 7)  {if (val_ubi_kind_flag(serialData.token) == true)  {strcpy(debugData.ubi_kind_flag, serialData.token);  debugData.check_data++;}
-    else if (serialData.iter_token == 8)  {if (val_ubi_a_set(serialData.token) == true)      {strcpy(debugData.ubi_a_set, serialData.token);      debugData.check_data++;}
-    else if (serialData.iter_token == 9)  {if (val_ubi_b_set(serialData.token) == true)      {strcpy(debugData.ubi_b_set, serialData.token);      debugData.check_data++;}
-    else if (serialData.iter_token == 10) {if (val_acc_X_data(serialData.token) == true)     {strcpy(debugData.acc_X_data, serialData.token);     debugData.check_data++;}
-    else if (serialData.iter_token == 11) {if (val_acc_Y_data(serialData.token) == true)     {strcpy(debugData.acc_Y_data, serialData.token);     debugData.check_data++;}
-    else if (serialData.iter_token == 12) {if (val_gyro_Z_data(serialData.token) == true)    {strcpy(debugData.gyro_Z_data, serialData.token);    debugData.check_data++;}
-    else if (serialData.iter_token == 13) {if (val_pitch_angle(serialData.token) == true)    {strcpy(debugData.pitch_angle, serialData.token);    debugData.check_data++;}
-    else if (serialData.iter_token == 14) {if (val_roll_angle(serialData.token) == true)     {strcpy(debugData.roll_angle, serialData.token);     debugData.check_data++;}
-    else if (serialData.iter_token == 15) {if (val_yaw_angle(serialData.token) == true)      {strcpy(debugData.yaw_angle, serialData.token);      debugData.check_data++;}
-    else if (serialData.iter_token == 16) {if (val_car_speed(serialData.token) == true)      {strcpy(debugData.car_speed, serialData.token);      debugData.check_data++;}
-    else if (serialData.iter_token == 17) {if (val_ins_flag(serialData.token) == true)       {strcpy(debugData.ins_flag, serialData.token);       debugData.check_data++;}
-    else if (serialData.iter_token == 18) {if (val_ubi_num(serialData.token) == true)        {strcpy(debugData.ubi_num, serialData.token);        debugData.check_data++;}
-    else if (serialData.iter_token == 19) {if (val_ubi_valid(serialData.token) == true)      {strcpy(debugData.ubi_valid, serialData.token);      debugData.check_data++;}
-    else if (serialData.iter_token == 20) {if (val_coll_T_data(serialData.token) == true)    {strcpy(debugData.coll_T_data, serialData.token);    debugData.check_data++;}
-    else if (serialData.iter_token == 21) {if (val_coll_T_heading(serialData.token) == true) {strcpy(debugData.coll_T_heading, serialData.token); debugData.check_data++;}
+    else if (serialData.iter_token == 3)  {if (val_ins_run_flag(serialData.token) == true)   {strcpy(debugData.ins_run_flag, serialData.token);   debugData.check_data++;}}
+    else if (serialData.iter_token == 4)  {if (val_fix_roll_flag(serialData.token) == true)  {strcpy(debugData.fix_roll_flag, serialData.token);  debugData.check_data++;}}
+    else if (serialData.iter_token == 5)  {if (val_fix_pitch_flag(serialData.token) == true) {strcpy(debugData.fix_pitch_flag, serialData.token); debugData.check_data++;}}
+    else if (serialData.iter_token == 6)  {if (val_ubi_on_flag(serialData.token) == true)    {strcpy(debugData.ubi_on_flag, serialData.token);    debugData.check_data++;}}
+    else if (serialData.iter_token == 7)  {if (val_ubi_kind_flag(serialData.token) == true)  {strcpy(debugData.ubi_kind_flag, serialData.token);  debugData.check_data++;}}
+    else if (serialData.iter_token == 8)  {if (val_ubi_a_set(serialData.token) == true)      {strcpy(debugData.ubi_a_set, serialData.token);      debugData.check_data++;}}
+    else if (serialData.iter_token == 9)  {if (val_ubi_b_set(serialData.token) == true)      {strcpy(debugData.ubi_b_set, serialData.token);      debugData.check_data++;}}
+    else if (serialData.iter_token == 10) {if (val_acc_X_data(serialData.token) == true)     {strcpy(debugData.acc_X_data, serialData.token);     debugData.check_data++;}}
+    else if (serialData.iter_token == 11) {if (val_acc_Y_data(serialData.token) == true)     {strcpy(debugData.acc_Y_data, serialData.token);     debugData.check_data++;}}
+    else if (serialData.iter_token == 12) {if (val_gyro_Z_data(serialData.token) == true)    {strcpy(debugData.gyro_Z_data, serialData.token);    debugData.check_data++;}}
+    else if (serialData.iter_token == 13) {if (val_pitch_angle(serialData.token) == true)    {strcpy(debugData.pitch_angle, serialData.token);    debugData.check_data++;}}
+    else if (serialData.iter_token == 14) {if (val_roll_angle(serialData.token) == true)     {strcpy(debugData.roll_angle, serialData.token);     debugData.check_data++;}}
+    else if (serialData.iter_token == 15) {if (val_yaw_angle(serialData.token) == true)      {strcpy(debugData.yaw_angle, serialData.token);      debugData.check_data++;}}
+    else if (serialData.iter_token == 16) {if (val_car_speed(serialData.token) == true)      {strcpy(debugData.car_speed, serialData.token);      debugData.check_data++;}}
+    else if (serialData.iter_token == 17) {if (val_ins_flag(serialData.token) == true)       {strcpy(debugData.ins_flag, serialData.token);       debugData.check_data++;}}
+    else if (serialData.iter_token == 18) {if (val_ubi_num(serialData.token) == true)        {strcpy(debugData.ubi_num, serialData.token);        debugData.check_data++;}}
+    else if (serialData.iter_token == 19) {if (val_ubi_valid(serialData.token) == true)      {strcpy(debugData.ubi_valid, serialData.token);      debugData.check_data++;}}
+    else if (serialData.iter_token == 20) {if (val_coll_T_data(serialData.token) == true)    {strcpy(debugData.coll_T_data, serialData.token);    debugData.check_data++;}}
+    else if (serialData.iter_token == 21) {if (val_coll_T_heading(serialData.token) == true) {strcpy(debugData.coll_T_heading, serialData.token); debugData.check_data++;}}
     else if (serialData.iter_token == 22)                                                    {strcpy(debugData.custom_logo_0, serialData.token);  debugData.check_data++;}
     else if (serialData.iter_token == 23)                                                    {strcpy(debugData.custom_logo_1, serialData.token);  debugData.check_data++;}
     else if (serialData.iter_token == 24)                                                    {strcpy(debugData.custom_logo_2, serialData.token);  debugData.check_data++;}
@@ -1988,10 +1989,10 @@ struct RelayStruct {
   char run_state_flag_gpatt_equal[56]      = "run_state_flag_gpatt_equal";
   char ins_gpatt_equal[56]                 = "ins_gpatt_equal";
 
-  char speed_num_gpatt_over[56]        = "speed_num_gpatt_over";
-  char speed_num_gpatt_under[56]       = "speed_num_gpatt_under[";
-  char speed_num_gpatt_equal[56]       = "speed_num_gpatt_equal";
-  char speed_num_gpatt_in_range[56]    = "speed_num_gpatt_in_range";
+  char speed_num_gpatt_over[56]            = "speed_num_gpatt_over";
+  char speed_num_gpatt_under[56]           = "speed_num_gpatt_under[";
+  char speed_num_gpatt_equal[56]           = "speed_num_gpatt_equal";
+  char speed_num_gpatt_in_range[56]        = "speed_num_gpatt_in_range";
 
   char mileage_gpatt_over[56]              = "mileage_gpatt_over";
   char mileage_gpatt_under[56]             = "mileage_gpatt_under[";
