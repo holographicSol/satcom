@@ -594,6 +594,24 @@ bool val_ubi_state_kind_flag(char * data) {
   return check_pass;
 }
 
+bool val_code_flag(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_gset_flag(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_sset_flag(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  return check_pass;
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GNGGA DATA
 
@@ -1100,6 +1118,7 @@ struct ERRORStruct {
   char customize_1[56]; // <6> customize float
   char check_sum[56];   // <7> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
+  int check_data = 0;
 };
 ERRORStruct errorData;
 
@@ -1107,6 +1126,7 @@ ERRORStruct errorData;
 //                                                                                                                        ERROR
 
 void ERROR() {
+  errorData.check_data = 0;
   memset(errorData.tag, 0, 56);
   memset(errorData.utc, 0, 56);
   memset(errorData.code_flag, 0, 56);
@@ -1118,17 +1138,17 @@ void ERROR() {
   serialData.iter_token = 0;
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
-    if      (serialData.iter_token == 0) {strcpy(errorData.tag, "ERROR");}
-    else if (serialData.iter_token == 1) {strcpy(errorData.utc, serialData.token);}
-    else if (serialData.iter_token == 2) {strcpy(errorData.code_flag, serialData.token);}
-    else if (serialData.iter_token == 3) {strcpy(errorData.gset_flag, serialData.token);}
-    else if (serialData.iter_token == 4) {strcpy(errorData.sset_flag, serialData.token);}
-    else if (serialData.iter_token == 5) {strcpy(errorData.customize_0, serialData.token);}
+    if      (serialData.iter_token == 0)                                               {strcpy(errorData.tag, "ERROR");                errorData.check_data++;}
+    else if (serialData.iter_token == 1) {if (val_utc_time(serialData.token) == true)  {strcpy(errorData.utc, serialData.token);       errorData.check_data++;}}
+    else if (serialData.iter_token == 2) {if (val_code_flag(serialData.token) == true) {strcpy(errorData.code_flag, serialData.token); errorData.check_data++;}}
+    else if (serialData.iter_token == 3) {if (val_gset_flag(serialData.token) == true) {strcpy(errorData.gset_flag, serialData.token); errorData.check_data++;}}
+    else if (serialData.iter_token == 4) {if (val_sset_flag(serialData.token) == true) {strcpy(errorData.sset_flag, serialData.token); errorData.check_data++;}}
+    else if (serialData.iter_token == 5) {strcpy(errorData.customize_0, serialData.token);                                             errorData.check_data++;}
     else if (serialData.iter_token == 6) {
       strcpy(errorData.temporary_data, serialData.token);
       serialData.token = strtok(errorData.temporary_data, "*");
       serialData.token = strtok(NULL, "*");
-      strcpy(errorData.check_sum, serialData.token);
+      if (strlen(serialData.token) == 3) {strcpy(errorData.check_sum, serialData.token); errorData.check_data++;}
       }
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
@@ -1142,6 +1162,7 @@ void ERROR() {
     Serial.println("[errorData.customize_0] " + String(errorData.customize_0));
     Serial.println("[errorData.customize_1] " + String(errorData.customize_1)); // intentionally unpopulated
     Serial.println("[errorData.check_sum] "   + String(errorData.check_sum));
+    Serial.println("[errorData.check_data] "  + String(errorData.check_data));
   }
 }
 
