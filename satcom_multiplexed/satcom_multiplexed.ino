@@ -108,7 +108,7 @@ SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 //                                                                                                                   DEBUG DATA
 
 struct sysDebugStruct {
-  bool gngga_sentence = false;
+  bool gngga_sentence = true;
   bool gnrmc_sentence = false;
   bool gpatt_sentence = false;
   bool desbi_sentence = false;
@@ -744,6 +744,12 @@ bool val_custom_flag(char * data) {
   return check_pass;
 }
 
+bool val_checksum(char * data) {
+  bool check_pass = false;
+  if (strlen(data) == 3) {check_pass = true;}
+  return check_pass;
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GNGGA DATA
 
@@ -765,6 +771,7 @@ struct GNGGAStruct {
   char id[56];                          // <14> base station ID
   char check_sum[56];                   // <15> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
+  char temporary_data_1[56];
   int check_data = 0;                   // should result in 16
   unsigned long bad_utc_time_i;
   unsigned long bad_latitude_i;
@@ -827,11 +834,12 @@ void GNGGA() {
     else if (serialData.iter_token ==11) {if (val_geoidal(serialData.token) == true)                  {strcpy(gnggaData.geoidal, serialData.token);               gnggaData.check_data++;} else {gnggaData.bad_geoidal_i++;}}
     else if (serialData.iter_token ==12) {if (val_geoidal_units(serialData.token) == true)            {strcpy(gnggaData.geoidal_units, serialData.token);         gnggaData.check_data++;} else {gnggaData.bad_geoidal_units_i++;}}
     else if (serialData.iter_token ==13) {if (val_differential_delay(serialData.token) == true)       {strcpy(gnggaData.differential_delay, serialData.token);    gnggaData.check_data++;} else {gnggaData.bad_differential_delay_i++;}}
-    else if (serialData.iter_token ==14) {if (strlen(serialData.token) == 8) {strncpy(gnggaData.temporary_data, serialData.token, 4); if (val_basestation_id(gnggaData.temporary_data) == true) {strcpy(gnggaData.id, gnggaData.temporary_data); gnggaData.check_data++;} else {gnggaData.bad_id_i++;}
-      serialData.token = strtok(serialData.token, "*"); serialData.token = strtok(NULL, "*");
-      }
-      if (strlen(serialData.token) == 3) {strcpy(gnggaData.check_sum, serialData.token); gnggaData.check_data++;} else {gnggaData.bad_check_sum_i++;}
-      }
+    else if (serialData.iter_token ==14) {
+      strcpy(gnggaData.temporary_data, strtok(serialData.token, "*"));
+      if (val_basestation_id(gnggaData.temporary_data) == true)                                       {strcpy(gnggaData.id, gnggaData.temporary_data);            gnggaData.check_data++;} else {gnggaData.bad_id_i++;}
+      serialData.token = strtok(NULL, "*");
+      strcpy(gnggaData.temporary_data_1, strtok(serialData.token, "*"));
+      if (val_checksum(gnggaData.temporary_data_1) == true)                                           {strcpy(gnggaData.check_sum, gnggaData.temporary_data_1);   gnggaData.check_data++;} else {gnggaData.bad_check_sum_i++;}}
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
@@ -1893,8 +1901,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$GNRMC", 6) == 0) {
       if ((serialData.nbytes == 78) || (serialData.nbytes == 80)) {
-        Serial.print(""); Serial.println(serialData.BUFFER);
-        GNRMC();
+        // Serial.print(""); Serial.println(serialData.BUFFER);
+        // GNRMC();
       }
     }
 
@@ -1903,8 +1911,8 @@ void readRXD_1() {
 
     else if (strncmp(serialData.BUFFER, "$GPATT", 6) == 0) {
       if ((serialData.nbytes == 136) || (serialData.nbytes == 189)) {
-        Serial.print(""); Serial.println(serialData.BUFFER);
-        GPATT();
+        // Serial.print(""); Serial.println(serialData.BUFFER);
+        // GPATT();
       }
     }
 
@@ -3067,12 +3075,12 @@ void systems_Check() {
 
 void loop() {
   readRXD_1();
-  extrapulatedSatData();
-  SSD_Display_4();
-  SSD_Display_5();
-  SSD_Display_6();
-  SSD_Display_7();
-  systems_Check();
+  // extrapulatedSatData();
+  // SSD_Display_4();
+  // SSD_Display_5();
+  // SSD_Display_6();
+  // SSD_Display_7();
+  // systems_Check();
 
   delay(1);
 }
