@@ -108,13 +108,13 @@ SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 //                                                                                                                   DEBUG DATA
 
 struct sysDebugStruct {
-  bool gngga_sentence = true;
-  bool gnrmc_sentence = true;
-  bool gpatt_sentence = true;
-  bool desbi_sentence = true;
-  bool speed_sentence = true;
-  bool error_sentence = true;
-  bool debug_sentence = true;
+  bool gngga_sentence = false;
+  bool gnrmc_sentence = false;
+  bool gpatt_sentence = false;
+  bool desbi_sentence = false;
+  bool speed_sentence = false;
+  bool error_sentence = false;
+  bool debug_sentence = false;
 };
 sysDebugStruct sysDebugData;
 
@@ -3198,7 +3198,8 @@ void systems_Check() {
 void loop() {
   readRXD_1();
 
-  // if checks passed equal to total expected checks to pass and check sums weigh up then allow data collected this loop to be worked with 
+  // if checks passed equal to total expected checks to pass and check sums weigh up then allow data collected this loop to be worked with .
+  // may require a small warmup period to pass this gate.
   if (preliminary_check() == true) {
     extrapulatedSatData();
     SSD_Display_4();
