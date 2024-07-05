@@ -806,10 +806,10 @@ struct GNGGAStruct {
   char differential_delay[56];          unsigned long bad_differential_delay_i;    bool bad_differential_delay = true;    // <13>
   char id[56];                          unsigned long bad_id_i;                    bool bad_id = true;                    // <14> base station ID
   char check_sum[56];                   unsigned long bad_check_sum_i;             bool bad_check_sum = true;             // <15> XOR check value of all bytes starting from $ to *
+  int check_data = 0;                   unsigned long bad_checksum_validity;       bool valid_checksum = false;           // Checksum validity bool, counters and a counter for how many elements passed further testing (gngga check_data should result in 16)
   char temporary_data[56];
   char temporary_data_1[56];
-  int check_data = 0; // should result in 16
-  bool valid_checksum = false;
+  
 };
 GNGGAStruct gnggaData;
 
@@ -900,10 +900,9 @@ struct GNRMCStruct {
   char installation_angle_direction[56];   unsigned long bad_installation_angle_direction_i; bool bad_installation_angle_direction = true; // <11> Magnetic declination direction, E (east) or W (west)
   char mode_indication[56];                unsigned long bad_mode_indication_i;              bool bad_mode_indication = true;              // <12> Mode indication (A=autonomous positioning, D=differential E=estimation, N=invalid data) */
   char check_sum[56];                      unsigned long bad_check_sum_i;                    bool bad_check_sum = true;                    // <13> XOR check value of all bytes starting from $ to *
+  int check_data = 0;                      unsigned long bad_checksum_validity;              bool valid_checksum = false;                  // Checksum validity bool, counters and a counter for how many elements passed further testing (gnrmc check_data should result in 14)
   char temporary_data[56];
   char temporary_data_1[56];
-  int check_data = 0; // should result in 14
-  bool valid_checksum = false;
 };
 GNRMCStruct gnrmcData;
 
@@ -1014,10 +1013,9 @@ struct GPATTStruct {
   char speed_num[56];        unsigned long bad_speed_num_i;        bool bad_speed_num = true;        // <38> 1：fixed setting，0：Self adaptive installation
   char scalable[56];         unsigned long bad_scalable_i;         bool bad_scalable = true;         // <39> 
   char check_sum[56];        unsigned long bad_check_sum_i;        bool bad_check_sum = true;        // <40> XOR check value of all bytes starting from $ to *
+  int check_data = 0;        unsigned long bad_checksum_validity;  bool valid_checksum = false;      // Checksum validity bool, counters and a counter for how many elements passed further testing (gnrmc check_data should result in 41)
   char temporary_data[56];
   char temporary_data_1[56];
-  int check_data = 0; // should result in 40
-  bool valid_checksum = false;
 };
 GPATTStruct gpattData;
 
@@ -1205,10 +1203,9 @@ struct SPEEDStruct {
   char ubi_state_kind[56];                   unsigned long bad_ubi_state_kind_i;             bool bad_ubi_state_kind = true;             // <14> status tyoe: see ubi_state_kind table
   char ubi_state_value[56];                  unsigned long bad_ubi_state_value_i;            bool bad_ubi_state_value = true;            // <15> status threshold: see ubi_state_kind table
   char check_sum[56];                        unsigned long bad_check_sum_i;                  bool bad_check_sum = true;                  // <16> XOR check value of all bytes starting from $ to *
+  int check_data = 0;                        unsigned long bad_checksum_validity;            bool valid_checksum = false;                // Checksum validity bool, counters and a counter for how many elements passed further testing (gnrmc check_data should result in 17)
   char temporary_data[56];
   char temporary_data_1[56];
-  int check_data = 0; // should result in 40
-  bool valid_checksum = false;
 };
 SPEEDStruct speedData;
 
@@ -1287,18 +1284,17 @@ void SPEED() {
 //                                                                                                                   ERROR DATA
 
 struct ERRORStruct {
-  char tag[56];                                                                          // <0> Log header
-  char utc[56];            unsigned long bad_utc_i;         bool bad_utc = true;         // <1> utc time
-  char code_flag[56];      unsigned long bad_code_flag_i;   bool bad_code_flag = true;   // <2> encryption chip: 1=problem, 0=normal
-  char gset_flag[56];      unsigned long bad_gset_flag_i;   bool bad_gset_flag = true;   // <3> positioning chip: 1=problem, 0=normal
-  char sset_flag[56];      unsigned long bad_sset_flag_i;   bool bad_sset_flag = true;   // <4> sensor chip: 1=problem, 0=normal
-  char customize_0[56];    unsigned long bad_customize_0_i; bool bad_customize_0 = true; // <5> customize 0-20
-  char customize_1[56];    unsigned long bad_customize_1_i; bool bad_customize_1 = true; // <6> customize float
-  char check_sum[56];      unsigned long bad_check_sum_i;   bool bad_check_sum = true;   // <7> XOR check value of all bytes starting from $ to *
+  char tag[56];                                                                              // <0> Log header
+  char utc[56];            unsigned long bad_utc_i;             bool bad_utc = true;         // <1> utc time
+  char code_flag[56];      unsigned long bad_code_flag_i;       bool bad_code_flag = true;   // <2> encryption chip: 1=problem, 0=normal
+  char gset_flag[56];      unsigned long bad_gset_flag_i;       bool bad_gset_flag = true;   // <3> positioning chip: 1=problem, 0=normal
+  char sset_flag[56];      unsigned long bad_sset_flag_i;       bool bad_sset_flag = true;   // <4> sensor chip: 1=problem, 0=normal
+  char customize_0[56];    unsigned long bad_customize_0_i;     bool bad_customize_0 = true; // <5> customize 0-20
+  char customize_1[56];    unsigned long bad_customize_1_i;     bool bad_customize_1 = true; // <6> customize float
+  char check_sum[56];      unsigned long bad_check_sum_i;       bool bad_check_sum = true;   // <7> XOR check value of all bytes starting from $ to *
+  int check_data = 0;      unsigned long bad_checksum_validity; bool valid_checksum = false; // Checksum validity bool, counters and a counter for how many elements passed further testing (gnrmc check_data should result in 8)
   char temporary_data[56];
   char temporary_data_1[56];
-  int check_data = 0; // should result in 8
-  bool valid_checksum = false;
 };
 ERRORStruct errorData;
 
@@ -1350,39 +1346,38 @@ void ERROR() {
 //                                                                                                                   DEBUG DATA
 
 struct DEBUGStruct {
-  char tag[56];                                                // <0> log header
-  char ang_dget_flag[56];  unsigned long bad_ang_dget_flag_i;  bool bad_ang_dget_flag = true;  // <1> installation azimuth: 1=with azimuth, 0=without azimuth
-  char fix_kind_flag[56];  unsigned long bad_fix_kind_flag_i;  bool bad_fix_kind_flag = true;  // <2> type of installed coordinate system
-  char ins_run_flag[56];   unsigned long bad_ins_run_flag_i;   bool bad_ins_run_flag = true;   // <3> forced ins: 1=forced, 0=normal
-  char fix_roll_flag[56];  unsigned long bad_fix_roll_flag_i;  bool bad_fix_roll_flag = true;  // <4> installation roll angle
-  char fix_pitch_flag[56]; unsigned long bad_fix_pitch_flag_i; bool bad_fix_pitch_flag = true; // <5> installation pitch angle
-  char ubi_on_flag[56];    unsigned long bad_ubi_on_flag_i;    bool bad_ubi_on_flag = true;    // <6> 0 to 8
-  char ubi_kind_flag[56];  unsigned long bad_ubi_kind_flag_i;  bool bad_ubi_kind_flag = true;  // <7> 0=none, 1=ubi event, 2=ubi alarm
-  char ubi_a_set[56];      unsigned long bad_ubi_a_set_i;      bool bad_ubi_a_set = true;      // <8> ubi a parameter setting value
-  char ubi_b_set[56];      unsigned long bad_ubi_b_set_i;      bool bad_ubi_b_set = true;      // <9> ubi b parameter setting value
-  char acc_X_data[56];     unsigned long bad_acc_X_data_i;     bool bad_acc_X_data = true;     // <10> vehicle longitudinal acceleration: 0.1m/s2
-  char acc_Y_data[56];     unsigned long bad_acc_Y_data_i;     bool bad_acc_Y_data = true;     // <11> vehicle lateral acceleration: 0.1m/s2
-  char gyro_Z_data[56];    unsigned long bad_gyro_Z_data_i;    bool bad_gyro_Z_data = true;    // <12> vehicle z axis angular velocity: degrees
-  char pitch_angle[56];    unsigned long bad_pitch_angle_i;    bool bad_pitch_angle = true;    // <13> vehicle pitch angle: degrees
-  char roll_angle[56];     unsigned long bad_roll_angle_i;     bool bad_roll_angle = true;     // <14> vehicle roll angle: degrees
-  char yaw_angle[56];      unsigned long bad_yaw_angle_i;      bool bad_yaw_angle = true;      // <15> vehicle direction change angle: degrees
-  char car_speed[56];      unsigned long bad_car_speed_i;      bool bad_car_speed = true;      // <16> vehicle speed: m/s
-  char ins_flag[56];       unsigned long bad_ins_flag_i;       bool bad_ins_flag = true;       // <17> intertial navigation convergence flag
-  char ubi_num[56];        unsigned long bad_ubi_num_i;        bool bad_ubi_num = true;        // <18> serial number
-  char ubi_valid[56];      unsigned long bad_ubi_valid_i;      bool bad_ubi_valid = true;      // <19> ubi valid flag: 1=valid, 0=invalid
-  char coll_T_data[56];    unsigned long bad_coll_T_data_i;    bool bad_coll_T_data = true;    // <20> collision factor
-  char coll_T_heading[56]; unsigned long bad_coll_T_heading_i; bool bad_coll_T_heading = true; // <21> collision direction
-  char custom_logo_0[56];  unsigned long bad_custom_logo_0_i;  bool bad_custom_logo_0 = true;  // <22> 
-  char custom_logo_1[56];  unsigned long bad_custom_logo_1_i;  bool bad_custom_logo_1 = true;  // <23> 
-  char custom_logo_2[56];  unsigned long bad_custom_logo_2_i;  bool bad_custom_logo_2 = true;  // <24> 
-  char custom_logo_3[56];  unsigned long bad_custom_logo_3_i;  bool bad_custom_logo_3 = true;  // <25> 
-  char custom_logo_4[56];  unsigned long bad_custom_logo_4_i;  bool bad_custom_logo_4 = true;  // <26> 
-  char custom_logo_5[56];  unsigned long bad_custom_logo_5_i;  bool bad_custom_logo_5 = true;  // <27> 
-  char check_sum[56];      unsigned long bad_check_sum_i;      bool bad_check_sum = true;      // <28> XOR check value of all bytes starting from $ to *
+  char tag[56];                                                                                 // <0> log header
+  char ang_dget_flag[56];  unsigned long bad_ang_dget_flag_i;   bool bad_ang_dget_flag = true;  // <1> installation azimuth: 1=with azimuth, 0=without azimuth
+  char fix_kind_flag[56];  unsigned long bad_fix_kind_flag_i;   bool bad_fix_kind_flag = true;  // <2> type of installed coordinate system
+  char ins_run_flag[56];   unsigned long bad_ins_run_flag_i;    bool bad_ins_run_flag = true;   // <3> forced ins: 1=forced, 0=normal
+  char fix_roll_flag[56];  unsigned long bad_fix_roll_flag_i;   bool bad_fix_roll_flag = true;  // <4> installation roll angle
+  char fix_pitch_flag[56]; unsigned long bad_fix_pitch_flag_i;  bool bad_fix_pitch_flag = true; // <5> installation pitch angle
+  char ubi_on_flag[56];    unsigned long bad_ubi_on_flag_i;     bool bad_ubi_on_flag = true;    // <6> 0 to 8
+  char ubi_kind_flag[56];  unsigned long bad_ubi_kind_flag_i;   bool bad_ubi_kind_flag = true;  // <7> 0=none, 1=ubi event, 2=ubi alarm
+  char ubi_a_set[56];      unsigned long bad_ubi_a_set_i;       bool bad_ubi_a_set = true;      // <8> ubi a parameter setting value
+  char ubi_b_set[56];      unsigned long bad_ubi_b_set_i;       bool bad_ubi_b_set = true;      // <9> ubi b parameter setting value
+  char acc_X_data[56];     unsigned long bad_acc_X_data_i;      bool bad_acc_X_data = true;     // <10> vehicle longitudinal acceleration: 0.1m/s2
+  char acc_Y_data[56];     unsigned long bad_acc_Y_data_i;      bool bad_acc_Y_data = true;     // <11> vehicle lateral acceleration: 0.1m/s2
+  char gyro_Z_data[56];    unsigned long bad_gyro_Z_data_i;     bool bad_gyro_Z_data = true;    // <12> vehicle z axis angular velocity: degrees
+  char pitch_angle[56];    unsigned long bad_pitch_angle_i;     bool bad_pitch_angle = true;    // <13> vehicle pitch angle: degrees
+  char roll_angle[56];     unsigned long bad_roll_angle_i;      bool bad_roll_angle = true;     // <14> vehicle roll angle: degrees
+  char yaw_angle[56];      unsigned long bad_yaw_angle_i;       bool bad_yaw_angle = true;      // <15> vehicle direction change angle: degrees
+  char car_speed[56];      unsigned long bad_car_speed_i;       bool bad_car_speed = true;      // <16> vehicle speed: m/s
+  char ins_flag[56];       unsigned long bad_ins_flag_i;        bool bad_ins_flag = true;       // <17> intertial navigation convergence flag
+  char ubi_num[56];        unsigned long bad_ubi_num_i;         bool bad_ubi_num = true;        // <18> serial number
+  char ubi_valid[56];      unsigned long bad_ubi_valid_i;       bool bad_ubi_valid = true;      // <19> ubi valid flag: 1=valid, 0=invalid
+  char coll_T_data[56];    unsigned long bad_coll_T_data_i;     bool bad_coll_T_data = true;    // <20> collision factor
+  char coll_T_heading[56]; unsigned long bad_coll_T_heading_i;  bool bad_coll_T_heading = true; // <21> collision direction
+  char custom_logo_0[56];  unsigned long bad_custom_logo_0_i;   bool bad_custom_logo_0 = true;  // <22> 
+  char custom_logo_1[56];  unsigned long bad_custom_logo_1_i;   bool bad_custom_logo_1 = true;  // <23> 
+  char custom_logo_2[56];  unsigned long bad_custom_logo_2_i;   bool bad_custom_logo_2 = true;  // <24> 
+  char custom_logo_3[56];  unsigned long bad_custom_logo_3_i;   bool bad_custom_logo_3 = true;  // <25> 
+  char custom_logo_4[56];  unsigned long bad_custom_logo_4_i;   bool bad_custom_logo_4 = true;  // <26> 
+  char custom_logo_5[56];  unsigned long bad_custom_logo_5_i;   bool bad_custom_logo_5 = true;  // <27> 
+  char check_sum[56];      unsigned long bad_check_sum_i;       bool bad_check_sum = true;      // <28> XOR check value of all bytes starting from $ to *
+  int check_data = 0;      unsigned long bad_checksum_validity; bool valid_checksum = false;    // Checksum validity bool, counters and a counter for how many elements passed further testing (gnrmc check_data should result in 29)
   char temporary_data[56];
   char temporary_data_1[56];
-  int check_data = 0; // should result in 29
-  bool valid_checksum = false;
 };
 DEBUGStruct debugData;
 
