@@ -108,9 +108,9 @@ SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 //                                                                                                                   DEBUG DATA
 
 struct sysDebugStruct {
-  bool gngga_sentence = false;
-  bool gnrmc_sentence = false;
-  bool gpatt_sentence = false;
+  bool gngga_sentence = true;
+  bool gnrmc_sentence = true;
+  bool gpatt_sentence = true;
   bool desbi_sentence = false;
 };
 sysDebugStruct sysDebugData;
@@ -205,8 +205,34 @@ to get all validation setup (which it is) some of these validating functions are
 
 struct validationStruct {
   bool preliminary_check = true;
+  int  valid_i = 0;
+  bool valid_b = true;
 };
 validationStruct validData;
+
+bool count_digits(char * data, int expected) {
+  validData.valid_i = 0;
+  for (int i = 0; i < strlen(data); i++) {if (isdigit(data[i]) == 1) {validData.valid_i++;}}
+  if (validData.valid_i == expected) {return true;} else {return false;}
+}
+
+bool count_alpha(char * data, int expected) {
+  validData.valid_i = 0;
+  for (int i = 0; i < strlen(data); i++) {if (isalpha(data[i]) == 1) {validData.valid_i++;}}
+  if (validData.valid_i == expected) {return true;} else {return false;}
+}
+
+bool is_all_digits(char * data) {
+  validData.valid_b = true;
+  for (int i = 0; i < strlen(data); i++) {if (isdigit(data[i]) == 0) {validData.valid_b = false;}}
+  return validData.valid_b;
+}
+
+bool is_all_alpha(char * data) {
+  validData.valid_b = true;
+  for (int i = 0; i < strlen(data); i++) {if (isalpha(data[i]) == 0) {validData.valid_b = false;}}
+  return validData.valid_b;
+}
 
 int getCheckSum(char *string) {
     int i;
@@ -225,19 +251,21 @@ uint8_t h2d(char hex) {if(hex > 0x39) hex -= 7; return(hex & 0xf);}
 uint8_t h2d2(char h1, char h2) {return (h2d(h1)<<4) | h2d(h2);}
 
 bool validateChecksum(char * buffer) {
-    char gotSum[2];
-    gotSum[0] = buffer[strlen(buffer) - 3];
-    gotSum[1] = buffer[strlen(buffer) - 2];
-    uint8_t checksum_of_buffer =  getCheckSum(buffer);
-    uint8_t checksum_in_buffer = h2d2(gotSum[0], gotSum[1]);
-    if (checksum_of_buffer == checksum_in_buffer) {return true;} else {return false;}
+  char gotSum[2];
+  gotSum[0] = buffer[strlen(buffer) - 3];
+  gotSum[1] = buffer[strlen(buffer) - 2];
+  uint8_t checksum_of_buffer =  getCheckSum(buffer);
+  uint8_t checksum_in_buffer = h2d2(gotSum[0], gotSum[1]);
+  if (checksum_of_buffer == checksum_in_buffer) {return true;} else {return false;}
 }
 
 bool val_utc_time(char * data) {
   bool check_pass = false;
   if (strlen(data) == 9) {
     if (data[6] == '.') {
-      if ((atoi(data) >= 0.0) && (atoi(data) <= 235959.99)) {check_pass = true;}
+      if (count_digits(data, 8) == true) {
+        if ((atoi(data) >= 0.0) && (atoi(data) <= 235959.99)) {check_pass = true;}
+      }
     }
   }
   return check_pass;
@@ -246,7 +274,9 @@ bool val_utc_time(char * data) {
 bool val_utc_date(char * data) {
   bool check_pass = false;
   if (strlen(data) == 6) {
-    if ((atoi(data) >= 0.0) && (atoi(data) <= 999999)) {check_pass = true;}
+    if (is_all_digits(data) == true) {
+      if ((atoi(data) >= 0.0) && (atoi(data) <= 999999)) {check_pass = true;}
+    }
   }
   return check_pass;
 }
@@ -255,7 +285,9 @@ bool val_latitude(char * data) {
   bool check_pass = false;
   if (strlen(data) == 13) {
     if (data[4] == '.') {
-      check_pass = true;
+      if (count_digits(data, 12) == true) {
+        check_pass = true;
+      }
     }
   }
   return check_pass;
@@ -265,7 +297,9 @@ bool val_longitude(char * data) {
   bool check_pass = false;
   if (strlen(data) == 14) {
     if (data[5] == '.') {
-      check_pass = true;
+      if (count_digits(data, 13) == true) {
+        check_pass = true;
+      }
     }
   }
   return check_pass;
@@ -294,8 +328,10 @@ bool val_longitude_H(char * data) {
 bool val_positioning_status_gngga(char * data) {
   bool check_pass = false;
   if (strlen(data) == 1) {
-    if ((atoi(data) >= 0) && (atoi(data) <= 6)) {
-      check_pass = true;
+    if (is_all_digits(data) == true) {
+      if ((atoi(data) >= 0) && (atoi(data) <= 6)) {
+        check_pass = true;
+      }
     }
   }
   return check_pass;
@@ -303,25 +339,33 @@ bool val_positioning_status_gngga(char * data) {
 
 bool val_satellite_count(char * data) {
   bool check_pass = false;
-  if (atoi(data) >= 0){
+  if (is_all_digits(data) == true) {
+    if (atoi(data) >= 0){
       check_pass = true;
-    }
+      }
+  }
   return check_pass;
 }
 
 bool val_hdop_precision_factor(char * data) {
+  // account for decimal point
   bool check_pass = false;
-  if (atoi(data) >= 0){
-      check_pass = true;
-    }
+  if (count_digits(data, strlen(data)-1) == true) {
+    if (atoi(data) >= 0){
+        check_pass = true;
+      }
+  }
   return check_pass;
 }
 
 bool val_altitude(char * data) {
+  // account for decimal point
   bool check_pass = false;
-  if (atoi(data) >= -20000000){
-      check_pass = true;
-    }
+  if (count_digits(data, strlen(data)-1) == true) {
+    if (atoi(data) >= -20000000){
+        check_pass = true;
+      }
+  }
   return check_pass;
 }
 
@@ -337,8 +381,10 @@ bool val_altitude_units(char * data) {
 
 bool val_geoidal(char * data) {
   bool check_pass = false;
-  if (atoi(data) >= 0){
-    check_pass = true;
+  if (count_digits(data, strlen(data)-1) == true) {
+    if (atoi(data) >= 0){
+      check_pass = true;
+    }
   }
   return check_pass;
 }
@@ -355,16 +401,20 @@ bool val_geoidal_units(char * data) {
 
 bool val_differential_delay(char * data) {
   bool check_pass = false;
-  if (atoi(data) >= 0){
-    check_pass = true;
+  if (count_digits(data, strlen(data)-1) == true) {
+    if (atoi(data) >= 0){
+      check_pass = true;
+    }
   }
   return check_pass;
 }
 
 bool val_basestation_id(char * data) {
   bool check_pass = false;
-  if (strlen(data) == 4) {
-    check_pass = true;
+  if (is_all_digits(data) == true) {
+    if (strlen(data) == 4) {
+      check_pass = true;
+    }
   }
   return check_pass;
 }
@@ -381,20 +431,25 @@ bool val_positioning_status_gnrmc(char * data) {
 
 bool val_ground_speed(char * data) {
   bool check_pass = false;
-  if (atoi(data) >= 0){
-    check_pass = true;
+  if (count_digits(data, strlen(data)-1) == true) {
+    if (atoi(data) >= 0){
+      check_pass = true;
+    }
   }
   return check_pass;
 }
 
 bool val_ground_heading(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 360)) {
-    check_pass = true;
+  if (count_digits(data, strlen(data)-1) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 360)) {
+      check_pass = true;
+    }
   }
   return check_pass;
 }
 
+// todo
 bool val_installation_angle(char * data) {
   bool check_pass = false;
   if (atoi(data) >= 0) {
@@ -425,22 +480,27 @@ bool val_mode_indication(char * data) {
 
 bool val_pitch_gpatt(char * data) {
   bool check_pass = false;
-  if (atoi(data) >= 0) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if (atoi(data) >= 0) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_roll_gpatt(char * data) {
   bool check_pass = false;
-  if (atoi(data) >= 0) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if (atoi(data) >= 0) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_yaw_gpatt(char * data) {
   bool check_pass = false;
-  if (atoi(data) >= 0) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if (atoi(data) >= 0) {check_pass = true;}
+  }
   return check_pass;
 }
-
 
 bool val_angle_channle_p_gpatt(char * data) {
   bool check_pass = false;
@@ -468,7 +528,9 @@ bool val_version_channel_s_gpatt(char * data) {
 
 bool val_software_version_gpatt(char * data) {
   bool check_pass = false;
-  if (atoi(data) == 20230219) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if (atoi(data) == 20230219) {check_pass = true;}
+  }
   return check_pass;
 }
 
@@ -486,7 +548,9 @@ bool val_id_channel_gpatt(char * data) {
 
 bool val_ins_gpatt(char * data) {
   bool check_pass = false;
-  if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
+  }
   return check_pass;
 }
 
@@ -498,16 +562,21 @@ bool val_ins_channel_gpatt(char * data) {
 
 bool val_hardware_version_gpatt(char * data) {
   bool check_pass = false;
-  if (strcmp(data, "3335") == 0) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if (strcmp(data, "3335") == 0) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_run_state_flag_gpatt(char * data) {
   bool check_pass = false;
-  if ((strcmp(data, "01") == 0) || (strcmp(data, "02") == 0) || (strcmp(data, "03") == 0)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((strcmp(data, "01") == 0) || (strcmp(data, "02") == 0) || (strcmp(data, "03") == 0)) {check_pass = true;}
+  }
   return check_pass;
 }
 
+// todo
 bool val_mis_angle_num_gpatt(char * data) {
   bool check_pass = false;
   if (atoi(data) >= 0) {check_pass = true;}
@@ -516,10 +585,13 @@ bool val_mis_angle_num_gpatt(char * data) {
 
 bool val_static_flag_gpatt(char * data) {
   bool check_pass = false;
-  if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
+  }
   return check_pass;
 }
 
+// todo
 bool val_user_code_gpatt(char * data) {
   bool check_pass = false;
   if (atoi(data) >= 0) {check_pass = true;}
@@ -528,61 +600,81 @@ bool val_user_code_gpatt(char * data) {
 
 bool val_gst_data_gpatt(char * data) {
   bool check_pass = false;
-  if (atoi(data) >= 0) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if (atoi(data) >= 0) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_line_flag_gpatt(char * data) {
   bool check_pass = false;
-  if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_mis_att_flag_gpatt(char * data) {
   bool check_pass = false;
-  if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_imu_kind_gpatt(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 8)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 8)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_ubi_car_kind_gpatt(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 1) && (atoi(data) <= 4)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 1) && (atoi(data) <= 4)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_mileage_gpatt(char * data) {
   bool check_pass = false;
-  if (atoi(data) >= 0) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if (atoi(data) >= 0) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_run_inetial_flag_gpatt(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 4)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 4)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_speed_enable_gpatt(char * data) {
   bool check_pass = false;
-  if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_speed_num_gpatt(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 99)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 99)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_speed_status(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 2)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 2)) {check_pass = true;}
+  }
   return check_pass;
 }
 
@@ -592,9 +684,12 @@ bool val_accelleration_delimiter(char * data) {
   return check_pass;
 }
 
+// todo
 bool val_axis_accelleration(char * data) {
   bool check_pass = false;
-  if (atoi(data) >= -1000000) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if (atoi(data) >= -1000000) {check_pass = true;}
+  }
   return check_pass;
 }
 
@@ -604,9 +699,12 @@ bool val_angular_velocity_delimiter(char * data) {
   return check_pass;
 }
 
+// todo
 bool val_gyro_angular_velocity(char * data) {
   bool check_pass = false;
-  if (atoi(data) >= -1000000) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if (atoi(data) >= -1000000) {check_pass = true;}
+  }
   return check_pass;
 }
 
@@ -618,160 +716,215 @@ bool val_status_delimiter(char * data) {
 
 bool val_ubi_state_flag(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_ubi_state_kind_flag(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 8)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 8)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_code_flag(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_gset_flag(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_sset_flag(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_ang_dget_flag(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_ins_run_flag(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_fix_kind_flag(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  }
   return check_pass;
 }
 
+// todo
 bool val_fix_roll_flag(char * data) {
   bool check_pass = false;
-  if (atoi(data) >= -1000000) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if (atoi(data) >= -1000000) {check_pass = true;}
+  }
   return check_pass;
 }
 
+// todo
 bool val_fix_pitch_flag(char * data) {
   bool check_pass = false;
-  if (atoi(data) >= -1000000) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if (atoi(data) >= -1000000) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_ubi_on_flag(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 8)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 8)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_ubi_kind_flag(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 2)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 2)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_ubi_a_set(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 19)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 19)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_ubi_b_set(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 19)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 19)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_acc_X_data(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= -400) && (atoi(data) <= 400)) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if ((atoi(data) >= -400) && (atoi(data) <= 400)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_acc_Y_data(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= -400) && (atoi(data) <= 400)) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if ((atoi(data) >= -400) && (atoi(data) <= 400)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_gyro_Z_data(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= -250) && (atoi(data) <= 250)) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if ((atoi(data) >= -250) && (atoi(data) <= 250)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_pitch_angle(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_roll_angle(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_yaw_angle(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_car_speed(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 100)) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 100)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_ins_flag(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 4)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 4)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_ubi_num(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 65536)) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 65536)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_ubi_valid(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  if (is_all_digits(data) == true) {
+    if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_coll_T_data(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= -800) && (atoi(data) <= 800)) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if ((atoi(data) >= -800) && (atoi(data) <= 800)) {check_pass = true;}
+  }
   return check_pass;
 }
 
 bool val_coll_T_heading(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  if (count_digits(data, strlen(data)-1) == true) {
+    if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  }
   return check_pass;
 }
 
+// todo
 bool val_custom_flag(char * data) {
   bool check_pass = false;
   if (strlen(data) >= 1) {check_pass = true;}
@@ -784,6 +937,7 @@ bool val_checksum(char * data) {
   return check_pass;
 }
 
+// todo
 bool val_scalable(char * data) {
   bool check_pass = false;
   if (strlen(data) >= 1) {check_pass = true;}
