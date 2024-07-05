@@ -1253,14 +1253,14 @@ void SPEED() {
 //                                                                                                                   ERROR DATA
 
 struct ERRORStruct {
-  char tag[56];                                             // <0> Log header
-  char utc[56];            unsigned long bad_utc_i;         // <1> utc time
-  char code_flag[56];      unsigned long bad_code_flag_i;   // <2> encryption chip: 1=problem, 0=normal
-  char gset_flag[56];      unsigned long bad_gset_flag_i;   // <3> positioning chip: 1=problem, 0=normal
-  char sset_flag[56];      unsigned long bad_sset_flag_i;   // <4> sensor chip: 1=problem, 0=normal
-  char customize_0[56];    unsigned long bad_customize_0_i; // <5> customize 0-20
-  char customize_1[56];    unsigned long bad_customize_1_i; // <6> customize float
-  char check_sum[56];      unsigned long bad_check_sum_i;   // <7> XOR check value of all bytes starting from $ to *
+  char tag[56];                                                                          // <0> Log header
+  char utc[56];            unsigned long bad_utc_i;         bool bad_utc = true;         // <1> utc time
+  char code_flag[56];      unsigned long bad_code_flag_i;   bool bad_code_flag = true;   // <2> encryption chip: 1=problem, 0=normal
+  char gset_flag[56];      unsigned long bad_gset_flag_i;   bool bad_gset_flag = true;   // <3> positioning chip: 1=problem, 0=normal
+  char sset_flag[56];      unsigned long bad_sset_flag_i;   bool bad_sset_flag = true;   // <4> sensor chip: 1=problem, 0=normal
+  char customize_0[56];    unsigned long bad_customize_0_i; bool bad_customize_0 = true; // <5> customize 0-20
+  char customize_1[56];    unsigned long bad_customize_1_i; bool bad_customize_1 = true; // <6> customize float
+  char check_sum[56];      unsigned long bad_check_sum_i;   bool bad_check_sum = true;   // <7> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
   char temporary_data_1[56];
   int check_data = 0; // should result in 8
