@@ -1352,6 +1352,7 @@ struct ERRORStruct {
   char customize_1[56];    // <6> customize float
   char check_sum[56];      // <7> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
+  char temporary_data_1[56];
   int check_data = 0;      // should result in 8
   unsigned long bad_utc_i;
   unsigned long bad_code_flag_i;
@@ -1386,11 +1387,11 @@ void ERROR() {
     else if (serialData.iter_token == 4) {if (val_sset_flag(serialData.token) == true)   {strcpy(errorData.sset_flag, serialData.token);   errorData.check_data++;} else {errorData.bad_sset_flag_i++;}}
     else if (serialData.iter_token == 5) {if (val_custom_flag(serialData.token) == true) {strcpy(errorData.customize_0, serialData.token); errorData.check_data++;} else {errorData.bad_customize_0_i++;}}
     else if (serialData.iter_token == 6) {
-      strcpy(errorData.temporary_data, serialData.token);
-      serialData.token = strtok(errorData.temporary_data, "*");
+      strcpy(errorData.temporary_data, strtok(serialData.token, "*"));
+      if (val_scalable(errorData.temporary_data) == true)                                {strcpy(errorData.customize_1, errorData.temporary_data); errorData.check_data++;} else {errorData.bad_customize_1_i++;}
       serialData.token = strtok(NULL, "*");
-      if (strlen(serialData.token) == 3) {strcpy(errorData.check_sum, serialData.token); errorData.check_data++;} else {errorData.bad_check_sum_i++;}
-      }
+      strcpy(errorData.temporary_data_1, strtok(serialData.token, "*"));
+      if (val_checksum(errorData.temporary_data_1) == true)                              {strcpy(errorData.check_sum, errorData.temporary_data_1); errorData.check_data++;} else {errorData.bad_check_sum_i++;}}
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
@@ -1441,6 +1442,7 @@ struct DEBUGStruct {
   char custom_logo_5[56];  // <27> 
   char check_sum[56];      // <28> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
+  char temporary_data_1[56];
   int check_data = 0;      // should result in 29
   unsigned long bad_ang_dget_flag_i;
   unsigned long bad_fix_kind_flag_i;
@@ -1537,11 +1539,12 @@ void DEBUG() {
     else if (serialData.iter_token == 25) {if (val_custom_flag(serialData.token) == true)    {strcpy(debugData.custom_logo_3, serialData.token);  debugData.check_data++;} else {debugData.bad_custom_logo_3_i++;}}
     else if (serialData.iter_token == 26) {if (val_custom_flag(serialData.token) == true)    {strcpy(debugData.custom_logo_4, serialData.token);  debugData.check_data++;} else {debugData.bad_custom_logo_4_i++;}}
     else if (serialData.iter_token == 27) {
-      debugData.check_data++;
-      strcpy(debugData.temporary_data, serialData.token);
-      serialData.token = strtok(debugData.temporary_data, "*");
+      strcpy(debugData.temporary_data, strtok(serialData.token, "*"));
+      if (val_scalable(debugData.temporary_data) == true)                                    {strcpy(debugData.custom_logo_5, debugData.temporary_data); debugData.check_data++;} else {debugData.bad_custom_logo_5_i++;}
       serialData.token = strtok(NULL, "*");
-      if (strlen(serialData.token) == 3) {strcpy(debugData.check_sum, serialData.token); debugData.check_data++;} else {debugData.bad_check_sum_i++;}}
+      strcpy(debugData.temporary_data_1, strtok(serialData.token, "*"));
+      if (val_checksum(debugData.temporary_data_1) == true)                                  {strcpy(debugData.check_sum, debugData.temporary_data_1); debugData.check_data++;} else {debugData.bad_check_sum_i++;}}
+
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
