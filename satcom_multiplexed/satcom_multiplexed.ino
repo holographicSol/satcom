@@ -2371,6 +2371,9 @@ bool hemisphere_gngga_SW(int Ri, int Fi) {
   else {return false;}
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                   PRELIMINARY SYSTEMS CHECKS
+
 bool preliminary_check() {
   validData.preliminary_check = true;
   if (gnggaData.check_data != 16) {validData.preliminary_check = false;}
