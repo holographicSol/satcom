@@ -3021,14 +3021,16 @@ void systems_Check() {
 
 void loop() {
   readRXD_1();
-  extrapulatedSatData();
-  SSD_Display_4();
-  SSD_Display_5();
-  SSD_Display_6();
-  SSD_Display_7();
 
   // if checks passed equal to total expected checks to pass and check sums weigh up then allow data collected this loop to be worked with 
-  if (preliminary_check() == true) {systems_Check();}
+  if (preliminary_check() == true) {
+    extrapulatedSatData();
+    SSD_Display_4();
+    SSD_Display_5();
+    SSD_Display_6();
+    SSD_Display_7();
+    systems_Check();
+    }
 
   delay(1);
 }
