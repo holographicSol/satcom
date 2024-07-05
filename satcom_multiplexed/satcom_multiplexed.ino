@@ -890,7 +890,7 @@ struct GNRMCStruct {
   char check_sum[56];                      unsigned long bad_check_sum_i;                    // <13> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
   char temporary_data_1[56];
-  int check_data = 0;                      // should result in 14
+  int check_data = 0; // should result in 14
 };
 GNRMCStruct gnrmcData;
 
