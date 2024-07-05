@@ -1349,7 +1349,7 @@ struct DEBUGStruct {
   char custom_logo_3[56];  unsigned long bad_custom_logo_3_i;  // <25> 
   char custom_logo_4[56];  unsigned long bad_custom_logo_4_i;  // <26> 
   char custom_logo_5[56];  unsigned long bad_custom_logo_5_i;  // <27> 
-  char check_sum[56];      unsigned long bad_check_sum_i; // <28> XOR check value of all bytes starting from $ to *
+  char check_sum[56];      unsigned long bad_check_sum_i;      // <28> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
   char temporary_data_1[56];
   int check_data = 0; // should result in 29
