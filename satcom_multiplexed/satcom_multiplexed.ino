@@ -361,7 +361,6 @@ bool val_satellite_count(char * data) {
 }
 
 bool val_hdop_precision_factor(char * data) {
-  // account for decimal point
   bool check_pass = false;
   if (is_all_digits_plus_char(data, ".") == true) {
     if (atoi(data) >= 0){
