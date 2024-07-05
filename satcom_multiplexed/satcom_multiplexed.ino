@@ -2542,6 +2542,16 @@ bool hemisphere_gngga_SW(int Ri, int Fi) {
 
 bool preliminary_check() {
   validData.preliminary_check = true;
+
+  Serial.println("[preliminary_check.gnggaData.check_data]     " + String(gnggaData.check_data));
+  Serial.println("[preliminary_check.gnggaData.valid_checksum] " + String(gnggaData.valid_checksum));
+
+  Serial.println("[preliminary_check.gnrmcData.check_data]     " + String(gnrmcData.check_data));
+  Serial.println("[preliminary_check.gnrmcData.valid_checksum] " + String(gnrmcData.valid_checksum));
+
+  Serial.println("[preliminary_check.gpattData.check_data]     " + String(gpattData.check_data));
+  Serial.println("[preliminary_check.gpattData.valid_checksum] " + String(gpattData.valid_checksum));
+
   if (gnggaData.check_data != 16) {validData.preliminary_check = false;}
   if (gnggaData.valid_checksum == false) {validData.preliminary_check = false;}
   if (gnrmcData.check_data != 14) {validData.preliminary_check = false;}
