@@ -874,36 +874,23 @@ void GNGGA() {
 //                                                                                                                   GNRMC DATA
 
 struct GNRMCStruct {
-  char tag[56];                            // <0> Log header
-  char utc_time[56];                       // <1> UTC time, the format is hhmmss.sss
-  char positioning_status[56];             // <2> Positioning status, A=effective positioning, V=invalid positioning
-  char latitude[56];                       // <3> Latitude, the format is  ddmm.mmmmmmm
-  char latitude_hemisphere[56];            // <4> Latitude hemisphere, N or S (north latitude or south latitude)
-  char longitude[56];                      // <5> Longitude, the format is dddmm.mmmmmmm
-  char longitude_hemisphere[56];           // <6> Longitude hemisphere, E or W (east longitude or west longitude)
-  char ground_speed[56];                   // <7> Ground speed
-  char ground_heading[56];                 // <8> Ground heading (take true north as the reference datum)
-  char utc_date[56];                       // <9> UTC date, the format is ddmmyy (day, month, year)
-  char installation_angle[56];             // <10> Magnetic declination (000.0~180.0 degrees)
-  char installation_angle_direction[56];   // <11> Magnetic declination direction, E (east) or W (west)
-  char mode_indication[56];                // <12> Mode indication (A=autonomous positioning, D=differential E=estimation, N=invalid data) */
-  char check_sum[56];                      // <13> XOR check value of all bytes starting from $ to *
+  char tag[56];                                                                              // <0> Log header
+  char utc_time[56];                       unsigned long bad_utc_time_i;                     // <1> UTC time, the format is hhmmss.sss
+  char positioning_status[56];             unsigned long bad_positioning_status_i;           // <2> Positioning status, A=effective positioning, V=invalid positioning
+  char latitude[56];                       unsigned long bad_latitude_i;                     // <3> Latitude, the format is  ddmm.mmmmmmm
+  char latitude_hemisphere[56];            unsigned long bad_latitude_hemisphere_i;          // <4> Latitude hemisphere, N or S (north latitude or south latitude)
+  char longitude[56];                      unsigned long bad_longitude_i;                    // <5> Longitude, the format is dddmm.mmmmmmm
+  char longitude_hemisphere[56];           unsigned long bad_longitude_hemisphere_i;         // <6> Longitude hemisphere, E or W (east longitude or west longitude)
+  char ground_speed[56];                   unsigned long bad_ground_speed_i;                 // <7> Ground speed
+  char ground_heading[56];                 unsigned long bad_ground_heading_i;               // <8> Ground heading (take true north as the reference datum)
+  char utc_date[56];                       unsigned long bad_utc_date_i;                     // <9> UTC date, the format is ddmmyy (day, month, year)
+  char installation_angle[56];             unsigned long bad_installation_angle_i;           // <10> Magnetic declination (000.0~180.0 degrees)
+  char installation_angle_direction[56];   unsigned long bad_installation_angle_direction_i; // <11> Magnetic declination direction, E (east) or W (west)
+  char mode_indication[56];                unsigned long bad_mode_indication_i;              // <12> Mode indication (A=autonomous positioning, D=differential E=estimation, N=invalid data) */
+  char check_sum[56];                      unsigned long bad_check_sum_i;                    // <13> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
   char temporary_data_1[56];
   int check_data = 0;                      // should result in 14
-  unsigned long bad_utc_time_i;
-  unsigned long bad_positioning_status_i;
-  unsigned long bad_latitude_i;
-  unsigned long bad_latitude_hemisphere_i;
-  unsigned long bad_longitude_i;
-  unsigned long bad_longitude_hemisphere_i;
-  unsigned long bad_ground_speed_i;
-  unsigned long bad_ground_heading_i;
-  unsigned long bad_utc_date_i;
-  unsigned long bad_installation_angle_i;
-  unsigned long bad_installation_angle_direction_i;
-  unsigned long bad_mode_indication_i;
-  unsigned long bad_check_sum_i;
 };
 GNRMCStruct gnrmcData;
 
