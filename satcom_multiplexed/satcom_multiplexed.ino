@@ -1810,6 +1810,7 @@ void readRXD_1() {
         Serial.print(""); Serial.println(serialData.BUFFER);
         gnggaData.valid_checksum = validateChecksum(serialData.BUFFER);
         if (gnggaData.valid_checksum == true) {GNGGA();}
+        else {gngga.bad_checksum_validity++;}
       }
     }
 
@@ -1821,6 +1822,7 @@ void readRXD_1() {
         Serial.print(""); Serial.println(serialData.BUFFER);
         gnrmcData.valid_checksum = validateChecksum(serialData.BUFFER);
         if (gnrmcData.valid_checksum == true) {GNRMC();}
+        else {gnrmcData.bad_checksum_validity++;}
       }
     }
 
@@ -1832,6 +1834,7 @@ void readRXD_1() {
         Serial.print(""); Serial.println(serialData.BUFFER);
         gpattData.valid_checksum = validateChecksum(serialData.BUFFER);
         if (gpattData.valid_checksum == true) {GPATT();}
+        else {gpattData.bad_checksum_validity++;}
       }
     }
 
