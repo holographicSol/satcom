@@ -1155,23 +1155,23 @@ status        ubi_state_kind
 */
 
 struct SPEEDStruct {
-  char tag[56];                                                                              // <0> log header
-  char utc_time[56];                         unsigned long bad_utc_time_i;                   // <1> utc time
-  char speed[56];                            unsigned long bad_speed_i;                      // <2> ground speed: knots
-  char status[56];                           unsigned long bad_status_i;                     // <3> 0=invalid data, 1=converging, 2=valid data
-  char acceleration_delimiter[56];           unsigned long bad_acceleration_delimiter_i;     // <4> represents acceleration
-  char acc_X[56];                            unsigned long bad_acc_X_i;                      // <5> x-axis acceleration
-  char acc_Y[56];                            unsigned long bad_acc_Y_i;                      // <6> y-axis acceleration
-  char acc_Z[56];                            unsigned long bad_acc_Z_i;                      // <7> z-axis acceleration
-  char angular_velocity_delimiter[56] = "0"; unsigned long bad_angular_velocity_delimiter_i; // <8> represents angular velocity
-  char gyro_X[56];                           unsigned long bad_gyro_X_i;                     // <9> x-axis angular velocity
-  char gyro_Y[56];                           unsigned long bad_gyro_Y_i;                     // <10> y-axis angular velocity
-  char gyro_Z[56];                           unsigned long bad_gyro_Z_i;                     // <11> z-axis angular velocity
-  char status_delimiter[56];                 unsigned long bad_status_delimiter_i;           // <12> represents status
-  char ubi_state_flag[56];                   unsigned long bad_ubi_state_flag_i;             // <13> 0=smooth driving, 1=unsteady driving
-  char ubi_state_kind[56];                   unsigned long bad_ubi_state_kind_i;             // <14> status tyoe: see ubi_state_kind table
-  char ubi_state_value[56];                  unsigned long bad_ubi_state_value_i;            // <15> status threshold: see ubi_state_kind table
-  char check_sum[56];                        unsigned long bad_check_sum_i;                  // <16> XOR check value of all bytes starting from $ to *
+  char tag[56];                                                                                                                          // <0> log header
+  char utc_time[56];                         unsigned long bad_utc_time_i;                   bool bad_utc_time = true;                   // <1> utc time
+  char speed[56];                            unsigned long bad_speed_i;                      bool bad_speed = true;                      // <2> ground speed: knots
+  char status[56];                           unsigned long bad_status_i;                     bool bad_status = true;                     // <3> 0=invalid data, 1=converging, 2=valid data
+  char acceleration_delimiter[56];           unsigned long bad_acceleration_delimiter_i;     bool bad_acceleration_delimiter = true;     // <4> represents acceleration
+  char acc_X[56];                            unsigned long bad_acc_X_i;                      bool bad_acc_X = true;                      // <5> x-axis acceleration
+  char acc_Y[56];                            unsigned long bad_acc_Y_i;                      bool bad_acc_Y = true;                      // <6> y-axis acceleration
+  char acc_Z[56];                            unsigned long bad_acc_Z_i;                      bool bad_acc_Z = true;                      // <7> z-axis acceleration
+  char angular_velocity_delimiter[56] = "0"; unsigned long bad_angular_velocity_delimiter_i; bool bad_angular_velocity_delimiter = true; // <8> represents angular velocity
+  char gyro_X[56];                           unsigned long bad_gyro_X_i;                     bool bad_gyro_X = true;                     // <9> x-axis angular velocity
+  char gyro_Y[56];                           unsigned long bad_gyro_Y_i;                     bool bad_gyro_Y = true;                     // <10> y-axis angular velocity
+  char gyro_Z[56];                           unsigned long bad_gyro_Z_i;                     bool bad_gyro_Z = true;                     // <11> z-axis angular velocity
+  char status_delimiter[56];                 unsigned long bad_status_delimiter_i;           bool bad_status_delimiter = true;           // <12> represents status
+  char ubi_state_flag[56];                   unsigned long bad_ubi_state_flag_i;             bool bad_ubi_state_flag = true;             // <13> 0=smooth driving, 1=unsteady driving
+  char ubi_state_kind[56];                   unsigned long bad_ubi_state_kind_i;             bool bad_ubi_state_kind = true;             // <14> status tyoe: see ubi_state_kind table
+  char ubi_state_value[56];                  unsigned long bad_ubi_state_value_i;            bool bad_ubi_state_value = true;            // <15> status threshold: see ubi_state_kind table
+  char check_sum[56];                        unsigned long bad_check_sum_i;                  bool bad_check_sum = true;                  // <16> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
   char temporary_data_1[56];
   int check_data = 0; // should result in 40
