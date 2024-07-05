@@ -1036,21 +1036,21 @@ void SPEED() {
   serialData.iter_token = 0;
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
-    if      (serialData.iter_token == 0) {strcpy(speedData.tag, "SPEED");}
-    else if (serialData.iter_token == 1)  {if (val_utc_time(serialData.token) == true)                   {strcpy(speedData.utc_time, serialData.token); speedData.check_data++;}}
-    else if (serialData.iter_token == 2)  {if (val_ground_speed(serialData.token) == true)               {strcpy(speedData.speed, serialData.token); speedData.check_data++;}}
-    else if (serialData.iter_token == 3)  {if (val_speed_status(serialData.token) == true)               {strcpy(speedData.status, serialData.token); speedData.check_data++;}}
-    else if (serialData.iter_token == 4)  {if (val_accelleration_delimiter(serialData.token) == true)    {strcpy(speedData.acceleration_delimiter, serialData.token); speedData.check_data++;}}
-    else if (serialData.iter_token == 5)  {if (val_axis_accelleration(serialData.token) == true)         {strcpy(speedData.acc_X, serialData.token); speedData.check_data++;}}
-    else if (serialData.iter_token == 6)  {if (val_axis_accelleration(serialData.token) == true)         {strcpy(speedData.acc_Y, serialData.token); speedData.check_data++;}}
-    else if (serialData.iter_token == 7)  {if (val_axis_accelleration(serialData.token) == true)         {strcpy(speedData.acc_Z, serialData.token); speedData.check_data++;}}
-    else if (serialData.iter_token == 8)  {if (val_angular_velocity_delimiter(serialData.token) == true) {strcpy(speedData.angular_velocity_delimiter, serialData.token); speedData.check_data++;}}
-    else if (serialData.iter_token == 9)  {if (val_gyro_angular_velocity(serialData.token) == true)      {strcpy(speedData.gyro_X, serialData.token); speedData.check_data++;}}
-    else if (serialData.iter_token == 10) {if (val_gyro_angular_velocity(serialData.token) == true)      {strcpy(speedData.gyro_Y, serialData.token); speedData.check_data++;}}
-    else if (serialData.iter_token == 11) {if (val_gyro_angular_velocity(serialData.token) == true)      {strcpy(speedData.gyro_Z, serialData.token); speedData.check_data++;}}
+    if      (serialData.iter_token == 0)                                                                 {strcpy(speedData.tag, "SPEED");}                      speedData.check_data++;
+    else if (serialData.iter_token == 1)  {if (val_utc_time(serialData.token) == true)                   {strcpy(speedData.utc_time, serialData.token);         speedData.check_data++;}}
+    else if (serialData.iter_token == 2)  {if (val_ground_speed(serialData.token) == true)               {strcpy(speedData.speed, serialData.token);            speedData.check_data++;}}
+    else if (serialData.iter_token == 3)  {if (val_speed_status(serialData.token) == true)               {strcpy(speedData.status, serialData.token);           speedData.check_data++;}}
+    else if (serialData.iter_token == 4)  {if (val_accelleration_delimiter(serialData.token) == true)    {strcpy(speedData.acceleration_delimiter,              serialData.token); speedData.check_data++;}}
+    else if (serialData.iter_token == 5)  {if (val_axis_accelleration(serialData.token) == true)         {strcpy(speedData.acc_X, serialData.token);            speedData.check_data++;}}
+    else if (serialData.iter_token == 6)  {if (val_axis_accelleration(serialData.token) == true)         {strcpy(speedData.acc_Y, serialData.token);            speedData.check_data++;}}
+    else if (serialData.iter_token == 7)  {if (val_axis_accelleration(serialData.token) == true)         {strcpy(speedData.acc_Z, serialData.token);            speedData.check_data++;}}
+    else if (serialData.iter_token == 8)  {if (val_angular_velocity_delimiter(serialData.token) == true) {strcpy(speedData.angular_velocity_delimiter,          serialData.token); speedData.check_data++;}}
+    else if (serialData.iter_token == 9)  {if (val_gyro_angular_velocity(serialData.token) == true)      {strcpy(speedData.gyro_X, serialData.token);           speedData.check_data++;}}
+    else if (serialData.iter_token == 10) {if (val_gyro_angular_velocity(serialData.token) == true)      {strcpy(speedData.gyro_Y, serialData.token);           speedData.check_data++;}}
+    else if (serialData.iter_token == 11) {if (val_gyro_angular_velocity(serialData.token) == true)      {strcpy(speedData.gyro_Z, serialData.token);           speedData.check_data++;}}
     else if (serialData.iter_token == 12) {if (val_status_delimiter(serialData.token) == true)           {strcpy(speedData.status_delimiter, serialData.token); speedData.check_data++;}}
-    else if (serialData.iter_token == 13) {if (val_ubi_state_flag(serialData.token) == true)             {strcpy(speedData.ubi_state_flag, serialData.token); speedData.check_data++;}}
-    else if (serialData.iter_token == 14) {if (val_ubi_state_kind_flag(serialData.token) == true)        {strcpy(speedData.ubi_state_kind, serialData.token); speedData.check_data++;}}
+    else if (serialData.iter_token == 13) {if (val_ubi_state_flag(serialData.token) == true)             {strcpy(speedData.ubi_state_flag, serialData.token);   speedData.check_data++;}}
+    else if (serialData.iter_token == 14) {if (val_ubi_state_kind_flag(serialData.token) == true)        {strcpy(speedData.ubi_state_kind, serialData.token);   speedData.check_data++;}}
     else if (serialData.iter_token == 15) {
       speedData.check_data++;
       strcpy(speedData.temporary_data, serialData.token);
