@@ -827,10 +827,10 @@ void GNGGA() {
     else if (serialData.iter_token ==13) {if (val_differential_delay(serialData.token) == true)       {strcpy(gnggaData.differential_delay, serialData.token);    gnggaData.check_data++; gnggaData.bad_differential_delay = false;}    else {gnggaData.bad_differential_delay_i++;    gnggaData.bad_differential_delay = true;}}
     else if (serialData.iter_token ==14) {
       strcpy(gnggaData.temporary_data, strtok(serialData.token, "*"));
-      if (val_basestation_id(gnggaData.temporary_data) == true)                                       {strcpy(gnggaData.id, gnggaData.temporary_data);            gnggaData.check_data++; gnggaData.bad_id = false;} else {gnggaData.bad_id_i++; gnggaData.bad_id = true;}
+      if (val_basestation_id(gnggaData.temporary_data) == true)                                       {strcpy(gnggaData.id, gnggaData.temporary_data);            gnggaData.check_data++; gnggaData.bad_id = false;}                    else {gnggaData.bad_id_i++;                    gnggaData.bad_id = true;}
       serialData.token = strtok(NULL, "*");
       strcpy(gnggaData.temporary_data_1, strtok(serialData.token, "*"));
-      if (val_checksum(gnggaData.temporary_data_1) == true)                                           {strcpy(gnggaData.check_sum, gnggaData.temporary_data_1);   gnggaData.check_data++; gnggaData.bad_check_sum = false;} else {gnggaData.bad_check_sum_i++; gnggaData.bad_check_sum = true;}}
+      if (val_checksum(gnggaData.temporary_data_1) == true)                                           {strcpy(gnggaData.check_sum, gnggaData.temporary_data_1);   gnggaData.check_data++; gnggaData.bad_check_sum = false;}             else {gnggaData.bad_check_sum_i++;             gnggaData.bad_check_sum = true;}}
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
