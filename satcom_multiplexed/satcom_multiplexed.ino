@@ -108,9 +108,9 @@ SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 //                                                                                                                   DEBUG DATA
 
 struct sysDebugStruct {
-  bool gngga_sentence = true;
-  bool gnrmc_sentence = true;
-  bool gpatt_sentence = true;
+  bool gngga_sentence = false;
+  bool gnrmc_sentence = false;
+  bool gpatt_sentence = false;
   bool desbi_sentence = false;
 };
 sysDebugStruct sysDebugData;
