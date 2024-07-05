@@ -2985,8 +2985,8 @@ void systems_Check() {
         */
 
         // activate/deactivate relay Ri (Ri=pinN): pin number matrix required for relay selcection via Ri->PIN column access in non-linear form (multiplex relays)
-        if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] de-activating");}
-        else if (final_bool == true) {Serial.println("[RELAY " + String(Ri) + "] activating");}
+        if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] inactive");}
+        else if (final_bool == true) {Serial.println("[RELAY " + String(Ri) + "] active");}
       }
       else {Serial.println("[RELAY " + String(Ri) + "] WARNING: Matrix checks are enabled for an non configured matrix!");}
     }
