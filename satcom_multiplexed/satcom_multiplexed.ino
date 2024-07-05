@@ -754,6 +754,21 @@ struct GNGGAStruct {
   char check_sum[56];                   // <15> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
   int check_data = 0;                   // should result in 16
+  unsigned long bad_utc_time_i;
+  unsigned long bad_latitude_i;
+  unsigned long bad_latitude_hemisphere_i;
+  unsigned long bad_longitude_i;
+  unsigned long bad_longitude_hemisphere_i;
+  unsigned long bad_positioning_status_i;
+  unsigned long bad_satellite_count_gngga_i;
+  unsigned long bad_hdop_precision_factor_i;
+  unsigned long bad_altitude_i;
+  unsigned long bad_altitude_units_i;
+  unsigned long bad_geoidal_i;
+  unsigned long bad_geoidal_units_i;
+  unsigned long bad_differential_delay_i;
+  unsigned long bad_id_i;
+  unsigned long bad_check_sum_i;
 };
 GNGGAStruct gnggaData;
 
@@ -787,22 +802,24 @@ void GNGGA() {
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
     if     (serialData.iter_token == 0)                                                               {strcpy(gnggaData.tag, "GNGGA");                            gnggaData.check_data++;}
-    else if (serialData.iter_token ==1)  {if (val_utc_time(serialData.token) == true)                 {strcpy(gnggaData.utc_time, serialData.token);              gnggaData.check_data++;}}
-    else if (serialData.iter_token ==2)  {if (val_latitude(serialData.token) == true)                 {strcpy(gnggaData.latitude, serialData.token);              gnggaData.check_data++;}}
-    else if (serialData.iter_token ==3)  {if (val_latitude_H(serialData.token) == true)               {strcpy(gnggaData.latitude_hemisphere, serialData.token);   gnggaData.check_data++;}}
-    else if (serialData.iter_token ==4)  {if (val_longitude(serialData.token) == true)                {strcpy(gnggaData.longitude, serialData.token);             gnggaData.check_data++;}}
-    else if (serialData.iter_token ==5)  {if (val_longitude_H(serialData.token) == true)              {strcpy(gnggaData.longitude_hemisphere, serialData.token);  gnggaData.check_data++;}}
-    else if (serialData.iter_token ==6)  {if (val_positioning_status_gngga(serialData.token) == true) {strcpy(gnggaData.positioning_status, serialData.token);    gnggaData.check_data++;}}
-    else if (serialData.iter_token ==7)  {if (val_satellite_count(serialData.token) == true)          {strcpy(gnggaData.satellite_count_gngga, serialData.token); gnggaData.check_data++;}}
-    else if (serialData.iter_token ==8)  {if (val_hdop_precision_factor(serialData.token) == true)    {strcpy(gnggaData.hdop_precision_factor, serialData.token); gnggaData.check_data++;}}
-    else if (serialData.iter_token ==9)  {if (val_altitude(serialData.token) == true)                 {strcpy(gnggaData.altitude, serialData.token);              gnggaData.check_data++;}}
-    else if (serialData.iter_token ==10) {if (val_altitude_units(serialData.token) == true)           {strcpy(gnggaData.altitude_units, serialData.token);        gnggaData.check_data++;}}
-    else if (serialData.iter_token ==11) {if (val_geoidal(serialData.token) == true)                  {strcpy(gnggaData.geoidal, serialData.token);               gnggaData.check_data++;}}
-    else if (serialData.iter_token ==12) {if (val_geoidal_units(serialData.token) == true)            {strcpy(gnggaData.geoidal_units, serialData.token);         gnggaData.check_data++;}}
-    else if (serialData.iter_token ==13) {if (val_differential_delay(serialData.token) == true)       {strcpy(gnggaData.differential_delay, serialData.token);    gnggaData.check_data++;}}
-    else if (serialData.iter_token ==14) {if (strlen(serialData.token) == 8) {strncpy(gnggaData.temporary_data, serialData.token, 4);
-    if (val_basestation_id(gnggaData.temporary_data) == true) {strcpy(gnggaData.id, gnggaData.temporary_data); gnggaData.check_data++;} serialData.token = strtok(serialData.token, "*"); serialData.token = strtok(NULL, "*");}
-    if (strlen(serialData.token) == 3) {strcpy(gnggaData.check_sum, serialData.token); gnggaData.check_data++;}}
+    else if (serialData.iter_token ==1)  {if (val_utc_time(serialData.token) == true)                 {strcpy(gnggaData.utc_time, serialData.token);              gnggaData.check_data++;} else {gnggaData.bad_utc_time_i++;}}
+    else if (serialData.iter_token ==2)  {if (val_latitude(serialData.token) == true)                 {strcpy(gnggaData.latitude, serialData.token);              gnggaData.check_data++;} else {gnggaData.bad_latitude_i++;}}
+    else if (serialData.iter_token ==3)  {if (val_latitude_H(serialData.token) == true)               {strcpy(gnggaData.latitude_hemisphere, serialData.token);   gnggaData.check_data++;} else {gnggaData.bad_latitude_hemisphere_i++;}}
+    else if (serialData.iter_token ==4)  {if (val_longitude(serialData.token) == true)                {strcpy(gnggaData.longitude, serialData.token);             gnggaData.check_data++;} else {gnggaData.bad_longitude_i++;}}
+    else if (serialData.iter_token ==5)  {if (val_longitude_H(serialData.token) == true)              {strcpy(gnggaData.longitude_hemisphere, serialData.token);  gnggaData.check_data++;} else {gnggaData.bad_longitude_hemisphere_i++;}}
+    else if (serialData.iter_token ==6)  {if (val_positioning_status_gngga(serialData.token) == true) {strcpy(gnggaData.positioning_status, serialData.token);    gnggaData.check_data++;} else {gnggaData.bad_positioning_status_i++;}}
+    else if (serialData.iter_token ==7)  {if (val_satellite_count(serialData.token) == true)          {strcpy(gnggaData.satellite_count_gngga, serialData.token); gnggaData.check_data++;} else {gnggaData.bad_satellite_count_gngga_i++;}}
+    else if (serialData.iter_token ==8)  {if (val_hdop_precision_factor(serialData.token) == true)    {strcpy(gnggaData.hdop_precision_factor, serialData.token); gnggaData.check_data++;} else {gnggaData.bad_hdop_precision_factor_i++;}}
+    else if (serialData.iter_token ==9)  {if (val_altitude(serialData.token) == true)                 {strcpy(gnggaData.altitude, serialData.token);              gnggaData.check_data++;} else {gnggaData.bad_altitude_i++;}}
+    else if (serialData.iter_token ==10) {if (val_altitude_units(serialData.token) == true)           {strcpy(gnggaData.altitude_units, serialData.token);        gnggaData.check_data++;} else {gnggaData.bad_altitude_units_i++;}}
+    else if (serialData.iter_token ==11) {if (val_geoidal(serialData.token) == true)                  {strcpy(gnggaData.geoidal, serialData.token);               gnggaData.check_data++;} else {gnggaData.bad_geoidal_i++;}}
+    else if (serialData.iter_token ==12) {if (val_geoidal_units(serialData.token) == true)            {strcpy(gnggaData.geoidal_units, serialData.token);         gnggaData.check_data++;} else {gnggaData.bad_geoidal_units_i++;}}
+    else if (serialData.iter_token ==13) {if (val_differential_delay(serialData.token) == true)       {strcpy(gnggaData.differential_delay, serialData.token);    gnggaData.check_data++;} else {gnggaData.bad_differential_delay_i++;}}
+    else if (serialData.iter_token ==14) {if (strlen(serialData.token) == 8) {strncpy(gnggaData.temporary_data, serialData.token, 4); if (val_basestation_id(gnggaData.temporary_data) == true) {strcpy(gnggaData.id, gnggaData.temporary_data); gnggaData.check_data++;} else {gnggaData.bad_id_i++;}
+      serialData.token = strtok(serialData.token, "*"); serialData.token = strtok(NULL, "*");
+      }
+      if (strlen(serialData.token) == 3) {strcpy(gnggaData.check_sum, serialData.token); gnggaData.check_data++;} else {gnggaData.bad_check_sum_i++;}
+      }
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
