@@ -732,6 +732,12 @@ bool val_coll_T_heading(char * data) {
   return check_pass;
 }
 
+bool val_custom_flag(char * data) {
+  bool check_pass = false;
+  if (strlen(data) >= 1) {check_pass = true;}
+  return check_pass;
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GNGGA DATA
 
@@ -986,6 +992,46 @@ struct GPATTStruct {
   char scalable[56];         // <39> 
   char check_sum[56];        // <40> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
+  unsigned long bad_pitch_i;
+  unsigned long bad_angle_channel_0_i; 
+  unsigned long bad_roll_i; 
+  unsigned long bad_angle_channel_1_i; 
+  unsigned long bad_yaw_i;
+  unsigned long bad_angle_channel_2_i;
+  unsigned long bad_software_version_i; 
+  unsigned long bad_version_channel_i; 
+  unsigned long bad_product_id_i; 
+  unsigned long bad_id_channel_i;
+  unsigned long bad_ins_i;
+  unsigned long bad_ins_channel_i; 
+  unsigned long bad_hardware_version_i; 
+  unsigned long bad_run_state_flag_i; 
+  unsigned long bad_mis_angle_num_i;
+  unsigned long bad_custom_logo_0_i;
+  unsigned long bad_custom_logo_1_i; 
+  unsigned long bad_custom_logo_2_i; 
+  unsigned long bad_static_flag_i; 
+  unsigned long bad_user_code_i; 
+  unsigned long bad_gst_data_i;
+  unsigned long bad_line_flag_i; 
+  unsigned long bad_custom_logo_3_i; 
+  unsigned long bad_mis_att_flag_i; 
+  unsigned long bad_imu_kind_i;
+  unsigned long bad_ubi_car_kind_i;
+  unsigned long bad_mileage_i; 
+  unsigned long bad_custom_logo_4_i; 
+  unsigned long bad_custom_logo_5_i; 
+  unsigned long bad_run_inetial_flag_i; 
+  unsigned long bad_custom_logo_6_i;
+  unsigned long bad_custom_logo_7_i; 
+  unsigned long bad_custom_logo_8_i; 
+  unsigned long bad_custom_logo_9_i; 
+  unsigned long bad_speed_enable_i;
+  unsigned long bad_custom_logo_10_i;
+  unsigned long bad_custom_logo_11_i; 
+  unsigned long bad_speed_num_i; 
+  unsigned long bad_scalable_i; 
+  unsigned long bad_check_sum_i; 
   int check_data = 0;        // should result in 40
 };
 GPATTStruct gpattData;
@@ -1039,50 +1085,51 @@ void GPATT() {
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
     if      (serialData.iter_token == 0)                                                             {strcpy(gpattData.tag, "GPATT");                       gpattData.check_data++;}
-    else if (serialData.iter_token == 1) {if (val_pitch_gpatt(serialData.token) == true)             {strcpy(gpattData.pitch, serialData.token);            gpattData.check_data++;}}
-    else if (serialData.iter_token == 2) {if (val_angle_channle_p_gpatt(serialData.token) == true)   {strcpy(gpattData.angle_channel_0, serialData.token);  gpattData.check_data++;}}
-    else if (serialData.iter_token == 3) {if (val_roll_gpatt(serialData.token) == true)              {strcpy(gpattData.roll, serialData.token);             gpattData.check_data++;}}
-    else if (serialData.iter_token == 4) {if (val_angle_channle_r_gpatt(serialData.token) == true)   {strcpy(gpattData.angle_channel_1, serialData.token);  gpattData.check_data++;}}
-    else if (serialData.iter_token == 5) {if (val_yaw_gpatt(serialData.token) == true)               {strcpy(gpattData.yaw, serialData.token);              gpattData.check_data++;}}
-    else if (serialData.iter_token == 6) {if (val_angle_channle_y_gpatt(serialData.token) == true)   {strcpy(gpattData.angle_channel_2, serialData.token);  gpattData.check_data++;}}
-    else if (serialData.iter_token == 7) {if (val_software_version_gpatt(serialData.token) == true)  {strcpy(gpattData.software_version, serialData.token); gpattData.check_data++;}}
-    else if (serialData.iter_token == 8) {if (val_version_channel_s_gpatt(serialData.token) == true) {strcpy(gpattData.version_channel, serialData.token);  gpattData.check_data++;}}
-    else if (serialData.iter_token == 9) {if (val_product_id_gpatt(serialData.token) == true)        {strcpy(gpattData.product_id, serialData.token);       gpattData.check_data++;}}
-    else if (serialData.iter_token == 10) {if (val_id_channel_gpatt(serialData.token) == true)       {strcpy(gpattData.id_channel, serialData.token);       gpattData.check_data++;}}
-    else if (serialData.iter_token == 11) {if (val_ins_gpatt(serialData.token) == true)              {strcpy(gpattData.ins, serialData.token);              gpattData.check_data++;}}
-    else if (serialData.iter_token == 12) {if (val_ins_channel_gpatt(serialData.token) == true)      {strcpy(gpattData.ins_channel, serialData.token);      gpattData.check_data++;}}
-    else if (serialData.iter_token == 13) {if (val_hardware_version_gpatt(serialData.token) == true) {strcpy(gpattData.hardware_version, serialData.token); gpattData.check_data++;}}
-    else if (serialData.iter_token == 14) {if (val_run_state_flag_gpatt(serialData.token) == true)   {strcpy(gpattData.run_state_flag, serialData.token);   gpattData.check_data++;}}
-    else if (serialData.iter_token == 15) {if (val_mis_angle_num_gpatt(serialData.token) == true)    {strcpy(gpattData.mis_angle_num, serialData.token);    gpattData.check_data++;}}
-    else if (serialData.iter_token == 16)                                                            {strcpy(gpattData.custom_logo_0, serialData.token);    gpattData.check_data++;}
-    else if (serialData.iter_token == 17)                                                            {strcpy(gpattData.custom_logo_1, serialData.token);    gpattData.check_data++;}
-    else if (serialData.iter_token == 18)                                                            {strcpy(gpattData.custom_logo_2, serialData.token);    gpattData.check_data++;}
-    else if (serialData.iter_token == 19) {if (val_static_flag_gpatt(serialData.token) == true)      {strcpy(gpattData.static_flag, serialData.token);      gpattData.check_data++;}}
-    else if (serialData.iter_token == 20) {if (val_user_code_gpatt(serialData.token) == true)        {strcpy(gpattData.user_code, serialData.token);        gpattData.check_data++;}}
-    else if (serialData.iter_token == 21) {if (val_gst_data_gpatt(serialData.token) == true)         {strcpy(gpattData.gst_data, serialData.token);         gpattData.check_data++;}}
-    else if (serialData.iter_token == 22) {if (val_line_flag_gpatt(serialData.token) == true)        {strcpy(gpattData.line_flag, serialData.token);        gpattData.check_data++;}}
-    else if (serialData.iter_token == 23)                                                            {strcpy(gpattData.custom_logo_3, serialData.token);    gpattData.check_data++;}
-    else if (serialData.iter_token == 24) {if (val_mis_att_flag_gpatt(serialData.token) == true)     {strcpy(gpattData.mis_att_flag, serialData.token);     gpattData.check_data++;}}
-    else if (serialData.iter_token == 25) {if (val_imu_kind_gpatt(serialData.token) == true)         {strcpy(gpattData.imu_kind, serialData.token);         gpattData.check_data++;}}
-    else if (serialData.iter_token == 26) {if (val_ubi_car_kind_gpatt(serialData.token) == true)     {strcpy(gpattData.ubi_car_kind, serialData.token);     gpattData.check_data++;}}
-    else if (serialData.iter_token == 27) {if (val_mileage_gpatt(serialData.token) == true)          {strcpy(gpattData.mileage, serialData.token);          gpattData.check_data++;}}
-    else if (serialData.iter_token == 28)                                                            {strcpy(gpattData.custom_logo_4, serialData.token);    gpattData.check_data++;}
-    else if (serialData.iter_token == 29)                                                            {strcpy(gpattData.custom_logo_5, serialData.token);    gpattData.check_data++;}
-    else if (serialData.iter_token == 30) {if (val_run_inetial_flag_gpatt(serialData.token) == true) {strcpy(gpattData.run_inetial_flag, serialData.token); gpattData.check_data++;}}
-    else if (serialData.iter_token == 31)                                                            {strcpy(gpattData.custom_logo_6, serialData.token);    gpattData.check_data++;}
-    else if (serialData.iter_token == 32)                                                            {strcpy(gpattData.custom_logo_7, serialData.token);    gpattData.check_data++;}
-    else if (serialData.iter_token == 33)                                                            {strcpy(gpattData.custom_logo_8, serialData.token);    gpattData.check_data++;}
-    else if (serialData.iter_token == 34)                                                            {strcpy(gpattData.custom_logo_9, serialData.token);    gpattData.check_data++;}
-    else if (serialData.iter_token == 35) {if (val_speed_enable_gpatt(serialData.token) == true)     {strcpy(gpattData.speed_enable, serialData.token);     gpattData.check_data++;}}
-    else if (serialData.iter_token == 36)                                                            {strcpy(gpattData.custom_logo_10, serialData.token);   gpattData.check_data++;}
-    else if (serialData.iter_token == 37)                                                            {strcpy(gpattData.custom_logo_11, serialData.token);   gpattData.check_data++;}
-    else if (serialData.iter_token == 38) {if (val_speed_num_gpatt(serialData.token) == true)        {strcpy(gpattData.speed_num, serialData.token);        gpattData.check_data++;}}
+    else if (serialData.iter_token == 1) {if (val_pitch_gpatt(serialData.token) == true)             {strcpy(gpattData.pitch, serialData.token);            gpattData.check_data++;} else {gpattData.bad_pitch_i++;}}
+    else if (serialData.iter_token == 2) {if (val_angle_channle_p_gpatt(serialData.token) == true)   {strcpy(gpattData.angle_channel_0, serialData.token);  gpattData.check_data++;} else {gpattData.bad_angle_channel_0_i++;}}
+    else if (serialData.iter_token == 3) {if (val_roll_gpatt(serialData.token) == true)              {strcpy(gpattData.roll, serialData.token);             gpattData.check_data++;} else {gpattData.bad_roll_i++;}}
+    else if (serialData.iter_token == 4) {if (val_angle_channle_r_gpatt(serialData.token) == true)   {strcpy(gpattData.angle_channel_1, serialData.token);  gpattData.check_data++;} else {gpattData.bad_angle_channel_1_i++;}}
+    else if (serialData.iter_token == 5) {if (val_yaw_gpatt(serialData.token) == true)               {strcpy(gpattData.yaw, serialData.token);              gpattData.check_data++;} else {gpattData.bad_yaw_i++;}}
+    else if (serialData.iter_token == 6) {if (val_angle_channle_y_gpatt(serialData.token) == true)   {strcpy(gpattData.angle_channel_2, serialData.token);  gpattData.check_data++;} else {gpattData.bad_angle_channel_2_i++;}}
+    else if (serialData.iter_token == 7) {if (val_software_version_gpatt(serialData.token) == true)  {strcpy(gpattData.software_version, serialData.token); gpattData.check_data++;} else {gpattData.bad_software_version_i++;}}
+    else if (serialData.iter_token == 8) {if (val_version_channel_s_gpatt(serialData.token) == true) {strcpy(gpattData.version_channel, serialData.token);  gpattData.check_data++;} else {gpattData.bad_version_channel_i++;}}
+    else if (serialData.iter_token == 9) {if (val_product_id_gpatt(serialData.token) == true)        {strcpy(gpattData.product_id, serialData.token);       gpattData.check_data++;} else {gpattData.bad_product_id_i++;}}
+    else if (serialData.iter_token == 10) {if (val_id_channel_gpatt(serialData.token) == true)       {strcpy(gpattData.id_channel, serialData.token);       gpattData.check_data++;} else {gpattData.bad_id_channel_i++;}}
+    else if (serialData.iter_token == 11) {if (val_ins_gpatt(serialData.token) == true)              {strcpy(gpattData.ins, serialData.token);              gpattData.check_data++;} else {gpattData.bad_ins_i++;}}
+    else if (serialData.iter_token == 12) {if (val_ins_channel_gpatt(serialData.token) == true)      {strcpy(gpattData.ins_channel, serialData.token);      gpattData.check_data++;} else {gpattData.bad_ins_channel_i++;}}
+    else if (serialData.iter_token == 13) {if (val_hardware_version_gpatt(serialData.token) == true) {strcpy(gpattData.hardware_version, serialData.token); gpattData.check_data++;} else {gpattData.bad_hardware_version_i++;}}
+    else if (serialData.iter_token == 14) {if (val_run_state_flag_gpatt(serialData.token) == true)   {strcpy(gpattData.run_state_flag, serialData.token);   gpattData.check_data++;} else {gpattData.bad_run_state_flag_i++;}}
+    else if (serialData.iter_token == 15) {if (val_mis_angle_num_gpatt(serialData.token) == true)    {strcpy(gpattData.mis_angle_num, serialData.token);    gpattData.check_data++;} else {gpattData.bad_mis_angle_num_i++;}}
+    else if (serialData.iter_token == 16) {if (val_custom_flag(serialData.token) == true)            {strcpy(gpattData.custom_logo_0, serialData.token);    gpattData.check_data++;} else {gpattData.bad_custom_logo_0_i++;}}
+    else if (serialData.iter_token == 17) {if (val_custom_flag(serialData.token) == true)            {strcpy(gpattData.custom_logo_1, serialData.token);    gpattData.check_data++;} else {gpattData.bad_custom_logo_1_i++;}}
+    else if (serialData.iter_token == 18) {if (val_custom_flag(serialData.token) == true)            {strcpy(gpattData.custom_logo_2, serialData.token);    gpattData.check_data++;} else {gpattData.bad_custom_logo_2_i++;}}
+    else if (serialData.iter_token == 19) {if (val_static_flag_gpatt(serialData.token) == true)      {strcpy(gpattData.static_flag, serialData.token);      gpattData.check_data++;} else {gpattData.bad_static_flag_i++;}}
+    else if (serialData.iter_token == 20) {if (val_user_code_gpatt(serialData.token) == true)        {strcpy(gpattData.user_code, serialData.token);        gpattData.check_data++;} else {gpattData.bad_user_code_i++;}}
+    else if (serialData.iter_token == 21) {if (val_gst_data_gpatt(serialData.token) == true)         {strcpy(gpattData.gst_data, serialData.token);         gpattData.check_data++;} else {gpattData.bad_gst_data_i++;}}
+    else if (serialData.iter_token == 22) {if (val_line_flag_gpatt(serialData.token) == true)        {strcpy(gpattData.line_flag, serialData.token);        gpattData.check_data++;} else {gpattData.bad_line_flag_i++;}}
+    else if (serialData.iter_token == 23) {if (val_custom_flag(serialData.token) == true)            {strcpy(gpattData.custom_logo_3, serialData.token);    gpattData.check_data++;} else {gpattData.bad_custom_logo_3_i++;}}
+    else if (serialData.iter_token == 24) {if (val_mis_att_flag_gpatt(serialData.token) == true)     {strcpy(gpattData.mis_att_flag, serialData.token);     gpattData.check_data++;} else {gpattData.bad_mis_att_flag_i++;}}
+    else if (serialData.iter_token == 25) {if (val_imu_kind_gpatt(serialData.token) == true)         {strcpy(gpattData.imu_kind, serialData.token);         gpattData.check_data++;} else {gpattData.bad_imu_kind_i++;}}
+    else if (serialData.iter_token == 26) {if (val_ubi_car_kind_gpatt(serialData.token) == true)     {strcpy(gpattData.ubi_car_kind, serialData.token);     gpattData.check_data++;} else {gpattData.bad_ubi_car_kind_i++;}}
+    else if (serialData.iter_token == 27) {if (val_mileage_gpatt(serialData.token) == true)          {strcpy(gpattData.mileage, serialData.token);          gpattData.check_data++;} else {gpattData.bad_mileage_i++;}}
+    else if (serialData.iter_token == 28) {if (val_custom_flag(serialData.token) == true)            {strcpy(gpattData.custom_logo_4, serialData.token);    gpattData.check_data++;} else {gpattData.bad_custom_logo_4_i++;}}
+    else if (serialData.iter_token == 29) {if (val_custom_flag(serialData.token) == true)            {strcpy(gpattData.custom_logo_5, serialData.token);    gpattData.check_data++;} else {gpattData.bad_custom_logo_5_i++;}}
+    else if (serialData.iter_token == 30) {if (val_run_inetial_flag_gpatt(serialData.token) == true) {strcpy(gpattData.run_inetial_flag, serialData.token); gpattData.check_data++;} else {gpattData.bad_run_inetial_flag_i++;}}
+    else if (serialData.iter_token == 31) {if (val_custom_flag(serialData.token) == true)            {strcpy(gpattData.custom_logo_6, serialData.token);    gpattData.check_data++;} else {gpattData.bad_custom_logo_6_i++;}}
+    else if (serialData.iter_token == 32) {if (val_custom_flag(serialData.token) == true)            {strcpy(gpattData.custom_logo_7, serialData.token);    gpattData.check_data++;} else {gpattData.bad_custom_logo_7_i++;}}
+    else if (serialData.iter_token == 33) {if (val_custom_flag(serialData.token) == true)            {strcpy(gpattData.custom_logo_8, serialData.token);    gpattData.check_data++;} else {gpattData.bad_custom_logo_8_i++;}}
+    else if (serialData.iter_token == 34) {if (val_custom_flag(serialData.token) == true)            {strcpy(gpattData.custom_logo_9, serialData.token);    gpattData.check_data++;} else {gpattData.bad_custom_logo_9_i++;}}
+    else if (serialData.iter_token == 35) {if (val_speed_enable_gpatt(serialData.token) == true)     {strcpy(gpattData.speed_enable, serialData.token);     gpattData.check_data++;} else {gpattData.bad_speed_enable_i++;}}
+    else if (serialData.iter_token == 36) {if (val_custom_flag(serialData.token) == true)            {strcpy(gpattData.custom_logo_10, serialData.token);   gpattData.check_data++;} else {gpattData.bad_custom_logo_10_i++;}}
+    else if (serialData.iter_token == 37) {if (val_custom_flag(serialData.token) == true)            {strcpy(gpattData.custom_logo_11, serialData.token);   gpattData.check_data++;} else {gpattData.bad_custom_logo_11_i++;}}
+    else if (serialData.iter_token == 38) {if (val_speed_num_gpatt(serialData.token) == true)        {strcpy(gpattData.speed_num, serialData.token);        gpattData.check_data++;} else {gpattData.bad_speed_num_i++;}}
     else if (serialData.iter_token == 39) {
       gpattData.check_data++;
       strcpy(gpattData.temporary_data, serialData.token);
       serialData.token = strtok(gpattData.temporary_data, "*");
       serialData.token = strtok(NULL, "*");
       if (strlen(serialData.token) == 3) {strcpy(gpattData.check_sum, serialData.token); gpattData.check_data++;}
+      else {gpattData.bad_speed_num_i++;}
       }
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
