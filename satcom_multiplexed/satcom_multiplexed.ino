@@ -1284,17 +1284,17 @@ void ERROR() {
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
     if      (serialData.iter_token == 0)                                                 {strcpy(errorData.tag, "ERROR");                  errorData.check_data++;}
-    else if (serialData.iter_token == 1) {if (val_utc_time(serialData.token) == true)    {strcpy(errorData.utc, serialData.token);         errorData.check_data++;} else {errorData.bad_utc_i++;}}
-    else if (serialData.iter_token == 2) {if (val_code_flag(serialData.token) == true)   {strcpy(errorData.code_flag, serialData.token);   errorData.check_data++;} else {errorData.bad_code_flag_i++;}}
-    else if (serialData.iter_token == 3) {if (val_gset_flag(serialData.token) == true)   {strcpy(errorData.gset_flag, serialData.token);   errorData.check_data++;} else {errorData.bad_gset_flag_i++;}}
-    else if (serialData.iter_token == 4) {if (val_sset_flag(serialData.token) == true)   {strcpy(errorData.sset_flag, serialData.token);   errorData.check_data++;} else {errorData.bad_sset_flag_i++;}}
-    else if (serialData.iter_token == 5) {if (val_custom_flag(serialData.token) == true) {strcpy(errorData.customize_0, serialData.token); errorData.check_data++;} else {errorData.bad_customize_0_i++;}}
+    else if (serialData.iter_token == 1) {if (val_utc_time(serialData.token) == true)    {strcpy(errorData.utc, serialData.token);         errorData.check_data++; errorData.bad_utc = false;} else {errorData.bad_utc_i++; errorData.bad_utc = true;}}
+    else if (serialData.iter_token == 2) {if (val_code_flag(serialData.token) == true)   {strcpy(errorData.code_flag, serialData.token);   errorData.check_data++; errorData.bad_code_flag = false;} else {errorData.bad_code_flag_i++; errorData.bad_code_flag = true;}}
+    else if (serialData.iter_token == 3) {if (val_gset_flag(serialData.token) == true)   {strcpy(errorData.gset_flag, serialData.token);   errorData.check_data++; errorData.bad_gset_flag = false;} else {errorData.bad_gset_flag_i++; errorData.bad_gset_flag = true;}}
+    else if (serialData.iter_token == 4) {if (val_sset_flag(serialData.token) == true)   {strcpy(errorData.sset_flag, serialData.token);   errorData.check_data++; errorData.bad_sset_flag = false;} else {errorData.bad_sset_flag_i++; errorData.bad_sset_flag = true;}}
+    else if (serialData.iter_token == 5) {if (val_custom_flag(serialData.token) == true) {strcpy(errorData.customize_0, serialData.token); errorData.check_data++; errorData.bad_customize_0 = false;} else {errorData.bad_customize_0_i++; errorData.bad_customize_0 = true;}}
     else if (serialData.iter_token == 6) {
       strcpy(errorData.temporary_data, strtok(serialData.token, "*"));
-      if (val_scalable(errorData.temporary_data) == true)                                {strcpy(errorData.customize_1, errorData.temporary_data); errorData.check_data++;} else {errorData.bad_customize_1_i++;}
+      if (val_scalable(errorData.temporary_data) == true)                                {strcpy(errorData.customize_1, errorData.temporary_data); errorData.check_data++; errorData.bad_customize_1 = false;} else {errorData.bad_customize_1_i++; errorData.bad_customize_1 = true;}
       serialData.token = strtok(NULL, "*");
       strcpy(errorData.temporary_data_1, strtok(serialData.token, "*"));
-      if (val_checksum(errorData.temporary_data_1) == true)                              {strcpy(errorData.check_sum, errorData.temporary_data_1); errorData.check_data++;} else {errorData.bad_check_sum_i++;}}
+      if (val_checksum(errorData.temporary_data_1) == true)                              {strcpy(errorData.check_sum, errorData.temporary_data_1); errorData.check_data++; errorData.bad_check_sum = false;} else {errorData.bad_check_sum_i++; errorData.bad_check_sum = true;}}
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
