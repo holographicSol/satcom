@@ -1036,7 +1036,7 @@ void SPEED() {
   serialData.iter_token = 0;
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
-    if      (serialData.iter_token == 0)                                                                 {strcpy(speedData.tag, "SPEED");}                      speedData.check_data++;
+    if      (serialData.iter_token == 0)                                                                 {strcpy(speedData.tag, "SPEED");                       speedData.check_data++;}
     else if (serialData.iter_token == 1)  {if (val_utc_time(serialData.token) == true)                   {strcpy(speedData.utc_time, serialData.token);         speedData.check_data++;}}
     else if (serialData.iter_token == 2)  {if (val_ground_speed(serialData.token) == true)               {strcpy(speedData.speed, serialData.token);            speedData.check_data++;}}
     else if (serialData.iter_token == 3)  {if (val_speed_status(serialData.token) == true)               {strcpy(speedData.status, serialData.token);           speedData.check_data++;}}
