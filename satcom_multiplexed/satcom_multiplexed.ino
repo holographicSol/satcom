@@ -196,14 +196,7 @@ void initDisplay3() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   VALIDATION
-
-/*
-checks can be ellaborated upon individually.
-each sentence has a checksum that is for checking if the payload is more or less intact, while in contrast checks below are for
-sanitizing each element of a sentence. thorough testing is required to ensure no false negatives are encountered but its worth
-the extra work in my opinion, rather than assuming all elements will be what we expect every time.
-*/
+//                                                                                                            VALIDATION STRUCT
 
 struct validationStruct {
   bool preliminary_check = true;
@@ -213,6 +206,45 @@ struct validationStruct {
   int  index;
 };
 validationStruct validData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                          CHECKSUM VALIDATION
+
+int getCheckSum(char *string) {
+    int i;
+    int XOR;
+    int c;
+    for (XOR = 0, i = 0; i < strlen(string); i++) {
+      c = (unsigned char)string[i];
+      if (c == '*') break;
+      if (c != '$') XOR ^= c;
+    }
+    return XOR;
+}
+
+uint8_t h2d(char hex) {if(hex > 0x39) hex -= 7; return(hex & 0xf);}
+
+uint8_t h2d2(char h1, char h2) {return (h2d(h1)<<4) | h2d(h2);}
+
+bool validateChecksum(char * buffer) {
+  char gotSum[2];
+  gotSum[0] = buffer[strlen(buffer) - 3];
+  gotSum[1] = buffer[strlen(buffer) - 2];
+  uint8_t checksum_of_buffer =  getCheckSum(buffer);
+  uint8_t checksum_in_buffer = h2d2(gotSum[0], gotSum[1]);
+  if (checksum_of_buffer == checksum_in_buffer) {return true;} else {return false;}
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                  SENTENCE ELEMENT VALIDATION
+
+/*
+checks can be ellaborated upon individually.
+each sentence has a checksum that is for checking if the payload is more or less intact, while in contrast checks below are for
+sanitizing each element of a sentence. thorough testing is required to ensure no false negatives are encountered but its worth
+the extra work in my opinion, rather than assuming all elements will be what we expect every time.
+*/
+
 
 bool count_digits(char * data, int expected) {
   validData.valid_i = 0;
@@ -245,31 +277,6 @@ bool is_all_alpha(char * data) {
   validData.valid_b = true;
   for (int i = 0; i < strlen(data); i++) {if (isalpha(data[i]) == 0) {validData.valid_b = false;}}
   return validData.valid_b;
-}
-
-int getCheckSum(char *string) {
-    int i;
-    int XOR;
-    int c;
-    for (XOR = 0, i = 0; i < strlen(string); i++) {
-      c = (unsigned char)string[i];
-      if (c == '*') break;
-      if (c != '$') XOR ^= c;
-    }
-    return XOR;
-}
-
-uint8_t h2d(char hex) {if(hex > 0x39) hex -= 7; return(hex & 0xf);}
-
-uint8_t h2d2(char h1, char h2) {return (h2d(h1)<<4) | h2d(h2);}
-
-bool validateChecksum(char * buffer) {
-  char gotSum[2];
-  gotSum[0] = buffer[strlen(buffer) - 3];
-  gotSum[1] = buffer[strlen(buffer) - 2];
-  uint8_t checksum_of_buffer =  getCheckSum(buffer);
-  uint8_t checksum_in_buffer = h2d2(gotSum[0], gotSum[1]);
-  if (checksum_of_buffer == checksum_in_buffer) {return true;} else {return false;}
 }
 
 bool val_utc_time(char * data) {
