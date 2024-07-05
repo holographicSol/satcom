@@ -941,47 +941,47 @@ void GNRMC() {
 //                                                                                                                   GPATT DATA
 
 struct GPATTStruct {
-  char tag[56];                                                    // <0> Log header
-  char pitch[56];            unsigned long bad_pitch_i;            // <1> pitch angle
-  char angle_channel_0[56];  unsigned long bad_angle_channel_0_i;  // <2> P
-  char roll[56];             unsigned long bad_roll_i;             // <3> Roll angle
-  char angle_channel_1[56];  unsigned long bad_angle_channel_1_i;  // <4> R
-  char yaw[56];              unsigned long bad_yaw_i;              // <5> Yaw angle
-  char angle_channel_2[56];  unsigned long bad_angle_channel_2_i;  // <6> Y
-  char software_version[56]; unsigned long bad_software_version_i; // <7> software verion
-  char version_channel[56];  unsigned long bad_version_channel_i;  // <8> S
-  char product_id[56];       unsigned long bad_product_id_i;       // <9> Product ID: 96 bit unique ID
-  char id_channel[56];       unsigned long bad_id_channel_i;       // <10> ID 
-  char ins[56];              unsigned long bad_ins_i;              // <11> INS Default open inertial navigation system
-  char ins_channel[56];      unsigned long bad_ins_channel_i;      // <12> whether inertial navigation open
-  char hardware_version[56]; unsigned long bad_hardware_version_i; // <13> Named after master chip
-  char run_state_flag[56];   unsigned long bad_run_state_flag_i;   // <14> Algorithm status flag: 1->3
-  char mis_angle_num[56];    unsigned long bad_mis_angle_num_i;    // <15> number of Installation
-  char custom_logo_0[56];    unsigned long bad_custom_logo_0_i;    // <16>
-  char custom_logo_1[56];    unsigned long bad_custom_logo_1_i;    // <17>
-  char custom_logo_2[56];    unsigned long bad_custom_logo_2_i;    // <18>
-  char static_flag[56];      unsigned long bad_static_flag_i;      // <19> 1:Static 0：dynamic
-  char user_code[56];        unsigned long bad_user_code_i;        // <20> 1：Normal user X：Customuser
-  char gst_data[56];         unsigned long bad_gst_data_i;         // <21> User satellite accuracy
-  char line_flag[56];        unsigned long bad_line_flag_i;        // <22> 1：straight driving，0：curve driving
-  char custom_logo_3[56];    unsigned long bad_custom_logo_3_i;    // <23>
-  char mis_att_flag[56];     unsigned long bad_mis_att_flag_i;     // <24> 
-  char imu_kind[56];         unsigned long bad_imu_kind_i;         // <25> Sensor Type: 0->BIM055; 1->BMI160; 2->LSM6DS3TR-C; 3->LSM6DSOW 4->ICM-40607; 5->ICM-40608 6->ICM-42670; 7->LSM6DSR
-  char ubi_car_kind[56];     unsigned long bad_ubi_car_kind_i;     // <26> 1: small car, 2: big car
-  char mileage[56];          unsigned long bad_mileage_i;          // <27> kilometers: max 9999 kilometers
-  char custom_logo_4[56];    unsigned long bad_custom_logo_4_i;    // <28>
-  char custom_logo_5[56];    unsigned long bad_custom_logo_5_i;    // <29>
-  char run_inetial_flag[56]; unsigned long bad_run_inetial_flag_i; // <30> 1->4
-  char custom_logo_6[56];    unsigned long bad_custom_logo_6_i;    // <31>
-  char custom_logo_7[56];    unsigned long bad_custom_logo_7_i;    // <32>
-  char custom_logo_8[56];    unsigned long bad_custom_logo_8_i;    // <33>
-  char custom_logo_9[56];    unsigned long bad_custom_logo_9_i;    // <34>
-  char speed_enable[56];     unsigned long bad_speed_enable_i;     // <35> 
-  char custom_logo_10[56];   unsigned long bad_custom_logo_10_i;   // <36>
-  char custom_logo_11[56];   unsigned long bad_custom_logo_11_i;   // <37>
-  char speed_num[56];        unsigned long bad_speed_num_i;        // <38> 1：fixed setting，0：Self adaptive installation
-  char scalable[56];         unsigned long bad_scalable_i;         // <39> 
-  char check_sum[56];        unsigned long bad_check_sum_i;        // <40> XOR check value of all bytes starting from $ to *
+  char tag[56];                                                                                      // <0> Log header
+  char pitch[56];            unsigned long bad_pitch_i;            bool bad_pitch = true;            // <1> pitch angle
+  char angle_channel_0[56];  unsigned long bad_angle_channel_0_i;  bool bad_angle_channel_0 = true;  // <2> P
+  char roll[56];             unsigned long bad_roll_i;             bool bad_roll = true;             // <3> Roll angle
+  char angle_channel_1[56];  unsigned long bad_angle_channel_1_i;  bool bad_angle_channel_1 = true;  // <4> R
+  char yaw[56];              unsigned long bad_yaw_i;              bool bad_yaw = true;              // <5> Yaw angle
+  char angle_channel_2[56];  unsigned long bad_angle_channel_2_i;  bool bad_angle_channel_2 = true;  // <6> Y
+  char software_version[56]; unsigned long bad_software_version_i; bool bad_software_version = true; // <7> software verion
+  char version_channel[56];  unsigned long bad_version_channel_i;  bool bad_version_channel = true;  // <8> S
+  char product_id[56];       unsigned long bad_product_id_i;       bool bad_product_id = true;       // <9> Product ID: 96 bit unique ID
+  char id_channel[56];       unsigned long bad_id_channel_i;       bool bad_id_channel = true;       // <10> ID 
+  char ins[56];              unsigned long bad_ins_i;              bool bad_ins = true;              // <11> INS Default open inertial navigation system
+  char ins_channel[56];      unsigned long bad_ins_channel_i;      bool bad_ins_channel = true;      // <12> whether inertial navigation open
+  char hardware_version[56]; unsigned long bad_hardware_version_i; bool bad_hardware_version = true; // <13> Named after master chip
+  char run_state_flag[56];   unsigned long bad_run_state_flag_i;   bool bad_run_state_flag = true;   // <14> Algorithm status flag: 1->3
+  char mis_angle_num[56];    unsigned long bad_mis_angle_num_i;    bool bad_mis_angle_num = true;    // <15> number of Installation
+  char custom_logo_0[56];    unsigned long bad_custom_logo_0_i;    bool bad_custom_logo_0 = true;    // <16>
+  char custom_logo_1[56];    unsigned long bad_custom_logo_1_i;    bool bad_custom_logo_1 = true;    // <17>
+  char custom_logo_2[56];    unsigned long bad_custom_logo_2_i;    bool bad_custom_logo_2 = true;    // <18>
+  char static_flag[56];      unsigned long bad_static_flag_i;      bool bad_static_flag = true;      // <19> 1:Static 0：dynamic
+  char user_code[56];        unsigned long bad_user_code_i;        bool bad_user_code = true;        // <20> 1：Normal user X：Customuser
+  char gst_data[56];         unsigned long bad_gst_data_i;         bool bad_gst_data = true;         // <21> User satellite accuracy
+  char line_flag[56];        unsigned long bad_line_flag_i;        bool bad_line_flag = true;        // <22> 1：straight driving，0：curve driving
+  char custom_logo_3[56];    unsigned long bad_custom_logo_3_i;    bool bad_custom_logo_3 = true;    // <23>
+  char mis_att_flag[56];     unsigned long bad_mis_att_flag_i;     bool bad_mis_att_flag = true;     // <24> 
+  char imu_kind[56];         unsigned long bad_imu_kind_i;         bool bad_imu_kind = true;         // <25> Sensor Type: 0->BIM055; 1->BMI160; 2->LSM6DS3TR-C; 3->LSM6DSOW 4->ICM-40607; 5->ICM-40608 6->ICM-42670; 7->LSM6DSR
+  char ubi_car_kind[56];     unsigned long bad_ubi_car_kind_i;     bool bad_ubi_car_kind = true;     // <26> 1: small car, 2: big car
+  char mileage[56];          unsigned long bad_mileage_i;          bool bad_mileage = true;          // <27> kilometers: max 9999 kilometers
+  char custom_logo_4[56];    unsigned long bad_custom_logo_4_i;    bool bad_custom_logo_4 = true;    // <28>
+  char custom_logo_5[56];    unsigned long bad_custom_logo_5_i;    bool bad_custom_logo_5 = true;    // <29>
+  char run_inetial_flag[56]; unsigned long bad_run_inetial_flag_i; bool bad_run_inetial_flag = true; // <30> 1->4
+  char custom_logo_6[56];    unsigned long bad_custom_logo_6_i;    bool bad_custom_logo_6 = true;    // <31>
+  char custom_logo_7[56];    unsigned long bad_custom_logo_7_i;    bool bad_custom_logo_7 = true;    // <32>
+  char custom_logo_8[56];    unsigned long bad_custom_logo_8_i;    bool bad_custom_logo_8 = true;    // <33>
+  char custom_logo_9[56];    unsigned long bad_custom_logo_9_i;    bool bad_custom_logo_9 = true;    // <34>
+  char speed_enable[56];     unsigned long bad_speed_enable_i;     bool bad_speed_enable = true;     // <35> 
+  char custom_logo_10[56];   unsigned long bad_custom_logo_10_i;   bool bad_custom_logo_10 = true;   // <36>
+  char custom_logo_11[56];   unsigned long bad_custom_logo_11_i;   bool bad_custom_logo_11 = true;   // <37>
+  char speed_num[56];        unsigned long bad_speed_num_i;        bool bad_speed_num = true;        // <38> 1：fixed setting，0：Self adaptive installation
+  char scalable[56];         unsigned long bad_scalable_i;         bool bad_scalable = true;         // <39> 
+  char check_sum[56];        unsigned long bad_check_sum_i;        bool bad_check_sum = true;        // <40> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
   char temporary_data_1[56];
   int check_data = 0; // should result in 40
