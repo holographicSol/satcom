@@ -2387,21 +2387,19 @@ void systems_Check() {
   // example relay N:                     
   strcpy(relayData.relays[0][0], relayData.satellite_count_gngga_over); // 1: set relay zero's first check condition.
   relayData.relays_data[0][0][0]  = 1;                                  // 2: set relays first function data. in this case we will use the column 'over' element.
-  relayData.relays_data[0][10][0] = 1;                                  // 3: lastly, soft enable the check/relay (IMPORTANT: ensure soft enable is zero if not in use)
   strcpy(relayData.relays[0][1], relayData.hemisphere_gngga_N);         // 1: optionally set relay zero's second check condition (because checks can be elemental or compounded).
-  relayData.relays_data[0][10][0] = 1;                                  // 2: lastly, soft enable the check/relay (IMPORTANT: ensure soft enable is zero if not in use)
+  relayData.relays_data[0][30][0] = 1;                                  // 2: lastly, soft enable the check/relay (IMPORTANT: ensure soft enable is zero if not in use)
   // example relay N:                     
   strcpy(relayData.relays[1][0], relayData.satellite_count_gngga_over); // 1: set relay zero's first check condition.
   relayData.relays_data[1][0][0]  = 1;                                  // 2: set relays first function data. in this case we will use the column 'over' element.
-  relayData.relays_data[1][10][0] = 1;                                  // 3: lastly, soft enable the check/relay (IMPORTANT: ensure soft enable is zero if not in use)
   strcpy(relayData.relays[1][1], relayData.hemisphere_gngga_N);         // 1: optionally set relay zero's second check condition (because checks can be elemental or compounded).
-  relayData.relays_data[1][10][0] = 1;                                  // 2: lastly, soft enable the check/relay (IMPORTANT: ensure soft enable is zero if not in use)
+  relayData.relays_data[1][30][0] = 1;                                  // 2: lastly, soft enable the check/relay (IMPORTANT: ensure soft enable is zero if not in use)
 
   // iterate over each relay array
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
 
     // Serial.println("[Ri] " + String(Ri) + " [ENABLED] " + String(relayData.relays_data[Ri][10][0]));
-    if (relayData.relays_data[Ri][10][0] == 1) {
+    if (relayData.relays_data[Ri][30][0] == 1) {
 
       // temporary switch must be zero each time. allows for polynomial expressions.
       bool tmp_matrix[1][30] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
