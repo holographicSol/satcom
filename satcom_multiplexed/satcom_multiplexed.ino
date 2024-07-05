@@ -788,9 +788,7 @@ GNGGAStruct gnggaData;
 //
 
 void GNGGA() {
-
   gnggaData.check_data = 0;
-  
   memset(gnggaData.tag, 0, 56);
   memset(gnggaData.utc_time, 0, 56);
   memset(gnggaData.latitude, 0, 56);
@@ -883,7 +881,6 @@ GNRMCStruct gnrmcData;
 //                                                                                                                        GNRMC
 
 void GNRMC() {
-  
   gnrmcData.check_data = 0;
   memset(gnrmcData.tag, 0, 56);
   memset(gnrmcData.utc_time, 0, 56);
@@ -902,7 +899,7 @@ void GNRMC() {
   serialData.iter_token = 0;
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
-    if     (serialData.iter_token == 0)                                                                   {strcpy(gnrmcData.tag, "GNRMC");                                   gnrmcData.check_data++;}
+    if      (serialData.iter_token == 0)                                                                  {strcpy(gnrmcData.tag, "GNRMC");                                   gnrmcData.check_data++;}
     else if (serialData.iter_token ==1)  {if (val_utc_time(serialData.token) == true)                     {strcpy(gnrmcData.utc_time, serialData.token);                     gnrmcData.check_data++;} else {gnrmcData.bad_utc_time_i++;}}
     else if (serialData.iter_token ==2)  {if (val_positioning_status_gnrmc(serialData.token) == true)     {strcpy(gnrmcData.positioning_status, serialData.token);           gnrmcData.check_data++;} else {gnrmcData.bad_positioning_status_i++;}}
     else if (serialData.iter_token ==3)  {if (val_latitude(serialData.token) == true)                     {strcpy(gnrmcData.latitude, serialData.token);                     gnrmcData.check_data++;} else {gnrmcData.bad_latitude_i++;}}
@@ -920,7 +917,6 @@ void GNRMC() {
       serialData.token = strtok(NULL, "*");
       strcpy(gnrmcData.temporary_data_1, strtok(serialData.token, "*"));
       if (val_checksum(gnrmcData.temporary_data_1) == true)                                               {strcpy(gnrmcData.check_sum, gnrmcData.temporary_data_1);          gnrmcData.check_data++;} else {gnrmcData.bad_check_sum_i++;}}
-
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
