@@ -2383,13 +2383,19 @@ void systems_Check() {
   the current data alone.
   */
 
-  // system test (simulate interface with matrix because there is no control panel/other HID yet):                      
+  // system test (simulate interface with matrix because there is no control panel/other HID yet):
+  // example relay N:                     
   strcpy(relayData.relays[0][0], relayData.satellite_count_gngga_over); // 1: set relay zero's first check condition.
   relayData.relays_data[0][0][0]  = 1;                                  // 2: set relays first function data. in this case we will use the column 'over' element.
   relayData.relays_data[0][10][0] = 1;                                  // 3: lastly, soft enable the check/relay (IMPORTANT: ensure soft enable is zero if not in use)
-
   strcpy(relayData.relays[0][1], relayData.hemisphere_gngga_N);         // 1: optionally set relay zero's second check condition (because checks can be elemental or compounded).
   relayData.relays_data[0][10][0] = 1;                                  // 2: lastly, soft enable the check/relay (IMPORTANT: ensure soft enable is zero if not in use)
+  // example relay N:                     
+  strcpy(relayData.relays[1][0], relayData.satellite_count_gngga_over); // 1: set relay zero's first check condition.
+  relayData.relays_data[1][0][0]  = 1;                                  // 2: set relays first function data. in this case we will use the column 'over' element.
+  relayData.relays_data[1][10][0] = 1;                                  // 3: lastly, soft enable the check/relay (IMPORTANT: ensure soft enable is zero if not in use)
+  strcpy(relayData.relays[1][1], relayData.hemisphere_gngga_N);         // 1: optionally set relay zero's second check condition (because checks can be elemental or compounded).
+  relayData.relays_data[1][10][0] = 1;                                  // 2: lastly, soft enable the check/relay (IMPORTANT: ensure soft enable is zero if not in use)
 
   // iterate over each relay array
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
@@ -2986,8 +2992,8 @@ void systems_Check() {
         */
 
         // activate/deactivate relay Ri (Ri=pinN): pin number matrix required for relay selcection via Ri->PIN column access in non-linear form (multiplex relays)
-        if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] de-activating");}
-        else if (final_bool == true) {Serial.println("[RELAY " + String(Ri) + "] activating");}
+        if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] inactive");}
+        else if (final_bool == true) {Serial.println("[RELAY " + String(Ri) + "] active");}
       }
       else {Serial.println("[RELAY " + String(Ri) + "] WARNING: Matrix checks are enabled for an non configured matrix!");}
     }
