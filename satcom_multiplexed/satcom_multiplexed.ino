@@ -990,7 +990,7 @@ struct GPATTStruct {
   char check_sum[56];        unsigned long bad_check_sum_i;        // <40> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
   char temporary_data_1[56];
-  int check_data = 0;        // should result in 40
+  int check_data = 0; // should result in 40
 };
 GPATTStruct gpattData;
 
@@ -1321,7 +1321,7 @@ void ERROR() {
 //                                                                                                                   DEBUG DATA
 
 struct DEBUGStruct {
-  char tag[56];            // <0> log header
+  char tag[56];                                                // <0> log header
   char ang_dget_flag[56];  unsigned long bad_ang_dget_flag_i;  // <1> installation azimuth: 1=with azimuth, 0=without azimuth
   char fix_kind_flag[56];  unsigned long bad_fix_kind_flag_i;  // <2> type of installed coordinate system
   char ins_run_flag[56];   unsigned long bad_ins_run_flag_i;   // <3> forced ins: 1=forced, 0=normal
@@ -1352,7 +1352,7 @@ struct DEBUGStruct {
   char check_sum[56];      unsigned long bad_check_sum_i; // <28> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
   char temporary_data_1[56];
-  int check_data = 0;      // should result in 29
+  int check_data = 0; // should result in 29
 };
 DEBUGStruct debugData;
 
