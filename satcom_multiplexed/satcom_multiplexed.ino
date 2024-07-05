@@ -1200,13 +1200,135 @@ struct DEBUGStruct {
   char custom_logo_5[56];  // <27> 
   char check_sum[56];      // <28> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
-};
+  int check_data = 0;
 DEBUGStruct debugData;
+
+
+bool val_ang_dget_flag(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ins_run_flag(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_fix_roll_flag(char * data) {
+  bool check_pass = false;
+  if (atoi(data) >= -1000000) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_fix_pitch_flag(char * data) {
+  bool check_pass = false;
+  if (atoi(data) >= -1000000) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ubi_on_flag(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 8)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ubi_kind_flag(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 2)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ubi_a_set(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 19)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ubi_b_set(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 19)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_acc_X_data(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -400) && (atoi(data) <= 400)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_acc_Y_data(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -400) && (atoi(data) <= 400)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_gyro_Z_data(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -250) && (atoi(data) <= 250)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_pitch_angle(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_roll_angle(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_yaw_angle(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_car_speed(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 100)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ins_flag(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 4)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ubi_num(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 65536)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ubi_valid(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_coll_T_data(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -800) && (atoi(data) <= 800)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_coll_T_heading(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  return check_pass;
+}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        DEBUG
 
 void DEBUG() {
+  debugData.check_data = 0;
   memset(debugData.tag, 0, 56);
   memset(debugData.ang_dget_flag, 0, 56);
   memset(debugData.fix_kind_flag, 0, 56);
@@ -1238,39 +1360,39 @@ void DEBUG() {
   serialData.iter_token = 0;
   serialData.token = strtok(serialData.BUFFER, ",");
   while( serialData.token != NULL ) {
-    if      (serialData.iter_token == 0) {strcpy(debugData.tag, "DEBUG");}
-    else if (serialData.iter_token == 1) {strcpy(debugData.ang_dget_flag, serialData.token);}
-    else if (serialData.iter_token == 2) {strcpy(debugData.fix_kind_flag, serialData.token);}
-    else if (serialData.iter_token == 3) {strcpy(debugData.ins_run_flag, serialData.token);}
-    else if (serialData.iter_token == 4) {strcpy(debugData.fix_roll_flag, serialData.token);}
-    else if (serialData.iter_token == 5) {strcpy(debugData.fix_pitch_flag, serialData.token);}
-    else if (serialData.iter_token == 6) {strcpy(debugData.ubi_on_flag, serialData.token);}
-    else if (serialData.iter_token == 7) {strcpy(debugData.ubi_kind_flag, serialData.token);}
-    else if (serialData.iter_token == 8) {strcpy(debugData.ubi_a_set, serialData.token);}
-    else if (serialData.iter_token == 9) {strcpy(debugData.ubi_b_set, serialData.token);}
-    else if (serialData.iter_token == 10) {strcpy(debugData.acc_X_data, serialData.token);}
-    else if (serialData.iter_token == 11) {strcpy(debugData.acc_Y_data, serialData.token);}
-    else if (serialData.iter_token == 12) {strcpy(debugData.gyro_Z_data, serialData.token);}
-    else if (serialData.iter_token == 13) {strcpy(debugData.pitch_angle, serialData.token);}
-    else if (serialData.iter_token == 14) {strcpy(debugData.roll_angle, serialData.token);}
-    else if (serialData.iter_token == 15) {strcpy(debugData.yaw_angle, serialData.token);}
-    else if (serialData.iter_token == 16) {strcpy(debugData.car_speed, serialData.token);}
-    else if (serialData.iter_token == 17) {strcpy(debugData.ins_flag, serialData.token);}
-    else if (serialData.iter_token == 18) {strcpy(debugData.ubi_num, serialData.token);}
-    else if (serialData.iter_token == 19) {strcpy(debugData.ubi_valid, serialData.token);}
-    else if (serialData.iter_token == 20) {strcpy(debugData.coll_T_data, serialData.token);}
-    else if (serialData.iter_token == 21) {strcpy(debugData.coll_T_heading, serialData.token);}
-    else if (serialData.iter_token == 22) {strcpy(debugData.custom_logo_0, serialData.token);}
-    else if (serialData.iter_token == 23) {strcpy(debugData.custom_logo_1, serialData.token);}
-    else if (serialData.iter_token == 24) {strcpy(debugData.custom_logo_2, serialData.token);}
-    else if (serialData.iter_token == 25) {strcpy(debugData.custom_logo_3, serialData.token);}
-    else if (serialData.iter_token == 26) {strcpy(debugData.custom_logo_4, serialData.token);}
+    if      (serialData.iter_token == 0)                                                     {strcpy(debugData.tag, "DEBUG");                     debugData.check_data++;}
+    else if (serialData.iter_token == 1)  {if (val_ang_dget_flag(serialData.token) == true)  {strcpy(debugData.ang_dget_flag, serialData.token);  debugData.check_data++;}}
+    else if (serialData.iter_token == 2)                                                     {strcpy(debugData.fix_kind_flag, serialData.token);  debugData.check_data++;}
+    else if (serialData.iter_token == 3)  {if (val_ins_run_flag(serialData.token) == true)   {strcpy(debugData.ins_run_flag, serialData.token);   debugData.check_data++;}
+    else if (serialData.iter_token == 4)  {if (val_fix_roll_flag(serialData.token) == true)  {strcpy(debugData.fix_roll_flag, serialData.token);  debugData.check_data++;}
+    else if (serialData.iter_token == 5)  {if (val_fix_pitch_flag(serialData.token) == true) {strcpy(debugData.fix_pitch_flag, serialData.token); debugData.check_data++;}
+    else if (serialData.iter_token == 6)  {if (val_ubi_on_flag(serialData.token) == true)    {strcpy(debugData.ubi_on_flag, serialData.token);    debugData.check_data++;}
+    else if (serialData.iter_token == 7)  {if (val_ubi_kind_flag(serialData.token) == true)  {strcpy(debugData.ubi_kind_flag, serialData.token);  debugData.check_data++;}
+    else if (serialData.iter_token == 8)  {if (val_ubi_a_set(serialData.token) == true)      {strcpy(debugData.ubi_a_set, serialData.token);      debugData.check_data++;}
+    else if (serialData.iter_token == 9)  {if (val_ubi_b_set(serialData.token) == true)      {strcpy(debugData.ubi_b_set, serialData.token);      debugData.check_data++;}
+    else if (serialData.iter_token == 10) {if (val_acc_X_data(serialData.token) == true)     {strcpy(debugData.acc_X_data, serialData.token);     debugData.check_data++;}
+    else if (serialData.iter_token == 11) {if (val_acc_Y_data(serialData.token) == true)     {strcpy(debugData.acc_Y_data, serialData.token);     debugData.check_data++;}
+    else if (serialData.iter_token == 12) {if (val_gyro_Z_data(serialData.token) == true)    {strcpy(debugData.gyro_Z_data, serialData.token);    debugData.check_data++;}
+    else if (serialData.iter_token == 13) {if (val_pitch_angle(serialData.token) == true)    {strcpy(debugData.pitch_angle, serialData.token);    debugData.check_data++;}
+    else if (serialData.iter_token == 14) {if (val_roll_angle(serialData.token) == true)     {strcpy(debugData.roll_angle, serialData.token);     debugData.check_data++;}
+    else if (serialData.iter_token == 15) {if (val_yaw_angle(serialData.token) == true)      {strcpy(debugData.yaw_angle, serialData.token);      debugData.check_data++;}
+    else if (serialData.iter_token == 16) {if (val_car_speed(serialData.token) == true)      {strcpy(debugData.car_speed, serialData.token);      debugData.check_data++;}
+    else if (serialData.iter_token == 17) {if (val_ins_flag(serialData.token) == true)       {strcpy(debugData.ins_flag, serialData.token);       debugData.check_data++;}
+    else if (serialData.iter_token == 18) {if (val_ubi_num(serialData.token) == true)        {strcpy(debugData.ubi_num, serialData.token);        debugData.check_data++;}
+    else if (serialData.iter_token == 19) {if (val_ubi_valid(serialData.token) == true)      {strcpy(debugData.ubi_valid, serialData.token);      debugData.check_data++;}
+    else if (serialData.iter_token == 20) {if (val_coll_T_data(serialData.token) == true)    {strcpy(debugData.coll_T_data, serialData.token);    debugData.check_data++;}
+    else if (serialData.iter_token == 21) {if (val_coll_T_heading(serialData.token) == true) {strcpy(debugData.coll_T_heading, serialData.token); debugData.check_data++;}
+    else if (serialData.iter_token == 22)                                                    {strcpy(debugData.custom_logo_0, serialData.token);  debugData.check_data++;}
+    else if (serialData.iter_token == 23)                                                    {strcpy(debugData.custom_logo_1, serialData.token);  debugData.check_data++;}
+    else if (serialData.iter_token == 24)                                                    {strcpy(debugData.custom_logo_2, serialData.token);  debugData.check_data++;}
+    else if (serialData.iter_token == 25)                                                    {strcpy(debugData.custom_logo_3, serialData.token);  debugData.check_data++;}
+    else if (serialData.iter_token == 26)                                                    {strcpy(debugData.custom_logo_4, serialData.token);  debugData.check_data++;}
     else if (serialData.iter_token == 27) {
+      debugData.check_data++;
       strcpy(debugData.temporary_data, serialData.token);
       serialData.token = strtok(debugData.temporary_data, "*");
       serialData.token = strtok(NULL, "*");
-      strcpy(debugData.check_sum, serialData.token);
-      }
+      if (strlen(serialData.token) == 3) {strcpy(debugData.check_sum, serialData.token); debugData.check_data++;}}
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
@@ -1304,6 +1426,7 @@ void DEBUG() {
     Serial.println("[debugData.custom_logo_4] "  + String(debugData.custom_logo_4));
     Serial.println("[debugData.custom_logo_5] "  + String(debugData.custom_logo_5));
     Serial.println("[debugData.check_sum] "      + String(debugData.check_sum));
+    Serial.println("[debugData.check_data] "     + String(debugData.check_data));
   }
 }
 
