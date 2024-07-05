@@ -220,12 +220,11 @@ uint8_t h2d(char hex) {if(hex > 0x39) hex -= 7; return(hex & 0xf);}
 uint8_t h2d2(char h1, char h2) {return (h2d(h1)<<4) | h2d(h2);}
 
 bool validateChecksum(char * buffer) {
-    char gotSum[2];
-    gotSum[0] = buffer[strlen(buffer) - 3];
-    gotSum[1] = buffer[strlen(buffer) - 2];
-    // Serial.println("gotSum[0]: " + String(gotSum[0]) + "    gotSum[1]: " + String(gotSum[1]));
+    char _buffer[2];
+    buff_0[0] = buffer[strlen(_buffer) - 3];
+    buff_1[1] = buffer[strlen(_buffer) - 2];
     uint8_t checksum_of_buffer =  getCheckSum(buffer);
-    uint8_t checksum_in_buffer = h2d2(gotSum[0], gotSum[1]);
+    uint8_t checksum_in_buffer = h2d2(buff_0[0], buff_1[1]);
     if (checksum_of_buffer == checksum_in_buffer) {return true;} else {return false;}
 }
 
@@ -3010,4 +3009,5 @@ void loop() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+
 
