@@ -196,7 +196,10 @@ void initDisplay3() {
 //                                                                                                                   VALIDATION
 
 /*
-checks can be ellaborated upon individually
+checks can be ellaborated upon individually.
+each sentence has a checksum that is for checking if the payload is more or less intact, while in contrast checks below should be
+ellaborated upon to check the sanity/validity of the data being received by checking against what we expect the data to be in each
+element of the sentence.
 */
 
 bool val_utc_time(char * data) {
