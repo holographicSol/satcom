@@ -612,6 +612,126 @@ bool val_sset_flag(char * data) {
   return check_pass;
 }
 
+bool val_ang_dget_flag(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ins_run_flag(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_fix_roll_flag(char * data) {
+  bool check_pass = false;
+  if (atoi(data) >= -1000000) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_fix_pitch_flag(char * data) {
+  bool check_pass = false;
+  if (atoi(data) >= -1000000) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ubi_on_flag(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 8)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ubi_kind_flag(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 2)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ubi_a_set(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 19)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ubi_b_set(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 19)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_acc_X_data(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -400) && (atoi(data) <= 400)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_acc_Y_data(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -400) && (atoi(data) <= 400)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_gyro_Z_data(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -250) && (atoi(data) <= 250)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_pitch_angle(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_roll_angle(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_yaw_angle(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_car_speed(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 100)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ins_flag(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 4)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ubi_num(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 65536)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_ubi_valid(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_coll_T_data(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -800) && (atoi(data) <= 800)) {check_pass = true;}
+  return check_pass;
+}
+
+bool val_coll_T_heading(char * data) {
+  bool check_pass = false;
+  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  return check_pass;
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GNGGA DATA
 
@@ -1202,127 +1322,6 @@ struct DEBUGStruct {
   char temporary_data[56];
   int check_data = 0;
 DEBUGStruct debugData;
-
-
-bool val_ang_dget_flag(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_ins_run_flag(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_fix_roll_flag(char * data) {
-  bool check_pass = false;
-  if (atoi(data) >= -1000000) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_fix_pitch_flag(char * data) {
-  bool check_pass = false;
-  if (atoi(data) >= -1000000) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_ubi_on_flag(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 8)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_ubi_kind_flag(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 2)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_ubi_a_set(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 19)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_ubi_b_set(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 19)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_acc_X_data(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= -400) && (atoi(data) <= 400)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_acc_Y_data(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= -400) && (atoi(data) <= 400)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_gyro_Z_data(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= -250) && (atoi(data) <= 250)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_pitch_angle(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_roll_angle(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_yaw_angle(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_car_speed(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 100)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_ins_flag(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 4)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_ubi_num(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 65536)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_ubi_valid(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_coll_T_data(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= -800) && (atoi(data) <= 800)) {check_pass = true;}
-  return check_pass;
-}
-
-bool val_coll_T_heading(char * data) {
-  bool check_pass = false;
-  if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
-  return check_pass;
-}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        DEBUG
