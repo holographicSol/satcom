@@ -203,6 +203,11 @@ element of the sentence. reulting bools can be used each loop to test data progr
 to get all validation setup (which it is) some of these validating functions are crude and should be ellaborated upon and refined.
 */
 
+struct validationStruct {
+  bool preliminary_check = true;
+};
+validationStruct validData;
+
 int getCheckSum(char *string) {
     int i;
     int XOR;
@@ -223,7 +228,6 @@ bool validateChecksum(char * buffer) {
     char gotSum[2];
     gotSum[0] = buffer[strlen(buffer) - 3];
     gotSum[1] = buffer[strlen(buffer) - 2];
-    // Serial.println("gotSum[0]: " + String(gotSum[0]) + "    gotSum[1]: " + String(gotSum[1]));
     uint8_t checksum_of_buffer =  getCheckSum(buffer);
     uint8_t checksum_in_buffer = h2d2(gotSum[0], gotSum[1]);
     if (checksum_of_buffer == checksum_in_buffer) {return true;} else {return false;}
@@ -458,7 +462,7 @@ bool val_angle_channle_y_gpatt(char * data) {
 
 bool val_version_channel_s_gpatt(char * data) {
   bool check_pass = false;
-  if (strcmp(data, "s") == 0) {check_pass = true;}
+  if (strcmp(data, "S") == 0) {check_pass = true;}
   return check_pass;
 }
 
@@ -542,7 +546,7 @@ bool val_mis_att_flag_gpatt(char * data) {
 
 bool val_imu_kind_gpatt(char * data) {
   bool check_pass = false;
-  if ((atoi(data) >= 0) && (atoi(data) <= 7)) {check_pass = true;}
+  if ((atoi(data) >= 0) && (atoi(data) <= 8)) {check_pass = true;}
   return check_pass;
 }
 
@@ -2367,6 +2371,18 @@ bool hemisphere_gngga_SW(int Ri, int Fi) {
   else {return false;}
 }
 
+bool preliminary_check() {
+  validData.preliminary_check = true;
+  if (gnggaData.check_data != 16) {validData.preliminary_check = false;}
+  if (gnggaData.valid_checksum == false) {validData.preliminary_check = false;}
+  if (gnrmcData.check_data != 14) {validData.preliminary_check = false;}
+  if (gnrmcData.valid_checksum == false) {validData.preliminary_check = false;}
+  if (gpattData.check_data != 41) {validData.preliminary_check = false;}
+  if (gpattData.valid_checksum == false) {validData.preliminary_check = false;}
+
+  return validData.preliminary_check;
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                               SYSTEMS CHECKS
 
@@ -3007,7 +3023,9 @@ void loop() {
   SSD_Display_5();
   SSD_Display_6();
   SSD_Display_7();
-  systems_Check();
+
+  // if checks passed equal to total expected checks to pass and check sums weigh up then allow data collected this loop to be worked with 
+  if (preliminary_check() == true) {systems_Check();}
 
   delay(1);
 }
