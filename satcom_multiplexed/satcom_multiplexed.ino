@@ -112,6 +112,9 @@ struct sysDebugStruct {
   bool gnrmc_sentence = true;
   bool gpatt_sentence = true;
   bool desbi_sentence = true;
+  bool speed_sentence = true;
+  bool error_sentence = true;
+  bool debug_sentence = true;
 };
 sysDebugStruct sysDebugData;
 
@@ -1424,7 +1427,7 @@ void SPEED() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  if (sysDebugData.gpatt_sentence == true) {
+  if (sysDebugData.speed_sentence == true) {
     Serial.println("[speedData.tag] "                        + String(speedData.tag));
     Serial.println("[speedData.utc_time] "                   + String(speedData.utc_time));
     Serial.println("[speedData.speed] "                      + String(speedData.speed));
@@ -1496,7 +1499,7 @@ void ERROR() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  if (sysDebugData.gpatt_sentence == true) {
+  if (sysDebugData.error_sentence == true) {
     Serial.println("[errorData.tag] "         + String(errorData.tag));
     Serial.println("[errorData.utc] "         + String(errorData.utc));
     Serial.println("[errorData.code_flag] "   + String(errorData.code_flag));
@@ -1620,7 +1623,7 @@ void DEBUG() {
     serialData.token = strtok(NULL, ",");
     serialData.iter_token++;
   }
-  if (sysDebugData.gpatt_sentence == true) {
+  if (sysDebugData.debug_sentence == true) {
     Serial.println("[debugData.tag] "            + String(debugData.tag));
     Serial.println("[debugData.ang_dget_flag] "  + String(debugData.ang_dget_flag));
     Serial.println("[debugData.fix_kind_flag] "  + String(debugData.fix_kind_flag));
