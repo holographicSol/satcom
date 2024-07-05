@@ -1810,7 +1810,7 @@ void readRXD_1() {
         Serial.print(""); Serial.println(serialData.BUFFER);
         gnggaData.valid_checksum = validateChecksum(serialData.BUFFER);
         if (gnggaData.valid_checksum == true) {GNGGA();}
-        else {gngga.bad_checksum_validity++;}
+        else {gnggaData.bad_checksum_validity++;}
       }
     }
 
