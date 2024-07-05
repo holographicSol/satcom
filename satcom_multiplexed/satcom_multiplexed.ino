@@ -108,9 +108,9 @@ SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 //                                                                                                                   DEBUG DATA
 
 struct sysDebugStruct {
-  bool gngga_sentence = false;
-  bool gnrmc_sentence = false;
-  bool gpatt_sentence = false;
+  bool gngga_sentence = true;
+  bool gnrmc_sentence = true;
+  bool gpatt_sentence = true;
   bool desbi_sentence = false;
 };
 sysDebugStruct sysDebugData;
@@ -235,8 +235,6 @@ bool is_all_digits_plus_char(char * data, char * find_char) {
   validData.valid_b = true;
   validData.find_char = strchr(data, * find_char);
   validData.index = (int)(validData.find_char - data);
-  // Serial.println("[DATA]  " + String(data));
-  // Serial.println("[INDEX] " + String(validData.index));
   for (int i = 0; i < strlen(data); i++) {if (isdigit(data[i]) == 0) {if (i != validData.index) {validData.valid_b = false;}}}
   return validData.valid_b;
 }
