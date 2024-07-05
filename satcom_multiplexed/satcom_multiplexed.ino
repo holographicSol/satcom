@@ -85,6 +85,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include <Wire.h>
 #include <SSD1306Wire.h>   // SSD1306Wire                                https://gitlab.com/alexpr0/ssd1306wire
 #include <OLEDDisplayUi.h> // ESP8266 and ESP32 OLED driver for SSD1306  https://github.com/ThingPulse/esp8266-oled-ssd1306
@@ -108,9 +109,9 @@ SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 //                                                                                                                   DEBUG DATA
 
 struct sysDebugStruct {
-  bool gngga_sentence = false;
-  bool gnrmc_sentence = false;
-  bool gpatt_sentence = false;
+  bool gngga_sentence = true;
+  bool gnrmc_sentence = true;
+  bool gpatt_sentence = true;
   bool desbi_sentence = false;
 };
 sysDebugStruct sysDebugData;
@@ -203,6 +204,11 @@ element of the sentence. reulting bools can be used each loop to test data progr
 to get all validation setup (which it is) some of these validating functions are crude and should be ellaborated upon and refined.
 */
 
+struct valStruct {
+  int type_check_i = 0;
+};
+valStruct valData;
+
 int getCheckSum(char *string) {
     int i;
     int XOR;
@@ -229,11 +235,25 @@ bool validateChecksum(char * buffer) {
     if (checksum_of_buffer == checksum_in_buffer) {return true;} else {return false;}
 }
 
+bool count_digits(char * data, int expected) {
+  valData.type_check_i = 0;
+  for (int i = 0; i < strlen(data); i++) { if (isdigit(data[i]) == 1) {valData.type_check_i++;} }
+  if (valData.type_check_i == expected) {return true;} else {return false;}
+}
+
+bool count_alpha(char * data, int expected) {
+  valData.type_check_i = 0;
+  for (int i = 0; i < strlen(data); i++) { if (isalpha(data[i]) == 1) {valData.type_check_i++;} }
+  if (valData.type_check_i == expected) {return true;} else {return false;}
+}
+
 bool val_utc_time(char * data) {
   bool check_pass = false;
   if (strlen(data) == 9) {
     if (data[6] == '.') {
-      if ((atoi(data) >= 0.0) && (atoi(data) <= 235959.99)) {check_pass = true;}
+      if (count_digits(data, 8) == true) {
+        if ((atoi(data) >= 0.0) && (atoi(data) <= 235959.99)) {check_pass = true;}
+      }
     }
   }
   return check_pass;
@@ -242,7 +262,9 @@ bool val_utc_time(char * data) {
 bool val_utc_date(char * data) {
   bool check_pass = false;
   if (strlen(data) == 6) {
-    if ((atoi(data) >= 0.0) && (atoi(data) <= 999999)) {check_pass = true;}
+    if (count_digits(data, 6) == true) {
+      if ((atoi(data) >= 0.0) && (atoi(data) <= 999999)) {check_pass = true;}
+    }
   }
   return check_pass;
 }
