@@ -760,40 +760,25 @@ bool val_scalable(char * data) {
 //                                                                                                                   GNGGA DATA
 
 struct GNGGAStruct {
-  char tag[56];                         // <0> Log header
-  char utc_time[56];                    // <1> UTC time, the format is hhmmss.sss
-  char latitude[56];                    // <2> Latitude, the format is  ddmm.mmmmmmm
-  char latitude_hemisphere[56];         // <3> Latitude hemisphere, N or S (north latitude or south latitude)
-  char longitude[56];                   // <4> Longitude, the format is dddmm.mmmmmmm
-  char longitude_hemisphere[56];        // <5> Longitude hemisphere, E or W (east longitude or west longitude)
-  char positioning_status[56];          // <6> GNSS positioning status: 0 not positioned, 1 single point positioning, 2: pseudorange difference, 6: pure INS */
-  char satellite_count_gngga[56] = "0"; // <7> Number of satellites used
-  char hdop_precision_factor[56];       // <8> HDOP level precision factor
-  char altitude[56];                    // <9> Altitude
-  char altitude_units[56];              // <10> 
-  char geoidal[56];                     // <11> The height of the earth ellipsoid relative to the geoid 
-  char geoidal_units[56];               // <12> 
-  char differential_delay[56];          // <13>
-  char id[56];                          // <14> base station ID
-  char check_sum[56];                   // <15> XOR check value of all bytes starting from $ to *
+  char tag[56];                                                                    // <0> Log header
+  char utc_time[56];                    unsigned long bad_utc_time_i;              // <1> UTC time, the format is hhmmss.sss
+  char latitude[56];                    unsigned long bad_latitude_i;              // <2> Latitude, the format is  ddmm.mmmmmmm
+  char latitude_hemisphere[56];         unsigned long bad_latitude_hemisphere_i;   // <3> Latitude hemisphere, N or S (north latitude or south latitude)
+  char longitude[56];                   unsigned long bad_longitude_i;             // <4> Longitude, the format is dddmm.mmmmmmm
+  char longitude_hemisphere[56];        unsigned long bad_longitude_hemisphere_i;  // <5> Longitude hemisphere, E or W (east longitude or west longitude)
+  char positioning_status[56];          unsigned long bad_positioning_status_i;    // <6> GNSS positioning status: 0 not positioned, 1 single point positioning, 2: pseudorange difference, 6: pure INS */
+  char satellite_count_gngga[56] = "0"; unsigned long bad_satellite_count_gngga_i; // <7> Number of satellites used
+  char hdop_precision_factor[56];       unsigned long bad_hdop_precision_factor_i; // <8> HDOP level precision factor
+  char altitude[56];                    unsigned long bad_altitude_i;              // <9> Altitude
+  char altitude_units[56];              unsigned long bad_altitude_units_i;        // <10> 
+  char geoidal[56];                     unsigned long bad_geoidal_i;               // <11> The height of the earth ellipsoid relative to the geoid 
+  char geoidal_units[56];               unsigned long bad_geoidal_units_i;         // <12> 
+  char differential_delay[56];          unsigned long bad_differential_delay_i;    // <13>
+  char id[56];                          unsigned long bad_id_i;                    // <14> base station ID
+  char check_sum[56];                   unsigned long bad_check_sum_i;             // <15> XOR check value of all bytes starting from $ to *
   char temporary_data[56];
   char temporary_data_1[56];
-  int check_data = 0;                   // should result in 16
-  unsigned long bad_utc_time_i;
-  unsigned long bad_latitude_i;
-  unsigned long bad_latitude_hemisphere_i;
-  unsigned long bad_longitude_i;
-  unsigned long bad_longitude_hemisphere_i;
-  unsigned long bad_positioning_status_i;
-  unsigned long bad_satellite_count_gngga_i;
-  unsigned long bad_hdop_precision_factor_i;
-  unsigned long bad_altitude_i;
-  unsigned long bad_altitude_units_i;
-  unsigned long bad_geoidal_i;
-  unsigned long bad_geoidal_units_i;
-  unsigned long bad_differential_delay_i;
-  unsigned long bad_id_i;
-  unsigned long bad_check_sum_i;
+  int check_data = 0; // should result in 16
 };
 GNGGAStruct gnggaData;
 
