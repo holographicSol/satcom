@@ -200,6 +200,7 @@ checks can be ellaborated upon individually.
 each sentence has a checksum that is for checking if the payload is more or less intact, while in contrast checks below should be
 ellaborated upon to check the sanity/validity of the data being received by checking against what we expect the data to be in each
 element of the sentence. reulting bools can be used each loop to test data programatically and can be used as diagnostic data (counters).
+to get all validation setup (which it is) some of these validating functions are crude and should be ellaborated upon and refined.
 */
 
 bool val_utc_time(char * data) {
