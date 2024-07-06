@@ -3482,7 +3482,7 @@ void systems_Check() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(debugData.check_data, 29);}
 
         /*
-        continue adding bool
+        optionally continue plugging in the bool
         */
 
       }
