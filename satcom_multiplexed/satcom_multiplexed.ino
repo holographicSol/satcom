@@ -3212,7 +3212,7 @@ void loop() {
   in order to decide what data to use for the next decision. this check is here crudely for now and can be a part of the 'brain' (matrix switch) later.
   once sentence element validity bools can form a part of the matrix switch plynomial logic then the preliminary check as a whole can be
   removed and each polynomial cnodition should then include specific validity checks on specific data being used or return false, in
-  which case an alternative polynomial may step in, allowing for system 'fluency' rather than potential periodic suspension.
+  which case an alternative polynomial may step in, allowing for system 'fluency' rather than inevitable periodic suspension.
   */
   if (preliminary_check() == true) {
     extrapulatedSatData();
