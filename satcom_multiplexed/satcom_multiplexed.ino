@@ -47,8 +47,8 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 
                                                       SENTENCE $SATCOM
                                                                                     
-                      START Tag                Last Sat Time                     Converted Longitude        
-                         |                   |               |                   |                |                  
+                      START Tag                Last Sat Time                    Converted Longitude        
+                         |                   |               |                   |               |                  
                       $SATCOM,000000000000.00,000000000000.00,00.00000000000000,00.00000000000000,*Z
                              |               |               |                 |                              
                                DatetimeStamp                  Converted Latitude                                 
@@ -962,6 +962,605 @@ bool val_scalable(char * data) {
   if (strlen(data) >= 1) {check_pass = true;}
   return check_pass;
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                  RELAYS DATA
+
+/*
+A minimum of N relays would be required to satisfy various flags. This can allow satcom to be as general purpose as intended,
+from minimal to maximal operation/utilization of the WTGPS300 as and when required by different projects, even turning on/off other
+systems that begin running their own routines, by having them turn on/off with these relays/functions.
+each relay should have its own char array which can be checked each loop, after which a function corrrspinding to a relays char
+array will be ran if a selected condition is met, then the corresponding relay will be turned on/off when that condition is met.
+additional configuration could include running once, running each time etc. for systems/routines to be activated/deactivated.
+Note: Each relay/function is activated/deactivated according to compound conditions, meaning we can be more or less strict.
+*/
+
+struct RelayStruct {
+
+  // relays/functions
+  int MAX_RELAYS = 40;
+  // polynomial size
+  int MAX_RELAY_ELEMENTS = 10;
+
+  bool relays_bool[1][40] = {
+    {
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      }
+  };
+  
+  char relays[40][10][100] = {
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 1
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 2
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 3
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 4
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 5
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 6
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 7
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 8
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 9
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 10
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 11
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 12
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 13
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 14
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 15
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 16
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 17
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 18
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 19
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 20
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 21
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 22
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 23
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 24
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 25
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 26
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 27
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 28
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 29
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 30
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 31
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 32
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 33
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 34
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 35
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 36
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 37
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 38
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 39
+     },
+    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 40
+     },
+    };
+
+  /*
+
+  Matrix containing sets of values per relay.
+  X: use with/without  Y,Z.
+  Y: necessary if comparing to X.
+  Z: necessary if comparing to X/Y in range.  
+                
+                0                   30
+          0     1     2     
+          X     Y     Z    
+  {  {   0.0,  0.0,  0.0   }       {0}          }
+                              Enabled/Disabled
+
+  */
+
+  /*
+  calibratable matrix data (via local interface devices / RF / serial / baked-in here below if required)              
+  more available logic equals more required memory, and faster clock speeds also if responsive systems are required.
+  consider overhead for fallback logic (no/bad satellite data --> untrained INS --> other sensor floor).
+  this is the matrix switch (brain) and all it knows is nothing unless we put something in.
+  */
+  double relays_data[40][10+1][3] = {
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 1
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 2
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 3
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 4
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 5
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 6
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 7
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 8
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 9
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 10
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 11
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 12
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 13
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 14
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 15
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 16
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 17
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 18
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 19
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 20
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 21
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 22
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 23
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 24
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 25
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 26
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 27
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 28
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 29
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 30
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 31
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 32
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 33
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 34
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 35
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 36
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 37
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 38
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 39
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+    {
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 40
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
+      {0},
+    },
+  };
+
+  // default and specifiable value to indicate a relay should not be activated/deactivated
+  char default_relay_function[56] = "$NONE";
+
+  char run_inetial_flag_gpatt_equal[56]    = "run_inetial_flag_gpatt_equal";
+  char line_flag_gpatt_equal[56]           = "line_flag_gpatt_equal";
+  char static_flag_gpatt_equal[56]         = "static_flag_gpatt_equal";
+  char run_state_flag_gpatt_equal[56]      = "run_state_flag_gpatt_equal";
+  char ins_gpatt_equal[56]                 = "ins_gpatt_equal";
+
+  char speed_num_gpatt_over[56]            = "speed_num_gpatt_over";
+  char speed_num_gpatt_under[56]           = "speed_num_gpatt_under[";
+  char speed_num_gpatt_equal[56]           = "speed_num_gpatt_equal";
+  char speed_num_gpatt_in_range[56]        = "speed_num_gpatt_in_range";
+
+  char mileage_gpatt_over[56]              = "mileage_gpatt_over";
+  char mileage_gpatt_under[56]             = "mileage_gpatt_under[";
+  char mileage_gpatt_equal[56]             = "mileage_gpatt_equal";
+  char mileage_gpatt_in_range[56]          = "mileage_gpatt_in_range";
+
+  char gst_data_gpatt_over[56]             = "gst_data_gpatt_over";
+  char gst_data_gpatt_under[56]            = "gst_data_gpatt_under[";
+  char gst_data_gpatt_equal[56]            = "gst_data_gpatt_equal";
+  char gst_data_gpatt_in_range[56]         = "gst_data_gpatt_in_range";
+
+  char yaw_gpatt_over[56]                  = "yaw_gpatt_over";
+  char yaw_gpatt_under[56]                 = "yaw_gpatt_under[";
+  char yaw_gpatt_equal[56]                 = "yaw_gpatt_equal";
+  char yaw_gpatt_in_range[56]              = "yaw_gpatt_in_range";
+
+  char roll_gpatt_over[56]                 = "roll_gpatt_over";
+  char roll_gpatt_under[56]                = "roll_gpatt_under[";
+  char roll_gpatt_equal[56]                = "roll_gpatt_equal";
+  char roll_gpatt_in_range[56]             = "roll_gpatt_in_range";
+
+  char pitch_gpatt_over[56]                = "pitch_gpatt_over";
+  char pitch_gpatt_under[56]               = "pitch_gpatt_under[";
+  char pitch_gpatt_equal[56]               = "pitch_gpatt_equal";
+  char pitch_gpatt_in_range[56]            = "pitch_gpatt_in_range";
+
+  char heading_gnrmc_over[56]              = "heading_gnrmc_over";
+  char heading_gnrmc_under[56]             = "heading_gnrmc_under";
+  char heading_gnrmc_equal[56]             = "heading_gnrmc_equal";
+  char heading_gnrmc_in_range[56]          = "heading_gnrmc_in_range";
+
+  char satellite_count_gngga_over[56]      = "satellite_count_gngga_over";
+  char satellite_count_gngga_under[56]     = "satellite_count_gngga_under";
+  char satellite_count_gngga_equal[56]     = "satellite_count_gngga_equal";
+
+  char satellite_time_over[56]             = "satellite_time_over";
+  char satellite_time_under[56]            = "satellite_time_under";
+  char satellite_time_equal[56]            = "satellite_time_equal";
+  char satellite_time_in_range[56]         = "satellite_time_in_range";
+
+  char satellite_coord_gngga_over[56]      = "satellite_coord_gngga_over";
+  char satellite_coord_gngga_under[56]     = "satellite_coord_gngga_under";
+  char satellite_coord_gngga_equal[56]     = "satellite_coord_gngga_equal";
+  char satellite_coord_gngga_in_range[56]  = "satellite_coord_gngga_in_range";
+
+  char hemisphere_gngga_N[56]              = "hemisphere_gngga_N";
+  char hemisphere_gngga_E[56]              = "hemisphere_gngga_E";
+  char hemisphere_gngga_S[56]              = "hemisphere_gngga_S";
+  char hemisphere_gngga_W[56]              = "hemisphere_gngga_W";
+
+  char hemisphere_gngga_NE[56]             = "hemisphere_gngga_NE";
+  char hemisphere_gngga_SE[56]             = "hemisphere_gngga_SE";
+  char hemisphere_gngga_NW[56]             = "hemisphere_gngga_NW";
+  char hemisphere_gngga_SW[56]             = "hemisphere_gngga_SW";
+
+  char precision_factor_gngga_over[56]     = "precision_factor_gngga_over";
+  char precision_factor_gngga_under[56]    = "precision_factor_gngga_under";
+  char precision_factor_gngga_equal[56]    = "precision_factor_gngga_equal";
+  char precision_factor_gngga_in_range[56] = "precision_factor_gngga_in_range";
+
+  char altitude_gngga_over[56]             = "altitude_gngga_over";
+  char altitude_gngga_under[56]            = "altitude_gngga_under";
+  char altitude_gngga_equal[56]            = "altitude_gngga_equal";
+  char altitude_gngga_in_range[56]         = "altitude_gngga_in_range";
+
+  char ground_speed_gnrmc_over[56]         = "ground_speed_gnrmc_over";
+  char ground_speed_gnrmc_under[56]        = "ground_speed_gnrmc_under";
+  char ground_speed_gnrmc_equal[56]        = "ground_speed_gnrmc_equal";
+  char ground_speed_gnrmc_in_range[56]     = "ground_speed_gnrmc_in_range";
+
+  char utc_time_speed_over[56]             = "utc_time_speed_over";
+  char utc_time_speed_under[56]            = "utc_time_speed_under";
+  char utc_time_speed_equal[56]            = "utc_time_speed_equal";
+  char utc_time_speed_in_range[56]         = "utc_time_speed_in_range";
+
+  char ground_speed_speed_over[56]         = "ground_speed_speed_over";
+  char ground_speed_speed_under[56]        = "ground_speed_speed_under";
+  char ground_speed_speed_equal[56]        = "ground_speed_speed_equal";
+  char ground_speed_speed_in_range[56]     = "ground_speed_speed_in_range";
+
+  char status_speed_over[56]               = "status_speed_over";
+  char status_speed_under[56]              = "status_speed_under";
+  char status_speed_equal[56]              = "status_speed_equal";
+  char status_speed_in_range[56]           = "status_speed_in_range";
+
+  char acc_X_speed_over[56]                = "acc_X_speed_over";
+  char acc_X_speed_under[56]               = "acc_X_speed_under";
+  char acc_X_speed_equal[56]               = "acc_X_speed_equal";
+  char acc_X_speed_in_range[56]            = "acc_X_speed_in_range";
+
+  char acc_Y_speed_over[56]                = "acc_Y_speed_over";
+  char acc_Y_speed_under[56]               = "acc_Y_speed_under";
+  char acc_Y_speed_equal[56]               = "acc_Y_speed_equal";
+  char acc_Y_speed_in_range[56]            = "acc_Y_speed_in_range";
+
+  char acc_Z_speed_over[56]                = "acc_Z_speed_over";
+  char acc_Z_speed_under[56]               = "acc_Z_speed_under";
+  char acc_Z_speed_equal[56]               = "acc_Z_speed_equal";
+  char acc_Z_speed_in_range[56]            = "acc_Z_speed_in_range";
+
+  char gyro_X_speed_over[56]               = "gyro_X_speed_over";
+  char gyro_X_speed_under[56]              = "gyro_X_speed_under";
+  char gyro_X_speed_equal[56]              = "gyro_X_speed_equal";
+  char gyro_X_speed_in_range[56]           = "gyro_X_speed_in_range";
+
+  char gyro_Y_speed_over[56]               = "gyro_Y_speed_over";
+  char gyro_Y_speed_under[56]              = "gyro_Y_speed_under";
+  char gyro_Y_speed_equal[56]              = "gyro_Y_speed_equal";
+  char gyro_Y_speed_in_range[56]           = "gyro_Y_speed_in_range";
+
+  char gyro_Z_speed_over[56]               = "gyro_Z_speed_over";
+  char gyro_Z_speed_under[56]              = "gyro_Z_speed_under";
+  char gyro_Z_speed_equal[56]              = "gyro_Z_speed_equal";
+  char gyro_Z_speed_in_range[56]           = "gyro_Z_speed_in_range";
+
+  char ubi_state_flag_speed_over[56]       = "ubi_state_flag_speed_over";
+  char ubi_state_flag_speed_under[56]      = "ubi_state_flag_speed_under";
+  char ubi_state_flag_speed_equal[56]      = "ubi_state_flag_speed_equal";
+  char ubi_state_flag_speed_in_range[56]   = "gyro_Z_speed_in_range";
+
+  char ubi_state_kind_speed_over[56]       = "ubi_state_kind_speed_over";
+  char ubi_state_kind_speed_under[56]      = "ubi_state_kind_speed_under";
+  char ubi_state_kind_speed_equal[56]      = "ubi_state_kind_speed_equal";
+  char ubi_state_kind_speed_in_range[56]   = "ubi_state_kind_speed_in_range";
+
+  char ubi_state_value_speed_over[56]      = "ubi_state_value_speed_over";
+  char ubi_state_value_speed_under[56]     = "ubi_state_value_speed_under";
+  char ubi_state_value_speed_equal[56]     = "ubi_state_value_speed_equal";
+  char ubi_state_value_speed_in_range[56]  = "ubi_state_value_speed_in_range";
+
+  char utc_time_error_over[56]             = "utc_time_error_over";
+  char utc_time_error_under[56]            = "utc_time_error_under";
+  char utc_time_error_equal[56]            = "utc_time_error_equal";
+  char utc_time_error_in_range[56]         = "utc_time_error_in_range";
+
+  char code_flag_error_over[56]            = "code_flag_error_over";
+  char code_flag_error_under[56]           = "code_flag_error_under";
+  char code_flag_error_equal[56]           = "code_flag_error_equal";
+  char code_flag_error_in_range[56]        = "code_flag_error_in_range";
+
+  char gset_flag_error_equal[56]           = "gset_flag_error_equal";
+  char sset_flag_error_equal[56]           = "sset_flag_error_equal";
+
+  char coll_T_heading_debug_over[56]       = "coll_T_heading_debug_over";
+  char coll_T_heading_debug_under[56]      = "coll_T_heading_debug_under";
+  char coll_T_heading_debug_equal[56]      = "coll_T_heading_debug_equal";
+  char coll_T_heading_debug_in_range[56]   = "coll_T_heading_debug_in_range";
+
+  char coll_T_data_debug_over[56]          = "coll_T_data_debug_over";
+  char coll_T_data_debug_under[56]         = "coll_T_data_debug_under";
+  char coll_T_data_debug_equal[56]         = "coll_T_data_debug_equal";
+  char coll_T_data_debug_in_range[56]      = "coll_T_data_debug_in_range";
+
+  char ubi_valid_debug_equal[56]           = "ubi_valid_debug_equal";
+
+  char ins_flag_debug_over[56]             = "ins_flag_debug_over";
+  char ins_flag_debug_under[56]            = "ins_flag_debug_under";
+  char ins_flag_debug_equal[56]            = "ins_flag_debug_equal";
+  char ins_flag_debug_in_range[56]         = "ins_flag_debug_in_range";
+
+  char car_speed_debug_over[56]            = "car_speed_debug_over";
+  char car_speed_debug_under[56]           = "car_speed_debug_under";
+  char car_speed_debug_equal[56]           = "car_speed_debug_equal";
+  char car_speed_debug_in_range[56]        = "car_speed_debug_in_range";
+
+  char yaw_angle_debug_over[56]            = "yaw_angle_debug_over";
+  char yaw_angle_debug_under[56]           = "yaw_angle_debug_under";
+  char yaw_angle_debug_equal[56]           = "yaw_angle_debug_equal";
+  char yaw_angle_debug_in_range[56]        = "yaw_angle_debug_in_range";
+
+  char roll_angle_debug_over[56]           = "roll_angle_debug_over";
+  char roll_angle_debug_under[56]          = "roll_angle_debug_under";
+  char roll_angle_debug_equal[56]          = "roll_angle_debug_equal";
+  char roll_angle_debug_in_range[56]       = "roll_angle_debug_in_range";
+
+  char pitch_angle_debug_over[56]          = "pitch_angle_debug_over";
+  char pitch_angle_debug_under[56]         = "pitch_angle_debug_under";
+  char pitch_angle_debug_equal[56]         = "pitch_angle_debug_equal";
+  char pitch_angle_debug_in_range[56]      = "pitch_angle_debug_in_range";
+
+  char ang_dget_flag_debug_equal[56]       = "ang_dget_flag_debug_equal";
+  char ins_run_flag_debug_equal[56]        = "ins_run_flag_debug_equal";
+  char fix_roll_flag_debug_equal[56]       = "fix_roll_flag_debug_equal";
+  char fix_pitch_flag_debug_equal[56]      = "fix_pitch_flag_debug_equal";
+  char ubi_kind_flag_debug_equal[56]       = "ubi_kind_flag_debug_equal";
+  
+  char ubi_on_flag_debug_over[56]          = "ubi_on_flag_debug_over";
+  char ubi_on_flag_debug_under[56]         = "ubi_on_flag_debug_under";
+  char ubi_on_flag_debug_equal[56]         = "ubi_on_flag_debug_equal";
+  char ubi_on_flag_debug_in_range[56]      = "ubi_on_flag_debug_in_range";
+
+  char ubi_a_set_debug_over[56]            = "ubi_a_set_debug_over";
+  char ubi_a_set_debug_under[56]           = "ubi_a_set_debug_under";
+  char ubi_a_set_debug_equal[56]           = "ubi_a_set_debug_equal";
+  char ubi_a_set_debug_in_range[56]        = "ubi_a_set_debug_in_range";
+
+  char ubi_b_set_debug_over[56]            = "ubi_b_set_debug_over";
+  char ubi_b_set_debug_under[56]           = "ubi_b_set_debug_under";
+  char ubi_b_set_debug_equal[56]           = "ubi_b_set_debug_equal";
+  char ubi_b_set_debug_in_range[56]        = "ubi_b_set_debug_in_range";
+
+  char acc_X_data_debug_over[56]           = "acc_X_data_debug_over";
+  char acc_X_data_debug_under[56]          = "acc_X_data_debug_under";
+  char acc_X_data_debug_equal[56]          = "acc_X_data_debug_equal";
+  char acc_X_data_debug_in_range[56]       = "acc_X_data_debug_in_range";
+
+  char acc_Y_data_debug_over[56]           = "acc_Y_data_debug_over";
+  char acc_Y_data_debug_under[56]          = "acc_Y_data_debug_under";
+  char acc_Y_data_debug_equal[56]          = "acc_Y_data_debug_equal";
+  char acc_Y_data_debug_in_range[56]       = "acc_Y_data_debug_in_range";
+
+  char gyro_Z_data_debug_over[56]          = "gyro_Z_data_debug_over";
+  char gyro_Z_data_debug_under[56]         = "gyro_Z_data_debug_under";
+  char gyro_Z_data_debug_equal[56]         = "gyro_Z_data_debug_equal";
+  char gyro_Z_data_debug_in_range[56]      = "gyro_Z_data_debug_in_range";
+
+  // add validity bools here in the same way as above, for matrix switch logic
+  char gngga_valid_checksum[56] = "gngga_valid_checksum";
+  char gnrmc_valid_checksum[56] = "gnrmc_valid_checksum";
+  char gpatt_valid_checksum[56] = "gpatt_valid_checksum";
+  char desbi_valid_checksum[56] = "desbi_valid_checksum";
+  char speed_valid_checksum[56] = "speed_valid_checksum";
+  char error_valid_checksum[56] = "error_valid_checksum";
+  char debug_valid_checksum[56] = "debug_valid_checksum";
+  char gngga_invalid_checksum[56] = "gngga_invalid_checksum";
+  char gnrmc_invalid_checksum[56] = "gnrmc_invalid_checksum";
+  char gpatt_invalid_checksum[56] = "gpatt_invalid_checksum";
+  char desbi_invalid_checksum[56] = "desbi_invalid_checksum";
+  char speed_invalid_checksum[56] = "speed_invalid_checksum";
+  char error_invalid_checksum[56] = "error_invalid_checksum";
+  char debug_invalid_checksum[56] = "debug_invalid_checksum";
+
+  char gngga_valid_check_data[56] = "gngga_valid_check_data";
+  char gnrmc_valid_check_data[56] = "gnrmc_valid_check_data";
+  char gpatt_valid_check_data[56] = "gpatt_valid_check_data";
+  char desbi_valid_check_data[56] = "desbi_valid_check_data";
+  char speed_valid_check_data[56] = "speed_valid_check_data";
+  char error_valid_check_data[56] = "error_valid_check_data";
+  char debug_valid_check_data[56] = "debug_valid_check_data";
+  char gngga_invalid_check_data[56] = "gngga_invalid_check_data";
+  char gnrmc_invalid_check_data[56] = "gnrmc_invalid_check_data";
+  char gpatt_invalid_check_data[56] = "gpatt_invalid_check_data";
+  char desbi_invalid_check_data[56] = "desbi_invalid_check_data";
+  char speed_invalid_check_data[56] = "speed_invalid_check_data";
+  char error_invalid_check_data[56] = "error_invalid_check_data";
+  char debug_invalid_check_data[56] = "debug_invalid_check_data";
+
+};
+RelayStruct relayData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   GNGGA DATA
@@ -1922,13 +2521,16 @@ void SSD_Display_3_Splash_0() {
   display_3.setTextAlignment(TEXT_ALIGN_CENTER);
   display_3.setColor(WHITE);
   display_3.clear();
-  display_3.drawString(display_3.getWidth()/2, 0, "        _,--',   _._.--.___");
-  display_3.drawString(display_3.getWidth()/2, 10, " .--.--';_'-.', ';_      _.,-'");
-  display_3.drawString(display_3.getWidth()/2, 20, ".'--'.  _.'    {`'-;_ .-.>.'");
-  display_3.drawString(display_3.getWidth()/2, 30, "      '-:_      )  / `' '=.");
-  display_3.drawString(display_3.getWidth()/2, 40, "        ) >     {_/,     /~)");
-  display_3.drawString(display_3.getWidth()/2, 50, "snd     |/               `^ .'");
+  display_3.drawString(display_3.getWidth()/2, 0, "   1 2 3 4 5 6 7 8 9 10");
+  display_3.drawString(display_3.getWidth()/2,14,"0 "+String(relayData.relays_bool[0][0])+" "+String(relayData.relays_bool[0][1])+" "+String(relayData.relays_bool[0][2])+" "+String(relayData.relays_bool[0][3])+" "+String(relayData.relays_bool[0][4])+" "+String(relayData.relays_bool[0][5])+" "+String(relayData.relays_bool[0][6])+" "+String(relayData.relays_bool[0][7])+" "+String(relayData.relays_bool[0][8])+" "+String(relayData.relays_bool[0][9]));
+  display_3.drawString(display_3.getWidth()/2,24,"1 "+String(relayData.relays_bool[0][10])+" "+String(relayData.relays_bool[0][11])+" "+String(relayData.relays_bool[0][12])+" "+String(relayData.relays_bool[0][13])+" "+String(relayData.relays_bool[0][14])+" "+String(relayData.relays_bool[0][15])+" "+String(relayData.relays_bool[0][16])+" "+String(relayData.relays_bool[0][17])+" "+String(relayData.relays_bool[0][18])+" "+String(relayData.relays_bool[0][19]));
+  display_3.drawString(display_3.getWidth()/2,34,"2 "+String(relayData.relays_bool[0][20])+" "+String(relayData.relays_bool[0][21])+" "+String(relayData.relays_bool[0][22])+" "+String(relayData.relays_bool[0][23])+" "+String(relayData.relays_bool[0][24])+" "+String(relayData.relays_bool[0][25])+" "+String(relayData.relays_bool[0][26])+" "+String(relayData.relays_bool[0][27])+" "+String(relayData.relays_bool[0][28])+" "+String(relayData.relays_bool[0][29]));
+  display_3.drawString(display_3.getWidth()/2,44,"3 "+String(relayData.relays_bool[0][30])+" "+String(relayData.relays_bool[0][31])+" "+String(relayData.relays_bool[0][32])+" "+String(relayData.relays_bool[0][33])+" "+String(relayData.relays_bool[0][34])+" "+String(relayData.relays_bool[0][35])+" "+String(relayData.relays_bool[0][36])+" "+String(relayData.relays_bool[0][37])+" "+String(relayData.relays_bool[0][38])+" "+String(relayData.relays_bool[0][39]));
+  // display_3.drawString(display_3.getWidth()/2, 50, );
   display_3.display();
+  // 40 0 
+  // [0]
+  // relayData.relays_bool
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -2052,597 +2654,6 @@ void readRXD_1() {
     }
   }
 }
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                  RELAYS DATA
-
-/*
-A minimum of N relays would be required to satisfy various flags. This can allow satcom to be as general purpose as intended,
-from minimal to maximal operation/utilization of the WTGPS300 as and when required by different projects, even turning on/off other
-systems that begin running their own routines, by having them turn on/off with these relays/functions.
-each relay should have its own char array which can be checked each loop, after which a function corrrspinding to a relays char
-array will be ran if a selected condition is met, then the corresponding relay will be turned on/off when that condition is met.
-additional configuration could include running once, running each time etc. for systems/routines to be activated/deactivated.
-Note: Each relay/function is activated/deactivated according to compound conditions, meaning we can be more or less strict.
-*/
-
-struct RelayStruct {
-
-  // relays/functions
-  int MAX_RELAYS = 40;
-  // polynomial size
-  int MAX_RELAY_ELEMENTS = 10;
-  
-  char relays[40][10][100] = {
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 1
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 2
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 3
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 4
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 5
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 6
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 7
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 8
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 9
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 10
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 11
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 12
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 13
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 14
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 15
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 16
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 17
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 18
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 19
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 20
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 21
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 22
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 23
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 24
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 25
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 26
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 27
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 28
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 29
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 30
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 31
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 32
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 33
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 34
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 35
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 36
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 37
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 38
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 39
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 40
-     },
-    };
-
-  /*
-
-  Matrix containing sets of values per relay.
-  X: use with/without  Y,Z.
-  Y: necessary if comparing to X.
-  Z: necessary if comparing to X/Y in range.  
-                
-                0                   30
-          0     1     2     
-          X     Y     Z    
-  {  {   0.0,  0.0,  0.0   }       {0}          }
-                              Enabled/Disabled
-
-  */
-
-  /*
-  calibratable matrix data (via local interface devices / RF / serial / baked-in here below if required)              
-  more available logic equals more required memory, and faster clock speeds also if responsive systems are required.
-  consider overhead for fallback logic (no/bad satellite data --> untrained INS --> other sensor floor).
-  this is the matrix switch (brain) and all it knows is nothing unless we put something in.
-  */ 
-  double relays_data[40][10+1][3] = {
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 1
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 2
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 3
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 4
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 5
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 6
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 7
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 8
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 9
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 10
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 11
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 12
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 13
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 14
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 15
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 16
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 17
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 18
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 19
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 20
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 21
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 22
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 23
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 24
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 25
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 26
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 27
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 28
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 29
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 30
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 31
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 32
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 33
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 34
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 35
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 36
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 37
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 38
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 39
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-    {
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, // 40
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0},
-      {0},
-    },
-  };
-
-  // default and specifiable value to indicate a relay should not be activated/deactivated
-  char default_relay_function[56] = "$NONE";
-
-  char run_inetial_flag_gpatt_equal[56]    = "run_inetial_flag_gpatt_equal";
-  char line_flag_gpatt_equal[56]           = "line_flag_gpatt_equal";
-  char static_flag_gpatt_equal[56]         = "static_flag_gpatt_equal";
-  char run_state_flag_gpatt_equal[56]      = "run_state_flag_gpatt_equal";
-  char ins_gpatt_equal[56]                 = "ins_gpatt_equal";
-
-  char speed_num_gpatt_over[56]            = "speed_num_gpatt_over";
-  char speed_num_gpatt_under[56]           = "speed_num_gpatt_under[";
-  char speed_num_gpatt_equal[56]           = "speed_num_gpatt_equal";
-  char speed_num_gpatt_in_range[56]        = "speed_num_gpatt_in_range";
-
-  char mileage_gpatt_over[56]              = "mileage_gpatt_over";
-  char mileage_gpatt_under[56]             = "mileage_gpatt_under[";
-  char mileage_gpatt_equal[56]             = "mileage_gpatt_equal";
-  char mileage_gpatt_in_range[56]          = "mileage_gpatt_in_range";
-
-  char gst_data_gpatt_over[56]             = "gst_data_gpatt_over";
-  char gst_data_gpatt_under[56]            = "gst_data_gpatt_under[";
-  char gst_data_gpatt_equal[56]            = "gst_data_gpatt_equal";
-  char gst_data_gpatt_in_range[56]         = "gst_data_gpatt_in_range";
-
-  char yaw_gpatt_over[56]                  = "yaw_gpatt_over";
-  char yaw_gpatt_under[56]                 = "yaw_gpatt_under[";
-  char yaw_gpatt_equal[56]                 = "yaw_gpatt_equal";
-  char yaw_gpatt_in_range[56]              = "yaw_gpatt_in_range";
-
-  char roll_gpatt_over[56]                 = "roll_gpatt_over";
-  char roll_gpatt_under[56]                = "roll_gpatt_under[";
-  char roll_gpatt_equal[56]                = "roll_gpatt_equal";
-  char roll_gpatt_in_range[56]             = "roll_gpatt_in_range";
-
-  char pitch_gpatt_over[56]                = "pitch_gpatt_over";
-  char pitch_gpatt_under[56]               = "pitch_gpatt_under[";
-  char pitch_gpatt_equal[56]               = "pitch_gpatt_equal";
-  char pitch_gpatt_in_range[56]            = "pitch_gpatt_in_range";
-
-  char heading_gnrmc_over[56]              = "heading_gnrmc_over";
-  char heading_gnrmc_under[56]             = "heading_gnrmc_under";
-  char heading_gnrmc_equal[56]             = "heading_gnrmc_equal";
-  char heading_gnrmc_in_range[56]          = "heading_gnrmc_in_range";
-
-  char satellite_count_gngga_over[56]      = "satellite_count_gngga_over";
-  char satellite_count_gngga_under[56]     = "satellite_count_gngga_under";
-  char satellite_count_gngga_equal[56]     = "satellite_count_gngga_equal";
-
-  char satellite_time_over[56]             = "satellite_time_over";
-  char satellite_time_under[56]            = "satellite_time_under";
-  char satellite_time_equal[56]            = "satellite_time_equal";
-  char satellite_time_in_range[56]         = "satellite_time_in_range";
-
-  char satellite_coord_gngga_over[56]      = "satellite_coord_gngga_over";
-  char satellite_coord_gngga_under[56]     = "satellite_coord_gngga_under";
-  char satellite_coord_gngga_equal[56]     = "satellite_coord_gngga_equal";
-  char satellite_coord_gngga_in_range[56]  = "satellite_coord_gngga_in_range";
-
-  char hemisphere_gngga_N[56]              = "hemisphere_gngga_N";
-  char hemisphere_gngga_E[56]              = "hemisphere_gngga_E";
-  char hemisphere_gngga_S[56]              = "hemisphere_gngga_S";
-  char hemisphere_gngga_W[56]              = "hemisphere_gngga_W";
-
-  char hemisphere_gngga_NE[56]             = "hemisphere_gngga_NE";
-  char hemisphere_gngga_SE[56]             = "hemisphere_gngga_SE";
-  char hemisphere_gngga_NW[56]             = "hemisphere_gngga_NW";
-  char hemisphere_gngga_SW[56]             = "hemisphere_gngga_SW";
-
-  char precision_factor_gngga_over[56]     = "precision_factor_gngga_over";
-  char precision_factor_gngga_under[56]    = "precision_factor_gngga_under";
-  char precision_factor_gngga_equal[56]    = "precision_factor_gngga_equal";
-  char precision_factor_gngga_in_range[56] = "precision_factor_gngga_in_range";
-
-  char altitude_gngga_over[56]             = "altitude_gngga_over";
-  char altitude_gngga_under[56]            = "altitude_gngga_under";
-  char altitude_gngga_equal[56]            = "altitude_gngga_equal";
-  char altitude_gngga_in_range[56]         = "altitude_gngga_in_range";
-
-  char ground_speed_gnrmc_over[56]         = "ground_speed_gnrmc_over";
-  char ground_speed_gnrmc_under[56]        = "ground_speed_gnrmc_under";
-  char ground_speed_gnrmc_equal[56]        = "ground_speed_gnrmc_equal";
-  char ground_speed_gnrmc_in_range[56]     = "ground_speed_gnrmc_in_range";
-
-  char utc_time_speed_over[56]             = "utc_time_speed_over";
-  char utc_time_speed_under[56]            = "utc_time_speed_under";
-  char utc_time_speed_equal[56]            = "utc_time_speed_equal";
-  char utc_time_speed_in_range[56]         = "utc_time_speed_in_range";
-
-  char ground_speed_speed_over[56]         = "ground_speed_speed_over";
-  char ground_speed_speed_under[56]        = "ground_speed_speed_under";
-  char ground_speed_speed_equal[56]        = "ground_speed_speed_equal";
-  char ground_speed_speed_in_range[56]     = "ground_speed_speed_in_range";
-
-  char status_speed_over[56]               = "status_speed_over";
-  char status_speed_under[56]              = "status_speed_under";
-  char status_speed_equal[56]              = "status_speed_equal";
-  char status_speed_in_range[56]           = "status_speed_in_range";
-
-  char acc_X_speed_over[56]                = "acc_X_speed_over";
-  char acc_X_speed_under[56]               = "acc_X_speed_under";
-  char acc_X_speed_equal[56]               = "acc_X_speed_equal";
-  char acc_X_speed_in_range[56]            = "acc_X_speed_in_range";
-
-  char acc_Y_speed_over[56]                = "acc_Y_speed_over";
-  char acc_Y_speed_under[56]               = "acc_Y_speed_under";
-  char acc_Y_speed_equal[56]               = "acc_Y_speed_equal";
-  char acc_Y_speed_in_range[56]            = "acc_Y_speed_in_range";
-
-  char acc_Z_speed_over[56]                = "acc_Z_speed_over";
-  char acc_Z_speed_under[56]               = "acc_Z_speed_under";
-  char acc_Z_speed_equal[56]               = "acc_Z_speed_equal";
-  char acc_Z_speed_in_range[56]            = "acc_Z_speed_in_range";
-
-  char gyro_X_speed_over[56]               = "gyro_X_speed_over";
-  char gyro_X_speed_under[56]              = "gyro_X_speed_under";
-  char gyro_X_speed_equal[56]              = "gyro_X_speed_equal";
-  char gyro_X_speed_in_range[56]           = "gyro_X_speed_in_range";
-
-  char gyro_Y_speed_over[56]               = "gyro_Y_speed_over";
-  char gyro_Y_speed_under[56]              = "gyro_Y_speed_under";
-  char gyro_Y_speed_equal[56]              = "gyro_Y_speed_equal";
-  char gyro_Y_speed_in_range[56]           = "gyro_Y_speed_in_range";
-
-  char gyro_Z_speed_over[56]               = "gyro_Z_speed_over";
-  char gyro_Z_speed_under[56]              = "gyro_Z_speed_under";
-  char gyro_Z_speed_equal[56]              = "gyro_Z_speed_equal";
-  char gyro_Z_speed_in_range[56]           = "gyro_Z_speed_in_range";
-
-  char ubi_state_flag_speed_over[56]       = "ubi_state_flag_speed_over";
-  char ubi_state_flag_speed_under[56]      = "ubi_state_flag_speed_under";
-  char ubi_state_flag_speed_equal[56]      = "ubi_state_flag_speed_equal";
-  char ubi_state_flag_speed_in_range[56]   = "gyro_Z_speed_in_range";
-
-  char ubi_state_kind_speed_over[56]       = "ubi_state_kind_speed_over";
-  char ubi_state_kind_speed_under[56]      = "ubi_state_kind_speed_under";
-  char ubi_state_kind_speed_equal[56]      = "ubi_state_kind_speed_equal";
-  char ubi_state_kind_speed_in_range[56]   = "ubi_state_kind_speed_in_range";
-
-  char ubi_state_value_speed_over[56]      = "ubi_state_value_speed_over";
-  char ubi_state_value_speed_under[56]     = "ubi_state_value_speed_under";
-  char ubi_state_value_speed_equal[56]     = "ubi_state_value_speed_equal";
-  char ubi_state_value_speed_in_range[56]  = "ubi_state_value_speed_in_range";
-
-  char utc_time_error_over[56]             = "utc_time_error_over";
-  char utc_time_error_under[56]            = "utc_time_error_under";
-  char utc_time_error_equal[56]            = "utc_time_error_equal";
-  char utc_time_error_in_range[56]         = "utc_time_error_in_range";
-
-  char code_flag_error_over[56]            = "code_flag_error_over";
-  char code_flag_error_under[56]           = "code_flag_error_under";
-  char code_flag_error_equal[56]           = "code_flag_error_equal";
-  char code_flag_error_in_range[56]        = "code_flag_error_in_range";
-
-  char gset_flag_error_equal[56]           = "gset_flag_error_equal";
-  char sset_flag_error_equal[56]           = "sset_flag_error_equal";
-
-  char coll_T_heading_debug_over[56]       = "coll_T_heading_debug_over";
-  char coll_T_heading_debug_under[56]      = "coll_T_heading_debug_under";
-  char coll_T_heading_debug_equal[56]      = "coll_T_heading_debug_equal";
-  char coll_T_heading_debug_in_range[56]   = "coll_T_heading_debug_in_range";
-
-  char coll_T_data_debug_over[56]          = "coll_T_data_debug_over";
-  char coll_T_data_debug_under[56]         = "coll_T_data_debug_under";
-  char coll_T_data_debug_equal[56]         = "coll_T_data_debug_equal";
-  char coll_T_data_debug_in_range[56]      = "coll_T_data_debug_in_range";
-
-  char ubi_valid_debug_equal[56]           = "ubi_valid_debug_equal";
-
-  char ins_flag_debug_over[56]             = "ins_flag_debug_over";
-  char ins_flag_debug_under[56]            = "ins_flag_debug_under";
-  char ins_flag_debug_equal[56]            = "ins_flag_debug_equal";
-  char ins_flag_debug_in_range[56]         = "ins_flag_debug_in_range";
-
-  char car_speed_debug_over[56]            = "car_speed_debug_over";
-  char car_speed_debug_under[56]           = "car_speed_debug_under";
-  char car_speed_debug_equal[56]           = "car_speed_debug_equal";
-  char car_speed_debug_in_range[56]        = "car_speed_debug_in_range";
-
-  char yaw_angle_debug_over[56]            = "yaw_angle_debug_over";
-  char yaw_angle_debug_under[56]           = "yaw_angle_debug_under";
-  char yaw_angle_debug_equal[56]           = "yaw_angle_debug_equal";
-  char yaw_angle_debug_in_range[56]        = "yaw_angle_debug_in_range";
-
-  char roll_angle_debug_over[56]           = "roll_angle_debug_over";
-  char roll_angle_debug_under[56]          = "roll_angle_debug_under";
-  char roll_angle_debug_equal[56]          = "roll_angle_debug_equal";
-  char roll_angle_debug_in_range[56]       = "roll_angle_debug_in_range";
-
-  char pitch_angle_debug_over[56]          = "pitch_angle_debug_over";
-  char pitch_angle_debug_under[56]         = "pitch_angle_debug_under";
-  char pitch_angle_debug_equal[56]         = "pitch_angle_debug_equal";
-  char pitch_angle_debug_in_range[56]      = "pitch_angle_debug_in_range";
-
-  char ang_dget_flag_debug_equal[56]       = "ang_dget_flag_debug_equal";
-  char ins_run_flag_debug_equal[56]        = "ins_run_flag_debug_equal";
-  char fix_roll_flag_debug_equal[56]       = "fix_roll_flag_debug_equal";
-  char fix_pitch_flag_debug_equal[56]      = "fix_pitch_flag_debug_equal";
-  char ubi_kind_flag_debug_equal[56]       = "ubi_kind_flag_debug_equal";
-  
-  char ubi_on_flag_debug_over[56]          = "ubi_on_flag_debug_over";
-  char ubi_on_flag_debug_under[56]         = "ubi_on_flag_debug_under";
-  char ubi_on_flag_debug_equal[56]         = "ubi_on_flag_debug_equal";
-  char ubi_on_flag_debug_in_range[56]      = "ubi_on_flag_debug_in_range";
-
-  char ubi_a_set_debug_over[56]            = "ubi_a_set_debug_over";
-  char ubi_a_set_debug_under[56]           = "ubi_a_set_debug_under";
-  char ubi_a_set_debug_equal[56]           = "ubi_a_set_debug_equal";
-  char ubi_a_set_debug_in_range[56]        = "ubi_a_set_debug_in_range";
-
-  char ubi_b_set_debug_over[56]            = "ubi_b_set_debug_over";
-  char ubi_b_set_debug_under[56]           = "ubi_b_set_debug_under";
-  char ubi_b_set_debug_equal[56]           = "ubi_b_set_debug_equal";
-  char ubi_b_set_debug_in_range[56]        = "ubi_b_set_debug_in_range";
-
-  char acc_X_data_debug_over[56]           = "acc_X_data_debug_over";
-  char acc_X_data_debug_under[56]          = "acc_X_data_debug_under";
-  char acc_X_data_debug_equal[56]          = "acc_X_data_debug_equal";
-  char acc_X_data_debug_in_range[56]       = "acc_X_data_debug_in_range";
-
-  char acc_Y_data_debug_over[56]           = "acc_Y_data_debug_over";
-  char acc_Y_data_debug_under[56]          = "acc_Y_data_debug_under";
-  char acc_Y_data_debug_equal[56]          = "acc_Y_data_debug_equal";
-  char acc_Y_data_debug_in_range[56]       = "acc_Y_data_debug_in_range";
-
-  char gyro_Z_data_debug_over[56]          = "gyro_Z_data_debug_over";
-  char gyro_Z_data_debug_under[56]         = "gyro_Z_data_debug_under";
-  char gyro_Z_data_debug_equal[56]         = "gyro_Z_data_debug_equal";
-  char gyro_Z_data_debug_in_range[56]      = "gyro_Z_data_debug_in_range";
-
-  // add validity bools here in the same way as above, for matrix switch logic
-  char gngga_valid_checksum[56] = "gngga_valid_checksum";
-  char gnrmc_valid_checksum[56] = "gnrmc_valid_checksum";
-  char gpatt_valid_checksum[56] = "gpatt_valid_checksum";
-  char desbi_valid_checksum[56] = "desbi_valid_checksum";
-  char speed_valid_checksum[56] = "speed_valid_checksum";
-  char error_valid_checksum[56] = "error_valid_checksum";
-  char debug_valid_checksum[56] = "debug_valid_checksum";
-  char gngga_invalid_checksum[56] = "gngga_invalid_checksum";
-  char gnrmc_invalid_checksum[56] = "gnrmc_invalid_checksum";
-  char gpatt_invalid_checksum[56] = "gpatt_invalid_checksum";
-  char desbi_invalid_checksum[56] = "desbi_invalid_checksum";
-  char speed_invalid_checksum[56] = "speed_invalid_checksum";
-  char error_invalid_checksum[56] = "error_invalid_checksum";
-  char debug_invalid_checksum[56] = "debug_invalid_checksum";
-
-  char gngga_valid_check_data[56] = "gngga_valid_check_data";
-  char gnrmc_valid_check_data[56] = "gnrmc_valid_check_data";
-  char gpatt_valid_check_data[56] = "gpatt_valid_check_data";
-  char desbi_valid_check_data[56] = "desbi_valid_check_data";
-  char speed_valid_check_data[56] = "speed_valid_check_data";
-  char error_valid_check_data[56] = "error_valid_check_data";
-  char debug_valid_check_data[56] = "debug_valid_check_data";
-  char gngga_invalid_check_data[56] = "gngga_invalid_check_data";
-  char gnrmc_invalid_check_data[56] = "gnrmc_invalid_check_data";
-  char gpatt_invalid_check_data[56] = "gpatt_invalid_check_data";
-  char desbi_invalid_check_data[56] = "desbi_invalid_check_data";
-  char speed_invalid_check_data[56] = "speed_invalid_check_data";
-  char error_invalid_check_data[56] = "error_invalid_check_data";
-  char debug_invalid_check_data[56] = "debug_invalid_check_data";
-
-};
-RelayStruct relayData;
-
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                    MATRIX CHECKS: PRIMITIVES
@@ -3503,9 +3514,8 @@ void systems_Check() {
         */
 
         // activate/deactivate relay Ri (Ri=pinN): pin number matrix required for relay selcection via Ri->PIN column access in non-linear form (multiplex relays)
-        if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] inactive");}
-        else if (final_bool == true) {Serial.println("[RELAY " + String(Ri) + "] active");}
-
+        if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] inactive"); relayData.relays_bool[0][Ri] = 0;}
+        else if (final_bool == true) {Serial.println("[RELAY " + String(Ri) + "] active"); relayData.relays_bool[0][Ri] = 1;}
       }
       else {Serial.println("[RELAY " + String(Ri) + "] WARNING: Matrix checks are enabled for an non configured matrix!");}
     }
