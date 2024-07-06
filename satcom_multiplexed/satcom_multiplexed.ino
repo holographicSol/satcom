@@ -3327,7 +3327,13 @@ void systems_Check() {
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.gyro_Z_data, Ri, Fi);}
 
-        // add validity bool checks here that can be checked for if in matrix switch (like above), to add value validity to potential matrix logic. allows for switching datasets, possible to continue performing the same task and or other tasks instead (using different data)
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                     SYSTEMS CHECKS: VALIDITY
+
+        /*
+        add validity bool checks here that can be checked for if in matrix switch (like above), to add value validity to potential matrix logic.
+        allows for switching datasets, possible to continue performing the same task and or other tasks instead (using different data)
+        */
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(gnggaData.valid_checksum);}
