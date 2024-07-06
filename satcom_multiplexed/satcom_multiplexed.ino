@@ -2538,6 +2538,35 @@ struct RelayStruct {
   char gyro_Z_data_debug_in_range[56]      = "gyro_Z_data_debug_in_range";
 
   // add validity bools here in the same way as above, for matrix switch logic
+  char gngga_valid_checksum[56] = "gngga_valid_checksum";
+  char gnrmc_valid_checksum[56] = "gnrmc_valid_checksum";
+  char gpatt_valid_checksum[56] = "gpatt_valid_checksum";
+  char desbi_valid_checksum[56] = "desbi_valid_checksum";
+  char speed_valid_checksum[56] = "speed_valid_checksum";
+  char error_valid_checksum[56] = "error_valid_checksum";
+  char debug_valid_checksum[56] = "debug_valid_checksum";
+  char gngga_invalid_checksum[56] = "gngga_invalid_checksum";
+  char gnrmc_invalid_checksum[56] = "gnrmc_invalid_checksum";
+  char gpatt_invalid_checksum[56] = "gpatt_invalid_checksum";
+  char desbi_invalid_checksum[56] = "desbi_invalid_checksum";
+  char speed_invalid_checksum[56] = "speed_invalid_checksum";
+  char error_invalid_checksum[56] = "error_invalid_checksum";
+  char debug_invalid_checksum[56] = "debug_invalid_checksum";
+
+  char gngga_valid_check_data[56] = "gngga_valid_check_data";
+  char gnrmc_valid_check_data[56] = "gnrmc_valid_check_data";
+  char gpatt_valid_check_data[56] = "gpatt_valid_check_data";
+  char desbi_valid_check_data[56] = "desbi_valid_check_data";
+  char speed_valid_check_data[56] = "speed_valid_check_data";
+  char error_valid_check_data[56] = "error_valid_check_data";
+  char debug_valid_check_data[56] = "debug_valid_check_data";
+  char gngga_invalid_check_data[56] = "gngga_invalid_check_data";
+  char gnrmc_invalid_check_data[56] = "gnrmc_invalid_check_data";
+  char gpatt_invalid_check_data[56] = "gpatt_invalid_check_data";
+  char desbi_invalid_check_data[56] = "desbi_invalid_check_data";
+  char speed_invalid_check_data[56] = "speed_invalid_check_data";
+  char error_invalid_check_data[56] = "error_invalid_check_data";
+  char debug_invalid_check_data[56] = "debug_invalid_check_data";
 
 };
 RelayStruct relayData;
@@ -2694,16 +2723,23 @@ void systems_Check() {
   */
 
   // system test (simulate interface with matrix because there is no control panel/other HID yet. an RF stream may also be preferrable depending on system being built.):
-  // example relay N:                     
-  strcpy(relayData.relays[0][0], relayData.satellite_count_gngga_over); // 1: set relay zero's first check condition.
-  relayData.relays_data[0][0][0]  = 1;                                  // 2: set relays first function data. in this case we will use the column 'over' element.
-  strcpy(relayData.relays[0][1], relayData.hemisphere_gngga_N);         // 1: optionally set relay zero's second check condition (because checks can be elemental or compounded).
-  relayData.relays_data[0][10][0] = 1;                                  // 2: lastly, soft enable the check/relay (IMPORTANT: ensure soft enable is zero if not in use)
-  // example relay N:                     
+
+  // example relay N (no checks):                
   strcpy(relayData.relays[relayData.MAX_RELAYS-1][0], relayData.satellite_count_gngga_over); // 1: set relay zero's first check condition.
   relayData.relays_data[relayData.MAX_RELAYS-1][0][0]  = 1;                                  // 2: set relays first function data. in this case we will use the column 'over' element.
   strcpy(relayData.relays[relayData.MAX_RELAYS-1][1], relayData.hemisphere_gngga_N);         // 1: optionally set relay zero's second check condition (because checks can be elemental or compounded).
   relayData.relays_data[relayData.MAX_RELAYS-1][10][0] = 1;                                  // 2: lastly, soft enable the check/relay (IMPORTANT: ensure soft enable is zero if not in use)
+
+  // example using checks:
+  // check true (primary)
+  strcpy(relayData.relays[0][0], relayData.gngga_valid_checksum);       // 1: first function
+  strcpy(relayData.relays[0][1], relayData.satellite_count_gngga_over); // 2: second function
+  relayData.relays_data[0][0][0] = 1;                                   // 3: second function data
+  // check false (secondary)
+  strcpy(relayData.relays[1][0], relayData.gngga_invalid_checksum);       // 1: first function
+  strcpy(relayData.relays[1][1], relayData.satellite_count_gngga_over);   // 2: second function (in this example we do nothing different from the primary but we can)
+  relayData.relays_data[1][0][0] = 1;                                     // 3: second function data
+
 
   // iterate over each relay array
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
@@ -3281,6 +3317,45 @@ void systems_Check() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.gyro_Z_data, Ri, Fi);}
 
         // add validity bool checks here that can be checked for if in matrix switch (like above), to add value validity to potential matrix logic. allows for switching datasets, possible to continue performing the same task and or other tasks instead (using different data)
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(gnggaData.valid_checksum);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(gnggaData.valid_checksum);}
+
+        /*
+          char gngga_valid_checksum[56] = "gngga_valid_checksum";
+          char gnrmc_valid_checksum[56] = "gnrmc_valid_checksum";
+          char gpatt_valid_checksum[56] = "gpatt_valid_checksum";
+          char desbi_valid_checksum[56] = "desbi_valid_checksum";
+          char speed_valid_checksum[56] = "speed_valid_checksum";
+          char error_valid_checksum[56] = "error_valid_checksum";
+          char debug_valid_checksum[56] = "debug_valid_checksum";
+
+          char gngga_invalid_checksum[56] = "gngga_invalid_checksum";
+          char gnrmc_invalid_checksum[56] = "gnrmc_invalid_checksum";
+          char gpatt_invalid_checksum[56] = "gpatt_invalid_checksum";
+          char desbi_invalid_checksum[56] = "desbi_invalid_checksum";
+          char speed_invalid_checksum[56] = "speed_invalid_checksum";
+          char error_invalid_checksum[56] = "error_invalid_checksum";
+          char debug_invalid_checksum[56] = "debug_invalid_checksum";
+
+          char gngga_valid_check_data[56] = "gngga_valid_check_data";
+          char gnrmc_valid_check_data[56] = "gnrmc_valid_check_data";
+          char gpatt_valid_check_data[56] = "gpatt_valid_check_data";
+          char desbi_valid_check_data[56] = "desbi_valid_check_data";
+          char speed_valid_check_data[56] = "speed_valid_check_data";
+          char error_valid_check_data[56] = "error_valid_check_data";
+          char debug_valid_check_data[56] = "debug_valid_check_data";
+          char gngga_invalid_check_data[56] = "gngga_invalid_check_data";
+          char gnrmc_invalid_check_data[56] = "gnrmc_invalid_check_data";
+          char gpatt_invalid_check_data[56] = "gpatt_invalid_check_data";
+          char desbi_invalid_check_data[56] = "desbi_invalid_check_data";
+          char speed_invalid_check_data[56] = "speed_invalid_check_data";
+          char error_invalid_check_data[56] = "error_invalid_check_data";
+          char debug_invalid_check_data[56] = "debug_invalid_check_data";
+        */
 
       }
       
