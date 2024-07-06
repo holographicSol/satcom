@@ -2516,7 +2516,7 @@ void SSD_Display_4() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 4
 
-void SSD_Display_5() {
+void SSD_Display_3() {
   tcaselect(3);
   display_3.setTextAlignment(TEXT_ALIGN_CENTER);
   display_3.setColor(WHITE);
