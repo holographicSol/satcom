@@ -2551,7 +2551,8 @@ bool hemisphere_gngga_SW(int Ri, int Fi) {
 the ploynomial matrix switch requires all true to result in a final truth. two polynomials can be checking the
 same bool in a way that always returns true no matter which polynomial is true. this allows us to check say current validity of a
 value, return true to either polynomial in the matrix and potentially do something differently. one polynomial is checking for
-is false while another polynimial is checking for is true.
+is false while another polynimial is checking for is true. example: fallback from sat nav to trained INS, no trained INS, fallback
+to other sensors etc.
 */
 
 bool is_false(bool _bool) {
