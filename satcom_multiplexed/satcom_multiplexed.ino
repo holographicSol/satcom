@@ -3406,6 +3406,7 @@ void systems_Check() {
         allows for switching datasets, possible to continue performing the same task and or other tasks, but with the option of relying on different data
         example: if is_true(checksum)  then A using data X is active/on and B is inactive/off
                  if is_false(checksum) then B using data Y is active/on and A is inactive/off
+                 A and B may even be plugged into the same endpoint, and now that endpoint is on/off predicated upon different data.
         */
 
         // put true or false in the temporary matrix
