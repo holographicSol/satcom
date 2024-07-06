@@ -2521,6 +2521,9 @@ struct RelayStruct {
   char gyro_Z_data_debug_under[56]         = "gyro_Z_data_debug_under";
   char gyro_Z_data_debug_equal[56]         = "gyro_Z_data_debug_equal";
   char gyro_Z_data_debug_in_range[56]      = "gyro_Z_data_debug_in_range";
+
+  // add validity bools here in the same way as above, for matrix switch logic
+
 };
 RelayStruct relayData;
 
@@ -3257,6 +3260,9 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.gyro_Z_data, Ri, Fi);}
+
+        // add validity bool checks here like above, to add value validity to potential matrix logic
+        
       }
       
       // safety layer: disengage if all entries are $NONE. if you enabled a master switch with no functions set then this could save you.
