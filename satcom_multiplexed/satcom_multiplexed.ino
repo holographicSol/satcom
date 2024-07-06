@@ -2789,7 +2789,7 @@ void systems_Check() {
   the current data alone.
   */
 
-  // system test (simulate interface with matrix because there is no control panel/other HID yet):
+  // system test (simulate interface with matrix because there is no control panel/other HID yet. an RF stream may also be preferrable depending on system being built.):
   // example relay N:                     
   strcpy(relayData.relays[0][0], relayData.satellite_count_gngga_over); // 1: set relay zero's first check condition.
   relayData.relays_data[0][0][0]  = 1;                                  // 2: set relays first function data. in this case we will use the column 'over' element.
