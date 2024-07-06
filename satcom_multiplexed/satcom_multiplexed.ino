@@ -2684,6 +2684,17 @@ bool is_true(bool _bool) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                            CHECKS: EQUAL NUM
+
+bool is_N_false(int n0, int n1) {
+  if (n0 != n1) {return true;} else {return false;}
+}
+
+bool is_N_true(int n0, int n1) {
+  if (n0 == n1) {return true;} else {return false;}
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                   PRELIMINARY SYSTEMS CHECKS
 
 bool preliminary_check() {
@@ -3354,21 +3365,44 @@ void systems_Check() {
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(debugData.valid_checksum);}
 
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(gnggaData.check_data, 16);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(gnggaData.check_data, 16);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(gnrmcData.check_data, 14);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(gnrmcData.check_data, 14);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(gpattData.check_data, 41);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(gpattData.check_data, 41);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(speedData.check_data, 17);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(speedData.check_data, 17);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.error_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(errorData.check_data, 8);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.error_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(errorData.check_data, 8);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(debugData.check_data, 29);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(debugData.check_data, 29);}
+
         /*
-          char gngga_valid_check_data[56] = "gngga_valid_check_data";
-          char gnrmc_valid_check_data[56] = "gnrmc_valid_check_data";
-          char gpatt_valid_check_data[56] = "gpatt_valid_check_data";
-          char desbi_valid_check_data[56] = "desbi_valid_check_data";
-          char speed_valid_check_data[56] = "speed_valid_check_data";
-          char error_valid_check_data[56] = "error_valid_check_data";
-          char debug_valid_check_data[56] = "debug_valid_check_data";
-          char gngga_invalid_check_data[56] = "gngga_invalid_check_data";
-          char gnrmc_invalid_check_data[56] = "gnrmc_invalid_check_data";
-          char gpatt_invalid_check_data[56] = "gpatt_invalid_check_data";
-          char desbi_invalid_check_data[56] = "desbi_invalid_check_data";
-          char speed_invalid_check_data[56] = "speed_invalid_check_data";
-          char error_invalid_check_data[56] = "error_invalid_check_data";
-          char debug_invalid_check_data[56] = "debug_invalid_check_data";
+        continue adding bool
         */
 
       }
