@@ -3403,8 +3403,9 @@ void systems_Check() {
         //                                                                                                     SYSTEMS CHECKS: VALIDITY
 
         /*
-        add validity bool checks here that can be checked for if in matrix switch (like above), to add value validity to potential matrix logic.
-        allows for switching datasets, possible to continue performing the same task and or other tasks instead (using different data)
+        allows for switching datasets, possible to continue performing the same task and or other tasks, but with the option of relying on different data
+        example: if is_true(checksum)  then A using data X is active/on and B is inactive/off
+                 if is_false(checksum) then B using data Y is active/on and A is inactive/off
         */
 
         // put true or false in the temporary matrix
