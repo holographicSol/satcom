@@ -2550,7 +2550,8 @@ bool hemisphere_gngga_SW(int Ri, int Fi) {
 /*
 the ploynomial matrix switch requires all true to result in a final truth. two polynomials can be checking the
 same bool in a way that always returns true no matter which polynomial is true. this allows us to check say current validity of a
-value, return true to either polynomial in the matrix and potentially do something differently.
+value, return true to either polynomial in the matrix and potentially do something differently. one polynimal is checking for
+is false while another polynimial is checking for is true.
 */
 
 bool is_false(bool _bool) {
