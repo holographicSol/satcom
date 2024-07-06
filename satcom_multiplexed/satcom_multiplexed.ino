@@ -2151,7 +2151,7 @@ struct RelayStruct {
 
   /*
   calibratable matrix data (via local interface devices / RF / serial / baked-in here below if required)              
-  15 polynomial conditions of 30 expressions is still very moderate but allows some space for fallback logic (no/bad satellite data --> untrained INS --> other sensor floor).
+  15 polynomial conditions of 30 expressions each is still very moderate but allows some space for fallback logic (no/bad satellite data --> untrained INS --> other sensor floor).
   more available logic equals more required memory, and faster clock speeds also if responsive systems are required.
   this is the matrix switch (brain) and all it knows is nothing unless we put something in.
   */ 
@@ -2690,14 +2690,13 @@ void systems_Check() {
   // iterate over each relay array
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
 
-    // Serial.println("[Ri] " + String(Ri) + " [ENABLED] " + String(relayData.relays_data[Ri][10][0]));
     if (relayData.relays_data[Ri][30][0] == 1) {
 
       // temporary switch must be zero each time. allows for polynomial expressions.
       bool tmp_matrix[1][30] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
       int count_none_function = 0;
 
-      // iterate over each function name for current relay, building the temporary matrix switch according to check reults
+      // iterate over each function name for current relay/polynomial logic, building the temporary matrix switch according to reults
       for (int Fi = 0; Fi < 30; Fi++) {
 
         /*
@@ -2706,6 +2705,7 @@ void systems_Check() {
         Put true in the temporary matrix if no function is specified ($NONE). this allows 1-N elemental conditions to be set and result in true/false at the final bool.
         IMPORTANT: this also means if soft enable true, then final_bool defaults to true if no function at all is specified within a switches matrix. There is one check to catch you if you do soft enable with no functions set.
         */
+
         if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[0][Fi] = 1; count_none_function++;}
 
         // ----------------------------------------------------------------------------------------------------------------------------
@@ -3257,14 +3257,6 @@ void systems_Check() {
 
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_in_range) == 0) {tmp_matrix[0][Fi] = check_in_range(debugData.gyro_Z_data, Ri, Fi);}
-
-        /*
-        the above checks are the 'basic' checks. with that out the way, we can now build more 'advanced' checks/calculations, using the same format.
-        a way to make this more efficient would also be as preferrable as the degree to which we can currently formulate compund expressions via the matrices and matrix switch.
-        if the data/system is critical then this all needs to happen as fast as possible. 
-        */
-
-        // Serial.println("[tmp_matrix] " + String(Fi) + " [DAT] " + String(tmp_matrix[0][Fi]));
       }
       
       // safety layer: disengage if all entries are $NONE. if you enabled a master switch with no functions set then this could save you.
@@ -3325,4 +3317,5 @@ void loop() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+
 
