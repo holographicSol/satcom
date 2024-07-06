@@ -3209,7 +3209,7 @@ void loop() {
   if checks passed equal to total expected checks to pass and check sums weigh up then allow data collected this loop to be worked with .
   may require a small warmup period to pass this gate. if the INS has reached convergence then this may be an XOR gate. other sensor
   data may also be considered. this check would be better placed in the matrix switch itself and checked for alongside other values
-  in order to decide what data to use for the next decision. this check is here crudely for now and can be a part of the 'brain' later.
+  in order to decide what data to use for the next decision. this check is here crudely for now and can be a part of the 'brain' (matrix switch) later.
   */
   if (preliminary_check() == true) {
     extrapulatedSatData();
