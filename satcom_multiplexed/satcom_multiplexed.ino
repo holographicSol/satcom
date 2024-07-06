@@ -2128,7 +2128,8 @@ struct RelayStruct {
 
   */
 
-  // calibratable matrix data (via local interface devices / RF / serial / baked-in here below if required)
+  // calibratable matrix data (via local interface devices / RF / serial / baked-in here below if required)              
+  // 30 polynomial conditions of 30 expressions is still very moderate but allows some space for fallback logic (no/bad satellite data --> untrained INS --> other sensor floor) 
   double relays_data[30][30+1][6] = {
     {
       {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0},
