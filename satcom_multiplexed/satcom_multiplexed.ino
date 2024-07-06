@@ -2521,7 +2521,7 @@ void SSD_Display_3() {
   display_3.setTextAlignment(TEXT_ALIGN_CENTER);
   display_3.setColor(WHITE);
   display_3.clear();
-  display_3.drawString(display_3.getWidth()/2, 0, "MATRIX SWITCHBOARD");
+  display_3.drawString(display_3.getWidth()/2, 0, "MATRIX");
   display_3.drawString(display_3.getWidth()/2, 14, "   1 2 3 4 5 6 7 8 9 10");
   display_3.drawString(display_3.getWidth()/2,24,"0 "+String(relayData.relays_bool[0][0])+" "+String(relayData.relays_bool[0][1])+" "+String(relayData.relays_bool[0][2])+" "+String(relayData.relays_bool[0][3])+" "+String(relayData.relays_bool[0][4])+" "+String(relayData.relays_bool[0][5])+" "+String(relayData.relays_bool[0][6])+" "+String(relayData.relays_bool[0][7])+" "+String(relayData.relays_bool[0][8])+" "+String(relayData.relays_bool[0][9]));
   display_3.drawString(display_3.getWidth()/2,34,"1 "+String(relayData.relays_bool[0][10])+" "+String(relayData.relays_bool[0][11])+" "+String(relayData.relays_bool[0][12])+" "+String(relayData.relays_bool[0][13])+" "+String(relayData.relays_bool[0][14])+" "+String(relayData.relays_bool[0][15])+" "+String(relayData.relays_bool[0][16])+" "+String(relayData.relays_bool[0][17])+" "+String(relayData.relays_bool[0][18])+" "+String(relayData.relays_bool[0][19]));
