@@ -3215,7 +3215,11 @@ void loop() {
     SSD_Display_7();
     systems_Check();
     }
-
+  /* 
+  depending on a systems requirements, here is where you may need to decide weather anything should now be inactive/deactivated or
+  active/activated until access is re-granted to the matrix switch once and if the incoming data passes checks again.
+  */
+  else {}
   delay(1);
 }
 
