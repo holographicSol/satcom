@@ -2545,6 +2545,23 @@ bool hemisphere_gngga_SW(int Ri, int Fi) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                 CHECKS: BOOL
+
+/*
+the ploynomial matrix switch requires all true to result in a final truth. two polynomials can be checking the
+same bool in a way that always returns true no matter which polynomial is true. this allows us to say check current validity of a
+value, return true to either polynomial in the matrix and potentially do something differently.
+*/
+
+bool is_false(bool _bool) {
+  if (_bool == false) {return true;} else {return false;}
+}
+
+bool is_true(bool _bool) {
+  if (_bool == true) {return true;} else {return false;}
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                   PRELIMINARY SYSTEMS CHECKS
 
 bool preliminary_check() {
@@ -3212,7 +3229,7 @@ void loop() {
   in order to decide what data to use for the next decision. this check is here crudely for now and can be a part of the 'brain' (matrix switch) later.
   once sentence element validity bools can form a part of the matrix switch plynomial logic then the preliminary check as a whole can be
   removed and each polynomial cnodition should then include specific validity checks on specific data being used or return false, in
-  which case an alternative polynomial may step in, allowing for system 'fluency' rather than inevitable periodic suspension.
+  which case an alternative polynomial may step in, allowing for system 'fluency' rather than inevitable periodic suspension.x
   */
   if (preliminary_check() == true) {
     extrapulatedSatData();
