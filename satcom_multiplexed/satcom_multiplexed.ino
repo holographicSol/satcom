@@ -2826,11 +2826,11 @@ void systems_Check() {
   // check true (primary)
   strcpy(relayData.relays[0][0], relayData.gngga_valid_checksum);       // 1: first function
   strcpy(relayData.relays[0][1], relayData.satellite_count_gngga_over); // 2: second function
-  relayData.relays_data[0][0][0] = 1;                                   // 3: second function data
+  relayData.relays_data[0][10][0] = 1;                                   // 3: second function data
   // check false (secondary)
   strcpy(relayData.relays[1][0], relayData.gngga_invalid_checksum);     // 1: first function
   strcpy(relayData.relays[1][1], relayData.satellite_count_gngga_over); // 2: second function (in this example we do nothing different from the primary but we can)
-  relayData.relays_data[1][0][0] = 1;                                   // 3: second function data
+  relayData.relays_data[1][10][0] = 1;                                   // 3: second function data
 
 
   // iterate over each relay array
@@ -2845,9 +2845,9 @@ void systems_Check() {
       // iterate over each function name for current relay/polynomial logic, building the temporary matrix switch according to reults
       for (int Fi = 0; Fi < relayData.MAX_RELAY_ELEMENTS; Fi++) {
 
-        // Serial.println("[Ri] " + String(Ri));
-        // Serial.println("[Fi] " + String(Fi));
-        // Serial.println("[relayData.relays[Ri][Fi]] " + String(relayData.relays[Ri][Fi]));
+        Serial.println("[Ri] " + String(Ri));
+        Serial.println("[Fi] " + String(Fi));
+        Serial.println("[relayData.relays[Ri][Fi]] " + String(relayData.relays[Ri][Fi]));
 
         /*
         Possible combinations example: 100 checks ^ 10 functions = 100,000,000,000,000,000,000 combinations.
@@ -3502,8 +3502,8 @@ void systems_Check() {
         // default final bool is true and if a single false is found final bool should be set to false and remain false
         bool final_bool = true;
 
-        // for (int FC = 0; FC < relayData.MAX_RELAY_ELEMENTS-1; FC++) {Serial.println("[tmp_matrix[FC]] " + String(tmp_matrix[FC])); if (tmp_matrix[FC] == 0) {final_bool = false;}} // debug
-        for (int FC = 0; FC < relayData.MAX_RELAY_ELEMENTS-1; FC++) {if (tmp_matrix[FC] == 0) {final_bool = false;}}
+        for (int FC = 0; FC < relayData.MAX_RELAY_ELEMENTS-1; FC++) {Serial.println("[tmp_matrix[FC]] " + String(tmp_matrix[FC])); if (tmp_matrix[FC] == 0) {final_bool = false;}} // debug
+        // for (int FC = 0; FC < relayData.MAX_RELAY_ELEMENTS-1; FC++) {if (tmp_matrix[FC] == 0) {final_bool = false;}}
 
         /*
         Remember always: why do you think you can trust this data? are you transmitting this data to yourelf (from satellite or not)?
@@ -3517,6 +3517,7 @@ void systems_Check() {
       }
       else {Serial.println("[RELAY " + String(Ri) + "] WARNING: Matrix checks are enabled for an non configured matrix!");}
     }
+    // else {Serial.println("[Ri] skipping " + String(Ri));}
   }
 }
 
