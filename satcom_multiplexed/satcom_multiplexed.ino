@@ -3207,8 +3207,8 @@ void loop() {
 
   /*
   if checks passed equal to total expected checks to pass and check sums weigh up then allow data collected this loop to be worked with .
-  may require a small warmup period to pass this gate. if the INS has reached convergence then this may be an XOR gate. also consider
-  more sensors and checks.
+  may require a small warmup period to pass this gate. if the INS has reached convergence then this may be an XOR gate. other sensor
+  data may also be considered.
   */
   if (preliminary_check() == true) {
     extrapulatedSatData();
@@ -3220,8 +3220,8 @@ void loop() {
     }
   /* 
   depending on a systems requirements, here is where you may need to decide weather anything should now be inactive/deactivated or
-  active/activated until access is re-granted to the matrix switch once and if the incoming data passes checks again. also consider
-  more sensors and checks.
+  active/activated until access is re-granted to the matrix switch once and if the incoming data passes checks again. other sensor
+  data may also be considered.
   */
   else {}
 
