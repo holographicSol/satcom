@@ -3537,6 +3537,7 @@ void loop() {
   */
   // if (preliminary_check() == true) {
   extrapulatedSatData();
+  SSD_Display_3();
   SSD_Display_4();
   SSD_Display_5();
   SSD_Display_6();
