@@ -3210,6 +3210,9 @@ void loop() {
   may require a small warmup period to pass this gate. if the INS has reached convergence then this may be an XOR gate. other sensor
   data may also be considered. this check would be better placed in the matrix switch itself and checked for alongside other values
   in order to decide what data to use for the next decision. this check is here crudely for now and can be a part of the 'brain' (matrix switch) later.
+  once sentence element validity bools can form a part of the matrix switch plynomial logic then the preliminary check as a whole can be
+  removed and each polynomial cnodition should then include specific validity checks on specific data being used or return false, in
+  which case an alternative polynomial may step in.  
   */
   if (preliminary_check() == true) {
     extrapulatedSatData();
@@ -3219,7 +3222,7 @@ void loop() {
     SSD_Display_7();
     systems_Check();
     }
-  /* 
+  /*
   depending on a systems requirements, here is where you may need to decide weather anything should now be inactive/deactivated or
   active/activated until access is re-granted to the matrix switch once and if the incoming data passes checks again. other sensor
   data may also be considered.
