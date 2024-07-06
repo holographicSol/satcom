@@ -3324,23 +3324,37 @@ void systems_Check() {
         // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(gnggaData.valid_checksum);}
 
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(gnrmcData.valid_checksum);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(gnrmcData.valid_checksum);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(gpattData.valid_checksum);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(gpattData.valid_checksum);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(speedData.valid_checksum);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(speedData.valid_checksum);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.error_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(errorData.valid_checksum);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.error_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(errorData.valid_checksum);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(debugData.valid_checksum);}
+
+        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(debugData.valid_checksum);}
+
         /*
-          char gngga_valid_checksum[56] = "gngga_valid_checksum";
-          char gnrmc_valid_checksum[56] = "gnrmc_valid_checksum";
-          char gpatt_valid_checksum[56] = "gpatt_valid_checksum";
-          char desbi_valid_checksum[56] = "desbi_valid_checksum";
-          char speed_valid_checksum[56] = "speed_valid_checksum";
-          char error_valid_checksum[56] = "error_valid_checksum";
-          char debug_valid_checksum[56] = "debug_valid_checksum";
-
-          char gngga_invalid_checksum[56] = "gngga_invalid_checksum";
-          char gnrmc_invalid_checksum[56] = "gnrmc_invalid_checksum";
-          char gpatt_invalid_checksum[56] = "gpatt_invalid_checksum";
-          char desbi_invalid_checksum[56] = "desbi_invalid_checksum";
-          char speed_invalid_checksum[56] = "speed_invalid_checksum";
-          char error_invalid_checksum[56] = "error_invalid_checksum";
-          char debug_invalid_checksum[56] = "debug_invalid_checksum";
-
           char gngga_valid_check_data[56] = "gngga_valid_check_data";
           char gnrmc_valid_check_data[56] = "gnrmc_valid_check_data";
           char gpatt_valid_check_data[56] = "gpatt_valid_check_data";
