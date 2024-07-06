@@ -2736,9 +2736,9 @@ void systems_Check() {
   strcpy(relayData.relays[0][1], relayData.satellite_count_gngga_over); // 2: second function
   relayData.relays_data[0][0][0] = 1;                                   // 3: second function data
   // check false (secondary)
-  strcpy(relayData.relays[1][0], relayData.gngga_invalid_checksum);       // 1: first function
-  strcpy(relayData.relays[1][1], relayData.satellite_count_gngga_over);   // 2: second function (in this example we do nothing different from the primary but we can)
-  relayData.relays_data[1][0][0] = 1;                                     // 3: second function data
+  strcpy(relayData.relays[1][0], relayData.gngga_invalid_checksum);     // 1: first function
+  strcpy(relayData.relays[1][1], relayData.satellite_count_gngga_over); // 2: second function (in this example we do nothing different from the primary but we can)
+  relayData.relays_data[1][0][0] = 1;                                   // 3: second function data
 
 
   // iterate over each relay array
