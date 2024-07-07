@@ -4,11 +4,11 @@ SATCOM - A powerfull general purpose satellite controlled matrix switch.
 
 ---
 
-![plot](./resources/img_0.jpg)
+![plot](./resources/img_0.JPG)
 
 ---
 
-![plot](./resources/img_1.jpg)
+![plot](./resources/img_1.JPG)
 
 ---
 
