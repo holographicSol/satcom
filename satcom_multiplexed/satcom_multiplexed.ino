@@ -3566,9 +3566,9 @@ void readRXD_1() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                      RXD 0: MATRIX INTERFACE
+//                                                                                            RXD 0: MATRIX INTERFACE SET ENTRY
 
-void RXD0_matrix_interface() {
+void rxd_0_matrix_interface_set_entry() {
   Serial.println("[RXD0_matrix_interface] connected");
   serial0Data.check_data_R = 0;
   memset(serial0Data.data_0, 0, 56);
@@ -3629,10 +3629,10 @@ void readRXD_0() {
     // Serial.println(serial0Data.nbytes); // debug
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                        
+    //                                                                                              MATRIX INTERFACE: SET ENTRY
 
     if (strncmp(serial0Data.BUFFER, "$R", 2) == 0) {
-      RXD0_matrix_interface();
+      rxd_0_matrix_interface_set_entry();
     }
 
     else {
