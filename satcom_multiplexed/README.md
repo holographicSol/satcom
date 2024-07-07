@@ -16,7 +16,7 @@ Pending documentation as SATCOM will require a handbook.
 
 ---
 
-                                      SATCOM - Written by Benjamin Jack Cullen.
+                                          SATCOM - Written by Benjamin Jack Cullen.
 
                                                                                                                        
                                      Receives and Processes Transmissions from Satellites.
@@ -28,7 +28,6 @@ Pending documentation as SATCOM will require a handbook.
 
 
                         Converts Latitude and Longitude from $ sentences into Decimal Latitude and Longitude.
-  This helps when compaing latitude and longitude with other maps, these values are then stored and placed into a new $ sentence.
 
  
                                                        Timestamps
