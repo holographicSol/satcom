@@ -3365,10 +3365,10 @@ void matrixSwitch() {
         //                                                                                                     SYSTEMS CHECKS: VALIDITY
 
         /*
-        allows for switching datasets, possible to continue performing the same task and or other tasks, but with the option of relying on different data
+        allows for switching datasets, possible to continue performing the same task and or other tasks instead, but with the option of relying on different data.
         example: if is_true(checksum)  then A using data X is active/on and B is inactive/off
                  if is_false(checksum) then B using data Y is active/on and A is inactive/off
-                 A and B may even be plugged into the same endpoint, and now that endpoint is on/off predicated upon different data.
+                 A and B may even be plugged into the same endpoint, and now that endpoint is on/off predicated upon different data/conditions.
         */
 
         // put true or false in the temporary matrix
@@ -3616,11 +3616,15 @@ void rxd_0_matrix_interface_set_matrix_entry() {
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]=atol(serial0Data.data_5); // set function value z
   relayData.relays_data[atoi(serial0Data.data_0)][10][0]                      =atol(serial0Data.data_6); // set enable/disable
 
-  // Serial command
-  //                                         R F Function Name              X Y Z Enable/Disable 
-  // example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,1,0,0,1
-  // example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,-1,0,0,0
-  // clear test command:   $MATRIX_SET_ENTRY,0,0,$NONE,0,0,0,0
+  /*
+
+  Serial command
+                                          R F Function Name              X Y Z Enable/Disable 
+  example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,1,0,0,1
+  example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,-1,0,0,0
+  clear test command:   $MATRIX_SET_ENTRY,0,0,$NONE,0,0,0,0
+
+  */
 
   Serial.println("[R" + String(serial0Data.data_0) + "][F" + String(serial0Data.data_1) + "] f:" + String(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)]) + " x:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atol(serial0Data.data_1)][0]) + " y:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atol(serial0Data.data_1)][1]) + " z:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atol(serial0Data.data_1)][2]) );
 }
@@ -3700,7 +3704,7 @@ void loop() {
 
   /*
   for performance/efficiency only do the following if data is received OR if there may be an issue receiving, this way the matrix
-  switch can remain operational for data that is not received while also performing better while data is being received.
+  switch can remain operational for data that is not received while also performing better overall.
   */  
   if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 10)) {serial1Data.badrcv_i=0; extrapulatedSatData();
     matrixSwitch();
