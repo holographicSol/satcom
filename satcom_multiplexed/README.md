@@ -73,9 +73,10 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                              Create More Values For $ Ssentences And Add More Satellite Hardware.
           This sketch is a layer between a satellite module and other systems to provide a new sentence and or the above+.
 
-            Ultimately this system is being built to turn on/off many multiplexed relays (40+) and will be interfaceable. The relays
-          will be switching on/off other MCU's for modularity/performance/efficiency reasons, so that I have an interfaceable
-                programmable satellite utility system with logging. Basically a big switch I can plug things into to.
+            Ultimately this system is being built to turn on/off many multiplexed relays (40+) and will have a control panel.
+             The relays will be switching on/off other MCU's for modularity/performance/efficiency reasons, so that I have
+                               an interfaceble, programmable satellite utility system with logging.
+                                        Basically a big switch I can plug things into to.
 
                             Time server to robots and flying machines, and everything in between.
                        Some star and constellation calculations will be added soon that can be used at will
