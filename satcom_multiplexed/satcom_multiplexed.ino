@@ -2450,7 +2450,7 @@ void extrapulatedSatData() {
     strcat(satData.satcom_sentence, satData.location_longitude_gngga_str);
     strcat(satData.satcom_sentence, ",");
   }
-  else if (String(satData.coordinate_conversion_mode) == "GNRMC")
+  else if (String(satData.coordinate_conversion_mode) == "GNRMC") {
     strcat(satData.satcom_sentence, satData.location_latitude_gnrmc_str);
     strcat(satData.satcom_sentence, ",");
     strcat(satData.satcom_sentence, satData.location_longitude_gnrmc_str);
