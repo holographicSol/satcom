@@ -3618,6 +3618,24 @@ void rxd_0_matrix_interface_set_entry() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                             RXD 0: MATRIX INTERFACE OVERRIDE
+
+/*
+disable all matrix entries.
+*/
+
+void rxd_0_matrix_interface_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=0;}}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                           RXD 0: MATRIX INTERFACE ENABLE ALL
+
+/*
+enable all matrix entries. will result in warnings for matrix entries with no function(s) set.
+*/
+
+void rxd_0_matrix_interface_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 0
 
 void readRXD_0() {
@@ -3633,6 +3651,20 @@ void readRXD_0() {
 
     if (strncmp(serial0Data.BUFFER, "$R", 2) == 0) {
       rxd_0_matrix_interface_set_entry();
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                               MATRIX INTERFACE: OVERRIDE
+
+    if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE") == 0) {
+      rxd_0_matrix_interface_override();
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                             MATRIX INTERFACE: ENABLE ALL
+
+    if (strcmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ALL") == 0) {
+      rxd_0_matrix_interface_enable_all();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
