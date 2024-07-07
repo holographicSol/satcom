@@ -3707,12 +3707,13 @@ void loop() {
   which case an alternative polynomial may step in, allowing for system 'fluency' rather than inevitable periodic suspension.x
   */
   // if (preliminary_check() == true) {
-  if (serial1Data.rcv == true){extrapulatedSatData();}
-  SSD_Display_3();
-  SSD_Display_4();
-  SSD_Display_5();
-  SSD_Display_6();
-  SSD_Display_7();
+  if (serial1Data.rcv == true){extrapulatedSatData();
+    SSD_Display_3();
+    SSD_Display_4();
+    SSD_Display_5();
+    SSD_Display_6();
+    SSD_Display_7();
+  }
   systems_Check();
     // }
   /*
