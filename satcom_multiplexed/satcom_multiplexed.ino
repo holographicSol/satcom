@@ -2612,7 +2612,7 @@ bool in_ranges_check(char * Fn0, char * Fn1, int Ri, int Fi) {
 }
 
 bool check_over(char * Fn, int Ri, int Fi) {
-  Serial.print("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0], 20));
+  Serial.print("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]));
   if (atoi(Fn) > relayData.relays_data[Ri][Fi][0]) {return true;}
   else {return false;}
 }
