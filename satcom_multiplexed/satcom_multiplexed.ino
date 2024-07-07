@@ -115,7 +115,7 @@ struct sysDebugStruct {
   bool speed_sentence = false;
   bool error_sentence = false;
   bool debug_sentence = false;
-  bool serial_0_sentence = true;
+  bool serial_0_sentence = false;
 };
 sysDebugStruct sysDebugData;
 
@@ -3473,36 +3473,36 @@ void readRXD_1() {
     //                                                                                                                    GNGGA
 
     if (strncmp(serial1Data.BUFFER, "$GNGGA", 6) == 0) {
-      // if ((serial1Data.nbytes == 94) || (serial1Data.nbytes == 90) ) {
-      //   Serial.print(""); Serial.println(serial1Data.BUFFER);
-      //   gnggaData.valid_checksum = validateChecksum(serial1Data.BUFFER);
-      //   if (gnggaData.valid_checksum == true) {GNGGA();}
-      //   else {gnggaData.bad_checksum_validity++;}
-      // }
+      if ((serial1Data.nbytes == 94) || (serial1Data.nbytes == 90) ) {
+        Serial.print(""); Serial.println(serial1Data.BUFFER);
+        gnggaData.valid_checksum = validateChecksum(serial1Data.BUFFER);
+        if (gnggaData.valid_checksum == true) {GNGGA();}
+        else {gnggaData.bad_checksum_validity++;}
+      }
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GNRMC
 
     else if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
-    //   if ((serial1Data.nbytes == 78) || (serial1Data.nbytes == 80)) {
-      //   Serial.print(""); Serial.println(serial1Data.BUFFER);
-      //   gnrmcData.valid_checksum = validateChecksum(serial1Data.BUFFER);
-      //   if (gnrmcData.valid_checksum == true) {GNRMC();}
-      //   else {gnrmcData.bad_checksum_validity++;}
-    //   }
+      if ((serial1Data.nbytes == 78) || (serial1Data.nbytes == 80)) {
+        Serial.print(""); Serial.println(serial1Data.BUFFER);
+        gnrmcData.valid_checksum = validateChecksum(serial1Data.BUFFER);
+        if (gnrmcData.valid_checksum == true) {GNRMC();}
+        else {gnrmcData.bad_checksum_validity++;}
+      }
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GPATT
 
     else if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
-    //   if ((serial1Data.nbytes == 136) || (serial1Data.nbytes == 189)) {
-      //   Serial.print(""); Serial.println(serial1Data.BUFFER);
-      //   gpattData.valid_checksum = validateChecksum(serial1Data.BUFFER);
-      //   if (gpattData.valid_checksum == true) {GPATT();}
-      //   else {gpattData.bad_checksum_validity++;}
-      // }
+      if ((serial1Data.nbytes == 136) || (serial1Data.nbytes == 189)) {
+        Serial.print(""); Serial.println(serial1Data.BUFFER);
+        gpattData.valid_checksum = validateChecksum(serial1Data.BUFFER);
+        if (gpattData.valid_checksum == true) {GPATT();}
+        else {gpattData.bad_checksum_validity++;}
+      }
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -3638,13 +3638,13 @@ void loop() {
   which case an alternative polynomial may step in, allowing for system 'fluency' rather than inevitable periodic suspension.x
   */
   // if (preliminary_check() == true) {
-  // extrapulatedSatData();
+  extrapulatedSatData();
   SSD_Display_3();
   SSD_Display_4();
   SSD_Display_5();
   SSD_Display_6();
   SSD_Display_7();
-  // systems_Check();
+  systems_Check();
     // }
   /*
   depending on a systems requirements, here is where you may need to decide weather anything should now be inactive/deactivated or
