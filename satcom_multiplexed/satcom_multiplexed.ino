@@ -3611,9 +3611,8 @@ void RXD0_matrix_interface() {
   // Serial command
   //                          R F Function Name              X Y Z Enable/Disable 
   // example test command: $R,0,0,satellite_count_gngga_over,1,0,0,1
-  // disbale test command: $R,0,0,satellite_count_gngga_over,-1,0,0,0
+  // example test command: $R,0,0,satellite_count_gngga_over,-1,0,0,0
   // clear test command:   $R,0,0,$NONE,0,0,0,0
-  // satellite_time_over 0707240113
 
   Serial.println("[R" + String(serial0Data.data_0) + "][F" + String(serial0Data.data_1) + "] f:" + String(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)]) + " x:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]) + " y:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]) + " z:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]) );
 }
