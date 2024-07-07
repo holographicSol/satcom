@@ -3618,7 +3618,8 @@ void rxd_0_matrix_interface_override() {for (int Ri = 0; Ri < relayData.MAX_RELA
 //                                                                                           RXD 0: MATRIX INTERFACE ENABLE ALL
 
 /*
-enable all matrix entries. will result in warnings for matrix entries with no function(s) set.
+enable all matrix entries. will result in warnings for matrix entries with no function(s) set. this is expected and desired behaviour,
+for turning everything on becasue everything is set and or for living on the edge for any given logical reason at the time.
 */
 
 void rxd_0_matrix_interface_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
