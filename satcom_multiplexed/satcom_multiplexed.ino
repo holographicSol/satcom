@@ -2738,36 +2738,16 @@ bool preliminary_check() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                    MATRIX SWITCH: ON RECEIVE
-
-/*
-Check each relays key and run a function for each relays corresponding key. First check $NONE.
-*/
+//                                                                                                                MATRIX SWITCH
 
 void matrixSwitch() {
 
   /*
-  Compound conditions can be created for each zero/one result at the final_bool. This allows for trillions of combinations with
+
+  compound conditions are checked, each resulting in zero/one at the final_bool. This currently allows for sextillions of combinations with
   the current data alone.
+
   */
-
-  // system test (simulate interface with matrix because there is no control panel/other HID yet. an RF stream may also be preferrable depending on system being built.):
-
-  // example relay N (no checks):                
-  // strcpy(relayData.relays[relayData.MAX_RELAYS-1][0], relayData.satellite_count_gngga_over); // 1: set relay zero's first check condition.
-  // relayData.relays_data[relayData.MAX_RELAYS-1][0][0]  = 1;                                  // 2: set relays first function data. in this case we will use the column 'over' element.
-  // strcpy(relayData.relays[relayData.MAX_RELAYS-1][1], relayData.hemisphere_gngga_N);         // 1: optionally set relay zero's second check condition (because checks can be elemental or compounded).
-  // relayData.relays_data[relayData.MAX_RELAYS-1][10][0] = 1;                                  // 2: lastly, soft enable the check/relay (IMPORTANT: ensure soft enable is zero if not in use)
-
-  // example using checks:
-  // check true (primary)
-  // strcpy(relayData.relays[0][0], relayData.gngga_valid_checksum);        // 1: first function
-  // strcpy(relayData.relays[0][1], relayData.satellite_count_gngga_over);  // 2: second function
-  // relayData.relays_data[0][10][0] = 1;                                   // 3: second function data
-  // check false (secondary)
-  // strcpy(relayData.relays[1][0], relayData.gngga_invalid_checksum);      // 1: first function
-  // strcpy(relayData.relays[1][1], relayData.satellite_count_gngga_over);  // 2: second function (in this example we do nothing different from the primary but we can)
-  // relayData.relays_data[1][10][0] = 1;                                   // 3: second function data
 
   // iterate over each relay array
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
@@ -2781,18 +2761,12 @@ void matrixSwitch() {
       // iterate over each function name for current relay/polynomial logic, building the temporary matrix switch according to reults
       for (int Fi = 0; Fi < relayData.MAX_RELAY_ELEMENTS; Fi++) {
 
+        // uncomment to debug
         // Serial.println("[Ri] " + String(Ri));
         // Serial.println("[Fi] " + String(Fi));
         // Serial.println("[relayData.relays[Ri][Fi]] " + String(relayData.relays[Ri][Fi]));
 
-        /*
-        Possible combinations example: 100 checks ^ 10 functions = 100,000,000,000,000,000,000 combinations.
-        */
-
-        /*
-        Put true in the temporary matrix if no function is specified ($NONE). this allows 1-N elemental conditions to be set and result in true/false at the final bool.
-        IMPORTANT: this also means if soft enable true, then final_bool defaults to true if no function at all is specified within a switches matrix. There is one check to catch you if you do soft enable with no functions set.
-        */
+        // put true in temporary matrix for functions set to none. there is one check to catch you if you do soft enable with no functions set.
         if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[Fi] = 1; count_none_function++;}
 
         // put true in temporary matrix if switch is enabled regardless of data. allows final bool true with no further requirements, even if all set $ENABLED, unlike if all set $NONE
