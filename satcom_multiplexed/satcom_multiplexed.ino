@@ -3339,10 +3339,14 @@ void matrixSwitch() {
         //                                                                                                     SYSTEMS CHECKS: VALIDITY
 
         /*
-        allows for switching datasets, possible to continue performing the same task and or other tasks instead, but with the option of relying on different data.
+
+        intended to conditionally switch datasets, making it possible to continue performing the same task and or other tasks instead, but with the option of
+        relying on different data in the event data becomes unavailable/unreliable/etc. this can allow for fallback functions to be considered in the matrix switch.
+
         example: if is_true(checksum)  then A using data X is active/on and B is inactive/off
                  if is_false(checksum) then B using data Y is active/on and A is inactive/off
                  A and B may even be plugged into the same endpoint, and now that endpoint is on/off predicated upon different data/conditions.
+
         */
 
         // put true or false in the temporary matrix
