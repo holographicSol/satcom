@@ -1309,7 +1309,8 @@ struct RelayStruct {
   };
 
   // default and specifiable value to indicate a relay should not be activated/deactivated
-  char default_relay_function[56] = "$NONE";
+  char default_relay_function[56]          = "$NONE";
+  char default_enable_relay_function[56]   = "$ENABLED";
 
   char run_inetial_flag_gpatt_equal[56]    = "run_inetial_flag_gpatt_equal";
   char line_flag_gpatt_equal[56]           = "line_flag_gpatt_equal";
@@ -2282,6 +2283,8 @@ void DEBUG() {
 //                                                                                                          SATCOM DATA STRUCT
 
 struct SatDatatruct {
+  char checksum_str[56];
+  int checksum_i;
   char satcom_sentence[1024];
   char sat_time_stamp_string[56];                                  // datetime timestamp from satellite
   char satDataTag[10]                 = "$SATCOM";                 // satcom sentence tag
@@ -2457,7 +2460,10 @@ void extrapulatedSatData() {
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                       SATCOM SENTENCE: END
-  strcat(satData.satcom_sentence, "*Z");
+  strcat(satData.satcom_sentence, "*");
+  satData.checksum_i = getCheckSum(satData.satcom_sentence);
+  itoa(satData.checksum_i, satData.checksum_str, 10);
+  strcat(satData.satcom_sentence, satData.checksum_str);
   Serial.println(satData.satcom_sentence);
   }
 
@@ -2780,12 +2786,16 @@ void systems_Check() {
 
         /*
         Possible combinations example: 100 checks ^ 10 functions = 100,000,000,000,000,000,000 combinations.
+        */
 
+        /*
         Put true in the temporary matrix if no function is specified ($NONE). this allows 1-N elemental conditions to be set and result in true/false at the final bool.
         IMPORTANT: this also means if soft enable true, then final_bool defaults to true if no function at all is specified within a switches matrix. There is one check to catch you if you do soft enable with no functions set.
         */
-
         if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[Fi] = 1; count_none_function++;}
+
+        // put true in temporary matrix if switch is enabled regardless of data. allows final bool true with no further requirements, even if all set $ENABLED, unlike if all set $NONE
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.default_enable_relay_function) == 0) {tmp_matrix[Fi] = 1; count_none_function++;}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GNGGA
@@ -3430,7 +3440,7 @@ void systems_Check() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(debugData.check_data, 29);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(debugData.check_data, 29);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(debugData.check_data, 29);} // ( 205. 205^10 = 131,080,657,325,707,041,015,625 = 131 sextillion+ )
 
         /*
         optionally continue plugging in the bool
@@ -3556,7 +3566,7 @@ void readRXD_1() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                            RXD 0: MATRIX INTERFACE SET ENTRY
 
-void rxd_0_matrix_interface_set_entry() {
+void rxd_0_matrix_interface_set_matrix_entry() {
   Serial.println("[RXD0_matrix_interface] connected");
   serial0Data.check_data_R = 0;
   memset(serial0Data.data_0, 0, 56);
@@ -3612,7 +3622,7 @@ void rxd_0_matrix_interface_set_entry() {
 disable all matrix entries.
 */
 
-void rxd_0_matrix_interface_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=0;}}
+void rxd_0_matrix_interface_matrix_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=0;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                           RXD 0: MATRIX INTERFACE ENABLE ALL
@@ -3622,7 +3632,8 @@ enable all matrix entries. will result in warnings for matrix entries with no fu
 for turning everything on becasue everything is set and or for living on the edge for any given logical reason at the time.
 */
 
-void rxd_0_matrix_interface_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
+void rxd_0_matrix_interface_soft_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
+
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 0
@@ -3638,22 +3649,22 @@ void readRXD_0() {
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                              MATRIX INTERFACE: SET ENTRY
 
-    if (strncmp(serial0Data.BUFFER, "$R", 2) == 0) {
-      rxd_0_matrix_interface_set_entry();
+    if (strncmp(serial0Data.BUFFER, "$MATRIX_SET_ENTRY", 17) == 0) {
+      rxd_0_matrix_interface_set_matrix_entry();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                               MATRIX INTERFACE: OVERRIDE
 
-    if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE") == 0) {
-      rxd_0_matrix_interface_override();
+    else if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE") == 0) {
+      rxd_0_matrix_interface_matrix_override();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                             MATRIX INTERFACE: ENABLE ALL
+    //                                                                                        MATRIX INTERFACE: SOFT ENABLE ALL
 
-    if (strcmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ALL") == 0) {
-      rxd_0_matrix_interface_enable_all();
+    else if (strcmp(serial0Data.BUFFER, "$MATRIX_SET_ALL_SWITCHES_ENABLED") == 0) {
+      rxd_0_matrix_interface_soft_enable_all();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
