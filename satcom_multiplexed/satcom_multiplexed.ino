@@ -103,7 +103,7 @@ struct sysDebugStruct {
   bool speed_sentence = false;
   bool error_sentence = false;
   bool debug_sentence = false;
-  bool serial_0_sentence = false;
+  bool serial_0_sentence = true;
 };
 sysDebugStruct sysDebugData;
 
@@ -3617,10 +3617,10 @@ void rxd_0_matrix_interface_set_matrix_entry() {
   relayData.relays_data[atoi(serial0Data.data_0)][10][0]                      =atol(serial0Data.data_6); // set enable/disable
 
   // Serial command
-  //                          R F Function Name              X Y Z Enable/Disable 
-  // example test command: $R,0,0,satellite_count_gngga_over,1,0,0,1
-  // example test command: $R,0,0,satellite_count_gngga_over,-1,0,0,0
-  // clear test command:   $R,0,0,$NONE,0,0,0,0
+  //                                         R F Function Name              X Y Z Enable/Disable 
+  // example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,1,0,0,1
+  // example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,-1,0,0,0
+  // clear test command:   $MATRIX_SET_ENTRY,0,0,$NONE,0,0,0,0
 
   Serial.println("[R" + String(serial0Data.data_0) + "][F" + String(serial0Data.data_1) + "] f:" + String(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)]) + " x:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atol(serial0Data.data_1)][0]) + " y:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atol(serial0Data.data_1)][1]) + " z:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atol(serial0Data.data_1)][2]) );
 }
