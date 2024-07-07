@@ -21,6 +21,7 @@ Pending documentation as SATCOM will require a handbook.
                                                                                                                        
                                      Receives and Processes Transmissions from Satellites.
                    Possible combinations example: 100 checks ^ 10 functions = 100,000,000,000,000,000,000 combinations.
+                                                                              (100 Quintillion)
                                     Calibratable matrix for a wide range of applications.
     A global location Sensor & Time Sensor. For projects requiring location data and or time to be positionally aware and syncronized.
          Tested with WTGPS300 (WITMOTION) Satellite module this project receives data from satellites, sorts that data into
