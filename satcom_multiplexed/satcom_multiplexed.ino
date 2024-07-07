@@ -135,6 +135,7 @@ struct Serial1Struct {
   char BUFFER[2048];
   char * token = strtok(BUFFER, ",");
   bool rcv = false;
+  unsigned long badrcv_i;
 };
 Serial1Struct serial1Data;
 
@@ -2737,13 +2738,13 @@ bool preliminary_check() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                               SYSTEMS CHECKS
+//                                                                                                    MATRIX SWITCH: ON RECEIVE
 
 /*
 Check each relays key and run a function for each relays corresponding key. First check $NONE.
 */
 
-void systems_Check() {
+void matrixSwitch() {
 
   /*
   Compound conditions can be created for each zero/one result at the final_bool. This allows for trillions of combinations with
@@ -3693,35 +3694,23 @@ void loop() {
 
   // check serial input commands
   readRXD_0();
-  // delay(1000);
+
   // check satellite receiver
   readRXD_1();
 
   /*
-  if checks passed equal to total expected checks to pass and check sums weigh up then allow data collected this loop to be worked with .
-  may require a small warmup period to pass this gate. if the INS has reached convergence then this may be an XOR gate. other sensor
-  data may also be considered. this check would be better placed in the matrix switch itself and checked for alongside other values
-  in order to decide what data to use for the next decision. this check is here crudely for now and can be a part of the 'brain' (matrix switch) later.
-  once sentence element validity bools can form a part of the matrix switch plynomial logic then the preliminary check as a whole can be
-  removed and each polynomial cnodition should then include specific validity checks on specific data being used or return false, in
-  which case an alternative polynomial may step in, allowing for system 'fluency' rather than inevitable periodic suspension.x
-  */
-  // if (preliminary_check() == true) {
-  if (serial1Data.rcv == true){extrapulatedSatData();
+  for performance/efficiency only do the following if data is received OR if there may be an issue receiving, this way the matrix
+  switch can remain operational for data that is not received while also performing better while data is being received.
+  */  
+  if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 10)) {serial1Data.badrcv_i=0; extrapulatedSatData();
+    matrixSwitch();
     SSD_Display_3();
     SSD_Display_4();
     SSD_Display_5();
     SSD_Display_6();
     SSD_Display_7();
   }
-  systems_Check();
-    // }
-  /*
-  depending on a systems requirements, here is where you may need to decide weather anything should now be inactive/deactivated or
-  active/activated until access is re-granted to the matrix switch once and if the incoming data passes checks again. other sensor
-  data may also be considered.
-  */
-  // else {}
+  else {serial1Data.badrcv_i++;}
 
   delay(1);
 }
