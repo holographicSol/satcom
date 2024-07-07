@@ -3628,7 +3628,7 @@ void loop() {
 
   // check serial input commands
   readRXD_0();
-  delay(1000);
+  // delay(1000);
   // check satellite receiver
   readRXD_1();
 
