@@ -13,6 +13,8 @@ SATCOM - A powerfull general purpose satellite controlled matrix switch.
 ---
 
 
+
+
                                                                                                    GST Data: User satellite accuracy                         
                                                                            1=static 0=dynamic      |   Custom flag                                           
                                                                                   Static Flag      |   |    IMU Kind                                         
@@ -41,6 +43,8 @@ SATCOM - A powerfull general purpose satellite controlled matrix switch.
                                                                                 |             |      |   Custom Flag: F:Full Update D:Full Update and Part Update
                                                                     Mis Angle Num             |      Line Flag 1：straight driving，0：curve driving
                                                                                               User Code: 1=normal user X=custom user
+
+
 
 
 ---
