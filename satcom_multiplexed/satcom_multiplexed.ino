@@ -2564,7 +2564,7 @@ void setup() {
   //                                                                                                               SETUP SERIAL
 
   Serial.begin(115200);
-  Serial1.begin(115200); // ( io26 on ESP32 )
+  Serial1.begin(115200); // ( RXD from WTGPS300P's TXD. io26 on ESP32 )
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                 SETUP WIRE
