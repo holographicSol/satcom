@@ -2749,16 +2749,16 @@ void matrixSwitch() {
 
   */
 
-  // iterate over each relay array
+  // iterate over each relay matrix
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
 
     if (relayData.relays_data[Ri][relayData.MAX_RELAY_ELEMENTS][0] == 1) {
 
-      // temporary switch must be zero each time. allows for polynomial expressions.
+      // temporary switch must be zero each time
       bool tmp_matrix[relayData.MAX_RELAY_ELEMENTS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
       int count_none_function = 0;
 
-      // iterate over each function name for current relay/polynomial logic, building the temporary matrix switch according to reults
+      // iterate over each function name in the current relay matrix
       for (int Fi = 0; Fi < relayData.MAX_RELAY_ELEMENTS; Fi++) {
 
         // uncomment to debug
