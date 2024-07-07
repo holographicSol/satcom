@@ -8,7 +8,7 @@
                                                                               (100 Quintillion+)
                                     Calibratable matrix for a wide range of applications.
     A global location Sensor & Time Sensor. For projects requiring location data and or time to be positionally aware and syncronized.
-         Tested with WTGPS300 (WITMOTION) Satellite module this project receives data from satellites, sorts that data into
+         Tested with WTGPS300P (WITMOTION) Satellite module this project receives data from satellites, sorts that data into
      variables that can be used later, and creates new $ sentences containing new data, calculated from the data received.
 
 
@@ -30,7 +30,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                                 
                                                        Serial Dump
    All extra calculated data is dumped in its own $SATCOM sentence along with the other $ sentences which are passed through
-        as they would be seen as if the WTGPS300 is plugged in via USB. Dumping more (sentences/information) and dumping in
+        as they would be seen as if the WTGPS300P is plugged in via USB. Dumping more (sentences/information) and dumping in
                                         a standard way and for generic use.
 
                                         
@@ -40,10 +40,10 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 
 
                               Wiring for Optional Multiplexed OLED Displays (SSD1306 Monochromes)
-                                       WTGPS300 TX              --> ESP32 io26 as RXD
-                                       WTGPS300 VCC             --> ESP32 3.3/5v
-                                       TCA9548A i2C Multiplexer --> ESP32 i2C
-                                       x3 SSD1306               --> TCA9548A i2C Multiplexer
+                                       WTGPS300P TX              --> ESP32 io26 as RXD
+                                       WTGPS300P VCC             --> ESP32 3.3/5v
+                                       TCA9548A i2C Multiplexer  --> ESP32 i2C
+                                       x3 SSD1306                --> TCA9548A i2C Multiplexer
 
 
                                                       SENTENCE $SATCOM
@@ -978,7 +978,7 @@ bool val_scalable(char * data) {
 
 /*
 A minimum of N relays would be required to satisfy various flags. This can allow satcom to be as general purpose as intended,
-from minimal to maximal operation/utilization of the WTGPS300 as and when required by different projects, even turning on/off other
+from minimal to maximal operation/utilization of the WTGPS300P as and when required by different projects, even turning on/off other
 systems that begin running their own routines, by having them turn on/off with these relays/functions.
 each relay should have its own char array which can be checked each loop, after which a function corrrspinding to a relays char
 array will be ran if a selected condition is met, then the corresponding relay will be turned on/off when that condition is met.
@@ -2418,7 +2418,6 @@ void extrapulatedSatData() {
   memset(satData.sat_time_stamp_string, 0, 56);
   strcat(satData.sat_time_stamp_string, gnrmcData.utc_date);
   strcat(satData.sat_time_stamp_string, gnggaData.utc_time);
-
   strcat(satData.satcom_sentence, satData.sat_time_stamp_string);
   strcat(satData.satcom_sentence, ",");
 
@@ -2451,8 +2450,7 @@ void extrapulatedSatData() {
     strcat(satData.satcom_sentence, satData.location_longitude_gngga_str);
     strcat(satData.satcom_sentence, ",");
   }
-  else if (String(satData.coordinate_conversion_mode) == "GNRMC") {
-
+  else if (String(satData.coordinate_conversion_mode) == "GNRMC")
     strcat(satData.satcom_sentence, satData.location_latitude_gnrmc_str);
     strcat(satData.satcom_sentence, ",");
     strcat(satData.satcom_sentence, satData.location_longitude_gnrmc_str);
