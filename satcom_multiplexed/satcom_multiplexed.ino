@@ -2548,11 +2548,7 @@ void SSD_Display_3() {
   display_3.drawString(display_3.getWidth()/2,34,"1 "+String(relayData.relays_bool[0][10])+" "+String(relayData.relays_bool[0][11])+" "+String(relayData.relays_bool[0][12])+" "+String(relayData.relays_bool[0][13])+" "+String(relayData.relays_bool[0][14])+" "+String(relayData.relays_bool[0][15])+" "+String(relayData.relays_bool[0][16])+" "+String(relayData.relays_bool[0][17])+" "+String(relayData.relays_bool[0][18])+" "+String(relayData.relays_bool[0][19]));
   display_3.drawString(display_3.getWidth()/2,44,"2 "+String(relayData.relays_bool[0][20])+" "+String(relayData.relays_bool[0][21])+" "+String(relayData.relays_bool[0][22])+" "+String(relayData.relays_bool[0][23])+" "+String(relayData.relays_bool[0][24])+" "+String(relayData.relays_bool[0][25])+" "+String(relayData.relays_bool[0][26])+" "+String(relayData.relays_bool[0][27])+" "+String(relayData.relays_bool[0][28])+" "+String(relayData.relays_bool[0][29]));
   display_3.drawString(display_3.getWidth()/2,54,"3 "+String(relayData.relays_bool[0][30])+" "+String(relayData.relays_bool[0][31])+" "+String(relayData.relays_bool[0][32])+" "+String(relayData.relays_bool[0][33])+" "+String(relayData.relays_bool[0][34])+" "+String(relayData.relays_bool[0][35])+" "+String(relayData.relays_bool[0][36])+" "+String(relayData.relays_bool[0][37])+" "+String(relayData.relays_bool[0][38])+" "+String(relayData.relays_bool[0][39]));
-  // display_3.drawString(display_3.getWidth()/2, 50, );
   display_3.display();
-  // 40 0 
-  // [0]
-  // relayData.relays_bool
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
