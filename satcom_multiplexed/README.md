@@ -1,6 +1,6 @@
 ---
 
-SATCOM - A powerfull general purpose satellite controlled matrix switch.
+SATCOM - A powerfull general purpose programmable, satellite controlled matrix switch.
 
 ---
 
