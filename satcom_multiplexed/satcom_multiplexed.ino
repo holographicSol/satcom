@@ -2606,33 +2606,33 @@ bool in_range_check(double n0, double n1, double r) {
 
 bool in_ranges_check(char * Fn0, char * Fn1, int Ri, int Fi) {
   Serial.println("[CHECKING] in_ranges_check");
-  if (in_range_check(atoi(Fn0), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]) == true) {
-    if (in_range_check(atoi(Fn1), relayData.relays_data[Ri][Fi][1], relayData.relays_data[Ri][Fi][2]) == true) {return true;}}
+  if (in_range_check(atol(Fn0), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]) == true) {
+    if (in_range_check(atol(Fn1), relayData.relays_data[Ri][Fi][1], relayData.relays_data[Ri][Fi][2]) == true) {return true;}}
   else {return false;}
 }
 
 bool check_over(char * Fn, int Ri, int Fi) {
   Serial.print("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]));
-  if (atoi(Fn) > relayData.relays_data[Ri][Fi][0]) {return true;}
+  if (atol(Fn) > relayData.relays_data[Ri][Fi][0]) {return true;}
   else {return false;}
 }
 
 bool check_under(char * Fn, int Ri, int Fi) {
   Serial.println("[CHECKING] " + String(Fn) + " < " + String(relayData.relays_data[Ri][Fi][0]));
-  if (atoi(Fn) < relayData.relays_data[Ri][Fi][0]) {return true;}
+  if (atol(Fn) < relayData.relays_data[Ri][Fi][0]) {return true;}
   else {return false;}
 }
 
 bool check_equal(char * Fn, int Ri, int Fi) {
   Serial.println("[CHECKING] " + String(Fn) + " == " + String(relayData.relays_data[Ri][Fi][0]));
-  if (atoi(Fn) == relayData.relays_data[Ri][Fi][0]) {return true;}
+  if (atol(Fn) == relayData.relays_data[Ri][Fi][0]) {return true;}
   else {return false;}
 }
 
 // check range from specified x to specify y
 bool check_in_range(char * Fn, int Ri, int Fi) {
   Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]) + " && " + String(Fn) + " < " + String(relayData.relays_data[Ri][Fi][1]));
-  if ((atoi(Fn) >= relayData.relays_data[Ri][Fi][0]) && (atoi(Fn) <= relayData.relays_data[Ri][Fi][1])) {return true;}
+  if ((atol(Fn) >= relayData.relays_data[Ri][Fi][0]) && (atol(Fn) <= relayData.relays_data[Ri][Fi][1])) {return true;}
   else {return false;}
 }
 
@@ -3603,10 +3603,10 @@ void RXD0_matrix_interface() {
   }
   //                      [           RN          ][          FN            ][      VALUE        ]
   strcpy(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)], serial0Data.data_2);      // set function
-  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]=atoi(serial0Data.data_3); // set function value x
-  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]=atoi(serial0Data.data_4); // set function value y
-  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]=atoi(serial0Data.data_5); // set function value z
-  relayData.relays_data[atoi(serial0Data.data_0)][10][0]                      =atoi(serial0Data.data_6); // set enable/disable
+  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]=atol(serial0Data.data_3); // set function value x
+  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]=atol(serial0Data.data_4); // set function value y
+  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]=atol(serial0Data.data_5); // set function value z
+  relayData.relays_data[atoi(serial0Data.data_0)][10][0]                      =atol(serial0Data.data_6); // set enable/disable
 
   // Serial command
   //                          R F Function Name              X Y Z Enable/Disable 
@@ -3614,7 +3614,7 @@ void RXD0_matrix_interface() {
   // example test command: $R,0,0,satellite_count_gngga_over,-1,0,0,0
   // clear test command:   $R,0,0,$NONE,0,0,0,0
 
-  Serial.println("[R" + String(serial0Data.data_0) + "][F" + String(serial0Data.data_1) + "] f:" + String(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)]) + " x:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]) + " y:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]) + " z:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]) );
+  Serial.println("[R" + String(serial0Data.data_0) + "][F" + String(serial0Data.data_1) + "] f:" + String(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)]) + " x:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atol(serial0Data.data_1)][0]) + " y:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atol(serial0Data.data_1)][1]) + " z:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atol(serial0Data.data_1)][2]) );
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
