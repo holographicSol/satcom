@@ -115,7 +115,6 @@ struct Serial0Struct {
   unsigned long iter_token;
   char BUFFER[2048];
   char * token = strtok(BUFFER, ",");
-
   char data_0[56];
   char data_1[56];
   char data_2[56];
@@ -135,6 +134,7 @@ struct Serial1Struct {
   unsigned long iter_token;
   char BUFFER[2048];
   char * token = strtok(BUFFER, ",");
+  bool rcv = false;
 };
 Serial1Struct serial1Data;
 
@@ -3479,6 +3479,8 @@ void systems_Check() {
 
 void readRXD_1() {
 
+  serial1Data.rcv = false;
+
   if (Serial1.available() > 0) {
     
     memset(serial1Data.BUFFER, 0, 2048);
@@ -3490,6 +3492,7 @@ void readRXD_1() {
 
     if (strncmp(serial1Data.BUFFER, "$GNGGA", 6) == 0) {
       if ((serial1Data.nbytes == 94) || (serial1Data.nbytes == 90) ) {
+        serial1Data.rcv = true;
         Serial.print(""); Serial.println(serial1Data.BUFFER);
         gnggaData.valid_checksum = validateChecksum(serial1Data.BUFFER);
         if (gnggaData.valid_checksum == true) {GNGGA();}
@@ -3502,6 +3505,7 @@ void readRXD_1() {
 
     else if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
       if ((serial1Data.nbytes == 78) || (serial1Data.nbytes == 80)) {
+        serial1Data.rcv = true;
         Serial.print(""); Serial.println(serial1Data.BUFFER);
         gnrmcData.valid_checksum = validateChecksum(serial1Data.BUFFER);
         if (gnrmcData.valid_checksum == true) {GNRMC();}
@@ -3514,6 +3518,7 @@ void readRXD_1() {
 
     else if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
       if ((serial1Data.nbytes == 136) || (serial1Data.nbytes == 189)) {
+        serial1Data.rcv = true;
         Serial.print(""); Serial.println(serial1Data.BUFFER);
         gpattData.valid_checksum = validateChecksum(serial1Data.BUFFER);
         if (gpattData.valid_checksum == true) {GPATT();}
@@ -3525,6 +3530,7 @@ void readRXD_1() {
     //                                                                                                                    DESBI
 
     else if (strncmp(serial1Data.BUFFER, "$DESBI", 6) == 0) {
+      // serial1Data.rcv = true;
       // Serial.print(""); Serial.println(serial1Data.BUFFER);
       // awaiting length checks and clarification: wait for clarification, take a ride with the laptop
       // DESBI();
@@ -3534,6 +3540,7 @@ void readRXD_1() {
     //                                                                                                                    SPEED
 
     else if (strncmp(serial1Data.BUFFER, "$SPEED", 6) == 0) {
+      // serial1Data.rcv = true;
       // Serial.print(""); Serial.println(serial1Data.BUFFER);
       // awaiting length checks: take a ride with the laptop
       // SPEED();
@@ -3543,6 +3550,7 @@ void readRXD_1() {
     //                                                                                                                    ERROR
 
     else if (strncmp(serial1Data.BUFFER, "$ERROR", 6) == 0) {
+      // serial1Data.rcv = true;
       // Serial.print(""); Serial.println(serial1Data.BUFFER);
       // awaiting length checks: take a ride with the laptop
       // ERROR();
@@ -3552,6 +3560,7 @@ void readRXD_1() {
     //                                                                                                                    DEBUG
 
     else if (strncmp(serial1Data.BUFFER, "$DEBUG", 6) == 0) {
+      // serial1Data.rcv = true;
       // Serial.print(""); Serial.println(serial1Data.BUFFER);
       // awaiting length checks: take a ride with the laptop
       // DEBUG();
@@ -3640,6 +3649,8 @@ void rxd_0_matrix_interface_soft_enable_all() {for (int Ri = 0; Ri < relayData.M
 
 void readRXD_0() {
 
+  
+
   if (Serial.available() > 0) {
     
     memset(serial0Data.BUFFER, 0, 2048);
@@ -3696,7 +3707,7 @@ void loop() {
   which case an alternative polynomial may step in, allowing for system 'fluency' rather than inevitable periodic suspension.x
   */
   // if (preliminary_check() == true) {
-  extrapulatedSatData();
+  if (serial1Data.rcv == true){extrapulatedSatData();}
   SSD_Display_3();
   SSD_Display_4();
   SSD_Display_5();
