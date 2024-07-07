@@ -2769,7 +2769,6 @@ void systems_Check() {
   // strcpy(relayData.relays[1][1], relayData.satellite_count_gngga_over);  // 2: second function (in this example we do nothing different from the primary but we can)
   // relayData.relays_data[1][10][0] = 1;                                   // 3: second function data
 
-
   // iterate over each relay array
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
 
@@ -3454,7 +3453,8 @@ void systems_Check() {
       }
       else {Serial.println("[RELAY " + String(Ri) + "] WARNING: Matrix checks are enabled for an non configured matrix!");}
     }
-    // else {Serial.println("[Ri] skipping " + String(Ri));}
+    // clean up
+    else {relayData.relays_bool[0][Ri] = 0;}
   }
 }
 
@@ -3581,6 +3581,7 @@ void RXD0_matrix_interface() {
     Serial.println("[serial0Data.data_3] "         + String(serial0Data.data_3));
     Serial.println("[serial0Data.data_4] "         + String(serial0Data.data_4));
     Serial.println("[serial0Data.data_5] "         + String(serial0Data.data_5));
+    Serial.println("[serial0Data.data_6] "         + String(serial0Data.data_6));
   }
   //                      [           RN          ][          FN            ][      VALUE        ]
   strcpy(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)], serial0Data.data_2);      // set function
@@ -3627,6 +3628,7 @@ void loop() {
 
   // check serial input commands
   readRXD_0();
+  delay(1000);
   // check satellite receiver
   readRXD_1();
 
