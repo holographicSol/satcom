@@ -3453,7 +3453,7 @@ void systems_Check() {
       }
       else {Serial.println("[RELAY " + String(Ri) + "] WARNING: Matrix checks are enabled for an non configured matrix!");}
     }
-    // clean up
+    // handle Ri's that are disbaled
     else {relayData.relays_bool[0][Ri] = 0;}
   }
 }
