@@ -3116,564 +3116,435 @@ void matrixSwitch() {
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GNGGA
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_coord_gngga_in_range) == 0) {tmp_matrix[Fi] = in_ranges_check(satData.location_latitude_gngga_str, satData.location_longitude_gngga_str, Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {tmp_matrix[Fi] = check_over(gnggaData.satellite_count_gngga, Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_under) == 0) {tmp_matrix[Fi] = check_under(gnggaData.satellite_count_gngga, Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal(gnggaData.satellite_count_gngga, Ri, Fi);}
 
-        // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_time, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_time, Ri, Fi);}
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_time, Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_time, Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_time, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_date, Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_date, Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_date, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_date, Ri, Fi);}
 
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_N) == 0) {tmp_matrix[Fi] = hemisphere_gngga_N(Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_E) == 0) {tmp_matrix[Fi] = hemisphere_gngga_E(Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_S) == 0) {tmp_matrix[Fi] = hemisphere_gngga_S(Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_W) == 0) {tmp_matrix[Fi] = hemisphere_gngga_W(Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_NE) == 0) {tmp_matrix[Fi] = hemisphere_gngga_NE(Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_NW) == 0) {tmp_matrix[Fi] = hemisphere_gngga_NW(Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_SE) == 0) {tmp_matrix[Fi] = hemisphere_gngga_SE(Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_SW) == 0) {tmp_matrix[Fi] = hemisphere_gngga_SW(Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_over) == 0) {tmp_matrix[Fi] = check_over(gnggaData.hdop_precision_factor, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_under) == 0) {tmp_matrix[Fi] = check_under(gnggaData.hdop_precision_factor, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal(gnggaData.hdop_precision_factor, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnggaData.hdop_precision_factor, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_over) == 0) {tmp_matrix[Fi] = check_over(gnggaData.altitude, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_under) == 0) {tmp_matrix[Fi] = check_under(gnggaData.altitude, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal(gnggaData.altitude, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnggaData.altitude, Ri, Fi);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GNRMC
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.ground_speed, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.ground_speed, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.ground_speed, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.ground_speed, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.ground_heading, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.ground_heading, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.ground_heading, Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.ground_heading, Ri, Fi);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GPATT
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_over) == 0) {tmp_matrix[Fi] = check_over(gpattData.pitch, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_under) == 0) {tmp_matrix[Fi] = check_under(gpattData.pitch, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal(gpattData.pitch, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gpattData.pitch, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_over) == 0) {tmp_matrix[Fi] = check_over(gpattData.roll, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_under) == 0) {tmp_matrix[Fi] = check_under(gpattData.roll, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal(gpattData.roll, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gpattData.roll, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_over) == 0) {tmp_matrix[Fi] = check_over(gpattData.yaw, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_under) == 0) {tmp_matrix[Fi] = check_under(gpattData.yaw, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal(gpattData.yaw, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gpattData.yaw, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal(gpattData.ins, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.run_state_flag_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal(gpattData.run_state_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.static_flag_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal(gpattData.static_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_over) == 0) {tmp_matrix[Fi] = check_over(gpattData.gst_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_under) == 0) {tmp_matrix[Fi] = check_under(gpattData.gst_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal(gpattData.gst_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gpattData.gst_data, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.line_flag_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal(gpattData.line_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_over) == 0) {tmp_matrix[Fi] = check_over(gpattData.mileage, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_under) == 0) {tmp_matrix[Fi] = check_under(gpattData.mileage, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal(gpattData.mileage, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gpattData.mileage, Ri, Fi);}
+        
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.run_inetial_flag_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal(gpattData.run_inetial_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_num_gpatt_over) == 0) {tmp_matrix[Fi] = check_over(gpattData.speed_num, Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_num_gpatt_under) == 0) {tmp_matrix[Fi] = check_under(gpattData.speed_num, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_num_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal(gpattData.speed_num, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_num_gpatt_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gpattData.speed_num, Ri, Fi);}
 
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: SPEED
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_over) == 0) {tmp_matrix[Fi] = check_over(speedData.ubi_state_value, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_under) == 0) {tmp_matrix[Fi] = check_under(speedData.ubi_state_value, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_equal) == 0) {tmp_matrix[Fi] = check_equal(speedData.ubi_state_value, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_in_range) == 0) {tmp_matrix[Fi] = check_in_range(speedData.ubi_state_value, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_kind_speed_over) == 0) {tmp_matrix[Fi] = check_over(speedData.ubi_state_kind, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_kind_speed_under) == 0) {tmp_matrix[Fi] = check_under(speedData.ubi_state_kind, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_kind_speed_equal) == 0) {tmp_matrix[Fi] = check_equal(speedData.ubi_state_kind, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_kind_speed_in_range) == 0) {tmp_matrix[Fi] = check_in_range(speedData.ubi_state_kind, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_flag_speed_over) == 0) {tmp_matrix[Fi] = check_over(speedData.ubi_state_flag, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_flag_speed_under) == 0) {tmp_matrix[Fi] = check_under(speedData.ubi_state_flag, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_flag_speed_equal) == 0) {tmp_matrix[Fi] = check_equal(speedData.ubi_state_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_flag_speed_in_range) == 0) {tmp_matrix[Fi] = check_in_range(speedData.ubi_state_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_speed_over) == 0) {tmp_matrix[Fi] = check_over(speedData.gyro_Z, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_speed_under) == 0) {tmp_matrix[Fi] = check_under(speedData.gyro_Z, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_speed_equal) == 0) {tmp_matrix[Fi] = check_equal(speedData.gyro_Z, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_speed_in_range) == 0) {tmp_matrix[Fi] = check_in_range(speedData.gyro_Z, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Y_speed_over) == 0) {tmp_matrix[Fi] = check_over(speedData.gyro_Y, Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Y_speed_under) == 0) {tmp_matrix[Fi] = check_under(speedData.gyro_Y, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Y_speed_equal) == 0) {tmp_matrix[Fi] = check_equal(speedData.gyro_Y, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Y_speed_in_range) == 0) {tmp_matrix[Fi] = check_in_range(speedData.gyro_Y, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_X_speed_over) == 0) {tmp_matrix[Fi] = check_over(speedData.gyro_X, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_X_speed_under) == 0) {tmp_matrix[Fi] = check_under(speedData.gyro_X, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_X_speed_equal) == 0) {tmp_matrix[Fi] = check_equal(speedData.gyro_X, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_X_speed_in_range) == 0) {tmp_matrix[Fi] = check_in_range(speedData.gyro_X, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Z_speed_over) == 0) {tmp_matrix[Fi] = check_over(speedData.acc_Z, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Z_speed_under) == 0) {tmp_matrix[Fi] = check_under(speedData.acc_Z, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Z_speed_equal) == 0) {tmp_matrix[Fi] = check_equal(speedData.acc_Z, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Z_speed_in_range) == 0) {tmp_matrix[Fi] = check_in_range(speedData.acc_Z, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_speed_over) == 0) {tmp_matrix[Fi] = check_over(speedData.acc_Y, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_speed_under) == 0) {tmp_matrix[Fi] = check_under(speedData.acc_Y, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_speed_equal) == 0) {tmp_matrix[Fi] = check_equal(speedData.acc_Y, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_speed_in_range) == 0) {tmp_matrix[Fi] = check_in_range(speedData.acc_Y, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_speed_over) == 0) {tmp_matrix[Fi] = check_over(speedData.acc_X, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_speed_under) == 0) {tmp_matrix[Fi] = check_under(speedData.acc_X, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_speed_equal) == 0) {tmp_matrix[Fi] = check_equal(speedData.acc_X, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_speed_in_range) == 0) {tmp_matrix[Fi] = check_in_range(speedData.acc_X, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.status_speed_over) == 0) {tmp_matrix[Fi] = check_over(speedData.status, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.status_speed_under) == 0) {tmp_matrix[Fi] = check_under(speedData.status, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.status_speed_equal) == 0) {tmp_matrix[Fi] = check_equal(speedData.status, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.status_speed_in_range) == 0) {tmp_matrix[Fi] = check_in_range(speedData.status, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_speed_over) == 0) {tmp_matrix[Fi] = check_over(speedData.speed, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_speed_under) == 0) {tmp_matrix[Fi] = check_under(speedData.speed, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_speed_equal) == 0) {tmp_matrix[Fi] = check_equal(speedData.speed, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_speed_in_range) == 0) {tmp_matrix[Fi] = check_in_range(speedData.speed, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_speed_over) == 0) {tmp_matrix[Fi] = check_over(speedData.utc_time, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_speed_under) == 0) {tmp_matrix[Fi] = check_under(speedData.utc_time, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_speed_equal) == 0) {tmp_matrix[Fi] = check_equal(speedData.utc_time, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_speed_in_range) == 0) {tmp_matrix[Fi] = check_in_range(speedData.utc_time, Ri, Fi);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: ERROR
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gset_flag_error_equal) == 0) {tmp_matrix[Fi] = check_over(errorData.gset_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.sset_flag_error_equal) == 0) {tmp_matrix[Fi] = check_under(errorData.sset_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.code_flag_error_over) == 0) {tmp_matrix[Fi] = check_over(errorData.code_flag, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.code_flag_error_under) == 0) {tmp_matrix[Fi] = check_under(errorData.code_flag, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.code_flag_error_equal) == 0) {tmp_matrix[Fi] = check_equal(errorData.code_flag, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.code_flag_error_in_range) == 0) {tmp_matrix[Fi] = check_in_range(errorData.code_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_error_over) == 0) {tmp_matrix[Fi] = check_over(errorData.utc, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_error_under) == 0) {tmp_matrix[Fi] = check_under(errorData.utc, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_error_equal) == 0) {tmp_matrix[Fi] = check_equal(errorData.utc, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_error_in_range) == 0) {tmp_matrix[Fi] = check_in_range(errorData.utc, Ri, Fi);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: DEBUG
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_heading_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.coll_T_heading, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_heading_debug_under) == 0) {tmp_matrix[Fi] = check_under(debugData.coll_T_heading, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_heading_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.coll_T_heading, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_heading_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.coll_T_heading, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_data_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.coll_T_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_data_debug_under) == 0) {tmp_matrix[Fi] = check_under(debugData.coll_T_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_data_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.coll_T_data, Ri, Fi);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_data_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.coll_T_data, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_valid_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.ubi_valid, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_flag_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.ins_flag, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_flag_debug_under) == 0) {tmp_matrix[Fi] = check_under(debugData.ins_flag, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.ins_flag, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_flag_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.ins_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.car_speed_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.car_speed, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.car_speed_debug_under) == 0) {tmp_matrix[Fi] = check_under(debugData.car_speed, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.car_speed_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.car_speed, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.car_speed_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.car_speed, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_angle_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.yaw_angle, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_angle_debug_under) == 0) {tmp_matrix[Fi] = check_under(debugData.yaw_angle, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_angle_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.yaw_angle, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_angle_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.yaw_angle, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_angle_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.roll_angle, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_angle_debug_under) == 0) {tmp_matrix[Fi] = check_under(debugData.roll_angle, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_angle_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.roll_angle, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_angle_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.roll_angle, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_angle_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.pitch_angle, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_angle_debug_under) == 0) {tmp_matrix[Fi] = check_under(debugData.pitch_angle, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_angle_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.pitch_angle, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_angle_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.pitch_angle, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ang_dget_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.ang_dget_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_run_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.ins_run_flag, Ri, Fi);}
 
-         // put true or false in the temporary matrix
+         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_roll_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.fix_roll_flag, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_pitch_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.fix_pitch_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_kind_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.ubi_kind_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_on_flag_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.ubi_on_flag, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_on_flag_debug_under) == 0) {tmp_matrix[Fi] = check_under(debugData.ubi_on_flag, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_on_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.ubi_on_flag, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_on_flag_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.ubi_on_flag, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_a_set_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.ubi_a_set, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_a_set_debug_under) == 0) {tmp_matrix[Fi] = check_under(debugData.ubi_a_set, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_a_set_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.ubi_a_set, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_a_set_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.ubi_a_set, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_b_set_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.ubi_b_set, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_b_set_debug_under) == 0) {tmp_matrix[Fi] = check_under(debugData.ubi_b_set, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_b_set_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.ubi_b_set, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_b_set_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.ubi_b_set, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_data_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.acc_X_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_data_debug_under) == 0) {tmp_matrix[Fi] = check_under(debugData.acc_X_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_data_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.acc_X_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_data_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.acc_X_data, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_data_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.acc_Y_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_data_debug_under) == 0) {tmp_matrix[Fi] = check_under(debugData.acc_Y_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_data_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.acc_Y_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_data_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.acc_Y_data, Ri, Fi);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.gyro_Z_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_under) == 0) {tmp_matrix[Fi] = check_under(debugData.gyro_Z_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_equal) == 0) {tmp_matrix[Fi] = check_equal(debugData.gyro_Z_data, Ri, Fi);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_in_range) == 0) {tmp_matrix[Fi] = check_in_range(debugData.gyro_Z_data, Ri, Fi);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
@@ -3690,76 +3561,64 @@ void matrixSwitch() {
 
         */
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(gnggaData.valid_checksum);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(gnggaData.valid_checksum);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(gnrmcData.valid_checksum);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(gnrmcData.valid_checksum);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(gpattData.valid_checksum);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(gpattData.valid_checksum);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(speedData.valid_checksum);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(speedData.valid_checksum);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.error_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(errorData.valid_checksum);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.error_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(errorData.valid_checksum);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(debugData.valid_checksum);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(debugData.valid_checksum);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(gnggaData.check_data, 16);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(gnggaData.check_data, 16);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(gnrmcData.check_data, 14);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(gnrmcData.check_data, 14);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(gpattData.check_data, 41);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(gpattData.check_data, 41);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(speedData.check_data, 17);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(speedData.check_data, 17);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.error_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(errorData.check_data, 8);}
-
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.error_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(errorData.check_data, 8);}
 
-        // put true or false in the temporary matrix
+        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(debugData.check_data, 29);}
 
-        // put true or false in the temporary matrix
         else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(debugData.check_data, 29);}
 
       }
