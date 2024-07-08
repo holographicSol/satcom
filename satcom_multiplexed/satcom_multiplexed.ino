@@ -2664,8 +2664,11 @@ bool sdcard_load_matrix(char * file) {
   memset(sdcardData.data_6, 0, 56);
   sdcardData.current_file = sd.open(file);
   sdcardData.current_file.rewind();
+  int max = 0;
   if (sdcardData.current_file) {
     while (sdcardData.current_file.available()) {
+      if (max == 40) {break;}
+      max++;
       sdcardData.SBUFFER = "";
       memset(sdcardData.BUFFER, 0, 2048);
       sdcardData.SBUFFER = sdcardData.current_file.readStringUntil('\n');
@@ -2841,7 +2844,7 @@ void setup() {
 
   init_sdcard();
 
-  // sdcard_load_matrix("matrix.txt");
+  sdcard_load_matrix("matrix.txt");
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                              SETUP DISPLAY
