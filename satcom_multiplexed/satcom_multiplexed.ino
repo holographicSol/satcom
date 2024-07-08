@@ -2988,6 +2988,11 @@ void setup() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                    MATRIX CHECKS: PRIMITIVES
 
+/*
+matrix switch requires all checks to return true for a relay to be active, therefore checks can be inverted as required, to return
+true for inverse logic. 
+*/
+
 // calculate if n0 in (+- range/2) of n1
 bool in_range_check(double n0, double n1, double r) {
   if (n0  >=  n1 - r/2) {if (n0  <= n1 + r/2) {return true;}}
