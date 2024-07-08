@@ -77,11 +77,53 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 #include <SSD1306Wire.h>   // SSD1306Wire                                https://gitlab.com/alexpr0/ssd1306wire
 #include <OLEDDisplayUi.h> // ESP8266 and ESP32 OLED driver for SSD1306  https://github.com/ThingPulse/esp8266-oled-ssd1306
 #include <Timezone.h>      // Timezone                                   https://github.com/JChristensen/Timezone
+#include <SdFat.h>
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                      DEFINES
 
 #define TCAADDR 0x70
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                       SDCARD
+#define SPI_DRIVER_SELECT == 2  // Must be set in SdFat/SdFatConfig.h
+
+// SD_FAT_TYPE = 0 for SdFat/File as defined in SdFatConfig.h,
+// 1 for FAT16/FAT32, 2 for exFAT, 3 for FAT16/FAT32 and exFAT.
+#define SD_FAT_TYPE 0
+//
+// Chip select may be constant or RAM variable.
+const uint8_t SD_CS_PIN = 5;
+//
+// Pin numbers in templates must be constants.
+const uint8_t SOFT_MISO_PIN = 19;
+const uint8_t SOFT_MOSI_PIN = 23;
+const uint8_t SOFT_SCK_PIN = 18;
+
+// SdFat software SPI template
+SoftSpiDriver<SOFT_MISO_PIN, SOFT_MOSI_PIN, SOFT_SCK_PIN> softSpi;
+// Speed argument is ignored for software SPI.
+#if ENABLE_DEDICATED_SPI
+#define SD_CONFIG SdSpiConfig(5, DEDICATED_SPI, SD_SCK_MHZ(0), &softSpi)
+#else  // ENABLE_DEDICATED_SPI
+#define SD_CONFIG SdSpiConfig(5, SHARED_SPI, SD_SCK_MHZ(0), &softSpi)
+#endif  // ENABLE_DEDICATED_SPI
+
+#if SD_FAT_TYPE == 0
+SdFat sd;
+File file;
+#elif SD_FAT_TYPE == 1
+SdFat32 sd;
+File32 file;
+#elif SD_FAT_TYPE == 2
+SdExFat sd;
+ExFile file;
+#elif SD_FAT_TYPE == 3
+SdFs sd;
+FsFile file;
+#else  // SD_FAT_TYPE
+#error Invalid SD_FAT_TYPE
+#endif  // SD_FAT_TYPE
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       WIRING
@@ -138,6 +180,34 @@ struct Serial1Struct {
   unsigned long badrcv_i;
 };
 Serial1Struct serial1Data;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                  SDCARD DATA
+
+struct SDCardStruct {
+  unsigned long nbytes;
+  unsigned long iter_token;
+  char BUFFER[2048];
+  String SBUFFER;
+  char * token = strtok(BUFFER, ",");
+  bool rcv = false;
+  unsigned long badrcv_i;
+  char data_0[56];
+  char data_1[56];
+  char data_2[56];
+  char data_3[56];
+  char data_4[56];
+  char data_5[56];
+  char data_6[56];
+  int check_data_R;
+  char file_data[256];
+  char delim[2] = ",";
+  char tmp[256];
+  char tag_0[56] = "r";
+  char tag_1[56] = "e";
+  File current_file;
+};
+SDCardStruct sdcardData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                      MULTIPLEXER PORT SELECT
@@ -2549,6 +2619,211 @@ void SSD_Display_3() {
   display_3.display();
 }
 
+bool init_sdcard() {
+  Serial.println("[sdcard] attempting to initialize");
+  if (!sd.begin(SD_CONFIG)) {
+    Serial.println("[sdcard] failed to initialize");
+    return false;
+  }
+  else {Serial.println("[sdcard] initialized successfully"); return true;}
+}
+
+bool sdcard_file_exists(char * file) {
+  sdcardData.current_file = sd.open(file);
+  if (!sdcardData.current_file) {
+    Serial.println("[sdcard] file does not exist: matrix.txt");
+    Serial.println("[sdcard] attempting to create file: matrix.txt");
+    sdcardData.current_file = sd.open("matrix.txt", FILE_WRITE);
+    // check if matrix file exists
+    if (sdcardData.current_file) {Serial.println("[sdcard] successfully created file: matrix.txt"); sdcardData.current_file.close(); return true;}
+    else {sdcardData.current_file.close(); return false;}
+  }
+  else {Serial.println("[sdcard] found existing file: matrix.txt"); sdcardData.current_file.close(); return true;}
+}
+
+bool sdcard_read_to_serial(char * file) {
+  sdcardData.current_file = sd.open(file);
+  sdcardData.current_file.rewind();
+  if (sdcardData.current_file) {
+    while (sdcardData.current_file.available()) {
+      Serial.write(sdcardData.current_file.read());
+    }
+    sdcardData.current_file.close();
+    return true;
+  }
+  else {sdcardData.current_file.close(); return false;}
+}
+
+bool sdcard_read_into_matrix(char * file) {
+  memset(sdcardData.data_0, 0, 56);
+  memset(sdcardData.data_1, 0, 56);
+  memset(sdcardData.data_2, 0, 56);
+  memset(sdcardData.data_3, 0, 56);
+  memset(sdcardData.data_4, 0, 56);
+  memset(sdcardData.data_5, 0, 56);
+  memset(sdcardData.data_6, 0, 56);
+
+  sdcardData.current_file = sd.open(file);
+  sdcardData.current_file.rewind();
+  if (sdcardData.current_file) {
+    
+    while (sdcardData.current_file.available()) {
+
+      sdcardData.SBUFFER = "";
+      memset(sdcardData.BUFFER, 0, 2048);
+      sdcardData.SBUFFER = sdcardData.current_file.readStringUntil('\n');
+      sdcardData.SBUFFER.toCharArray(sdcardData.BUFFER, sdcardData.SBUFFER.length()+1);
+      Serial.println("[sdcard] [reading] " + String(sdcardData.BUFFER));
+
+      sdcardData.iter_token = 0;
+      sdcardData.token = strtok(sdcardData.BUFFER, ",");
+
+      if (strncmp(sdcardData.token, "r", 1) == 0) {
+        
+        sdcardData.token = strtok(NULL, ",");
+        // Serial.println("[R0] " +String(sdcardData.token));
+        memset(sdcardData.data_0, 0, 56);
+        strcpy(sdcardData.data_0, sdcardData.token);
+        Serial.println("[R0-->] " +String(sdcardData.data_0));
+
+
+        sdcardData.token = strtok(NULL, ",");
+        // Serial.println("[R1] " +String(sdcardData.token));
+        memset(sdcardData.data_1, 0, 56);
+        strcpy(sdcardData.data_1, sdcardData.token);
+        Serial.println("[R1-->] " +String(sdcardData.data_1));
+
+        sdcardData.token = strtok(NULL, ",");
+        // Serial.println("[R2] " +String(sdcardData.token));
+        memset(sdcardData.data_2, 0, 56);
+        strcpy(sdcardData.data_2, sdcardData.token);
+        // Serial.println("[R2-->] " +String(sdcardData.data_2));
+        memset(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], 0, 56);
+        strcpy(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], sdcardData.data_2);
+        Serial.println("[R2---->] " +String(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)]));
+
+        sdcardData.token = strtok(NULL, ",");
+        // Serial.println("[R3] " +String(sdcardData.token));
+        memset(sdcardData.data_3, 0, 56);
+        strcpy(sdcardData.data_3, sdcardData.token);
+        // Serial.println("[R3-->] " +String(sdcardData.data_3));
+        relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0] = atol(sdcardData.data_3);
+        Serial.println("[R3---->] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0]));
+
+        sdcardData.token = strtok(NULL, ",");
+        // Serial.println("[R4] " +String(sdcardData.token));
+        memset(sdcardData.data_4, 0, 56);
+        strcpy(sdcardData.data_4, sdcardData.token);
+        // Serial.println("[R4-->] " +String(sdcardData.data_4));
+        relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1] = atol(sdcardData.data_4);
+        Serial.println("[R4---->] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1]));
+
+        sdcardData.token = strtok(NULL, ",");
+        // Serial.println("[R5] " +String(sdcardData.token));
+        memset(sdcardData.data_5, 0, 56);
+        strcpy(sdcardData.data_5, sdcardData.token);
+        // Serial.println("[R5-->] " +String(sdcardData.data_5));
+        relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2] = atol(sdcardData.data_5);
+        Serial.println("[R5---->] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2]));
+      }
+
+      else if (strncmp(sdcardData.token, "e", 1) == 0) {
+        // Serial.println("[E0] " +String(sdcardData.token));
+        sdcardData.token = strtok(NULL, ",");
+        // Serial.println("[E1] " +String(sdcardData.token));
+        sdcardData.token = strtok(NULL, ",");
+        // Serial.println("[E2] " +String(sdcardData.token));
+        memset(sdcardData.data_6, 0, 56);
+        strcpy(sdcardData.data_6, sdcardData.token);
+        // Serial.println("[E2-->] " +String(sdcardData.data_6));
+        relayData.relays_data[atoi(sdcardData.data_0)][10][0] = (int)atoi(sdcardData.data_6);
+        Serial.println("[E2---->] " + String(relayData.relays_data[atoi(sdcardData.data_0)][10][0]));
+
+        memset(sdcardData.data_0, 0, 56);
+        memset(sdcardData.data_1, 0, 56);
+        memset(sdcardData.data_2, 0, 56);
+        memset(sdcardData.data_3, 0, 56);
+        memset(sdcardData.data_4, 0, 56);
+        memset(sdcardData.data_5, 0, 56);
+        memset(sdcardData.data_6, 0, 56);
+      }
+    }
+    return true;
+  }
+  else {return false;}
+}
+
+bool sdcard_write_matrix(char * file) {
+  // sdcardData
+  sdcardData.current_file = sd.open(file, FILE_WRITE);
+  sdcardData.current_file.rewind();
+  if (sdcardData.current_file) {
+    for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
+      for (int Fi = 0; Fi < relayData.MAX_RELAY_ELEMENTS; Fi++) {
+
+        memset(sdcardData.file_data, 0 , 256);
+
+        // tag 0
+        strcat(sdcardData.file_data, sdcardData.tag_0); strcat(sdcardData.file_data, sdcardData.delim);
+
+        // Ri
+        memset(sdcardData.tmp, 0 , 256);
+        sprintf(sdcardData.tmp, "%d", Ri);
+        strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
+
+        // Fi
+        memset(sdcardData.tmp, 0 , 256);
+        sprintf(sdcardData.tmp, "%d", Fi);
+        strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
+        
+        // function name
+        strcat(sdcardData.file_data, relayData.relays[Ri][Fi]); strcat(sdcardData.file_data, sdcardData.delim);
+
+        // function value x
+        memset(sdcardData.tmp, 0 , 256);
+        sprintf(sdcardData.tmp, "%f", relayData.relays_data[Ri][Fi][0]);
+        strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
+
+        // function value y
+        memset(sdcardData.tmp, 0 , 256);
+        sprintf(sdcardData.tmp, "%f", relayData.relays_data[Ri][Fi][1]);
+        strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
+
+        // function value z
+        memset(sdcardData.tmp, 0 , 256);
+        sprintf(sdcardData.tmp, "%f", relayData.relays_data[Ri][Fi][2]);
+        strcat(sdcardData.file_data, sdcardData.tmp);
+
+        // write line
+        Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+        sdcardData.current_file.println(sdcardData.file_data);
+      }
+      memset(sdcardData.file_data, 0 , 256);
+
+      // tag 1
+      strcat(sdcardData.file_data, sdcardData.tag_1); strcat(sdcardData.file_data, sdcardData.delim);
+
+      // Ri
+      memset(sdcardData.tmp, 0 , 256);
+      sprintf(sdcardData.tmp, "%d", Ri);
+      strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
+
+      // Ri enabled 0/1
+      memset(sdcardData.tmp, 0 , 256);
+      itoa(relayData.relays_data[Ri][10][0], sdcardData.tmp, 10);
+      // sprintf(sdcardData.tmp, "%f", relayData.relays_data[Ri][10][0]);
+      strcat(sdcardData.file_data, sdcardData.tmp);
+
+      // write line
+      Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+      sdcardData.current_file.println(sdcardData.file_data);
+    }
+    sdcardData.current_file.close();
+    return true;
+  }
+  else {sdcardData.current_file.close(); return false;}
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        SETUP
 
@@ -2564,6 +2839,15 @@ void setup() {
   //                                                                                                                 SETUP WIRE
 
   Wire.begin();
+
+  // --------------------------------------------------------------------------------------------------------------------------
+  //                                                                                                               SETUP SDCARD
+
+  init_sdcard();
+
+  sdcard_file_exists("matrix.txt");
+
+
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                              SETUP DISPLAY
@@ -2601,7 +2885,7 @@ bool in_ranges_check(char * Fn0, char * Fn1, int Ri, int Fi) {
 }
 
 bool check_over(char * Fn, int Ri, int Fi) {
-  Serial.print("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]));
+  Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]));
   if (atol(Fn) > relayData.relays_data[Ri][Fi][0]) {return true;}
   else {return false;}
 }
@@ -2746,7 +3030,7 @@ void matrixSwitch() {
   // iterate over each relay matrix
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
 
-    if (relayData.relays_data[Ri][relayData.MAX_RELAY_ELEMENTS][0] == 1) {
+    if (relayData.relays_data[Ri][10][0] == 1) {
 
       // temporary switch must be zero each time
       bool tmp_matrix[relayData.MAX_RELAY_ELEMENTS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -3624,7 +3908,6 @@ for turning everything on becasue everything is set and or for living on the edg
 
 void rxd_0_matrix_interface_soft_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
 
-
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 0
 
@@ -3657,6 +3940,27 @@ void readRXD_0() {
 
     else if (strcmp(serial0Data.BUFFER, "$MATRIX_SET_ALL_SWITCHES_ENABLED") == 0) {
       rxd_0_matrix_interface_soft_enable_all();
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                     MATRIX INTERFACE: READ SDCARD MATRIX
+
+    else if (strcmp(serial0Data.BUFFER, "$SDCARD_READ_MATRIX") == 0) {
+      sdcard_read_to_serial("matrix.txt");
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                     MATRIX INTERFACE: WRITE SDCARD MATRIX
+
+    else if (strcmp(serial0Data.BUFFER, "$SDCARD_WRITE_MATRIX") == 0) {
+      sdcard_write_matrix("matrix.txt");
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                MATRIX INTERFACE: READ SDCARD INTO MATRIX
+
+    else if (strcmp(serial0Data.BUFFER, "$SDCARD_SET_MATRIX") == 0) {
+      sdcard_read_into_matrix("matrix.txt");
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
