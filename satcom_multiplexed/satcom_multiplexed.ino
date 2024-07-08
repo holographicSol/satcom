@@ -2743,9 +2743,10 @@ bool sdcard_load_matrix(char * file) {
         memset(sdcardData.data_6, 0, 56);
       }
     }
+    sdcardData.current_file.close();
     return true;
   }
-  else {return false;}
+  else {sdcardData.current_file.close(); return false;}
 }
 
 bool sdcard_write_matrix(char * file) {
@@ -2840,10 +2841,7 @@ void setup() {
 
   init_sdcard();
 
-  // load default matrix on startup 
-  if (sdcard_file_exists("matrix.txt") == true) {sdcard_load_matrix("matrix.txt");}
-
-
+  // sdcard_load_matrix("matrix.txt");
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                              SETUP DISPLAY
