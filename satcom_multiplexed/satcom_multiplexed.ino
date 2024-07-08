@@ -1362,9 +1362,6 @@ struct RelayStruct {
     },
   };
 
-  /*
-  */
-
   // default and specifiable value to indicate a relay should not be activated/deactivated if all functions in relays expression are $NONE
   char default_relay_function[56]          = "$NONE";
   char default_enable_relay_function[56]   = "$ENABLED";
@@ -1417,25 +1414,48 @@ struct RelayStruct {
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                   GNRMC DATA
 
-  char heading_gnrmc_over[56]              = "heading_gnrmc_over";
-  char heading_gnrmc_under[56]             = "heading_gnrmc_under";
-  char heading_gnrmc_equal[56]             = "heading_gnrmc_equal";
-  char heading_gnrmc_in_range[56]          = "heading_gnrmc_in_range";
+  char utc_time_gnrmc_over[56]       = "utc_time_gnrmc_over";
+  char utc_time_gnrmc_under[56]      = "utc_time_gnrmc_under";
+  char utc_time_gnrmc_equal[56]      = "utc_time_gnrmc_equal";
+  char utc_time_gnrmc_in_range[56]   = "utc_time_gnrmc_in_range";
 
-  char satellite_time_gnrmc_over[56]       = "satellite_time_gnrmc_over";
-  char satellite_time_gnrmc_under[56]      = "satellite_time_gnrmc_under";
-  char satellite_time_gnrmc_equal[56]      = "satellite_time_gnrmc_equal";
-  char satellite_time_gnrmc_in_range[56]   = "satellite_time_gnrmc_in_range";
+  char positioning_status_gnrmc_equal[56]  = "positioning_status_gnrmc_equal"; // req special handling
+  char mode_indication_gnrmc_equal[56]     = "mode_indication_gnrmc_equal"; // req special handling
 
-  char satellite_date_gnrmc_over[56]       = "satellite_date_gnrmc_over";
-  char satellite_date_gnrmc_under[56]      = "satellite_date_gnrmc_under";
-  char satellite_date_gnrmc_equal[56]      = "satellite_date_gnrmc_equal";
-  char satellite_date_gnrmc_in_range[56]   = "satellite_date_gnrmc_in_range";
+  char latitude_gnrmc_over[56]             = "latitude_gnrmc_over";
+  char latitude_gnrmc_under[56]            = "latitude_gnrmc_under";
+  char latitude_gnrmc_equal[56]            = "latitude_gnrmc_equal";
+  char latitude_gnrmc_in_range[56]         = "latitude_gnrmc_in_range";
+
+  char longitude_gnrmc_over[56]            = "longitude_gnrmc_over";
+  char longitude_gnrmc_under[56]           = "longitude_gnrmc_under";
+  char longitude_gnrmc_equal[56]           = "longitude_gnrmc_equal";
+  char longitude_gnrmc_in_range[56]        = "longitude_gnrmc_in_range";
+
+  char hemisphere_gnrmc_N[56]              = "hemisphere_gnrmc_N";
+  char hemisphere_gnrmc_E[56]              = "hemisphere_gnrmc_E";
+  char hemisphere_gnrmc_S[56]              = "hemisphere_gnrmc_S";
+  char hemisphere_gnrmc_W[56]              = "hemisphere_gnrmc_W";
+
+  char hemisphere_gnrmc_NE[56]             = "hemisphere_gnrmc_NE";
+  char hemisphere_gnrmc_SE[56]             = "hemisphere_gnrmc_SE";
+  char hemisphere_gnrmc_NW[56]             = "hemisphere_gnrmc_NW";
+  char hemisphere_gnrmc_SW[56]             = "hemisphere_gnrmc_SW";
 
   char ground_speed_gnrmc_over[56]         = "ground_speed_gnrmc_over";
   char ground_speed_gnrmc_under[56]        = "ground_speed_gnrmc_under";
   char ground_speed_gnrmc_equal[56]        = "ground_speed_gnrmc_equal";
   char ground_speed_gnrmc_in_range[56]     = "ground_speed_gnrmc_in_range";
+
+  char heading_gnrmc_over[56]              = "heading_gnrmc_over";
+  char heading_gnrmc_under[56]             = "heading_gnrmc_under";
+  char heading_gnrmc_equal[56]             = "heading_gnrmc_equal";
+  char heading_gnrmc_in_range[56]          = "heading_gnrmc_in_range";
+
+  char utc_date_gnrmc_over[56]       = "utc_date_gnrmc_over";
+  char utc_date_gnrmc_under[56]      = "utc_date_gnrmc_under";
+  char utc_date_gnrmc_equal[56]      = "utc_date_gnrmc_equal";
+  char utc_date_gnrmc_in_range[56]   = "utc_date_gnrmc_in_range";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                   GPATT DATA
@@ -2991,51 +3011,51 @@ bool check_in_range(char * Fn, int Ri, int Fi) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          CHECKS: HEMISPHERES
 
-bool hemisphere_gngga_N(int Ri, int Fi) {
-  // Serial.println("[CHECKING] hemisphere_gngga_N");
-  if (strcmp(gnggaData.latitude_hemisphere, "N") == 0 ) {return true;}
+bool hemisphere_N(char * H, int Ri, int Fi) {
+  // Serial.println("[CHECKING] hemisphere_N");
+  if (strcmp(H, "N") == 0 ) {return true;}
   else {return false;}
 }
 
-bool hemisphere_gngga_E(int Ri, int Fi) {
-  // Serial.println("[CHECKING] hemisphere_gngga_E");
-  if (strcmp(gnggaData.longitude_hemisphere, "E") == 0 ) {return true;}
+bool hemisphere_E(char * H, int Ri, int Fi) {
+  // Serial.println("[CHECKING] hemisphere_E");
+  if (strcmp(H, "E") == 0 ) {return true;}
   else {return false;}
 }
 
-bool hemisphere_gngga_S(int Ri, int Fi) {
-  // Serial.println("[CHECKING] hemisphere_gngga_S");
-  if (strcmp(gnggaData.latitude_hemisphere, "S") == 0 ) {return true;}
+bool hemisphere_S(char * H, int Ri, int Fi) {
+  // Serial.println("[CHECKING] hemisphere_S");
+  if (strcmp(H, "S") == 0 ) {return true;}
   else {return false;}
 }
 
-bool hemisphere_gngga_W(int Ri, int Fi) {
-  // Serial.println("[CHECKING] hemisphere_gngga_W");
-  if (strcmp(gnggaData.longitude_hemisphere, "W") == 0 ) {return true;}
+bool hemisphere_W(char * H, int Ri, int Fi) {
+  // Serial.println("[CHECKING] hemisphere_W");
+  if (strcmp(H, "W") == 0 ) {return true;}
   else {return false;}
 }
 
-bool hemisphere_gngga_NE(int Ri, int Fi) {
-  // Serial.println("[CHECKING] hemisphere_gngga_NE");
-  if ((strcmp(gnggaData.latitude_hemisphere, "N") == 0 ) && (strcmp(gnggaData.longitude_hemisphere, "E") == 0)) {return true;}
+bool hemisphere_NE(char * H0, char * H1, int Ri, int Fi) {
+  // Serial.println("[CHECKING] hemisphere_NE");
+  if ((strcmp(H0, "N") == 0 ) && (strcmp(H1, "E") == 0)) {return true;}
   else {return false;}
 }
 
-bool hemisphere_gngga_SE(int Ri, int Fi) {
-  // Serial.println("[CHECKING] hemisphere_gngga_SE");
-  if ((strcmp(gnggaData.latitude_hemisphere, "S") == 0 ) && (strcmp(gnggaData.longitude_hemisphere, "E") == 0)) {return true;}
+bool hemisphere_SE(char * H0, char * H1, int Ri, int Fi) {
+  // Serial.println("[CHECKING] hemisphere_SE");
+  if ((strcmp(H0, "S") == 0 ) && (strcmp(H1, "E") == 0)) {return true;}
   else {return false;}
 }
 
-bool hemisphere_gngga_NW(int Ri, int Fi) {
-  // Serial.println("[CHECKING] hemisphere_gngga_NW");
-  if ((strcmp(gnggaData.latitude_hemisphere, "N") == 0 ) && (strcmp(gnggaData.longitude_hemisphere, "W") == 0)) {return true;}
+bool hemisphere_NW(char * H0, char * H1, int Ri, int Fi) {
+  // Serial.println("[CHECKING] hemisphere_NW");
+  if ((strcmp(H0, "N") == 0 ) && (strcmp(H1, "W") == 0)) {return true;}
   else {return false;}
 }
 
-bool hemisphere_gngga_SW(int Ri, int Fi) {
-  // Serial.println("[CHECKING] hemisphere_gngga_SW");
-  if ((strcmp(gnggaData.latitude_hemisphere, "S") == 0 ) && (strcmp(gnggaData.longitude_hemisphere, "W") == 0)) {return true;}
+bool hemisphere_SW(char * H0, char * H1, int Ri, int Fi) {
+  // Serial.println("[CHECKING] hemisphere_SW");
+  if ((strcmp(H0, "S") == 0 ) && (strcmp(H1, "W") == 0)) {return true;}
   else {return false;}
 }
 
@@ -3150,15 +3170,15 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal(gnggaData.satellite_count_gngga, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnggaData.satellite_count_gngga, Ri, Fi);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_N) == 0) {tmp_matrix[Fi] = hemisphere_gngga_N(Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_E) == 0) {tmp_matrix[Fi] = hemisphere_gngga_E(Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_S) == 0) {tmp_matrix[Fi] = hemisphere_gngga_S(Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_W) == 0) {tmp_matrix[Fi] = hemisphere_gngga_W(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_N) == 0) {tmp_matrix[Fi] = hemisphere_N(gnggaData.latitude_hemisphere, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_E) == 0) {tmp_matrix[Fi] = hemisphere_E(gnggaData.longitude_hemisphere, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_S) == 0) {tmp_matrix[Fi] = hemisphere_S(gnggaData.latitude_hemisphere, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_W) == 0) {tmp_matrix[Fi] = hemisphere_W(gnggaData.longitude_hemisphere, Ri, Fi);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_NE) == 0) {tmp_matrix[Fi] = hemisphere_gngga_NE(Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_NW) == 0) {tmp_matrix[Fi] = hemisphere_gngga_NW(Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_SE) == 0) {tmp_matrix[Fi] = hemisphere_gngga_SE(Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_SW) == 0) {tmp_matrix[Fi] = hemisphere_gngga_SW(Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_NE) == 0) {tmp_matrix[Fi] = hemisphere_NE(gnggaData.latitude_hemisphere, gnggaData.longitude_hemisphere, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_NW) == 0) {tmp_matrix[Fi] = hemisphere_NW(gnggaData.latitude_hemisphere, gnggaData.longitude_hemisphere, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_SE) == 0) {tmp_matrix[Fi] = hemisphere_SE(gnggaData.latitude_hemisphere, gnggaData.longitude_hemisphere, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_SW) == 0) {tmp_matrix[Fi] = hemisphere_SW(gnggaData.latitude_hemisphere, gnggaData.longitude_hemisphere, Ri, Fi);}
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hdop_precision_factor_gngga_over) == 0) {tmp_matrix[Fi] = check_over(gnggaData.hdop_precision_factor, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hdop_precision_factor_gngga_under) == 0) {tmp_matrix[Fi] = check_under(gnggaData.hdop_precision_factor, Ri, Fi);}
@@ -3173,6 +3193,30 @@ void matrixSwitch() {
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GNRMC
 
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_time, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_time, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_time, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_time, Ri, Fi);}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.latitude, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.latitude, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.latitude, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.latitude, Ri, Fi);}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.longitude, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.longitude, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.longitude, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.longitude, Ri, Fi);}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gnrmc_N) == 0) {tmp_matrix[Fi] = hemisphere_N(gnrmcData.latitude_hemisphere, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gnrmc_E) == 0) {tmp_matrix[Fi] = hemisphere_E(gnrmcData.longitude_hemisphere, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gnrmc_S) == 0) {tmp_matrix[Fi] = hemisphere_S(gnrmcData.latitude_hemisphere, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gnrmc_W) == 0) {tmp_matrix[Fi] = hemisphere_W(gnrmcData.longitude_hemisphere, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gnrmc_NE) == 0) {tmp_matrix[Fi] = hemisphere_NE(gnrmcData.latitude_hemisphere, gnrmcData.longitude_hemisphere, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gnrmc_NW) == 0) {tmp_matrix[Fi] = hemisphere_NW(gnrmcData.latitude_hemisphere, gnrmcData.longitude_hemisphere, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gnrmc_SE) == 0) {tmp_matrix[Fi] = hemisphere_SE(gnrmcData.latitude_hemisphere, gnrmcData.longitude_hemisphere, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gnrmc_SW) == 0) {tmp_matrix[Fi] = hemisphere_SW(gnrmcData.latitude_hemisphere, gnrmcData.longitude_hemisphere, Ri, Fi);}
+
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.ground_speed, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.ground_speed, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.ground_speed, Ri, Fi);}
@@ -3183,15 +3227,10 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.ground_heading, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.ground_heading, Ri, Fi);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_time, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_time, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_time, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_time, Ri, Fi);}
-
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_date, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_date, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_date, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_date, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_date_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_date, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_date_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_date, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_date_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_date, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_date_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_date, Ri, Fi);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GPATT
