@@ -3080,7 +3080,7 @@ void matrixSwitch() {
         // Serial.println("[Fi] " + String(Fi));
         // Serial.println("[relayData.relays[Ri][Fi]] " + String(relayData.relays[Ri][Fi]));
 
-        // for perfromance reasons logic may prefer adding functions from position zero else if position zero not populated then break to next relay_data sub matrix
+        // for perfromance reasons logic may prefer adding functions from position zero else if position zero not populated then break to next inner matrix
         if ((strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) && (Fi == 0)) {break;}
 
         // put true in temporary matrix for functions set to none. there is one check to catch you if you do soft enable with no functions set.
@@ -3798,7 +3798,7 @@ void loop() {
 
   /*
   for performance/efficiency only do the following if data is received OR if there may be an issue receiving, this way the matrix
-  switch can remain operational for data that is not received while also performing better overall.
+  switch can remain operational for data that is not received while also performing better overall. (tunable)
   */  
   if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 10)) {serial1Data.badrcv_i=0; extrapulatedSatData();
     matrixSwitch();
