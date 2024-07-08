@@ -3119,7 +3119,7 @@ void matrixSwitch() {
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_over) == 0) {tmp_matrix[Fi] = check_over(gnggaData.hdop_precision_factor, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_under) == 0) {tmp_matrix[Fi] = check_under(gnggaData.hdop_precision_factor, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal(gnggaData.hdop_precision_factor, Ri, Fi);
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal(gnggaData.hdop_precision_factor, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.precision_factor_gngga_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnggaData.hdop_precision_factor, Ri, Fi);}
         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_over) == 0) {tmp_matrix[Fi] = check_over(gnggaData.altitude, Ri, Fi);}
