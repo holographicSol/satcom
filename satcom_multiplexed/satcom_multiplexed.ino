@@ -2619,6 +2619,9 @@ void SSD_Display_3() {
   display_3.display();
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                            INITIALIZE SDCARD
+
 bool init_sdcard() {
   Serial.println("[sdcard] attempting to initialize");
   if (!sd.begin(SD_CONFIG)) {
@@ -2628,31 +2631,21 @@ bool init_sdcard() {
   else {Serial.println("[sdcard] initialized successfully"); return true;}
 }
 
-bool sdcard_file_exists(char * file) {
-  sdcardData.current_file = sd.open(file);
-  if (!sdcardData.current_file) {
-    Serial.println("[sdcard] file does not exist: matrix.txt");
-    Serial.println("[sdcard] attempting to create file: matrix.txt");
-    sdcardData.current_file = sd.open("matrix.txt", FILE_WRITE);
-    // check if matrix file exists
-    if (sdcardData.current_file) {Serial.println("[sdcard] successfully created file: matrix.txt"); sdcardData.current_file.close(); return true;}
-    else {sdcardData.current_file.close(); return false;}
-  }
-  else {Serial.println("[sdcard] found existing file: matrix.txt"); sdcardData.current_file.close(); return true;}
-}
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                PRINT FILE CONTENTS TO SERIAL
 
 bool sdcard_read_to_serial(char * file) {
   sdcardData.current_file = sd.open(file);
   sdcardData.current_file.rewind();
   if (sdcardData.current_file) {
-    while (sdcardData.current_file.available()) {
-      Serial.write(sdcardData.current_file.read());
-    }
-    sdcardData.current_file.close();
-    return true;
+    while (sdcardData.current_file.available()) {Serial.write(sdcardData.current_file.read());}
+    sdcardData.current_file.close(); return true;
   }
   else {sdcardData.current_file.close(); return false;}
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                 LOAD MATRIX DATA FROM SDCARD 
 
 bool sdcard_load_matrix(char * file) {
 
@@ -2758,6 +2751,9 @@ bool sdcard_load_matrix(char * file) {
   }
   else {sdcardData.current_file.close(); return false;}
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                  WRITE MATRIX DATA TO SDCARD 
 
 bool sdcard_write_matrix(char * file) {
   // sdcardData
