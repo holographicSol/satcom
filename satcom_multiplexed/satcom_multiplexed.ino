@@ -1401,7 +1401,7 @@ struct RelayStruct {
   char mileage_gpatt_under[56]             = "mileage_gpatt_under[";
   char mileage_gpatt_equal[56]             = "mileage_gpatt_equal";
   char mileage_gpatt_in_range[56]          = "mileage_gpatt_in_range";
-satellite_time_gnrmc_over
+
   char gst_data_gpatt_over[56]             = "gst_data_gpatt_over";
   char gst_data_gpatt_under[56]            = "gst_data_gpatt_under[";
   char gst_data_gpatt_equal[56]            = "gst_data_gpatt_equal";
