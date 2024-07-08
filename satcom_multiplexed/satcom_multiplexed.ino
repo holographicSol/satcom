@@ -3011,9 +3011,9 @@ bool iin_ranges_check_true(double x0, double x1, double y0, double y1, double r)
 }
 
 bool in_ranges_check_false(double x0, double x1, double y0, double y1, double r) {
-  if (in_range_check_true(x0, x1, r) == false) {
-    if (in_range_check_true(y0, y1, r) == false) {return true;} else return false;}
-  else {return false;}
+  if (in_range_check_true(x0, x1, r) == true) {
+    if (in_range_check_true(y0, y1, r) == true) {return false;} else return true;}
+  else {return true;}
 }
 
 bool check_over_true(double n0, double n1) {
