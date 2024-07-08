@@ -2921,33 +2921,33 @@ bool in_range_check(double n0, double n1, double r) {
 }
 
 bool in_ranges_check(char * Fn0, char * Fn1, int Ri, int Fi) {
-  Serial.println("[CHECKING] in_ranges_check");
+  // Serial.println("[CHECKING] in_ranges_check");
   if (in_range_check(atol(Fn0), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]) == true) {
     if (in_range_check(atol(Fn1), relayData.relays_data[Ri][Fi][1], relayData.relays_data[Ri][Fi][2]) == true) {return true;}}
   else {return false;}
 }
 
 bool check_over(char * Fn, int Ri, int Fi) {
-  Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]));
+  // Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]));
   if (atol(Fn) > relayData.relays_data[Ri][Fi][0]) {return true;}
   else {return false;}
 }
 
 bool check_under(char * Fn, int Ri, int Fi) {
-  Serial.println("[CHECKING] " + String(Fn) + " < " + String(relayData.relays_data[Ri][Fi][0]));
+  // Serial.println("[CHECKING] " + String(Fn) + " < " + String(relayData.relays_data[Ri][Fi][0]));
   if (atol(Fn) < relayData.relays_data[Ri][Fi][0]) {return true;}
   else {return false;}
 }
 
 bool check_equal(char * Fn, int Ri, int Fi) {
-  Serial.println("[CHECKING] " + String(Fn) + " == " + String(relayData.relays_data[Ri][Fi][0]));
+  // Serial.println("[CHECKING] " + String(Fn) + " == " + String(relayData.relays_data[Ri][Fi][0]));
   if (atol(Fn) == relayData.relays_data[Ri][Fi][0]) {return true;}
   else {return false;}
 }
 
 // check range from specified x to specify y
 bool check_in_range(char * Fn, int Ri, int Fi) {
-  Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]) + " && " + String(Fn) + " < " + String(relayData.relays_data[Ri][Fi][1]));
+  // Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]) + " && " + String(Fn) + " < " + String(relayData.relays_data[Ri][Fi][1]));
   if ((atol(Fn) >= relayData.relays_data[Ri][Fi][0]) && (atol(Fn) <= relayData.relays_data[Ri][Fi][1])) {return true;}
   else {return false;}
 }
@@ -2956,49 +2956,49 @@ bool check_in_range(char * Fn, int Ri, int Fi) {
 //                                                                                                          CHECKS: HEMISPHERES
 
 bool hemisphere_gngga_N(int Ri, int Fi) {
-  Serial.println("[CHECKING] hemisphere_gngga_N");
+  // Serial.println("[CHECKING] hemisphere_gngga_N");
   if (strcmp(gnggaData.latitude_hemisphere, "N") == 0 ) {return true;}
   else {return false;}
 }
 
 bool hemisphere_gngga_E(int Ri, int Fi) {
-  Serial.println("[CHECKING] hemisphere_gngga_E");
+  // Serial.println("[CHECKING] hemisphere_gngga_E");
   if (strcmp(gnggaData.longitude_hemisphere, "E") == 0 ) {return true;}
   else {return false;}
 }
 
 bool hemisphere_gngga_S(int Ri, int Fi) {
-  Serial.println("[CHECKING] hemisphere_gngga_S");
+  // Serial.println("[CHECKING] hemisphere_gngga_S");
   if (strcmp(gnggaData.latitude_hemisphere, "S") == 0 ) {return true;}
   else {return false;}
 }
 
 bool hemisphere_gngga_W(int Ri, int Fi) {
-  Serial.println("[CHECKING] hemisphere_gngga_W");
+  // Serial.println("[CHECKING] hemisphere_gngga_W");
   if (strcmp(gnggaData.longitude_hemisphere, "W") == 0 ) {return true;}
   else {return false;}
 }
 
 bool hemisphere_gngga_NE(int Ri, int Fi) {
-  Serial.println("[CHECKING] hemisphere_gngga_NE");
+  // Serial.println("[CHECKING] hemisphere_gngga_NE");
   if ((strcmp(gnggaData.latitude_hemisphere, "N") == 0 ) && (strcmp(gnggaData.longitude_hemisphere, "E") == 0)) {return true;}
   else {return false;}
 }
 
 bool hemisphere_gngga_SE(int Ri, int Fi) {
-  Serial.println("[CHECKING] hemisphere_gngga_SE");
+  // Serial.println("[CHECKING] hemisphere_gngga_SE");
   if ((strcmp(gnggaData.latitude_hemisphere, "S") == 0 ) && (strcmp(gnggaData.longitude_hemisphere, "E") == 0)) {return true;}
   else {return false;}
 }
 
 bool hemisphere_gngga_NW(int Ri, int Fi) {
-  Serial.println("[CHECKING] hemisphere_gngga_NW");
+  // Serial.println("[CHECKING] hemisphere_gngga_NW");
   if ((strcmp(gnggaData.latitude_hemisphere, "N") == 0 ) && (strcmp(gnggaData.longitude_hemisphere, "W") == 0)) {return true;}
   else {return false;}
 }
 
 bool hemisphere_gngga_SW(int Ri, int Fi) {
-  Serial.println("[CHECKING] hemisphere_gngga_SW");
+  // Serial.println("[CHECKING] hemisphere_gngga_SW");
   if ((strcmp(gnggaData.latitude_hemisphere, "S") == 0 ) && (strcmp(gnggaData.longitude_hemisphere, "W") == 0)) {return true;}
   else {return false;}
 }
@@ -3080,8 +3080,10 @@ void matrixSwitch() {
         // Serial.println("[Fi] " + String(Fi));
         // Serial.println("[relayData.relays[Ri][Fi]] " + String(relayData.relays[Ri][Fi]));
 
+        if ((strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) && (Fi == 0)) {break;}
+
         // put true in temporary matrix for functions set to none. there is one check to catch you if you do soft enable with no functions set.
-        if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[Fi] = 1; count_none_function++;}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) {tmp_matrix[Fi] = 1; count_none_function++;}
 
         // put true in temporary matrix if switch is enabled regardless of data. allows final bool true with no further requirements, even if all set $ENABLED, unlike if all set $NONE
         else if (strcmp(relayData.relays[Ri][Fi], relayData.default_enable_relay_function) == 0) {tmp_matrix[Fi] = 1; count_none_function++;}
@@ -3586,7 +3588,6 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(debugData.check_data, 29);}
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(debugData.check_data, 29);}
-
       }
       
       // Safety Layer: Disengage if all entries are $NONE
@@ -3607,8 +3608,13 @@ void matrixSwitch() {
 
         Activate/Deactivate relay with Ri mapped to pinN: pin number matrix required for relay selcection
         */
-        if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] inactive"); relayData.relays_bool[0][Ri] = 0;}
-        else if (final_bool == true) {Serial.println("[RELAY " + String(Ri) + "] active"); relayData.relays_bool[0][Ri] = 1;}
+
+        // debug (same as line below but with output)
+        // if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] inactive"); relayData.relays_bool[0][Ri] = 0;}
+        // else if (final_bool == true) {Serial.println("[RELAY " + String(Ri) + "] active"); relayData.relays_bool[0][Ri] = 1;}
+
+        if (final_bool == false) {relayData.relays_bool[0][Ri] = 0;}
+        else if (final_bool == true) {relayData.relays_bool[0][Ri] = 1;}
       }
       else {Serial.println("[RELAY " + String(Ri) + "] WARNING: Matrix checks are enabled for an non configured matrix!");}
     }
