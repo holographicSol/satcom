@@ -3056,13 +3056,13 @@ bool check_ge_and_le_false(double n0, double n1, double n2) {
   else {return true;}
 }
 
-bool check_strncmp_true(char * C0, char * C1, int N) {
-  if (strncmp(C0, C1, N) == 0) {return true;}
+bool check_strncmp_true(char * c0, char * c1, int n) {
+  if (strncmp(c0, c1, n) == 0) {return true;}
   else {return false;}
 }
 
-bool check_strncmp_false(char * C0, char * C1, int N) {
-  if (strncmp(C0, C1, N) == 0) {return false;}
+bool check_strncmp_false(char * c0, char * c1, int n) {
+  if (strncmp(c0, c1, n) == 0) {return false;}
   else {return true;}
 }
 
