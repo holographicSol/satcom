@@ -2990,7 +2990,7 @@ void setup() {
 
 /*
 matrix switch requires all checks to return true for a relay to be active, therefore checks can be inverted as required, to return
-true for inverse logic. 
+true when otherwise a check would return false.
 */
 
 // calculate if n0 in (+- range/2) of n1
