@@ -3604,9 +3604,9 @@ void matrixSwitch() {
         Remember Always: why do you think you can trust this data? are you transmitting this data to yourelf (from satellite or not)?
                          how critical are your system(s)?
                          once you plug something into this, the 'satellites' are in control unless you have a way to override.
-        */
 
-        // activate/deactivate relay Ri (Ri=pinN): pin number matrix required for relay selcection via Ri->PIN column access in non-linear form (multiplex relays)
+        Activate/Deactivate relay with Ri mapped to pinN: pin number matrix required for relay selcection
+        */
         if (final_bool == false) {Serial.println("[RELAY " + String(Ri) + "] inactive"); relayData.relays_bool[0][Ri] = 0;}
         else if (final_bool == true) {Serial.println("[RELAY " + String(Ri) + "] active"); relayData.relays_bool[0][Ri] = 1;}
       }
