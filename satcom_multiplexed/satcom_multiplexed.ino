@@ -2705,6 +2705,8 @@ bool sdcard_read_to_serial(char * file) {
 
 bool sdcard_load_matrix(char * file) {
 
+  // todo: further santitize
+
   // ensure cleared
   memset(sdcardData.data_0, 0, 56);
   memset(sdcardData.data_1, 0, 56);
