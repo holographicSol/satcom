@@ -1363,23 +1363,6 @@ struct RelayStruct {
   };
 
   /*
-    Serial.println("[gnggaData.tag] "                     + String(gnggaData.tag));
-    Serial.println("[gnggaData.utc_time] "                + String(gnggaData.utc_time));
-    Serial.println("[gnggaData.latitude] "                + String(gnggaData.latitude));
-    Serial.println("[gnggaData.latitude_hemisphere] "     + String(gnggaData.latitude_hemisphere));
-    Serial.println("[gnggaData.longitude] "               + String(gnggaData.longitude));
-    Serial.println("[gnggaData.longitude_hemisphere] "    + String(gnggaData.longitude_hemisphere));
-    Serial.println("[gnggaData.positioning_status] "      + String(gnggaData.positioning_status));
-    Serial.println("[gnggaData.satellite_count_gngga] "   + String(gnggaData.satellite_count_gngga));
-    Serial.println("[gnggaData.hdop_precision_factor] "   + String(gnggaData.hdop_precision_factor));
-    Serial.println("[gnggaData.altitude] "                + String(gnggaData.altitude));
-    Serial.println("[gnggaData.altitude_units] "          + String(gnggaData.altitude_units));
-    Serial.println("[gnggaData.geoidal] "                 + String(gnggaData.geoidal));
-    Serial.println("[gnggaData.geoidal_units] "           + String(gnggaData.geoidal_units));
-    Serial.println("[gnggaData.differential_delay] "      + String(gnggaData.differential_delay));
-    Serial.println("[gnggaData.id] "                      + String(gnggaData.id));
-    Serial.println("[gnggaData.check_sum] "               + String(gnggaData.check_sum));
-    Serial.println("[gnggaData.check_data] "              + String(gnggaData.check_data));
   */
 
   // default and specifiable value to indicate a relay should not be activated/deactivated if all functions in relays expression are $NONE
