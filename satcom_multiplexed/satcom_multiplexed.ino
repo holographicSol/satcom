@@ -2662,21 +2662,21 @@ bool sdcard_load_matrix(char * file) {
   memset(sdcardData.data_4, 0, 56);
   memset(sdcardData.data_5, 0, 56);
   memset(sdcardData.data_6, 0, 56);
-  sdcardData.current_file = sd.open(file);
-  sdcardData.current_file.rewind();
-  int max = 0;
+
+  sdcardData.current_file = sd.open(file); 
   if (sdcardData.current_file) {
+    sdcardData.current_file.rewind();
     while (sdcardData.current_file.available()) {
-      if (max == 40) {break;}
-      max++;
+
       sdcardData.SBUFFER = "";
       memset(sdcardData.BUFFER, 0, 2048);
       sdcardData.SBUFFER = sdcardData.current_file.readStringUntil('\n');
       sdcardData.SBUFFER.toCharArray(sdcardData.BUFFER, sdcardData.SBUFFER.length()+1);
       Serial.println("[sdcard] [reading] " + String(sdcardData.BUFFER));
-      sdcardData.iter_token = 0;
-      sdcardData.token = strtok(sdcardData.BUFFER, ",");
-      if (strncmp(sdcardData.token, "r", 1) == 0) {
+      
+      if (strncmp(sdcardData.BUFFER, "r", 1) == 0) {
+        sdcardData.iter_token = 0;
+        sdcardData.token = strtok(sdcardData.BUFFER, ",");
   
         sdcardData.token = strtok(NULL, ",");
         // Serial.println("[R0] " +String(sdcardData.token));
@@ -2725,7 +2725,9 @@ bool sdcard_load_matrix(char * file) {
         Serial.println("[R5---->] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2]));
       }
 
-      else if (strncmp(sdcardData.token, "e", 1) == 0) {
+      else if (strncmp(sdcardData.BUFFER, "e", 1) == 0) {
+        sdcardData.iter_token = 0;
+        sdcardData.token = strtok(sdcardData.BUFFER, ",");
         // Serial.println("[E0] " +String(sdcardData.token));
         sdcardData.token = strtok(NULL, ",");
         // Serial.println("[E1] " +String(sdcardData.token));
