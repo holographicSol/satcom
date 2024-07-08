@@ -1367,6 +1367,29 @@ struct RelayStruct {
   char default_enable_relay_function[56]   = "$ENABLED";
 
   // ----------------------------------------------------------------------------------------------------------------------------
+  //                                                                                                                  SATCOM DATA
+
+  char latitude_satcom_gngga_over[56]             = "latitude_satcom_gngga_over";
+  char latitude_satcom_gngga_under[56]            = "latitude_satcom_gngga_under";
+  char latitude_satcom_gngga_equal[56]            = "latitude_satcom_gngga_equal";
+  char latitude_satcom_gngga_in_range[56]         = "latitude_satcom_gngga_in_range";
+
+  char longitude_satcom_gngga_over[56]            = "longitude_satcom_gngga_over";
+  char longitude_satcom_gngga_under[56]           = "longitude_satcom_gngga_under";
+  char longitude_satcom_gngga_equal[56]           = "longitude_satcom_gngga_equal";
+  char longitude_satcom_gngga_in_range[56]        = "longitude_satcom_gngga_in_range";
+
+  char latitude_satcom_gnrmc_over[56]             = "latitude_satcom_gnrmc_over";
+  char latitude_satcom_gnrmc_under[56]            = "latitude_satcom_gnrmc_under";
+  char latitude_satcom_gnrmc_equal[56]            = "latitude_satcom_gnrmc_equal";
+  char latitude_satcom_gnrmc_in_range[56]         = "latitude_satcom_gnrmc_in_range";
+
+  char longitude_satcom_gnrmc_over[56]            = "longitude_satcom_gnrmc_over";
+  char longitude_satcom_gnrmc_under[56]           = "longitude_satcom_gnrmc_under";
+  char longitude_satcom_gnrmc_equal[56]           = "longitude_satcom_gnrmc_equal";
+  char longitude_satcom_gnrmc_in_range[56]        = "longitude_satcom_gnrmc_in_ranged";
+
+  // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                   GNGGA DATA
 
   char utc_time_gngga_over[56]             = "utc_time_gngga_over";
@@ -3093,6 +3116,31 @@ void matrixSwitch() {
 
         // put true in temporary matrix if switch is enabled regardless of data. allows final bool true with no further requirements, even if all set $ENABLED, unlike if all set $NONE
         else if (strcmp(relayData.relays[Ri][Fi], relayData.default_enable_relay_function) == 0) {tmp_matrix[Fi] = 1;}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                       SYSTEMS CHECKS: SATCOM
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_over) == 0) {tmp_matrix[Fi] = check_over(satData.location_latitude_gngga_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_under) == 0) {tmp_matrix[Fi] = check_under(satData.location_latitude_gngga_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal(satData.location_latitude_gngga_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_in_range) == 0) {tmp_matrix[Fi] = check_in_range(satData.location_latitude_gngga_str, Ri, Fi);}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gngga_over) == 0) {tmp_matrix[Fi] = check_over(satData.location_longitude_gngga_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gngga_under) == 0) {tmp_matrix[Fi] = check_under(satData.location_longitude_gngga_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal(satData.location_longitude_gngga_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gngga_in_range) == 0) {tmp_matrix[Fi] = check_in_range(satData.location_longitude_gngga_str, Ri, Fi);}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(satData.location_latitude_gnrmc_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(satData.location_latitude_gnrmc_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(satData.location_latitude_gnrmc_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(satData.location_latitude_gnrmc_str, Ri, Fi);}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(satData.location_longitude_gnrmc_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(satData.location_longitude_gnrmc_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(satData.location_longitude_gnrmc_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(satData.location_longitude_gnrmc_str, Ri, Fi);}
+
+
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GNGGA
