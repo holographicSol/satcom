@@ -3006,61 +3006,72 @@ bool in_range_check_false(double n0, double n1, double r) {
 }
 
 bool in_ranges_check(double x0, double x1, double y0, double y1, double r) {
-  // Serial.println("[CHECKING] in_ranges_check");
   if (in_range_check(x0, x1, r) == true) {
     if (in_range_check(y0, y1, r) == true) {return true;} else return false;}
   else {return false;}
 }
 
 bool in_ranges_check_false(double x0, double x1, double y0, double y1, double r) {
-  // Serial.println("[CHECKING] in_ranges_check");
   if (in_range_check(x0, x1, r) == false) {
     if (in_range_check(y0, y1, r) == false) {return true;} else return false;}
   else {return false;}
 }
 
 bool check_over(double n0, double n1) {
-  // Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]));
   if (n0 > n1) {return true;}
   else {return false;}
 }
 
+bool check_over_false(double n0, double n1) {
+  if (n0 > n1) {return false;}
+  else {return true;}
+}
+
 bool check_under(double n0, double n1) {
-  // Serial.println("[CHECKING] " + String(Fn) + " < " + String(relayData.relays_data[Ri][Fi][0]));
   if (n0 < n1) {return true;}
   else {return false;}
 }
 
+bool check_under_false(double n0, double n1) {
+  if (n0 < n1) {return false;}
+  else {return true;}
+}
+
 bool check_equal(double n0, double n1) {
-  // Serial.println("[CHECKING] " + String(Fn) + " == " + String(relayData.relays_data[Ri][Fi][0]));
   if (n0 == n1) {return true;}
   else {return false;}
 }
 
 bool check_equal_false(double n0, double n1) {
-  // Serial.println("[CHECKING] " + String(Fn) + " == " + String(relayData.relays_data[Ri][Fi][0]));
   if (n0 != n1) {return true;}
   else {return false;}
 }
 
-// gretaer than or equal and less than or equal: is n >= x and <= y
 bool check_ge_and_le(double n0, double n1, double n2) {
-  // Serial.println("[CHECKING] " + String(Fn) + " >= " + String(relayData.relays_data[Ri][Fi][0]) + " && " + String(Fn) + " <= " + String(relayData.relays_data[Ri][Fi][1]));
   if ((n0 >= n1) && (n0 <= n2)) {return true;}
   else {return false;}
 }
 
+bool check_ge_and_le_false(double n0, double n1, double n2) {
+  if ((n0 >= n1) && (n0 <= n2)) {return false;}
+  else {return true;}
+}
+
 bool check_strncmp_true(char * C0, char * C1, int N) {
-  // Serial.println("[CHECKING] " + String(C0) + " == " + String(C1));
   if (strncmp(C0, C1, N) == 0) {return true;}
   else {return false;}
 }
 
-bool is_false(bool _bool) {
+bool check_strncmp_false(char * C0, char * C1, int N) {
+  if (strncmp(C0, C1, N) == 0) {return false;}
+  else {return true;}
+}
+
+bool bool_is_false(bool _bool) {
   if (_bool == false) {return true;} else {return false;}
 }
 
-bool is_true(bool _bool) {
+bool bool_is_true(bool _bool) {
   if (_bool == true) {return true;} else {return false;}
 }
 
@@ -3447,28 +3458,28 @@ void matrixSwitch() {
         intended to conditionally switch datasets, making it possible to continue performing the same task and or other tasks instead, but with the option of
         relying on different data in the event data becomes unavailable/unreliable/etc. this can allow for fallback functions to be considered in the matrix switch.
 
-        example: if is_true(checksum)  then A using data X is active/on and B is inactive/off
-                 if is_false(checksum) then B using data Y is active/on and A is inactive/off
+        example: if bool_is_true(checksum)  then A using data X is active/on and B is inactive/off
+                 if bool_is_false(checksum) then B using data Y is active/on and A is inactive/off
                  A and B may even be plugged into the same endpoint, and now that endpoint is on/off predicated upon different data/conditions.
         */
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(gnggaData.valid_checksum);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(gnggaData.valid_checksum);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_valid_checksum) == 0) {tmp_matrix[Fi] = bool_is_true(gnggaData.valid_checksum);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_invalid_checksum) == 0) {tmp_matrix[Fi] = bool_is_false(gnggaData.valid_checksum);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(gnrmcData.valid_checksum);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(gnrmcData.valid_checksum);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_valid_checksum) == 0) {tmp_matrix[Fi] = bool_is_true(gnrmcData.valid_checksum);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_invalid_checksum) == 0) {tmp_matrix[Fi] = bool_is_false(gnrmcData.valid_checksum);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(gpattData.valid_checksum);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(gpattData.valid_checksum);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_valid_checksum) == 0) {tmp_matrix[Fi] = bool_is_true(gpattData.valid_checksum);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_invalid_checksum) == 0) {tmp_matrix[Fi] = bool_is_false(gpattData.valid_checksum);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(speedData.valid_checksum);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(speedData.valid_checksum);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_valid_checksum) == 0) {tmp_matrix[Fi] = bool_is_true(speedData.valid_checksum);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_invalid_checksum) == 0) {tmp_matrix[Fi] = bool_is_false(speedData.valid_checksum);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.error_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(errorData.valid_checksum);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.error_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(errorData.valid_checksum);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.error_valid_checksum) == 0) {tmp_matrix[Fi] = bool_is_true(errorData.valid_checksum);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.error_invalid_checksum) == 0) {tmp_matrix[Fi] = bool_is_false(errorData.valid_checksum);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_valid_checksum) == 0) {tmp_matrix[Fi] = is_true(debugData.valid_checksum);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_checksum) == 0) {tmp_matrix[Fi] = is_false(debugData.valid_checksum);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_valid_checksum) == 0) {tmp_matrix[Fi] = bool_is_true(debugData.valid_checksum);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_checksum) == 0) {tmp_matrix[Fi] = bool_is_false(debugData.valid_checksum);}
         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_valid_check_data) == 0) {tmp_matrix[Fi] = check_equal(gnggaData.check_data, 16);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_invalid_check_data) == 0) {tmp_matrix[Fi] = check_equal_false(gnggaData.check_data, 16);}
