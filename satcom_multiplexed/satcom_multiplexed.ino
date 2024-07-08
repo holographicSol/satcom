@@ -2654,7 +2654,7 @@ bool sdcard_read_to_serial(char * file) {
   else {sdcardData.current_file.close(); return false;}
 }
 
-bool sdcard_read_into_matrix(char * file) {
+bool sdcard_load_matrix(char * file) {
   memset(sdcardData.data_0, 0, 56);
   memset(sdcardData.data_1, 0, 56);
   memset(sdcardData.data_2, 0, 56);
@@ -2662,24 +2662,19 @@ bool sdcard_read_into_matrix(char * file) {
   memset(sdcardData.data_4, 0, 56);
   memset(sdcardData.data_5, 0, 56);
   memset(sdcardData.data_6, 0, 56);
-
   sdcardData.current_file = sd.open(file);
   sdcardData.current_file.rewind();
   if (sdcardData.current_file) {
-    
     while (sdcardData.current_file.available()) {
-
       sdcardData.SBUFFER = "";
       memset(sdcardData.BUFFER, 0, 2048);
       sdcardData.SBUFFER = sdcardData.current_file.readStringUntil('\n');
       sdcardData.SBUFFER.toCharArray(sdcardData.BUFFER, sdcardData.SBUFFER.length()+1);
       Serial.println("[sdcard] [reading] " + String(sdcardData.BUFFER));
-
       sdcardData.iter_token = 0;
       sdcardData.token = strtok(sdcardData.BUFFER, ",");
-
       if (strncmp(sdcardData.token, "r", 1) == 0) {
-        
+  
         sdcardData.token = strtok(NULL, ",");
         // Serial.println("[R0] " +String(sdcardData.token));
         memset(sdcardData.data_0, 0, 56);
@@ -3960,7 +3955,7 @@ void readRXD_0() {
     //                                                                                MATRIX INTERFACE: READ SDCARD INTO MATRIX
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_SET_MATRIX") == 0) {
-      sdcard_read_into_matrix("matrix.txt");
+      sdcard_load_matrix("matrix.txt");
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
