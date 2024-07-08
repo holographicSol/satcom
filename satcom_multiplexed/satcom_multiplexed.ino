@@ -3905,7 +3905,7 @@ enable all matrix entries. will result in warnings for matrix entries with no fu
 for turning everything on becasue everything is set and or for living on the edge for any given logical reason at the time.
 */
 
-void rxd_0_matrix_interface_soft_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
+void rxd_0_matrix_interface_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 0
@@ -3937,8 +3937,8 @@ void readRXD_0() {
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                        MATRIX INTERFACE: SOFT ENABLE ALL
 
-    else if (strcmp(serial0Data.BUFFER, "$MATRIX_SET_ALL_SWITCHES_ENABLED") == 0) {
-      rxd_0_matrix_interface_soft_enable_all();
+    else if (strcmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ALL") == 0) {
+      rxd_0_matrix_interface_enable_all();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
