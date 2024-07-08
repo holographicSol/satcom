@@ -3598,7 +3598,7 @@ void matrixSwitch() {
         // debug (same as line below but with output)
         // for (int FC = 0; FC < relayData.MAX_RELAY_ELEMENTS-1; FC++) {Serial.println("[tmp_matrix[FC]] " + String(tmp_matrix[FC])); if (tmp_matrix[FC] == 0) {final_bool = false;}}
 
-        for (int FC = 0; FC < relayData.MAX_RELAY_ELEMENTS-1; FC++) {if (tmp_matrix[FC] == 0) {final_bool = false;}}
+        for (int FC = 0; FC < relayData.MAX_RELAY_ELEMENTS-1; FC++) {if (tmp_matrix[FC] == 0) {final_bool = false; break;}}
 
         /*
         Remember Always: why do you think you can trust this data? are you transmitting this data to yourelf (from satellite or not)?
