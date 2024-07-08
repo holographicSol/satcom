@@ -2826,6 +2826,80 @@ bool sdcard_write_matrix(char * file) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                             MATRIX SET ENTRY
+
+/*
+                                        R F Function Name              X Y Z Enable/Disable 
+example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,1,0,0,1
+example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,-1,0,0,0
+clear test command:   $MATRIX_SET_ENTRY,0,0,$NONE,0,0,0,0
+*/
+
+void matrix_set_entry() {
+  Serial.println("[RXD0_matrix_interface] connected");
+  serial0Data.check_data_R = 0;
+  memset(serial0Data.data_0, 0, 56);
+  memset(serial0Data.data_1, 0, 56);
+  memset(serial0Data.data_2, 0, 56);
+  memset(serial0Data.data_3, 0, 56);
+  memset(serial0Data.data_4, 0, 56);
+  memset(serial0Data.data_5, 0, 56);
+  memset(serial0Data.data_6, 0, 56);
+  serial0Data.iter_token = 0;
+  serial0Data.token = strtok(serial0Data.BUFFER, ",");
+  while( serial0Data.token != NULL ) {
+    if      (serial0Data.iter_token == 0) {}
+    else if (serial0Data.iter_token == 1) {strcpy(serial0Data.data_0, serial0Data.token);} // rn
+    else if (serial0Data.iter_token == 2) {strcpy(serial0Data.data_1, serial0Data.token);} // fn
+    else if (serial0Data.iter_token == 3) {strcpy(serial0Data.data_2, serial0Data.token);} // function
+    else if (serial0Data.iter_token == 4) {strcpy(serial0Data.data_3, serial0Data.token);} // x
+    else if (serial0Data.iter_token == 5) {strcpy(serial0Data.data_4, serial0Data.token);} // y
+    else if (serial0Data.iter_token == 6) {strcpy(serial0Data.data_5, serial0Data.token);} // z
+    else if (serial0Data.iter_token == 7) {strcpy(serial0Data.data_6, serial0Data.token);} // 0/1
+    serial0Data.token = strtok(NULL, ",");
+    serial0Data.iter_token++;
+  }
+  if (sysDebugData.serial_0_sentence == true) {
+    Serial.println("[serial0Data.data_0] "         + String(serial0Data.data_0));
+    Serial.println("[serial0Data.data_1] "         + String(serial0Data.data_1));
+    Serial.println("[serial0Data.data_2] "         + String(serial0Data.data_2));
+    Serial.println("[serial0Data.data_3] "         + String(serial0Data.data_3));
+    Serial.println("[serial0Data.data_4] "         + String(serial0Data.data_4));
+    Serial.println("[serial0Data.data_5] "         + String(serial0Data.data_5));
+    Serial.println("[serial0Data.data_6] "         + String(serial0Data.data_6));
+  }
+  //                      [           RN          ][          FN            ][      VALUE        ]
+  strcpy(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)], serial0Data.data_2);      // set function
+  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]=atol(serial0Data.data_3); // set function value x
+  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]=atol(serial0Data.data_4); // set function value y
+  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]=atol(serial0Data.data_5); // set function value z
+  relayData.relays_data[atoi(serial0Data.data_0)][10][0]                      =atol(serial0Data.data_6); // set enable/disable
+
+  Serial.println("[Fi] " +String(serial0Data.data_0));
+  Serial.println("[Fi] " +String(serial0Data.data_1));
+  Serial.println("[Fn] " +String(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)]));
+  Serial.println("[X] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]));
+  Serial.println("[Y] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]));
+  Serial.println("[Z] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]));
+  Serial.println("[E] " + String(relayData.relays_data[atoi(serial0Data.data_0)][10][0]));
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                              MATRIX OVERRIDE
+
+// disable all matrix entries.
+
+void matrix_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=0;}}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                            MATRIX ENABLE ALL
+
+
+// enable all matrix entries. will result in warnings for matrix entries with no function(s) set. this is expected, required and desirable behaviour
+
+void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        SETUP
 
 void setup() {
@@ -3696,11 +3770,7 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_valid_check_data) == 0) {tmp_matrix[Fi] = is_N_true(debugData.check_data, 29);}
 
         // put true or false in the temporary matrix
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(debugData.check_data, 29);} // ( 205. 205^10 = 131,080,657,325,707,041,015,625 = 131 sextillion+ )
-
-        /*
-        optionally continue plugging in the bool
-        */
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_check_data) == 0) {tmp_matrix[Fi] = is_N_false(debugData.check_data, 29);}
 
       }
       
@@ -3716,11 +3786,9 @@ void matrixSwitch() {
         for (int FC = 0; FC < relayData.MAX_RELAY_ELEMENTS-1; FC++) {if (tmp_matrix[FC] == 0) {final_bool = false;}}
 
         /*
-
         Remember always: why do you think you can trust this data? are you transmitting this data to yourelf (from satellite or not)?
                          how critical are your system(s)?
                          once you plug something into this, the 'satellites' are in control unless you have a way to override.
-
         */
 
         // activate/deactivate relay Ri (Ri=pinN): pin number matrix required for relay selcection via Ri->PIN column access in non-linear form (multiplex relays)
@@ -3831,80 +3899,6 @@ void readRXD_1() {
     // }
   }
 }
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                             MATRIX SET ENTRY
-
-/*
-                                        R F Function Name              X Y Z Enable/Disable 
-example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,1,0,0,1
-example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,-1,0,0,0
-clear test command:   $MATRIX_SET_ENTRY,0,0,$NONE,0,0,0,0
-*/
-
-void matrix_set_entry() {
-  Serial.println("[RXD0_matrix_interface] connected");
-  serial0Data.check_data_R = 0;
-  memset(serial0Data.data_0, 0, 56);
-  memset(serial0Data.data_1, 0, 56);
-  memset(serial0Data.data_2, 0, 56);
-  memset(serial0Data.data_3, 0, 56);
-  memset(serial0Data.data_4, 0, 56);
-  memset(serial0Data.data_5, 0, 56);
-  memset(serial0Data.data_6, 0, 56);
-  serial0Data.iter_token = 0;
-  serial0Data.token = strtok(serial0Data.BUFFER, ",");
-  while( serial0Data.token != NULL ) {
-    if      (serial0Data.iter_token == 0) {}
-    else if (serial0Data.iter_token == 1) {strcpy(serial0Data.data_0, serial0Data.token);} // rn
-    else if (serial0Data.iter_token == 2) {strcpy(serial0Data.data_1, serial0Data.token);} // fn
-    else if (serial0Data.iter_token == 3) {strcpy(serial0Data.data_2, serial0Data.token);} // function
-    else if (serial0Data.iter_token == 4) {strcpy(serial0Data.data_3, serial0Data.token);} // x
-    else if (serial0Data.iter_token == 5) {strcpy(serial0Data.data_4, serial0Data.token);} // y
-    else if (serial0Data.iter_token == 6) {strcpy(serial0Data.data_5, serial0Data.token);} // z
-    else if (serial0Data.iter_token == 7) {strcpy(serial0Data.data_6, serial0Data.token);} // 0/1
-    serial0Data.token = strtok(NULL, ",");
-    serial0Data.iter_token++;
-  }
-  if (sysDebugData.serial_0_sentence == true) {
-    Serial.println("[serial0Data.data_0] "         + String(serial0Data.data_0));
-    Serial.println("[serial0Data.data_1] "         + String(serial0Data.data_1));
-    Serial.println("[serial0Data.data_2] "         + String(serial0Data.data_2));
-    Serial.println("[serial0Data.data_3] "         + String(serial0Data.data_3));
-    Serial.println("[serial0Data.data_4] "         + String(serial0Data.data_4));
-    Serial.println("[serial0Data.data_5] "         + String(serial0Data.data_5));
-    Serial.println("[serial0Data.data_6] "         + String(serial0Data.data_6));
-  }
-  //                      [           RN          ][          FN            ][      VALUE        ]
-  strcpy(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)], serial0Data.data_2);      // set function
-  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]=atol(serial0Data.data_3); // set function value x
-  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]=atol(serial0Data.data_4); // set function value y
-  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]=atol(serial0Data.data_5); // set function value z
-  relayData.relays_data[atoi(serial0Data.data_0)][10][0]                      =atol(serial0Data.data_6); // set enable/disable
-
-  Serial.println("[Fi] " +String(serial0Data.data_0));
-  Serial.println("[Fi] " +String(serial0Data.data_1));
-  Serial.println("[Fn] " +String(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)]));
-  Serial.println("[X] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]));
-  Serial.println("[Y] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]));
-  Serial.println("[Z] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]));
-  Serial.println("[E] " + String(relayData.relays_data[atoi(serial0Data.data_0)][10][0]));
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                              MATRIX OVERRIDE
-
-// disable all matrix entries.
-
-void matrix_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=0;}}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                            MATRIX ENABLE ALL
-
-
-// enable all matrix entries. will result in warnings for matrix entries with no function(s) set. this is expected, required and desirable behaviour
-
-void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 0
