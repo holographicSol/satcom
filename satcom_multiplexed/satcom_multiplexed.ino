@@ -86,15 +86,14 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       SDCARD
-#define SPI_DRIVER_SELECT == 2  // Must be set in SdFat/SdFatConfig.h
+#define SPI_DRIVER_SELECT 2  // Must be set in SdFat/SdFatConfig.h
 
-// SD_FAT_TYPE = 0 for SdFat/File as defined in SdFatConfig.h,
-// 1 for FAT16/FAT32, 2 for exFAT, 3 for FAT16/FAT32 and exFAT.
+// SD_FAT_TYPE = 0 for SdFat/File as defined in SdFatConfig.h. 1 for FAT16/FAT32, 2 for exFAT, 3 for FAT16/FAT32 and exFAT.
 #define SD_FAT_TYPE 0
-//
+
 // Chip select may be constant or RAM variable.
 const uint8_t SD_CS_PIN = 5;
-//
+
 // Pin numbers in templates must be constants.
 const uint8_t SOFT_MISO_PIN = 19;
 const uint8_t SOFT_MOSI_PIN = 23;
@@ -102,12 +101,13 @@ const uint8_t SOFT_SCK_PIN = 18;
 
 // SdFat software SPI template
 SoftSpiDriver<SOFT_MISO_PIN, SOFT_MOSI_PIN, SOFT_SCK_PIN> softSpi;
+
 // Speed argument is ignored for software SPI.
 #if ENABLE_DEDICATED_SPI
 #define SD_CONFIG SdSpiConfig(5, DEDICATED_SPI, SD_SCK_MHZ(0), &softSpi)
-#else  // ENABLE_DEDICATED_SPI
+#else
 #define SD_CONFIG SdSpiConfig(5, SHARED_SPI, SD_SCK_MHZ(0), &softSpi)
-#endif  // ENABLE_DEDICATED_SPI
+#endif
 
 #if SD_FAT_TYPE == 0
 SdFat sd;
@@ -121,9 +121,9 @@ ExFile file;
 #elif SD_FAT_TYPE == 3
 SdFs sd;
 FsFile file;
-#else  // SD_FAT_TYPE
+#else
 #error Invalid SD_FAT_TYPE
-#endif  // SD_FAT_TYPE
+#endif
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       WIRING
@@ -3935,28 +3935,28 @@ void readRXD_0() {
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                        MATRIX INTERFACE: SOFT ENABLE ALL
+    //                                                                                             MATRIX INTERFACE: ENABLE ALL
 
     else if (strcmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ALL") == 0) {
       rxd_0_matrix_interface_enable_all();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                     MATRIX INTERFACE: READ SDCARD MATRIX
+    //                                                                                MATRIX INTERFACE: READ SDCARD MATRIX DATA
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_READ_MATRIX") == 0) {
       sdcard_read_to_serial("matrix.txt");
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                     MATRIX INTERFACE: WRITE SDCARD MATRIX
+    //                                                                                 MATRIX INTERFACE: WRITE MATRIX TO SDCARD
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_WRITE_MATRIX") == 0) {
       sdcard_write_matrix("matrix.txt");
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                MATRIX INTERFACE: READ SDCARD INTO MATRIX
+    //                                                                                            MATRIX INTERFACE: LOAD MATRIX
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_LOAD_MATRIX") == 0) {
       sdcard_load_matrix("matrix.txt");
