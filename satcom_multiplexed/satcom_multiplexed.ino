@@ -2999,6 +2999,12 @@ bool in_range_check(double n0, double n1, double r) {
   else {return false;}
 }
 
+// calculate if n0 in (+- range/2) of n1
+bool in_range_check_false(double n0, double n1, double r) {
+  if (n0  >=  n1 - r/2) {if (n0  <= n1 + r/2) {return false;}}
+  else {return true;}
+}
+
 bool in_ranges_check(double x0, double x1, double y0, double y1, double r) {
   // Serial.println("[CHECKING] in_ranges_check");
   if (in_range_check(x0, x1, r) == true) {
