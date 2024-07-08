@@ -3021,7 +3021,7 @@ bool check_equal(char * Fn, int Ri, int Fi) {
 
 // gretaer than or equal and less than or equal: is n >= x and <= y
 bool check_ge_and_le(char * Fn, int Ri, int Fi) {
-  // Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]) + " && " + String(Fn) + " < " + String(relayData.relays_data[Ri][Fi][1]));
+  // Serial.println("[CHECKING] " + String(Fn) + " >= " + String(relayData.relays_data[Ri][Fi][0]) + " && " + String(Fn) + " <= " + String(relayData.relays_data[Ri][Fi][1]));
   if ((atol(Fn) >= relayData.relays_data[Ri][Fi][0]) && (atol(Fn) <= relayData.relays_data[Ri][Fi][1])) {return true;}
   else {return false;}
 }
