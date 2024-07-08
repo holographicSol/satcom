@@ -61,6 +61,14 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                        TCA9548A i2C Multiplexer --> ESP32 i2C
                                        x3 SSD1306               --> TCA9548A i2C Multiplexer
 
+                                       
+                                  Wiring for Optional MicroSD Card (ESP32 Keyestudio Dev Board)
+                                                  HW-125 MicroSDCard Module
+                                                        CS    ->  5
+                                                        MISO  ->  19
+                                                        MOSI  ->  23
+                                                        SCK   ->  18
+
 
                                                       SENTENCE $SATCOM
                                                                                     
@@ -82,3 +90,9 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                             Time server to robots and flying machines, and everything in between.
                        Some star and constellation calculations will be added soon that can be used at will
                               along with any other data currently available to calculate with.
+
+---
+
+
+
+---
