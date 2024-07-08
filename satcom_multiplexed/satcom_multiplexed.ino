@@ -3097,16 +3097,6 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_under) == 0) {tmp_matrix[Fi] = check_under(gnggaData.satellite_count_gngga, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal(gnggaData.satellite_count_gngga, Ri, Fi);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_time, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_time, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_time, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_time, Ri, Fi);}
-        
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_date, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_date, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_date, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_date, Ri, Fi);}
-
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_N) == 0) {tmp_matrix[Fi] = hemisphere_gngga_N(Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_E) == 0) {tmp_matrix[Fi] = hemisphere_gngga_E(Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_S) == 0) {tmp_matrix[Fi] = hemisphere_gngga_S(Ri, Fi);}
@@ -3139,6 +3129,16 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.ground_heading, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.ground_heading, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.ground_heading, Ri, Fi);}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_time, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_time, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_time, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_time, Ri, Fi);}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_date, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_date, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_date, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_date, Ri, Fi);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GPATT
