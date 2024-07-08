@@ -3589,10 +3589,10 @@ void matrixSwitch() {
 
       }
       
-      // safety layer: disengage if all entries are $NONE. if you enabled a master switch with no functions set then this could save you.
+      // Safety Layer: Disengage if all entries are $NONE
       if (count_none_function <= relayData.MAX_RELAY_ELEMENTS-1) {
 
-        // default final bool is true and if a single false is found final bool should be set to false and remain false
+        // Default final bool default is true: If a single false is found then final bool should be set to false and remain false
         bool final_bool = true;
 
         // debug (same as line below but with output)
