@@ -3002,7 +3002,14 @@ bool in_range_check(double n0, double n1, double r) {
 bool in_ranges_check(double x0, double x1, double y0, double y1, double r) {
   // Serial.println("[CHECKING] in_ranges_check");
   if (in_range_check(x0, x1, r) == true) {
-    if (in_range_check(y0, y1, r) == true) {return true;}}
+    if (in_range_check(y0, y1, r) == true) {return true;} else return false;}
+  else {return false;}
+}
+
+bool in_ranges_check_false(double x0, double x1, double y0, double y1, double r) {
+  // Serial.println("[CHECKING] in_ranges_check");
+  if (in_range_check(x0, x1, r) == false) {
+    if (in_range_check(y0, y1, r) == false) {return true;} else return false;}
   else {return false;}
 }
 
