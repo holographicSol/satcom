@@ -1046,21 +1046,9 @@ bool val_scalable(char * data) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                  RELAYS DATA
 
-/*
-A minimum of N relays would be required to satisfy various flags. This can allow satcom to be as general purpose as intended,
-from minimal to maximal operation/utilization of the WTGPS300P as and when required by different projects, even turning on/off other
-systems that begin running their own routines, by having them turn on/off with these relays/functions.
-each relay should have its own char array which can be checked each loop, after which a function corrrspinding to a relays char
-array will be ran if a selected condition is met, then the corresponding relay will be turned on/off when that condition is met.
-additional configuration could include running once, running each time etc. for systems/routines to be activated/deactivated.
-Note: Each relay/function is activated/deactivated according to compound conditions, meaning we can be more or less strict.
-*/
-
 struct RelayStruct {
 
-  // relays/functions
   int MAX_RELAYS = 40;
-  // polynomial size
   int MAX_RELAY_ELEMENTS = 10;
 
   bool relays_bool[1][40] = {
@@ -1156,6 +1144,8 @@ struct RelayStruct {
     };
 
   /*
+  Calibratable matrix. empty by default.
+  consider overhead for fallback logic (no/bad satellite data --> untrained INS --> other sensor floor).
 
   Matrix containing sets of values per relay.
   X: use with/without  Y,Z.
@@ -1167,14 +1157,6 @@ struct RelayStruct {
           X     Y     Z    
   {  {   0.0,  0.0,  0.0   }       {0}          }
                               Enabled/Disabled
-
-  */
-
-  /*
-  calibratable matrix data (via local interface devices / RF / serial / baked-in here below if required)              
-  more available logic equals more required memory, and faster clock speeds also if responsive systems are required.
-  consider overhead for fallback logic (no/bad satellite data --> untrained INS --> other sensor floor).
-  this is the matrix switch (brain) and all it knows is nothing unless we put something in.
   */
   double relays_data[40][10+1][3] = {
     {
@@ -3824,3 +3806,5 @@ void loop() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+
+
