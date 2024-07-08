@@ -3019,7 +3019,7 @@ bool check_equal(char * Fn, int Ri, int Fi) {
   else {return false;}
 }
 
-// check range from specified x to specify y
+// is n >= x and <= y
 bool check_in_range(char * Fn, int Ri, int Fi) {
   // Serial.println("[CHECKING] " + String(Fn) + " > " + String(relayData.relays_data[Ri][Fi][0]) + " && " + String(Fn) + " < " + String(relayData.relays_data[Ri][Fi][1]));
   if ((atol(Fn) >= relayData.relays_data[Ri][Fi][0]) && (atol(Fn) <= relayData.relays_data[Ri][Fi][1])) {return true;}
