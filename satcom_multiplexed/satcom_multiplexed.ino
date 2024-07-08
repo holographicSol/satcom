@@ -3954,7 +3954,7 @@ void readRXD_0() {
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                MATRIX INTERFACE: READ SDCARD INTO MATRIX
 
-    else if (strcmp(serial0Data.BUFFER, "$SDCARD_SET_MATRIX") == 0) {
+    else if (strcmp(serial0Data.BUFFER, "$SDCARD_LOAD_MATRIX") == 0) {
       sdcard_load_matrix("matrix.txt");
     }
 
