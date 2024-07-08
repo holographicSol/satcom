@@ -3123,22 +3123,22 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_over) == 0) {tmp_matrix[Fi] = check_over(satData.location_latitude_gngga_str, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_under) == 0) {tmp_matrix[Fi] = check_under(satData.location_latitude_gngga_str, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal(satData.location_latitude_gngga_str, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_in_range) == 0) {tmp_matrix[Fi] = check_in_range(satData.location_latitude_gngga_str, Ri, Fi);}
-
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_in_range) == 0) {tmp_matrix[Fi] = in_range_check(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x
+ 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gngga_over) == 0) {tmp_matrix[Fi] = check_over(satData.location_longitude_gngga_str, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gngga_under) == 0) {tmp_matrix[Fi] = check_under(satData.location_longitude_gngga_str, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal(satData.location_longitude_gngga_str, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gngga_in_range) == 0) {tmp_matrix[Fi] = check_in_range(satData.location_longitude_gngga_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gngga_in_range) == 0) {tmp_matrix[Fi] = in_range_check(satData.location_longitude_gngga, relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(satData.location_latitude_gnrmc_str, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(satData.location_latitude_gnrmc_str, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(satData.location_latitude_gnrmc_str, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(satData.location_latitude_gnrmc_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gnrmc_in_range) == 0) {tmp_matrix[Fi] = in_range_check(satData.location_latitude_gnrmc, relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(satData.location_longitude_gnrmc_str, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(satData.location_longitude_gnrmc_str, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(satData.location_longitude_gnrmc_str, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(satData.location_longitude_gnrmc_str, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gnrmc_in_range) == 0) {tmp_matrix[Fi] = in_range_check(satData.location_longitude_gnrmc, relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x
 
 
 
