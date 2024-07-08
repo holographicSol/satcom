@@ -1419,8 +1419,12 @@ struct RelayStruct {
   char utc_time_gnrmc_equal[56]      = "utc_time_gnrmc_equal";
   char utc_time_gnrmc_in_range[56]   = "utc_time_gnrmc_in_range";
 
-  char positioning_status_gnrmc_equal[56]  = "positioning_status_gnrmc_equal"; // req special handling
-  char mode_indication_gnrmc_equal[56]     = "mode_indication_gnrmc_equal"; // req special handling
+  char positioning_status_gnrmc_equal_A[56]  = "positioning_status_gnrmc_equal_A";
+  char positioning_status_gnrmc_equal_V[56]  = "positioning_status_gnrmc_equal_V";
+
+  char mode_indication_gnrmc_equal_A[56]     = "mode_indication_gnrmc_equal_A";
+  char mode_indication_gnrmc_equal_D[56]     = "mode_indication_gnrmc_equal_D";
+  char mode_indication_gnrmc_equal_N[56]     = "mode_indication_gnrmc_equal_N";
 
   char latitude_gnrmc_over[56]             = "latitude_gnrmc_over";
   char latitude_gnrmc_under[56]            = "latitude_gnrmc_under";
@@ -3008,6 +3012,12 @@ bool check_in_range(char * Fn, int Ri, int Fi) {
   else {return false;}
 }
 
+bool check_char_equal(char * C0, char * C1) {
+  // Serial.println("[CHECKING] " + String(C0) + " == " + String(C1));
+  if (strcmp(C0, C1) == 0) {return true;}
+  else {return false;}
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          CHECKS: HEMISPHERES
 
@@ -3231,6 +3241,14 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_date_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_date, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_date_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_date, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_date_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_date, Ri, Fi);}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.positioning_status_gnrmc_equal_A) == 0) {tmp_matrix[Fi] = check_char_equal(gnrmcData.positioning_status, "A");}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.positioning_status_gnrmc_equal_V) == 0) {tmp_matrix[Fi] = check_char_equal(gnrmcData.positioning_status, "V");}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.mode_indication_gnrmc_equal_A) == 0) {tmp_matrix[Fi] = check_char_equal(gnrmcData.mode_indication, "A");}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.mode_indication_gnrmc_equal_D) == 0) {tmp_matrix[Fi] = check_char_equal(gnrmcData.mode_indication, "D");}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.mode_indication_gnrmc_equal_N) == 0) {tmp_matrix[Fi] = check_char_equal(gnrmcData.mode_indication, "N");}
+
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GPATT
