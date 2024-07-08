@@ -3141,8 +3141,6 @@ void matrixSwitch() {
         //                                                                                                                               x0                              x1                                 y0                               y1                               r   
         else if (strcmp(relayData.relays[Ri][Fi], relayData.satcom_in_range_gngga) == 0) {tmp_matrix[Fi] = iin_ranges_check_true(satData.location_latitude_gnrmc, relayData.relays_data[Ri][Fi][0], satData.location_longitude_gnrmc, relayData.relays_data[Ri][Fi][1], relayData.relays_data[Ri][Fi][2]);}
 
-
-
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GNGGA
 
@@ -3227,7 +3225,6 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.mode_indication_gnrmc_equal_A) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.mode_indication, "A", 1);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.mode_indication_gnrmc_equal_D) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.mode_indication, "D", 1);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.mode_indication_gnrmc_equal_N) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.mode_indication, "N", 1);}
-
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GPATT
