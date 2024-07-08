@@ -1379,7 +1379,7 @@ struct RelayStruct {
     },
   };
 
-  // default and specifiable value to indicate a relay should not be activated/deactivated
+  // default and specifiable value to indicate a relay should not be activated/deactivated if all functions in relays expression are $NONE
   char default_relay_function[56]          = "$NONE";
   char default_enable_relay_function[56]   = "$ENABLED";
 
@@ -3824,5 +3824,3 @@ void loop() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-
-
