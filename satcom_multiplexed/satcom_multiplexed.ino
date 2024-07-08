@@ -2655,6 +2655,8 @@ bool sdcard_read_to_serial(char * file) {
 }
 
 bool sdcard_load_matrix(char * file) {
+
+  // ensure cleared
   memset(sdcardData.data_0, 0, 56);
   memset(sdcardData.data_1, 0, 56);
   memset(sdcardData.data_2, 0, 56);
@@ -2663,11 +2665,13 @@ bool sdcard_load_matrix(char * file) {
   memset(sdcardData.data_5, 0, 56);
   memset(sdcardData.data_6, 0, 56);
 
+  // open file to read
   sdcardData.current_file = sd.open(file); 
   if (sdcardData.current_file) {
     sdcardData.current_file.rewind();
     while (sdcardData.current_file.available()) {
 
+      // read line
       sdcardData.SBUFFER = "";
       memset(sdcardData.BUFFER, 0, 2048);
       sdcardData.SBUFFER = sdcardData.current_file.readStringUntil('\n');
@@ -2675,70 +2679,71 @@ bool sdcard_load_matrix(char * file) {
       Serial.println("[sdcard] [reading] " + String(sdcardData.BUFFER));
       
       if (strncmp(sdcardData.BUFFER, "r", 1) == 0) {
-        sdcardData.iter_token = 0;
+
+        // split line on delimiter
         sdcardData.token = strtok(sdcardData.BUFFER, ",");
-  
+
+        // relay index
         sdcardData.token = strtok(NULL, ",");
-        // Serial.println("[R0] " +String(sdcardData.token));
         memset(sdcardData.data_0, 0, 56);
         strcpy(sdcardData.data_0, sdcardData.token);
-        Serial.println("[R0-->] " +String(sdcardData.data_0));
+        Serial.println("[Ri] " +String(sdcardData.data_0));
 
-
+        // relay function index
         sdcardData.token = strtok(NULL, ",");
-        // Serial.println("[R1] " +String(sdcardData.token));
         memset(sdcardData.data_1, 0, 56);
         strcpy(sdcardData.data_1, sdcardData.token);
-        Serial.println("[R1-->] " +String(sdcardData.data_1));
-
+        Serial.println("[Fi] " +String(sdcardData.data_1));
+        
+        // relay function name
         sdcardData.token = strtok(NULL, ",");
-        // Serial.println("[R2] " +String(sdcardData.token));
         memset(sdcardData.data_2, 0, 56);
         strcpy(sdcardData.data_2, sdcardData.token);
-        // Serial.println("[R2-->] " +String(sdcardData.data_2));
         memset(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], 0, 56);
         strcpy(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], sdcardData.data_2);
-        Serial.println("[R2---->] " +String(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)]));
+        Serial.println("[Fn] " +String(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)]));
 
+        // relay function data: x
         sdcardData.token = strtok(NULL, ",");
-        // Serial.println("[R3] " +String(sdcardData.token));
         memset(sdcardData.data_3, 0, 56);
         strcpy(sdcardData.data_3, sdcardData.token);
-        // Serial.println("[R3-->] " +String(sdcardData.data_3));
         relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0] = atol(sdcardData.data_3);
-        Serial.println("[R3---->] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0]));
+        Serial.println("[X] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0]));
 
+        // relay function data: y
         sdcardData.token = strtok(NULL, ",");
-        // Serial.println("[R4] " +String(sdcardData.token));
         memset(sdcardData.data_4, 0, 56);
         strcpy(sdcardData.data_4, sdcardData.token);
-        // Serial.println("[R4-->] " +String(sdcardData.data_4));
         relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1] = atol(sdcardData.data_4);
-        Serial.println("[R4---->] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1]));
+        Serial.println("[Y] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1]));
 
+        // relay function data: z
         sdcardData.token = strtok(NULL, ",");
-        // Serial.println("[R5] " +String(sdcardData.token));
         memset(sdcardData.data_5, 0, 56);
         strcpy(sdcardData.data_5, sdcardData.token);
-        // Serial.println("[R5-->] " +String(sdcardData.data_5));
         relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2] = atol(sdcardData.data_5);
-        Serial.println("[R5---->] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2]));
+        Serial.println("[Z] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2]));
       }
 
       else if (strncmp(sdcardData.BUFFER, "e", 1) == 0) {
-        sdcardData.iter_token = 0;
+
+        // split line on delimiter
         sdcardData.token = strtok(sdcardData.BUFFER, ",");
-        // Serial.println("[E0] " +String(sdcardData.token));
+
+        // relay index
         sdcardData.token = strtok(NULL, ",");
-        // Serial.println("[E1] " +String(sdcardData.token));
+        memset(sdcardData.data_0, 0, 56);
+        strcpy(sdcardData.data_0, sdcardData.token);
+        Serial.println("[Ri] " +String(sdcardData.data_0));
+
+        // relay enabled/disabled
         sdcardData.token = strtok(NULL, ",");
-        // Serial.println("[E2] " +String(sdcardData.token));
         memset(sdcardData.data_6, 0, 56);
         strcpy(sdcardData.data_6, sdcardData.token);
-        // Serial.println("[E2-->] " +String(sdcardData.data_6));
         relayData.relays_data[atoi(sdcardData.data_0)][10][0] = (int)atoi(sdcardData.data_6);
-        Serial.println("[E2---->] " + String(relayData.relays_data[atoi(sdcardData.data_0)][10][0]));
+        Serial.println("[E] " + String(relayData.relays_data[atoi(sdcardData.data_0)][10][0]));
 
+        // ensure cleared
         memset(sdcardData.data_0, 0, 56);
         memset(sdcardData.data_1, 0, 56);
         memset(sdcardData.data_2, 0, 56);
@@ -2761,7 +2766,6 @@ bool sdcard_write_matrix(char * file) {
   if (sdcardData.current_file) {
     for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
       for (int Fi = 0; Fi < relayData.MAX_RELAY_ELEMENTS; Fi++) {
-
         memset(sdcardData.file_data, 0 , 256);
 
         // tag 0
