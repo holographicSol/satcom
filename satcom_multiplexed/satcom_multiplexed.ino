@@ -279,7 +279,6 @@ void initDisplay3() {
 //                                                                                                            VALIDATION STRUCT
 
 struct validationStruct {
-  bool preliminary_check = true;
   int  valid_i = 0;
   bool valid_b = true;
   char *find_char;
@@ -3073,26 +3072,6 @@ bool check_bool_true(bool _bool) {
 
 bool check_bool_false(bool _bool) {
   if (_bool == false) {return true;} else {return false;}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                   PRELIMINARY SYSTEMS CHECKS
-
-bool preliminary_check() {
-  validData.preliminary_check = true;
-  Serial.println("[preliminary_check.gnggaData.check_data]     " + String(gnggaData.check_data) + "/16");
-  Serial.println("[preliminary_check.gnggaData.valid_checksum] " + String(gnggaData.valid_checksum));
-  Serial.println("[preliminary_check.gnrmcData.check_data]     " + String(gnrmcData.check_data) + "/14");
-  Serial.println("[preliminary_check.gnrmcData.valid_checksum] " + String(gnrmcData.valid_checksum));
-  Serial.println("[preliminary_check.gpattData.check_data]     " + String(gpattData.check_data) + "/41");
-  Serial.println("[preliminary_check.gpattData.valid_checksum] " + String(gpattData.valid_checksum));
-  if (gnggaData.check_data != 16) {validData.preliminary_check = false;}
-  if (gnggaData.valid_checksum == false) {validData.preliminary_check = false;}
-  if (gnrmcData.check_data != 14) {validData.preliminary_check = false;}
-  if (gnrmcData.valid_checksum == false) {validData.preliminary_check = false;}
-  if (gpattData.check_data != 41) {validData.preliminary_check = false;}
-  if (gpattData.valid_checksum == false) {validData.preliminary_check = false;}
-  return validData.preliminary_check;
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
