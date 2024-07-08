@@ -2887,9 +2887,6 @@ void matrix_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relay
 void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
 
 
-
-
-
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        SETUP
 
@@ -3058,23 +3055,18 @@ bool is_N_true(int n0, int n1) {
 
 bool preliminary_check() {
   validData.preliminary_check = true;
-
   Serial.println("[preliminary_check.gnggaData.check_data]     " + String(gnggaData.check_data) + "/16");
   Serial.println("[preliminary_check.gnggaData.valid_checksum] " + String(gnggaData.valid_checksum));
-
   Serial.println("[preliminary_check.gnrmcData.check_data]     " + String(gnrmcData.check_data) + "/14");
   Serial.println("[preliminary_check.gnrmcData.valid_checksum] " + String(gnrmcData.valid_checksum));
-
   Serial.println("[preliminary_check.gpattData.check_data]     " + String(gpattData.check_data) + "/41");
   Serial.println("[preliminary_check.gpattData.valid_checksum] " + String(gpattData.valid_checksum));
-
   if (gnggaData.check_data != 16) {validData.preliminary_check = false;}
   if (gnggaData.valid_checksum == false) {validData.preliminary_check = false;}
   if (gnrmcData.check_data != 14) {validData.preliminary_check = false;}
   if (gnrmcData.valid_checksum == false) {validData.preliminary_check = false;}
   if (gpattData.check_data != 41) {validData.preliminary_check = false;}
   if (gpattData.valid_checksum == false) {validData.preliminary_check = false;}
-
   return validData.preliminary_check;
 }
 
@@ -3084,10 +3076,8 @@ bool preliminary_check() {
 void matrixSwitch() {
 
   /*
-
   compound conditions are checked, each resulting in zero/one at the final_bool. This currently allows for sextillions of combinations with
   the current data alone.
-
   */
 
   // iterate over each relay matrix
