@@ -3270,11 +3270,9 @@ void matrixSwitch() {
         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_num_gpatt_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gpattData.speed_num, Ri, Fi);}
 
-
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: SPEED
 
-        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_over) == 0) {tmp_matrix[Fi] = check_over(speedData.ubi_state_value, Ri, Fi);}
         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_under) == 0) {tmp_matrix[Fi] = check_under(speedData.ubi_state_value, Ri, Fi);}
@@ -3385,7 +3383,6 @@ void matrixSwitch() {
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: ERROR
-
         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gset_flag_error_equal) == 0) {tmp_matrix[Fi] = check_over(errorData.gset_flag, Ri, Fi);}
 
@@ -3412,7 +3409,6 @@ void matrixSwitch() {
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: DEBUG
-
         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_heading_debug_over) == 0) {tmp_matrix[Fi] = check_over(debugData.coll_T_heading, Ri, Fi);}
         
