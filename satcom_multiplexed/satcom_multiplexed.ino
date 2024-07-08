@@ -3032,17 +3032,6 @@ bool check_strncmp_true(char * C0, char * C1, int N) {
   else {return false;}
 }
 
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                 CHECKS: BOOL
-
-/*
-the ploynomial matrix switch requires all true to result in a final truth. two polynomials can be checking the
-same bool in a way that always returns true no matter which polynomial is true. this allows us to check say current validity of a
-value, return true to either polynomial in the matrix and potentially do something differently. one polynomial is checking for
-is false while another polynimial is checking for is true. example: fallback from sat nav to trained INS, no trained INS, fallback
-to other sensors etc.
-*/
-
 bool is_false(bool _bool) {
   if (_bool == false) {return true;} else {return false;}
 }
@@ -3050,9 +3039,6 @@ bool is_false(bool _bool) {
 bool is_true(bool _bool) {
   if (_bool == true) {return true;} else {return false;}
 }
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                            CHECKS: EQUAL NUM
 
 bool is_N_false(int n0, int n1) {
   if (n0 != n1) {return true;} else {return false;}
