@@ -2763,58 +2763,45 @@ bool sdcard_write_matrix(char * file) {
     for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
       for (int Fi = 0; Fi < relayData.MAX_RELAY_ELEMENTS; Fi++) {
         memset(sdcardData.file_data, 0 , 256);
-
         // tag 0
         strcat(sdcardData.file_data, sdcardData.tag_0); strcat(sdcardData.file_data, sdcardData.delim);
-
         // Ri
         memset(sdcardData.tmp, 0 , 256);
         sprintf(sdcardData.tmp, "%d", Ri);
         strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
-
         // Fi
         memset(sdcardData.tmp, 0 , 256);
         sprintf(sdcardData.tmp, "%d", Fi);
         strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
-        
         // function name
         strcat(sdcardData.file_data, relayData.relays[Ri][Fi]); strcat(sdcardData.file_data, sdcardData.delim);
-
         // function value x
         memset(sdcardData.tmp, 0 , 256);
         sprintf(sdcardData.tmp, "%f", relayData.relays_data[Ri][Fi][0]);
         strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
-
         // function value y
         memset(sdcardData.tmp, 0 , 256);
         sprintf(sdcardData.tmp, "%f", relayData.relays_data[Ri][Fi][1]);
         strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
-
         // function value z
         memset(sdcardData.tmp, 0 , 256);
         sprintf(sdcardData.tmp, "%f", relayData.relays_data[Ri][Fi][2]);
         strcat(sdcardData.file_data, sdcardData.tmp);
-
         // write line
         Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
         sdcardData.current_file.println(sdcardData.file_data);
       }
       memset(sdcardData.file_data, 0 , 256);
-
       // tag 1
       strcat(sdcardData.file_data, sdcardData.tag_1); strcat(sdcardData.file_data, sdcardData.delim);
-
       // Ri
       memset(sdcardData.tmp, 0 , 256);
       sprintf(sdcardData.tmp, "%d", Ri);
       strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
-
       // Ri enabled 0/1
       memset(sdcardData.tmp, 0 , 256);
       itoa(relayData.relays_data[Ri][10][0], sdcardData.tmp, 10);
-      // sprintf(sdcardData.tmp, "%f", relayData.relays_data[Ri][10][0]);
       strcat(sdcardData.file_data, sdcardData.tmp);
-
       // write line
       Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
       sdcardData.current_file.println(sdcardData.file_data);
@@ -2899,6 +2886,10 @@ void matrix_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relay
 
 void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
 
+
+
+
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        SETUP
 
@@ -2919,7 +2910,6 @@ void setup() {
   //                                                                                                               SETUP SDCARD
 
   init_sdcard();
-
   sdcard_load_matrix("matrix.txt");
 
   // --------------------------------------------------------------------------------------------------------------------------
