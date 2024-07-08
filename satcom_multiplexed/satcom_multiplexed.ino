@@ -1362,6 +1362,26 @@ struct RelayStruct {
     },
   };
 
+  /*
+    Serial.println("[gnggaData.tag] "                     + String(gnggaData.tag));
+    Serial.println("[gnggaData.utc_time] "                + String(gnggaData.utc_time));
+    Serial.println("[gnggaData.latitude] "                + String(gnggaData.latitude));
+    Serial.println("[gnggaData.latitude_hemisphere] "     + String(gnggaData.latitude_hemisphere));
+    Serial.println("[gnggaData.longitude] "               + String(gnggaData.longitude));
+    Serial.println("[gnggaData.longitude_hemisphere] "    + String(gnggaData.longitude_hemisphere));
+    Serial.println("[gnggaData.positioning_status] "      + String(gnggaData.positioning_status));
+    Serial.println("[gnggaData.satellite_count_gngga] "   + String(gnggaData.satellite_count_gngga));
+    Serial.println("[gnggaData.hdop_precision_factor] "   + String(gnggaData.hdop_precision_factor));
+    Serial.println("[gnggaData.altitude] "                + String(gnggaData.altitude));
+    Serial.println("[gnggaData.altitude_units] "          + String(gnggaData.altitude_units));
+    Serial.println("[gnggaData.geoidal] "                 + String(gnggaData.geoidal));
+    Serial.println("[gnggaData.geoidal_units] "           + String(gnggaData.geoidal_units));
+    Serial.println("[gnggaData.differential_delay] "      + String(gnggaData.differential_delay));
+    Serial.println("[gnggaData.id] "                      + String(gnggaData.id));
+    Serial.println("[gnggaData.check_sum] "               + String(gnggaData.check_sum));
+    Serial.println("[gnggaData.check_data] "              + String(gnggaData.check_data));
+  */
+
   // default and specifiable value to indicate a relay should not be activated/deactivated if all functions in relays expression are $NONE
   char default_relay_function[56]          = "$NONE";
   char default_enable_relay_function[56]   = "$ENABLED";
@@ -1381,7 +1401,7 @@ struct RelayStruct {
   char mileage_gpatt_under[56]             = "mileage_gpatt_under[";
   char mileage_gpatt_equal[56]             = "mileage_gpatt_equal";
   char mileage_gpatt_in_range[56]          = "mileage_gpatt_in_range";
-
+satellite_time_gnrmc_over
   char gst_data_gpatt_over[56]             = "gst_data_gpatt_over";
   char gst_data_gpatt_under[56]            = "gst_data_gpatt_under[";
   char gst_data_gpatt_equal[56]            = "gst_data_gpatt_equal";
@@ -1411,15 +1431,15 @@ struct RelayStruct {
   char satellite_count_gngga_under[56]     = "satellite_count_gngga_under";
   char satellite_count_gngga_equal[56]     = "satellite_count_gngga_equal";
 
-  char satellite_time_over[56]             = "satellite_time_over";
-  char satellite_time_under[56]            = "satellite_time_under";
-  char satellite_time_equal[56]            = "satellite_time_equal";
-  char satellite_time_in_range[56]         = "satellite_time_in_range";
+  char satellite_time_gnrmc_over[56]       = "satellite_time_gnrmc_over";
+  char satellite_time_gnrmc_under[56]      = "satellite_time_gnrmc_under";
+  char satellite_time_gnrmc_equal[56]      = "satellite_time_gnrmc_equal";
+  char satellite_time_gnrmc_in_range[56]   = "satellite_time_gnrmc_in_range";
 
-  char satellite_date_over[56]             = "satellite_date_over";
-  char satellite_date_under[56]            = "satellite_date_under";
-  char satellite_date_equal[56]            = "satellite_date_equal";
-  char satellite_date_in_range[56]         = "satellite_date_in_range";
+  char satellite_date_gnrmc_over[56]       = "satellite_date_gnrmc_over";
+  char satellite_date_gnrmc_under[56]      = "satellite_date_gnrmc_under";
+  char satellite_date_gnrmc_equal[56]      = "satellite_date_gnrmc_equal";
+  char satellite_date_gnrmc_in_range[56]   = "satellite_date_gnrmc_in_range";
 
   char satellite_coord_gngga_over[56]      = "satellite_coord_gngga_over";
   char satellite_coord_gngga_under[56]     = "satellite_coord_gngga_under";
@@ -3130,15 +3150,15 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.ground_heading, Ri, Fi);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.ground_heading, Ri, Fi);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_time, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_time, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_time, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_time, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_time, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_time, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_time, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_time_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_time, Ri, Fi);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_date, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_date, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_date, Ri, Fi);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_date, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over(gnrmcData.utc_date, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under(gnrmcData.utc_date, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal(gnrmcData.utc_date, Ri, Fi);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_date_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_in_range(gnrmcData.utc_date, Ri, Fi);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GPATT
