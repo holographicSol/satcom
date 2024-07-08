@@ -2840,7 +2840,8 @@ void setup() {
 
   init_sdcard();
 
-  sdcard_file_exists("matrix.txt");
+  // load default matrix on startup 
+  if (sdcard_file_exists("matrix.txt") == true) {sdcard_load_matrix("matrix.txt");}
 
 
 
