@@ -3601,7 +3601,7 @@ void matrixSwitch() {
         for (int FC = 0; FC < relayData.MAX_RELAY_ELEMENTS-1; FC++) {if (tmp_matrix[FC] == 0) {final_bool = false;}}
 
         /*
-        Remember always: why do you think you can trust this data? are you transmitting this data to yourelf (from satellite or not)?
+        Remember Always: why do you think you can trust this data? are you transmitting this data to yourelf (from satellite or not)?
                          how critical are your system(s)?
                          once you plug something into this, the 'satellites' are in control unless you have a way to override.
         */
