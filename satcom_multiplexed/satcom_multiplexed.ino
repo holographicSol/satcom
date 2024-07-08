@@ -3833,9 +3833,16 @@ void readRXD_1() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                            RXD 0: MATRIX INTERFACE SET ENTRY
+//                                                                                                             MATRIX SET ENTRY
 
-void rxd_0_matrix_interface_set_matrix_entry() {
+/*
+                                        R F Function Name              X Y Z Enable/Disable 
+example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,1,0,0,1
+example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,-1,0,0,0
+clear test command:   $MATRIX_SET_ENTRY,0,0,$NONE,0,0,0,0
+*/
+
+void matrix_set_entry() {
   Serial.println("[RXD0_matrix_interface] connected");
   serial0Data.check_data_R = 0;
   memset(serial0Data.data_0, 0, 56);
@@ -3875,37 +3882,29 @@ void rxd_0_matrix_interface_set_matrix_entry() {
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]=atol(serial0Data.data_5); // set function value z
   relayData.relays_data[atoi(serial0Data.data_0)][10][0]                      =atol(serial0Data.data_6); // set enable/disable
 
-  /*
-
-  Serial command
-                                          R F Function Name              X Y Z Enable/Disable 
-  example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,1,0,0,1
-  example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,-1,0,0,0
-  clear test command:   $MATRIX_SET_ENTRY,0,0,$NONE,0,0,0,0
-
-  */
-
-  Serial.println("[R" + String(serial0Data.data_0) + "][F" + String(serial0Data.data_1) + "] f:" + String(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)]) + " x:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atol(serial0Data.data_1)][0]) + " y:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atol(serial0Data.data_1)][1]) + " z:" + String(relayData.relays_data[atoi(serial0Data.data_0)][atol(serial0Data.data_1)][2]) );
+  Serial.println("[Fi] " +String(serial0Data.data_0));
+  Serial.println("[Fi] " +String(serial0Data.data_1));
+  Serial.println("[Fn] " +String(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)]));
+  Serial.println("[X] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]));
+  Serial.println("[Y] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]));
+  Serial.println("[Z] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]));
+  Serial.println("[E] " + String(relayData.relays_data[atoi(serial0Data.data_0)][10][0]));
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                             RXD 0: MATRIX INTERFACE OVERRIDE
+//                                                                                                              MATRIX OVERRIDE
 
-/*
-disable all matrix entries.
-*/
+// disable all matrix entries.
 
-void rxd_0_matrix_interface_matrix_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=0;}}
+void matrix_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=0;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                           RXD 0: MATRIX INTERFACE ENABLE ALL
+//                                                                                                            MATRIX ENABLE ALL
 
-/*
-enable all matrix entries. will result in warnings for matrix entries with no function(s) set. this is expected and desired behaviour,
-for turning everything on becasue everything is set and or for living on the edge for any given logical reason at the time.
-*/
 
-void rxd_0_matrix_interface_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
+// enable all matrix entries. will result in warnings for matrix entries with no function(s) set. this is expected, required and desirable behaviour
+
+void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 0
@@ -3921,42 +3920,42 @@ void readRXD_0() {
     // Serial.println(serial0Data.nbytes); // debug
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                              MATRIX INTERFACE: SET ENTRY
+    //                                                                                                        MATRIX: SET ENTRY
 
     if (strncmp(serial0Data.BUFFER, "$MATRIX_SET_ENTRY", 17) == 0) {
-      rxd_0_matrix_interface_set_matrix_entry();
+      matrix_set_entry();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                               MATRIX INTERFACE: OVERRIDE
+    //                                                                                                         MATRIX: OVERRIDE
 
     else if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE") == 0) {
-      rxd_0_matrix_interface_matrix_override();
+      matrix_override();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                             MATRIX INTERFACE: ENABLE ALL
+    //                                                                                                       MATRIX: ENABLE ALL
 
     else if (strcmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ALL") == 0) {
-      rxd_0_matrix_interface_enable_all();
+      matrix_enable_all();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                MATRIX INTERFACE: READ SDCARD MATRIX DATA
+    //                                                                                         MATRIX: SERIAL PRINT MATRIX FILE
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_READ_MATRIX") == 0) {
       sdcard_read_to_serial("matrix.txt");
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                 MATRIX INTERFACE: WRITE MATRIX TO SDCARD
+    //                                                                                           MATRIX: WRITE MATRIX TO SDCARD
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_WRITE_MATRIX") == 0) {
       sdcard_write_matrix("matrix.txt");
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                            MATRIX INTERFACE: LOAD MATRIX
+    //                                                                                                      MATRIX: LOAD MATRIX
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_LOAD_MATRIX") == 0) {
       sdcard_load_matrix("matrix.txt");
