@@ -3080,7 +3080,7 @@ void matrixSwitch() {
         // Serial.println("[Fi] " + String(Fi));
         // Serial.println("[relayData.relays[Ri][Fi]] " + String(relayData.relays[Ri][Fi]));
 
-        // for perfromance reasons logic may prefer adding functions from position zero else if position zero not populated then break to next sub relay matrix
+        // for perfromance reasons logic may prefer adding functions from position zero else if position zero not populated then break to next relay_data sub matrix
         if ((strcmp(relayData.relays[Ri][Fi], relayData.default_relay_function) == 0) && (Fi == 0)) {break;}
 
         // put true in temporary matrix for functions set to none. there is one check to catch you if you do soft enable with no functions set.
