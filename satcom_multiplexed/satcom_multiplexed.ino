@@ -3597,28 +3597,28 @@ void readRXD_1() {
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GNRMC
 
-    // else if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
-    //   if ((serial1Data.nbytes == 78) || (serial1Data.nbytes == 80)) {
-    //     serial1Data.rcv = true;
-    //     Serial.print(""); Serial.println(serial1Data.BUFFER);
-    //     gnrmcData.valid_checksum = validateChecksum(serial1Data.BUFFER);
-    //     if (gnrmcData.valid_checksum == true) {GNRMC();}
-    //     else {gnrmcData.bad_checksum_validity++;}
-    //   }
-    // }
+    else if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
+      if ((serial1Data.nbytes == 78) || (serial1Data.nbytes == 80)) {
+        serial1Data.rcv = true;
+        Serial.print(""); Serial.println(serial1Data.BUFFER);
+        gnrmcData.valid_checksum = validateChecksum(serial1Data.BUFFER);
+        if (gnrmcData.valid_checksum == true) {GNRMC();}
+        else {gnrmcData.bad_checksum_validity++;}
+      }
+    }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GPATT
 
-    // else if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
-    //   if ((serial1Data.nbytes == 136) || (serial1Data.nbytes == 189)) {
-    //     serial1Data.rcv = true;
-    //     Serial.print(""); Serial.println(serial1Data.BUFFER);
-    //     gpattData.valid_checksum = validateChecksum(serial1Data.BUFFER);
-    //     if (gpattData.valid_checksum == true) {GPATT();}
-    //     else {gpattData.bad_checksum_validity++;}
-    //   }
-    // }
+    else if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
+      if ((serial1Data.nbytes == 136) || (serial1Data.nbytes == 189)) {
+        serial1Data.rcv = true;
+        Serial.print(""); Serial.println(serial1Data.BUFFER);
+        gpattData.valid_checksum = validateChecksum(serial1Data.BUFFER);
+        if (gpattData.valid_checksum == true) {GPATT();}
+        else {gpattData.bad_checksum_validity++;}
+      }
+    }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    DESBI
@@ -3772,3 +3772,5 @@ void loop() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+
+
