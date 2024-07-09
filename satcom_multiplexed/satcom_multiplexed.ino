@@ -2937,10 +2937,11 @@ void matrix_set_entry() {
     Serial.println("[serial0Data.data_5] "         + String(serial0Data.data_5));
   }
   //                      [           RN          ][          FN            ][      VALUE        ]
+  char *ptr;
   strcpy(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)], serial0Data.data_2);      // set function
-  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]=atol(serial0Data.data_3); // set function value x
-  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]=atol(serial0Data.data_4); // set function value y
-  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]=atol(serial0Data.data_5); // set function value z
+  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]=strtod(serial0Data.data_3, &ptr); // set function value x
+  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]=strtod(serial0Data.data_4, &ptr); // set function value y
+  relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]=strtod(serial0Data.data_5, &ptr); // set function value z
 
   Serial.println("[Ri] " +String(serial0Data.data_0));
   Serial.println("[Fi] " +String(serial0Data.data_1));
@@ -3682,7 +3683,7 @@ void readRXD_0() {
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                     MATRIX: ENABLE ENTRY
 
-    else if (strncmp(serial0Data.BUFFER, "$MATRIX_SET_ENABLED", 20) == 0) {
+    else if (strncmp(serial0Data.BUFFER, "$MATRIX_SET_ENABLED", 19) == 0) {
       matrix_set_enabled(1);
     }
 
