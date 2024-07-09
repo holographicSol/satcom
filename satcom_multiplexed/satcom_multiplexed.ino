@@ -128,8 +128,8 @@ FsFile file;
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       WIRING
 
-SSD1306Wire   display_7(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display_6(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
+SSD1306Wire   display_7(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display_5(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display_4(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
@@ -223,22 +223,22 @@ void tcaselect(uint8_t channel) {
 //                                                                                                          INITIALIZE DISPLAY
 
 void initDisplay7() {
-  display_7.init();
-  display_7.flipScreenVertically();
-  display_7.setContrast(255);
-  display_7.setFont(ArialMT_Plain_10);
-  display_7.cls();
+  display_6.init();
+  display_6.flipScreenVertically();
+  display_6.setContrast(255);
+  display_6.setFont(ArialMT_Plain_10);
+  display_6.cls();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          INITIALIZE DISPLAY
 
 void initDisplay6() {
-  display_6.init();
-  display_6.flipScreenVertically();
-  display_6.setContrast(255);
-  display_6.setFont(ArialMT_Plain_10);
-  display_6.cls();
+  display_7.init();
+  display_7.flipScreenVertically();
+  display_7.setContrast(255);
+  display_7.setFont(ArialMT_Plain_10);
+  display_7.cls();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -2608,57 +2608,24 @@ void extrapulatedSatData() {
   }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    DISPLAY 0
-
-void SSD_Display_6() {
-  tcaselect(6);
-  display_7.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_7.setColor(WHITE);
-  display_7.clear();
-  display_7.drawString(display_7.getWidth()/2, 0, "GNGGA");
-  display_7.drawString(display_7.getWidth()/2, 14, "P " + String(gnggaData.positioning_status) + " S " + String(gnggaData.satellite_count_gngga));
-  display_7.drawString(display_7.getWidth()/2, 24, String(gnggaData.utc_time));
-  display_7.drawString(display_7.getWidth()/2, 34, String(gnggaData.latitude_hemisphere) + " " + String(gnggaData.latitude));
-  display_7.drawString(display_7.getWidth()/2, 44, String(gnggaData.longitude_hemisphere) + " " + String(gnggaData.longitude));
-  display_7.drawString(display_7.getWidth()/2, 54, "A " + String(gnggaData.altitude));
-  display_7.display();
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    DISPLAY 1
-
-void SSD_Display_7() {
-  tcaselect(7);
-  display_6.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_6.setColor(WHITE);
-  display_6.clear();
-  display_6.drawString(display_6.getWidth()/2, 0, "GNRMC");
-  display_6.drawString(display_6.getWidth()/2, 14, "P " + String(gnrmcData.positioning_status) + " M " + String(gnrmcData.mode_indication));
-  display_6.drawString(display_6.getWidth()/2, 24, String(gnrmcData.utc_time) + " " + String(gnrmcData.utc_date));
-  display_6.drawString(display_6.getWidth()/2, 34, String(gnrmcData.latitude_hemisphere) + " " + String(gnrmcData.latitude));
-  display_6.drawString(display_6.getWidth()/2, 44, String(gnrmcData.longitude_hemisphere) + " " + String(gnrmcData.longitude));
-  display_6.drawString(display_6.getWidth()/2, 54, "H " + String(gnrmcData.ground_heading) + " S " + String(gnrmcData.ground_speed));
-  display_6.display();
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    DISPLAY 2
-
-void SSD_Display_5() {
-  tcaselect(5);
-  display_5.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_5.setColor(WHITE);
-  display_5.clear();
-  display_5.drawString(display_5.getWidth()/2, 0, "SATCOM");
-  display_5.drawString(display_5.getWidth()/2, 14, satData.sat_time_stamp_string);
-  display_5.drawString(display_5.getWidth()/2, 24, String(satData.last_sat_time_stamp_str));
-  display_5.drawString(display_5.getWidth()/2, 44, String(gnggaData.latitude_hemisphere) + " " + satData.location_latitude_gngga_str);
-  display_5.drawString(display_5.getWidth()/2, 54, String(gnggaData.longitude_hemisphere) + " " + satData.location_longitude_gngga_str);
-  display_5.display();
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 3
+
+void SSD_Display_3() {
+  tcaselect(3);
+  display_3.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_3.setColor(WHITE);
+  display_3.clear();
+  display_3.drawString(display_3.getWidth()/2, 0, "MATRIX");
+  display_3.drawString(display_3.getWidth()/2, 14, "   1 2 3 4 5 6 7 8 9 10");
+  display_3.drawString(display_3.getWidth()/2,24,"0 "+String(relayData.relays_bool[0][0])+" "+String(relayData.relays_bool[0][1])+" "+String(relayData.relays_bool[0][2])+" "+String(relayData.relays_bool[0][3])+" "+String(relayData.relays_bool[0][4])+" "+String(relayData.relays_bool[0][5])+" "+String(relayData.relays_bool[0][6])+" "+String(relayData.relays_bool[0][7])+" "+String(relayData.relays_bool[0][8])+" "+String(relayData.relays_bool[0][9]));
+  display_3.drawString(display_3.getWidth()/2,34,"1 "+String(relayData.relays_bool[0][10])+" "+String(relayData.relays_bool[0][11])+" "+String(relayData.relays_bool[0][12])+" "+String(relayData.relays_bool[0][13])+" "+String(relayData.relays_bool[0][14])+" "+String(relayData.relays_bool[0][15])+" "+String(relayData.relays_bool[0][16])+" "+String(relayData.relays_bool[0][17])+" "+String(relayData.relays_bool[0][18])+" "+String(relayData.relays_bool[0][19]));
+  display_3.drawString(display_3.getWidth()/2,44,"2 "+String(relayData.relays_bool[0][20])+" "+String(relayData.relays_bool[0][21])+" "+String(relayData.relays_bool[0][22])+" "+String(relayData.relays_bool[0][23])+" "+String(relayData.relays_bool[0][24])+" "+String(relayData.relays_bool[0][25])+" "+String(relayData.relays_bool[0][26])+" "+String(relayData.relays_bool[0][27])+" "+String(relayData.relays_bool[0][28])+" "+String(relayData.relays_bool[0][29]));
+  display_3.drawString(display_3.getWidth()/2,54,"3 "+String(relayData.relays_bool[0][30])+" "+String(relayData.relays_bool[0][31])+" "+String(relayData.relays_bool[0][32])+" "+String(relayData.relays_bool[0][33])+" "+String(relayData.relays_bool[0][34])+" "+String(relayData.relays_bool[0][35])+" "+String(relayData.relays_bool[0][36])+" "+String(relayData.relays_bool[0][37])+" "+String(relayData.relays_bool[0][38])+" "+String(relayData.relays_bool[0][39]));
+  display_3.display();
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    DISPLAY 4
 
 void SSD_Display_4() {
   tcaselect(4);
@@ -2674,20 +2641,53 @@ void SSD_Display_4() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    DISPLAY 4
+//                                                                                                                    DISPLAY 5
 
-void SSD_Display_3() {
-  tcaselect(3);
-  display_3.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_3.setColor(WHITE);
-  display_3.clear();
-  display_3.drawString(display_3.getWidth()/2, 0, "MATRIX");
-  display_3.drawString(display_3.getWidth()/2, 14, "   1 2 3 4 5 6 7 8 9 10");
-  display_3.drawString(display_3.getWidth()/2,24,"0 "+String(relayData.relays_bool[0][0])+" "+String(relayData.relays_bool[0][1])+" "+String(relayData.relays_bool[0][2])+" "+String(relayData.relays_bool[0][3])+" "+String(relayData.relays_bool[0][4])+" "+String(relayData.relays_bool[0][5])+" "+String(relayData.relays_bool[0][6])+" "+String(relayData.relays_bool[0][7])+" "+String(relayData.relays_bool[0][8])+" "+String(relayData.relays_bool[0][9]));
-  display_3.drawString(display_3.getWidth()/2,34,"1 "+String(relayData.relays_bool[0][10])+" "+String(relayData.relays_bool[0][11])+" "+String(relayData.relays_bool[0][12])+" "+String(relayData.relays_bool[0][13])+" "+String(relayData.relays_bool[0][14])+" "+String(relayData.relays_bool[0][15])+" "+String(relayData.relays_bool[0][16])+" "+String(relayData.relays_bool[0][17])+" "+String(relayData.relays_bool[0][18])+" "+String(relayData.relays_bool[0][19]));
-  display_3.drawString(display_3.getWidth()/2,44,"2 "+String(relayData.relays_bool[0][20])+" "+String(relayData.relays_bool[0][21])+" "+String(relayData.relays_bool[0][22])+" "+String(relayData.relays_bool[0][23])+" "+String(relayData.relays_bool[0][24])+" "+String(relayData.relays_bool[0][25])+" "+String(relayData.relays_bool[0][26])+" "+String(relayData.relays_bool[0][27])+" "+String(relayData.relays_bool[0][28])+" "+String(relayData.relays_bool[0][29]));
-  display_3.drawString(display_3.getWidth()/2,54,"3 "+String(relayData.relays_bool[0][30])+" "+String(relayData.relays_bool[0][31])+" "+String(relayData.relays_bool[0][32])+" "+String(relayData.relays_bool[0][33])+" "+String(relayData.relays_bool[0][34])+" "+String(relayData.relays_bool[0][35])+" "+String(relayData.relays_bool[0][36])+" "+String(relayData.relays_bool[0][37])+" "+String(relayData.relays_bool[0][38])+" "+String(relayData.relays_bool[0][39]));
-  display_3.display();
+void SSD_Display_5() {
+  tcaselect(5);
+  display_5.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_5.setColor(WHITE);
+  display_5.clear();
+  display_5.drawString(display_5.getWidth()/2, 0, "SATCOM");
+  display_5.drawString(display_5.getWidth()/2, 14, satData.sat_time_stamp_string);
+  display_5.drawString(display_5.getWidth()/2, 24, String(satData.last_sat_time_stamp_str));
+  display_5.drawString(display_5.getWidth()/2, 44, String(gnggaData.latitude_hemisphere) + " " + satData.location_latitude_gngga_str);
+  display_5.drawString(display_5.getWidth()/2, 54, String(gnggaData.longitude_hemisphere) + " " + satData.location_longitude_gngga_str);
+  display_5.display();
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    DISPLAY 6
+
+void SSD_Display_6() {
+  tcaselect(6);
+  display_6.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_6.setColor(WHITE);
+  display_6.clear();
+  display_6.drawString(display_6.getWidth()/2, 0, "GNGGA");
+  display_6.drawString(display_6.getWidth()/2, 14, "P " + String(gnggaData.positioning_status) + " S " + String(gnggaData.satellite_count_gngga));
+  display_6.drawString(display_6.getWidth()/2, 24, String(gnggaData.utc_time));
+  display_6.drawString(display_6.getWidth()/2, 34, String(gnggaData.latitude_hemisphere) + " " + String(gnggaData.latitude));
+  display_6.drawString(display_6.getWidth()/2, 44, String(gnggaData.longitude_hemisphere) + " " + String(gnggaData.longitude));
+  display_6.drawString(display_6.getWidth()/2, 54, "A " + String(gnggaData.altitude));
+  display_6.display();
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    DISPLAY 7
+
+void SSD_Display_7() {
+  tcaselect(7);
+  display_7.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_7.setColor(WHITE);
+  display_7.clear();
+  display_7.drawString(display_7.getWidth()/2, 0, "GNRMC");
+  display_7.drawString(display_7.getWidth()/2, 14, "P " + String(gnrmcData.positioning_status) + " M " + String(gnrmcData.mode_indication));
+  display_7.drawString(display_7.getWidth()/2, 24, String(gnrmcData.utc_time) + " " + String(gnrmcData.utc_date));
+  display_7.drawString(display_7.getWidth()/2, 34, String(gnrmcData.latitude_hemisphere) + " " + String(gnrmcData.latitude));
+  display_7.drawString(display_7.getWidth()/2, 44, String(gnrmcData.longitude_hemisphere) + " " + String(gnrmcData.longitude));
+  display_7.drawString(display_7.getWidth()/2, 54, "H " + String(gnrmcData.ground_heading) + " S " + String(gnrmcData.ground_speed));
+  display_7.display();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
