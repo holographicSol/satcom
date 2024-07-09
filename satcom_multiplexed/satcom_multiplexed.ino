@@ -2848,11 +2848,11 @@ bool sdcard_save_matrix(char * file) {
         memset(sdcardData.file_data, 0 , 256);
         // tag 0
         strcat(sdcardData.file_data, sdcardData.tag_0); strcat(sdcardData.file_data, sdcardData.delim);
-        // Ri
+        // relay index
         memset(sdcardData.tmp, 0 , 256);
         sprintf(sdcardData.tmp, "%d", Ri);
         strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
-        // Fi
+        // relay function index
         memset(sdcardData.tmp, 0 , 256);
         sprintf(sdcardData.tmp, "%d", Fi);
         strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
