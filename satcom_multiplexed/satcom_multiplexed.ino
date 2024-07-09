@@ -2816,7 +2816,7 @@ bool sdcard_load_matrix(char * file) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                  WRITE MATRIX DATA TO SDCARD 
 
-bool sdcard_write_matrix(char * file) {
+bool sdcard_save_matrix(char * file) {
   // sdcardData
   sdcardData.current_file = sd.open(file, FILE_WRITE);
   sdcardData.current_file.rewind();
@@ -2879,14 +2879,14 @@ bool sdcard_write_matrix(char * file) {
 //                                                                                                             MATRIX SET ENTRY
 
 /*
-                                        R F Function Name              X Y Z Enable/Disable 
-example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,1,0,0,1
-example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,-1,0,0,0
-clear test command:   $MATRIX_SET_ENTRY,0,0,$NONE,0,0,0,0
+                                        R F Function Name              X Y Z
+example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,1,0,0
+example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,-1,0,0
+clear test command:   $MATRIX_SET_ENTRY,0,0,$NONE,0,0,0
 */
 
 void matrix_set_entry() {
-  Serial.println("[RXD0_matrix_interface] connected");
+  Serial.println("[matrix_set_entry] connected");
   serial0Data.check_data_R = 0;
   memset(serial0Data.data_0, 0, 56);
   memset(serial0Data.data_1, 0, 56);
@@ -2894,7 +2894,6 @@ void matrix_set_entry() {
   memset(serial0Data.data_3, 0, 56);
   memset(serial0Data.data_4, 0, 56);
   memset(serial0Data.data_5, 0, 56);
-  memset(serial0Data.data_6, 0, 56);
   serial0Data.iter_token = 0;
   serial0Data.token = strtok(serial0Data.BUFFER, ",");
   while( serial0Data.token != NULL ) {
@@ -2905,7 +2904,6 @@ void matrix_set_entry() {
     else if (serial0Data.iter_token == 4) {strcpy(serial0Data.data_3, serial0Data.token);} // x
     else if (serial0Data.iter_token == 5) {strcpy(serial0Data.data_4, serial0Data.token);} // y
     else if (serial0Data.iter_token == 6) {strcpy(serial0Data.data_5, serial0Data.token);} // z
-    else if (serial0Data.iter_token == 7) {strcpy(serial0Data.data_6, serial0Data.token);} // 0/1
     serial0Data.token = strtok(NULL, ",");
     serial0Data.iter_token++;
   }
@@ -2916,14 +2914,12 @@ void matrix_set_entry() {
     Serial.println("[serial0Data.data_3] "         + String(serial0Data.data_3));
     Serial.println("[serial0Data.data_4] "         + String(serial0Data.data_4));
     Serial.println("[serial0Data.data_5] "         + String(serial0Data.data_5));
-    Serial.println("[serial0Data.data_6] "         + String(serial0Data.data_6));
   }
   //                      [           RN          ][          FN            ][      VALUE        ]
   strcpy(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)], serial0Data.data_2);      // set function
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]=atol(serial0Data.data_3); // set function value x
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]=atol(serial0Data.data_4); // set function value y
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]=atol(serial0Data.data_5); // set function value z
-  relayData.relays_enable[0][atoi(serial0Data.data_0)]                        =atoi(serial0Data.data_6); // set enable/disable
 
   Serial.println("[Fi] " +String(serial0Data.data_0));
   Serial.println("[Fi] " +String(serial0Data.data_1));
@@ -2931,7 +2927,25 @@ void matrix_set_entry() {
   Serial.println("[X] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]));
   Serial.println("[Y] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]));
   Serial.println("[Z] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]));
-  Serial.println("[E] " + String(relayData.relays_enable[0][atoi(serial0Data.data_0)]));
+}
+
+void matrix_enable_entry(int n) {
+  Serial.println("[matrix_enable_entry] connected");
+  serial0Data.check_data_R = 0;
+  memset(serial0Data.data_0, 0, 56);
+  serial0Data.iter_token = 0;
+  serial0Data.token = strtok(serial0Data.BUFFER, ",");
+  while( serial0Data.token != NULL ) {
+    if      (serial0Data.iter_token == 0) {}
+    else if (serial0Data.iter_token == 1) {strcpy(serial0Data.data_0, serial0Data.token);} // 0/1
+    serial0Data.token = strtok(NULL, ",");
+    serial0Data.iter_token++;
+  }
+  if (sysDebugData.serial_0_sentence == true) {
+    Serial.println("[serial0Data.data_0] "         + String(serial0Data.data_0));
+  }
+  relayData.relays_enable[0][atoi(serial0Data.data_0)] = n; // set enable/disable
+  Serial.println("[R] " + String(serial0Data.data_0) + " [E] " + String(relayData.relays_enable[0][atoi(serial0Data.data_0)]));
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -3639,6 +3653,21 @@ void readRXD_0() {
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                     MATRIX: ENABLE ENTRY
+
+    if (strncmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ENTRY", 20) == 0) {
+      matrix_enable_entry(1);
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                    MATRIX: DISABLE ENTRY
+
+    if (strncmp(serial0Data.BUFFER, "$MATRIX_DISABLE_ENTRY", 21) == 0) {
+      matrix_enable_entry(0);
+    }
+
+
+    // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                         MATRIX: OVERRIDE
 
     else if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE") == 0) {
@@ -3660,14 +3689,14 @@ void readRXD_0() {
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                           MATRIX: WRITE MATRIX TO SDCARD
+    //                                                                                            MATRIX: SAVE MATRIX TO SDCARD
 
-    else if (strcmp(serial0Data.BUFFER, "$SDCARD_WRITE_MATRIX") == 0) {
-      sdcard_write_matrix("matrix.txt");
+    else if (strcmp(serial0Data.BUFFER, "$SDCARD_SAVE_MATRIX") == 0) {
+      sdcard_save_matrix("matrix.txt");
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                      MATRIX: LOAD MATRIX
+    //                                                                                          MATRIX: LOAD MATRIX FROM SDCARD
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_LOAD_MATRIX") == 0) {
       sdcard_load_matrix("matrix.txt");
