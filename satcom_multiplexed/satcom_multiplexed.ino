@@ -2710,7 +2710,7 @@ void SSD_Display_Loading() {
   display_7.setTextAlignment(TEXT_ALIGN_CENTER);
   display_7.clear();
   display_7.drawString(display_7.getWidth()/2, 0, "[LOADING]");
-  display_7.drawString(display_7.getWidth()/2, 34, "SATCOM");
+  display_7.drawString(display_7.getWidth()/2, 24, "SATCOM");
   display_7.display();
 }
 
