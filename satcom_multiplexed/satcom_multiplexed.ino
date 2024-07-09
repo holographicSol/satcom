@@ -398,7 +398,9 @@ bool val_latitude(char * data) {
   if (strlen(data) == 13) {
     if (data[4] == '.') {
       if (count_digits(data, 12) == true) {
-        check_pass = true;
+        if (is_positive_negative_double(data) == true) {
+          check_pass = true;
+        }
       }
     }
   }
@@ -410,7 +412,9 @@ bool val_longitude(char * data) {
   if (strlen(data) == 14) {
     if (data[5] == '.') {
       if (count_digits(data, 13) == true) {
-        check_pass = true;
+        if (is_positive_negative_double(data) == true) {
+          check_pass = true;
+        }
       }
     }
   }
