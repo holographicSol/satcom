@@ -3655,17 +3655,16 @@ void readRXD_0() {
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                     MATRIX: ENABLE ENTRY
 
-    if (strncmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ENTRY", 20) == 0) {
+    else if (strncmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ENTRY", 20) == 0) {
       matrix_enable_entry(1);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                    MATRIX: DISABLE ENTRY
 
-    if (strncmp(serial0Data.BUFFER, "$MATRIX_DISABLE_ENTRY", 21) == 0) {
+    else if (strncmp(serial0Data.BUFFER, "$MATRIX_DISABLE_ENTRY", 21) == 0) {
       matrix_enable_entry(0);
     }
-
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                         MATRIX: OVERRIDE
