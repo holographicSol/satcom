@@ -2613,7 +2613,6 @@ void extrapulatedSatData() {
 void SSD_Display_3() {
   tcaselect(3);
   display_3.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_3.setColor(WHITE);
   display_3.clear();
   display_3.drawString(display_3.getWidth()/2, 0, "MATRIX");
   display_3.drawString(display_3.getWidth()/2, 14, "   1 2 3 4 5 6 7 8 9 10");
@@ -2630,7 +2629,6 @@ void SSD_Display_3() {
 void SSD_Display_4() {
   tcaselect(4);
   display_4.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_4.setColor(WHITE);
   display_4.clear();
   display_4.drawString(display_4.getWidth()/2, 0, "GPATT");
   display_4.drawString(display_4.getWidth()/2, 14, "P " + String(gpattData.pitch));
@@ -2646,7 +2644,6 @@ void SSD_Display_4() {
 void SSD_Display_5() {
   tcaselect(5);
   display_5.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_5.setColor(WHITE);
   display_5.clear();
   display_5.drawString(display_5.getWidth()/2, 0, "SATCOM");
   display_5.drawString(display_5.getWidth()/2, 14, satData.sat_time_stamp_string);
@@ -2662,7 +2659,6 @@ void SSD_Display_5() {
 void SSD_Display_6() {
   tcaselect(6);
   display_6.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_6.setColor(WHITE);
   display_6.clear();
   display_6.drawString(display_6.getWidth()/2, 0, "GNGGA");
   display_6.drawString(display_6.getWidth()/2, 14, "P " + String(gnggaData.positioning_status) + " S " + String(gnggaData.satellite_count_gngga));
@@ -2679,7 +2675,6 @@ void SSD_Display_6() {
 void SSD_Display_7() {
   tcaselect(7);
   display_7.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_7.setColor(WHITE);
   display_7.clear();
   display_7.drawString(display_7.getWidth()/2, 0, "GNRMC");
   display_7.drawString(display_7.getWidth()/2, 14, "P " + String(gnrmcData.positioning_status) + " M " + String(gnrmcData.mode_indication));
@@ -2687,6 +2682,34 @@ void SSD_Display_7() {
   display_7.drawString(display_7.getWidth()/2, 34, String(gnrmcData.latitude_hemisphere) + " " + String(gnrmcData.latitude));
   display_7.drawString(display_7.getWidth()/2, 44, String(gnrmcData.longitude_hemisphere) + " " + String(gnrmcData.longitude));
   display_7.drawString(display_7.getWidth()/2, 54, "H " + String(gnrmcData.ground_heading) + " S " + String(gnrmcData.ground_speed));
+  display_7.display();
+}
+
+void SSD_Display_Loading() {
+  tcaselect(3);
+  display_3.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_3.clear();
+  display_3.drawString(display_3.getWidth()/2, 0, "[LOADING]");
+  display_3.display();
+  tcaselect(4);
+  display_4.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_4.clear();
+  display_4.drawString(display_4.getWidth()/2, 0, "[LOADING]");
+  display_4.display();
+  tcaselect(5);
+  display_5.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_5.clear();
+  display_5.drawString(display_5.getWidth()/2, 0, "[LOADING]");
+  display_5.display();
+  tcaselect(6);
+  display_6.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_6.clear();
+  display_6.drawString(display_6.getWidth()/2, 0, "[LOADING]");
+  display_6.display();
+  tcaselect(7);
+  display_7.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_7.clear();
+  display_7.drawString(display_7.getWidth()/2, 0, "[LOADING]");
   display_7.display();
 }
 
@@ -3000,6 +3023,8 @@ void setup() {
 
   tcaselect(7);
   initDisplay7();
+
+  SSD_Display_Loading();
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                               SETUP SDCARD
