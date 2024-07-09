@@ -354,6 +354,15 @@ bool is_all_digits_plus_char(char * data, char * find_char) {
   return validData.valid_b;
 }
 
+bool is_positive_negative_double(char * data) {
+  // designed to check all chars are digits except one period and the signed bit
+  validData.valid_b = true;
+  validData.find_char = strchr(data, '.');
+  validData.index = (int)(validData.find_char - data);
+  for (int i = 0; i < strlen(data); i++) {if (isdigit(data[i]) == 0) {if (i != validData.index) {if (data[i] != '-') {validData.valid_b = false;}}}}
+  return validData.valid_b;
+}
+
 bool is_all_alpha(char * data) {
   validData.valid_b = true;
   for (int i = 0; i < strlen(data); i++) {if (isalpha(data[i]) == 0) {validData.valid_b = false;}}
@@ -2765,20 +2774,24 @@ bool sdcard_load_matrix(char * file) {
           // relay function data: x
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_3, sdcardData.token);
-          relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0] = atol(sdcardData.data_3);
-          Serial.println("[X]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0]));
+          if (is_positive_negative_double(sdcardData.data_3) == true) {
+            Serial.println("[X] TRUE");
+            relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0] = atol(sdcardData.data_3);
+            Serial.println("[X]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0]));}
 
           // relay function data: y
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_4, sdcardData.token);
-          relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1] = atol(sdcardData.data_4);
-          Serial.println("[Y]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1]));
+          if (is_positive_negative_double(sdcardData.data_4) == true) {
+            relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1] = atol(sdcardData.data_4);
+            Serial.println("[Y]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1]));}
           
           // relay function data: z
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_5, sdcardData.token);
-          relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2] = atol(sdcardData.data_5);
-          Serial.println("[Z]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2]));
+          if (is_positive_negative_double(sdcardData.data_5) == true) {
+            relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2] = atol(sdcardData.data_5);
+            Serial.println("[Z]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2]));}
         }
       }
       else if (strncmp(sdcardData.BUFFER, "e", 1) == 0) {
