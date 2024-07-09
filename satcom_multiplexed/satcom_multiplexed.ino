@@ -283,6 +283,13 @@ struct validationStruct {
   bool valid_b = true;
   char *find_char;
   int  index;
+  bool bool_data_0 = false;
+  bool bool_data_1 = false;
+  bool bool_data_2 = false;
+  bool bool_data_3 = false;
+  bool bool_data_4 = false;
+  bool bool_data_5 = false;
+  bool bool_data_6 = false;
 };
 validationStruct validData;
 
@@ -2705,17 +2712,6 @@ bool sdcard_read_to_serial(char * file) {
 
 bool sdcard_load_matrix(char * file) {
 
-  // todo: further santitize
-
-  // ensure cleared
-  memset(sdcardData.data_0, 0, 56);
-  memset(sdcardData.data_1, 0, 56);
-  memset(sdcardData.data_2, 0, 56);
-  memset(sdcardData.data_3, 0, 56);
-  memset(sdcardData.data_4, 0, 56);
-  memset(sdcardData.data_5, 0, 56);
-  memset(sdcardData.data_6, 0, 56);
-
   // open file to read
   sdcardData.current_file = sd.open(file); 
   if (sdcardData.current_file) {
@@ -2731,69 +2727,6 @@ bool sdcard_load_matrix(char * file) {
       
       if (strncmp(sdcardData.BUFFER, "r", 1) == 0) {
 
-        // split line on delimiter
-        sdcardData.token = strtok(sdcardData.BUFFER, ",");
-
-        // relay index
-        sdcardData.token = strtok(NULL, ",");
-        memset(sdcardData.data_0, 0, 56);
-        strcpy(sdcardData.data_0, sdcardData.token);
-        Serial.println("[Ri] " +String(sdcardData.data_0));
-
-        // relay function index
-        sdcardData.token = strtok(NULL, ",");
-        memset(sdcardData.data_1, 0, 56);
-        strcpy(sdcardData.data_1, sdcardData.token);
-        Serial.println("[Fi] " +String(sdcardData.data_1));
-        
-        // relay function name
-        sdcardData.token = strtok(NULL, ",");
-        memset(sdcardData.data_2, 0, 56);
-        strcpy(sdcardData.data_2, sdcardData.token);
-        memset(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], 0, 56);
-        strcpy(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], sdcardData.data_2);
-        Serial.println("[Fn] " +String(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)]));
-
-        // relay function data: x
-        sdcardData.token = strtok(NULL, ",");
-        memset(sdcardData.data_3, 0, 56);
-        strcpy(sdcardData.data_3, sdcardData.token);
-        relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0] = atol(sdcardData.data_3);
-        Serial.println("[X] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0]));
-
-        // relay function data: y
-        sdcardData.token = strtok(NULL, ",");
-        memset(sdcardData.data_4, 0, 56);
-        strcpy(sdcardData.data_4, sdcardData.token);
-        relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1] = atol(sdcardData.data_4);
-        Serial.println("[Y] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1]));
-
-        // relay function data: z
-        sdcardData.token = strtok(NULL, ",");
-        memset(sdcardData.data_5, 0, 56);
-        strcpy(sdcardData.data_5, sdcardData.token);
-        relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2] = atol(sdcardData.data_5);
-        Serial.println("[Z] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2]));
-      }
-
-      else if (strncmp(sdcardData.BUFFER, "e", 1) == 0) {
-
-        // split line on delimiter
-        sdcardData.token = strtok(sdcardData.BUFFER, ",");
-
-        // relay index
-        sdcardData.token = strtok(NULL, ",");
-        memset(sdcardData.data_0, 0, 56);
-        strcpy(sdcardData.data_0, sdcardData.token);
-        Serial.println("[Ri] " +String(sdcardData.data_0));
-
-        // relay enabled/disabled
-        sdcardData.token = strtok(NULL, ",");
-        memset(sdcardData.data_6, 0, 56);
-        strcpy(sdcardData.data_6, sdcardData.token);
-        relayData.relays_data[atoi(sdcardData.data_0)][10][0] = (int)atoi(sdcardData.data_6);
-        Serial.println("[E] " + String(relayData.relays_data[atoi(sdcardData.data_0)][10][0]));
-
         // ensure cleared
         memset(sdcardData.data_0, 0, 56);
         memset(sdcardData.data_1, 0, 56);
@@ -2802,6 +2735,67 @@ bool sdcard_load_matrix(char * file) {
         memset(sdcardData.data_4, 0, 56);
         memset(sdcardData.data_5, 0, 56);
         memset(sdcardData.data_6, 0, 56);
+        validData.bool_data_0 = false;
+        validData.bool_data_1 = false;
+
+        // split line on delimiter
+        sdcardData.token = strtok(sdcardData.BUFFER, ",");
+
+        // relay index
+        sdcardData.token = strtok(NULL, ",");
+        strcpy(sdcardData.data_0, sdcardData.token);
+        if (is_all_digits(sdcardData.data_0) == true) {validData.bool_data_0 = true; Serial.println("[Ri] [PASS] " +String(sdcardData.data_0));}
+        else {Serial.println("[Ri] [FAIL] " +String(sdcardData.data_0));}
+
+        // relay function index
+        sdcardData.token = strtok(NULL, ",");
+        strcpy(sdcardData.data_1, sdcardData.token);
+        if (is_all_digits(sdcardData.data_1) == true) {validData.bool_data_1 = true; Serial.println("[Fi] [PASS] " +String(sdcardData.data_1));}
+        else {Serial.println("[Fi] [FAIL] " +String(sdcardData.data_1));}
+        
+        if ((validData.bool_data_0 == true) && (validData.bool_data_1 == true)) {
+
+          // relay function name
+          sdcardData.token = strtok(NULL, ",");
+          strcpy(sdcardData.data_2, sdcardData.token);
+          Serial.println("[Fn] [PASS] " +String(sdcardData.data_2)); // santitize function name
+          memset(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], 0, 56);
+          strcpy(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], sdcardData.data_2);
+          Serial.println("[Fn] [MATRIX] " +String(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)]));
+
+          // relay function data: x
+          sdcardData.token = strtok(NULL, ",");
+          strcpy(sdcardData.data_3, sdcardData.token);
+          if (is_all_digits_plus_char(sdcardData.data_3, ".") == true) {Serial.println("[X]  [PASS] " +String(sdcardData.data_3));
+            relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0] = atol(sdcardData.data_3);
+            Serial.println("[X]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0]));
+            } else {Serial.println("[X]  [FAIL] " +String(sdcardData.data_3));}
+
+          // relay function data: y
+          sdcardData.token = strtok(NULL, ",");
+          strcpy(sdcardData.data_4, sdcardData.token);
+          if (is_all_digits_plus_char(sdcardData.data_4, ".") == true) {Serial.println("[Y]  [PASS] " +String(sdcardData.data_4));
+            relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1] = atol(sdcardData.data_4);
+            Serial.println("[Y]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1]));
+            } else {Serial.println("[Y]  [FAIL] " +String(sdcardData.data_4));}
+          
+          // relay function data: z
+          sdcardData.token = strtok(NULL, ",");
+          strcpy(sdcardData.data_5, sdcardData.token);
+          if (is_all_digits_plus_char(sdcardData.data_5, ".") == true) {Serial.println("[Z]  [PASS] " +String(sdcardData.data_5));
+            relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2] = atol(sdcardData.data_5);
+            Serial.println("[Z]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2]));
+            } else {Serial.println("[Z]  [FAIL] " +String(sdcardData.data_5));}
+        }
+      }
+      else if (strncmp(sdcardData.BUFFER, "e", 1) == 0) {
+        Serial.println("[checking E]");
+        sdcardData.token = strtok(sdcardData.BUFFER, ",");
+        sdcardData.token = strtok(NULL, ",");
+        sdcardData.token = strtok(NULL, ",");
+        strcpy(sdcardData.data_6, sdcardData.token);
+        if (is_all_digits(sdcardData.data_6) == true) {validData.bool_data_6 = true; Serial.println("[E]  [PASS] " + String(sdcardData.data_6));}
+        else {Serial.println("[E]  [FAIL] " +String(sdcardData.data_6));}
       }
     }
     sdcardData.current_file.close();
@@ -2844,7 +2838,7 @@ bool sdcard_write_matrix(char * file) {
         // function value z
         memset(sdcardData.tmp, 0 , 256);
         sprintf(sdcardData.tmp, "%f", relayData.relays_data[Ri][Fi][2]);
-        strcat(sdcardData.file_data, sdcardData.tmp);
+        strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
         // write line
         Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
         sdcardData.current_file.println(sdcardData.file_data);
@@ -2859,10 +2853,12 @@ bool sdcard_write_matrix(char * file) {
       // Ri enabled 0/1
       memset(sdcardData.tmp, 0 , 256);
       itoa(relayData.relays_data[Ri][10][0], sdcardData.tmp, 10);
-      strcat(sdcardData.file_data, sdcardData.tmp);
+      strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
       // write line
       Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+      sdcardData.current_file.println("");
       sdcardData.current_file.println(sdcardData.file_data);
+      sdcardData.current_file.println("");
     }
     sdcardData.current_file.close();
     return true;
