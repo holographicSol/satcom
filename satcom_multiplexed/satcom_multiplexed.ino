@@ -2472,7 +2472,7 @@ void calculateLocation(){
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                GNGGA COORDINATE CONVERSION
-  
+
   if (String(satData.coordinate_conversion_mode) == "GNGGA") {
 
     // convert GNGGA latitude
@@ -2918,7 +2918,7 @@ void matrix_set_entry() {
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]=atol(serial0Data.data_4); // set function value y
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]=atol(serial0Data.data_5); // set function value z
 
-  Serial.println("[Fi] " +String(serial0Data.data_0));
+  Serial.println("[Ri] " +String(serial0Data.data_0));
   Serial.println("[Fi] " +String(serial0Data.data_1));
   Serial.println("[Fn] " +String(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)]));
   Serial.println("[X] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]));
