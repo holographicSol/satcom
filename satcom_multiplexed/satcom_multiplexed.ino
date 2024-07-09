@@ -2477,12 +2477,12 @@ void calculateLocation(){
 
     // convert GNGGA latitude
     satData.temp_latitude_gngga = satData.abs_latitude_gngga_0;
-    satData.degreesLat = satData.temp_latitude_gngga / 100;
-    satData.minutesLat = satData.temp_latitude_gngga - satData.degreesLat * 100;
-    satData.secondsLat = satData.minutesLat - satData.minutesLat * 60;
-    satData.millisecondsLat = satData.secondsLat - satData.secondsLat * 1000;
-    satData.minutesLat = satData.minutesLat;
-    satData.secondsLat = satData.secondsLat;
+    satData.degreesLat = trunc(satData.temp_latitude_gngga / 100);
+    satData.minutesLat = satData.temp_latitude_gngga - (satData.degreesLat * 100);
+    satData.secondsLat = (satData.minutesLat - trunc(satData.minutesLat)) * 60;
+    satData.millisecondsLat = (satData.secondsLat - trunc(satData.secondsLat)) * 1000;
+    satData.minutesLat = trunc(satData.minutesLat);
+    satData.secondsLat = trunc(satData.secondsLat);
     satData.location_latitude_gngga =
     satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000;
     if (strcmp(gnggaData.latitude_hemisphere, "S") == 0) {
@@ -2493,10 +2493,12 @@ void calculateLocation(){
 
     // convert GNGGA longitude
     satData.temp_longitude_gngga = satData.abs_longitude_gngga_0;
-    satData.degreesLong = satData.temp_longitude_gngga / 100;
-    satData.minutesLong = satData.temp_longitude_gngga - satData.degreesLong * 100;
-    satData.secondsLong = satData.minutesLong - satData.minutesLong * 60;
-    satData.millisecondsLong = satData.secondsLong - satData.secondsLong * 1000;
+    satData.degreesLong = trunc(satData.temp_longitude_gngga / 100);
+    satData.minutesLong = satData.temp_longitude_gngga - (satData.degreesLong * 100);
+    satData.secondsLong = (satData.minutesLong - trunc(satData.minutesLong)) * 60;
+    satData.millisecondsLong = (satData.secondsLong - trunc(satData.secondsLong)) * 1000;
+    satData.minutesLong = trunc(satData.minutesLong);
+    satData.secondsLong = trunc(satData.secondsLong);
     satData.location_longitude_gngga =
     satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000;
     if (strcmp(gnggaData.longitude_hemisphere, "W") == 0) {
@@ -2513,10 +2515,12 @@ void calculateLocation(){
 
     // convert GNRMC latitude
     satData.temp_latitude_gnrmc = satData.abs_latitude_gnrmc_0;
-    satData.degreesLat = satData.temp_latitude_gnrmc / 100;
-    satData.minutesLat = satData.temp_latitude_gnrmc - satData.degreesLat * 100;
-    satData.secondsLat = satData.minutesLat - satData.minutesLat * 60;
-    satData.millisecondsLat = satData.secondsLat - satData.secondsLat * 1000;
+    satData.degreesLat = trunc(satData.temp_latitude_gnrmc / 100);
+    satData.minutesLat = satData.temp_latitude_gnrmc - (satData.degreesLat * 100);
+    satData.secondsLat = (satData.minutesLat - (satData.minutesLat)) * 60;
+    satData.millisecondsLat = (satData.secondsLat - trunc(satData.secondsLat)) * 1000;
+    satData.minutesLat = trunc(satData.minutesLat);
+    satData.secondsLat = trunc(satData.secondsLat);
     satData.location_latitude_gnrmc =
     satData.degreesLat + satData.minutesLat / 60 + satData.secondsLat / 3600 + satData.millisecondsLat / 3600000;
     if (strcmp(gnrmcData.latitude_hemisphere, "S") == 0) {
@@ -2527,10 +2531,12 @@ void calculateLocation(){
 
     // convert GNRMC longitude
     satData.temp_longitude_gnrmc = satData.abs_longitude_gnrmc_0;
-    satData.degreesLong = satData.temp_longitude_gnrmc / 100;
-    satData.minutesLong = satData.temp_longitude_gnrmc - satData.degreesLong * 100;
-    satData.secondsLong = satData.minutesLong - satData.minutesLong * 60;
-    satData.millisecondsLong = satData.secondsLong - satData.secondsLong * 1000;
+    satData.degreesLong = trunc(satData.temp_longitude_gnrmc / 100);
+    satData.minutesLong = satData.temp_longitude_gnrmc - (satData.degreesLong * 100);
+    satData.secondsLong = (satData.minutesLong - trunc(satData.minutesLong)) * 60;
+    satData.millisecondsLong = (satData.secondsLong - trunc(satData.secondsLong)) * 1000;
+    satData.minutesLong = trunc(satData.minutesLong);
+    satData.secondsLong = trunc(satData.secondsLong);
     satData.location_longitude_gnrmc =
     satData.degreesLong + satData.minutesLong / 60 + satData.secondsLong / 3600 + satData.millisecondsLong / 3600000;
     if (strcmp(gnrmcData.longitude_hemisphere, "W") == 0) {
@@ -3591,28 +3597,28 @@ void readRXD_1() {
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GNRMC
 
-    else if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
-      if ((serial1Data.nbytes == 78) || (serial1Data.nbytes == 80)) {
-        serial1Data.rcv = true;
-        Serial.print(""); Serial.println(serial1Data.BUFFER);
-        gnrmcData.valid_checksum = validateChecksum(serial1Data.BUFFER);
-        if (gnrmcData.valid_checksum == true) {GNRMC();}
-        else {gnrmcData.bad_checksum_validity++;}
-      }
-    }
+    // else if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
+    //   if ((serial1Data.nbytes == 78) || (serial1Data.nbytes == 80)) {
+    //     serial1Data.rcv = true;
+    //     Serial.print(""); Serial.println(serial1Data.BUFFER);
+    //     gnrmcData.valid_checksum = validateChecksum(serial1Data.BUFFER);
+    //     if (gnrmcData.valid_checksum == true) {GNRMC();}
+    //     else {gnrmcData.bad_checksum_validity++;}
+    //   }
+    // }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    GPATT
 
-    else if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
-      if ((serial1Data.nbytes == 136) || (serial1Data.nbytes == 189)) {
-        serial1Data.rcv = true;
-        Serial.print(""); Serial.println(serial1Data.BUFFER);
-        gpattData.valid_checksum = validateChecksum(serial1Data.BUFFER);
-        if (gpattData.valid_checksum == true) {GPATT();}
-        else {gpattData.bad_checksum_validity++;}
-      }
-    }
+    // else if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
+    //   if ((serial1Data.nbytes == 136) || (serial1Data.nbytes == 189)) {
+    //     serial1Data.rcv = true;
+    //     Serial.print(""); Serial.println(serial1Data.BUFFER);
+    //     gpattData.valid_checksum = validateChecksum(serial1Data.BUFFER);
+    //     if (gpattData.valid_checksum == true) {GPATT();}
+    //     else {gpattData.bad_checksum_validity++;}
+    //   }
+    // }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    DESBI
@@ -3762,7 +3768,7 @@ void loop() {
   }
   else {serial1Data.badrcv_i++;}
 
-  delay(1);
+  delay(10);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
