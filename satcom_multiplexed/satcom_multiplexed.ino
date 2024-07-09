@@ -354,8 +354,8 @@ bool is_all_digits_plus_char(char * data, char * find_char) {
   return validData.valid_b;
 }
 
-bool is_positive_negative_double(char * data) {
-  // designed to check all chars are digits except one period and the signed bit
+bool is_positive_negative_num(char * data) {
+  // designed to check all chars are digits except one period and the signed bit. allows positive/negative floats, doubles and ints
   // allow 1 period anywhere.
   // allow 1 - sign at index zero.
   validData.valid_b = true;
@@ -398,7 +398,7 @@ bool val_latitude(char * data) {
   if (strlen(data) == 13) {
     if (data[4] == '.') {
       if (count_digits(data, 12) == true) {
-        if (is_positive_negative_double(data) == true) {
+        if (is_positive_negative_num(data) == true) {
           check_pass = true;
         }
       }
@@ -412,7 +412,7 @@ bool val_longitude(char * data) {
   if (strlen(data) == 14) {
     if (data[5] == '.') {
       if (count_digits(data, 13) == true) {
-        if (is_positive_negative_double(data) == true) {
+        if (is_positive_negative_num(data) == true) {
           check_pass = true;
         }
       }
@@ -476,7 +476,7 @@ bool val_hdop_precision_factor(char * data) {
 bool val_altitude(char * data) {
   // account for decimal point
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
       check_pass = true;
   }
   return check_pass;
@@ -494,7 +494,7 @@ bool val_altitude_units(char * data) {
 
 bool val_geoidal(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -512,7 +512,7 @@ bool val_geoidal_units(char * data) {
 
 bool val_differential_delay(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -540,7 +540,7 @@ bool val_positioning_status_gnrmc(char * data) {
 
 bool val_ground_speed(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -589,7 +589,7 @@ bool val_mode_indication(char * data) {
 
 bool val_pitch_gpatt(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -597,7 +597,7 @@ bool val_pitch_gpatt(char * data) {
 
 bool val_roll_gpatt(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -605,7 +605,7 @@ bool val_roll_gpatt(char * data) {
 
 bool val_yaw_gpatt(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -688,7 +688,7 @@ bool val_run_state_flag_gpatt(char * data) {
 // todo
 bool val_mis_angle_num_gpatt(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -753,7 +753,7 @@ bool val_ubi_car_kind_gpatt(char * data) {
 
 bool val_mileage_gpatt(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -777,7 +777,7 @@ bool val_speed_enable_gpatt(char * data) {
 
 bool val_speed_num_gpatt(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -799,7 +799,7 @@ bool val_accelleration_delimiter(char * data) {
 
 bool val_axis_accelleration(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -813,7 +813,7 @@ bool val_angular_velocity_delimiter(char * data) {
 
 bool val_gyro_angular_velocity(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -891,7 +891,7 @@ bool val_fix_kind_flag(char * data) {
 
 bool val_fix_roll_flag(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -899,7 +899,7 @@ bool val_fix_roll_flag(char * data) {
 
 bool val_fix_pitch_flag(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -939,7 +939,7 @@ bool val_ubi_b_set(char * data) {
 
 bool val_acc_X_data(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -947,7 +947,7 @@ bool val_acc_X_data(char * data) {
 
 bool val_acc_Y_data(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -955,7 +955,7 @@ bool val_acc_Y_data(char * data) {
 
 bool val_gyro_Z_data(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -963,7 +963,7 @@ bool val_gyro_Z_data(char * data) {
 
 bool val_pitch_angle(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -971,7 +971,7 @@ bool val_pitch_angle(char * data) {
 
 bool val_roll_angle(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -979,7 +979,7 @@ bool val_roll_angle(char * data) {
 
 bool val_yaw_angle(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -1003,7 +1003,7 @@ bool val_ins_flag(char * data) {
 
 bool val_ubi_num(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -1019,7 +1019,7 @@ bool val_ubi_valid(char * data) {
 
 bool val_coll_T_data(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -1027,7 +1027,7 @@ bool val_coll_T_data(char * data) {
 
 bool val_coll_T_heading(char * data) {
   bool check_pass = false;
-  if (is_positive_negative_double(data) == true) {
+  if (is_positive_negative_num(data) == true) {
     check_pass = true;
   }
   return check_pass;
@@ -2772,7 +2772,7 @@ bool sdcard_load_matrix(char * file) {
           // relay function data: x
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_3, sdcardData.token);
-          if (is_positive_negative_double(sdcardData.data_3) == true) {
+          if (is_positive_negative_num(sdcardData.data_3) == true) {
             Serial.println("[X] TRUE");
             relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0] = atol(sdcardData.data_3);
             Serial.println("[X]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0]));}
@@ -2780,14 +2780,14 @@ bool sdcard_load_matrix(char * file) {
           // relay function data: y
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_4, sdcardData.token);
-          if (is_positive_negative_double(sdcardData.data_4) == true) {
+          if (is_positive_negative_num(sdcardData.data_4) == true) {
             relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1] = atol(sdcardData.data_4);
             Serial.println("[Y]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1]));}
           
           // relay function data: z
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_5, sdcardData.token);
-          if (is_positive_negative_double(sdcardData.data_5) == true) {
+          if (is_positive_negative_num(sdcardData.data_5) == true) {
             relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2] = atol(sdcardData.data_5);
             Serial.println("[Z]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2]));}
         }
