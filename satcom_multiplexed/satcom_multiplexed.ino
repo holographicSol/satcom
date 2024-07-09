@@ -2758,7 +2758,6 @@ bool sdcard_load_matrix(char * file) {
           // relay function name
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_2, sdcardData.token);
-          Serial.println("[Fn] [PASS] " +String(sdcardData.data_2)); // santitize function name
           memset(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], 0, 56);
           strcpy(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], sdcardData.data_2);
           Serial.println("[Fn] [MATRIX] " +String(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)]));
