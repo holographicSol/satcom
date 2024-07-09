@@ -356,10 +356,12 @@ bool is_all_digits_plus_char(char * data, char * find_char) {
 
 bool is_positive_negative_double(char * data) {
   // designed to check all chars are digits except one period and the signed bit
+  // allow 1 period anywhere.
+  // allow 1 - sign at index zero.
   validData.valid_b = true;
   validData.find_char = strchr(data, '.');
   validData.index = (int)(validData.find_char - data);
-  for (int i = 0; i < strlen(data); i++) {if (isdigit(data[i]) == 0) {if (i != validData.index) {if (data[i] != '-') {validData.valid_b = false;}}}}
+  for (int i = 0; i < strlen(data); i++) {if (isdigit(data[i]) == 0) {if (i != validData.index) {if ((data[i] != '-') && (i > 0)) {validData.valid_b = false;}}}}
   return validData.valid_b;
 }
 
