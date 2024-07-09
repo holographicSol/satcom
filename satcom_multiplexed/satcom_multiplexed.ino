@@ -3015,7 +3015,6 @@ bool in_ranges_check_false(double x0, double x1, double y0, double y1, double r)
 }
 
 bool check_over_true(double n0, double n1) {
-  Serial.println("[connected] [check_over_true] [" + String(n0) + ">" + String(n1) + "]");
   if (n0 > n1) {return true;}
   else {return false;}
 }
