@@ -2846,7 +2846,7 @@ bool sdcard_save_matrix(char * file) {
     for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
       for (int Fi = 0; Fi < relayData.MAX_RELAY_ELEMENTS; Fi++) {
         memset(sdcardData.file_data, 0 , 256);
-        // tag 0
+        // tag: relay (r)
         strcat(sdcardData.file_data, sdcardData.tag_0); strcat(sdcardData.file_data, sdcardData.delim);
         // relay index
         memset(sdcardData.tmp, 0 , 256);
@@ -2875,7 +2875,7 @@ bool sdcard_save_matrix(char * file) {
         sdcardData.current_file.println(sdcardData.file_data);
       }
       memset(sdcardData.file_data, 0 , 256);
-      // tag 1
+      // tag: enable (e)
       strcat(sdcardData.file_data, sdcardData.tag_1); strcat(sdcardData.file_data, sdcardData.delim);
       // relay index
       memset(sdcardData.tmp, 0 , 256);
