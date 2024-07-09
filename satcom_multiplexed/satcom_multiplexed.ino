@@ -2929,6 +2929,10 @@ void matrix_set_entry() {
   Serial.println("[Z] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]));
 }
 
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                          MATRIX ENABLE ENTRY
+
 void matrix_enable_entry(int n) {
   Serial.println("[matrix_enable_entry] connected");
   serial0Data.check_data_R = 0;
