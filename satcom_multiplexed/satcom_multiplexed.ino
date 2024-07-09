@@ -3086,7 +3086,7 @@ void matrixSwitch() {
   // iterate over each relay matrix
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
 
-    Serial.println("[Ri] " + String(Ri) + " [E] " + String(relayData.relays_enable[0][Ri]));
+    // Serial.println("[Ri] " + String(Ri) + " [E] " + String(relayData.relays_enable[0][Ri]));
     
     if (relayData.relays_enable[0][Ri] == 1) {
 
