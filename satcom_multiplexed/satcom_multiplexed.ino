@@ -476,10 +476,8 @@ bool val_hdop_precision_factor(char * data) {
 bool val_altitude(char * data) {
   // account for decimal point
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if (atoi(data) >= -20000000){
-        check_pass = true;
-    }
+  if (is_positive_negative_double(data) == true) {
+      check_pass = true;
   }
   return check_pass;
 }
@@ -496,10 +494,8 @@ bool val_altitude_units(char * data) {
 
 bool val_geoidal(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if (atoi(data) >= 0){
-      check_pass = true;
-    }
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
@@ -516,10 +512,8 @@ bool val_geoidal_units(char * data) {
 
 bool val_differential_delay(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if (atoi(data) >= 0){
-      check_pass = true;
-    }
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
@@ -546,10 +540,8 @@ bool val_positioning_status_gnrmc(char * data) {
 
 bool val_ground_speed(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if (atoi(data) >= 0){
-      check_pass = true;
-    }
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
@@ -597,24 +589,24 @@ bool val_mode_indication(char * data) {
 
 bool val_pitch_gpatt(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if (atoi(data) >= 0) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
 
 bool val_roll_gpatt(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if (atoi(data) >= 0) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
 
 bool val_yaw_gpatt(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if (atoi(data) >= 0) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
@@ -696,8 +688,8 @@ bool val_run_state_flag_gpatt(char * data) {
 // todo
 bool val_mis_angle_num_gpatt(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if (atoi(data) >= 0) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
@@ -761,8 +753,8 @@ bool val_ubi_car_kind_gpatt(char * data) {
 
 bool val_mileage_gpatt(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if (atoi(data) >= 0) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
@@ -785,8 +777,8 @@ bool val_speed_enable_gpatt(char * data) {
 
 bool val_speed_num_gpatt(char * data) {
   bool check_pass = false;
-  if (is_all_digits(data) == true) {
-    if ((atoi(data) >= 0) && (atoi(data) <= 99)) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
@@ -807,8 +799,8 @@ bool val_accelleration_delimiter(char * data) {
 
 bool val_axis_accelleration(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if (atoi(data) >= -1000000) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
@@ -821,8 +813,8 @@ bool val_angular_velocity_delimiter(char * data) {
 
 bool val_gyro_angular_velocity(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if (atoi(data) >= -1000000) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
@@ -899,16 +891,16 @@ bool val_fix_kind_flag(char * data) {
 
 bool val_fix_roll_flag(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if (atoi(data) >= -1000000) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
 
 bool val_fix_pitch_flag(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if (atoi(data) >= -1000000) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
@@ -947,48 +939,48 @@ bool val_ubi_b_set(char * data) {
 
 bool val_acc_X_data(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if ((atoi(data) >= -400) && (atoi(data) <= 400)) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
 
 bool val_acc_Y_data(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if ((atoi(data) >= -400) && (atoi(data) <= 400)) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
 
 bool val_gyro_Z_data(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if ((atoi(data) >= -250) && (atoi(data) <= 250)) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
 
 bool val_pitch_angle(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
 
 bool val_roll_angle(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
 
 bool val_yaw_angle(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
@@ -1011,8 +1003,8 @@ bool val_ins_flag(char * data) {
 
 bool val_ubi_num(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if ((atoi(data) >= 0) && (atoi(data) <= 65536)) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
@@ -1027,16 +1019,16 @@ bool val_ubi_valid(char * data) {
 
 bool val_coll_T_data(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if ((atoi(data) >= -800) && (atoi(data) <= 800)) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
 
 bool val_coll_T_heading(char * data) {
   bool check_pass = false;
-  if (is_all_digits_plus_char(data, ".") == true) {
-    if ((atoi(data) >= -180) && (atoi(data) <= 180)) {check_pass = true;}
+  if (is_positive_negative_double(data) == true) {
+    check_pass = true;
   }
   return check_pass;
 }
