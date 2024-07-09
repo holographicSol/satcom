@@ -2954,8 +2954,8 @@ void matrix_set_entry() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          MATRIX ENABLE ENTRY
 
-void matrix_enable_entry(int n) {
-  Serial.println("[matrix_enable_entry] connected");
+void matrix_set_enabled(int n) {
+  Serial.println("[matrix_set_enabled] connected");
   serial0Data.check_data_R = 0;
   memset(serial0Data.data_0, 0, 56);
   serial0Data.iter_token = 0;
@@ -3682,15 +3682,15 @@ void readRXD_0() {
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                     MATRIX: ENABLE ENTRY
 
-    else if (strncmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ENTRY", 20) == 0) {
-      matrix_enable_entry(1);
+    else if (strncmp(serial0Data.BUFFER, "$MATRIX_SET_ENABLED", 20) == 0) {
+      matrix_set_enabled(1);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                    MATRIX: DISABLE ENTRY
 
     else if (strncmp(serial0Data.BUFFER, "$MATRIX_DISABLE_ENTRY", 21) == 0) {
-      matrix_enable_entry(0);
+      matrix_set_enabled(0);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
