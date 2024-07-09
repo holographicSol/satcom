@@ -285,11 +285,6 @@ struct validationStruct {
   int  index;
   bool bool_data_0 = false;
   bool bool_data_1 = false;
-  bool bool_data_2 = false;
-  bool bool_data_3 = false;
-  bool bool_data_4 = false;
-  bool bool_data_5 = false;
-  bool bool_data_6 = false;
 };
 validationStruct validData;
 
@@ -1058,6 +1053,15 @@ struct RelayStruct {
   int MAX_RELAY_ELEMENTS = 10;
 
   bool relays_bool[1][40] = {
+    {
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      }
+  };
+
+  int relays_enable[1][40] = {
     {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2728,12 +2732,8 @@ bool sdcard_load_matrix(char * file) {
       if (strncmp(sdcardData.BUFFER, "r", 1) == 0) {
 
         // ensure cleared
-        memset(sdcardData.data_0, 0, 56);
-        memset(sdcardData.data_1, 0, 56);
-        memset(sdcardData.data_2, 0, 56);
-        memset(sdcardData.data_3, 0, 56);
-        memset(sdcardData.data_4, 0, 56);
-        memset(sdcardData.data_5, 0, 56);
+        memset(sdcardData.data_0, 0, 56); memset(sdcardData.data_1, 0, 56); memset(sdcardData.data_2, 0, 56);
+        memset(sdcardData.data_3, 0, 56); memset(sdcardData.data_4, 0, 56); memset(sdcardData.data_5, 0, 56);
         memset(sdcardData.data_6, 0, 56);
         validData.bool_data_0 = false;
         validData.bool_data_1 = false;
@@ -2766,26 +2766,20 @@ bool sdcard_load_matrix(char * file) {
           // relay function data: x
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_3, sdcardData.token);
-          if (is_all_digits_plus_char(sdcardData.data_3, ".") == true) {Serial.println("[X]  [PASS] " +String(sdcardData.data_3));
-            relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0] = atol(sdcardData.data_3);
-            Serial.println("[X]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0]));
-            } else {Serial.println("[X]  [FAIL] " +String(sdcardData.data_3));}
+          relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0] = atol(sdcardData.data_3);
+          Serial.println("[X]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0]));
 
           // relay function data: y
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_4, sdcardData.token);
-          if (is_all_digits_plus_char(sdcardData.data_4, ".") == true) {Serial.println("[Y]  [PASS] " +String(sdcardData.data_4));
-            relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1] = atol(sdcardData.data_4);
-            Serial.println("[Y]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1]));
-            } else {Serial.println("[Y]  [FAIL] " +String(sdcardData.data_4));}
+          relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1] = atol(sdcardData.data_4);
+          Serial.println("[Y]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1]));
           
           // relay function data: z
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_5, sdcardData.token);
-          if (is_all_digits_plus_char(sdcardData.data_5, ".") == true) {Serial.println("[Z]  [PASS] " +String(sdcardData.data_5));
-            relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2] = atol(sdcardData.data_5);
-            Serial.println("[Z]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2]));
-            } else {Serial.println("[Z]  [FAIL] " +String(sdcardData.data_5));}
+          relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2] = atol(sdcardData.data_5);
+          Serial.println("[Z]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2]));
         }
       }
       else if (strncmp(sdcardData.BUFFER, "e", 1) == 0) {
@@ -2794,7 +2788,11 @@ bool sdcard_load_matrix(char * file) {
         sdcardData.token = strtok(NULL, ",");
         sdcardData.token = strtok(NULL, ",");
         strcpy(sdcardData.data_6, sdcardData.token);
-        if (is_all_digits(sdcardData.data_6) == true) {validData.bool_data_6 = true; Serial.println("[E]  [PASS] " + String(sdcardData.data_6));}
+        if (is_all_digits(sdcardData.data_6) == true) {
+          Serial.println("[E]  [PASS] " + String(sdcardData.data_6));
+          relayData.relays_enable[0][atoi(sdcardData.data_0)] = atoi(sdcardData.data_6);
+          Serial.println("[E]  [MATRIX] " +String(relayData.relays_enable[0][atoi(sdcardData.data_0)]));
+          }
         else {Serial.println("[E]  [FAIL] " +String(sdcardData.data_6));}
       }
     }
@@ -2852,7 +2850,7 @@ bool sdcard_write_matrix(char * file) {
       strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
       // Ri enabled 0/1
       memset(sdcardData.tmp, 0 , 256);
-      itoa(relayData.relays_data[Ri][10][0], sdcardData.tmp, 10);
+      itoa(relayData.relays_enable[0][Ri], sdcardData.tmp, 10);
       strcat(sdcardData.file_data, sdcardData.tmp); strcat(sdcardData.file_data, sdcardData.delim);
       // write line
       Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
@@ -2914,7 +2912,7 @@ void matrix_set_entry() {
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]=atol(serial0Data.data_3); // set function value x
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]=atol(serial0Data.data_4); // set function value y
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]=atol(serial0Data.data_5); // set function value z
-  relayData.relays_data[atoi(serial0Data.data_0)][10][0]                      =atol(serial0Data.data_6); // set enable/disable
+  relayData.relays_enable[0][atoi(serial0Data.data_0)]                        =atoi(serial0Data.data_6); // set enable/disable
 
   Serial.println("[Fi] " +String(serial0Data.data_0));
   Serial.println("[Fi] " +String(serial0Data.data_1));
@@ -2922,7 +2920,7 @@ void matrix_set_entry() {
   Serial.println("[X] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]));
   Serial.println("[Y] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]));
   Serial.println("[Z] " +String(relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]));
-  Serial.println("[E] " + String(relayData.relays_data[atoi(serial0Data.data_0)][10][0]));
+  Serial.println("[E] " + String(relayData.relays_enable[0][atoi(serial0Data.data_0)]));
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -2930,7 +2928,7 @@ void matrix_set_entry() {
 
 // disable all matrix entries.
 
-void matrix_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=0;}}
+void matrix_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=0;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                            MATRIX ENABLE ALL
@@ -2938,7 +2936,7 @@ void matrix_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relay
 
 // enable all matrix entries. will result in warnings for matrix entries with no function(s) set. this is expected, required and desirable behaviour
 
-void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_data[Ri][10][0]=1;}}
+void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=1;}}
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -2951,6 +2949,8 @@ void setup() {
 
   Serial.begin(115200);
   Serial1.begin(115200); // ( RXD from WTGPS300P's TXD. io26 on ESP32 )
+
+  delay(1000);
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                 SETUP WIRE
@@ -3015,6 +3015,7 @@ bool in_ranges_check_false(double x0, double x1, double y0, double y1, double r)
 }
 
 bool check_over_true(double n0, double n1) {
+  Serial.println("[connected] [check_over_true] [" + String(n0) + ">" + String(n1) + "]");
   if (n0 > n1) {return true;}
   else {return false;}
 }
@@ -3085,7 +3086,9 @@ void matrixSwitch() {
   // iterate over each relay matrix
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
 
-    if (relayData.relays_data[Ri][10][0] == 1) {
+    Serial.println("[Ri] " + String(Ri) + " [E] " + String(relayData.relays_enable[0][Ri]));
+    
+    if (relayData.relays_enable[0][Ri] == 1) {
 
       // temporary switch must be zero each time
       bool tmp_matrix[relayData.MAX_RELAY_ELEMENTS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
