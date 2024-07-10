@@ -1386,6 +1386,8 @@ struct RelayStruct {
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                  SATCOM DATA
 
+  char time_period_gngga_seconds_in_range[56]        = "time_period_gngga_seconds_in_range";
+
   char latitude_satcom_gngga_over[56]             = "latitude_satcom_gngga_over";
   char latitude_satcom_gngga_under[56]            = "latitude_satcom_gngga_under";
   char latitude_satcom_gngga_equal[56]            = "latitude_satcom_gngga_equal";
@@ -3143,6 +3145,17 @@ bool check_bool_false(bool _bool) {
   if (_bool == false) {return true;} else {return false;}
 }
 
+bool time_period_gngga_seconds_in_range(int n0, int n1) {
+  Serial.println("[connected] [time_period_gngga_seconds_in_range]");
+  // n0: seconds time on
+  // n1: seconds time off
+  char sc[10];
+  sc[0] = gnggaData.utc_time[4];
+  sc[1] = gnggaData.utc_time[5];
+  Serial.println("" + String(sc) + " >= " + String(n0) + " && " + String(sc) + " <= " + String(n1));
+  if ((atoi(sc) >= n0) && (atoi(sc) <= n1)) {return true;} else {return false;}
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                MATRIX SWITCH
 
@@ -3183,6 +3196,8 @@ void matrixSwitch() {
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                       SYSTEMS CHECKS: SATCOM
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_seconds_in_range) == 0) {tmp_matrix[Fi] = time_period_gngga_seconds_in_range(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
         // SATCOM: GNGGA
         else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_over) == 0) {tmp_matrix[Fi] = check_over_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0]);}
@@ -3766,6 +3781,8 @@ void readRXD_0() {
 //                                                                                                                    MAIN LOOP
 
 void loop() {
+
+  
 
   // check serial input commands
   readRXD_0();
