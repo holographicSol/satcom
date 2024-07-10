@@ -3153,6 +3153,8 @@ bool check_bool_false(bool _bool) {
 
 bool time_period_on_off_units(int n0, int n1, char * utc, int idx0) {
   // n0 and n1 should be between 0-9 and indx0 should be between 0-9. an alternative to this method could be keeping track of N previous times.
+  // the challenge is storing no previous times while also doing this as much as we like for as many relays as we like.
+  // this function gets us down to once every ten seconds for n seconds.
   // n0: time on
   // n1: time off
   char sc[4];
@@ -3162,6 +3164,8 @@ bool time_period_on_off_units(int n0, int n1, char * utc, int idx0) {
 
 bool time_period_on_off_tens(int n0, int n1, char * utc, int idx0, int idx1) {
   // n0 and n1 should be < utc units max: seconds 59, hours 24 etc. an alternative to this method could be keeping track of N previous times.
+  // the challenge is storing no previous times while also doing this as much as we like for as many relays as we like.
+  // this function gets us down to once every minute for n seconds.
   // n0: time on
   // n1: time off
   char sc[4];
