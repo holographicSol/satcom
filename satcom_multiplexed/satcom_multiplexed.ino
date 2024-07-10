@@ -1386,7 +1386,9 @@ struct RelayStruct {
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                  SATCOM DATA
 
-  char time_period_gngga_seconds_in_range[56]        = "time_period_gngga_seconds_in_range";
+  char time_period_gngga_seconds_in_range[56]     = "time_period_gngga_seconds_in_range";
+  char time_period_gngga_minutes_in_range[56]     = "time_period_gngga_minutes_in_range";
+  char time_period_gngga_hours_in_range[56]       = "time_period_gngga_hours_in_range";
 
   char latitude_satcom_gngga_over[56]             = "latitude_satcom_gngga_over";
   char latitude_satcom_gngga_under[56]            = "latitude_satcom_gngga_under";
@@ -3158,12 +3160,25 @@ bool time_period_gngga_seconds_in_range(int n0, int n1) {
 }
 
 bool time_period_gngga_minutes_in_range(int n0, int n1) {
-  Serial.println("[connected] [time_period_gngga_seconds_in_range]");
+  Serial.println("[connected] [time_period_gngga_minutes_in_range]");
+  // n0 and n1 should both be <= 59.
   // n0: seconds time on
   // n1: seconds time off
   char sc[10];
-  sc[0] = gnggaData.utc_time[4];
-  sc[1] = gnggaData.utc_time[5];
+  sc[0] = gnggaData.utc_time[2];
+  sc[1] = gnggaData.utc_time[3];
+  Serial.println("" + String(sc) + " >= " + String(n0) + " && " + String(sc) + " <= " + String(n1));
+  if ((atoi(sc) >= n0) && (atoi(sc) <= n1)) {return true;} else {return false;}
+}
+
+bool time_period_gngga_hours_in_range(int n0, int n1) {
+  Serial.println("[connected] [time_period_gngga_hours_in_range]");
+  // n0 and n1 should both be <= 24.
+  // n0: seconds time on
+  // n1: seconds time off
+  char sc[10];
+  sc[0] = gnggaData.utc_time[0];
+  sc[1] = gnggaData.utc_time[1];
   Serial.println("" + String(sc) + " >= " + String(n0) + " && " + String(sc) + " <= " + String(n1));
   if ((atoi(sc) >= n0) && (atoi(sc) <= n1)) {return true;} else {return false;}
 }
@@ -3210,6 +3225,8 @@ void matrixSwitch() {
         //                                                                                                       SYSTEMS CHECKS: SATCOM
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_seconds_in_range) == 0) {tmp_matrix[Fi] = time_period_gngga_seconds_in_range(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_minutes_in_range) == 0) {tmp_matrix[Fi] = time_period_gngga_minutes_in_range(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_hours_in_range) == 0) {tmp_matrix[Fi] = time_period_gngga_hours_in_range(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
         // SATCOM: GNGGA
         else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_over) == 0) {tmp_matrix[Fi] = check_over_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0]);}
