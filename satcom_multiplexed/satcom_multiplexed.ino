@@ -3195,9 +3195,9 @@ void matrixSwitch() {
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                       SYSTEMS CHECKS: SATCOM
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_seconds_in_range) == 0) {tmp_matrix[Fi] = time_on_time_off(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], atoi((char*)gnggaData.utc_time[4]), atoi((char*)gnggaData.utc_time[5]));}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_minutes_in_range) == 0) {tmp_matrix[Fi] = time_on_time_off(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], atoi((char*)gnggaData.utc_time[2]), atoi((char*)gnggaData.utc_time[3]));}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_hours_in_range) == 0) {tmp_matrix[Fi] = time_on_time_off(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], atoi((char*)gnggaData.utc_time[0]), atoi((char*)gnggaData.utc_time[1]));}
+        // else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_seconds_in_range) == 0) {tmp_matrix[Fi] = time_on_time_off(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], atoi((char*)gnggaData.utc_time[4]), atoi((char*)gnggaData.utc_time[5]));}
+        // else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_minutes_in_range) == 0) {tmp_matrix[Fi] = time_on_time_off(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], atoi((char*)gnggaData.utc_time[2]), atoi((char*)gnggaData.utc_time[3]));}
+        // else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_hours_in_range) == 0) {tmp_matrix[Fi] = time_on_time_off(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], atoi((char*)gnggaData.utc_time[0]), atoi((char*)gnggaData.utc_time[1]));}
 
         // SATCOM: GNGGA
         else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_over) == 0) {tmp_matrix[Fi] = check_over_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0]);}
