@@ -2666,7 +2666,7 @@ void SSD_Display_6() {
   display_6.setTextAlignment(TEXT_ALIGN_CENTER);
   display_6.clear();
   display_6.drawString(display_6.getWidth()/2, 0, "GNGGA");
-  display_6.drawString(display_6.getWidth()/2, 14, "P " + String(gnggaData.positioning_status) + " S " + String(gnggaData.satellite_count_gngga));
+  display_6.drawString(display_6.getWidth()/2, 14, "PF " + String(gnggaData.hdop_precision_factor) + " P " + String(gnggaData.positioning_status) + " S " + String(gnggaData.satellite_count_gngga));
   display_6.drawString(display_6.getWidth()/2, 24, String(gnggaData.utc_time));
   display_6.drawString(display_6.getWidth()/2, 34, String(gnggaData.latitude_hemisphere) + " " + String(gnggaData.latitude));
   display_6.drawString(display_6.getWidth()/2, 44, String(gnggaData.longitude_hemisphere) + " " + String(gnggaData.longitude));
