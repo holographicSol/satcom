@@ -2434,9 +2434,10 @@ struct SatDatatruct {
   char sat_time_stamp_string[56];                                  // datetime timestamp from satellite
   char satDataTag[10]                 = "$SATCOM";                 // satcom sentence tag
   char last_sat_time_stamp_str[56]    = "00.00";                   // record last time satellites were seen
+  bool convert_coordinates            = true;
   char coordinate_conversion_mode[10] = "GNGGA";                   // choose a sentence that degrees/decimal coordinates will be created from
-  double latitude_meter               = 0.00000901;                // one meter (tune)
-  double longitude_meter              = 0.00000899;                // one meter (tune)
+  double latitude_meter               = 0.0000100;                // one meter (tune)
+  double longitude_meter              = 0.0000100;                // one meter (tune)
   double latitude_mile                = latitude_meter  * 1609.34; // one mile
   double longitude_mile               = longitude_meter * 1609.34; // one mile
   double abs_latitude_gngga_0         = 0.0;                       // absolute latitude from $ sentence
@@ -2581,27 +2582,29 @@ void extrapulatedSatData() {
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                 SATCOM SENTENCE: CONVERT DATA FROM STRINGS
 
-  if (String(satData.coordinate_conversion_mode) == "GNGGA") {
-    satData.abs_latitude_gngga_0 = atof(String(gnggaData.latitude).c_str());
-    satData.abs_longitude_gngga_0 = atof(String(gnggaData.longitude).c_str());
-  }
-  else if (String(satData.coordinate_conversion_mode) == "GNRMC") {
-    satData.abs_latitude_gnrmc_0 = atof(String(gnrmcData.latitude).c_str());
-    satData.abs_longitude_gnrmc_0 = atof(String(gnrmcData.longitude).c_str());
-  }
-  calculateLocation();
-  if (String(satData.coordinate_conversion_mode) == "GNGGA") {
+  if (satData.convert_coordinates == true) {
+    if (String(satData.coordinate_conversion_mode) == "GNGGA") {
+      satData.abs_latitude_gngga_0 = atof(String(gnggaData.latitude).c_str());
+      satData.abs_longitude_gngga_0 = atof(String(gnggaData.longitude).c_str());
+    }
+    else if (String(satData.coordinate_conversion_mode) == "GNRMC") {
+      satData.abs_latitude_gnrmc_0 = atof(String(gnrmcData.latitude).c_str());
+      satData.abs_longitude_gnrmc_0 = atof(String(gnrmcData.longitude).c_str());
+    }
+    calculateLocation();
+    if (String(satData.coordinate_conversion_mode) == "GNGGA") {
 
-    strcat(satData.satcom_sentence, satData.location_latitude_gngga_str);
-    strcat(satData.satcom_sentence, ",");
-    strcat(satData.satcom_sentence, satData.location_longitude_gngga_str);
-    strcat(satData.satcom_sentence, ",");
-  }
-  else if (String(satData.coordinate_conversion_mode) == "GNRMC") {
-    strcat(satData.satcom_sentence, satData.location_latitude_gnrmc_str);
-    strcat(satData.satcom_sentence, ",");
-    strcat(satData.satcom_sentence, satData.location_longitude_gnrmc_str);
-    strcat(satData.satcom_sentence, ",");
+      strcat(satData.satcom_sentence, satData.location_latitude_gngga_str);
+      strcat(satData.satcom_sentence, ",");
+      strcat(satData.satcom_sentence, satData.location_longitude_gngga_str);
+      strcat(satData.satcom_sentence, ",");
+    }
+    else if (String(satData.coordinate_conversion_mode) == "GNRMC") {
+      strcat(satData.satcom_sentence, satData.location_latitude_gnrmc_str);
+      strcat(satData.satcom_sentence, ",");
+      strcat(satData.satcom_sentence, satData.location_longitude_gnrmc_str);
+      strcat(satData.satcom_sentence, ",");
+    }
   }
 
   // --------------------------------------------------------------------------------------------------------------------------
@@ -2995,6 +2998,14 @@ void matrix_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relay
 
 void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=1;}}
 
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                   SATCOM CONVERT COORDINATES
+
+
+// enable/disable coordinate conversion. performance/efficiency as required.
+
+void satcom_convert_coordinates_on()  {satData.convert_coordinates = true;}
+void satcom_convert_coordinates_off() {satData.convert_coordinates = false;}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        SETUP
@@ -3715,24 +3726,34 @@ void readRXD_0() {
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                         MATRIX: SERIAL PRINT MATRIX FILE
+    //                                                                                         SDCARD: SERIAL PRINT MATRIX FILE
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_READ_MATRIX") == 0) {
       sdcard_read_to_serial("matrix.txt");
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                            MATRIX: SAVE MATRIX TO SDCARD
+    //                                                                                            SDCARD: SAVE MATRIX TO SDCARD
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_SAVE_MATRIX") == 0) {
       sdcard_save_matrix("matrix.txt");
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                          MATRIX: LOAD MATRIX FROM SDCARD
+    //                                                                                          SDCARD: LOAD MATRIX FROM SDCARD
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_LOAD_MATRIX") == 0) {
       sdcard_load_matrix("matrix.txt");
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                              SATCOM: CONVERT COORDINATES
+
+    else if (strcmp(serial0Data.BUFFER, "SATCOM_CONVERT_COORDINATES_ON") == 0) {
+      satcom_convert_coordinates_on();
+    }
+    else if (strcmp(serial0Data.BUFFER, "SATCOM_CONVERT_COORDINATES_OFF") == 0) {
+      satcom_convert_coordinates_off();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
