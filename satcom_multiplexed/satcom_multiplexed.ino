@@ -3153,8 +3153,8 @@ bool check_bool_false(bool _bool) {
 
 bool time_period_on_off_units(int n0, int n1, char * utc, int idx0) {
   // n0 and n1 should be between 0-9 and indx0 should be between 0-9. an alternative to this method could be keeping track of N previous times.
-  // n0: seconds time on
-  // n1: seconds time off
+  // n0: time on
+  // n1: time off
   char sc[4];
   sc[0] = utc[idx0];
   if ((atoi(sc) >= n0) && (atoi(sc) <= n1)) {return true;} else {return false;}
