@@ -3746,10 +3746,10 @@ void readRXD_0() {
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                              SATCOM: CONVERT COORDINATES
 
-    else if (strcmp(serial0Data.BUFFER, "SATCOM_CONVERT_COORDINATES_ON") == 0) {
+    else if (strcmp(serial0Data.BUFFER, "$SATCOM_CONVERT_COORDINATES_ON") == 0) {
       satcom_convert_coordinates_on();
     }
-    else if (strcmp(serial0Data.BUFFER, "SATCOM_CONVERT_COORDINATES_OFF") == 0) {
+    else if (strcmp(serial0Data.BUFFER, "$SATCOM_CONVERT_COORDINATES_OFF") == 0) {
       satcom_convert_coordinates_off();
     }
 
