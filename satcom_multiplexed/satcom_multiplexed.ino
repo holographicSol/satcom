@@ -2979,7 +2979,7 @@ void matrix_set_enabled(bool b) {
   if (sysDebugData.serial_0_sentence == true) {
     Serial.println("[serial0Data.data_0] "         + String(serial0Data.data_0));
   }
-  relayData.relays_enable[0][atoi(serial0Data.data_0)] = n; // set enable/disable
+  relayData.relays_enable[0][atoi(serial0Data.data_0)] = b; // set enable/disable
   Serial.println("[R] " + String(serial0Data.data_0) + " [E] " + String(relayData.relays_enable[0][atoi(serial0Data.data_0)]));
 }
 
