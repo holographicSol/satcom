@@ -3634,42 +3634,42 @@ void readRXD_1() {
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    DESBI
 
-    else if (strncmp(serial1Data.BUFFER, "$DESBI", 6) == 0) {
+    // else if (strncmp(serial1Data.BUFFER, "$DESBI", 6) == 0) {
       // serial1Data.rcv = true;
       // Serial.print(""); Serial.println(serial1Data.BUFFER);
       // awaiting length checks and clarification: wait for clarification, take a ride with the laptop
       // DESBI();
-    }
+    // }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    SPEED
 
-    else if (strncmp(serial1Data.BUFFER, "$SPEED", 6) == 0) {
+    // else if (strncmp(serial1Data.BUFFER, "$SPEED", 6) == 0) {
       // serial1Data.rcv = true;
       // Serial.print(""); Serial.println(serial1Data.BUFFER);
       // awaiting length checks: take a ride with the laptop
       // SPEED();
-    }
+    // }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    ERROR
 
-    else if (strncmp(serial1Data.BUFFER, "$ERROR", 6) == 0) {
+    // else if (strncmp(serial1Data.BUFFER, "$ERROR", 6) == 0) {
       // serial1Data.rcv = true;
       // Serial.print(""); Serial.println(serial1Data.BUFFER);
       // awaiting length checks: take a ride with the laptop
       // ERROR();
-    }
+    // }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                                    DEBUG
 
-    else if (strncmp(serial1Data.BUFFER, "$DEBUG", 6) == 0) {
+    // else if (strncmp(serial1Data.BUFFER, "$DEBUG", 6) == 0) {
       // serial1Data.rcv = true;
       // Serial.print(""); Serial.println(serial1Data.BUFFER);
       // awaiting length checks: take a ride with the laptop
       // DEBUG();
-    }
+    // }
 
     // else {
     //   Serial.println("[unknown] " + String(serial1Data.BUFFER));
