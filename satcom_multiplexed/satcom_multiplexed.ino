@@ -3147,6 +3147,18 @@ bool check_bool_false(bool _bool) {
 
 bool time_period_gngga_seconds_in_range(int n0, int n1) {
   Serial.println("[connected] [time_period_gngga_seconds_in_range]");
+  // n0 and n1 should both be <= 59.
+  // n0: seconds time on
+  // n1: seconds time off
+  char sc[10];
+  sc[0] = gnggaData.utc_time[4];
+  sc[1] = gnggaData.utc_time[5];
+  Serial.println("" + String(sc) + " >= " + String(n0) + " && " + String(sc) + " <= " + String(n1));
+  if ((atoi(sc) >= n0) && (atoi(sc) <= n1)) {return true;} else {return false;}
+}
+
+bool time_period_gngga_minutes_in_range(int n0, int n1) {
+  Serial.println("[connected] [time_period_gngga_seconds_in_range]");
   // n0: seconds time on
   // n1: seconds time off
   char sc[10];
