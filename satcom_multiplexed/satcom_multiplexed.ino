@@ -3154,7 +3154,6 @@ bool time_period_on_off(int n0, int n1, char * utc, int idx0, int idx1) {
   char sc[4];
   sc[0] = utc[idx0];
   sc[1] = utc[idx1];
-  Serial.println("" + String(sc) + " >= " + String (n0) + " && " + String(sc) + " <= " + String (n1));
   if ((atoi(sc) >= n0) && (atoi(sc) <= n1)) {return true;} else {return false;}
 }
 
