@@ -2606,6 +2606,7 @@ void extrapulatedSatData() {
       strcat(satData.satcom_sentence, ",");
     }
   }
+  else {strcat(satData.satcom_sentence, "0.0,0.0,");}
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                       SATCOM SENTENCE: END
