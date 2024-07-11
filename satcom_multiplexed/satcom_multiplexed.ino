@@ -3226,7 +3226,6 @@ void matrixSwitch() {
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.time_every_n_seconds) == 0) {tmp_matrix[Fi] = time_every_n_seconds(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], Ri);}
 
-
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                       SYSTEMS CHECKS: SATCOM
 
