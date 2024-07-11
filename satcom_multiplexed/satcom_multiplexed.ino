@@ -133,6 +133,7 @@ SSD1306Wire   display_7(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 SSD1306Wire   display_5(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display_4(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
+SSD1306Wire   display_2(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   DEBUG DATA
@@ -148,6 +149,20 @@ struct sysDebugStruct {
   bool serial_0_sentence = true;
 };
 sysDebugStruct sysDebugData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    MENU DATA
+
+struct menuStruct {
+  int menu_vertical = 0;
+  int menu_horizontal = 0;
+  int menu_vertical_MAX = 3;
+  int menu_horizontal_MAX = 3;
+  int select_v;
+  int select_h;
+  bool select = false;
+};
+menuStruct menuData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                SERIAL 0 DATA
@@ -291,6 +306,17 @@ void initDisplay3() {
   display_3.setContrast(255);
   display_3.setFont(ArialMT_Plain_10);
   display_3.cls();
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                          INITIALIZE DISPLAY
+
+void initDisplay2() {
+  display_2.init();
+  display_2.flipScreenVertically();
+  display_2.setContrast(255);
+  display_2.setFont(ArialMT_Plain_10);
+  display_2.cls();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -2647,6 +2673,45 @@ void extrapulatedSatData() {
   }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    DISPLAY 2
+
+void SSD_Display_2_Menu() {
+  tcaselect(2);
+  display_2.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_2.clear();
+
+  // main menu
+  if (menuData.menu_horizontal == 0) {
+    menuData.menu_vertical_MAX = 3;
+    // main menu title
+    display_2.drawString(display_2.getWidth()/2, 0, "MAIN MENU");
+  }
+
+  // menu 1: x1 y0
+  else if (menuData.menu_horizontal == 1) {
+    menuData.menu_vertical_MAX = 39;
+    // menu 1 title 
+    if      (relayData.relays_bool[0][menuData.menu_vertical] == 1) {display_2.drawString(display_2.getWidth()/2, 0, "[ACTIVE]");}
+    if      (relayData.relays_enable[0][menuData.menu_vertical] == 0) {display_2.drawString(display_2.getWidth()/2, 14, "[R" + String(menuData.menu_vertical) + "] [DISABLED]");}
+    else if (relayData.relays_enable[0][menuData.menu_vertical] == 1) {display_2.drawString(display_2.getWidth()/2, 14, "[R" + String(menuData.menu_vertical) + "] [ENABLED]");}
+  }
+
+  // menu 2
+  else if (menuData.menu_horizontal == 2){
+    menuData.menu_vertical_MAX = 3;
+    display_2.drawString(display_2.getWidth()/2, 0, "2");
+  }
+
+  // menu 3
+  else if (menuData.menu_horizontal == 3) {
+    menuData.menu_vertical_MAX = 3;
+    display_2.drawString(display_2.getWidth()/2, 0, "3");
+  }
+
+  display_2.display();
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 3
 
 void SSD_Display_3() {
@@ -2724,6 +2789,11 @@ void SSD_Display_7() {
 }
 
 void SSD_Display_Loading() {
+  tcaselect(2);
+  display_2.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_2.clear();
+  display_2.drawString(display_2.getWidth()/2, 0, "[LOADING]");
+  display_2.display();
   tcaselect(3);
   display_3.setTextAlignment(TEXT_ALIGN_CENTER);
   display_3.clear();
@@ -3057,6 +3127,9 @@ void setup() {
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                              SETUP DISPLAY
+
+  tcaselect(2);
+  initDisplay2();
 
   tcaselect(3);
   initDisplay3();
@@ -3799,6 +3872,46 @@ void readRXD_0() {
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                             SATCOM: MENU
+
+    else if (strcmp(serial0Data.BUFFER, "$MENU_DOWN") == 0) {
+      menuData.menu_vertical++;
+      if (menuData.menu_vertical >= menuData.menu_vertical_MAX+1) {menuData.menu_vertical=0;}
+      SSD_Display_2_Menu();
+    }
+
+    else if (strcmp(serial0Data.BUFFER, "$MENU_UP") == 0) {
+      menuData.menu_vertical--;
+      if (menuData.menu_vertical == -1) {menuData.menu_vertical=menuData.menu_vertical_MAX;}
+      SSD_Display_2_Menu();
+    }
+
+    else if (strcmp(serial0Data.BUFFER, "$MENU_RIGHT") == 0) {
+      menuData.menu_vertical = 0;
+      menuData.menu_horizontal++;
+      if (menuData.menu_horizontal >= menuData.menu_horizontal_MAX+1) {menuData.menu_horizontal=0;}
+      SSD_Display_2_Menu();
+    }
+
+    else if (strcmp(serial0Data.BUFFER, "$MENU_LEFT") == 0) {
+      menuData.menu_vertical = 0;
+      menuData.menu_horizontal--;
+      if (menuData.menu_horizontal == -1) {menuData.menu_horizontal=menuData.menu_horizontal_MAX;}
+      SSD_Display_2_Menu();
+    }
+
+    else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {
+      if (menuData.select == false) {
+        menuData.select_v = menuData.menu_vertical;
+        menuData.select_h = menuData.menu_horizontal;
+      }
+      else {
+        menuData.select_v = NULL;
+        menuData.select_h = NULL;
+      }
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
 
     else {
       Serial.println("[unknown] " + String(serial0Data.BUFFER));
@@ -3828,6 +3941,7 @@ void loop() {
   */  
   if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 10)) {serial1Data.badrcv_i=0; extrapulatedSatData();
     matrixSwitch();
+    SSD_Display_2_Menu();
     SSD_Display_3();
     SSD_Display_4();
     SSD_Display_5();
