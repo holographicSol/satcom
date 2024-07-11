@@ -3173,7 +3173,6 @@ bool check_bool_false(bool _bool) {
 }
 
 bool time_every_n_seconds(unsigned long n0, unsigned long n1, int Ri) {
-  // unlike the above two methods, this method requires storing previous times (memory).
   // max seconds 18446744073709551616 (584942417355.07202148 years)
   // n0: interval
   // n1: on time
