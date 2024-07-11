@@ -2859,11 +2859,13 @@ void readRXD_0() {
 
     else if (strcmp(serial0Data.BUFFER, "$MENU_DOWN") == 0) {
 
+        // main down
         if (menuData.select == false) {
           menuData.menu_y0++;
           if (menuData.menu_y0 >= menuData.menu_MAX_y0+1) {menuData.menu_y0=0;}
         }
 
+        // sub down
         else if (menuData.select == true) {
           menuData.menu_y1++;
           if (menuData.menu_y1 >= menuData.menu_MAX_y1+1) {menuData.menu_y1=0;}
@@ -2872,11 +2874,13 @@ void readRXD_0() {
 
     else if (strcmp(serial0Data.BUFFER, "$MENU_UP") == 0) {
 
+      // main up
       if (menuData.select == false) {
         menuData.menu_y0--;
         if (menuData.menu_y0 == -1) {menuData.menu_y0=menuData.menu_MAX_y0;}
       }
 
+      // sub up
       else if (menuData.select == true) {
         menuData.menu_y1--;
         if (menuData.menu_y1 == -1) {menuData.menu_y1=menuData.menu_MAX_y1;}
@@ -2885,12 +2889,14 @@ void readRXD_0() {
 
     else if (strcmp(serial0Data.BUFFER, "$MENU_RIGHT") == 0) {
 
+      // main right
       if (menuData.select == false) {
         menuData.menu_y0 = 0;
         menuData.menu_x0++;
         if (menuData.menu_x0 >= menuData.menu_MAX_x0+1) {menuData.menu_x0=0;}
       }
 
+      // sub right
       else if (menuData.select == true) {
         menuData.menu_x1++;
         if (menuData.menu_x1 >= menuData.menu_MAX_x1+1) {menuData.menu_x1=0;}
@@ -2906,12 +2912,14 @@ void readRXD_0() {
 
     else if (strcmp(serial0Data.BUFFER, "$MENU_LEFT") == 0) {
 
+      // main left
       if (menuData.select == false) {
         menuData.menu_y0 = 0;
         menuData.menu_x0--;
         if (menuData.menu_x0 == -1) {menuData.menu_x0=menuData.menu_MAX_x0;}
       }
 
+      // sub left
       else if (menuData.select == true) {
         menuData.menu_x1--;
         if (menuData.menu_x1 == -1) {menuData.menu_x1=menuData.menu_MAX_x1;}
