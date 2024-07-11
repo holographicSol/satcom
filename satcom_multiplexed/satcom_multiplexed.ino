@@ -210,6 +210,24 @@ struct SDCardStruct {
 SDCardStruct sdcardData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    TIME DATA
+
+struct TimeStruct {
+  unsigned long ms0;
+  unsigned long ms1;
+  unsigned long milliseconds;
+  unsigned long seconds;
+  unsigned long mainLoopTimeTaken;
+  unsigned long mainLoopTimeStart;
+};
+TimeStruct timeData;
+
+void time_counter() {
+  timeData.ms0 += timeData.mainLoopTimeTaken;
+  if (timeData.ms0 >= (timeData.ms1 + 1000)) {timeData.ms1 = timeData.ms0; timeData.seconds++;}
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                      MULTIPLEXER PORT SELECT
 
 void tcaselect(uint8_t channel) {
@@ -1076,6 +1094,15 @@ struct RelayStruct {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       }
   };
+
+  unsigned long relays_timing[1][40] = {
+    {
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      }
+  };
   
   char relays[40][10][100] = {
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 1
@@ -1385,6 +1412,8 @@ struct RelayStruct {
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                  SATCOM DATA
+
+  char time_every_n_seconds[56] = "time_every_n_seconds";
 
   char time_period_gngga_seconds_units_in_range[56]     = "time_period_gngga_seconds_units_in_range";
   char time_period_gngga_minutes_units_in_range[56]     = "time_period_gngga_minutes_units_in_range";
@@ -1941,7 +1970,7 @@ struct GPATTStruct {
   char line_flag[56];        unsigned long bad_line_flag_i;        bool bad_line_flag = true;        // <22> 1：straight driving，0：curve driving
   char custom_logo_3[56];    unsigned long bad_custom_logo_3_i;    bool bad_custom_logo_3 = true;    // <23>
   char mis_att_flag[56];     unsigned long bad_mis_att_flag_i;     bool bad_mis_att_flag = true;     // <24> 
-  char imu_kind[56];         unsigned long bad_imu_kind_i;         bool bad_imu_kind = true;         // <25> Sensor Type: 0->BIM055; 1->BMI160; 2->LSM6DS3TR-C; 3->LSM6DSOW 4->ICM-40607; 5->ICM-40608 6->ICM-42670; 7->LSM6DSR
+  char imu_kind[56];         unsigned long bad_imu_kind_i;         bool bad_imu_kind = true;         // <25> Sensor Type: 0->BIms055; 1->BMI160; 2->LSM6DS3TR-C; 3->LSM6DSOW 4->ICM-40607; 5->ICM-40608 6->ICM-42670; 7->LSM6DSR
   char ubi_car_kind[56];     unsigned long bad_ubi_car_kind_i;     bool bad_ubi_car_kind = true;     // <26> 1: small car, 2: big car
   char mileage[56];          unsigned long bad_mileage_i;          bool bad_mileage = true;          // <27> kilometers: max 9999 kilometers
   char custom_logo_4[56];    unsigned long bad_custom_logo_4_i;    bool bad_custom_logo_4 = true;    // <28>
@@ -3177,6 +3206,15 @@ bool time_period_on_off_tens(int n0, int n1, char * utc, int idx0, int idx1) {
   if ((atoi(sc) >= n0) && (atoi(sc) <= n1)) {return true;} else {return false;}
 }
 
+bool time_every_n_seconds(unsigned long n0, unsigned long n1, int Ri) {
+  // n0: interval
+  // n1: on time
+  // backend interface example for on 1sec/off 1sec: $MATRIX_SET_ENTRY,0,0,time_every_n_seconds,1,1,0
+  if ((timeData.seconds - relayData.relays_timing[0][Ri]) > n0) {relayData.relays_timing[0][Ri] = timeData.seconds; return true;}
+  else if ((timeData.seconds - relayData.relays_timing[0][Ri]) < n1) {return true;}
+  else {return false;}
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                MATRIX SWITCH
 
@@ -3217,6 +3255,8 @@ void matrixSwitch() {
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                       SYSTEMS CHECKS: SATCOM
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_every_n_seconds) == 0) {tmp_matrix[Fi] = time_every_n_seconds(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], Ri);}
         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_seconds_units_in_range) == 0) {tmp_matrix[Fi] = time_period_on_off_units(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], gnggaData.utc_time, 5);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_minutes_units_in_range) == 0) {tmp_matrix[Fi] = time_period_on_off_units(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], gnggaData.utc_time, 3);}
@@ -3809,7 +3849,10 @@ void readRXD_0() {
 
 void loop() {
 
-  
+  // store current time to measure this loop time
+  timeData.mainLoopTimeStart = millis();
+
+  time_counter();
 
   // check serial input commands
   readRXD_0();
@@ -3832,6 +3875,9 @@ void loop() {
   else {serial1Data.badrcv_i++;}
 
   delay(1);
+
+  // store time taken to complete
+  timeData.mainLoopTimeTaken = millis() - timeData.mainLoopTimeStart;
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
