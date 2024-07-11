@@ -2935,17 +2935,24 @@ void readRXD_0() {
 
     else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {
 
+      // select on
       if (menuData.select == false) {
         menuData.select = true;
+
+        // reset position
         menuData.menu_y1 = 0;
         menuData.menu_x1 = 0;
         menuData.relay_select = 0;
-        // // set x1, y1 max
+
+        // set sub max
         if (menuData.menu_x0 == 1) {menuData.menu_MAX_y1 = 1;}
       }
 
+      // select off
       else if (menuData.select == true) {
         menuData.select = false;
+
+        // reset position
         menuData.menu_y1 = 0;
         menuData.menu_x1 = 0;
         menuData.relay_select = 0;
