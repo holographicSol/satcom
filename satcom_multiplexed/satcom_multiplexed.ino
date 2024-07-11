@@ -2691,9 +2691,9 @@ void SSD_Display_2_Menu() {
   else if (menuData.menu_horizontal == 1) {
     menuData.menu_vertical_MAX = 39;
     // menu 1 title 
-    if      (relayData.relays_bool[0][menuData.menu_vertical] == 1) {display_2.drawString(display_2.getWidth()/2, 0, "[ ACTIVE ]");}
-    if      (relayData.relays_enable[0][menuData.menu_vertical] == 0) {display_2.drawString(display_2.getWidth()/2, 14, "[ R " + String(menuData.menu_vertical) + " ]    [ DISABLED ]");}
-    else if (relayData.relays_enable[0][menuData.menu_vertical] == 1) {display_2.drawString(display_2.getWidth()/2, 14, "[ R " + String(menuData.menu_vertical) + " ]    [ ENABLED ]");}
+    if      (relayData.relays_bool[0][menuData.menu_vertical] == 1) {display_2.drawString(display_2.getWidth()/2, 0, "[  ACTIVE  ]");}
+    if      (relayData.relays_enable[0][menuData.menu_vertical] == 0) {display_2.drawString(display_2.getWidth()/2, 14, "[ R " + String(menuData.menu_vertical) + " ]  [ DISABLED ]");}
+    else if (relayData.relays_enable[0][menuData.menu_vertical] == 1) {display_2.drawString(display_2.getWidth()/2, 14, "[ R " + String(menuData.menu_vertical) + " ]  [ ENABLED ]");}
   }
 
   // menu 2
