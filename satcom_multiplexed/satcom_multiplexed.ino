@@ -3177,8 +3177,8 @@ bool time_every_n_seconds(unsigned long n0, unsigned long n1, int Ri) {
   // n0: interval
   // n1: on time
   // backend interface example for on 1sec/off 1sec: $MATRIX_SET_ENTRY,0,0,time_every_n_seconds,1,1,0
-  if ((timeData.seconds - relayData.relays_timing[0][Ri]) >= n0) {relayData.relays_timing[0][Ri] = timeData.seconds; return true;}
-  else if ((timeData.seconds - relayData.relays_timing[0][Ri]) <= n1) {return true;}
+  if ((timeData.seconds - relayData.relays_timing[0][Ri]) > n0) {relayData.relays_timing[0][Ri] = timeData.seconds; return true;}
+  else if ((timeData.seconds - relayData.relays_timing[0][Ri]) < n1) {return true;}
   else {return false;}
 }
 
