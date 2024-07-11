@@ -1415,14 +1415,6 @@ struct RelayStruct {
 
   char time_every_n_seconds[56] = "time_every_n_seconds";
 
-  char time_period_gngga_seconds_units_in_range[56]     = "time_period_gngga_seconds_units_in_range";
-  char time_period_gngga_minutes_units_in_range[56]     = "time_period_gngga_minutes_units_in_range";
-  char time_period_gngga_hours_units_in_range[56]       = "time_period_gngga_hours_units_in_range";
-
-  char time_period_gngga_seconds_tens_in_range[56]     = "time_period_gngga_seconds_tens_in_range";
-  char time_period_gngga_minutes_tens_in_range[56]     = "time_period_gngga_minutes_tens_in_range";
-  char time_period_gngga_hours_tens_in_range[56]       = "time_period_gngga_hours_tens_in_range";
-
   char latitude_satcom_gngga_over[56]             = "latitude_satcom_gngga_over";
   char latitude_satcom_gngga_under[56]            = "latitude_satcom_gngga_under";
   char latitude_satcom_gngga_equal[56]            = "latitude_satcom_gngga_equal";
@@ -3180,32 +3172,6 @@ bool check_bool_false(bool _bool) {
   if (_bool == false) {return true;} else {return false;}
 }
 
-bool time_period_on_off_units(int n0, int n1, char * utc, int idx0) {
-  // n0 and n1 should be between 0-9 and indx0 should be between 0-9. an alternative to this method could be keeping track of N previous times.
-  // the challenge is storing no previous times while also doing this as much as we like for as many relays as we like.
-  // this function gets us down to once every ten seconds for n seconds.
-  // n0:       time on
-  // n1:       time off
-  // utc unit: idx0
-  char sc[4];
-  sc[0] = utc[idx0];
-  if ((atoi(sc) >= n0) && (atoi(sc) <= n1)) {return true;} else {return false;}
-}
-
-bool time_period_on_off_tens(int n0, int n1, char * utc, int idx0, int idx1) {
-  // n0 and n1 should be < utc units max: seconds 59, hours 24 etc. an alternative to this method could be keeping track of N previous times.
-  // the challenge is storing no previous times while also doing this as much as we like for as many relays as we like.
-  // this function gets us down to once every minute for n seconds.
-  // n0:       time on
-  // n1:       time off
-  // utc tens: idx0
-  // utc unit: idx1
-  char sc[4];
-  sc[0] = utc[idx0];
-  sc[1] = utc[idx1];
-  if ((atoi(sc) >= n0) && (atoi(sc) <= n1)) {return true;} else {return false;}
-}
-
 bool time_every_n_seconds(unsigned long n0, unsigned long n1, int Ri) {
   // unlike the above two methods, this method requires storing previous times (memory).
   // max seconds 18446744073709551616 (584942417355.07202148 years)
@@ -3256,17 +3222,13 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.default_enable_relay_function) == 0) {tmp_matrix[Fi] = 1;}
 
         // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                       SYSTEMS CHECKS: SATCOM
+        //                                                                                                    SYSTEMS CHECKS: TIME DATA
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.time_every_n_seconds) == 0) {tmp_matrix[Fi] = time_every_n_seconds(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], Ri);}
-        
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_seconds_units_in_range) == 0) {tmp_matrix[Fi] = time_period_on_off_units(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], gnggaData.utc_time, 5);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_minutes_units_in_range) == 0) {tmp_matrix[Fi] = time_period_on_off_units(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], gnggaData.utc_time, 3);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_hours_units_in_range) == 0) {tmp_matrix[Fi] = time_period_on_off_units(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], gnggaData.utc_time, 1);}
-        
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_seconds_tens_in_range) == 0) {tmp_matrix[Fi] = time_period_on_off_tens(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], gnggaData.utc_time, 4, 5);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_minutes_tens_in_range) == 0) {tmp_matrix[Fi] = time_period_on_off_tens(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], gnggaData.utc_time, 2, 3);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_period_gngga_hours_tens_in_range) == 0) {tmp_matrix[Fi] = time_period_on_off_tens(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], gnggaData.utc_time, 0, 1);}
+
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                       SYSTEMS CHECKS: SATCOM
 
         // SATCOM: GNGGA
         else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_over) == 0) {tmp_matrix[Fi] = check_over_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0]);}
