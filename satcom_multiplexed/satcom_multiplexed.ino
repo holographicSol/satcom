@@ -2933,7 +2933,7 @@ void readRXD_0() {
         menuData.menu_x1 = 0;
         menuData.relay_select = 0;
         // // set x1, y1 max
-        if (menuData.menu_x0 == 1) {menuData.menu_MAX_y1 = 5;}
+        if (menuData.menu_x0 == 1) {menuData.menu_MAX_y1 = 1;}
       }
 
       else if (menuData.select == true) {
