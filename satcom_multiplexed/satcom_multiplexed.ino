@@ -3781,7 +3781,8 @@ void SSD_Display_Loading() {
 there may be some disparity between the SSD306 panels at low brightness, possible reasons:
 inconsistent current through multiplexer (sda,sdc): checked. negative.
 inconsistent voltage through multiplexer (sda,sdc): checked. negative
-inconsistent vcc: checked. negative.
+inconsistent vcc current: checked. negative.
+inconsistent vcc voltage: checked. negative.
 software library: pending checks.
 implementation here of software library: pending checks.
 currently recommended lowest settings: 150, 16.
