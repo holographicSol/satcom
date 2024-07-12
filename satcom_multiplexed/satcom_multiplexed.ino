@@ -3000,6 +3000,75 @@ struct menuStruct {
 menuStruct menuData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                              MENU NAVIGATION
+
+void menuDown() {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}}
+void menuUp() {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}}
+void menuRight() {
+  menuData.x++;
+  if      ((menuData.y == 0) && (menuData.x == 2)) {menuData.page++; menuData.x=1; menuData.y=0; if (menuData.page >= menuData.page_max) {menuData.page=0;}}
+  else if (menuData.x >= menuData.menu_max_x0) {menuData.x=0;}
+}
+void menuLeft() {
+  menuData.x--;
+  if ((menuData.y == 0) && (menuData.x == 0)) {menuData.page--; menuData.x=1; menuData.y=0; if (menuData.page <= -1) {menuData.page=menuData.page_max;}}
+  else if (menuData.x <= -1) {menuData.x=menuData.menu_max_x0-1;}
+}
+void menuSelect() {
+    // page one only
+  if (menuData.page == 0) {
+    // relay enable/disable
+    if ((menuData.y == 1) && (menuData.x == 1)) {if (relayData.relays_enable[0][menuData.relay_select] == 0) {relayData.relays_enable[0][menuData.relay_select] = 1;} else {relayData.relays_enable[0][menuData.relay_select] = 0;}}
+    // select relay
+    if ((menuData.y == 1) && (menuData.x == 0)) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=0;}
+    // select relay function
+    if ((menuData.y == 1) && (menuData.x == 2)) {menuData.relay_function_select++; if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}}
+    // select relay function name
+    if (menuData.y == 2) {
+      menuData.function_index++;
+      if (menuData.function_index >= 252) {menuData.function_index=0; } memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}
+    // set relay function value x
+    if (menuData.y == 3) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=1;}
+    // set relay function value y
+    if (menuData.y == 4) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=2;}
+    // set relay function value z
+    if (menuData.y == 5) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=3;}
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                            NUMPAD NAVIGATION
+
+void numpadDown() {menuData.numpad_y++; if (menuData.numpad_y >= menuData.menu_numpad_max_y0) {menuData.numpad_y=0;}}
+void numpadUp() {menuData.numpad_y--; if (menuData.numpad_y <= -1) {menuData.numpad_y=menuData.menu_numpad_max_y0-1;}}
+void numpadRight() {menuData.numpad_x++; if (menuData.numpad_x >= menuData.menu_numpad_max_x0) {menuData.numpad_x=0;}}
+void numpadLeft() {menuData.numpad_x--; if (menuData.numpad_x <= -1) {menuData.numpad_x=menuData.menu_numpad_max_x0-1;}}
+void numpadSelect() {
+  if ((menuData.numpad_y == 1) && (menuData.numpad_x == 0)) {strcat(menuData.input, "7");}
+  if ((menuData.numpad_y == 1) && (menuData.numpad_x == 1)) {strcat(menuData.input, "8");}
+  if ((menuData.numpad_y == 1) && (menuData.numpad_x == 2)) {strcat(menuData.input, "9");}
+  if ((menuData.numpad_y == 2) && (menuData.numpad_x == 0)) {strcat(menuData.input, "4");}
+  if ((menuData.numpad_y == 2) && (menuData.numpad_x == 1)) {strcat(menuData.input, "5");}
+  if ((menuData.numpad_y == 2) && (menuData.numpad_x == 2)) {strcat(menuData.input, "6");}
+  if ((menuData.numpad_y == 3) && (menuData.numpad_x == 0)) {strcat(menuData.input, "1");}
+  if ((menuData.numpad_y == 3) && (menuData.numpad_x == 1)) {strcat(menuData.input, "2");}
+  if ((menuData.numpad_y == 3) && (menuData.numpad_x == 2)) {strcat(menuData.input, "3");}
+  if ((menuData.numpad_y == 4) && (menuData.numpad_x == 0)) {strcat(menuData.input, "0");}
+  if ((menuData.numpad_y == 4) && (menuData.numpad_x == 1)) {strcat(menuData.input, ".");}
+  if ((menuData.numpad_y == 4) && (menuData.numpad_x == 2)) {strcat(menuData.input, "-");}
+  // remove last char
+  if (((menuData.numpad_y == 5) && (menuData.numpad_x == 1)) || ((menuData.numpad_y == 5) && (menuData.numpad_x == 2))) {menuData.input[strlen(menuData.input)-1] = '\0';}
+  // set current relay index
+  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==0)) {menuData.page = 0; if ((atoi(menuData.input) < relayData.MAX_RELAYS) && (atoi(menuData.input) >= 0)) {menuData.relay_select = atoi(menuData.input);}}
+  // set relay function value x
+  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==1)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0] = strtod(menuData.input, &ptr);}
+  // set relay function value y
+  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==2)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1] = strtod(menuData.input, &ptr);}
+  // set relay function value z
+  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==3)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2] = strtod(menuData.input, &ptr);}
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 0
 
 void readRXD_0() {
@@ -3078,76 +3147,21 @@ void readRXD_0() {
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                             SATCOM: MENU
 
-    /*
-    3x6: 3 columns, 6 rows. 
-    */
-
     // any page less than 10
     if (menuData.page < 10) {
-      if      (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}}
-      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}}
-
-      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {menuData.x++;
-        if      ((menuData.y == 0) && (menuData.x == 2)) {SSD_Display_2_Menu(); delay(50); menuData.page++; menuData.x=1; menuData.y=0; if (menuData.page >= menuData.page_max) {menuData.page=0;}}
-        else if (menuData.x >= menuData.menu_max_x0) {menuData.x=0;}
-      }
-      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {
-        menuData.x--;
-        if ((menuData.y == 0) && (menuData.x == 0)) {SSD_Display_2_Menu(); delay(50); menuData.page--; menuData.x=1; menuData.y=0; if (menuData.page <= -1) {menuData.page=menuData.page_max;}}
-        else if (menuData.x <= -1) {menuData.x=menuData.menu_max_x0-1;}
-      }
-      else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {
-        // page one only
-        if (menuData.page == 0) {
-          // relay enable/disable
-          if ((menuData.y == 1) && (menuData.x == 1)) {if (relayData.relays_enable[0][menuData.relay_select] == 0) {relayData.relays_enable[0][menuData.relay_select] = 1;} else {relayData.relays_enable[0][menuData.relay_select] = 0;}}
-          // select relay
-          if ((menuData.y == 1) && (menuData.x == 0)) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=0;}
-          // select relay function
-          if ((menuData.y == 1) && (menuData.x == 2)) {menuData.relay_function_select++; if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}}
-          // select relay function name
-          if (menuData.y == 2) {
-            menuData.function_index++;
-            if (menuData.function_index >= 252) {menuData.function_index=0; } memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}
-          // set relay function value x
-          if (menuData.y == 3) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=1;}
-          // set relay function value y
-          if (menuData.y == 4) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=2;}
-          // set relay function value z
-          if (menuData.y == 5) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=3;}
-        }
-      }
+      if      (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {menuDown();}
+      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {menuUp();}
+      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {menuRight();}
+      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {menuLeft();}
+      else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {menuSelect();}
     }
     // numpad
     else if (menuData.page == 10) {
-      if (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {menuData.numpad_y++; if (menuData.numpad_y >= menuData.menu_numpad_max_y0) {menuData.numpad_y=0;}}
-      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {menuData.numpad_y--; if (menuData.numpad_y <= -1) {menuData.numpad_y=menuData.menu_numpad_max_y0-1;}}
-      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {menuData.numpad_x++; if (menuData.numpad_x >= menuData.menu_numpad_max_x0) {menuData.numpad_x=0;}}
-      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {menuData.numpad_x--; if (menuData.numpad_x <= -1) {menuData.numpad_x=menuData.menu_numpad_max_x0-1;}}
-      else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {
-          if ((menuData.numpad_y == 1) && (menuData.numpad_x == 0)) {strcat(menuData.input, "7");}
-          if ((menuData.numpad_y == 1) && (menuData.numpad_x == 1)) {strcat(menuData.input, "8");}
-          if ((menuData.numpad_y == 1) && (menuData.numpad_x == 2)) {strcat(menuData.input, "9");}
-          if ((menuData.numpad_y == 2) && (menuData.numpad_x == 0)) {strcat(menuData.input, "4");}
-          if ((menuData.numpad_y == 2) && (menuData.numpad_x == 1)) {strcat(menuData.input, "5");}
-          if ((menuData.numpad_y == 2) && (menuData.numpad_x == 2)) {strcat(menuData.input, "6");}
-          if ((menuData.numpad_y == 3) && (menuData.numpad_x == 0)) {strcat(menuData.input, "1");}
-          if ((menuData.numpad_y == 3) && (menuData.numpad_x == 1)) {strcat(menuData.input, "2");}
-          if ((menuData.numpad_y == 3) && (menuData.numpad_x == 2)) {strcat(menuData.input, "3");}
-          if ((menuData.numpad_y == 4) && (menuData.numpad_x == 0)) {strcat(menuData.input, "0");}
-          if ((menuData.numpad_y == 4) && (menuData.numpad_x == 1)) {strcat(menuData.input, ".");}
-          if ((menuData.numpad_y == 4) && (menuData.numpad_x == 2)) {strcat(menuData.input, "-");}
-          // remove last char
-          if (((menuData.numpad_y == 5) && (menuData.numpad_x == 1)) || ((menuData.numpad_y == 5) && (menuData.numpad_x == 2))) {menuData.input[strlen(menuData.input)-1] = '\0';}
-          // set current relay index
-          if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==0)) {menuData.page = 0; if ((atoi(menuData.input) < relayData.MAX_RELAYS) && (atoi(menuData.input) >= 0)) {menuData.relay_select = atoi(menuData.input);}}
-          // set relay function value x
-          if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==1)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0] = strtod(menuData.input, &ptr);}
-          // set relay function value y
-          if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==2)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1] = strtod(menuData.input, &ptr);}
-          // set relay function value z
-          if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==3)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2] = strtod(menuData.input, &ptr);}
-      }
+      if (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {numpadDown();}
+      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {numpadUp();}
+      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {numpadRight();}
+      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {numpadLeft();}
+      else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {numpadSelect();}
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
