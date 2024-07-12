@@ -3083,18 +3083,10 @@ void readRXD_0() {
     */
 
     if (menuData.page < 10) {
-      if (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {
-        menuData.y++;
-        if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}
-      }
+      if      (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}}
+      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}}
 
-      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {
-        menuData.y--;
-        if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}
-      }
-
-      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {
-        menuData.x++;
+      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {menuData.x++;
         if      ((menuData.y == 0) && (menuData.x == 2)) {SSD_Display_2_Menu(); delay(50); menuData.page++; menuData.x=1; menuData.y=0; if (menuData.page >= menuData.page_max) {menuData.page=0;}}
         else if (menuData.x >= menuData.menu_max_x0) {menuData.x=0;}
       }
@@ -3127,27 +3119,10 @@ void readRXD_0() {
       }
     }
     else if (menuData.page == 10) {
-
-      if (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {
-        menuData.numpad_y++;
-        if (menuData.numpad_y >= menuData.menu_numpad_max_y0) {menuData.numpad_y=0;}
-      }
-
-      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {
-        menuData.numpad_y--;
-        if (menuData.numpad_y <= -1) {menuData.numpad_y=menuData.menu_numpad_max_y0-1;}
-      }
-
-      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {
-        menuData.numpad_x++;
-        if (menuData.numpad_x >= menuData.menu_numpad_max_x0) {menuData.numpad_x=0;}
-      }
-
-      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {
-        menuData.numpad_x--;
-        if (menuData.numpad_x <= -1) {menuData.numpad_x=menuData.menu_numpad_max_x0-1;}
-      }
-
+      if (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {menuData.numpad_y++; if (menuData.numpad_y >= menuData.menu_numpad_max_y0) {menuData.numpad_y=0;}}
+      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {menuData.numpad_y--; if (menuData.numpad_y <= -1) {menuData.numpad_y=menuData.menu_numpad_max_y0-1;}}
+      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {menuData.numpad_x++; if (menuData.numpad_x >= menuData.menu_numpad_max_x0) {menuData.numpad_x=0;}}
+      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {menuData.numpad_x--; if (menuData.numpad_x <= -1) {menuData.numpad_x=menuData.menu_numpad_max_x0-1;}}
       else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {
           if ((menuData.numpad_y == 1) && (menuData.numpad_x == 0)) {strcat(menuData.input, "7");}
           if ((menuData.numpad_y == 1) && (menuData.numpad_x == 1)) {strcat(menuData.input, "8");}
