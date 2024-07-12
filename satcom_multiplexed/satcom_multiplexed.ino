@@ -241,22 +241,22 @@ void tcaselect(uint8_t channel) {
 //                                                                                                          INITIALIZE DISPLAY
 
 void initDisplay7() {
-  display_6.init();
-  display_6.flipScreenVertically();
-  display_6.setContrast(255);
-  display_6.setFont(ArialMT_Plain_10);
-  display_6.cls();
+  display_7.init();
+  display_7.flipScreenVertically();
+  display_7.setContrast(255);
+  display_7.setFont(ArialMT_Plain_10);
+  display_7.cls();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          INITIALIZE DISPLAY
 
 void initDisplay6() {
-  display_7.init();
-  display_7.flipScreenVertically();
-  display_7.setContrast(255);
-  display_7.setFont(ArialMT_Plain_10);
-  display_7.cls();
+  display_6.init();
+  display_6.flipScreenVertically();
+  display_6.setContrast(255);
+  display_6.setFont(ArialMT_Plain_10);
+  display_6.cls();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -3151,6 +3151,16 @@ void readRXD_0() {
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                          DISPLAY: INVERT
+
+    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_FLIP_VERTICALLY") == 0) {
+      displayFlipVertically(1,1,1, 1,1,1);
+    }
+    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_NORMAL") == 0) {
+      displayFlipVertically(0,0,0, 0,0,0);
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                             SATCOM: MENU
 
     // any page less than 10
@@ -3771,7 +3781,7 @@ void SSD_Display_Loading() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                          DISPLAYS BRIGHTNESS
+//                                                                                                         DISPLAYS: BRIGHTNESS
 
 void displayBrightness(int c, int d, int e, int f, int g, int h) {
   if (c==1) {tcaselect(2); display_2.setContrast(255, 241);} else {tcaselect(2); display_2.setContrast(255, 1);}
@@ -3783,7 +3793,7 @@ void displayBrightness(int c, int d, int e, int f, int g, int h) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                              DISPLAYS ON/OFF
+//                                                                                                             DISPLAYS: ON/OFF
 
 void displayOnOff(int c, int d, int e, int f, int g, int h) {
   if (c==1) {tcaselect(2); display_2.displayOn();} else {tcaselect(2); display_2.displayOff();}
@@ -3792,6 +3802,18 @@ void displayOnOff(int c, int d, int e, int f, int g, int h) {
   if (f==1) {tcaselect(5); display_5.displayOn();} else {tcaselect(5); display_5.displayOff();}
   if (g==1) {tcaselect(6); display_6.displayOn();} else {tcaselect(6); display_6.displayOff();}
   if (h==1) {tcaselect(7); display_7.displayOn();} else {tcaselect(7); display_7.displayOff();}
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                    DISPLAYS: FLIP VERTICALLY
+
+void displayFlipVertically(int c, int d, int e, int f, int g, int h) {
+  if (c==1) {tcaselect(2); display_2.init(); display_2.flipScreenVertically();} else {tcaselect(2); display_2.init(); display_2.normalDisplay();}
+  if (d==1) {tcaselect(3); display_3.init(); display_3.flipScreenVertically();} else {tcaselect(3); display_3.init(); display_3.normalDisplay();}
+  if (e==1) {tcaselect(4); display_4.init(); display_4.flipScreenVertically();} else {tcaselect(4); display_4.init(); display_4.normalDisplay();}
+  if (f==1) {tcaselect(5); display_5.init(); display_5.flipScreenVertically();} else {tcaselect(5); display_5.init(); display_5.normalDisplay();}
+  if (g==1) {tcaselect(6); display_6.init(); display_6.flipScreenVertically();} else {tcaselect(6); display_6.init(); display_6.normalDisplay();}
+  if (h==1) {tcaselect(7); display_7.init(); display_7.flipScreenVertically();} else {tcaselect(7); display_7.init(); display_7.normalDisplay();}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
