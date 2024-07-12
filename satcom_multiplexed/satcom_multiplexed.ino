@@ -40,10 +40,10 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 
 
                               Wiring for Optional Multiplexed OLED Displays (SSD1306 Monochromes)
-                                       WTGPS300P TX              --> ESP32 io26 as RXD
-                                       WTGPS300P VCC             --> ESP32 3.3/5v
-                                       TCA9548A i2C Multiplexer  --> ESP32 i2C
-                                       x6 SSD1306                --> TCA9548A i2C Multiplexer
+                                       WTGPS300P TX               --> ESP32 io26 as RXD
+                                       WTGPS300P VCC              --> ESP32 3.3/5v
+                                       TCA9548A i2C Multiplexer   --> ESP32 i2C
+                                       x6 SSD1306 (blue & yellow) --> TCA9548A i2C Multiplexer
 
 
                                                       SENTENCE $SATCOM
