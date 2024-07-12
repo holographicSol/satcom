@@ -3778,16 +3778,22 @@ void SSD_Display_Loading() {
 //                                                                                                         DISPLAYS: BRIGHTNESS
 
 /*
-there may be some disparity between the SSD306 panels at low brightness.
+there may be some disparity between the SSD306 panels at low brightness, possible reasons:
+inconsistent current through multiplexer (sda,sdc): checked. negative.
+inconsistent voltage through multiplexer (sda,sdc): checked. negative
+inconsistent vcc: checked. negative.
+software library: pending checks.
+implementation here of software library: pending checks.
+currently recommended lowest settings: 150, 16.
 */
 
 void displayBrightness(int c, int d, int e, int f, int g, int h) {
-  if (c==1) {tcaselect(2); display_2.setContrast(255, 241);} else {tcaselect(2); display_2.setContrast(170, 16);}
-  if (d==1) {tcaselect(3); display_3.setContrast(255, 241);} else {tcaselect(3); display_3.setContrast(170, 16);}
-  if (e==1) {tcaselect(4); display_4.setContrast(255, 241);} else {tcaselect(4); display_4.setContrast(170, 16);}
-  if (f==1) {tcaselect(5); display_5.setContrast(255, 241);} else {tcaselect(5); display_5.setContrast(170, 16);}
-  if (g==1) {tcaselect(6); display_6.setContrast(255, 241);} else {tcaselect(6); display_6.setContrast(170, 16);}
-  if (h==1) {tcaselect(7); display_7.setContrast(255, 241);} else {tcaselect(7); display_7.setContrast(170, 16);}
+  if (c==1) {tcaselect(2); display_2.setContrast(255, 241);} else {tcaselect(2); display_2.setContrast(150, 16);}
+  if (d==1) {tcaselect(3); display_3.setContrast(255, 241);} else {tcaselect(3); display_3.setContrast(150, 16);}
+  if (e==1) {tcaselect(4); display_4.setContrast(255, 241);} else {tcaselect(4); display_4.setContrast(150, 16);}
+  if (f==1) {tcaselect(5); display_5.setContrast(255, 241);} else {tcaselect(5); display_5.setContrast(150, 16);}
+  if (g==1) {tcaselect(6); display_6.setContrast(255, 241);} else {tcaselect(6); display_6.setContrast(150, 16);}
+  if (h==1) {tcaselect(7); display_7.setContrast(255, 241);} else {tcaselect(7); display_7.setContrast(150, 16);}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
