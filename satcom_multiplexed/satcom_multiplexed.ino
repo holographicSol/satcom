@@ -3807,6 +3807,10 @@ void displayOnOff(int c, int d, int e, int f, int g, int h) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                    DISPLAYS: FLIP VERTICALLY
 
+/*
+may not be preferrable for SSD1306 panels that are yellow and blue but may prove useful for other SSD1306 panels.
+*/
+
 void displayFlipVertically(int c, int d, int e, int f, int g, int h) {
   if (c==1) {tcaselect(2); display_2.init(); display_2.flipScreenVertically();} else {tcaselect(2); display_2.init(); display_2.normalDisplay();}
   if (d==1) {tcaselect(3); display_3.init(); display_3.flipScreenVertically();} else {tcaselect(3); display_3.init(); display_3.normalDisplay();}
