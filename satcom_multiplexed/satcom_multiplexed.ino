@@ -3113,13 +3113,18 @@ void readRXD_0() {
           if ((menuData.y == 1) && (menuData.x == 0)) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=0;}
           // select relay function
           if ((menuData.y == 1) && (menuData.x == 2)) {menuData.relay_function_select++; if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}}
-
           // select relay function name
           if (menuData.y == 2) {
             menuData.function_index++;
             if (menuData.function_index >= 252) {menuData.function_index=0; }
             memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);
           }
+          // set x
+          if (menuData.y == 3) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=1;}
+          // set y
+          if (menuData.y == 4) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=2;}
+          // set z
+          if (menuData.y == 5) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=3;}
         }
       }
     }
@@ -3166,6 +3171,12 @@ void readRXD_0() {
           if (((menuData.numpad_y == 5) && (menuData.numpad_x == 1)) || ((menuData.numpad_y == 5) && (menuData.numpad_x == 2))) {menuData.input[strlen(menuData.input)-1] = '\0';} // remove last char
 
           if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==0)) {menuData.page = 0; if ((atoi(menuData.input) < relayData.MAX_RELAYS) && (atoi(menuData.input) >= 0)) {menuData.relay_select = atoi(menuData.input);}} // set a value according to numpad_key
+
+          if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==1)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0] = strtod(menuData.input, &ptr);} // set a value according to numpad_key
+
+          if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==2)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1] = strtod(menuData.input, &ptr);} // set a value according to numpad_key
+
+          if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==3)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2] = strtod(menuData.input, &ptr);} // set a value according to numpad_key
       }
     }
 
