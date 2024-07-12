@@ -1429,307 +1429,253 @@ struct RelayStruct {
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                  SATCOM DATA
 
-  char time_every_n_seconds[56] = "time_every_n_seconds";
+  char SecondsTimer[56] = "SecondsTimer";
 
-  char latitude_satcom_gngga_over[56]             = "latitude_satcom_gngga_over";
-  char latitude_satcom_gngga_under[56]            = "latitude_satcom_gngga_under";
-  char latitude_satcom_gngga_equal[56]            = "latitude_satcom_gngga_equal";
-  char latitude_satcom_gngga_in_range[56]         = "latitude_satcom_gngga_in_range";
-  char satcom_in_range_gngga[56]                  = "satcom_in_range_gngga";
-
-  char longitude_satcom_gngga_over[56]            = "longitude_satcom_gngga_over";
-  char longitude_satcom_gngga_under[56]           = "longitude_satcom_gngga_under";
-  char longitude_satcom_gngga_equal[56]           = "longitude_satcom_gngga_equal";
-  char longitude_satcom_gngga_in_range[56]        = "longitude_satcom_gngga_in_range";
-
-  char latitude_satcom_gnrmc_over[56]             = "latitude_satcom_gnrmc_over";
-  char latitude_satcom_gnrmc_under[56]            = "latitude_satcom_gnrmc_under";
-  char latitude_satcom_gnrmc_equal[56]            = "latitude_satcom_gnrmc_equal";
-  char latitude_satcom_gnrmc_in_range[56]         = "latitude_satcom_gnrmc_in_range";
-
-  char longitude_satcom_gnrmc_over[56]            = "longitude_satcom_gnrmc_over";
-  char longitude_satcom_gnrmc_under[56]           = "longitude_satcom_gnrmc_under";
-  char longitude_satcom_gnrmc_equal[56]           = "longitude_satcom_gnrmc_equal";
-  char longitude_satcom_gnrmc_in_range[56]        = "longitude_satcom_gnrmc_in_ranged";
+  char DegreesLatGNGGAOver[56]             = "DegreesLatGNGGAOver";
+  char DegreesLatGNGGAUnder[56]            = "DegreesLatGNGGAUnder";
+  char DegreesLatGNGGAEqual[56]            = "DegreesLatGNGGAEqual";
+  char DegreesLatGNGGARange[56]            = "DegreesLatGNGGARange";
+  char DegreesGNGGARange[56]               = "DegreesGNGGARange";
+  char DegreesLonGNGGAOver[56]             = "DegreesLonGNGGAOver";
+  char DegreesLonGNGGAUnder[56]            = "DegreesLonGNGGAUnder";
+  char DegreesLonGNGGAEqual[56]            = "DegreesLonGNGGAEqual";
+  char DegreesLonGNGGARange[56]            = "DegreesLonGNGGARange";
+  char DegreesLatGNRMCOver[56]             = "DegreesLatGNRMCOver";
+  char DegreesLatGNRMCUnder[56]            = "DegreesLatGNRMCUnder";
+  char DegreesLatGNRMCEqual[56]            = "DegreesLatGNRMCEqual";
+  char DegreesLatGNRMCRange[56]            = "DegreesLatGNRMCRange";
+  char DegreesLonGNRMCOver[56]             = "DegreesLonGNRMCOver";
+  char DegreesLonGNRMCUnder[56]            = "DegreesLonGNRMCUnder";
+  char DegreesLonGNRMCEqual[56]            = "DegreesLonGNRMCEqual";
+  char longitude_satcom_gnrmc_in_range[56] = "DegreesGNRMCRange";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                   GNGGA DATA
 
-  char utc_time_gngga_over[56]             = "utc_time_gngga_over";
-  char utc_time_gngga_under[56]            = "utc_time_gngga_under";
-  char utc_time_gngga_equal[56]            = "utc_time_gngga_equal";
-  char utc_time_gngga_in_range[56]         = "utc_time_gngga_in_range";
-
-  char latitude_gngga_over[56]             = "latitude_gngga_over";
-  char latitude_gngga_under[56]            = "latitude_gngga_under";
-  char latitude_gngga_equal[56]            = "latitude_gngga_equal";
-  char latitude_gngga_in_range[56]         = "latitude_gngga_in_range";
-
-  char longitude_gngga_over[56]            = "longitude_gngga_over";
-  char longitude_gngga_under[56]           = "longitude_gngga_under";
-  char longitude_gngga_equal[56]           = "longitude_gngga_equal";
-  char longitude_gngga_in_range[56]        = "longitude_gngga_in_range";
-
-  char positioning_status_gngga_equal[56]  = "positioning_status_gngga_equal";
-
-  char satellite_count_gngga_over[56]      = "satellite_count_gngga_over";
-  char satellite_count_gngga_under[56]     = "satellite_count_gngga_under";
-  char satellite_count_gngga_equal[56]     = "satellite_count_gngga_equal";
-  char satellite_count_gngga_in_range[56]  = "satellite_count_gngga_in_range";
-
-  char hemisphere_gngga_N[56]              = "hemisphere_gngga_N";
-  char hemisphere_gngga_E[56]              = "hemisphere_gngga_E";
-  char hemisphere_gngga_S[56]              = "hemisphere_gngga_S";
-  char hemisphere_gngga_W[56]              = "hemisphere_gngga_W";
-
-  char hdop_precision_factor_gngga_over[56]     = "hdop_precision_factor_gngga_over";
-  char hdop_precision_factor_gngga_under[56]    = "hdop_precision_factor_gngga_under";
-  char hdop_precision_factor_gngga_equal[56]    = "hdop_precision_factor_gngga_equal";
-  char hdop_precision_factor_gngga_in_range[56] = "hdop_precision_factor_gngga_in_range";
-
-  char altitude_gngga_over[56]             = "altitude_gngga_over";
-  char altitude_gngga_under[56]            = "altitude_gngga_under";
-  char altitude_gngga_equal[56]            = "altitude_gngga_equal";
-  char altitude_gngga_in_range[56]         = "altitude_gngga_in_range";
+  char UTCTimeGNGGAOver[56]       = "UTCTimeGNGGAOver";
+  char UTCTimeGNGGAUnder[56]      = "UTCTimeGNGGAUnder";
+  char UTCTimeGNGGAEqual[56]      = "UTCTimeGNGGAEqual";
+  char UTCTimeGNGGARange[56]      = "UTCTimeGNGGARange";
+  char LatGNGGAOver[56]           = "LatGNGGAOver";
+  char LatGNGGAUnder[56]          = "LatGNGGAUnder";
+  char LatGNGGAEqual[56]          = "LatGNGGAEqual";
+  char LatGNGGARange[56]          = "LatGNGGARange";
+  char LonGNGGAOver[56]           = "LonGNGGAOver";
+  char LonGNGGAUnder[56]          = "LonGNGGAUnder";
+  char LonGNGGAEqual[56]          = "LonGNGGAEqual";
+  char LonGNGGARange[56]          = "LonGNGGARange";
+  char PositioningStatusGNGGA[56] = "PositioningStatusGNGGA";
+  char SatelliteCountOver[56]     = "SatelliteCountOver";
+  char SatelliteCountUnder[56]    = "SatelliteCountUnder";
+  char SatelliteCountEqual[56]    = "SatelliteCountEqual";
+  char SatelliteCountRange[56]    = "SatelliteCountRange";
+  char HemisphereGNGGANorth[56]   = "HemisphereGNGGANorth";
+  char HemisphereGNGGAEast[56]    = "HemisphereGNGGAEast";
+  char HemisphereGNGGASouth[56]   = "HemisphereGNGGASouth";
+  char HemisphereGNGGAWest[56]    = "HemisphereGNGGAWest";
+  char GPSPrecisionOver[56]       = "GPSPrecisionOver";
+  char GPSPrecisionUnder[56]      = "GPSPrecisionUnder";
+  char GPSPrecisionEqual[56]      = "GPSPrecisionEqual";
+  char GPSPrecisionRange[56]      = "GPSPrecisionRange";
+  char AltitudeGNGGAOver[56]      = "AltitudeGNGGAOver";
+  char AltitudeGNGGAUnder[56]     = "AltitudeGNGGAUnder";
+  char AltitudeGNGGAEqual[56]     = "AltitudeGNGGAEqual";
+  char AltitudeGNGGARange[56]     = "AltitudeGNGGARange";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                   GNRMC DATA
 
-  char utc_time_gnrmc_over[56]       = "utc_time_gnrmc_over";
-  char utc_time_gnrmc_under[56]      = "utc_time_gnrmc_under";
-  char utc_time_gnrmc_equal[56]      = "utc_time_gnrmc_equal";
-  char utc_time_gnrmc_in_range[56]   = "utc_time_gnrmc_in_range";
-
-  char positioning_status_gnrmc_equal_A[56]  = "positioning_status_gnrmc_equal_A";
-  char positioning_status_gnrmc_equal_V[56]  = "positioning_status_gnrmc_equal_V";
-
-  char mode_indication_gnrmc_equal_A[56]     = "mode_indication_gnrmc_equal_A";
-  char mode_indication_gnrmc_equal_D[56]     = "mode_indication_gnrmc_equal_D";
-  char mode_indication_gnrmc_equal_N[56]     = "mode_indication_gnrmc_equal_N";
-
-  char latitude_gnrmc_over[56]             = "latitude_gnrmc_over";
-  char latitude_gnrmc_under[56]            = "latitude_gnrmc_under";
-  char latitude_gnrmc_equal[56]            = "latitude_gnrmc_equal";
-  char latitude_gnrmc_in_range[56]         = "latitude_gnrmc_in_range";
-
-  char longitude_gnrmc_over[56]            = "longitude_gnrmc_over";
-  char longitude_gnrmc_under[56]           = "longitude_gnrmc_under";
-  char longitude_gnrmc_equal[56]           = "longitude_gnrmc_equal";
-  char longitude_gnrmc_in_range[56]        = "longitude_gnrmc_in_range";
-
-  char hemisphere_gnrmc_N[56]              = "hemisphere_gnrmc_N";
-  char hemisphere_gnrmc_E[56]              = "hemisphere_gnrmc_E";
-  char hemisphere_gnrmc_S[56]              = "hemisphere_gnrmc_S";
-  char hemisphere_gnrmc_W[56]              = "hemisphere_gnrmc_W";
-
-  char ground_speed_gnrmc_over[56]         = "ground_speed_gnrmc_over";
-  char ground_speed_gnrmc_under[56]        = "ground_speed_gnrmc_under";
-  char ground_speed_gnrmc_equal[56]        = "ground_speed_gnrmc_equal";
-  char ground_speed_gnrmc_in_range[56]     = "ground_speed_gnrmc_in_range";
-
-  char heading_gnrmc_over[56]              = "heading_gnrmc_over";
-  char heading_gnrmc_under[56]             = "heading_gnrmc_under";
-  char heading_gnrmc_equal[56]             = "heading_gnrmc_equal";
-  char heading_gnrmc_in_range[56]          = "heading_gnrmc_in_range";
-
-  char utc_date_gnrmc_over[56]       = "utc_date_gnrmc_over";
-  char utc_date_gnrmc_under[56]      = "utc_date_gnrmc_under";
-  char utc_date_gnrmc_equal[56]      = "utc_date_gnrmc_equal";
-  char utc_date_gnrmc_in_range[56]   = "utc_date_gnrmc_in_range";
+  char UTCTimeGNRMCOver[56]         = "UTCTimeGNRMCOver";
+  char UTCTimeGNRMCUnder[56]        = "UTCTimeGNRMCUnder";
+  char UTCTimeGNRMCEqual[56]        = "UTCTimeGNRMCEqual";
+  char UTCTimeGNRMCRange[56]        = "UTCTimeGNRMCRange";
+  char PositioningStatusGNRMCA[56]  = "PositioningStatusGNRMCA";
+  char PositioningStatusGNRMCV[56]  = "PositioningStatusGNRMCV";
+  char ModeGNRMCA[56]               = "ModeGNRMCA";
+  char ModeGNRMCD[56]               = "ModeGNRMCD";
+  char ModeGNRMCN[56]               = "ModeGNRMCN";
+  char LatGNRMCOver[56]             = "LatGNRMCOver";
+  char LatGNRMCUnder[56]            = "LatGNRMCUnder";
+  char LatGNRMCEqual[56]            = "LatGNRMCEqual";
+  char LatGNRMCRange[56]            = "LatGNRMCRange";
+  char LonGNRMCOver[56]             = "LonGNRMCOver";
+  char LonGNRMCUnder[56]            = "LonGNRMCUnder";
+  char LonGNRMCEqual[56]            = "LonGNRMCEqual";
+  char LonGNRMCRange[56]            = "LonGNRMCRange";
+  char HemisphereGNRMCNorth[56]     = "HemisphereGNRMCNorth";
+  char HemisphereGNRMCEast[56]      = "HemisphereGNRMCEast";
+  char HemisphereGNRMCSouth[56]     = "HemisphereGNRMCSouth";
+  char HemisphereGNRMCWest[56]      = "HemisphereGNRMCWest";
+  char GroundSpeedGNRMCOver[56]     = "GroundSpeedGNRMCOver";
+  char GroundSpeedGNRMCUnder[56]    = "GroundSpeedGNRMCUnder";
+  char GroundSpeedGNRMCEqual[56]    = "GroundSpeedGNRMCEqual";
+  char GroundSpeedGNRMCRange[56]    = "GroundSpeedGNRMCRange";
+  char HeadingGNRMCOver[56]         = "HeadingGNRMCOver";
+  char HeadingGNRMCUnder[56]        = "HeadingGNRMCUnder";
+  char HeadingGNRMCEqual[56]        = "HeadingGNRMCEqual";
+  char HeadingGNRMCRange[56]        = "HeadingGNRMCRange";
+  char UTCDateGNRMCOver[56]         = "UTCDateGNRMCOver";
+  char UTCDateGNRMCUnder[56]        = "UTCDateGNRMCUnder";
+  char UTCDateGNRMCEqual[56]        = "UTCDateGNRMCEqual";
+  char UTCDateGNRMCRange[56]        = "UTCDateGNRMCRange";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                   GPATT DATA
 
-  char run_inetial_flag_gpatt_equal[56]    = "run_inetial_flag_gpatt_equal";
-  char line_flag_gpatt_equal[56]           = "line_flag_gpatt_equal";
-  char static_flag_gpatt_equal[56]         = "static_flag_gpatt_equal";
-  char run_state_flag_gpatt_equal[56]      = "run_state_flag_gpatt_equal";
-  char ins_gpatt_equal[56]                 = "ins_gpatt_equal";
-
-  char speed_num_gpatt_over[56]            = "speed_num_gpatt_over";
-  char speed_num_gpatt_under[56]           = "speed_num_gpatt_under[";
-  char speed_num_gpatt_equal[56]           = "speed_num_gpatt_equal";
-  char speed_num_gpatt_in_range[56]        = "speed_num_gpatt_in_range";
-
-  char mileage_gpatt_over[56]              = "mileage_gpatt_over";
-  char mileage_gpatt_under[56]             = "mileage_gpatt_under[";
-  char mileage_gpatt_equal[56]             = "mileage_gpatt_equal";
-  char mileage_gpatt_in_range[56]          = "mileage_gpatt_in_range";
-
-  char gst_data_gpatt_over[56]             = "gst_data_gpatt_over";
-  char gst_data_gpatt_under[56]            = "gst_data_gpatt_under[";
-  char gst_data_gpatt_equal[56]            = "gst_data_gpatt_equal";
-  char gst_data_gpatt_in_range[56]         = "gst_data_gpatt_in_range";
-
-  char yaw_gpatt_over[56]                  = "yaw_gpatt_over";
-  char yaw_gpatt_under[56]                 = "yaw_gpatt_under[";
-  char yaw_gpatt_equal[56]                 = "yaw_gpatt_equal";
-  char yaw_gpatt_in_range[56]              = "yaw_gpatt_in_range";
-
-  char roll_gpatt_over[56]                 = "roll_gpatt_over";
-  char roll_gpatt_under[56]                = "roll_gpatt_under[";
-  char roll_gpatt_equal[56]                = "roll_gpatt_equal";
-  char roll_gpatt_in_range[56]             = "roll_gpatt_in_range";
-
-  char pitch_gpatt_over[56]                = "pitch_gpatt_over";
-  char pitch_gpatt_under[56]               = "pitch_gpatt_under[";
-  char pitch_gpatt_equal[56]               = "pitch_gpatt_equal";
-  char pitch_gpatt_in_range[56]            = "pitch_gpatt_in_range";
+  char InertialFlagGPATTEqual[56] = "InertialFlagGPATTEqual";
+  char LineFlagGPATTEqual[56]     = "LineFlagGPATTEqual";
+  char StaticFlagGPATTEqual[56]   = "StaticFlagGPATTEqual";
+  char RunStateFlagGPATTEqual[56] = "RunStateFlagGPATTEqual";
+  char INSGPATTEqual[56]          = "INSGPATTEqual";
+  char SpeedNumGPATTOver[56]      = "SpeedNumGPATTOver";
+  char SpeedNumGPATTUnder[56]     = "SpeedNumGPATTUnder[";
+  char SpeedNumGPATTEqual[56]     = "SpeedNumGPATTEqual";
+  char SpeedNumGPATTRange[56]     = "SpeedNumGPATTRange";
+  char MileageGPATTOver[56]       = "MileageGPATTOver";
+  char MileageGPATTUnder[56]      = "MileageGPATTUnder[";
+  char MileageGPATTEqual[56]      = "MileageGPATTEqual";
+  char MileageGPATTRange[56]      = "MileageGPATTRange";
+  char GSTDataGPATTOver[56]       = "GSTDataGPATTOver";
+  char GSTDataGPATTUnder[56]      = "GSTDataGPATTUnder[";
+  char GSTDataGPATTEqual[56]      = "GSTDataGPATTEqual";
+  char GSTDataGPATTRange[56]      = "GSTDataGPATTRange";
+  char YawGPATTOver[56]           = "YawGPATTOver";
+  char YawGPATTUnder[56]          = "YawGPATTUnder[";
+  char YawGPATTEqual[56]          = "YawGPATTEqual";
+  char YawGPATTRange[56]          = "YawGPATTRange";
+  char RollGPATTOver[56]          = "RollGPATTOver";
+  char RollGPATTUnder[56]         = "RollGPATTUnder[";
+  char RollGPATTEqual[56]         = "RollGPATTEqual";
+  char RollGPATTRange[56]         = "RollGPATTRange";
+  char PitchGPATTOver[56]         = "PitchGPATTOver";
+  char PitchGPATTUnder[56]        = "PitchGPATTUnder[";
+  char PitchGPATTEqual[56]        = "PitchGPATTEqual";
+  char PitchGPATTRange[56]        = "PitchGPATTRange";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                   SPEED DATA
 
-  char utc_time_speed_over[56]             = "utc_time_speed_over";
-  char utc_time_speed_under[56]            = "utc_time_speed_under";
-  char utc_time_speed_equal[56]            = "utc_time_speed_equal";
-  char utc_time_speed_in_range[56]         = "utc_time_speed_in_range";
-
-  char ground_speed_speed_over[56]         = "ground_speed_speed_over";
-  char ground_speed_speed_under[56]        = "ground_speed_speed_under";
-  char ground_speed_speed_equal[56]        = "ground_speed_speed_equal";
-  char ground_speed_speed_in_range[56]     = "ground_speed_speed_in_range";
-
-  char status_speed_over[56]               = "status_speed_over";
-  char status_speed_under[56]              = "status_speed_under";
-  char status_speed_equal[56]              = "status_speed_equal";
-  char status_speed_in_range[56]           = "status_speed_in_range";
-
-  char acc_X_speed_over[56]                = "acc_X_speed_over";
-  char acc_X_speed_under[56]               = "acc_X_speed_under";
-  char acc_X_speed_equal[56]               = "acc_X_speed_equal";
-  char acc_X_speed_in_range[56]            = "acc_X_speed_in_range";
-
-  char acc_Y_speed_over[56]                = "acc_Y_speed_over";
-  char acc_Y_speed_under[56]               = "acc_Y_speed_under";
-  char acc_Y_speed_equal[56]               = "acc_Y_speed_equal";
-  char acc_Y_speed_in_range[56]            = "acc_Y_speed_in_range";
-
-  char acc_Z_speed_over[56]                = "acc_Z_speed_over";
-  char acc_Z_speed_under[56]               = "acc_Z_speed_under";
-  char acc_Z_speed_equal[56]               = "acc_Z_speed_equal";
-  char acc_Z_speed_in_range[56]            = "acc_Z_speed_in_range";
-
-  char gyro_X_speed_over[56]               = "gyro_X_speed_over";
-  char gyro_X_speed_under[56]              = "gyro_X_speed_under";
-  char gyro_X_speed_equal[56]              = "gyro_X_speed_equal";
-  char gyro_X_speed_in_range[56]           = "gyro_X_speed_in_range";
-
-  char gyro_Y_speed_over[56]               = "gyro_Y_speed_over";
-  char gyro_Y_speed_under[56]              = "gyro_Y_speed_under";
-  char gyro_Y_speed_equal[56]              = "gyro_Y_speed_equal";
-  char gyro_Y_speed_in_range[56]           = "gyro_Y_speed_in_range";
-
-  char gyro_Z_speed_over[56]               = "gyro_Z_speed_over";
-  char gyro_Z_speed_under[56]              = "gyro_Z_speed_under";
-  char gyro_Z_speed_equal[56]              = "gyro_Z_speed_equal";
-  char gyro_Z_speed_in_range[56]           = "gyro_Z_speed_in_range";
-
-  char ubi_state_flag_speed_over[56]       = "ubi_state_flag_speed_over";
-  char ubi_state_flag_speed_under[56]      = "ubi_state_flag_speed_under";
-  char ubi_state_flag_speed_equal[56]      = "ubi_state_flag_speed_equal";
-  char ubi_state_flag_speed_in_range[56]   = "gyro_Z_speed_in_range";
-
-  char ubi_state_kind_speed_over[56]       = "ubi_state_kind_speed_over";
-  char ubi_state_kind_speed_under[56]      = "ubi_state_kind_speed_under";
-  char ubi_state_kind_speed_equal[56]      = "ubi_state_kind_speed_equal";
-  char ubi_state_kind_speed_in_range[56]   = "ubi_state_kind_speed_in_range";
-
-  char ubi_state_value_speed_over[56]      = "ubi_state_value_speed_over";
-  char ubi_state_value_speed_under[56]     = "ubi_state_value_speed_under";
-  char ubi_state_value_speed_equal[56]     = "ubi_state_value_speed_equal";
-  char ubi_state_value_speed_in_range[56]  = "ubi_state_value_speed_in_range";
+  char UTCTimeSPEEDOver[56]      = "UTCTimeSPEEDOver";
+  char UTCTimeSPEEDUnder[56]     = "UTCTimeSPEEDUnder";
+  char UTCTimeSPEEDEqual[56]     = "UTCTimeSPEEDEqual";
+  char UTCTimeSPEEDRange[56]     = "UTCTimeSPEEDRange";
+  char GroundSpeedSPEEDOver[56]  = "GroundSpeedSPEEDOver";
+  char GroundSpeedSPEEDUnder[56] = "GroundSpeedSPEEDUnder";
+  char GroundSpeedSPEEDEqual[56] = "GroundSpeedSPEEDEqual";
+  char GroundSpeedSPEEDRange[56] = "GroundSpeedSPEEDRange";
+  char StatusSPEEDOver[56]       = "StatusSPEEDOver";
+  char StatusSPEEDUnder[56]      = "StatusSPEEDUnder";
+  char StatusSPEEDEqual[56]      = "StatusSPEEDEqual";
+  char StatusSPEEDRange[56]      = "StatusSPEEDRange";
+  char AccXSPEEDOver[56]         = "AccXSPEEDOver";
+  char AccXSPEEDUnder[56]        = "AccXSPEEDUnder";
+  char AccXSPEEDEqual[56]        = "AccXSPEEDEqual";
+  char AccXSPEEDRange[56]        = "AccXSPEEDRange";
+  char AccYSPEEDOver[56]         = "AccYSPEEDOver";
+  char AccYSPEEDUnder[56]        = "AccYSPEEDUnder";
+  char AccYSPEEDEqual[56]        = "AccYSPEEDEqual";
+  char AccYSPEEDRange[56]        = "AccYSPEEDRange";
+  char AccZSPEEDOver[56]         = "AccZSPEEDOver";
+  char AccZSPEEDUnder[56]        = "AccZSPEEDUnder";
+  char AccZSPEEDEqual[56]        = "AccZSPEEDEqual";
+  char AccZSPEEDRange[56]        = "AccZSPEEDRange";
+  char GyroXSPEEDOver[56]        = "GyroXSPEEDOver";
+  char GyroXSPEEDUnder[56]       = "GyroXSPEEDUnder";
+  char GyroXSPEEDEqual[56]       = "GyroXSPEEDEqual";
+  char GyroXSPEEDRange[56]       = "GyroXSPEEDRange";
+  char GyroYSPEEDOver[56]        = "GyroYSPEEDOver";
+  char GyroYSPEEDUnder[56]       = "GyroYSPEEDUnder";
+  char GyroYSPEEDEqual[56]       = "GyroYSPEEDEqual";
+  char GyroYSPEEDRange[56]       = "GyroYSPEEDRange";
+  char GyroZSPEEDOver[56]        = "GyroZSPEEDOver";
+  char GyroZSPEEDUnder[56]       = "GyroZSPEEDUnder";
+  char GyroZSPEEDEqual[56]       = "GyroZSPEEDEqual";
+  char GyroZSPEEDRange[56]       = "GyroZSPEEDRange";
+  char UBIStateFlagOver[56]      = "UBIStateFlagOver";
+  char UBIStateFlagUnder[56]     = "UBIStateFlagUnder";
+  char UBIStateFlagEqual[56]     = "UBIStateFlagEqual";
+  char UBIStateFlagRange[56]     = "GyroZSPEEDRange";
+  char UBIStateKindOver[56]      = "UBIStateKindOver";
+  char UBIStateKindUnder[56]     = "UBIStateKindUnder";
+  char UBIStateKindEqual[56]     = "UBIStateKindEqual";
+  char UBIStateKindRange[56]     = "UBIStateKindRange";
+  char UBIStateValueOver[56]     = "UBIStateValueOver";
+  char UBIStateValueUnder[56]    = "UBIStateValueUnder";
+  char UBIStateValueEqual[56]    = "UBIStateValueEqual";
+  char UBIStateValueRange[56]    = "UBIStateValueRange";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                   ERROR DATA
 
-  char utc_time_error_over[56]             = "utc_time_error_over";
-  char utc_time_error_under[56]            = "utc_time_error_under";
-  char utc_time_error_equal[56]            = "utc_time_error_equal";
-  char utc_time_error_in_range[56]         = "utc_time_error_in_range";
-
-  char code_flag_error_over[56]            = "code_flag_error_over";
-  char code_flag_error_under[56]           = "code_flag_error_under";
-  char code_flag_error_equal[56]           = "code_flag_error_equal";
-  char code_flag_error_in_range[56]        = "code_flag_error_in_range";
-
-  char gset_flag_error_equal[56]           = "gset_flag_error_equal";
-  char sset_flag_error_equal[56]           = "sset_flag_error_equal";
+  char ERRORUTCTimeOver[56]   = "ERRORUTCTimeOver";
+  char ERRORUTCTimeUnder[56]  = "ERRORUTCTimeUnder";
+  char ERRORUTCTimeEqual[56]  = "ERRORUTCTimeEqual";
+  char ERRORUTCTimeRange[56]  = "ERRORUTCTimeRange";
+  char ErrorCodeFlagEqual[56] = "ErrorCodeFlagEqual";
+  char ERRORGSetFlagEqual[56] = "ERRORGSetFlagEqual";
+  char ERRORSSetFlagEqual[56] = "ERRORSSetFlagEqual";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                   DEBUG DATA
 
-  char coll_T_heading_debug_over[56]       = "coll_T_heading_debug_over";
-  char coll_T_heading_debug_under[56]      = "coll_T_heading_debug_under";
-  char coll_T_heading_debug_equal[56]      = "coll_T_heading_debug_equal";
-  char coll_T_heading_debug_in_range[56]   = "coll_T_heading_debug_in_range";
-
-  char coll_T_data_debug_over[56]          = "coll_T_data_debug_over";
-  char coll_T_data_debug_under[56]         = "coll_T_data_debug_under";
-  char coll_T_data_debug_equal[56]         = "coll_T_data_debug_equal";
-  char coll_T_data_debug_in_range[56]      = "coll_T_data_debug_in_range";
-
-  char ubi_valid_debug_equal[56]           = "ubi_valid_debug_equal";
-
-  char ins_flag_debug_over[56]             = "ins_flag_debug_over";
-  char ins_flag_debug_under[56]            = "ins_flag_debug_under";
-  char ins_flag_debug_equal[56]            = "ins_flag_debug_equal";
-  char ins_flag_debug_in_range[56]         = "ins_flag_debug_in_range";
-
-  char car_speed_debug_over[56]            = "car_speed_debug_over";
-  char car_speed_debug_under[56]           = "car_speed_debug_under";
-  char car_speed_debug_equal[56]           = "car_speed_debug_equal";
-  char car_speed_debug_in_range[56]        = "car_speed_debug_in_range";
-
-  char yaw_angle_debug_over[56]            = "yaw_angle_debug_over";
-  char yaw_angle_debug_under[56]           = "yaw_angle_debug_under";
-  char yaw_angle_debug_equal[56]           = "yaw_angle_debug_equal";
-  char yaw_angle_debug_in_range[56]        = "yaw_angle_debug_in_range";
-
-  char roll_angle_debug_over[56]           = "roll_angle_debug_over";
-  char roll_angle_debug_under[56]          = "roll_angle_debug_under";
-  char roll_angle_debug_equal[56]          = "roll_angle_debug_equal";
-  char roll_angle_debug_in_range[56]       = "roll_angle_debug_in_range";
-
-  char pitch_angle_debug_over[56]          = "pitch_angle_debug_over";
-  char pitch_angle_debug_under[56]         = "pitch_angle_debug_under";
-  char pitch_angle_debug_equal[56]         = "pitch_angle_debug_equal";
-  char pitch_angle_debug_in_range[56]      = "pitch_angle_debug_in_range";
-
-  char ang_dget_flag_debug_equal[56]       = "ang_dget_flag_debug_equal";
-  char ins_run_flag_debug_equal[56]        = "ins_run_flag_debug_equal";
-  char fix_roll_flag_debug_equal[56]       = "fix_roll_flag_debug_equal";
-  char fix_pitch_flag_debug_equal[56]      = "fix_pitch_flag_debug_equal";
-  char ubi_kind_flag_debug_equal[56]       = "ubi_kind_flag_debug_equal";
-  
-  char ubi_on_flag_debug_over[56]          = "ubi_on_flag_debug_over";
-  char ubi_on_flag_debug_under[56]         = "ubi_on_flag_debug_under";
-  char ubi_on_flag_debug_equal[56]         = "ubi_on_flag_debug_equal";
-  char ubi_on_flag_debug_in_range[56]      = "ubi_on_flag_debug_in_range";
-
-  char ubi_a_set_debug_over[56]            = "ubi_a_set_debug_over";
-  char ubi_a_set_debug_under[56]           = "ubi_a_set_debug_under";
-  char ubi_a_set_debug_equal[56]           = "ubi_a_set_debug_equal";
-  char ubi_a_set_debug_in_range[56]        = "ubi_a_set_debug_in_range";
-
-  char ubi_b_set_debug_over[56]            = "ubi_b_set_debug_over";
-  char ubi_b_set_debug_under[56]           = "ubi_b_set_debug_under";
-  char ubi_b_set_debug_equal[56]           = "ubi_b_set_debug_equal";
-  char ubi_b_set_debug_in_range[56]        = "ubi_b_set_debug_in_range";
-
-  char acc_X_data_debug_over[56]           = "acc_X_data_debug_over";
-  char acc_X_data_debug_under[56]          = "acc_X_data_debug_under";
-  char acc_X_data_debug_equal[56]          = "acc_X_data_debug_equal";
-  char acc_X_data_debug_in_range[56]       = "acc_X_data_debug_in_range";
-
-  char acc_Y_data_debug_over[56]           = "acc_Y_data_debug_over";
-  char acc_Y_data_debug_under[56]          = "acc_Y_data_debug_under";
-  char acc_Y_data_debug_equal[56]          = "acc_Y_data_debug_equal";
-  char acc_Y_data_debug_in_range[56]       = "acc_Y_data_debug_in_range";
-
-  char gyro_Z_data_debug_over[56]          = "gyro_Z_data_debug_over";
-  char gyro_Z_data_debug_under[56]         = "gyro_Z_data_debug_under";
-  char gyro_Z_data_debug_equal[56]         = "gyro_Z_data_debug_equal";
-  char gyro_Z_data_debug_in_range[56]      = "gyro_Z_data_debug_in_range";
+  char CollisionTHeadingOver[56]  = "CollisionTHeadingOver";
+  char CollisionTHeadingUnder[56] = "CollisionTHeadingUnder";
+  char CollisionTHeadingEqual[56] = "CollisionTHeadingEqual";
+  char CollisionTHeadingRange[56] = "CollisionTHeadingRange";
+  char CollisionTDataOver[56]     = "CollisionTDataOver";
+  char CollisionTDataUnder[56]    = "CollisionTDataUnder";
+  char CollisionTDataEqual[56]    = "CollisionTDataEqual";
+  char CollisionTDataRange[56]    = "CollisionTDataRange";
+  char UBIValidEqual[56]          = "UBIValidEqual";
+  char INSFlagOver[56]            = "INSFlagOver";
+  char INSFlagUnder[56]           = "INSFlagUnder";
+  char INSFlagEqual[56]           = "INSFlagEqual";
+  char INSFlagRange[56]           = "INSFlagRange";
+  char CarSpeedOver[56]           = "CarSpeedOver";
+  char CarSpeedUnder[56]          = "CarSpeedUnder";
+  char CarSpeedEqual[56]          = "CarSpeedEqual";
+  char CarSpeedRange[56]          = "CarSpeedRange";
+  char YawAngleOver[56]           = "YawAngleOver";
+  char YawAngleUnder[56]          = "YawAngleUnder";
+  char YawAngleEqual[56]          = "YawAngleEqual";
+  char YawAngleRange[56]          = "YawAngleRange";
+  char RollAngleOver[56]          = "RollAngleOver";
+  char RollAngleUnder[56]         = "RollAngleUnder";
+  char RollAngleEqual[56]         = "RollAngleEqual";
+  char RollAngleRange[56]         = "RollAngleRange";
+  char PitchAngleOver[56]         = "PitchAngleOver";
+  char PitchAngleUnder[56]        = "PitchAngleUnder";
+  char PitchAngleEqual[56]        = "PitchAngleEqual";
+  char PitchAngleRange[56]        = "PitchAngleRange";
+  char AngDGetFlagEqual[56]       = "AngDGetFlagEqual";
+  char INSRunFlagEqual[56]        = "INSRunFlagEqual";
+  char FixRollFlagEqual[56]       = "FixRollFlagEqual";
+  char FixPitchFlagEqual[56]      = "FixPitchFlagEqual";
+  char UBIKindFlagEqual[56]       = "UBIKindFlagEqual";
+  char UBIOnFlagOver[56]          = "UBIOnFlagOver";
+  char UBIOnFlagUnder[56]         = "UBIOnFlagUnder";
+  char UBIOnFlagEqual[56]         = "UBIOnFlagEqual";
+  char UBIOnFlagRange[56]         = "UBIOnFlagRange";
+  char UBIASetOver[56]            = "UBIASetOver";
+  char UBIASetUnder[56]           = "UBIASetUnder";
+  char UBIASetEqual[56]           = "UBIASetEqual";
+  char UBIASetRange[56]           = "UBIASetRange";
+  char UBIBSetOver[56]            = "UBIBSetOver";
+  char UBIBSetUnder[56]           = "UBIBSetUnder";
+  char UBIBSetEqual[56]           = "UBIBSetEqual";
+  char UBIBSetRange[56]           = "UBIBSetRange";
+  char AccXDataOver[56]           = "AccXDataOver";
+  char AccXDataUnder[56]          = "AccXDataUnder";
+  char AccXDataEqual[56]          = "AccXDataEqual";
+  char AccXDataRange[56]          = "AccXDataRange";
+  char AccYDataOver[56]           = "AccYDataOver";
+  char AccYDataUnder[56]          = "AccYDataUnder";
+  char AccYDataEqual[56]          = "AccYDataEqual";
+  char AccYDataRange[56]          = "AccYDataRange";
+  char GyroZDataOver[56]          = "GyroZDataOver";
+  char GyroZDataUnder[56]         = "GyroZDataUnder";
+  char GyroZDataEqual[56]         = "GyroZDataEqual";
+  char GyroZDataRange[56]         = "GyroZDataRange";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                VALIDITY DATA
@@ -1748,7 +1694,6 @@ struct RelayStruct {
   char speed_invalid_checksum[56] = "speed_invalid_checksum";
   char error_invalid_checksum[56] = "error_invalid_checksum";
   char debug_invalid_checksum[56] = "debug_invalid_checksum";
-
   char gngga_valid_check_data[56] = "gngga_valid_check_data";
   char gnrmc_valid_check_data[56] = "gnrmc_valid_check_data";
   char gpatt_valid_check_data[56] = "gpatt_valid_check_data";
@@ -3879,8 +3824,8 @@ bool sdcard_save_matrix(char * file) {
 
 /*
                                         R F Function Name              X Y Z
-example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,1,0,0
-example test command: $MATRIX_SET_ENTRY,0,0,satellite_count_gngga_over,-1,0,0
+example test command: $MATRIX_SET_ENTRY,0,0,SatelliteCountOver,1,0,0
+example test command: $MATRIX_SET_ENTRY,0,0,SatelliteCountOver,-1,0,0
 clear test command:   $MATRIX_SET_ENTRY,0,0,$NONE,0,0,0
 */
 
@@ -4114,11 +4059,11 @@ bool check_bool_false(bool _bool) {
   if (_bool == false) {return true;} else {return false;}
 }
 
-bool time_every_n_seconds(unsigned long n0, unsigned long n1, int Ri) {
+bool SecondsTimer(unsigned long n0, unsigned long n1, int Ri) {
   // max seconds 18446744073709551616 (584942417355.07202148 years)
   // n0: interval
   // n1: on time
-  // backend interface example for on 1sec/off 1sec: $MATRIX_SET_ENTRY,0,0,time_every_n_seconds,1,1,0
+  // backend interface example for on 1sec/off 1sec: $MATRIX_SET_ENTRY,0,0,SecondsTimer,1,1,0
   if ((timeData.seconds - relayData.relays_timing[0][Ri]) > n0) {relayData.relays_timing[0][Ri] = timeData.seconds; return true;}
   else if ((timeData.seconds - relayData.relays_timing[0][Ri]) < n1) {return true;}
   else {return false;}
@@ -4165,324 +4110,321 @@ void matrixSwitch() {
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                    SYSTEMS CHECKS: TIME DATA
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.time_every_n_seconds) == 0) {tmp_matrix[Fi] = time_every_n_seconds(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], Ri);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SecondsTimer) == 0) {tmp_matrix[Fi] = SecondsTimer(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], Ri);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                       SYSTEMS CHECKS: SATCOM
 
         // SATCOM: GNGGA
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_over) == 0) {tmp_matrix[Fi] = check_over_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_under) == 0) {tmp_matrix[Fi] = check_under_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gngga_in_range) == 0) {tmp_matrix[Fi] = in_range_check_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLatGNGGAOver) == 0) {tmp_matrix[Fi] = check_over_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLatGNGGAUnder) == 0) {tmp_matrix[Fi] = check_under_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLatGNGGAEqual) == 0) {tmp_matrix[Fi] = check_equal_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLatGNGGARange) == 0) {tmp_matrix[Fi] = in_range_check_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gngga_over) == 0) {tmp_matrix[Fi] = check_over_true(satData.location_longitude_gngga, relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gngga_under) == 0) {tmp_matrix[Fi] = check_under_true(satData.location_longitude_gngga, relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal_true(satData.location_longitude_gngga, relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gngga_in_range) == 0) {tmp_matrix[Fi] = in_range_check_true(satData.location_longitude_gngga, relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLonGNGGAOver) == 0) {tmp_matrix[Fi] = check_over_true(satData.location_longitude_gngga, relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLonGNGGAUnder) == 0) {tmp_matrix[Fi] = check_under_true(satData.location_longitude_gngga, relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLonGNGGAEqual) == 0) {tmp_matrix[Fi] = check_equal_true(satData.location_longitude_gngga, relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLonGNGGARange) == 0) {tmp_matrix[Fi] = in_range_check_true(satData.location_longitude_gngga, relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
         // check latitude and longitude in range: matrix {x, y, z}
         //                                                                                                                               x0                              x1                                 y0                               y1                               r   
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satcom_in_range_gngga) == 0) {tmp_matrix[Fi] = iin_ranges_check_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0], satData.location_longitude_gngga, relayData.relays_data[Ri][Fi][1], relayData.relays_data[Ri][Fi][2]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesGNGGARange) == 0) {tmp_matrix[Fi] = iin_ranges_check_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0], satData.location_longitude_gngga, relayData.relays_data[Ri][Fi][1], relayData.relays_data[Ri][Fi][2]);}
 
         // SATCOM: GNRMC
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over_true(satData.location_latitude_gnrmc, relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under_true(satData.location_latitude_gnrmc, relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal_true(satData.location_latitude_gnrmc, relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_satcom_gnrmc_in_range) == 0) {tmp_matrix[Fi] = in_range_check_true(satData.location_latitude_gnrmc, relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLatGNRMCOver) == 0) {tmp_matrix[Fi] = check_over_true(satData.location_latitude_gnrmc, relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLatGNRMCUnder) == 0) {tmp_matrix[Fi] = check_under_true(satData.location_latitude_gnrmc, relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLatGNRMCEqual) == 0) {tmp_matrix[Fi] = check_equal_true(satData.location_latitude_gnrmc, relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLatGNRMCRange) == 0) {tmp_matrix[Fi] = in_range_check_true(satData.location_latitude_gnrmc, relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over_true(satData.location_longitude_gnrmc, relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under_true(satData.location_longitude_gnrmc, relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal_true(satData.location_longitude_gnrmc, relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLonGNRMCOver) == 0) {tmp_matrix[Fi] = check_over_true(satData.location_longitude_gnrmc, relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLonGNRMCUnder) == 0) {tmp_matrix[Fi] = check_under_true(satData.location_longitude_gnrmc, relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLonGNRMCEqual) == 0) {tmp_matrix[Fi] = check_equal_true(satData.location_longitude_gnrmc, relayData.relays_data[Ri][Fi][0]);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_satcom_gnrmc_in_range) == 0) {tmp_matrix[Fi] = in_range_check_true(satData.location_longitude_gnrmc, relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
         // check latitude and longitude in range: matrix {x, y, z}
         //                                                                                                                               x0                              x1                                 y0                               y1                               r   
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satcom_in_range_gngga) == 0) {tmp_matrix[Fi] = iin_ranges_check_true(satData.location_latitude_gnrmc, relayData.relays_data[Ri][Fi][0], satData.location_longitude_gnrmc, relayData.relays_data[Ri][Fi][1], relayData.relays_data[Ri][Fi][2]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesGNGGARange) == 0) {tmp_matrix[Fi] = iin_ranges_check_true(satData.location_latitude_gnrmc, relayData.relays_data[Ri][Fi][0], satData.location_longitude_gnrmc, relayData.relays_data[Ri][Fi][1], relayData.relays_data[Ri][Fi][2]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GNGGA
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_gngga_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnggaData.latitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_gngga_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnggaData.latitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.latitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_gngga_in_range) == 0) {tmp_matrix[Fi] = in_range_check_true(atol(gnggaData.latitude), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LatGNGGAOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnggaData.latitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LatGNGGAUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnggaData.latitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LatGNGGAEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.latitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LatGNGGARange) == 0) {tmp_matrix[Fi] = in_range_check_true(atol(gnggaData.latitude), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_gngga_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnggaData.longitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_gngga_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnggaData.longitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.longitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_gngga_in_range) == 0) {tmp_matrix[Fi] = in_range_check_true(atol(gnggaData.longitude), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LonGNGGAOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnggaData.longitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LonGNGGAUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnggaData.longitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LonGNGGAEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.longitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LonGNGGARange) == 0) {tmp_matrix[Fi] = in_range_check_true(atol(gnggaData.longitude), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_gngga_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnggaData.utc_time), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_gngga_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnggaData.utc_time), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.utc_time), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_gngga_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnggaData.utc_time), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeGNGGAOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnggaData.utc_time), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeGNGGAUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnggaData.utc_time), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeGNGGAEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.utc_time), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeGNGGARange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnggaData.utc_time), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.positioning_status_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.positioning_status), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.PositioningStatusGNGGA) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.positioning_status), relayData.relays_data[Ri][Fi][0]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnggaData.satellite_count_gngga), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnggaData.satellite_count_gngga), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.satellite_count_gngga), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.satellite_count_gngga_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnggaData.satellite_count_gngga), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SatelliteCountOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnggaData.satellite_count_gngga), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SatelliteCountUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnggaData.satellite_count_gngga), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SatelliteCountEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.satellite_count_gngga), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SatelliteCountRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnggaData.satellite_count_gngga), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_N) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnggaData.latitude_hemisphere, "N", 1);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_E) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnggaData.longitude_hemisphere, "E", 1);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_S) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnggaData.latitude_hemisphere, "S", 1);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gngga_W) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnggaData.longitude_hemisphere, "W", 1);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.HemisphereGNGGANorth) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnggaData.latitude_hemisphere, "N", 1);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.HemisphereGNGGAEast) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnggaData.longitude_hemisphere, "E", 1);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.HemisphereGNGGASouth) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnggaData.latitude_hemisphere, "S", 1);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.HemisphereGNGGAWest) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnggaData.longitude_hemisphere, "W", 1);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hdop_precision_factor_gngga_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnggaData.hdop_precision_factor), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hdop_precision_factor_gngga_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnggaData.hdop_precision_factor), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hdop_precision_factor_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.hdop_precision_factor), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hdop_precision_factor_gngga_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnggaData.hdop_precision_factor), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GPSPrecisionOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnggaData.hdop_precision_factor), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GPSPrecisionUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnggaData.hdop_precision_factor), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GPSPrecisionEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.hdop_precision_factor), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GPSPrecisionRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnggaData.hdop_precision_factor), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnggaData.altitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnggaData.altitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.altitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.altitude_gngga_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnggaData.altitude), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AltitudeGNGGAOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnggaData.altitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AltitudeGNGGAUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnggaData.altitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AltitudeGNGGAEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnggaData.altitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AltitudeGNGGARange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnggaData.altitude), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GNRMC
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnrmcData.utc_time), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnrmcData.utc_time), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnrmcData.utc_time), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnrmcData.utc_time), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeGNRMCOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnrmcData.utc_time), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeGNRMCUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnrmcData.utc_time), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeGNRMCEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnrmcData.utc_time), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeGNRMCRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnrmcData.utc_time), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnrmcData.latitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnrmcData.latitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnrmcData.latitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.latitude_gnrmc_in_range) == 0) {tmp_matrix[Fi] = in_range_check_true(atol(gnrmcData.latitude), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LatGNRMCOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnrmcData.latitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LatGNRMCUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnrmcData.latitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LatGNRMCEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnrmcData.latitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LatGNRMCRange) == 0) {tmp_matrix[Fi] = in_range_check_true(atol(gnrmcData.latitude), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnrmcData.longitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnrmcData.longitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnrmcData.longitude), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.longitude_gnrmc_in_range) == 0) {tmp_matrix[Fi] = in_range_check_true(atol(gnrmcData.longitude), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LonGNRMCOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnrmcData.longitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LonGNRMCUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnrmcData.longitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LonGNRMCEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnrmcData.longitude), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LonGNRMCRange) == 0) {tmp_matrix[Fi] = in_range_check_true(atol(gnrmcData.longitude), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][2]);} // is n in [2]range of [0]x (no y required)
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gnrmc_N) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.latitude_hemisphere, "N", 1);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gnrmc_E) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.longitude_hemisphere, "E", 1);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gnrmc_S) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.latitude_hemisphere, "S", 1);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.hemisphere_gnrmc_W) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.longitude_hemisphere, "W", 1);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.HemisphereGNRMCNorth) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.latitude_hemisphere, "N", 1);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.HemisphereGNRMCEast) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.longitude_hemisphere, "E", 1);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.HemisphereGNRMCSouth) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.latitude_hemisphere, "S", 1);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.HemisphereGNRMCWest) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.longitude_hemisphere, "W", 1);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnrmcData.ground_speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnrmcData.ground_speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnrmcData.ground_speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnrmcData.ground_speed), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GroundSpeedGNRMCOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnrmcData.ground_speed), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GroundSpeedGNRMCUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnrmcData.ground_speed), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GroundSpeedGNRMCEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnrmcData.ground_speed), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GroundSpeedGNRMCRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnrmcData.ground_speed), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnrmcData.ground_heading), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnrmcData.ground_heading), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnrmcData.ground_heading), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.heading_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnrmcData.ground_heading), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.HeadingGNRMCOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnrmcData.ground_heading), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.HeadingGNRMCUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnrmcData.ground_heading), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.HeadingGNRMCEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnrmcData.ground_heading), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.HeadingGNRMCRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnrmcData.ground_heading), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_date_gnrmc_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnrmcData.utc_date), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_date_gnrmc_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnrmcData.utc_date), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_date_gnrmc_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnrmcData.utc_date), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_date_gnrmc_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnrmcData.utc_date), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCDateGNRMCOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnrmcData.utc_date), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCDateGNRMCUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnrmcData.utc_date), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCDateGNRMCEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gnrmcData.utc_date), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCDateGNRMCRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnrmcData.utc_date), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.positioning_status_gnrmc_equal_A) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.positioning_status, "A", 1);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.positioning_status_gnrmc_equal_V) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.positioning_status, "V", 1);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.PositioningStatusGNRMCA) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.positioning_status, "A", 1);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.PositioningStatusGNRMCV) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.positioning_status, "V", 1);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.mode_indication_gnrmc_equal_A) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.mode_indication, "A", 1);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.mode_indication_gnrmc_equal_D) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.mode_indication, "D", 1);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.mode_indication_gnrmc_equal_N) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.mode_indication, "N", 1);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ModeGNRMCA) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.mode_indication, "A", 1);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ModeGNRMCD) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.mode_indication, "D", 1);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ModeGNRMCN) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.mode_indication, "N", 1);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: GPATT
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gpattData.pitch), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gpattData.pitch), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_gpatt_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gpattData.pitch), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.PitchGPATTOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gpattData.pitch), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.PitchGPATTUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gpattData.pitch), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.PitchGPATTRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gpattData.pitch), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gpattData.roll), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gpattData.roll), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.roll), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_gpatt_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gpattData.roll), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.RollGPATTOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gpattData.roll), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.RollGPATTUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gpattData.roll), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.RollGPATTEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.roll), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.RollGPATTRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gpattData.roll), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gpattData.yaw), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gpattData.yaw), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.yaw), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_gpatt_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gpattData.yaw), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.YawGPATTOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gpattData.yaw), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.YawGPATTUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gpattData.yaw), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.YawGPATTEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.yaw), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.YawGPATTRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gpattData.yaw), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gpattData.gst_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gpattData.gst_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.gst_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gst_data_gpatt_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gpattData.gst_data), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GSTDataGPATTOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gpattData.gst_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GSTDataGPATTUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gpattData.gst_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GSTDataGPATTEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.gst_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GSTDataGPATTRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gpattData.gst_data), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gpattData.mileage), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gpattData.mileage), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.mileage), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.mileage_gpatt_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gpattData.mileage), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MileageGPATTOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gpattData.mileage), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MileageGPATTUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gpattData.mileage), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MileageGPATTEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.mileage), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MileageGPATTRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gpattData.mileage), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_num_gpatt_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(gpattData.speed_num), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_num_gpatt_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(gpattData.speed_num), relayData.relays_data[Ri][Fi][0]);}  
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_num_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.speed_num), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_num_gpatt_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gpattData.speed_num), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SpeedNumGPATTOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gpattData.speed_num), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SpeedNumGPATTUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gpattData.speed_num), relayData.relays_data[Ri][Fi][0]);}  
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SpeedNumGPATTEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.speed_num), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SpeedNumGPATTRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gpattData.speed_num), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.line_flag_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.line_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.LineFlagGPATTEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.line_flag), relayData.relays_data[Ri][Fi][0]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.run_inetial_flag_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.run_inetial_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.InertialFlagGPATTEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.run_inetial_flag), relayData.relays_data[Ri][Fi][0]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.ins), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.INSGPATTEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.ins), relayData.relays_data[Ri][Fi][0]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.run_state_flag_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.run_state_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.RunStateFlagGPATTEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.run_state_flag), relayData.relays_data[Ri][Fi][0]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.static_flag_gpatt_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.static_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.StaticFlagGPATTEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.static_flag), relayData.relays_data[Ri][Fi][0]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: SPEED
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_value_speed_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateValueOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateValueUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateValueEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateValueRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_kind_speed_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.ubi_state_kind), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_kind_speed_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.ubi_state_kind), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_kind_speed_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.ubi_state_kind), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_kind_speed_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.ubi_state_kind), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateKindOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.ubi_state_kind), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateKindUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.ubi_state_kind), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateKindEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.ubi_state_kind), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateKindRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.ubi_state_kind), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_flag_speed_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.ubi_state_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_flag_speed_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.ubi_state_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_flag_speed_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.ubi_state_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_state_flag_speed_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.ubi_state_flag), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateFlagOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.ubi_state_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateFlagUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.ubi_state_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.ubi_state_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateFlagRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.ubi_state_flag), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_speed_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.gyro_Z), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_speed_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.gyro_Z), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_speed_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.gyro_Z), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_speed_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.gyro_Z), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.gyro_Z), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.gyro_Z), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.gyro_Z), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.gyro_Z), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Y_speed_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.gyro_Y), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Y_speed_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.gyro_Y), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Y_speed_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.gyro_Y), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Y_speed_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.gyro_Y), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroYSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.gyro_Y), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroYSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.gyro_Y), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroYSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.gyro_Y), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroYSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.gyro_Y), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_X_speed_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.gyro_X), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_X_speed_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.gyro_X), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_X_speed_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.gyro_X), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_X_speed_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.gyro_X), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroXSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.gyro_X), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroXSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.gyro_X), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroXSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.gyro_X), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroXSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.gyro_X), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Z_speed_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.acc_Z), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Z_speed_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.acc_Z), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Z_speed_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.acc_Z), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Z_speed_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.acc_Z), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccZSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.acc_Z), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccZSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.acc_Z), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccZSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.acc_Z), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccZSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.acc_Z), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_speed_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.acc_Y), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_speed_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.acc_Y), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_speed_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.acc_Y), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_speed_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.acc_Y), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.acc_Y), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.acc_Y), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.acc_Y), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.acc_Y), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_speed_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.acc_X), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_speed_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.acc_X), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_speed_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.acc_X), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_speed_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.acc_X), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.acc_X), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.acc_X), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.acc_X), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.acc_X), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.status_speed_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.status), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.status_speed_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.status), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.status_speed_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.status), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.status_speed_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.status), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.StatusSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.status), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.StatusSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.status), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.StatusSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.status), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.StatusSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.status), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_speed_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_speed_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_speed_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ground_speed_speed_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.speed), relayData.relays_data[Ri][Fi][0],relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GroundSpeedSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.speed), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GroundSpeedSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.speed), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GroundSpeedSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.speed), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GroundSpeedSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.speed), relayData.relays_data[Ri][Fi][0],relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_speed_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.utc_time), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_speed_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.utc_time), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_speed_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.utc_time), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_speed_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.utc_time), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.utc_time), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.utc_time), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.utc_time), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.utc_time), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: ERROR
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gset_flag_error_equal) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.gset_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.sset_flag_error_equal) == 0) {tmp_matrix[Fi] = check_under_true(atol(errorData.sset_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORGSetFlagEqual) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.gset_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORSSetFlagEqual) == 0) {tmp_matrix[Fi] = check_under_true(atol(errorData.sset_flag), relayData.relays_data[Ri][Fi][0]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.code_flag_error_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.code_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.code_flag_error_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(errorData.code_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.code_flag_error_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(errorData.code_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.code_flag_error_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(errorData.code_flag), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ErrorCodeFlagEqual) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.code_flag), relayData.relays_data[Ri][Fi][0]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_error_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_error_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_error_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.utc_time_error_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORUTCTimeOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORUTCTimeUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORUTCTimeEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORUTCTimeRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SYSTEMS CHECKS: DEBUG
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_heading_debug_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_heading_debug_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_heading_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_heading_debug_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTHeadingOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTHeadingUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTHeadingEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTHeadingRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_data_debug_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.coll_T_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_data_debug_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.coll_T_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_data_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.coll_T_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.coll_T_data_debug_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.coll_T_data), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTDataOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.coll_T_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTDataUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.coll_T_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTDataEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.coll_T_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTDataRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.coll_T_data), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_valid_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_valid), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIValidEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_valid), relayData.relays_data[Ri][Fi][0]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_flag_debug_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.ins_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_flag_debug_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.ins_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ins_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_flag_debug_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.ins_flag), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.INSFlagOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.ins_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.INSFlagUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.ins_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.INSFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ins_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.INSFlagRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.ins_flag), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.car_speed_debug_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.car_speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.car_speed_debug_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.car_speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.car_speed_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.car_speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.car_speed_debug_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.car_speed), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.CarSpeedOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.car_speed), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.CarSpeedUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.car_speed), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.CarSpeedEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.car_speed), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.CarSpeedRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.car_speed), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_angle_debug_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.yaw_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_angle_debug_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.yaw_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_angle_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.yaw_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.yaw_angle_debug_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.yaw_angle), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.YawAngleOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.yaw_angle), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.YawAngleUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.yaw_angle), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.YawAngleEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.yaw_angle), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.YawAngleRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.yaw_angle), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_angle_debug_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.roll_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_angle_debug_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.roll_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_angle_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.roll_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.roll_angle_debug_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.roll_angle), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.RollAngleOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.roll_angle), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.RollAngleUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.roll_angle), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.RollAngleEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.roll_angle), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.RollAngleRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.roll_angle), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_angle_debug_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.pitch_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_angle_debug_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.pitch_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_angle_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.pitch_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.pitch_angle_debug_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.pitch_angle), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.PitchAngleOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.pitch_angle), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.PitchAngleUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.pitch_angle), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.PitchAngleEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.pitch_angle), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.PitchAngleRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.pitch_angle), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_on_flag_debug_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.ubi_on_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_on_flag_debug_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.ubi_on_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_on_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_on_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_on_flag_debug_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.ubi_on_flag), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIOnFlagOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.ubi_on_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIOnFlagUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.ubi_on_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIOnFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_on_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIOnFlagRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.ubi_on_flag), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_a_set_debug_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.ubi_a_set), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_a_set_debug_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.ubi_a_set), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_a_set_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_a_set), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_a_set_debug_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.ubi_a_set), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIASetOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.ubi_a_set), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIASetUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.ubi_a_set), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIASetEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_a_set), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIASetRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.ubi_a_set), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_b_set_debug_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.ubi_b_set), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_b_set_debug_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.ubi_b_set), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_b_set_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_b_set), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_b_set_debug_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.ubi_b_set), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIBSetOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.ubi_b_set), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIBSetUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.ubi_b_set), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIBSetEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_b_set), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIBSetRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.ubi_b_set), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_data_debug_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.acc_X_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_data_debug_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.acc_X_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_data_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.acc_X_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_X_data_debug_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.acc_X_data), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXDataOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.acc_X_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXDataUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.acc_X_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXDataEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.acc_X_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXDataRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.acc_X_data), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_data_debug_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.acc_Y_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_data_debug_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.acc_Y_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_data_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.acc_Y_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.acc_Y_data_debug_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.acc_Y_data), relayData.relays_data[Ri][Fi][0],relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYDataOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.acc_Y_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYDataUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.acc_Y_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYDataEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.acc_Y_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYDataRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.acc_Y_data), relayData.relays_data[Ri][Fi][0],relayData.relays_data[Ri][Fi][1]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_over) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.gyro_Z_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_under) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.gyro_Z_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.gyro_Z_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.gyro_Z_data_debug_in_range) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.gyro_Z_data), relayData.relays_data[Ri][Fi][0],relayData.relays_data[Ri][Fi][1]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZDataOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.gyro_Z_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZDataUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.gyro_Z_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZDataEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.gyro_Z_data), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZDataRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.gyro_Z_data), relayData.relays_data[Ri][Fi][0],relayData.relays_data[Ri][Fi][1]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ang_dget_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ang_dget_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.AngDGetFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ang_dget_flag), relayData.relays_data[Ri][Fi][0]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ins_run_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ins_run_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.INSRunFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ins_run_flag), relayData.relays_data[Ri][Fi][0]);}
          
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_roll_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.fix_roll_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.FixRollFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.fix_roll_flag), relayData.relays_data[Ri][Fi][0]);}
         
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.fix_pitch_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.fix_pitch_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.FixPitchFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.fix_pitch_flag), relayData.relays_data[Ri][Fi][0]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ubi_kind_flag_debug_equal) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_kind_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIKindFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_kind_flag), relayData.relays_data[Ri][Fi][0]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                     SYSTEMS CHECKS: VALIDITY
