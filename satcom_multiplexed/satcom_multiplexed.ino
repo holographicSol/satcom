@@ -3079,9 +3079,10 @@ void readRXD_0() {
     //                                                                                                             SATCOM: MENU
 
     /*
-    2x6: 3 columns, 6 rows.
+    3x6: 3 columns, 6 rows. 
     */
 
+    // any page less than 10
     if (menuData.page < 10) {
       if      (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}}
       else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}}
@@ -3098,6 +3099,8 @@ void readRXD_0() {
       }
 
       else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {
+
+        // page one only
         if (menuData.page == 0) {
           // relay enable/disable
           if ((menuData.y == 1) && (menuData.x == 1)) {if (relayData.relays_enable[0][menuData.relay_select] == 0) {relayData.relays_enable[0][menuData.relay_select] = 1;} else {relayData.relays_enable[0][menuData.relay_select] = 0;}}
@@ -3118,6 +3121,7 @@ void readRXD_0() {
         }
       }
     }
+    // numpad
     else if (menuData.page == 10) {
       if (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {menuData.numpad_y++; if (menuData.numpad_y >= menuData.menu_numpad_max_y0) {menuData.numpad_y=0;}}
       else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {menuData.numpad_y--; if (menuData.numpad_y <= -1) {menuData.numpad_y=menuData.menu_numpad_max_y0-1;}}
