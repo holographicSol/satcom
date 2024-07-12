@@ -3091,15 +3091,12 @@ void readRXD_0() {
         if      ((menuData.y == 0) && (menuData.x == 2)) {SSD_Display_2_Menu(); delay(50); menuData.page++; menuData.x=1; menuData.y=0; if (menuData.page >= menuData.page_max) {menuData.page=0;}}
         else if (menuData.x >= menuData.menu_max_x0) {menuData.x=0;}
       }
-
       else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {
         menuData.x--;
         if ((menuData.y == 0) && (menuData.x == 0)) {SSD_Display_2_Menu(); delay(50); menuData.page--; menuData.x=1; menuData.y=0; if (menuData.page <= -1) {menuData.page=menuData.page_max;}}
         else if (menuData.x <= -1) {menuData.x=menuData.menu_max_x0-1;}
       }
-
       else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {
-
         // page one only
         if (menuData.page == 0) {
           // relay enable/disable
