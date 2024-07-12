@@ -1107,6 +1107,8 @@ struct RelayStruct {
       }
   };
 
+  char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
+
   unsigned long relays_timing[1][40] = {
     {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1417,6 +1419,8 @@ struct RelayStruct {
       {0},
     },
   };
+
+  // todo: CamelCase and when necessary shorten function names below ready to be displayed
 
   // default and specifiable value to indicate a relay should not be activated/deactivated if all functions in relays expression are $NONE
   char default_relay_function[56]          = "$NONE";
@@ -2760,23 +2764,28 @@ void readRXD_1() {
 //                                                                                                                    MENU DATA
 
 struct menuStruct {
-  int menu_y0 = 0;
-  int menu_x0 = 0;
-  int menu_y1 = 0;
-  int menu_x1 = 0;
-  int menu_y2 = 0;
-  int menu_x2 = 0;
 
-  int menu_MAX_y0 = 3;
-  int menu_MAX_x0 = 3;
-  int menu_MAX_y1 = 3;
-  int menu_MAX_x1 = 3;
-  int menu_MAX_y2 = 3;
-  int menu_MAX_x2 = 3;
+  int y = 0;
+  int x = 1;
+  int menu_max_y0 = 6;
+  int menu_max_x0 = 3;
+
+  int numpad_y = 0;
+  int numpad_x = 0;
+  int menu_numpad_max_y0 = 6;
+  int menu_numpad_max_x0 = 3;
+  char input[256];
+
+  int numpad_key = NULL;
 
   bool select = false;
 
+  int page = 0;
+  int page_max = 2;
+
   int relay_select = 0;
+  int relay_function_select = 0;
+  
 };
 menuStruct menuData;
 
@@ -2858,108 +2867,88 @@ void readRXD_0() {
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                             SATCOM: MENU
-    
-    // SSD_Display_2_Menu
 
-    else if (strcmp(serial0Data.BUFFER, "$MENU_DOWN") == 0) {
+    /*
+    2x6: 3 columns, 6 rows.
+    */
 
-        // main down
-        if (menuData.select == false) {
-          menuData.menu_y0++;
-          if (menuData.menu_y0 >= menuData.menu_MAX_y0+1) {menuData.menu_y0=0;}
+    if (menuData.page < 10) {
+      if (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {
+        menuData.y++;
+        if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}
+      }
+
+      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {
+        menuData.y--;
+        if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}
+      }
+
+      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {
+        menuData.x++;
+        if      ((menuData.y == 0) && (menuData.x == 2)) {SSD_Display_2_Menu(); delay(50); menuData.page++; menuData.x=1; menuData.y=0; if (menuData.page >= menuData.page_max) {menuData.page=0;}}
+        else if (menuData.x >= menuData.menu_max_x0) {menuData.x=0;}
+      }
+
+      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {
+        menuData.x--;
+        if ((menuData.y == 0) && (menuData.x == 0)) {SSD_Display_2_Menu(); delay(50); menuData.page--; menuData.x=1; menuData.y=0; if (menuData.page <= -1) {menuData.page=menuData.page_max;}}
+        else if (menuData.x <= -1) {menuData.x=menuData.menu_max_x0-1;}
+      }
+
+      else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {
+        if (menuData.page == 0) {
+          // relay enable/disable
+          if ((menuData.y == 1) && (menuData.x == 1)) {if (relayData.relays_enable[0][menuData.relay_select] == 0) {relayData.relays_enable[0][menuData.relay_select] = 1;} else {relayData.relays_enable[0][menuData.relay_select] = 0;}}
+          // select relay
+          if ((menuData.y == 1) && (menuData.x == 0)) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=0;}
+          // select relay function
+          if ((menuData.y == 1) && (menuData.x == 2)) {menuData.relay_function_select++; if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}}
         }
-
-        // sub down
-        else if (menuData.select == true) {
-          menuData.menu_y1++;
-          if (menuData.menu_y1 >= menuData.menu_MAX_y1+1) {menuData.menu_y1=0;}
-        }
-      }
-
-    else if (strcmp(serial0Data.BUFFER, "$MENU_UP") == 0) {
-
-      // main up
-      if (menuData.select == false) {
-        menuData.menu_y0--;
-        if (menuData.menu_y0 == -1) {menuData.menu_y0=menuData.menu_MAX_y0;}
-      }
-
-      // sub up
-      else if (menuData.select == true) {
-        menuData.menu_y1--;
-        if (menuData.menu_y1 == -1) {menuData.menu_y1=menuData.menu_MAX_y1;}
       }
     }
+    else if (menuData.page == 10) {
 
-    else if (strcmp(serial0Data.BUFFER, "$MENU_RIGHT") == 0) {
-
-      // main right
-      if (menuData.select == false) {
-        menuData.menu_y0 = 0;
-        menuData.menu_x0++;
-        if (menuData.menu_x0 >= menuData.menu_MAX_x0+1) {menuData.menu_x0=0;}
+      if (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {
+        menuData.numpad_y++;
+        if (menuData.numpad_y >= menuData.menu_numpad_max_y0) {menuData.numpad_y=0;}
       }
 
-      // sub right
-      else if (menuData.select == true) {
-        menuData.menu_x1++;
-        if (menuData.menu_x1 >= menuData.menu_MAX_x1+1) {menuData.menu_x1=0;}
-
-        // relay select
-        if ((menuData.menu_x0 == 1) && (menuData.menu_y1 == 0)) {menuData.relay_select++; if (menuData.relay_select >= relayData.MAX_RELAYS) {menuData.relay_select=0;}}
-
-        // relay enable/disable
-        if ((menuData.menu_x0 == 1) && (menuData.menu_y1 == 1)) {if (relayData.relays_enable[0][menuData.relay_select] == 0) {relayData.relays_enable[0][menuData.relay_select] = 1;} else {relayData.relays_enable[0][menuData.relay_select] = 0;}}
-
-      }
-    }
-
-    else if (strcmp(serial0Data.BUFFER, "$MENU_LEFT") == 0) {
-
-      // main left
-      if (menuData.select == false) {
-        menuData.menu_y0 = 0;
-        menuData.menu_x0--;
-        if (menuData.menu_x0 == -1) {menuData.menu_x0=menuData.menu_MAX_x0;}
+      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {
+        menuData.numpad_y--;
+        if (menuData.numpad_y <= -1) {menuData.numpad_y=menuData.menu_numpad_max_y0-1;}
       }
 
-      // sub left
-      else if (menuData.select == true) {
-        menuData.menu_x1--;
-        if (menuData.menu_x1 == -1) {menuData.menu_x1=menuData.menu_MAX_x1;}
-
-        // relay select
-        if ((menuData.menu_x0 == 1) && (menuData.menu_y1 == 0)) {menuData.relay_select--; if (menuData.relay_select == -1) {menuData.relay_select=relayData.MAX_RELAYS-1;}}
-
-        // relay enable/disable
-        if ((menuData.menu_x0 == 1) && (menuData.menu_y1 == 1)) {if (relayData.relays_enable[0][menuData.relay_select] == 0) {relayData.relays_enable[0][menuData.relay_select] = 1;} else {relayData.relays_enable[0][menuData.relay_select] = 0;}}
-
-      }
-    }
-
-    else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {
-
-      // select on
-      if (menuData.select == false) {
-        menuData.select = true;
-
-        // reset position
-        menuData.menu_y1 = 0;
-        menuData.menu_x1 = 0;
-        menuData.relay_select = 0;
-
-        // set sub max
-        if (menuData.menu_x0 == 1) {menuData.menu_MAX_y1 = 1;}
+      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {
+        menuData.numpad_x++;
+        if (menuData.numpad_x >= menuData.menu_numpad_max_x0) {menuData.numpad_x=0;}
       }
 
-      // select off
-      else if (menuData.select == true) {
-        menuData.select = false;
+      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {
+        menuData.numpad_x--;
+        if (menuData.numpad_x <= -1) {menuData.numpad_x=menuData.menu_numpad_max_x0-1;}
+      }
 
-        // reset position
-        menuData.menu_y1 = 0;
-        menuData.menu_x1 = 0;
-        menuData.relay_select = 0;
+      else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {
+
+          if ((menuData.numpad_y == 1) && (menuData.numpad_x == 0)) {strcat(menuData.input, "7");}
+          if ((menuData.numpad_y == 1) && (menuData.numpad_x == 1)) {strcat(menuData.input, "8");}
+          if ((menuData.numpad_y == 1) && (menuData.numpad_x == 2)) {strcat(menuData.input, "9");}
+
+          if ((menuData.numpad_y == 2) && (menuData.numpad_x == 0)) {strcat(menuData.input, "4");}
+          if ((menuData.numpad_y == 2) && (menuData.numpad_x == 1)) {strcat(menuData.input, "5");}
+          if ((menuData.numpad_y == 2) && (menuData.numpad_x == 2)) {strcat(menuData.input, "6");}
+
+          if ((menuData.numpad_y == 3) && (menuData.numpad_x == 0)) {strcat(menuData.input, "1");}
+          if ((menuData.numpad_y == 3) && (menuData.numpad_x == 1)) {strcat(menuData.input, "2");}
+          if ((menuData.numpad_y == 3) && (menuData.numpad_x == 2)) {strcat(menuData.input, "3");}
+
+          if ((menuData.numpad_y == 4) && (menuData.numpad_x == 0)) {strcat(menuData.input, "0");}
+          if ((menuData.numpad_y == 4) && (menuData.numpad_x == 1)) {strcat(menuData.input, ".");}
+          if ((menuData.numpad_y == 4) && (menuData.numpad_x == 2)) {strcat(menuData.input, "-");}
+
+          if (((menuData.numpad_y == 5) && (menuData.numpad_x == 1)) || ((menuData.numpad_y == 5) && (menuData.numpad_x == 2))) {menuData.input[strlen(menuData.input)-1] = '\0';} // remove last char
+
+          if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==0)) {menuData.page = 0; if ((atoi(menuData.input) < relayData.MAX_RELAYS) && (atoi(menuData.input) >= 0)) {menuData.relay_select = atoi(menuData.input);}} // set a value according to numpad_key
       }
     }
 
@@ -2977,40 +2966,517 @@ void readRXD_0() {
 void SSD_Display_2_Menu() {
   tcaselect(2);
   display_2.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_2.clear();
 
-  // main menu
-  if (menuData.menu_x0 == 0) {
-    // main menu title
-    display_2.drawString(display_2.getWidth()/2, 0, "MAIN MENU");
+  // numpad
+  if (menuData.page == 10) {
+    display_2.setColor(BLACK); display_2.fillRect(0, 0, display_2.getWidth(), display_2.getHeight());
+    display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, String(menuData.input));
+    // NONE
+    if (menuData.numpad_y == 0) {
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // 7
+    if ((menuData.numpad_y == 1) && (menuData.numpad_x == 0)) {
+      display_2.setColor(WHITE); display_2.fillRect(2, 16, display_2.getWidth()/3, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // 8
+    if ((menuData.numpad_y == 1) && (menuData.numpad_x == 1)) {
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/3, 16, display_2.getWidth()/3, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // 9
+    if ((menuData.numpad_y == 1) && (menuData.numpad_x == 2)) {
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/3)-2, 16, display_2.getWidth()/3, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // 4
+    if ((menuData.numpad_y == 2) && (menuData.numpad_x == 0)) {
+      display_2.setColor(WHITE); display_2.fillRect(2, 26, display_2.getWidth()/3, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // 5
+    if ((menuData.numpad_y == 2) && (menuData.numpad_x == 1)) {
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/3, 26, display_2.getWidth()/3, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // 6
+    if ((menuData.numpad_y == 2) && (menuData.numpad_x == 2)) {
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/3)-2, 26, display_2.getWidth()/3, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // 1
+    if ((menuData.numpad_y == 3) && (menuData.numpad_x == 0)) {
+      display_2.setColor(WHITE); display_2.fillRect(2, 36, display_2.getWidth()/3, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // 2
+    if ((menuData.numpad_y == 3) && (menuData.numpad_x == 1)) {
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/3, 36, display_2.getWidth()/3, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // 3
+    if ((menuData.numpad_y == 3) && (menuData.numpad_x == 2)) {
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/3)-2, 36, display_2.getWidth()/3, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // 0
+    if ((menuData.numpad_y == 4) && (menuData.numpad_x == 0)) {
+      display_2.setColor(WHITE); display_2.fillRect(2, 46, display_2.getWidth()/3, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // .
+    if ((menuData.numpad_y == 4) && (menuData.numpad_x == 1)) {
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/3, 46, display_2.getWidth()/3, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // -
+    if ((menuData.numpad_y == 4) && (menuData.numpad_x == 2)) {
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/3)-2, 46, display_2.getWidth()/3, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // ENTER
+    if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0)) {
+      display_2.setColor(WHITE); display_2.fillRect(2, 56, display_2.getWidth()/2, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
+    // DELETE
+    if (((menuData.numpad_y == 5) && (menuData.numpad_x == 1)) || ((menuData.numpad_y == 5) && (menuData.numpad_x == 2))) {
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/2), 56, display_2.getWidth()/2, 10);
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 14, "7");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "8");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 14, "9");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 24, "4");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "5");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 24, "6");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 34, "1");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "2");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 34, "3");
+
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 44, "0");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
+      
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+    }
   }
 
-  // relay data
-  else if (menuData.menu_x0 == 1) {
+  if (menuData.page == 0) {
 
-    // active
-    if      (relayData.relays_bool[0][menuData.relay_select] == 1) {display_2.drawString(display_2.getWidth()/2, 0, "[  ACTIVE  ]");}
+    display_2.clear();
 
-    // relay number
-    if (menuData.menu_y1 == 0) {display_2.drawString(display_2.getWidth()/2, 14, "> R " + String(menuData.relay_select) + " <");};
-    if (menuData.menu_y1 != 0) {display_2.drawString(display_2.getWidth()/2, 14, "R " + String(menuData.relay_select) + "");}
+    // select top center
+    if ((menuData.y == 0) && (menuData.x == 1)) {
+      // row 0
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 0, display_2.getWidth()/2, 14);
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      // row 1
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
+      // row 2
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
+      // row 3
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
+      // row 4
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
+      // row 5
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
+      }
+    
+    // select top left
+    if ((menuData.y == 0) && (menuData.x == 0)) {
+      // row 0
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
+      display_2.setColor(WHITE); display_2.fillRect(2, 0, display_2.getWidth()/8, 14);
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      // row 1
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
+      // row 2
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
+      // row 3
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
+      // row 4
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
+      // row 5
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
+      }
+    
+    // select top right
+    if ((menuData.y == 0) && (menuData.x == 2)) {
+      // row 0
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/8)-2, 0, display_2.getWidth()/8, 14);
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      // row 1
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
+      // row 2
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
+      // row 3
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
+      // row 4
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
+      // row 5
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
+      }
 
-    // relay enabled/disbaled
-    if ((relayData.relays_enable[0][menuData.relay_select] == 0) && (menuData.menu_y1 == 1)) {display_2.drawString(display_2.getWidth()/2, 24, "> DISABLED <");}
-    if ((relayData.relays_enable[0][menuData.relay_select] == 1) && (menuData.menu_y1 == 1)) {display_2.drawString(display_2.getWidth()/2, 24, "> ENABLED <");}
-    if ((relayData.relays_enable[0][menuData.relay_select] == 0) && (menuData.menu_y1 != 1)) {display_2.drawString(display_2.getWidth()/2, 24, "DISABLED");}
-    if ((relayData.relays_enable[0][menuData.relay_select] == 1) && (menuData.menu_y1 != 1)) {display_2.drawString(display_2.getWidth()/2, 24, "ENABLED");}
+    // select row 1 center
+    if ((menuData.y == 1) && (menuData.x == 1)) {
+      // row 0
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      // row 1
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 16, display_2.getWidth()/2, 10);
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
+      // row 2
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
+      // row 3
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
+      // row 4
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
+      // row 5
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
+      }
+    // select row 1 left
+    if ((menuData.y == 1) && (menuData.x == 0)) {
+      // row 0
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      // row 1
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setColor(WHITE); display_2.fillRect(2, 16, display_2.getWidth()/4, 10);
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
+      // row 2
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
+      // row 3
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
+      // row 4
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
+      // row 5
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
+      }
+    // select row 1 right
+    if ((menuData.y == 1) && (menuData.x == 2)) {
+      // row 0
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      // row 1
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/4)-2, 16, display_2.getWidth()/4, 10);
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
+      // row 2
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
+      // row 3
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
+      // row 4
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
+      // row 5
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
+      }
   }
 
-  // menu 2
-  else if (menuData.menu_x0 == 2){
-    display_2.drawString(display_2.getWidth()/2, 0, "2");
-  }
+  if (menuData.page == 1) {
 
-  // menu 3
-  else if (menuData.menu_x0 == 3) {
-    menuData.menu_MAX_y0 = 3;
-    display_2.drawString(display_2.getWidth()/2, 0, "3");
+    display_2.clear();
+
+    // select top center
+    if ((menuData.y == 0) && (menuData.x == 1)) {
+      // row 0
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 0, display_2.getWidth()/2, 14);
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "SYSTEM");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      // row 1
+      
+      }
+    
+    // select top left
+    if ((menuData.y == 0) && (menuData.x == 0)) {
+      // row 0
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SYSTEM");
+      display_2.setColor(WHITE); display_2.fillRect(2, 0, display_2.getWidth()/8, 14);
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      }
+    
+    // select top right
+    if ((menuData.y == 0) && (menuData.x == 2)) {
+      // row 0
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SYSTEM");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/8)-2, 0, display_2.getWidth()/8, 14);
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      }
   }
 
   display_2.display();
@@ -3022,9 +3488,15 @@ void SSD_Display_2_Menu() {
 void SSD_Display_3() {
   tcaselect(3);
   display_3.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_3.setColor(WHITE);
   display_3.clear();
   display_3.drawString(display_3.getWidth()/2, 0, "MATRIX");
-  // display_3.drawString(display_3.getWidth()/2, 14, "x" + String(menuData.menu_x0) + " y" + String(menuData.menu_y0) + " x" + String(menuData.menu_x1) + " y" + String(menuData.menu_y1) + " x" + String(menuData.menu_x2) + " y" + String(menuData.menu_y2) + "  s" + String(menuData.select)); // menu x,y telemetry is here for debug menu navigation (uncomment to use)
+  if (menuData.page != 10) {
+    display_3.drawString(display_3.getWidth()/2, 14, "x" + String(menuData.x) + " y" + String(menuData.y) + "  s" + String(menuData.select) + " p" + String(menuData.page)); // menu x,y telemetry is here for debug menu navigation (uncomment to use)
+  }
+  else if (menuData.page == 10) {
+    display_3.drawString(display_3.getWidth()/2, 14, "x" + String(menuData.numpad_x) + " y" + String(menuData.numpad_y) + "  s" + String(menuData.select) + " p" + String(menuData.page)); // menu x,y telemetry is here for debug menu navigation (uncomment to use)
+  }
   display_3.drawString(display_3.getWidth()/2,24,""+String(relayData.relays_bool[0][0])+"  "+String(relayData.relays_bool[0][1])+"  "+String(relayData.relays_bool[0][2])+"  "+String(relayData.relays_bool[0][3])+"  "+String(relayData.relays_bool[0][4])+"  "+String(relayData.relays_bool[0][5])+"  "+String(relayData.relays_bool[0][6])+"  "+String(relayData.relays_bool[0][7])+"  "+String(relayData.relays_bool[0][8])+"  "+String(relayData.relays_bool[0][9]));
   display_3.drawString(display_3.getWidth()/2,34,""+String(relayData.relays_bool[0][10])+"  "+String(relayData.relays_bool[0][11])+"  "+String(relayData.relays_bool[0][12])+"  "+String(relayData.relays_bool[0][13])+"  "+String(relayData.relays_bool[0][14])+"  "+String(relayData.relays_bool[0][15])+"  "+String(relayData.relays_bool[0][16])+"  "+String(relayData.relays_bool[0][17])+"  "+String(relayData.relays_bool[0][18])+"  "+String(relayData.relays_bool[0][19]));
   display_3.drawString(display_3.getWidth()/2,44,""+String(relayData.relays_bool[0][20])+"  "+String(relayData.relays_bool[0][21])+"  "+String(relayData.relays_bool[0][22])+"  "+String(relayData.relays_bool[0][23])+"  "+String(relayData.relays_bool[0][24])+"  "+String(relayData.relays_bool[0][25])+"  "+String(relayData.relays_bool[0][26])+"  "+String(relayData.relays_bool[0][27])+"  "+String(relayData.relays_bool[0][28])+"  "+String(relayData.relays_bool[0][29]));
@@ -3038,6 +3510,7 @@ void SSD_Display_3() {
 void SSD_Display_4() {
   tcaselect(4);
   display_4.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_4.setColor(WHITE);
   display_4.clear();
   display_4.drawString(display_4.getWidth()/2, 0, "GPATT");
   display_4.drawString(display_4.getWidth()/2, 14, "P " + String(gpattData.pitch));
@@ -3053,6 +3526,7 @@ void SSD_Display_4() {
 void SSD_Display_5() {
   tcaselect(5);
   display_5.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_5.setColor(WHITE);
   display_5.clear();
   display_5.drawString(display_5.getWidth()/2, 0, "SATCOM");
   display_5.drawString(display_5.getWidth()/2, 14, satData.sat_time_stamp_string);
@@ -3066,6 +3540,7 @@ void SSD_Display_5() {
 //                                                                                                                    DISPLAY 6
 
 void SSD_Display_6() {
+  display_6.setColor(WHITE);
   tcaselect(6);
   display_6.setTextAlignment(TEXT_ALIGN_CENTER);
   display_6.clear();
@@ -3084,6 +3559,7 @@ void SSD_Display_6() {
 void SSD_Display_7() {
   tcaselect(7);
   display_7.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_7.setColor(WHITE);
   display_7.clear();
   display_7.drawString(display_7.getWidth()/2, 0, "GNRMC");
   display_7.drawString(display_7.getWidth()/2, 14, "P " + String(gnrmcData.positioning_status) + " M " + String(gnrmcData.mode_indication));
@@ -3097,32 +3573,38 @@ void SSD_Display_7() {
 void SSD_Display_Loading() {
   tcaselect(2);
   display_2.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_2.setColor(WHITE);
   display_2.clear();
   display_2.drawString(display_2.getWidth()/2, 0, "[LOADING]");
   display_2.display();
   tcaselect(3);
   display_3.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_3.setColor(WHITE);
   display_3.clear();
   display_3.drawString(display_3.getWidth()/2, 0, "[LOADING]");
   display_3.display();
   tcaselect(4);
   display_4.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_4.setColor(WHITE);
   display_4.clear();
   display_4.drawString(display_4.getWidth()/2, 0, "[LOADING]");
   display_4.display();
   tcaselect(5);
   display_5.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_5.setColor(WHITE);
   display_5.clear();
   display_5.drawString(display_5.getWidth()/2, 0, "[LOADING]");
   display_5.display();
   tcaselect(6);
   display_6.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_6.setColor(WHITE);
   display_6.clear();
   display_6.drawString(display_6.getWidth()/2, 0, "[LOADING]");
   display_6.display();
   // currently center display
   tcaselect(7);
   display_7.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_7.setColor(WHITE);
   display_7.clear();
   display_7.drawString(display_7.getWidth()/2, 0, "[LOADING]");
   display_7.drawString(display_7.getWidth()/2, 24, "SATCOM");
@@ -3458,7 +3940,7 @@ void setup() {
   //                                                                                                               SETUP SDCARD
 
   init_sdcard();
-  sdcard_load_matrix("matrix.txt");
+  // sdcard_load_matrix("matrix.txt");
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
