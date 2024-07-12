@@ -3134,10 +3134,10 @@ void readRXD_0() {
     //                                                                                                      DISPLAY: BRIGHTNESS
 
     else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MAX") == 0) {
-      displayBrightnessContrastMax();
+      displayBrightness(1,1,1, 1,1,1);
     }
     else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MIN") == 0) {
-      displayBrightnessContrastMin();
+      displayBrightness(0,0,0, 0,0,0);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -3773,34 +3773,13 @@ void SSD_Display_Loading() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          DISPLAYS BRIGHTNESS
 
-void displayBrightnessContrastMax() {
-  tcaselect(2);
-  display_2.setContrast(255, 241);
-  tcaselect(3);
-  display_3.setContrast(255, 241);
-  tcaselect(4);
-  display_4.setContrast(255, 241);
-  tcaselect(5);
-  display_5.setContrast(255, 241);
-  tcaselect(6);
-  display_6.setContrast(255, 241);
-  tcaselect(7);
-  display_7.setContrast(255, 241);
-}
-
-void displayBrightnessContrastMin() {
-  tcaselect(2);
-  display_2.setContrast(255, 1);
-  tcaselect(3);
-  display_3.setContrast(255, 1);
-  tcaselect(4);
-  display_4.setContrast(255, 1);
-  tcaselect(5);
-  display_5.setContrast(255, 1);
-  tcaselect(6);
-  display_6.setContrast(255, 1);
-  tcaselect(7);
-  display_7.setContrast(255, 1);
+void displayBrightness(int c, int d, int e, int f, int g, int h) {
+  if (c==1) {tcaselect(2); display_2.setContrast(255, 241);} else {tcaselect(2); display_2.setContrast(255, 1);}
+  if (d==1) {tcaselect(3); display_3.setContrast(255, 241);} else {tcaselect(3); display_3.setContrast(255, 1);}
+  if (e==1) {tcaselect(4); display_4.setContrast(255, 241);} else {tcaselect(4); display_4.setContrast(255, 1);}
+  if (f==1) {tcaselect(5); display_5.setContrast(255, 241);} else {tcaselect(5); display_5.setContrast(255, 1);}
+  if (g==1) {tcaselect(6); display_6.setContrast(255, 241);} else {tcaselect(6); display_6.setContrast(255, 1);}
+  if (h==1) {tcaselect(7); display_7.setContrast(255, 241);} else {tcaselect(7); display_7.setContrast(255, 1);}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
