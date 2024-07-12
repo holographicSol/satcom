@@ -1420,6 +1420,270 @@ struct RelayStruct {
     },
   };
 
+char function_names[252][56] = {
+        "$NONE",
+        "$ENABLED",
+        "SecondsTimer",
+        "DegreesLatGNGGAOver",
+        "DegreesLatGNGGAUnder",
+        "DegreesLatGNGGAEqual",
+        "DegreesLatGNGGARange",
+        "DegreesGNGGARange",
+        "DegreesLonGNGGAOver",
+        "DegreesLonGNGGAUnder",
+        "DegreesLonGNGGAEqual",
+        "DegreesLonGNGGARange",
+        "DegreesLatGNRMCOver",
+        "DegreesLatGNRMCUnder",
+        "DegreesLatGNRMCEqual",
+        "DegreesLatGNRMCRange",
+        "DegreesLonGNRMCOver",
+        "DegreesLonGNRMCUnder",
+        "DegreesLonGNRMCEqual",
+        "DegreesGNRMCRange",
+
+        "UTCTimeGNGGAOver",
+        "UTCTimeGNGGAUnder",
+        "UTCTimeGNGGAEqual",
+        "UTCTimeGNGGARange",
+        "LatGNGGAOver",
+        "LatGNGGAUnder",
+        "LatGNGGAEqual",
+        "LatGNGGARange",
+        "LonGNGGAOver",
+        "LonGNGGAUnder",
+        "LonGNGGAEqual",
+        "LonGNGGARange",
+        "PositioningStatusGNGGA",
+        "SatelliteCountOver",
+        "SatelliteCountUnder",
+        "SatelliteCountEqual",
+        "SatelliteCountRange",
+        "HemisphereGNGGANorth",
+        "HemisphereGNGGAEast",
+        "HemisphereGNGGASouth",
+        "HemisphereGNGGAWest",
+        "GPSPrecisionOver",
+        "GPSPrecisionUnder",
+        "GPSPrecisionEqual",
+        "GPSPrecisionRange",
+        "AltitudeGNGGAOver",
+        "AltitudeGNGGAUnder",
+        "AltitudeGNGGAEqual",
+        "AltitudeGNGGARange",
+
+        "UTCTimeGNRMCOver",
+        "UTCTimeGNRMCUnder",
+        "UTCTimeGNRMCEqual",
+        "UTCTimeGNRMCRange",
+        "PositioningStatusGNRMCA",
+        "PositioningStatusGNRMCV",
+        "ModeGNRMCA",
+        "ModeGNRMCD",
+        "ModeGNRMCN",
+        "LatGNRMCOver",
+        "LatGNRMCUnder",
+        "LatGNRMCEqual",
+        "LatGNRMCRange",
+        "LonGNRMCOver",
+        "LonGNRMCUnder",
+        "LonGNRMCEqual",
+        "LonGNRMCRange",
+        "HemisphereGNRMCNorth",
+        "HemisphereGNRMCEast",
+        "HemisphereGNRMCSouth",
+        "HemisphereGNRMCWest",
+        "GroundSpeedGNRMCOver",
+        "GroundSpeedGNRMCUnder",
+        "GroundSpeedGNRMCEqual",
+        "GroundSpeedGNRMCRange",
+        "HeadingGNRMCOver",
+        "HeadingGNRMCUnder",
+        "HeadingGNRMCEqual",
+        "HeadingGNRMCRange",
+        "UTCDateGNRMCOver",
+        "UTCDateGNRMCUnder",
+        "UTCDateGNRMCEqual",
+        "UTCDateGNRMCRange",
+
+        "InertialFlagGPATTEqual",
+        "LineFlagGPATTEqual",
+        "StaticFlagGPATTEqual",
+        "RunStateFlagGPATTEqual",
+        "INSGPATTEqual",
+        "SpeedNumGPATTOver",
+        "SpeedNumGPATTUnder",
+        "SpeedNumGPATTEqual",
+        "SpeedNumGPATTRange",
+        "MileageGPATTOver",
+        "MileageGPATTUnder",
+        "MileageGPATTEqual",
+        "MileageGPATTRange",
+        "GSTDataGPATTOver",
+        "GSTDataGPATTUnder",
+        "GSTDataGPATTEqual",
+        "GSTDataGPATTRange",
+        "YawGPATTOver",
+        "YawGPATTUnder",
+        "YawGPATTEqual",
+        "YawGPATTRange",
+        "RollGPATTOver",
+        "RollGPATTUnder",
+        "RollGPATTEqual",
+        "RollGPATTRange",
+        "PitchGPATTOver",
+        "PitchGPATTUnder",
+        "PitchGPATTEqual",
+        "PitchGPATTRange",
+
+        "UTCTimeSPEEDOver",
+        "UTCTimeSPEEDUnder",
+        "UTCTimeSPEEDEqual",
+        "UTCTimeSPEEDRange",
+        "GroundSpeedSPEEDOver",
+        "GroundSpeedSPEEDUnder",
+        "GroundSpeedSPEEDEqual",
+        "GroundSpeedSPEEDRange",
+        "StatusSPEEDOver",
+        "StatusSPEEDUnder",
+        "StatusSPEEDEqual",
+        "StatusSPEEDRange",
+        "AccXSPEEDOver",
+        "AccXSPEEDUnder",
+        "AccXSPEEDEqual",
+        "AccXSPEEDRange",
+        "AccYSPEEDOver",
+        "AccYSPEEDUnder",
+        "AccYSPEEDEqual",
+        "AccYSPEEDRange",
+        "AccZSPEEDOver",
+        "AccZSPEEDUnder",
+        "AccZSPEEDEqual",
+        "AccZSPEEDRange",
+        "GyroXSPEEDOver",
+        "GyroXSPEEDUnder",
+        "GyroXSPEEDEqual",
+        "GyroXSPEEDRange",
+        "GyroYSPEEDOver",
+        "GyroYSPEEDUnder",
+        "GyroYSPEEDEqual",
+        "GyroYSPEEDRange",
+        "GyroZSPEEDOver",
+        "GyroZSPEEDUnder",
+        "GyroZSPEEDEqual",
+        "GyroZSPEEDRange",
+        "UBIStateFlagOver",
+        "UBIStateFlagUnder",
+        "UBIStateFlagEqual",
+        "GyroZSPEEDRange",
+        "UBIStateKindOver",
+        "UBIStateKindUnder",
+        "UBIStateKindEqual",
+        "UBIStateKindRange",
+        "UBIStateValueOver",
+        "UBIStateValueUnder",
+        "UBIStateValueEqual",
+        "UBIStateValueRange",
+
+        "ERRORUTCTimeOver",
+        "ERRORUTCTimeUnder",
+        "ERRORUTCTimeEqual",
+        "ERRORUTCTimeRange",
+        "ERRORCodeFlagEqual",
+        "ERRORGSetFlagEqual",
+        "ERRORSSetFlagEqual",
+
+        "CollisionTHeadingOver",
+        "CollisionTHeadingUnder",
+        "CollisionTHeadingEqual",
+        "CollisionTHeadingRange",
+        "CollisionTDataOver",
+        "CollisionTDataUnder",
+        "CollisionTDataEqual",
+        "CollisionTDataRange",
+        "UBIValidEqual",
+        "INSFlagOver",
+        "INSFlagUnder",
+        "INSFlagEqual",
+        "INSFlagRange",
+        "CarSpeedOver",
+        "CarSpeedUnder",
+        "CarSpeedEqual",
+        "CarSpeedRange",
+        "YawAngleOver",
+        "YawAngleUnder",
+        "YawAngleEqual",
+        "YawAngleRange",
+        "RollAngleOver",
+        "RollAngleUnder",
+        "RollAngleEqual",
+        "RollAngleRange",
+        "PitchAngleOver",
+        "PitchAngleUnder",
+        "PitchAngleEqual",
+        "PitchAngleRange",
+        "AngDGetFlagEqual",
+        "INSRunFlagEqual",
+        "FixRollFlagEqual",
+        "FixPitchFlagEqual",
+        "UBIKindFlagEqual",
+        "UBIOnFlagOver",
+        "UBIOnFlagUnder",
+        "UBIOnFlagEqual",
+        "UBIOnFlagRange",
+        "UBIASetOver",
+        "UBIASetUnder",
+        "UBIASetEqual",
+        "UBIASetRange",
+        "UBIBSetOver",
+        "UBIBSetUnder",
+        "UBIBSetEqual",
+        "UBIBSetRange",
+        "AccXDataOver",
+        "AccXDataUnder",
+        "AccXDataEqual",
+        "AccXDataRange",
+        "AccYDataOver",
+        "AccYDataUnder",
+        "AccYDataEqual",
+        "AccYDataRange",
+        "GyroZDataOver",
+        "GyroZDataUnder",
+        "GyroZDataEqual",
+        "GyroZDataRange",
+
+        "gngga_valid_checksum",
+        "gnrmc_valid_checksum",
+        "gpatt_valid_checksum",
+        "desbi_valid_checksum",
+        "speed_valid_checksum",
+        "error_valid_checksum",
+        "debug_valid_checksum",
+        "gngga_invalid_checksum",
+        "gnrmc_invalid_checksum",
+        "gpatt_invalid_checksum",
+        "desbi_invalid_checksum",
+        "speed_invalid_checksum",
+        "error_invalid_checksum",
+        "debug_invalid_checksum",
+        "gngga_valid_check_data",
+        "gnrmc_valid_check_data",
+        "gpatt_valid_check_data",
+        "desbi_valid_check_data",
+        "speed_valid_check_data",
+        "error_valid_check_data",
+        "debug_valid_check_data",
+        "gngga_invalid_check_data",
+        "gnrmc_invalid_check_data",
+        "gpatt_invalid_check_data",
+        "desbi_invalid_check_data",
+        "speed_invalid_check_data",
+        "error_invalid_check_data",
+        "debug_invalid_check_data"
+    };
+
+    
+
   // todo: CamelCase and when necessary shorten function names below ready to be displayed
 
   // default and specifiable value to indicate a relay should not be activated/deactivated if all functions in relays expression are $NONE
@@ -1611,7 +1875,7 @@ struct RelayStruct {
   char ERRORUTCTimeUnder[56]  = "ERRORUTCTimeUnder";
   char ERRORUTCTimeEqual[56]  = "ERRORUTCTimeEqual";
   char ERRORUTCTimeRange[56]  = "ERRORUTCTimeRange";
-  char ErrorCodeFlagEqual[56] = "ErrorCodeFlagEqual";
+  char ERRORCodeFlagEqual[56] = "ERRORCodeFlagEqual";
   char ERRORGSetFlagEqual[56] = "ERRORGSetFlagEqual";
   char ERRORSSetFlagEqual[56] = "ERRORSSetFlagEqual";
 
@@ -2730,6 +2994,7 @@ struct menuStruct {
 
   int relay_select = 0;
   int relay_function_select = 0;
+  int function_index = 0;
   
 };
 menuStruct menuData;
@@ -2848,6 +3113,13 @@ void readRXD_0() {
           if ((menuData.y == 1) && (menuData.x == 0)) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=0;}
           // select relay function
           if ((menuData.y == 1) && (menuData.x == 2)) {menuData.relay_function_select++; if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}}
+
+          // select relay function name
+          if (menuData.y == 2) {
+            menuData.function_index++;
+            if (menuData.function_index >= 252) {menuData.function_index=0; }
+            memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);
+          }
         }
       }
     }
@@ -3400,7 +3672,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
       // row 2
-      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 26, display_2.getWidth()/2, 10);
+      display_2.setColor(WHITE); display_2.fillRect(2, 26, display_2.getWidth(), 10);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
       // row 3
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
@@ -3422,7 +3694,7 @@ void SSD_Display_2_Menu() {
       // row 2
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
       // row 3
-      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 36, display_2.getWidth()/2, 10);
+      display_2.setColor(WHITE); display_2.fillRect(2, 36, display_2.getWidth(), 10);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 34, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
       // row 4
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
@@ -3444,7 +3716,7 @@ void SSD_Display_2_Menu() {
       // row 3
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
       // row 4
-      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 46, display_2.getWidth()/2, 10);
+      display_2.setColor(WHITE); display_2.fillRect(2, 46, display_2.getWidth(), 10);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 44, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
       // row 5
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 54, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
@@ -3466,7 +3738,7 @@ void SSD_Display_2_Menu() {
       // row 4
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
       // row 5
-      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 56, display_2.getWidth()/2, 10);
+      display_2.setColor(WHITE); display_2.fillRect(2, 56, display_2.getWidth(), 10);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 54, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
       }
   }
@@ -4339,7 +4611,7 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORGSetFlagEqual) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.gset_flag), relayData.relays_data[Ri][Fi][0]);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORSSetFlagEqual) == 0) {tmp_matrix[Fi] = check_under_true(atol(errorData.sset_flag), relayData.relays_data[Ri][Fi][0]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ErrorCodeFlagEqual) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.code_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORCodeFlagEqual) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.code_flag), relayData.relays_data[Ri][Fi][0]);}
         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORUTCTimeOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0]);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORUTCTimeUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0]);}
