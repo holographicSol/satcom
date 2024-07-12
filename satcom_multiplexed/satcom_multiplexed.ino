@@ -3130,12 +3130,24 @@ void readRXD_0() {
       satcom_convert_coordinates_off();
     }
 
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                      DISPLAY: BRIGHTNESS
+
     else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MAX") == 0) {
       displayBrightnessContrastMax();
     }
-
     else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MIN") == 0) {
       displayBrightnessContrastMin();
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                          DISPLAY: ON/OFF
+
+    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_ON") == 0) {
+      displayOn();
+    }
+    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_OFF") == 0) {
+      displayOff();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -3789,6 +3801,39 @@ void displayBrightnessContrastMin() {
   display_6.setContrast(255, 1);
   tcaselect(7);
   display_7.setContrast(255, 1);
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                              DISPLAYS ON/OFF
+
+void displayOn() {
+  tcaselect(2);
+  display_2.displayOn();
+  tcaselect(3);
+  display_3.displayOn();
+  tcaselect(4);
+  display_4.displayOn();
+  tcaselect(5);
+  display_5.displayOn();
+  tcaselect(6);
+  display_6.displayOn();
+  tcaselect(7);
+  display_7.displayOn();
+}
+
+void displayOff() {
+  tcaselect(2);
+  display_2.displayOff();
+  tcaselect(3);
+  display_3.displayOff();
+  tcaselect(4);
+  display_4.displayOff();
+  tcaselect(5);
+  display_5.displayOff();
+  tcaselect(6);
+  display_6.displayOff();
+  tcaselect(7);
+  display_7.displayOff();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
