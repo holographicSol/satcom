@@ -142,7 +142,6 @@ struct sysDebugStruct {
   bool gngga_sentence = false;
   bool gnrmc_sentence = false;
   bool gpatt_sentence = false;
-  bool desbi_sentence = false;
   bool speed_sentence = false;
   bool error_sentence = false;
   bool debug_sentence = false;
@@ -1655,28 +1654,24 @@ char function_names[252][56] = {
         "gngga_valid_checksum",
         "gnrmc_valid_checksum",
         "gpatt_valid_checksum",
-        "desbi_valid_checksum",
         "speed_valid_checksum",
         "error_valid_checksum",
         "debug_valid_checksum",
         "gngga_invalid_checksum",
         "gnrmc_invalid_checksum",
         "gpatt_invalid_checksum",
-        "desbi_invalid_checksum",
         "speed_invalid_checksum",
         "error_invalid_checksum",
         "debug_invalid_checksum",
         "gngga_valid_check_data",
         "gnrmc_valid_check_data",
         "gpatt_valid_check_data",
-        "desbi_valid_check_data",
         "speed_valid_check_data",
         "error_valid_check_data",
         "debug_valid_check_data",
         "gngga_invalid_check_data",
         "gnrmc_invalid_check_data",
         "gpatt_invalid_check_data",
-        "desbi_invalid_check_data",
         "speed_invalid_check_data",
         "error_invalid_check_data",
         "debug_invalid_check_data"
@@ -1947,28 +1942,24 @@ char function_names[252][56] = {
   char gngga_valid_checksum[56] = "gngga_valid_checksum";
   char gnrmc_valid_checksum[56] = "gnrmc_valid_checksum";
   char gpatt_valid_checksum[56] = "gpatt_valid_checksum";
-  char desbi_valid_checksum[56] = "desbi_valid_checksum";
   char speed_valid_checksum[56] = "speed_valid_checksum";
   char error_valid_checksum[56] = "error_valid_checksum";
   char debug_valid_checksum[56] = "debug_valid_checksum";
   char gngga_invalid_checksum[56] = "gngga_invalid_checksum";
   char gnrmc_invalid_checksum[56] = "gnrmc_invalid_checksum";
   char gpatt_invalid_checksum[56] = "gpatt_invalid_checksum";
-  char desbi_invalid_checksum[56] = "desbi_invalid_checksum";
   char speed_invalid_checksum[56] = "speed_invalid_checksum";
   char error_invalid_checksum[56] = "error_invalid_checksum";
   char debug_invalid_checksum[56] = "debug_invalid_checksum";
   char gngga_valid_check_data[56] = "gngga_valid_check_data";
   char gnrmc_valid_check_data[56] = "gnrmc_valid_check_data";
   char gpatt_valid_check_data[56] = "gpatt_valid_check_data";
-  char desbi_valid_check_data[56] = "desbi_valid_check_data";
   char speed_valid_check_data[56] = "speed_valid_check_data";
   char error_valid_check_data[56] = "error_valid_check_data";
   char debug_valid_check_data[56] = "debug_valid_check_data";
   char gngga_invalid_check_data[56] = "gngga_invalid_check_data";
   char gnrmc_invalid_check_data[56] = "gnrmc_invalid_check_data";
   char gpatt_invalid_check_data[56] = "gpatt_invalid_check_data";
-  char desbi_invalid_check_data[56] = "desbi_invalid_check_data";
   char speed_invalid_check_data[56] = "speed_invalid_check_data";
   char error_invalid_check_data[56] = "error_invalid_check_data";
   char debug_invalid_check_data[56] = "debug_invalid_check_data";
@@ -2349,13 +2340,6 @@ void GPATT() {
     Serial.println("[gpattData.check_data] "        + String(gpattData.check_data));
   }
 }
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   DESBI DATA
-// final sentence data struct still in development: desbi
-struct DESBIStruct {
-};
-DESBIStruct desbiData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   SPEED DATA
@@ -3015,7 +2999,7 @@ void menuLeft() {
   else if (menuData.x <= -1) {menuData.x=menuData.menu_max_x0-1;}
 }
 void menuSelect() {
-    // page one only
+  // page zero only
   if (menuData.page == 0) {
     // relay enable/disable
     if ((menuData.y == 1) && (menuData.x == 1)) {if (relayData.relays_enable[0][menuData.relay_select] == 0) {relayData.relays_enable[0][menuData.relay_select] = 1;} else {relayData.relays_enable[0][menuData.relay_select] = 0;}}
@@ -3034,6 +3018,8 @@ void menuSelect() {
     // set relay function value z
     if (menuData.y == 5) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=3;}
   }
+  // page one only
+  if (menuData.page == 1) {}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -3142,6 +3128,14 @@ void readRXD_0() {
     }
     else if (strcmp(serial0Data.BUFFER, "$SATCOM_CONVERT_COORDINATES_OFF") == 0) {
       satcom_convert_coordinates_off();
+    }
+
+    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MAX") == 0) {
+      displayBrightnessContrastMax();
+    }
+
+    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MIN") == 0) {
+      displayBrightnessContrastMin();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -3455,9 +3449,7 @@ void SSD_Display_2_Menu() {
   }
 
   if (menuData.page == 0) {
-
     display_2.clear();
-
     // select top center
     if ((menuData.y == 0) && (menuData.x == 1)) {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 0, display_2.getWidth()/2, 14);
@@ -3472,7 +3464,6 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 54, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
       }
-    
     // select top left
     if ((menuData.y == 0) && (menuData.x == 0)) {
       display_2.setColor(WHITE); display_2.fillRect(2, 0, display_2.getWidth()/8, 14);
@@ -3487,7 +3478,6 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 54, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
       }
-    
     // select top right
     if ((menuData.y == 0) && (menuData.x == 2)) {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/8)-2, 0, display_2.getWidth()/8, 14);
@@ -3502,7 +3492,6 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 54, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
       }
-
     // select row 1 center
     if ((menuData.y == 1) && (menuData.x == 1)) {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 16, display_2.getWidth()/2, 10);
@@ -3545,7 +3534,6 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 54, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
       }
-    
     // select row 2 center
     if (menuData.y == 2) {
       display_2.setColor(WHITE); display_2.fillRect(2, 26, display_2.getWidth(), 10);
@@ -3614,6 +3602,8 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "SYSTEM");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "SYSTEM");
       }
     
     // select top left
@@ -3724,6 +3714,9 @@ void SSD_Display_7() {
   display_7.display();
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                             DISPLAYS LOADING
+
 void SSD_Display_Loading() {
   tcaselect(2);
   display_2.setTextAlignment(TEXT_ALIGN_CENTER);
@@ -3763,6 +3756,39 @@ void SSD_Display_Loading() {
   display_7.drawString(display_7.getWidth()/2, 0, "[LOADING]");
   display_7.drawString(display_7.getWidth()/2, 24, "SATCOM");
   display_7.display();
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                          DISPLAYS BRIGHTNESS
+
+void displayBrightnessContrastMax() {
+  tcaselect(2);
+  display_2.setContrast(255, 241);
+  tcaselect(3);
+  display_3.setContrast(255, 241);
+  tcaselect(4);
+  display_4.setContrast(255, 241);
+  tcaselect(5);
+  display_5.setContrast(255, 241);
+  tcaselect(6);
+  display_6.setContrast(255, 241);
+  tcaselect(7);
+  display_7.setContrast(255, 241);
+}
+
+void displayBrightnessContrastMin() {
+  tcaselect(2);
+  display_2.setContrast(255, 1);
+  tcaselect(3);
+  display_3.setContrast(255, 1);
+  tcaselect(4);
+  display_4.setContrast(255, 1);
+  tcaselect(5);
+  display_5.setContrast(255, 1);
+  tcaselect(6);
+  display_6.setContrast(255, 1);
+  tcaselect(7);
+  display_7.setContrast(255, 1);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
