@@ -242,8 +242,7 @@ void tcaselect(uint8_t channel) {
 
 void initDisplay7() {
   display_7.init();
-  display_7.flipScreenVertically();
-  display_7.setContrast(255);
+  display_7.setContrast(255, 241);
   display_7.setFont(ArialMT_Plain_10);
   display_7.cls();
 }
@@ -253,8 +252,7 @@ void initDisplay7() {
 
 void initDisplay6() {
   display_6.init();
-  display_6.flipScreenVertically();
-  display_6.setContrast(255);
+  display_6.setContrast(255, 241);
   display_6.setFont(ArialMT_Plain_10);
   display_6.cls();
 }
@@ -264,8 +262,7 @@ void initDisplay6() {
 
 void initDisplay5() {
   display_5.init();
-  display_5.flipScreenVertically();
-  display_5.setContrast(255);
+  display_5.setContrast(255, 241);
   display_5.setFont(ArialMT_Plain_10);
   display_5.cls();
 }
@@ -275,8 +272,7 @@ void initDisplay5() {
 
 void initDisplay4() {
   display_4.init();
-  display_4.flipScreenVertically();
-  display_4.setContrast(255);
+  display_4.setContrast(255, 241);
   display_4.setFont(ArialMT_Plain_10);
   display_4.cls();
 }
@@ -287,8 +283,7 @@ void initDisplay4() {
 
 void initDisplay3() {
   display_3.init();
-  display_3.flipScreenVertically();
-  display_3.setContrast(255);
+  display_3.setContrast(255, 241);
   display_3.setFont(ArialMT_Plain_10);
   display_3.cls();
 }
@@ -298,8 +293,7 @@ void initDisplay3() {
 
 void initDisplay2() {
   display_2.init();
-  display_2.flipScreenVertically();
-  display_2.setContrast(255);
+  display_2.setContrast(255, 241);
   display_2.setFont(ArialMT_Plain_10);
   display_2.cls();
 }
@@ -3134,10 +3128,10 @@ void readRXD_0() {
     //                                                                                                      DISPLAY: BRIGHTNESS
 
     else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MAX") == 0) {
-      displayBrightness(1,1,1, 1,1,1);
+      displayBrightness(1,1,1,1,1,1);
     }
     else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MIN") == 0) {
-      displayBrightness(0,0,0, 0,0,0);
+      displayBrightness(0,0,0,0,0,0);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -3783,13 +3777,17 @@ void SSD_Display_Loading() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                         DISPLAYS: BRIGHTNESS
 
+/*
+there may be some disparity between the SSD306 panels at low brightness.
+*/
+
 void displayBrightness(int c, int d, int e, int f, int g, int h) {
-  if (c==1) {tcaselect(2); display_2.setContrast(255, 241);} else {tcaselect(2); display_2.setContrast(255, 1);}
-  if (d==1) {tcaselect(3); display_3.setContrast(255, 241);} else {tcaselect(3); display_3.setContrast(255, 1);}
-  if (e==1) {tcaselect(4); display_4.setContrast(255, 241);} else {tcaselect(4); display_4.setContrast(255, 1);}
-  if (f==1) {tcaselect(5); display_5.setContrast(255, 241);} else {tcaselect(5); display_5.setContrast(255, 1);}
-  if (g==1) {tcaselect(6); display_6.setContrast(255, 241);} else {tcaselect(6); display_6.setContrast(255, 1);}
-  if (h==1) {tcaselect(7); display_7.setContrast(255, 241);} else {tcaselect(7); display_7.setContrast(255, 1);}
+  if (c==1) {tcaselect(2); display_2.setContrast(255, 241);} else {tcaselect(2); display_2.setContrast(170, 16);}
+  if (d==1) {tcaselect(3); display_3.setContrast(255, 241);} else {tcaselect(3); display_3.setContrast(170, 16);}
+  if (e==1) {tcaselect(4); display_4.setContrast(255, 241);} else {tcaselect(4); display_4.setContrast(170, 16);}
+  if (f==1) {tcaselect(5); display_5.setContrast(255, 241);} else {tcaselect(5); display_5.setContrast(170, 16);}
+  if (g==1) {tcaselect(6); display_6.setContrast(255, 241);} else {tcaselect(6); display_6.setContrast(170, 16);}
+  if (h==1) {tcaselect(7); display_7.setContrast(255, 241);} else {tcaselect(7); display_7.setContrast(170, 16);}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -4127,21 +4125,27 @@ void setup() {
 
   tcaselect(2);
   initDisplay2();
+  display_2.flipScreenVertically();
 
   tcaselect(3);
   initDisplay3();
+  display_3.flipScreenVertically();
 
   tcaselect(4);
   initDisplay4();
+  display_4.flipScreenVertically();
 
   tcaselect(5);
   initDisplay5();
+  display_5.flipScreenVertically();
 
   tcaselect(6);
   initDisplay6();
+  display_6.flipScreenVertically();
 
   tcaselect(7);
   initDisplay7();
+  display_7.flipScreenVertically();
 
   SSD_Display_Loading();
 
