@@ -3940,7 +3940,7 @@ void setup() {
   //                                                                                                               SETUP SDCARD
 
   init_sdcard();
-  // sdcard_load_matrix("matrix.txt");
+  sdcard_load_matrix("matrix.txt");
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
