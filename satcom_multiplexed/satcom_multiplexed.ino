@@ -3144,10 +3144,10 @@ void readRXD_0() {
     //                                                                                                          DISPLAY: ON/OFF
 
     else if (strcmp(serial0Data.BUFFER, "$DISPLAY_ON") == 0) {
-      displayOn();
+      displayOnOff(1,1,1, 1,1,1);
     }
     else if (strcmp(serial0Data.BUFFER, "$DISPLAY_OFF") == 0) {
-      displayOff();
+      displayOnOff(0,0,0, 0,0,0);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -3806,34 +3806,13 @@ void displayBrightnessContrastMin() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                              DISPLAYS ON/OFF
 
-void displayOn() {
-  tcaselect(2);
-  display_2.displayOn();
-  tcaselect(3);
-  display_3.displayOn();
-  tcaselect(4);
-  display_4.displayOn();
-  tcaselect(5);
-  display_5.displayOn();
-  tcaselect(6);
-  display_6.displayOn();
-  tcaselect(7);
-  display_7.displayOn();
-}
-
-void displayOff() {
-  tcaselect(2);
-  display_2.displayOff();
-  tcaselect(3);
-  display_3.displayOff();
-  tcaselect(4);
-  display_4.displayOff();
-  tcaselect(5);
-  display_5.displayOff();
-  tcaselect(6);
-  display_6.displayOff();
-  tcaselect(7);
-  display_7.displayOff();
+void displayOnOff(int c, int d, int e, int f, int g, int h) {
+  if (c==1) {tcaselect(2); display_2.displayOn();} else {tcaselect(2); display_2.displayOff();}
+  if (d==1) {tcaselect(3); display_3.displayOn();} else {tcaselect(3); display_3.displayOff();}
+  if (e==1) {tcaselect(4); display_4.displayOn();} else {tcaselect(4); display_4.displayOff();}
+  if (f==1) {tcaselect(5); display_5.displayOn();} else {tcaselect(5); display_5.displayOff();}
+  if (g==1) {tcaselect(6); display_6.displayOn();} else {tcaselect(6); display_6.displayOff();}
+  if (h==1) {tcaselect(7); display_7.displayOn();} else {tcaselect(7); display_7.displayOff();}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
