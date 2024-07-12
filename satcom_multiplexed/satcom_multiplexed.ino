@@ -3338,7 +3338,7 @@ void SSD_Display_2_Menu() {
       // row 4
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
       // row 5
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 55, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 54, "Z " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
       }
     
     // select top left
