@@ -42,9 +42,9 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                                           Wiring
                                   WTGPS300P TX               --> ESP32 io26 as RXD
                                   WTGPS300P VCC              --> ESP32 3.3/5v
-                                  TCA9548A i2C Multiplexer   --> ESP32 i2C (3.3v)
-                                  x6 SSD1306 (blue & yellow) --> TCA9548A i2C Multiplexer
-                                  SDCARD Adapter HW-125      --> CS 05, SCK 18, MOSI 23, MISO 19, VCC 5v
+                                  TCA9548A i2C Multiplexer   --> ESP32 i2C (3.3v) (Optional)
+                                  x6 SSD1306 (blue & yellow) --> TCA9548A i2C Multiplexer (Optional)
+                                  SDCARD Adapter HW-125      --> CS 05, SCK 18, MOSI 23, MISO 19, VCC 5v (Optional)
 
 
                                                       SENTENCE $SATCOM
