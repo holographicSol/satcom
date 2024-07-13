@@ -4978,7 +4978,7 @@ void numpadSelect() {
   // set relay function value z
   if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==3)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2] = strtod(menuData.input, &ptr);}
   // set relay function name by code (index). this will require documentation in order to accurately select a function name by index and next/previous is supported too for the absence of / no memory of required function name index number.
-   if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==4)) {menuData.page = 0; menuData.function_index = atoi(menuData.input); memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0 , 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}
+   if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==4)) {menuData.page = 0; if (atoi(menuData.input) < 252) {menuData.function_index=atoi(menuData.input); memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0 , 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
