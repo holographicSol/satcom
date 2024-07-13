@@ -3507,7 +3507,8 @@ void SSD_Display_MATRIX_Disabled() {
   display_3.setColor(WHITE);
   display_3.clear();
   display_3.drawString(display_3.getWidth()/2, 0, "MATRIX");
-  display_3.drawString(display_3.getWidth()/2, 24, "[ MATRIX ]");
+  display_3.drawString(display_3.getWidth()/2, 24, "[ DISABLED ]");
+  display_3.display();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
