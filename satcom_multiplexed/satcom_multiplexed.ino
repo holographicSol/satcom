@@ -3236,7 +3236,7 @@ void SSD_Display_2_Menu() {
       }
     // select row 1 left
     if ((menuData.y == 1) && (menuData.x == 0)) {
-      display_2.setColor(WHITE); display_2.fillRect(2, 16, display_2.getWidth()/4, 9);
+      display_2.setColor(WHITE); display_2.fillRect(0, 16, display_2.getWidth()/4, 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
@@ -3251,7 +3251,7 @@ void SSD_Display_2_Menu() {
       }
     // select row 1 right
     if ((menuData.y == 1) && (menuData.x == 2)) {
-      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/4)-2, 16, display_2.getWidth()/4, 9);
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/4), 16, display_2.getWidth()/4, 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
@@ -3266,7 +3266,7 @@ void SSD_Display_2_Menu() {
       }
     // select row 2 center
     if (menuData.y == 2) {
-      display_2.setColor(WHITE); display_2.fillRect(2, 26, display_2.getWidth(), 9);
+      display_2.setColor(WHITE); display_2.fillRect(0, 26, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
@@ -3281,7 +3281,7 @@ void SSD_Display_2_Menu() {
       }
     // select row 3 center
     if (menuData.y == 3) {
-      display_2.setColor(WHITE); display_2.fillRect(2, 35, display_2.getWidth(), 9);
+      display_2.setColor(WHITE); display_2.fillRect(0, 35, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
@@ -3296,7 +3296,7 @@ void SSD_Display_2_Menu() {
       }
     // select row 4 center
     if (menuData.y == 4) {
-      display_2.setColor(WHITE); display_2.fillRect(2, 44, display_2.getWidth(), 9);
+      display_2.setColor(WHITE); display_2.fillRect(0, 44, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
@@ -3311,7 +3311,7 @@ void SSD_Display_2_Menu() {
       }
     // select row 5 center
     if (menuData.y == 5) {
-      display_2.setColor(WHITE); display_2.fillRect(2, 53, display_2.getWidth(), 9);
+      display_2.setColor(WHITE); display_2.fillRect(0, 53, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
