@@ -4877,6 +4877,12 @@ void matrixSwitch() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                              MENU NAVIGATION
 
+void scanFi() {
+  // scans relay function names to set function_index as current function name
+  for (int Fi = 0; Fi < 252; Fi++) {
+    if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}
+}
+
 void menuDown() {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}}
 
 void menuUp() {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}}
@@ -4884,7 +4890,7 @@ void menuUp() {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max
 void menuRight() {
 
   // page 0
-  if ((menuData.page == 0) && (menuData.y == 2)) {menuData.function_index++; if (menuData.function_index >= 252) {menuData.function_index=0;} memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}
+  if ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); menuData.function_index++; if (menuData.function_index >= 252) {menuData.function_index=0;} memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}
 
   // go to next page
   else {
@@ -4897,7 +4903,7 @@ void menuRight() {
 void menuLeft() {
   
   // page 0
-  if ((menuData.page == 0) && (menuData.y == 2)) {menuData.function_index--; if (menuData.function_index <= -1) {menuData.function_index=252;} memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}
+  if ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); menuData.function_index--; if (menuData.function_index <= -1) {menuData.function_index=252;} memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}
 
   // go toprevious page
   else {
@@ -4915,14 +4921,9 @@ void menuSelect() {
     // select relay
     if ((menuData.y == 1) && (menuData.x == 0)) {menuData.page = 10; memset(menuData.input, 0, 256); itoa(menuData.relay_select, menuData.input, 10); menuData.numpad_key=0;}
     // select relay function
-    if ((menuData.y == 1) && (menuData.x == 2)) {menuData.relay_function_select++; if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}}
+    if ((menuData.y == 1) && (menuData.x == 2)) {scanFi(); menuData.relay_function_select++; if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}}
     // select relay function name. performs a quick scan to index the currently selected function name.
-    if (menuData.y == 2) {
-      menuData.page = 10;
-      memset(menuData.input, 0, 256);
-      for (int Fi = 0; Fi < 252; Fi++) {
-        if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}
-        itoa(menuData.function_index, menuData.input, 10); menuData.numpad_key=4;}
+    if (menuData.y == 2) {menuData.page = 10; memset(menuData.input, 0, 256); scanFi(); itoa(menuData.function_index, menuData.input, 10); menuData.numpad_key=4;}
     // set relay function value x
     if (menuData.y == 3) {menuData.page = 10; memset(menuData.input, 0, 256); sprintf(menuData.input, "%f", relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]); menuData.numpad_key=1;}
     // set relay function value y
