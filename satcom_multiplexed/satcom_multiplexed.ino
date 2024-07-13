@@ -4891,7 +4891,7 @@ void menuDown() {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData
 void menuUp() {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}}
 
 void menuRight() {
-  // page 0: go to next relay function name. performs a quick scan to index the currently selected function name.
+  // page 0: iterate to next relay function name. performs a quick scan to index the currently selected function name.
   if ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); menuData.function_index++; if (menuData.function_index >= 252) {menuData.function_index=0;} memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}
   // go to next page
   else {
@@ -4902,7 +4902,7 @@ void menuRight() {
 }
 
 void menuLeft() {
-  // page 0: go to previous relay function name. performs a quick scan to index the currently selected function name.
+  // page 0: iterate to previous relay function name. performs a quick scan to index the currently selected function name.
   if ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); menuData.function_index--; if (menuData.function_index <= -1) {menuData.function_index=252;} memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}
   // go toprevious page
   else {
