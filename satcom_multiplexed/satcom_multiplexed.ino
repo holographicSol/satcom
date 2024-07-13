@@ -2899,8 +2899,11 @@ void SSD_Display_2_Menu() {
 
   // numpad
   if (menuData.page == 10) {
+
     display_2.setColor(BLACK); display_2.fillRect(0, 0, display_2.getWidth(), display_2.getHeight());
+    
     display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, String(menuData.input));
+
     // none selected.
     if (menuData.numpad_y == 0) {
       display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
@@ -4913,17 +4916,17 @@ void menuSelect() {
     // relay enable/disable
     if ((menuData.y == 1) && (menuData.x == 1)) {if (relayData.relays_enable[0][menuData.relay_select] == 0) {relayData.relays_enable[0][menuData.relay_select] = 1;} else {relayData.relays_enable[0][menuData.relay_select] = 0;}}
     // select relay
-    if ((menuData.y == 1) && (menuData.x == 0)) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=0;}
+    if ((menuData.y == 1) && (menuData.x == 0)) {menuData.page = 10; memset(menuData.input, 0, 256); itoa(menuData.relay_select, menuData.input, 10); menuData.numpad_key=0;}
     // select relay function
     if ((menuData.y == 1) && (menuData.x == 2)) {menuData.relay_function_select++; if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}}
     // select relay function name
-    if (menuData.y == 2) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=4;}
+    if (menuData.y == 2) {menuData.page = 10; memset(menuData.input, 0, 256); itoa(menuData.relay_function_select, menuData.input, 10); menuData.numpad_key=4;}
     // set relay function value x
-    if (menuData.y == 3) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=1;}
+    if (menuData.y == 3) {menuData.page = 10; memset(menuData.input, 0, 256); sprintf(menuData.input, "%f", relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]); menuData.numpad_key=1;}
     // set relay function value y
-    if (menuData.y == 4) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=2;}
+    if (menuData.y == 4) {menuData.page = 10; memset(menuData.input, 0, 256); sprintf(menuData.input, "%f", relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]); menuData.numpad_key=2;}
     // set relay function value z
-    if (menuData.y == 5) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=3;}
+    if (menuData.y == 5) {menuData.page = 10; memset(menuData.input, 0, 256); sprintf(menuData.input, "%f", relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]); menuData.numpad_key=3;}
   }
   // page two only
   if (menuData.page == 1) {
