@@ -4884,19 +4884,15 @@ void scanFi() {
   used when selecting function name to enter function code (function index).
   used when toggling Fi.
   */
-  for (int Fi = 0; Fi < 252; Fi++) {
-    if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}
-}
+  for (int Fi = 0; Fi < 252; Fi++) {if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}}
 
 void menuDown() {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}}
 
 void menuUp() {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}}
 
 void menuRight() {
-
   // page 0
   if ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); menuData.function_index++; if (menuData.function_index >= 252) {menuData.function_index=0;} memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}
-
   // go to next page
   else {
     menuData.x++;
@@ -4906,10 +4902,8 @@ void menuRight() {
 }
 
 void menuLeft() {
-  
   // page 0
   if ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); menuData.function_index--; if (menuData.function_index <= -1) {menuData.function_index=252;} memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}
-
   // go toprevious page
   else {
     menuData.x--;
