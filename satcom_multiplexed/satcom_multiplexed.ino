@@ -3645,27 +3645,31 @@ void SSD_Display_MATRIX() {
   display_3.setTextAlignment(TEXT_ALIGN_CENTER);
   display_3.setColor(WHITE);
   display_3.clear();
-  display_3.drawString(display_3.getWidth()/2, 0, "MATRIX");
+  display_3.setColor(WHITE); display_3.fillRect(display_3.getWidth()/4, 0, display_3.getWidth()/2, 14);
+  display_3.setTextAlignment(TEXT_ALIGN_CENTER); display_3.setColor(BLACK); display_3.drawString(display_2.getWidth()/2, 0, "MATRIX");
+  display_3.setColor(WHITE); display_3.drawRect(0, 16, display_3.getWidth(), display_3.getHeight()-16);
   // if (menuData.page != 10) {
   //   display_3.drawString(display_3.getWidth()/2, 14, "x" + String(menuData.x) + " y" + String(menuData.y) + "  s" + String(menuData.select) + " p" + String(menuData.page)); // menu x,y telemetry is here for debug menu navigation (uncomment to use)
   // }
   // else if (menuData.page == 10) {
   //   display_3.drawString(display_3.getWidth()/2, 14, "x" + String(menuData.numpad_x) + " y" + String(menuData.numpad_y) + "  s" + String(menuData.select) + " p" + String(menuData.page)); // menu x,y telemetry is here for debug menu navigation (uncomment to use)
   // }
-  display_3.drawString(display_3.getWidth()/2,24,""+String(relayData.relays_bool[0][0])+"  "+String(relayData.relays_bool[0][1])+"  "+String(relayData.relays_bool[0][2])+"  "+String(relayData.relays_bool[0][3])+"  "+String(relayData.relays_bool[0][4])+"  "+String(relayData.relays_bool[0][5])+"  "+String(relayData.relays_bool[0][6])+"  "+String(relayData.relays_bool[0][7])+"  "+String(relayData.relays_bool[0][8])+"  "+String(relayData.relays_bool[0][9]));
-  display_3.drawString(display_3.getWidth()/2,34,""+String(relayData.relays_bool[0][10])+"  "+String(relayData.relays_bool[0][11])+"  "+String(relayData.relays_bool[0][12])+"  "+String(relayData.relays_bool[0][13])+"  "+String(relayData.relays_bool[0][14])+"  "+String(relayData.relays_bool[0][15])+"  "+String(relayData.relays_bool[0][16])+"  "+String(relayData.relays_bool[0][17])+"  "+String(relayData.relays_bool[0][18])+"  "+String(relayData.relays_bool[0][19]));
-  display_3.drawString(display_3.getWidth()/2,44,""+String(relayData.relays_bool[0][20])+"  "+String(relayData.relays_bool[0][21])+"  "+String(relayData.relays_bool[0][22])+"  "+String(relayData.relays_bool[0][23])+"  "+String(relayData.relays_bool[0][24])+"  "+String(relayData.relays_bool[0][25])+"  "+String(relayData.relays_bool[0][26])+"  "+String(relayData.relays_bool[0][27])+"  "+String(relayData.relays_bool[0][28])+"  "+String(relayData.relays_bool[0][29]));
-  display_3.drawString(display_3.getWidth()/2,54,""+String(relayData.relays_bool[0][30])+"  "+String(relayData.relays_bool[0][31])+"  "+String(relayData.relays_bool[0][32])+"  "+String(relayData.relays_bool[0][33])+"  "+String(relayData.relays_bool[0][34])+"  "+String(relayData.relays_bool[0][35])+"  "+String(relayData.relays_bool[0][36])+"  "+String(relayData.relays_bool[0][37])+"  "+String(relayData.relays_bool[0][38])+"  "+String(relayData.relays_bool[0][39]));
+  display_3.setColor(WHITE); display_3.drawString(display_3.getWidth()/2,18,""+String(relayData.relays_bool[0][0])+"  "+String(relayData.relays_bool[0][1])+"  "+String(relayData.relays_bool[0][2])+"  "+String(relayData.relays_bool[0][3])+"  "+String(relayData.relays_bool[0][4])+"  "+String(relayData.relays_bool[0][5])+"  "+String(relayData.relays_bool[0][6])+"  "+String(relayData.relays_bool[0][7])+"  "+String(relayData.relays_bool[0][8])+"  "+String(relayData.relays_bool[0][9]));
+  display_3.setColor(WHITE); display_3.drawString(display_3.getWidth()/2,28,""+String(relayData.relays_bool[0][10])+"  "+String(relayData.relays_bool[0][11])+"  "+String(relayData.relays_bool[0][12])+"  "+String(relayData.relays_bool[0][13])+"  "+String(relayData.relays_bool[0][14])+"  "+String(relayData.relays_bool[0][15])+"  "+String(relayData.relays_bool[0][16])+"  "+String(relayData.relays_bool[0][17])+"  "+String(relayData.relays_bool[0][18])+"  "+String(relayData.relays_bool[0][19]));
+  display_3.setColor(WHITE); display_3.drawString(display_3.getWidth()/2,38,""+String(relayData.relays_bool[0][20])+"  "+String(relayData.relays_bool[0][21])+"  "+String(relayData.relays_bool[0][22])+"  "+String(relayData.relays_bool[0][23])+"  "+String(relayData.relays_bool[0][24])+"  "+String(relayData.relays_bool[0][25])+"  "+String(relayData.relays_bool[0][26])+"  "+String(relayData.relays_bool[0][27])+"  "+String(relayData.relays_bool[0][28])+"  "+String(relayData.relays_bool[0][29]));
+  display_3.setColor(WHITE); display_3.drawString(display_3.getWidth()/2,48,""+String(relayData.relays_bool[0][30])+"  "+String(relayData.relays_bool[0][31])+"  "+String(relayData.relays_bool[0][32])+"  "+String(relayData.relays_bool[0][33])+"  "+String(relayData.relays_bool[0][34])+"  "+String(relayData.relays_bool[0][35])+"  "+String(relayData.relays_bool[0][36])+"  "+String(relayData.relays_bool[0][37])+"  "+String(relayData.relays_bool[0][38])+"  "+String(relayData.relays_bool[0][39]));
   display_3.display();
 }
 
 void SSD_Display_MATRIX_Disabled() {
   tcaselect(3);
   display_3.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_3.setColor(WHITE);
+  display_3.setColor(WHITE); 
   display_3.clear();
-  display_3.drawString(display_3.getWidth()/2, 0, "MATRIX");
-  display_3.drawString(display_3.getWidth()/2, 24, "[ DISABLED ]");
+  display_3.setColor(WHITE); display_3.fillRect(display_3.getWidth()/4, 0, display_3.getWidth()/2, 15);
+  display_3.setTextAlignment(TEXT_ALIGN_CENTER); display_3.setColor(BLACK); display_3.drawString(display_3.getWidth()/2, 0, "MATRIX");
+  display_3.setColor(WHITE); display_3.drawRect(0, 16, display_3.getWidth(), display_3.getHeight()-16);
+  display_3.setColor(WHITE); display_3.drawString(display_3.getWidth()/2, 24, "[ DISABLED ]");
   display_3.display();
 }
 
@@ -3677,21 +3681,25 @@ void SSD_Display_GPATT() {
   display_4.setTextAlignment(TEXT_ALIGN_CENTER);
   display_4.setColor(WHITE);
   display_4.clear();
-  display_4.drawString(display_4.getWidth()/2, 0, "GPATT");
-  display_4.drawString(display_4.getWidth()/2, 14, "P " + String(gpattData.pitch));
-  display_4.drawString(display_4.getWidth()/2, 24, "R " + String(gpattData.roll));
-  display_4.drawString(display_4.getWidth()/2, 34, "Y " + String(gpattData.yaw));
-  display_4.drawString(display_4.getWidth()/2, 44, String("RSF " + String(gpattData.run_state_flag) + " GST " + String(gpattData.gst_data) + " RIF " + String(gpattData.run_inetial_flag)));
+  display_4.setColor(WHITE); display_4.fillRect(display_4.getWidth()/4, 0, display_4.getWidth()/2, 14);
+  display_4.setTextAlignment(TEXT_ALIGN_CENTER); display_4.setColor(BLACK); display_4.drawString(display_4.getWidth()/2, 0, "GPATT");
+  display_4.setColor(WHITE); display_4.drawRect(0, 16, display_4.getWidth(), display_4.getHeight()-16);
+  display_4.setColor(WHITE); display_4.drawString(display_4.getWidth()/2, 18, "P " + String(gpattData.pitch));
+  display_4.setColor(WHITE); display_4.drawString(display_4.getWidth()/2, 28, "R " + String(gpattData.roll));
+  display_4.setColor(WHITE); display_4.drawString(display_4.getWidth()/2, 38, "Y " + String(gpattData.yaw));
+  display_4.setColor(WHITE); display_4.drawString(display_4.getWidth()/2, 48, String("RSF " + String(gpattData.run_state_flag) + " GST " + String(gpattData.gst_data) + " RIF " + String(gpattData.run_inetial_flag)));
   display_4.display();
 }
 
 void SSD_Display_GPATT_Disabled() {
   tcaselect(4);
   display_4.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_4.setColor(WHITE);
+  display_4.setColor(WHITE); 
   display_4.clear();
-  display_4.drawString(display_4.getWidth()/2, 0, "GPATT");
-  display_4.drawString(display_4.getWidth()/2, 24, "[ DISABLED ]");
+  display_4.setColor(WHITE); display_4.fillRect(display_4.getWidth()/4, 0, display_4.getWidth()/2, 14);
+  display_4.setTextAlignment(TEXT_ALIGN_CENTER); display_4.setColor(BLACK); display_4.drawString(display_4.getWidth()/2, 0, "GPATT");
+  display_4.setColor(WHITE); display_4.drawRect(0, 16, display_4.getWidth(), display_4.getHeight()-16);
+  display_4.setColor(WHITE); display_4.drawString(display_4.getWidth()/2, 24, "[ DISABLED ]");
   display_4.display();
 }
 
@@ -3703,21 +3711,25 @@ void SSD_Display_SATCOM() {
   display_5.setTextAlignment(TEXT_ALIGN_CENTER);
   display_5.setColor(WHITE);
   display_5.clear();
-  display_5.drawString(display_5.getWidth()/2, 0, "SATCOM");
-  display_5.drawString(display_5.getWidth()/2, 14, satData.sat_time_stamp_string);
-  display_5.drawString(display_5.getWidth()/2, 24, String(satData.last_sat_time_stamp_str));
-  display_5.drawString(display_5.getWidth()/2, 44, String(gnggaData.latitude_hemisphere) + " " + satData.location_latitude_gngga_str);
-  display_5.drawString(display_5.getWidth()/2, 54, String(gnggaData.longitude_hemisphere) + " " + satData.location_longitude_gngga_str);
+  display_5.setColor(WHITE); display_5.fillRect(display_5.getWidth()/4, 0, display_5.getWidth()/2, 14);
+  display_5.setTextAlignment(TEXT_ALIGN_CENTER); display_5.setColor(BLACK); display_5.drawString(display_5.getWidth()/2, 0, "SATCOM");
+  display_5.setColor(WHITE); display_5.drawRect(0, 16, display_5.getWidth(), display_5.getHeight()-16);
+  display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()/2, 18, satData.sat_time_stamp_string);
+  display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()/2, 28, String(satData.last_sat_time_stamp_str));
+  display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()/2, 38, String(gnggaData.latitude_hemisphere) + " " + satData.location_latitude_gngga_str);
+  display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()/2, 48, String(gnggaData.longitude_hemisphere) + " " + satData.location_longitude_gngga_str);
   display_5.display();
 }
 
 void SSD_Display_SATCOM_Disabled() {
   tcaselect(5);
   display_5.setTextAlignment(TEXT_ALIGN_CENTER);
-  display_5.setColor(WHITE);
+  display_5.setColor(WHITE); 
   display_5.clear();
-  display_5.drawString(display_5.getWidth()/2, 0, "SATCOM");
-  display_5.drawString(display_5.getWidth()/2, 24, "[ DISABLED ]");
+  display_5.setColor(WHITE); display_5.fillRect(display_5.getWidth()/4, 0, display_5.getWidth()/2, 14);
+  display_5.setTextAlignment(TEXT_ALIGN_CENTER); display_5.setColor(BLACK); display_5.drawString(display_5.getWidth()/2, 0, "SATCOM");
+  display_5.setColor(WHITE); display_5.drawRect(0, 16, display_5.getWidth(), display_5.getHeight()-16);
+  display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()/2, 24, "[ DISABLED ]");
   display_5.display();
 }
 
@@ -3729,12 +3741,14 @@ void SSD_Display_GNGGA() {
   tcaselect(6);
   display_6.setTextAlignment(TEXT_ALIGN_CENTER);
   display_6.clear();
-  display_6.drawString(display_6.getWidth()/2, 0, "GNGGA");
-  display_6.drawString(display_6.getWidth()/2, 14, "PF " + String(gnggaData.hdop_precision_factor) + " P " + String(gnggaData.positioning_status) + " S " + String(gnggaData.satellite_count_gngga));
-  display_6.drawString(display_6.getWidth()/2, 24, String(gnggaData.utc_time));
-  display_6.drawString(display_6.getWidth()/2, 34, String(gnggaData.latitude_hemisphere) + " " + String(gnggaData.latitude));
-  display_6.drawString(display_6.getWidth()/2, 44, String(gnggaData.longitude_hemisphere) + " " + String(gnggaData.longitude));
-  display_6.drawString(display_6.getWidth()/2, 54, "A " + String(gnggaData.altitude));
+  display_6.setColor(WHITE); display_6.fillRect(display_6.getWidth()/4, 0, display_6.getWidth()/2, 14);
+  display_6.setTextAlignment(TEXT_ALIGN_CENTER); display_6.setColor(BLACK); display_6.drawString(display_6.getWidth()/2, 0, "GNGGA");
+  display_6.setColor(WHITE); display_6.drawRect(0, 16, display_6.getWidth(), display_6.getHeight()-16);
+  display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()/2, 15, "PF " + String(gnggaData.hdop_precision_factor) + " P " + String(gnggaData.positioning_status) + " S " + String(gnggaData.satellite_count_gngga));
+  display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()/2, 24, String(gnggaData.utc_time));
+  display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()/2, 33, String(gnggaData.latitude_hemisphere) + " " + String(gnggaData.latitude));
+  display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()/2, 42, String(gnggaData.longitude_hemisphere) + " " + String(gnggaData.longitude));
+  display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()/2, 51, "A " + String(gnggaData.altitude));
   display_6.display();
 }
 
@@ -3743,8 +3757,10 @@ void SSD_Display_GNGGA_Disabled() {
   display_6.setTextAlignment(TEXT_ALIGN_CENTER);
   display_6.setColor(WHITE);
   display_6.clear();
-  display_6.drawString(display_6.getWidth()/2, 0, "GNGGA");
-  display_6.drawString(display_6.getWidth()/2, 24, "[ DISABLED ]");
+  display_6.setColor(WHITE); display_6.fillRect(display_6.getWidth()/4, 0, display_6.getWidth()/2, 14);
+  display_6.setTextAlignment(TEXT_ALIGN_CENTER); display_6.setColor(BLACK); display_6.drawString(display_6.getWidth()/2, 0, "GNGGA");
+  display_6.setColor(WHITE); display_6.drawRect(0, 16, display_6.getWidth(), display_6.getHeight()-16);
+  display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()/2, 24, "[ DISABLED ]");
   display_6.display();
 }
 
@@ -3756,12 +3772,14 @@ void SSD_Display_GNRMC() {
   display_7.setTextAlignment(TEXT_ALIGN_CENTER);
   display_7.setColor(WHITE);
   display_7.clear();
-  display_7.drawString(display_7.getWidth()/2, 0, "GNRMC");
-  display_7.drawString(display_7.getWidth()/2, 14, "P " + String(gnrmcData.positioning_status) + " M " + String(gnrmcData.mode_indication));
-  display_7.drawString(display_7.getWidth()/2, 24, String(gnrmcData.utc_time) + " " + String(gnrmcData.utc_date));
-  display_7.drawString(display_7.getWidth()/2, 34, String(gnrmcData.latitude_hemisphere) + " " + String(gnrmcData.latitude));
-  display_7.drawString(display_7.getWidth()/2, 44, String(gnrmcData.longitude_hemisphere) + " " + String(gnrmcData.longitude));
-  display_7.drawString(display_7.getWidth()/2, 54, "H " + String(gnrmcData.ground_heading) + " S " + String(gnrmcData.ground_speed));
+  display_7.setColor(WHITE); display_7.fillRect(display_7.getWidth()/4, 0, display_7.getWidth()/2, 14);
+  display_7.setTextAlignment(TEXT_ALIGN_CENTER); display_7.setColor(BLACK); display_7.drawString(display_7.getWidth()/2, 0, "GNRMC");
+  display_7.setColor(WHITE); display_7.drawRect(0, 16, display_7.getWidth(), display_7.getHeight()-16);
+  display_7.setColor(WHITE); display_7.drawString(display_7.getWidth()/2, 15, "P " + String(gnrmcData.positioning_status) + " M " + String(gnrmcData.mode_indication));
+  display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()/2, 24, String(gnrmcData.utc_time) + " " + String(gnrmcData.utc_date));
+  display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()/2, 33, String(gnrmcData.latitude_hemisphere) + " " + String(gnrmcData.latitude));
+  display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()/2, 42, String(gnrmcData.longitude_hemisphere) + " " + String(gnrmcData.longitude));
+  display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()/2, 51, "H " + String(gnrmcData.ground_heading) + " S " + String(gnrmcData.ground_speed));
   display_7.display();
 }
 
@@ -3770,8 +3788,10 @@ void SSD_Display_GNRMC_Disabled() {
   display_7.setTextAlignment(TEXT_ALIGN_CENTER);
   display_7.setColor(WHITE);
   display_7.clear();
-  display_7.drawString(display_7.getWidth()/2, 0, "GNRMC");
-  display_7.drawString(display_7.getWidth()/2, 24, "[ DISABLED ]");
+  display_7.setColor(WHITE); display_7.fillRect(display_7.getWidth()/4, 0, display_7.getWidth()/2, 14);
+  display_7.setTextAlignment(TEXT_ALIGN_CENTER); display_7.setColor(BLACK); display_7.drawString(display_7.getWidth()/2, 0, "GNRMC");
+  display_7.setColor(WHITE); display_7.drawRect(0, 16, display_7.getWidth(), display_7.getHeight()-16);
+  display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()/2, 24, "[ DISABLED ]");
   display_7.display();
 }
 
@@ -3814,7 +3834,6 @@ void SSD_Display_Loading() {
   display_7.setColor(WHITE);
   display_7.clear();
   display_7.drawString(display_7.getWidth()/2, 0, "[LOADING]");
-  display_7.drawString(display_7.getWidth()/2, 24, "SATCOM");
   display_7.display();
 }
 
