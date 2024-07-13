@@ -3729,10 +3729,19 @@ void SSD_Display_SATCOM() {
   display_5.setColor(WHITE); display_5.fillRect(display_5.getWidth()/4, 0, display_5.getWidth()/2, 14);
   display_5.setTextAlignment(TEXT_ALIGN_CENTER); display_5.setColor(BLACK); display_5.drawString(display_5.getWidth()/2, 0, "SATCOM");
   display_5.setColor(WHITE); display_5.drawRect(0, 16, display_5.getWidth(), display_5.getHeight()-16);
-  display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()/2, 18, satData.sat_time_stamp_string);
-  display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()/2, 28, String(satData.last_sat_time_stamp_str));
-  display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()/2, 38, String(gnggaData.latitude_hemisphere) + " " + satData.location_latitude_gngga_str);
-  display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()/2, 48, String(gnggaData.longitude_hemisphere) + " " + satData.location_longitude_gngga_str);
+
+  display_5.setTextAlignment(TEXT_ALIGN_LEFT); display_5.setColor(WHITE); display_5.drawString(4, 18, "T");
+  display_5.setTextAlignment(TEXT_ALIGN_RIGHT); display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()-4, 18, satData.sat_time_stamp_string);
+
+  display_5.setTextAlignment(TEXT_ALIGN_LEFT); display_5.setColor(WHITE); display_5.drawString(4, 28, "LT");
+  display_5.setTextAlignment(TEXT_ALIGN_RIGHT); display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()-4, 28, String(satData.last_sat_time_stamp_str));
+
+  display_5.setTextAlignment(TEXT_ALIGN_LEFT); display_5.setColor(WHITE); display_5.drawString(4, 38, String(gnggaData.latitude_hemisphere));
+  display_5.setTextAlignment(TEXT_ALIGN_RIGHT); display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()-4, 38, satData.location_latitude_gngga_str);
+
+  display_5.setTextAlignment(TEXT_ALIGN_LEFT); display_5.setColor(WHITE); display_5.drawString(4, 48, String(gnggaData.longitude_hemisphere));
+  display_5.setTextAlignment(TEXT_ALIGN_RIGHT); display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()-4, 48, satData.location_longitude_gngga_str);
+
   display_5.display();
 }
 
