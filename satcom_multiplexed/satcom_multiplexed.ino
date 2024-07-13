@@ -3737,7 +3737,6 @@ void SSD_Display_SATCOM() {
   display_5.setTextAlignment(TEXT_ALIGN_RIGHT); display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()-4, 38, satData.location_latitude_gngga_str);
   display_5.setTextAlignment(TEXT_ALIGN_LEFT); display_5.setColor(WHITE); display_5.drawString(4, 48, String(gnggaData.longitude_hemisphere));
   display_5.setTextAlignment(TEXT_ALIGN_RIGHT); display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()-4, 48, satData.location_longitude_gngga_str);
-
   display_5.display();
 }
 
