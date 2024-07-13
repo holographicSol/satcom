@@ -3484,6 +3484,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 34, "ALL");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 44, "RELAYS");
       }
+    if (menuData.y >= 2) {menuData.y = 0;}
   }
     
   if (menuData.page == 4) {
@@ -3532,6 +3533,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 34, "ALL");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 44, "RELAYS");
       }
+    if (menuData.y >= 2) {menuData.y = 0;}
   }
   
   if (menuData.page == 5) {
@@ -3580,6 +3582,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 34, "ALL");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 44, "RELAYS");
       }
+    if (menuData.y >= 2) {menuData.y = 0;}
   }
 
   if (menuData.page == 6) {
@@ -3628,6 +3631,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 34, "ALL");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 44, "RELAYS");
       }
+    if (menuData.y >= 2) {menuData.y = 0;}
   }
 
   display_2.display();
