@@ -4964,7 +4964,7 @@ void selectRelayFunctionValueZ() {
 //                                                                                              MENU NAVIGATION: MAIN FUNCTIONS
 
 /*
-keep it simple or consider creating a helper function.
+keep it simple or consider creating a helper function so that each xy condition can be clear and on a single short line.
 */
 
 void menuDown() {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}}
