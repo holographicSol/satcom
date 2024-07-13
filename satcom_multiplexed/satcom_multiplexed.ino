@@ -3327,6 +3327,8 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "DEACTIVATE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 54, "ACTIVATE ALL RELAYS");
       }
     
     // select top left
@@ -3338,6 +3340,8 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "DEACTIVATE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 54, "ACTIVATE ALL RELAYS");
       }
     
     // select top right
@@ -3349,6 +3353,8 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "DEACTIVATE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 54, "ACTIVATE ALL RELAYS");
       }
     
     // select row 1 center
@@ -3360,6 +3366,8 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "DEACTIVATE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 54, "ACTIVATE ALL RELAYS");
       }
     // select row 2 center
     if (menuData.y == 2) {
@@ -3370,8 +3378,10 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "DEACTIVATE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 54, "ACTIVATE ALL RELAYS");
       }
-    // select row 2 center
+    // select row 3 center
     if (menuData.y == 3) {
       display_2.setColor(WHITE); display_2.fillRect(2, 36, display_2.getWidth(), 10);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
@@ -3380,9 +3390,33 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 34, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "DEACTIVATE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 54, "ACTIVATE ALL RELAYS");
       }
-    // null unless more entries
-    if (menuData.y >= 4) {menuData.y = 0;}
+    // select row 4 center
+    if (menuData.y == 4) {
+      display_2.setColor(WHITE); display_2.fillRect(2, 46, display_2.getWidth(), 10);
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 44, "DEACTIVATE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 54, "ACTIVATE ALL RELAYS");
+      }
+    // select row 4 center
+    if (menuData.y == 5) {
+      display_2.setColor(WHITE); display_2.fillRect(2, 56, display_2.getWidth(), 10);
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "DEACTIVATE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 54, "ACTIVATE ALL RELAYS");
+      }
   }
 
   if (menuData.page == 2) {
@@ -3972,19 +4006,30 @@ void matrix_set_enabled(bool b) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                              MATRIX OVERRIDE
+//                                                                                                           MATRIX DISABLE ALL
 
-// disable all matrix entries.
-
-void matrix_override_off() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=0;}}
+// disable all matrix entries. does not directly turn relays off, instead prevents relays turning on. 
+void matrix_disable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=0;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                            MATRIX ENABLE ALL
 
 
-// enable all matrix entries. will result in warnings for matrix entries with no function(s) set. this is expected, required and desirable behaviour
+// enable all matrix entries. does not directly turn relays on, instead enables relays turning on.
+void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=1;}}
 
-void matrix_override_on() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=1;}}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                       MATRIX: ALL RELAYS OFF
+
+// turn all relays off. recommended to first disable matrix.
+void matrix_relays_disable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_bool[0][Ri]=0;}}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                        MATRIX: ALL RELAYS ON
+
+// turn all relays on. recommended to first disable matrix.
+void matrix_relays_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_bool[0][Ri]=1;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                   SATCOM CONVERT COORDINATES
@@ -4629,9 +4674,11 @@ void menuSelect() {
   }
   // page one only
   if (menuData.page == 1) {
-    if (menuData.y == 1) {matrix_override_on();} 
-    if (menuData.y == 2) {matrix_override_off();}
+    if (menuData.y == 1) {matrix_enable_all();} 
+    if (menuData.y == 2) {matrix_disable_all();}
     if (menuData.y == 3) {if (systemData.matrix_enabled == true) {systemData.matrix_enabled = false;} else {systemData.matrix_enabled = true;}}
+    if (menuData.y == 4) {matrix_relays_disable_all();}
+    if (menuData.y == 5) {matrix_relays_enable_all();}
   }
   // page two only
   if (menuData.page == 2) {
@@ -4804,17 +4851,31 @@ void readRXD_0() {
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                         MATRIX: OVERRIDE
+    //                                                                                                      MATRIX: DISABLE ALL
 
-    else if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE_OFF") == 0) {
-      matrix_override_off();
+    else if (strcmp(serial0Data.BUFFER, "$MATRIX_DISABLE_ALL") == 0) {
+      matrix_disable_all();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                       MATRIX: ENABLE ALL
 
-    else if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE_ON") == 0) {
-      matrix_override_on();
+    else if (strcmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ALL") == 0) {
+      matrix_enable_all();
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                               MATRIX: TURN ALL RELAYS ON
+
+    else if (strcmp(serial0Data.BUFFER, "$MATRIX_RELAYS_ALL_ON") == 0) {
+      matrix_relays_enable_all();
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                              MATRIX: TURN ALL RELAYS OFF
+
+    else if (strcmp(serial0Data.BUFFER, "$MATRIX_RELAYS_ALL_OFF") == 0) {
+      matrix_relays_disable_all();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -4939,7 +5000,9 @@ void loop() {
 
     if (systemData.gpatt_enabled == true) {SSD_Display_GPATT();} else {SSD_Display_GPATT_Disabled();}
 
-    if (systemData.matrix_enabled == true) {matrixSwitch(); SSD_Display_MATRIX();} else {SSD_Display_MATRIX_Disabled();}
+    if (systemData.matrix_enabled == true) {matrixSwitch(); SSD_Display_MATRIX();} // else {SSD_Display_MATRIX_Disabled();}
+
+    SSD_Display_MATRIX();
     
   }
   else {serial1Data.badrcv_i++;}
