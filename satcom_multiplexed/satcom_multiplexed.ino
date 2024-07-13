@@ -4917,7 +4917,13 @@ void menuSelect() {
     // select relay function
     if ((menuData.y == 1) && (menuData.x == 2)) {menuData.relay_function_select++; if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}}
     // select relay function name
-    if (menuData.y == 2) {menuData.page = 10; memset(menuData.input, 0, 256); itoa(menuData.relay_function_select, menuData.input, 10); menuData.numpad_key=4;}
+    // if (menuData.y == 2) {menuData.page = 10; memset(menuData.input, 0, 256); itoa(menuData.relay_function_select, menuData.input, 10); menuData.numpad_key=4;} // todo for (XOR = 0, i = 0; i < strlen(string); i++)
+    if (menuData.y == 2) {
+      menuData.page = 10;
+      memset(menuData.input, 0, 256);
+      for (int Fi = 0; Fi < 252; Fi++) {
+        if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}
+        itoa(menuData.function_index, menuData.input, 10); menuData.numpad_key=4;}
     // set relay function value x
     if (menuData.y == 3) {menuData.page = 10; memset(menuData.input, 0, 256); sprintf(menuData.input, "%f", relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]); menuData.numpad_key=1;}
     // set relay function value y
