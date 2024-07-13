@@ -3804,7 +3804,8 @@ void SSD_Display_GNRMC() {
   display_7.setColor(WHITE); display_7.fillRect(display_7.getWidth()/4, 0, display_7.getWidth()/2, 14);
   display_7.setTextAlignment(TEXT_ALIGN_CENTER); display_7.setColor(BLACK); display_7.drawString(display_7.getWidth()/2, 0, "GNRMC");
   display_7.setColor(WHITE); display_7.drawRect(0, 16, display_7.getWidth(), display_7.getHeight()-16);
-  display_7.setColor(WHITE); display_7.drawString(display_7.getWidth()/2, 15, "P " + String(gnrmcData.positioning_status) + " M " + String(gnrmcData.mode_indication));
+  display_7.setTextAlignment(TEXT_ALIGN_LEFT); display_7.setColor(WHITE); display_7.drawString(4, 15, "PS " + String(gnrmcData.positioning_status));
+  display_7.setTextAlignment(TEXT_ALIGN_RIGHT); display_7.setColor(WHITE); display_7.drawString(display_7.getWidth()-4, 15, "MI " + String(gnrmcData.mode_indication));
   display_7.setTextAlignment(TEXT_ALIGN_LEFT); display_7.setColor(WHITE);display_7.drawString(4, 24, "DT");
   display_7.setTextAlignment(TEXT_ALIGN_RIGHT); display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()-4, 24, String(gnrmcData.utc_date) + " " + String(gnrmcData.utc_time));
   display_7.setTextAlignment(TEXT_ALIGN_LEFT); display_7.setColor(WHITE);display_7.drawString(4, 33, String(gnrmcData.latitude_hemisphere));
