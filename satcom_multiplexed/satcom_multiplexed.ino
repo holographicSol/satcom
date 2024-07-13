@@ -3482,7 +3482,7 @@ void SSD_Display_2_Menu() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 3
 
-void SSD_Display_3() {
+void SSD_Display_MATRIX() {
   tcaselect(3);
   display_3.setTextAlignment(TEXT_ALIGN_CENTER);
   display_3.setColor(WHITE);
@@ -3499,6 +3499,15 @@ void SSD_Display_3() {
   display_3.drawString(display_3.getWidth()/2,44,""+String(relayData.relays_bool[0][20])+"  "+String(relayData.relays_bool[0][21])+"  "+String(relayData.relays_bool[0][22])+"  "+String(relayData.relays_bool[0][23])+"  "+String(relayData.relays_bool[0][24])+"  "+String(relayData.relays_bool[0][25])+"  "+String(relayData.relays_bool[0][26])+"  "+String(relayData.relays_bool[0][27])+"  "+String(relayData.relays_bool[0][28])+"  "+String(relayData.relays_bool[0][29]));
   display_3.drawString(display_3.getWidth()/2,54,""+String(relayData.relays_bool[0][30])+"  "+String(relayData.relays_bool[0][31])+"  "+String(relayData.relays_bool[0][32])+"  "+String(relayData.relays_bool[0][33])+"  "+String(relayData.relays_bool[0][34])+"  "+String(relayData.relays_bool[0][35])+"  "+String(relayData.relays_bool[0][36])+"  "+String(relayData.relays_bool[0][37])+"  "+String(relayData.relays_bool[0][38])+"  "+String(relayData.relays_bool[0][39]));
   display_3.display();
+}
+
+void SSD_Display_MATRIX_Disabled() {
+  tcaselect(3);
+  display_3.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_3.setColor(WHITE);
+  display_3.clear();
+  display_3.drawString(display_3.getWidth()/2, 0, "MATRIX");
+  display_3.drawString(display_3.getWidth()/2, 24, "[ MATRIX ]");
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -4929,7 +4938,7 @@ void loop() {
 
     if (systemData.gpatt_enabled == true) {SSD_Display_GPATT();} else {SSD_Display_GPATT_Disabled();}
 
-    if (systemData.matrix_enabled == true) {matrixSwitch(); SSD_Display_3();}
+    if (systemData.matrix_enabled == true) {matrixSwitch(); SSD_Display_MATRIX();} else {SSD_Display_MATRIX_Disabled();}
     
   }
   else {serial1Data.badrcv_i++;}
