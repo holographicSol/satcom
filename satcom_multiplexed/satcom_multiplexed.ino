@@ -42,7 +42,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                               Wiring for Optional Multiplexed OLED Displays (SSD1306 Monochromes)
                                        WTGPS300P TX               --> ESP32 io26 as RXD
                                        WTGPS300P VCC              --> ESP32 3.3/5v
-                                       TCA9548A i2C Multiplexer   --> ESP32 i2C
+                                       TCA9548A i2C Multiplexer   --> ESP32 i2C (3.3v)
                                        x6 SSD1306 (blue & yellow) --> TCA9548A i2C Multiplexer
 
 
@@ -2981,17 +2981,21 @@ menuStruct menuData;
 //                                                                                                              MENU NAVIGATION
 
 void menuDown() {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}}
+
 void menuUp() {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}}
+
 void menuRight() {
   menuData.x++;
   if      ((menuData.y == 0) && (menuData.x == 2)) {menuData.page++; menuData.x=1; menuData.y=0; if (menuData.page >= menuData.page_max) {menuData.page=0;}}
   else if (menuData.x >= menuData.menu_max_x0) {menuData.x=0;}
 }
+
 void menuLeft() {
   menuData.x--;
   if ((menuData.y == 0) && (menuData.x == 0)) {menuData.page--; menuData.x=1; menuData.y=0; if (menuData.page <= -1) {menuData.page=menuData.page_max;}}
   else if (menuData.x <= -1) {menuData.x=menuData.menu_max_x0-1;}
 }
+
 void menuSelect() {
   // page zero only
   if (menuData.page == 0) {
@@ -3013,7 +3017,10 @@ void menuSelect() {
     if (menuData.y == 5) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=3;}
   }
   // page one only
-  if (menuData.page == 1) {}
+  if (menuData.page == 1) {
+    if (menuData.y == 1) {matrix_override_on();} 
+    if (menuData.y == 2) {matrix_override_off();} 
+  }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -3082,15 +3089,15 @@ void readRXD_0() {
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                         MATRIX: OVERRIDE
 
-    else if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE") == 0) {
-      matrix_override();
+    else if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE_OFF") == 0) {
+      matrix_override_off();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                                       MATRIX: ENABLE ALL
 
-    else if (strcmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ALL") == 0) {
-      matrix_enable_all();
+    else if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE_ON") == 0) {
+      matrix_override_on();
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -3615,25 +3622,55 @@ void SSD_Display_2_Menu() {
     // select top center
     if ((menuData.y == 0) && (menuData.x == 1)) {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 0, display_2.getWidth()/2, 14);
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "SYSTEM");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
       }
     
     // select top left
     if ((menuData.y == 0) && (menuData.x == 0)) {
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SYSTEM");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setColor(WHITE); display_2.fillRect(2, 0, display_2.getWidth()/8, 14);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
       }
     
     // select top right
     if ((menuData.y == 0) && (menuData.x == 2)) {
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SYSTEM");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/8)-2, 0, display_2.getWidth()/8, 14);
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
+      }
+    
+    // select row 1 center
+    if (menuData.y == 1) {
+      display_2.setColor(WHITE); display_2.fillRect(2, 16, display_2.getWidth(), 10);
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
+      }
+    // select row 2 center
+    if (menuData.y == 2) {
+      display_2.setColor(WHITE); display_2.fillRect(2, 26, display_2.getWidth(), 10);
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
       }
   }
 
@@ -3649,12 +3686,12 @@ void SSD_Display_3() {
   display_3.setColor(WHITE);
   display_3.clear();
   display_3.drawString(display_3.getWidth()/2, 0, "MATRIX");
-  // if (menuData.page != 10) {
-  //   display_3.drawString(display_3.getWidth()/2, 14, "x" + String(menuData.x) + " y" + String(menuData.y) + "  s" + String(menuData.select) + " p" + String(menuData.page)); // menu x,y telemetry is here for debug menu navigation (uncomment to use)
-  // }
-  // else if (menuData.page == 10) {
-  //   display_3.drawString(display_3.getWidth()/2, 14, "x" + String(menuData.numpad_x) + " y" + String(menuData.numpad_y) + "  s" + String(menuData.select) + " p" + String(menuData.page)); // menu x,y telemetry is here for debug menu navigation (uncomment to use)
-  // }
+  if (menuData.page != 10) {
+    display_3.drawString(display_3.getWidth()/2, 14, "x" + String(menuData.x) + " y" + String(menuData.y) + "  s" + String(menuData.select) + " p" + String(menuData.page)); // menu x,y telemetry is here for debug menu navigation (uncomment to use)
+  }
+  else if (menuData.page == 10) {
+    display_3.drawString(display_3.getWidth()/2, 14, "x" + String(menuData.numpad_x) + " y" + String(menuData.numpad_y) + "  s" + String(menuData.select) + " p" + String(menuData.page)); // menu x,y telemetry is here for debug menu navigation (uncomment to use)
+  }
   display_3.drawString(display_3.getWidth()/2,24,""+String(relayData.relays_bool[0][0])+"  "+String(relayData.relays_bool[0][1])+"  "+String(relayData.relays_bool[0][2])+"  "+String(relayData.relays_bool[0][3])+"  "+String(relayData.relays_bool[0][4])+"  "+String(relayData.relays_bool[0][5])+"  "+String(relayData.relays_bool[0][6])+"  "+String(relayData.relays_bool[0][7])+"  "+String(relayData.relays_bool[0][8])+"  "+String(relayData.relays_bool[0][9]));
   display_3.drawString(display_3.getWidth()/2,34,""+String(relayData.relays_bool[0][10])+"  "+String(relayData.relays_bool[0][11])+"  "+String(relayData.relays_bool[0][12])+"  "+String(relayData.relays_bool[0][13])+"  "+String(relayData.relays_bool[0][14])+"  "+String(relayData.relays_bool[0][15])+"  "+String(relayData.relays_bool[0][16])+"  "+String(relayData.relays_bool[0][17])+"  "+String(relayData.relays_bool[0][18])+"  "+String(relayData.relays_bool[0][19]));
   display_3.drawString(display_3.getWidth()/2,44,""+String(relayData.relays_bool[0][20])+"  "+String(relayData.relays_bool[0][21])+"  "+String(relayData.relays_bool[0][22])+"  "+String(relayData.relays_bool[0][23])+"  "+String(relayData.relays_bool[0][24])+"  "+String(relayData.relays_bool[0][25])+"  "+String(relayData.relays_bool[0][26])+"  "+String(relayData.relays_bool[0][27])+"  "+String(relayData.relays_bool[0][28])+"  "+String(relayData.relays_bool[0][29]));
@@ -4088,7 +4125,7 @@ void matrix_set_enabled(bool b) {
 
 // disable all matrix entries.
 
-void matrix_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=0;}}
+void matrix_override_off() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=0;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                            MATRIX ENABLE ALL
@@ -4096,7 +4133,7 @@ void matrix_override() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relay
 
 // enable all matrix entries. will result in warnings for matrix entries with no function(s) set. this is expected, required and desirable behaviour
 
-void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=1;}}
+void matrix_override_on() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=1;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                   SATCOM CONVERT COORDINATES
