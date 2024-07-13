@@ -4967,20 +4967,23 @@ void selectRelayFunctionValueZ() {
 keep it simple or consider creating a helper function so that each xy condition can be clear and on a single short line.
 */
 
-void menuDown() {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}}
-void menuUp() {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}}
+void menuDown() {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}}  // (change y)
+void menuUp() {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}} // (change y)
+
 void menuRight() {
   // page 0: iterate to next relay function name.
   if ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); nextRelayFunctionName();}
-  // else go to next page
+  // else go to next page (change x)
   else {nextPageFunction();)}
 }
+
 void menuLeft() {
   // page 0: iterate to previous relay function name.
   if ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); previousRelayFunctionName();}
-  // else go to previous page
+  // else go to previous page (change x)
   else {previousPageFunction();}
 }
+
 void menuSelect() {
   // page zero only
   if (menuData.page == 0) {
