@@ -3764,7 +3764,8 @@ void SSD_Display_GNGGA() {
   display_6.setTextAlignment(TEXT_ALIGN_CENTER); display_6.setColor(BLACK); display_6.drawString(display_6.getWidth()/2, 0, "GNGGA");
   display_6.setColor(WHITE); display_6.drawRect(0, 16, display_6.getWidth(), display_6.getHeight()-16);
 
-  display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()/2, 15, "PF " + String(gnggaData.hdop_precision_factor) + " P " + String(gnggaData.positioning_status) + " S " + String(gnggaData.satellite_count_gngga));
+  display_6.setTextAlignment(TEXT_ALIGN_LEFT); display_6.setColor(WHITE); display_6.drawString(4, 15, "PF " + String(gnggaData.hdop_precision_factor));
+  display_6.setTextAlignment(TEXT_ALIGN_RIGHT); display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()-4, 15,  "P " + String(gnggaData.positioning_status) + " S " + String(gnggaData.satellite_count_gngga));
 
   display_6.setTextAlignment(TEXT_ALIGN_LEFT); display_6.setColor(WHITE); display_6.drawString(4, 24, "T");
   display_6.setTextAlignment(TEXT_ALIGN_RIGHT); display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()-4, 24, String(gnggaData.utc_time));
