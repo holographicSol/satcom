@@ -262,6 +262,7 @@ struct TimeStruct {
   unsigned long seconds;
   unsigned long mainLoopTimeTaken;
   unsigned long mainLoopTimeStart;
+  unsigned long previous_seconds_ui;
 };
 TimeStruct timeData;
 
@@ -3868,15 +3869,22 @@ void SSD_Display_GNRMC() {
   display_7.setColor(WHITE); display_7.fillRect(display_7.getWidth()/4, 0, display_7.getWidth()/2, 14);
   display_7.setTextAlignment(TEXT_ALIGN_CENTER); display_7.setColor(BLACK); display_7.drawString(display_7.getWidth()/2, 0, "GNRMC");
   display_7.setColor(WHITE); display_7.drawRect(0, 16, display_7.getWidth(), display_7.getHeight()-16);
+
   display_7.setTextAlignment(TEXT_ALIGN_LEFT); display_7.setColor(WHITE); display_7.drawString(4, 15, "PS " + String(gnrmcData.positioning_status));
+
   display_7.setTextAlignment(TEXT_ALIGN_RIGHT); display_7.setColor(WHITE); display_7.drawString(display_7.getWidth()-4, 15, "MI " + String(gnrmcData.mode_indication));
+  
   display_7.setTextAlignment(TEXT_ALIGN_LEFT); display_7.setColor(WHITE);display_7.drawString(4, 24, "DT");
   display_7.setTextAlignment(TEXT_ALIGN_RIGHT); display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()-4, 24, String(gnrmcData.utc_date) + " " + String(gnrmcData.utc_time));
+
   display_7.setTextAlignment(TEXT_ALIGN_LEFT); display_7.setColor(WHITE);display_7.drawString(4, 33, String(gnrmcData.latitude_hemisphere));
   display_7.setTextAlignment(TEXT_ALIGN_RIGHT); display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()-4, 33, String(gnrmcData.latitude));
+
   display_7.setTextAlignment(TEXT_ALIGN_LEFT); display_7.setColor(WHITE);display_7.drawString(4, 42, String(gnrmcData.longitude_hemisphere));
   display_7.setTextAlignment(TEXT_ALIGN_RIGHT); display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()-4, 42, String(gnrmcData.longitude));
+
   display_7.setTextAlignment(TEXT_ALIGN_LEFT); display_7.setColor(WHITE);display_7.drawString(4, 51, "H " + String(gnrmcData.ground_heading));
+  
   display_7.setTextAlignment(TEXT_ALIGN_RIGHT); display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()-4, 51, "S " + String(gnrmcData.ground_speed));
   display_7.display();
 }
@@ -4333,6 +4341,16 @@ void setup() {
 
   init_sdcard();
   sdcard_load_matrix("matrix.txt");
+
+  // --------------------------------------------------------------------------------------------------------------------------
+  //                                                                                    SET MENU DISPLAY AFTER LOADING SETTINGS
+
+  /*
+  perfromance: calls to set menu display should be made only when required (serial commands, HIDs etc.)
+  this allows us to read the GPS senetences faster than if we are also constantly updating the menu but be sure to make the call
+  when required, so that any changes can be ammended and reflected in the menu ui immediately after they occur.
+  */
+  SSD_Display_2_Menu();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -4878,7 +4896,7 @@ void matrixSwitch() {
 //                                                                                            MENU NAVIGATION: HELPER FUNCTIONS
 
 /*
-ideally allows each single line in menu navigation to be an exact, clear x,y menu coordinate.
+ideally allows each single line in menu navigation to be an exact, clear xy menu coordinate.
 */
 
 void nextPageFunction() {
@@ -5040,7 +5058,6 @@ void menuSelect() {
   if (menuData.page == 4) {if (menuData.y != 0) {matrix_relays_disable_all();}}
   if (menuData.page == 5) {if (menuData.y != 0) {matrix_enable_all();}}
   if (menuData.page == 6) {if (menuData.y != 0) {matrix_relays_enable_all();}}
-
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -5320,6 +5337,9 @@ void readRXD_0() {
     else {
       Serial.println("[unknown] " + String(serial0Data.BUFFER));
     }
+
+    // update the menu (called explicitly when needed rather than every main loop iteration)
+    SSD_Display_2_Menu();
   }
 }
 
@@ -5343,10 +5363,9 @@ void loop() {
   for performance/efficiency only do the following if data is received OR if there may be an issue receiving, this way the matrix
   switch can remain operational for data that is not received while also performing better overall. (tunable)
   */  
+
   if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 10)) {
     serial1Data.badrcv_i=0;
-
-    SSD_Display_2_Menu();
 
     if (systemData.satcom_enabled == true) {extrapulatedSatData(); SSD_Display_SATCOM();} else {SSD_Display_SATCOM_Disabled();}
 
@@ -5357,7 +5376,7 @@ void loop() {
     if (systemData.gpatt_enabled == true) {SSD_Display_GPATT();} else {SSD_Display_GPATT_Disabled();}
 
     if (systemData.matrix_enabled == true) {matrixSwitch(); SSD_Display_MATRIX();} else {SSD_Display_MATRIX_Disabled();}
-    
+  
   }
   else {serial1Data.badrcv_i++;}
 
