@@ -4974,7 +4974,7 @@ void menuRight() {
   // page 0: iterate to next relay function name.
   if ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); nextRelayFunctionName();}
   // else go to next page (change x)
-  else {nextPageFunction();)}
+  else {nextPageFunction();}
 }
 
 void menuLeft() {
