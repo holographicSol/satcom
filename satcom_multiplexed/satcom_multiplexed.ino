@@ -4881,9 +4881,45 @@ void matrixSwitch() {
 ideally allows each single line in menu navigation to be an exact, clear x,y menu coordinate.
 */
 
-void scanFi() {for (int Fi = 0; Fi < 252; Fi++) {if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}}
+void nextPageFunction() {
+  // add 1 to x
+  menuData.x++;
+  if ((menuData.y == 0) && (menuData.x == 2)) {menuData.page++; menuData.x=1; menuData.y=0; if (menuData.page >= menuData.page_max) {menuData.page=0;}}
+  else if (menuData.x >= menuData.menu_max_x0) {menuData.x=0;}
+}
+
+void previousPageFunction() {
+  // deduct 1 from x
+  menuData.x--;
+  if ((menuData.y == 0) && (menuData.x == 0)) {menuData.page--; menuData.x=1; menuData.y=0; if (menuData.page <= -1) {menuData.page=menuData.page_max;}}
+  else if (menuData.x <= -1) {menuData.x=menuData.menu_max_x0-1;}
+}
+
+
+void scanFi() {
+  // index current function name
+  for (int Fi = 0; Fi < 252; Fi++) {if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}
+}
+
+void selectRelayI() {
+  // select a relay using numpad
+  menuData.page = 10; memset(menuData.input, 0, 256); itoa(menuData.relay_select, menuData.input, 10); menuData.numpad_key=0;
+}
+
+void nextRelayFunctionI() {
+  // add 1 to relay function select (iterate through a relays functions)
+  menuData.relay_function_select++;
+  if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}
+}
+
+void selectEnableDisableRelay() {
+  // enable/disable current relay 
+  if (relayData.relays_enable[0][menuData.relay_select] == 0) {relayData.relays_enable[0][menuData.relay_select] = 1;}
+  else {relayData.relays_enable[0][menuData.relay_select] = 0;}
+}
 
 void nextRelayFunctionName() {
+  // iterate through all available function names
   menuData.function_index++;
   if (menuData.function_index >= 252) {menuData.function_index=0;}
   memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56);
@@ -4891,21 +4927,15 @@ void nextRelayFunctionName() {
 }
 
 void previousRelayFunctionName() {
+  // iterate through all available function names
   menuData.function_index--;
   if (menuData.function_index <= -1) {menuData.function_index=252;}
   memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56);
   strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);
 }
 
-void setRelayFunctionName() {
-  if ((atoi(menuData.input) < 252) && (atoi(menuData.input) >=0)) {
-    menuData.function_index=atoi(menuData.input);
-    memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0 , 56);
-    strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);
-  }
-}
-
 void selectRelayFunctionName() {
+  // select a relay function using the numpad 
   menuData.page = 10;
   memset(menuData.input, 0, 256);
   scanFi();
@@ -4913,33 +4943,17 @@ void selectRelayFunctionName() {
   menuData.numpad_key=4;
 }
 
-void nextRelayFunctionI() {
-  menuData.relay_function_select++;
-  if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}
-}
-
-void nextPageFunction() {
-    menuData.x++;
-  if ((menuData.y == 0) && (menuData.x == 2)) {menuData.page++; menuData.x=1; menuData.y=0; if (menuData.page >= menuData.page_max) {menuData.page=0;}}
-  else if (menuData.x >= menuData.menu_max_x0) {menuData.x=0;}
-}
-
-void previousPageFunction() {
-  menuData.x--;
-  if ((menuData.y == 0) && (menuData.x == 0)) {menuData.page--; menuData.x=1; menuData.y=0; if (menuData.page <= -1) {menuData.page=menuData.page_max;}}
-  else if (menuData.x <= -1) {menuData.x=menuData.menu_max_x0-1;}
-}
-
-void selectEnableDisableRelay() {
-  if (relayData.relays_enable[0][menuData.relay_select] == 0) {relayData.relays_enable[0][menuData.relay_select] = 1;}
-  else {relayData.relays_enable[0][menuData.relay_select] = 0;}
-}
-
-void selectRelayI() {
-  menuData.page = 10; memset(menuData.input, 0, 256); itoa(menuData.relay_select, menuData.input, 10); menuData.numpad_key=0;
+void setRelayFunctionName() {
+  // set the function name selected by select relay function name
+  if ((atoi(menuData.input) < 252) && (atoi(menuData.input) >=0)) {
+    menuData.function_index=atoi(menuData.input);
+    memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0 , 56);
+    strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);
+  }
 }
 
 void selectRelayFunctionValueX() {
+  // use numpad to specify value x
   menuData.page = 10;
   memset(menuData.input, 0, 256);
   sprintf(menuData.input, "%f", relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]);
@@ -4947,6 +4961,7 @@ void selectRelayFunctionValueX() {
 }
 
 void selectRelayFunctionValueY() {
+  // use numpad to specify value y
   menuData.page = 10;
   memset(menuData.input, 0, 256);
   sprintf(menuData.input, "%f", relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]);
@@ -4954,6 +4969,7 @@ void selectRelayFunctionValueY() {
 }
 
 void selectRelayFunctionValueZ() {
+  // use numpad to specify value z
   menuData.page = 10;
   memset(menuData.input, 0, 256);
   sprintf(menuData.input, "%f", relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]);
@@ -4967,20 +4983,29 @@ void selectRelayFunctionValueZ() {
 keep it simple or consider creating a helper function so that each xy condition can be clear and on a single short line.
 */
 
-void menuDown() {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}}  // (change y)
-void menuUp() {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}} // (change y)
+void menuDown() {
+  // change y coordinate
+  menuData.y++;
+  if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}
+}
+
+void menuUp() {
+  // change y coordinate
+  menuData.y--;
+  if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}
+}
 
 void menuRight() {
   // page 0: iterate to next relay function name.
   if ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); nextRelayFunctionName();}
-  // else go to next page (change x)
+  // change x coordinate
   else {nextPageFunction();}
 }
 
 void menuLeft() {
   // page 0: iterate to previous relay function name.
   if ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); previousRelayFunctionName();}
-  // else go to previous page (change x)
+  // change x coordinate
   else {previousPageFunction();}
 }
 
