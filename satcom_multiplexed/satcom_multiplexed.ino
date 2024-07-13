@@ -2903,6 +2903,7 @@ void SSD_Display_2_Menu() {
     display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, String(menuData.input));
     // none selected.
     if (menuData.numpad_y == 0) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, "8");
@@ -2921,6 +2922,7 @@ void SSD_Display_2_Menu() {
     }
     // 7
     if ((menuData.numpad_y == 1) && (menuData.numpad_x == 0)) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(0, 16, display_2.getWidth()/3, 10);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
@@ -2940,6 +2942,7 @@ void SSD_Display_2_Menu() {
     }
     // 8
     if ((menuData.numpad_y == 1) && (menuData.numpad_x == 1)) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/3, 16, display_2.getWidth()/3, 10);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
@@ -2959,6 +2962,7 @@ void SSD_Display_2_Menu() {
     }
     // 9
     if ((menuData.numpad_y == 1) && (menuData.numpad_x == 2)) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/3), 16, display_2.getWidth()/3, 10);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
@@ -2978,6 +2982,7 @@ void SSD_Display_2_Menu() {
     }
     // 4
     if ((menuData.numpad_y == 2) && (menuData.numpad_x == 0)) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(0, 26, display_2.getWidth()/3, 9);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
@@ -2997,6 +3002,7 @@ void SSD_Display_2_Menu() {
     }
     // 5
     if ((menuData.numpad_y == 2) && (menuData.numpad_x == 1)) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/3, 26, display_2.getWidth()/3, 9);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
@@ -3016,6 +3022,7 @@ void SSD_Display_2_Menu() {
     }
     // 6
     if ((menuData.numpad_y == 2) && (menuData.numpad_x == 2)) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/3), 26, display_2.getWidth()/3, 9);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
@@ -3035,6 +3042,7 @@ void SSD_Display_2_Menu() {
     }
     // 1
     if ((menuData.numpad_y == 3) && (menuData.numpad_x == 0)) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(0, 35, display_2.getWidth()/3, 9);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
@@ -3054,6 +3062,7 @@ void SSD_Display_2_Menu() {
     }
     // 2
     if ((menuData.numpad_y == 3) && (menuData.numpad_x == 1)) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/3, 35, display_2.getWidth()/3, 9);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
@@ -3073,6 +3082,7 @@ void SSD_Display_2_Menu() {
     }
     // 3
     if ((menuData.numpad_y == 3) && (menuData.numpad_x == 2)) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/3), 35, display_2.getWidth()/3, 9);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
@@ -3092,6 +3102,7 @@ void SSD_Display_2_Menu() {
     }
     // 0
     if ((menuData.numpad_y == 4) && (menuData.numpad_x == 0)) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(0, 44, display_2.getWidth()/3, 9);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
@@ -3111,6 +3122,7 @@ void SSD_Display_2_Menu() {
     }
     // .
     if ((menuData.numpad_y == 4) && (menuData.numpad_x == 1)) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/3, 44, display_2.getWidth()/3, 9);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
@@ -3130,6 +3142,7 @@ void SSD_Display_2_Menu() {
     }
     // minus
     if ((menuData.numpad_y == 4) && (menuData.numpad_x == 2)) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/3), 44, display_2.getWidth()/3, 9);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
@@ -3149,6 +3162,7 @@ void SSD_Display_2_Menu() {
     }
     // enter
     if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0)) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(0, 53, display_2.getWidth()/2, 10);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
@@ -3168,6 +3182,7 @@ void SSD_Display_2_Menu() {
     }
     // delete
     if (((menuData.numpad_y == 5) && (menuData.numpad_x == 1)) || ((menuData.numpad_y == 5) && (menuData.numpad_x == 2))) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/2), 53, display_2.getWidth()/2, 10);
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()/3)/2, 15, "7");
