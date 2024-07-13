@@ -4916,7 +4916,7 @@ void menuSelect() {
     if ((menuData.y == 1) && (menuData.x == 0)) {menuData.page = 10; memset(menuData.input, 0, 256); itoa(menuData.relay_select, menuData.input, 10); menuData.numpad_key=0;}
     // select relay function
     if ((menuData.y == 1) && (menuData.x == 2)) {menuData.relay_function_select++; if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}}
-    // select relay function name
+    // select relay function name. performs a quick scan to index the currently selected function name.
     if (menuData.y == 2) {
       menuData.page = 10;
       memset(menuData.input, 0, 256);
