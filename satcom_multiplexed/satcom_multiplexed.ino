@@ -4879,7 +4879,7 @@ void matrixSwitch() {
 
 /*
 for menu navigation clarity: try to restrict menu navigation lines to a single line by creating helper functions here.
-ideally allowing a single line in menu navigation to be an exact x,y menu coordinate.
+ideally allowing each single line in menu navigation to be an exact, clear x,y menu coordinate.
 */
 
 void scanFi() {for (int Fi = 0; Fi < 252; Fi++) {if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}}
