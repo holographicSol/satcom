@@ -3768,13 +3768,10 @@ void SSD_Display_GNGGA() {
 
   display_6.setTextAlignment(TEXT_ALIGN_LEFT); display_6.setColor(WHITE); display_6.drawString(4, 24, "T");
   display_6.setTextAlignment(TEXT_ALIGN_RIGHT); display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()-4, 24, String(gnggaData.utc_time));
-
   display_6.setTextAlignment(TEXT_ALIGN_LEFT); display_6.setColor(WHITE); display_6.drawString(4, 33, String(gnggaData.latitude_hemisphere));
   display_6.setTextAlignment(TEXT_ALIGN_RIGHT); display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()-4, 33, String(gnggaData.latitude));
-
   display_6.setTextAlignment(TEXT_ALIGN_LEFT); display_6.setColor(WHITE); display_6.drawString(4, 42, String(gnggaData.longitude_hemisphere));
   display_6.setTextAlignment(TEXT_ALIGN_RIGHT); display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()-4, 42, String(gnggaData.longitude));
-
   display_6.setTextAlignment(TEXT_ALIGN_LEFT); display_6.setColor(WHITE); display_6.drawString(4, 51, "A");
   display_6.setTextAlignment(TEXT_ALIGN_RIGHT); display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()-4, 51, String(gnggaData.altitude));
 
