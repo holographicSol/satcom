@@ -2899,11 +2899,8 @@ void SSD_Display_2_Menu() {
 
   // numpad
   if (menuData.page == 10) {
-
     display_2.setColor(BLACK); display_2.fillRect(0, 0, display_2.getWidth(), display_2.getHeight());
-    
     display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, String(menuData.input));
-
     // none selected.
     if (menuData.numpad_y == 0) {
       display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15);
