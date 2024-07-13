@@ -5000,9 +5000,7 @@ void loop() {
 
     if (systemData.gpatt_enabled == true) {SSD_Display_GPATT();} else {SSD_Display_GPATT_Disabled();}
 
-    if (systemData.matrix_enabled == true) {matrixSwitch(); SSD_Display_MATRIX();} // else {SSD_Display_MATRIX_Disabled();}
-
-    SSD_Display_MATRIX();
+    if (systemData.matrix_enabled == true) {matrixSwitch();} else {SSD_Display_MATRIX_Disabled();}
     
   }
   else {serial1Data.badrcv_i++;}
