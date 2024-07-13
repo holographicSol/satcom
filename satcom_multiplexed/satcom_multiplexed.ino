@@ -4917,7 +4917,6 @@ void menuSelect() {
     // select relay function
     if ((menuData.y == 1) && (menuData.x == 2)) {menuData.relay_function_select++; if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}}
     // select relay function name
-    // if (menuData.y == 2) {menuData.page = 10; memset(menuData.input, 0, 256); itoa(menuData.relay_function_select, menuData.input, 10); menuData.numpad_key=4;} // todo for (XOR = 0, i = 0; i < strlen(string); i++)
     if (menuData.y == 2) {
       menuData.page = 10;
       memset(menuData.input, 0, 256);
