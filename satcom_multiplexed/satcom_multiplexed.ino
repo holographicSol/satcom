@@ -3221,7 +3221,7 @@ void SSD_Display_2_Menu() {
       }
     // select row 1 center
     if ((menuData.y == 1) && (menuData.x == 1)) {
-      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 16, display_2.getWidth()/2, 9);
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 16, display_2.getWidth()/2, 10);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
