@@ -2916,7 +2916,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // 7
     if ((menuData.numpad_y == 1) && (menuData.numpad_x == 0)) {
@@ -2934,7 +2934,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // 8
     if ((menuData.numpad_y == 1) && (menuData.numpad_x == 1)) {
@@ -2952,7 +2952,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // 9
     if ((menuData.numpad_y == 1) && (menuData.numpad_x == 2)) {
@@ -2970,7 +2970,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // 4
     if ((menuData.numpad_y == 2) && (menuData.numpad_x == 0)) {
@@ -2988,7 +2988,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // 5
     if ((menuData.numpad_y == 2) && (menuData.numpad_x == 1)) {
@@ -3006,7 +3006,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // 6
     if ((menuData.numpad_y == 2) && (menuData.numpad_x == 2)) {
@@ -3024,7 +3024,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // 1
     if ((menuData.numpad_y == 3) && (menuData.numpad_x == 0)) {
@@ -3042,7 +3042,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // 2
     if ((menuData.numpad_y == 3) && (menuData.numpad_x == 1)) {
@@ -3060,7 +3060,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // 3
     if ((menuData.numpad_y == 3) && (menuData.numpad_x == 2)) {
@@ -3078,7 +3078,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // 0
     if ((menuData.numpad_y == 4) && (menuData.numpad_x == 0)) {
@@ -3096,7 +3096,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // .
     if ((menuData.numpad_y == 4) && (menuData.numpad_x == 1)) {
@@ -3114,7 +3114,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // minus
     if ((menuData.numpad_y == 4) && (menuData.numpad_x == 2)) {
@@ -3132,7 +3132,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // enter
     if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0)) {
@@ -3150,7 +3150,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
     // delete
     if (((menuData.numpad_y == 5) && (menuData.numpad_x == 1)) || ((menuData.numpad_y == 5) && (menuData.numpad_x == 2))) {
@@ -3168,7 +3168,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, ".");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString((display_2.getWidth()-(display_2.getWidth()/3)/2), 44, "-");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 54, "ENTER");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 54, "DELETE");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 54, "DELETE");
     }
   }
 
@@ -3179,11 +3179,11 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 0, display_2.getWidth()/2, 14);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 15, "R " + String(menuData.relay_select));
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 15, "F " + String(menuData.relay_function_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
@@ -3194,11 +3194,11 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(2, 0, display_2.getWidth()/8, 14);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 15, "R " + String(menuData.relay_select));
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 15, "F " + String(menuData.relay_function_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
@@ -3209,11 +3209,11 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/8)-2, 0, display_2.getWidth()/8, 14);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 15, "R " + String(menuData.relay_select));
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 15, "F " + String(menuData.relay_function_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
@@ -3224,11 +3224,11 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 16, display_2.getWidth()/2, 10);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 15, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 15, "R " + String(menuData.relay_select));
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 15, "F " + String(menuData.relay_function_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
@@ -3239,11 +3239,11 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(0, 16, display_2.getWidth()/4, 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 15, "R " + String(menuData.relay_select));
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 15, "F " + String(menuData.relay_function_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
@@ -3254,11 +3254,11 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/4), 16, display_2.getWidth()/4, 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 15, "R " + String(menuData.relay_select));
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 15, "F " + String(menuData.relay_function_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 15, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
@@ -3269,11 +3269,11 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(0, 26, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 15, "R " + String(menuData.relay_select));
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 15, "F " + String(menuData.relay_function_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
@@ -3284,11 +3284,11 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(0, 35, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 15, "R " + String(menuData.relay_select));
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 15, "F " + String(menuData.relay_function_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 33, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
@@ -3299,11 +3299,11 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(0, 44, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 15, "R " + String(menuData.relay_select));
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 15, "F " + String(menuData.relay_function_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 42, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
@@ -3314,11 +3314,11 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(0, 53, display_2.getWidth(), 10);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 15, "R " + String(menuData.relay_select));
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 15, "F " + String(menuData.relay_function_select));
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "X " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "Y " + String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
@@ -3333,7 +3333,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 0, display_2.getWidth()/2, 14);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
@@ -3349,7 +3349,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
       display_2.setColor(WHITE); display_2.fillRect(2, 0, display_2.getWidth()/8, 14);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
@@ -3365,7 +3365,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/8)-2, 0, display_2.getWidth()/8, 14);
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
@@ -3381,7 +3381,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(0, 20, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 18, "SATCOM ");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
@@ -3397,7 +3397,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(2, 30, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
@@ -3413,7 +3413,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(2, 40, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
@@ -3429,7 +3429,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(2, 50, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
@@ -3451,7 +3451,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 0, display_2.getWidth()/2, 14);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
       }
@@ -3460,7 +3460,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(2, 0, display_2.getWidth()/8, 14);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
       }
@@ -3469,7 +3469,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/8)-2, 0, display_2.getWidth()/8, 14);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
       }
@@ -3478,7 +3478,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(0, 20, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 18, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
       }
@@ -3492,7 +3492,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 0, display_2.getWidth()/2, 14);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "DISABLE RELAYS");
       }
@@ -3501,7 +3501,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setColor(WHITE); display_2.fillRect(2, 0, display_2.getWidth()/8, 14);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "DISABLE RELAYS");
       }
@@ -3510,7 +3510,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/8)-2, 0, display_2.getWidth()/8, 14);
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "DISABLE RELAYS");
       }
@@ -3519,7 +3519,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(0, 20, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 18, "DISABLE RELAYS");
       }
@@ -3533,7 +3533,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 0, display_2.getWidth()/2, 14);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "DEACTIVATE RELAYS");
       }
@@ -3542,7 +3542,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setColor(WHITE); display_2.fillRect(2, 0, display_2.getWidth()/8, 14);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "DEACTIVATE RELAYS");
       }
@@ -3551,7 +3551,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/8)-2, 0, display_2.getWidth()/8, 14);
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(2, 16, display_2.getWidth()-4, display_2.getHeight()-18);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "DEACTIVATE RELAYS");
       }
@@ -3560,7 +3560,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(0, 20, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 18, "DEACTIVATE RELAYS");
       }
@@ -3574,7 +3574,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 0, display_2.getWidth()/2, 14);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ENABLE RELAYS");
       }
@@ -3583,7 +3583,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setColor(WHITE); display_2.fillRect(2, 0, display_2.getWidth()/8, 14);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ENABLE RELAYS");
       }
@@ -3592,7 +3592,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/8)-2, 0, display_2.getWidth()/8, 14);
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ENABLE RELAYS");
       }
@@ -3601,7 +3601,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(0, 20, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 18, "ENABLE RELAYS");
       }
@@ -3615,7 +3615,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 0, display_2.getWidth()/2, 14);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ACTIVATE RELAYS");
       }
@@ -3624,7 +3624,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setColor(WHITE); display_2.fillRect(2, 0, display_2.getWidth()/8, 14);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ACTIVATE RELAYS");
       }
@@ -3633,7 +3633,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/8)-2, 0, display_2.getWidth()/8, 14);
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ACTIVATE RELAYS");
       }
@@ -3642,7 +3642,7 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(0, 20, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 0, ">");
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 18, "ACTIVATE RELAYS");
       }
