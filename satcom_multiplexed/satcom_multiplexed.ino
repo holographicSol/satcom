@@ -4878,7 +4878,12 @@ void matrixSwitch() {
 //                                                                                                              MENU NAVIGATION
 
 void scanFi() {
-  // scans relay function names to set function_index according to current function name
+  /*
+  scans relay function names to set function_index according to current function name
+  used when toggling function name left/right.
+  used when selecting function name to enter function code (function index).
+  used when toggling Fi.
+  */
   for (int Fi = 0; Fi < 252; Fi++) {
     if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}
 }
