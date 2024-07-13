@@ -137,6 +137,22 @@ SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 SSD1306Wire   display_2(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                  SYSTEM DATA
+
+struct systemStruct {
+  bool satcom_enabled = true;
+  bool gngga_enabled = true;
+  bool gnrmc_enabled = true;
+  bool gpatt_enabled = true;
+  bool speed_enabled = true;
+  bool error_enabled = true;
+  bool debug_enabled = true;
+  bool matrix_enabled = true;
+  char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
+};
+systemStruct systemData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   DEBUG DATA
 
 struct sysDebugStruct {
@@ -149,6 +165,30 @@ struct sysDebugStruct {
   bool serial_0_sentence = true;
 };
 sysDebugStruct sysDebugData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    MENU DATA
+
+struct menuStruct {
+  int y = 0;
+  int x = 1;
+  int menu_max_y0 = 6;
+  int menu_max_x0 = 3;
+  int numpad_y = 0;
+  int numpad_x = 0;
+  int menu_numpad_max_y0 = 6;
+  int menu_numpad_max_x0 = 3;
+  char input[256];
+  int numpad_key = NULL;
+  bool select = false;
+  int page = 0;
+  int page_max = 3;
+  int relay_select = 0;
+  int relay_function_select = 0;
+  int function_index = 0;
+  
+};
+menuStruct menuData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                SERIAL 0 DATA
@@ -1100,8 +1140,6 @@ struct RelayStruct {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       }
   };
-
-  char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
 
   unsigned long relays_timing[1][40] = {
     {
@@ -2851,346 +2889,6 @@ void extrapulatedSatData() {
   }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   READ RXD 1
-
-void readRXD_1() {
-
-  serial1Data.rcv = false;
-
-  if (Serial1.available() > 0) {
-    
-    memset(serial1Data.BUFFER, 0, 2048);
-    serial1Data.nbytes = (Serial1.readBytesUntil('\n', serial1Data.BUFFER, sizeof(serial1Data.BUFFER)));
-    // Serial.println(serial1Data.nbytes); // debug
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    GNGGA
-
-    if (strncmp(serial1Data.BUFFER, "$GNGGA", 6) == 0) {
-      if ((serial1Data.nbytes == 94) || (serial1Data.nbytes == 90) ) {
-        serial1Data.rcv = true;
-        Serial.print(""); Serial.println(serial1Data.BUFFER);
-        gnggaData.valid_checksum = validateChecksum(serial1Data.BUFFER);
-        if (gnggaData.valid_checksum == true) {GNGGA();}
-        else {gnggaData.bad_checksum_validity++;}
-      }
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    GNRMC
-
-    else if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
-      if ((serial1Data.nbytes == 78) || (serial1Data.nbytes == 80)) {
-        serial1Data.rcv = true;
-        Serial.print(""); Serial.println(serial1Data.BUFFER);
-        gnrmcData.valid_checksum = validateChecksum(serial1Data.BUFFER);
-        if (gnrmcData.valid_checksum == true) {GNRMC();}
-        else {gnrmcData.bad_checksum_validity++;}
-      }
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    GPATT
-
-    else if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
-      if ((serial1Data.nbytes == 136) || (serial1Data.nbytes == 189)) {
-        serial1Data.rcv = true;
-        Serial.print(""); Serial.println(serial1Data.BUFFER);
-        gpattData.valid_checksum = validateChecksum(serial1Data.BUFFER);
-        if (gpattData.valid_checksum == true) {GPATT();}
-        else {gpattData.bad_checksum_validity++;}
-      }
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    DESBI
-
-    // else if (strncmp(serial1Data.BUFFER, "$DESBI", 6) == 0) {
-      // serial1Data.rcv = true;
-      // Serial.print(""); Serial.println(serial1Data.BUFFER);
-      // awaiting length checks and clarification: wait for clarification, take a ride with the laptop
-      // DESBI();
-    // }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    SPEED
-
-    // else if (strncmp(serial1Data.BUFFER, "$SPEED", 6) == 0) {
-      // serial1Data.rcv = true;
-      // Serial.print(""); Serial.println(serial1Data.BUFFER);
-      // awaiting length checks: take a ride with the laptop
-      // SPEED();
-    // }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    ERROR
-
-    // else if (strncmp(serial1Data.BUFFER, "$ERROR", 6) == 0) {
-      // serial1Data.rcv = true;
-      // Serial.print(""); Serial.println(serial1Data.BUFFER);
-      // awaiting length checks: take a ride with the laptop
-      // ERROR();
-    // }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    DEBUG
-
-    // else if (strncmp(serial1Data.BUFFER, "$DEBUG", 6) == 0) {
-      // serial1Data.rcv = true;
-      // Serial.print(""); Serial.println(serial1Data.BUFFER);
-      // awaiting length checks: take a ride with the laptop
-      // DEBUG();
-    // }
-
-    // else {
-    //   Serial.println("[unknown] " + String(serial1Data.BUFFER));
-    // }
-  }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    MENU DATA
-
-struct menuStruct {
-
-  int y = 0;
-  int x = 1;
-  int menu_max_y0 = 6;
-  int menu_max_x0 = 3;
-
-  int numpad_y = 0;
-  int numpad_x = 0;
-  int menu_numpad_max_y0 = 6;
-  int menu_numpad_max_x0 = 3;
-  char input[256];
-
-  int numpad_key = NULL;
-
-  bool select = false;
-
-  int page = 0;
-  int page_max = 2;
-
-  int relay_select = 0;
-  int relay_function_select = 0;
-  int function_index = 0;
-  
-};
-menuStruct menuData;
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                              MENU NAVIGATION
-
-void menuDown() {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}}
-
-void menuUp() {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}}
-
-void menuRight() {
-  menuData.x++;
-  if      ((menuData.y == 0) && (menuData.x == 2)) {menuData.page++; menuData.x=1; menuData.y=0; if (menuData.page >= menuData.page_max) {menuData.page=0;}}
-  else if (menuData.x >= menuData.menu_max_x0) {menuData.x=0;}
-}
-
-void menuLeft() {
-  menuData.x--;
-  if ((menuData.y == 0) && (menuData.x == 0)) {menuData.page--; menuData.x=1; menuData.y=0; if (menuData.page <= -1) {menuData.page=menuData.page_max;}}
-  else if (menuData.x <= -1) {menuData.x=menuData.menu_max_x0-1;}
-}
-
-void menuSelect() {
-  // page zero only
-  if (menuData.page == 0) {
-    // relay enable/disable
-    if ((menuData.y == 1) && (menuData.x == 1)) {if (relayData.relays_enable[0][menuData.relay_select] == 0) {relayData.relays_enable[0][menuData.relay_select] = 1;} else {relayData.relays_enable[0][menuData.relay_select] = 0;}}
-    // select relay
-    if ((menuData.y == 1) && (menuData.x == 0)) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=0;}
-    // select relay function
-    if ((menuData.y == 1) && (menuData.x == 2)) {menuData.relay_function_select++; if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}}
-    // select relay function name
-    if (menuData.y == 2) {
-      menuData.function_index++;
-      if (menuData.function_index >= 252) {menuData.function_index=0; } memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}
-    // set relay function value x
-    if (menuData.y == 3) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=1;}
-    // set relay function value y
-    if (menuData.y == 4) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=2;}
-    // set relay function value z
-    if (menuData.y == 5) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=3;}
-  }
-  // page one only
-  if (menuData.page == 1) {
-    if (menuData.y == 1) {matrix_override_on();} 
-    if (menuData.y == 2) {matrix_override_off();} 
-  }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                            NUMPAD NAVIGATION
-
-void numpadDown() {menuData.numpad_y++; if (menuData.numpad_y >= menuData.menu_numpad_max_y0) {menuData.numpad_y=0;}}
-void numpadUp() {menuData.numpad_y--; if (menuData.numpad_y <= -1) {menuData.numpad_y=menuData.menu_numpad_max_y0-1;}}
-void numpadRight() {menuData.numpad_x++; if (menuData.numpad_x >= menuData.menu_numpad_max_x0) {menuData.numpad_x=0;}}
-void numpadLeft() {menuData.numpad_x--; if (menuData.numpad_x <= -1) {menuData.numpad_x=menuData.menu_numpad_max_x0-1;}}
-void numpadSelect() {
-  if ((menuData.numpad_y == 1) && (menuData.numpad_x == 0)) {strcat(menuData.input, "7");}
-  if ((menuData.numpad_y == 1) && (menuData.numpad_x == 1)) {strcat(menuData.input, "8");}
-  if ((menuData.numpad_y == 1) && (menuData.numpad_x == 2)) {strcat(menuData.input, "9");}
-  if ((menuData.numpad_y == 2) && (menuData.numpad_x == 0)) {strcat(menuData.input, "4");}
-  if ((menuData.numpad_y == 2) && (menuData.numpad_x == 1)) {strcat(menuData.input, "5");}
-  if ((menuData.numpad_y == 2) && (menuData.numpad_x == 2)) {strcat(menuData.input, "6");}
-  if ((menuData.numpad_y == 3) && (menuData.numpad_x == 0)) {strcat(menuData.input, "1");}
-  if ((menuData.numpad_y == 3) && (menuData.numpad_x == 1)) {strcat(menuData.input, "2");}
-  if ((menuData.numpad_y == 3) && (menuData.numpad_x == 2)) {strcat(menuData.input, "3");}
-  if ((menuData.numpad_y == 4) && (menuData.numpad_x == 0)) {strcat(menuData.input, "0");}
-  if ((menuData.numpad_y == 4) && (menuData.numpad_x == 1)) {strcat(menuData.input, ".");}
-  if ((menuData.numpad_y == 4) && (menuData.numpad_x == 2)) {strcat(menuData.input, "-");}
-  // remove last char
-  if (((menuData.numpad_y == 5) && (menuData.numpad_x == 1)) || ((menuData.numpad_y == 5) && (menuData.numpad_x == 2))) {menuData.input[strlen(menuData.input)-1] = '\0';}
-  // set current relay index
-  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==0)) {menuData.page = 0; if ((atoi(menuData.input) < relayData.MAX_RELAYS) && (atoi(menuData.input) >= 0)) {menuData.relay_select = atoi(menuData.input);}}
-  // set relay function value x
-  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==1)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0] = strtod(menuData.input, &ptr);}
-  // set relay function value y
-  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==2)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1] = strtod(menuData.input, &ptr);}
-  // set relay function value z
-  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==3)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2] = strtod(menuData.input, &ptr);}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   READ RXD 0
-
-void readRXD_0() {
-
-  
-
-  if (Serial.available() > 0) {
-    
-    memset(serial0Data.BUFFER, 0, 2048);
-    serial0Data.nbytes = (Serial.readBytesUntil('\n', serial0Data.BUFFER, sizeof(serial0Data.BUFFER)));
-    // Serial.println(serial0Data.nbytes); // debug
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                        MATRIX: SET ENTRY
-
-    if (strncmp(serial0Data.BUFFER, "$MATRIX_SET_ENTRY", 17) == 0) {
-      matrix_set_entry();
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                             MATRIX: ENABLE/DISABLE ENTRY
-
-    else if (strncmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ENTRY", 19) == 0) {
-      matrix_set_enabled(true);
-    }
-
-    else if (strncmp(serial0Data.BUFFER, "$MATRIX_DISABLE_ENTRY", 21) == 0) {
-      matrix_set_enabled(false);
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                         MATRIX: OVERRIDE
-
-    else if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE_OFF") == 0) {
-      matrix_override_off();
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                       MATRIX: ENABLE ALL
-
-    else if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE_ON") == 0) {
-      matrix_override_on();
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                         SDCARD: SERIAL PRINT MATRIX FILE
-
-    else if (strcmp(serial0Data.BUFFER, "$SDCARD_READ_MATRIX") == 0) {
-      sdcard_read_to_serial("matrix.txt");
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                            SDCARD: SAVE MATRIX TO SDCARD
-
-    else if (strcmp(serial0Data.BUFFER, "$SDCARD_SAVE_MATRIX") == 0) {
-      sdcard_save_matrix("matrix.txt");
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                          SDCARD: LOAD MATRIX FROM SDCARD
-
-    else if (strcmp(serial0Data.BUFFER, "$SDCARD_LOAD_MATRIX") == 0) {
-      sdcard_load_matrix("matrix.txt");
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                              SATCOM: CONVERT COORDINATES
-
-    else if (strcmp(serial0Data.BUFFER, "$SATCOM_CONVERT_COORDINATES_ON") == 0) {
-      satcom_convert_coordinates_on();
-    }
-    else if (strcmp(serial0Data.BUFFER, "$SATCOM_CONVERT_COORDINATES_OFF") == 0) {
-      satcom_convert_coordinates_off();
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                      DISPLAY: BRIGHTNESS
-
-    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MAX") == 0) {
-      displayBrightness(1,1,1,1,1,1);
-    }
-    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MIN") == 0) {
-      displayBrightness(0,0,0,0,0,0);
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                          DISPLAY: ON/OFF
-
-    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_ON") == 0) {
-      displayOnOff(1,1,1, 1,1,1);
-    }
-    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_OFF") == 0) {
-      displayOnOff(0,0,0, 0,0,0);
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                          DISPLAY: INVERT
-
-    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_FLIP_VERTICALLY") == 0) {
-      displayFlipVertically(1,1,1, 1,1,1);
-    }
-    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_NORMAL") == 0) {
-      displayFlipVertically(0,0,0, 0,0,0);
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                             SATCOM: MENU
-
-    // any page less than 10
-    if (menuData.page < 10) {
-      if      (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {menuDown();}
-      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {menuUp();}
-      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {menuRight();}
-      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {menuLeft();}
-      else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {menuSelect();}
-    }
-    // numpad
-    else if (menuData.page == 10) {
-      if (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {numpadDown();}
-      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {numpadUp();}
-      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {numpadRight();}
-      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {numpadLeft();}
-      else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {numpadSelect();}
-    }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-
-    else {
-      Serial.println("[unknown] " + String(serial0Data.BUFFER));
-    }
-  }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 2
 
 void SSD_Display_2_Menu() {
@@ -3480,7 +3178,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
@@ -3494,7 +3192,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
@@ -3508,7 +3206,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
@@ -3522,7 +3220,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 14, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
@@ -3536,7 +3234,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
@@ -3550,7 +3248,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
@@ -3564,7 +3262,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
@@ -3578,7 +3276,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
@@ -3592,7 +3290,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
@@ -3606,7 +3304,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(relayData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 14, "R " + String(menuData.relay_select));
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 14, "F " + String(menuData.relay_function_select));
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
@@ -3668,6 +3366,99 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "ENABLE ALL RELAYS");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 24, "DISABLE ALL RELAYS");
       }
+    // null unless more entries
+    if (menuData.y >= 3) {menuData.y = 0;}
+  }
+
+  if (menuData.page == 2) {
+
+    display_2.clear();
+
+    // select top center
+    if ((menuData.y == 0) && (menuData.x == 1)) {
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()/4, 0, display_2.getWidth()/2, 14);
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      }
+    
+    // select top left
+    if ((menuData.y == 0) && (menuData.x == 0)) {
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
+      display_2.setColor(WHITE); display_2.fillRect(2, 0, display_2.getWidth()/8, 14);
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      }
+    
+    // select top right
+    if ((menuData.y == 0) && (menuData.x == 2)) {
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/8)-2, 0, display_2.getWidth()/8, 14);
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      }
+    
+    // select row 1 center
+    if (menuData.y == 1) {
+      display_2.setColor(WHITE); display_2.fillRect(2, 16, display_2.getWidth(), 10);
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      }
+    
+    // select row 2 center
+    if (menuData.y == 2) {
+      display_2.setColor(WHITE); display_2.fillRect(2, 26, display_2.getWidth(), 10);
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      }
+    
+    // select row 3 center
+    if (menuData.y == 3) {
+      display_2.setColor(WHITE); display_2.fillRect(2, 36, display_2.getWidth(), 10);
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      }
+    
+    // select row 4 center
+    if (menuData.y == 4) {
+      display_2.setColor(WHITE); display_2.fillRect(2, 46, display_2.getWidth(), 10);
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      }
+    // null unless more entries
+    if (menuData.y >= 5) {menuData.y = 0;}
   }
 
   display_2.display();
@@ -3682,12 +3473,12 @@ void SSD_Display_3() {
   display_3.setColor(WHITE);
   display_3.clear();
   display_3.drawString(display_3.getWidth()/2, 0, "MATRIX");
-  // if (menuData.page != 10) {
-  //   display_3.drawString(display_3.getWidth()/2, 14, "x" + String(menuData.x) + " y" + String(menuData.y) + "  s" + String(menuData.select) + " p" + String(menuData.page)); // menu x,y telemetry is here for debug menu navigation (uncomment to use)
-  // }
-  // else if (menuData.page == 10) {
-  //   display_3.drawString(display_3.getWidth()/2, 14, "x" + String(menuData.numpad_x) + " y" + String(menuData.numpad_y) + "  s" + String(menuData.select) + " p" + String(menuData.page)); // menu x,y telemetry is here for debug menu navigation (uncomment to use)
-  // }
+  if (menuData.page != 10) {
+    display_3.drawString(display_3.getWidth()/2, 14, "x" + String(menuData.x) + " y" + String(menuData.y) + "  s" + String(menuData.select) + " p" + String(menuData.page)); // menu x,y telemetry is here for debug menu navigation (uncomment to use)
+  }
+  else if (menuData.page == 10) {
+    display_3.drawString(display_3.getWidth()/2, 14, "x" + String(menuData.numpad_x) + " y" + String(menuData.numpad_y) + "  s" + String(menuData.select) + " p" + String(menuData.page)); // menu x,y telemetry is here for debug menu navigation (uncomment to use)
+  }
   display_3.drawString(display_3.getWidth()/2,24,""+String(relayData.relays_bool[0][0])+"  "+String(relayData.relays_bool[0][1])+"  "+String(relayData.relays_bool[0][2])+"  "+String(relayData.relays_bool[0][3])+"  "+String(relayData.relays_bool[0][4])+"  "+String(relayData.relays_bool[0][5])+"  "+String(relayData.relays_bool[0][6])+"  "+String(relayData.relays_bool[0][7])+"  "+String(relayData.relays_bool[0][8])+"  "+String(relayData.relays_bool[0][9]));
   display_3.drawString(display_3.getWidth()/2,34,""+String(relayData.relays_bool[0][10])+"  "+String(relayData.relays_bool[0][11])+"  "+String(relayData.relays_bool[0][12])+"  "+String(relayData.relays_bool[0][13])+"  "+String(relayData.relays_bool[0][14])+"  "+String(relayData.relays_bool[0][15])+"  "+String(relayData.relays_bool[0][16])+"  "+String(relayData.relays_bool[0][17])+"  "+String(relayData.relays_bool[0][18])+"  "+String(relayData.relays_bool[0][19]));
   display_3.drawString(display_3.getWidth()/2,44,""+String(relayData.relays_bool[0][20])+"  "+String(relayData.relays_bool[0][21])+"  "+String(relayData.relays_bool[0][22])+"  "+String(relayData.relays_bool[0][23])+"  "+String(relayData.relays_bool[0][24])+"  "+String(relayData.relays_bool[0][25])+"  "+String(relayData.relays_bool[0][26])+"  "+String(relayData.relays_bool[0][27])+"  "+String(relayData.relays_bool[0][28])+"  "+String(relayData.relays_bool[0][29]));
@@ -3698,7 +3489,7 @@ void SSD_Display_3() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 4
 
-void SSD_Display_4() {
+void SSD_Display_GPATT() {
   tcaselect(4);
   display_4.setTextAlignment(TEXT_ALIGN_CENTER);
   display_4.setColor(WHITE);
@@ -3711,10 +3502,20 @@ void SSD_Display_4() {
   display_4.display();
 }
 
+void SSD_Display_GPATT_Disabled() {
+  tcaselect(4);
+  display_4.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_4.setColor(WHITE);
+  display_4.clear();
+  display_4.drawString(display_4.getWidth()/2, 0, "GPATT");
+  display_4.drawString(display_4.getWidth()/2, 24, "[ DISABLED ]");
+  display_4.display();
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 5
 
-void SSD_Display_5() {
+void SSD_Display_SATCOM() {
   tcaselect(5);
   display_5.setTextAlignment(TEXT_ALIGN_CENTER);
   display_5.setColor(WHITE);
@@ -3727,10 +3528,20 @@ void SSD_Display_5() {
   display_5.display();
 }
 
+void SSD_Display_SATCOM_Disabled() {
+  tcaselect(5);
+  display_5.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_5.setColor(WHITE);
+  display_5.clear();
+  display_5.drawString(display_5.getWidth()/2, 0, "SATCOM");
+  display_5.drawString(display_5.getWidth()/2, 24, "[ DISABLED ]");
+  display_5.display();
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 6
 
-void SSD_Display_6() {
+void SSD_Display_GNGGA() {
   display_6.setColor(WHITE);
   tcaselect(6);
   display_6.setTextAlignment(TEXT_ALIGN_CENTER);
@@ -3744,10 +3555,20 @@ void SSD_Display_6() {
   display_6.display();
 }
 
+void SSD_Display_GNGGA_Disabled() {
+  tcaselect(6);
+  display_6.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_6.setColor(WHITE);
+  display_6.clear();
+  display_6.drawString(display_6.getWidth()/2, 0, "GNGGA");
+  display_6.drawString(display_6.getWidth()/2, 24, "[ DISABLED ]");
+  display_6.display();
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    DISPLAY 7
 
-void SSD_Display_7() {
+void SSD_Display_GNRMC() {
   tcaselect(7);
   display_7.setTextAlignment(TEXT_ALIGN_CENTER);
   display_7.setColor(WHITE);
@@ -3758,6 +3579,16 @@ void SSD_Display_7() {
   display_7.drawString(display_7.getWidth()/2, 34, String(gnrmcData.latitude_hemisphere) + " " + String(gnrmcData.latitude));
   display_7.drawString(display_7.getWidth()/2, 44, String(gnrmcData.longitude_hemisphere) + " " + String(gnrmcData.longitude));
   display_7.drawString(display_7.getWidth()/2, 54, "H " + String(gnrmcData.ground_heading) + " S " + String(gnrmcData.ground_speed));
+  display_7.display();
+}
+
+void SSD_Display_GNRMC_Disabled() {
+  tcaselect(7);
+  display_7.setTextAlignment(TEXT_ALIGN_CENTER);
+  display_7.setColor(WHITE);
+  display_7.clear();
+  display_7.drawString(display_7.getWidth()/2, 0, "GNRMC");
+  display_7.drawString(display_7.getWidth()/2, 24, "[ DISABLED ]");
   display_7.display();
 }
 
@@ -4734,6 +4565,323 @@ void matrixSwitch() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                              MENU NAVIGATION
+
+void menuDown() {menuData.y++; if (menuData.y >= menuData.menu_max_y0) {menuData.y=0;}}
+
+void menuUp() {menuData.y--; if (menuData.y <= -1) {menuData.y=menuData.menu_max_y0-1;}}
+
+void menuRight() {
+  menuData.x++;
+  if      ((menuData.y == 0) && (menuData.x == 2)) {menuData.page++; menuData.x=1; menuData.y=0; if (menuData.page >= menuData.page_max) {menuData.page=0;}}
+  else if (menuData.x >= menuData.menu_max_x0) {menuData.x=0;}
+}
+
+void menuLeft() {
+  menuData.x--;
+  if ((menuData.y == 0) && (menuData.x == 0)) {menuData.page--; menuData.x=1; menuData.y=0; if (menuData.page <= -1) {menuData.page=menuData.page_max;}}
+  else if (menuData.x <= -1) {menuData.x=menuData.menu_max_x0-1;}
+}
+
+void menuSelect() {
+  // page zero only
+  if (menuData.page == 0) {
+    // relay enable/disable
+    if ((menuData.y == 1) && (menuData.x == 1)) {if (relayData.relays_enable[0][menuData.relay_select] == 0) {relayData.relays_enable[0][menuData.relay_select] = 1;} else {relayData.relays_enable[0][menuData.relay_select] = 0;}}
+    // select relay
+    if ((menuData.y == 1) && (menuData.x == 0)) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=0;}
+    // select relay function
+    if ((menuData.y == 1) && (menuData.x == 2)) {menuData.relay_function_select++; if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}}
+    // select relay function name
+    if (menuData.y == 2) {
+      menuData.function_index++;
+      if (menuData.function_index >= 252) {menuData.function_index=0; } memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56); strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);}
+    // set relay function value x
+    if (menuData.y == 3) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=1;}
+    // set relay function value y
+    if (menuData.y == 4) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=2;}
+    // set relay function value z
+    if (menuData.y == 5) {menuData.page = 10; memset(menuData.input, 0, 256); menuData.numpad_key=3;}
+  }
+  // page one only
+  if (menuData.page == 1) {
+    if (menuData.y == 1) {matrix_override_on();} 
+    if (menuData.y == 2) {matrix_override_off();} 
+  }
+  // page two only
+  if (menuData.page == 2) {
+    if (menuData.y == 1) {if (systemData.satcom_enabled == true) {systemData.satcom_enabled = false;} else {systemData.satcom_enabled = true;}}
+    if (menuData.y == 2) {if (systemData.gngga_enabled == true) {systemData.gngga_enabled = false;} else {systemData.gngga_enabled = true;}}
+    if (menuData.y == 3) {if (systemData.gnrmc_enabled == true) {systemData.gnrmc_enabled = false;} else {systemData.gnrmc_enabled = true;}}
+    if (menuData.y == 4) {if (systemData.gpatt_enabled == true) {systemData.gpatt_enabled = false;} else {systemData.gpatt_enabled = true;}}
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                            NUMPAD NAVIGATION
+
+void numpadDown() {menuData.numpad_y++; if (menuData.numpad_y >= menuData.menu_numpad_max_y0) {menuData.numpad_y=0;}}
+void numpadUp() {menuData.numpad_y--; if (menuData.numpad_y <= -1) {menuData.numpad_y=menuData.menu_numpad_max_y0-1;}}
+void numpadRight() {menuData.numpad_x++; if (menuData.numpad_x >= menuData.menu_numpad_max_x0) {menuData.numpad_x=0;}}
+void numpadLeft() {menuData.numpad_x--; if (menuData.numpad_x <= -1) {menuData.numpad_x=menuData.menu_numpad_max_x0-1;}}
+void numpadSelect() {
+  if ((menuData.numpad_y == 1) && (menuData.numpad_x == 0)) {strcat(menuData.input, "7");}
+  if ((menuData.numpad_y == 1) && (menuData.numpad_x == 1)) {strcat(menuData.input, "8");}
+  if ((menuData.numpad_y == 1) && (menuData.numpad_x == 2)) {strcat(menuData.input, "9");}
+  if ((menuData.numpad_y == 2) && (menuData.numpad_x == 0)) {strcat(menuData.input, "4");}
+  if ((menuData.numpad_y == 2) && (menuData.numpad_x == 1)) {strcat(menuData.input, "5");}
+  if ((menuData.numpad_y == 2) && (menuData.numpad_x == 2)) {strcat(menuData.input, "6");}
+  if ((menuData.numpad_y == 3) && (menuData.numpad_x == 0)) {strcat(menuData.input, "1");}
+  if ((menuData.numpad_y == 3) && (menuData.numpad_x == 1)) {strcat(menuData.input, "2");}
+  if ((menuData.numpad_y == 3) && (menuData.numpad_x == 2)) {strcat(menuData.input, "3");}
+  if ((menuData.numpad_y == 4) && (menuData.numpad_x == 0)) {strcat(menuData.input, "0");}
+  if ((menuData.numpad_y == 4) && (menuData.numpad_x == 1)) {strcat(menuData.input, ".");}
+  if ((menuData.numpad_y == 4) && (menuData.numpad_x == 2)) {strcat(menuData.input, "-");}
+  // remove last char
+  if (((menuData.numpad_y == 5) && (menuData.numpad_x == 1)) || ((menuData.numpad_y == 5) && (menuData.numpad_x == 2))) {menuData.input[strlen(menuData.input)-1] = '\0';}
+  // set current relay index
+  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==0)) {menuData.page = 0; if ((atoi(menuData.input) < relayData.MAX_RELAYS) && (atoi(menuData.input) >= 0)) {menuData.relay_select = atoi(menuData.input);}}
+  // set relay function value x
+  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==1)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0] = strtod(menuData.input, &ptr);}
+  // set relay function value y
+  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==2)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1] = strtod(menuData.input, &ptr);}
+  // set relay function value z
+  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==3)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2] = strtod(menuData.input, &ptr);}
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                   READ RXD 1
+
+void readRXD_1() {
+
+  serial1Data.rcv = false;
+
+  if (Serial1.available() > 0) {
+    
+    memset(serial1Data.BUFFER, 0, 2048);
+    serial1Data.nbytes = (Serial1.readBytesUntil('\n', serial1Data.BUFFER, sizeof(serial1Data.BUFFER)));
+    // Serial.println(serial1Data.nbytes); // debug
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                                    GNGGA
+    
+    if (systemData.gngga_enabled == true) {
+      if (strncmp(serial1Data.BUFFER, "$GNGGA", 6) == 0) {
+        if ((serial1Data.nbytes == 94) || (serial1Data.nbytes == 90) ) {
+          serial1Data.rcv = true;
+          Serial.print(""); Serial.println(serial1Data.BUFFER);
+          gnggaData.valid_checksum = validateChecksum(serial1Data.BUFFER);
+          if (gnggaData.valid_checksum == true) {GNGGA();}
+          else {gnggaData.bad_checksum_validity++;}
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                                    GNRMC
+
+    if (systemData.gnrmc_enabled == true) {
+      if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
+        if ((serial1Data.nbytes == 78) || (serial1Data.nbytes == 80)) {
+          serial1Data.rcv = true;
+          Serial.print(""); Serial.println(serial1Data.BUFFER);
+          gnrmcData.valid_checksum = validateChecksum(serial1Data.BUFFER);
+          if (gnrmcData.valid_checksum == true) {GNRMC();}
+          else {gnrmcData.bad_checksum_validity++;}
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                                    GPATT
+
+    if (systemData.gpatt_enabled == true) {
+      if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
+        if ((serial1Data.nbytes == 136) || (serial1Data.nbytes == 189)) {
+          serial1Data.rcv = true;
+          Serial.print(""); Serial.println(serial1Data.BUFFER);
+          gpattData.valid_checksum = validateChecksum(serial1Data.BUFFER);
+          if (gpattData.valid_checksum == true) {GPATT();}
+          else {gpattData.bad_checksum_validity++;}
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                                    SPEED
+
+    // if (systemData.speed_enabled == true) {
+    //   if (strncmp(serial1Data.BUFFER, "$SPEED", 6) == 0) {
+    //     serial1Data.rcv = true;
+    //     Serial.print(""); Serial.println(serial1Data.BUFFER);
+    //     awaiting length checks: take a ride with the laptop
+    //     SPEED();
+    //   }
+    // }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                                    ERROR
+
+    // if (systemData.error_enabled == true) {
+    //   if (strncmp(serial1Data.BUFFER, "$ERROR", 6) == 0) {
+    //     serial1Data.rcv = true;
+    //     Serial.print(""); Serial.println(serial1Data.BUFFER);
+    //     awaiting length checks: take a ride with the laptop
+    //     ERROR();
+    //   }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                                    DEBUG
+
+    // if (systemData.debug_enabled == true) {
+    //   if (strncmp(serial1Data.BUFFER, "$DEBUG", 6) == 0) {
+    //     serial1Data.rcv = true;
+    //     Serial.print(""); Serial.println(serial1Data.BUFFER);
+    //     awaiting length checks: take a ride with the laptop
+    //     DEBUG();
+    //   }
+
+    // else {
+    //   Serial.println("[unknown] " + String(serial1Data.BUFFER));
+    // }
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                   READ RXD 0
+
+void readRXD_0() {
+
+  
+
+  if (Serial.available() > 0) {
+    
+    memset(serial0Data.BUFFER, 0, 2048);
+    serial0Data.nbytes = (Serial.readBytesUntil('\n', serial0Data.BUFFER, sizeof(serial0Data.BUFFER)));
+    // Serial.println(serial0Data.nbytes); // debug
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                        MATRIX: SET ENTRY
+
+    if (strncmp(serial0Data.BUFFER, "$MATRIX_SET_ENTRY", 17) == 0) {
+      matrix_set_entry();
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                             MATRIX: ENABLE/DISABLE ENTRY
+
+    else if (strncmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ENTRY", 19) == 0) {
+      matrix_set_enabled(true);
+    }
+
+    else if (strncmp(serial0Data.BUFFER, "$MATRIX_DISABLE_ENTRY", 21) == 0) {
+      matrix_set_enabled(false);
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                         MATRIX: OVERRIDE
+
+    else if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE_OFF") == 0) {
+      matrix_override_off();
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                       MATRIX: ENABLE ALL
+
+    else if (strcmp(serial0Data.BUFFER, "$MATRIX_OVERRIDE_ON") == 0) {
+      matrix_override_on();
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                         SDCARD: SERIAL PRINT MATRIX FILE
+
+    else if (strcmp(serial0Data.BUFFER, "$SDCARD_READ_MATRIX") == 0) {
+      sdcard_read_to_serial("matrix.txt");
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                            SDCARD: SAVE MATRIX TO SDCARD
+
+    else if (strcmp(serial0Data.BUFFER, "$SDCARD_SAVE_MATRIX") == 0) {
+      sdcard_save_matrix("matrix.txt");
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                          SDCARD: LOAD MATRIX FROM SDCARD
+
+    else if (strcmp(serial0Data.BUFFER, "$SDCARD_LOAD_MATRIX") == 0) {
+      sdcard_load_matrix("matrix.txt");
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                              SATCOM: CONVERT COORDINATES
+
+    else if (strcmp(serial0Data.BUFFER, "$SATCOM_CONVERT_COORDINATES_ON") == 0) {
+      satcom_convert_coordinates_on();
+    }
+    else if (strcmp(serial0Data.BUFFER, "$SATCOM_CONVERT_COORDINATES_OFF") == 0) {
+      satcom_convert_coordinates_off();
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                      DISPLAY: BRIGHTNESS
+
+    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MAX") == 0) {
+      displayBrightness(1,1,1,1,1,1);
+    }
+    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MIN") == 0) {
+      displayBrightness(0,0,0,0,0,0);
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                          DISPLAY: ON/OFF
+
+    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_ON") == 0) {
+      displayOnOff(1,1,1, 1,1,1);
+    }
+    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_OFF") == 0) {
+      displayOnOff(0,0,0, 0,0,0);
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                          DISPLAY: INVERT
+
+    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_FLIP_VERTICALLY") == 0) {
+      displayFlipVertically(1,1,1, 1,1,1);
+    }
+    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_NORMAL") == 0) {
+      displayFlipVertically(0,0,0, 0,0,0);
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    //                                                                                                             SATCOM: MENU
+
+    // any page less than 10
+    if (menuData.page < 10) {
+      if      (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {menuDown();}
+      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {menuUp();}
+      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {menuRight();}
+      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {menuLeft();}
+      else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {menuSelect();}
+    }
+    // numpad
+    else if (menuData.page == 10) {
+      if (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {numpadDown();}
+      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {numpadUp();}
+      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {numpadRight();}
+      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {numpadLeft();}
+      else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {numpadSelect();}
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+
+    else {
+      Serial.println("[unknown] " + String(serial0Data.BUFFER));
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    MAIN LOOP
 
 void loop() {
@@ -4753,14 +4901,21 @@ void loop() {
   for performance/efficiency only do the following if data is received OR if there may be an issue receiving, this way the matrix
   switch can remain operational for data that is not received while also performing better overall. (tunable)
   */  
-  if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 10)) {serial1Data.badrcv_i=0; extrapulatedSatData();
-    matrixSwitch();
+  if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 10)) {
+    serial1Data.badrcv_i=0;
+
     SSD_Display_2_Menu();
-    SSD_Display_3();
-    SSD_Display_4();
-    SSD_Display_5();
-    SSD_Display_6();
-    SSD_Display_7();
+
+    if (systemData.satcom_enabled == true) {extrapulatedSatData(); SSD_Display_SATCOM();} else {SSD_Display_SATCOM_Disabled();}
+
+    if (systemData.gngga_enabled == true) {SSD_Display_GNGGA();} else {SSD_Display_GNGGA_Disabled();}
+
+    if (systemData.gnrmc_enabled == true) {SSD_Display_GNRMC();} else {SSD_Display_GNRMC_Disabled();}
+
+    if (systemData.gpatt_enabled == true) {SSD_Display_GPATT();} else {SSD_Display_GPATT_Disabled();}
+
+    if (systemData.matrix_enabled == true) {matrixSwitch(); SSD_Display_3();}
+    
   }
   else {serial1Data.badrcv_i++;}
 
