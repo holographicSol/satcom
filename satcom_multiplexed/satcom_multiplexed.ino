@@ -67,6 +67,8 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                             Time server to robots and flying machines, and everything in between.
                        Some star and constellation calculations will be added soon that can be used at will
                               along with any other data currently available to calculate with.
+
+                        WARNING! the burn in is for real. auto display dim/off is not yet implemented.
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
