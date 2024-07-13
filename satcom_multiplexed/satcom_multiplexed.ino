@@ -3626,7 +3626,6 @@ void SSD_Display_Loading() {
   display_6.clear();
   display_6.drawString(display_6.getWidth()/2, 0, "[LOADING]");
   display_6.display();
-  // currently center display
   tcaselect(7);
   display_7.setTextAlignment(TEXT_ALIGN_CENTER);
   display_7.setColor(WHITE);
