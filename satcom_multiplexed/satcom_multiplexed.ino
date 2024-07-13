@@ -3334,10 +3334,15 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 28, "GNGGA ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 28, String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 38, "GNRMC ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 38, String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 48, "GPATT ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 48, String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
       }
     // select top left
     if ((menuData.y == 0) && (menuData.x == 0)) {
@@ -3345,10 +3350,15 @@ void SSD_Display_2_Menu() {
       display_2.setColor(WHITE); display_2.fillRect(2, 0, display_2.getWidth()/8, 14);
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 28, "GNGGA ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 28, String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 38, "GNRMC ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 38, String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 48, "GPATT ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 48, String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
       }
     // select top right
     if ((menuData.y == 0) && (menuData.x == 2)) {
@@ -3356,54 +3366,79 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setColor(WHITE); display_2.fillRect(display_2.getWidth()-(display_2.getWidth()/8)-2, 0, display_2.getWidth()/8, 14);
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 28, "GNGGA ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 28, String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 38, "GNRMC ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 38, String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 48, "GPATT ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 48, String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
       }
     // select row 1 center
     if (menuData.y == 1) {
-      display_2.setColor(WHITE); display_2.fillRect(2, 16, display_2.getWidth(), 10);
+      display_2.setColor(WHITE); display_2.fillRect(2, 20, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 18, "SATCOM ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 28, "GNGGA ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 28, String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 38, "GNRMC ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 38, String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 48, "GPATT ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 48, String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
       }
     // select row 2 center
     if (menuData.y == 2) {
-      display_2.setColor(WHITE); display_2.fillRect(2, 26, display_2.getWidth(), 10);
+      display_2.setColor(WHITE); display_2.fillRect(2, 30, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 28, "GNGGA ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-2, 28, String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 38, "GNRMC ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 38, String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 48, "GPATT ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 48, String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
       }
     // select row 3 center
     if (menuData.y == 3) {
-      display_2.setColor(WHITE); display_2.fillRect(2, 36, display_2.getWidth(), 10);
+      display_2.setColor(WHITE); display_2.fillRect(2, 40, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 28, "GNGGA ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 28, String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 38, "GNRMC ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-2, 38, String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 48, "GPATT ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 48, String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
       }
     // select row 4 center
     if (menuData.y == 4) {
-      display_2.setColor(WHITE); display_2.fillRect(2, 46, display_2.getWidth(), 10);
+      display_2.setColor(WHITE); display_2.fillRect(2, 50, display_2.getWidth(), 9);
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "SATELLITE");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(2, 0, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-7, 0, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 14, "SATCOM " + String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "GNGGA " + String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 34, "GNRMC " + String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 44, "GPATT " + String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16);
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 28, "GNGGA ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 28, String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 38, "GNRMC ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 38, String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 48, "GPATT ");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-2, 48, String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
       }
     // null unless more entries
     if (menuData.y >= 5) {menuData.y = 0;}
