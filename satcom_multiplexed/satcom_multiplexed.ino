@@ -4989,9 +4989,9 @@ void menuSelect() {
   if (menuData.page == 0) {
     // select relay --> go to numpad
     if ((menuData.y == 1) && (menuData.x == 0)) {selectRelayI();}
-    // select relay enable/disable --> 
+    // select relay enable/disable --> sets true or false
     if ((menuData.y == 1) && (menuData.x == 1)) {selectEnableDisableRelay();}
-    // select relay function (0-N) --> 
+    // select relay function --> iterates to next relays function
     if ((menuData.y == 1) && (menuData.x == 2)) {scanFi(); nextRelayFunctionI();}
     // select relay function name --> go to numpad
     if (menuData.y == 2) {selectRelayFunctionName();}
