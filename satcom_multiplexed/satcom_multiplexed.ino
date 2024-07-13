@@ -5367,6 +5367,9 @@ void loop() {
   if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 10)) {
     serial1Data.badrcv_i=0;
 
+    // uncomment to update menu ui every loop. recommended to only update menu ui when required.
+    // SSD_Display_2_Menu();
+
     if (systemData.satcom_enabled == true) {extrapulatedSatData(); SSD_Display_SATCOM();} else {SSD_Display_SATCOM_Disabled();}
 
     if (systemData.gngga_enabled == true) {SSD_Display_GNGGA();} else {SSD_Display_GNGGA_Disabled();}
