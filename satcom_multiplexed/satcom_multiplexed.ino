@@ -4112,7 +4112,7 @@ void matrix_set_enabled(bool b) {
 /*
 disable all matrix entries. does not directly turn relays off, instead prevents relays turning on. this allows for overriding
 the matrix switch without deactivating anything that may be / should remain activated. automatically deactivating a relay when
-a relay is made disabled, should be explicitly set and is not yet a feature.
+a relay is made disabled, should be explicitly configured and is not yet a feature.
 */
 void matrix_disable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=0;}}
 
