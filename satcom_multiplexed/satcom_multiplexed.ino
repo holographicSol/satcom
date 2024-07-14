@@ -3831,10 +3831,8 @@ void SSD_Display_GNGGA() {
   display_6.setColor(WHITE); display_6.fillRect(display_6.getWidth()/4, 0, display_6.getWidth()/2, 14);
   display_6.setTextAlignment(TEXT_ALIGN_CENTER); display_6.setColor(BLACK); display_6.drawString(display_6.getWidth()/2, 0, "GNGGA");
   display_6.setColor(WHITE); display_6.drawRect(0, 16, display_6.getWidth(), display_6.getHeight()-16);
-
   display_6.setTextAlignment(TEXT_ALIGN_LEFT); display_6.setColor(WHITE); display_6.drawString(4, 15, "PF " + String(gnggaData.hdop_precision_factor));
   display_6.setTextAlignment(TEXT_ALIGN_RIGHT); display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()-4, 15,  "P " + String(gnggaData.positioning_status) + "  S " + String(gnggaData.satellite_count_gngga));
-
   display_6.setTextAlignment(TEXT_ALIGN_LEFT); display_6.setColor(WHITE); display_6.drawString(4, 24, "T");
   display_6.setTextAlignment(TEXT_ALIGN_RIGHT); display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()-4, 24, String(gnggaData.utc_time));
   display_6.setTextAlignment(TEXT_ALIGN_LEFT); display_6.setColor(WHITE); display_6.drawString(4, 33, String(gnggaData.latitude_hemisphere));
@@ -3870,22 +3868,15 @@ void SSD_Display_GNRMC() {
   display_7.setColor(WHITE); display_7.fillRect(display_7.getWidth()/4, 0, display_7.getWidth()/2, 14);
   display_7.setTextAlignment(TEXT_ALIGN_CENTER); display_7.setColor(BLACK); display_7.drawString(display_7.getWidth()/2, 0, "GNRMC");
   display_7.setColor(WHITE); display_7.drawRect(0, 16, display_7.getWidth(), display_7.getHeight()-16);
-
   display_7.setTextAlignment(TEXT_ALIGN_LEFT); display_7.setColor(WHITE); display_7.drawString(4, 15, "PS " + String(gnrmcData.positioning_status));
-
   display_7.setTextAlignment(TEXT_ALIGN_RIGHT); display_7.setColor(WHITE); display_7.drawString(display_7.getWidth()-4, 15, "MI " + String(gnrmcData.mode_indication));
-  
   display_7.setTextAlignment(TEXT_ALIGN_LEFT); display_7.setColor(WHITE);display_7.drawString(4, 24, "DT");
   display_7.setTextAlignment(TEXT_ALIGN_RIGHT); display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()-4, 24, String(gnrmcData.utc_date) + " " + String(gnrmcData.utc_time));
-
   display_7.setTextAlignment(TEXT_ALIGN_LEFT); display_7.setColor(WHITE);display_7.drawString(4, 33, String(gnrmcData.latitude_hemisphere));
   display_7.setTextAlignment(TEXT_ALIGN_RIGHT); display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()-4, 33, String(gnrmcData.latitude));
-
   display_7.setTextAlignment(TEXT_ALIGN_LEFT); display_7.setColor(WHITE);display_7.drawString(4, 42, String(gnrmcData.longitude_hemisphere));
   display_7.setTextAlignment(TEXT_ALIGN_RIGHT); display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()-4, 42, String(gnrmcData.longitude));
-
   display_7.setTextAlignment(TEXT_ALIGN_LEFT); display_7.setColor(WHITE);display_7.drawString(4, 51, "H " + String(gnrmcData.ground_heading));
-  
   display_7.setTextAlignment(TEXT_ALIGN_RIGHT); display_7.setColor(WHITE);display_7.drawString(display_7.getWidth()-4, 51, "S " + String(gnrmcData.ground_speed));
   display_7.display();
 }
