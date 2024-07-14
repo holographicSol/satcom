@@ -4346,9 +4346,9 @@ void setup() {
   //                                                                                    SET MENU DISPLAY AFTER LOADING SETTINGS
 
   /*
-  perfromance: calls to set menu display should be made only when required (serial commands, HIDs etc.)
-  this allows us to read the GPS senetences faster than if we are also constantly updating the menu but be sure to make the call
-  when required, so that any changes can be ammended and reflected in the menu ui immediately after they occur.
+  for perfromance reasons, calls to set menu display should be made only when required.
+  this allows us to read the GPS senetences faster than if we are also constantly updating the menu but be sure to take great
+  care that this call is made when required, so that the menu ui always reflects current data.
   */
   SSD_Display_2_Menu();
 }
