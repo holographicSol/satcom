@@ -4112,7 +4112,8 @@ void matrix_set_enabled(bool b) {
 /*
 disable all matrix entries. does not directly turn relays off, instead prevents relays turning on. this allows for overriding
 the matrix switch without deactivating anything that may be / should remain activated. automatically deactivating a relay when
-a relay is made disabled, should be explicitly configured and is not yet a feature. this is explicitly disable all.
+a relay is made disabled, should be explicitly configured and is not yet a feature. this is explicitly disable all relays
+from automatically turning on via matrix switch.
 */
 void matrix_disable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=0;}}
 
@@ -4120,7 +4121,7 @@ void matrix_disable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {re
 //                                                                                                            MATRIX ENABLE ALL
 
 
-// enable all matrix entries. does not directly turn relays on, instead enables relays turning on.
+// enable all matrix entries. does not directly turn relays on, instead enables relays turning on automatically via matrix switch
 void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=1;}}
 
 
@@ -4141,7 +4142,6 @@ void relays_activate_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {r
 
 
 // enable/disable coordinate conversion. performance/efficiency as required.
-
 void satcom_convert_coordinates_on()  {satData.convert_coordinates = true;}
 void satcom_convert_coordinates_off() {satData.convert_coordinates = false;}
 
