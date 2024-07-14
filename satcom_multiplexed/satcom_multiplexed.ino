@@ -42,8 +42,8 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                                           Wiring
                                   WTGPS300P TX               --> ESP32 io26 as RXD
                                   WTGPS300P VCC              --> ESP32 3.3/5v
-                                  TCA9548A i2C Multiplexer   --> ESP32 i2C (3.3v) (Optional)
-                                  x6 SSD1306 (blue & yellow) --> TCA9548A i2C Multiplexer (Optional)
+                                  TCA9548A i2C Multiplexer   --> ESP32 i2C (3.3v. ensure 3.3 not 5v)
+                                  x6 SSD1306 (blue & yellow) --> TCA9548A i2C Multiplexer
                                   SDCARD Adapter HW-125      --> CS 05, SCK 18, MOSI 23, MISO 19, VCC 5v (Optional)
 
 
@@ -69,6 +69,10 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                               along with any other data currently available to calculate with.
 
                         WARNING! the burn in is for real. auto display dim/off is not yet implemented.
+
+       This system operates perfectly as intended which is a lot of work. Ensure all wiring is correct and that devices are provided
+       correct voltages, namely the multiplexer which for example if given a 5v rail instead of the recommended 3.3v rail, will
+  cause problems such as ui menu system chaos. this is an electrical device, correct wiring is required for the system to work as intended.
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
