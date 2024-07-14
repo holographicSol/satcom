@@ -3770,7 +3770,7 @@ void SSD_Display_GPATT() {
   display_4.setTextAlignment(TEXT_ALIGN_RIGHT); display_4.setColor(WHITE); display_4.drawString(display_4.getWidth()-4, 28, "GST " + String(gpattData.gst_data));
   display_4.setTextAlignment(TEXT_ALIGN_RIGHT); display_4.setColor(WHITE); display_4.drawString(display_4.getWidth()-4, 38, "M " + String(gpattData.mileage));
   display_4.setTextAlignment(TEXT_ALIGN_LEFT); display_4.setColor(WHITE); display_4.drawString(4, 48, "INS " + String(gpattData.ins));
-  display_4.setTextAlignment(TEXT_ALIGN_RIGHT); display_4.setColor(WHITE); display_4.drawString(display_4.getWidth()-4, 48, "RIF " + String(gpattData.run_inetial_flag)+ "SF " + String(gpattData.static_flag) + " LF " + String(gpattData.line_flag));
+  display_4.setTextAlignment(TEXT_ALIGN_RIGHT); display_4.setColor(WHITE); display_4.drawString(display_4.getWidth()-4, 48, "RIF " + String(gpattData.run_inetial_flag)+ " SF " + String(gpattData.static_flag) + " LF " + String(gpattData.line_flag));
   display_4.display();
 }
 
