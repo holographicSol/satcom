@@ -3205,44 +3205,8 @@ void SSD_Display_2_Menu() {
 
   if (menuData.page == 0) {
     display_2.clear();
-    // select top center
-    if ((menuData.y == 0) && (menuData.x == 1)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 15, "R " + String(menuData.relay_select));
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, "F " + String(menuData.relay_function_select));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 33, "X");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 33, String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 42, "Y");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 42, String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 51, "Z");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 51, String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
-      }
-    // select top left
-    if ((menuData.y == 0) && (menuData.x == 0)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(systemData.translate_enable_bool[0][relayData.relays_enable[0][menuData.relay_select]]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 15, "R " + String(menuData.relay_select));
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, "F " + String(menuData.relay_function_select));
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 33, "X");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 33, String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 42, "Y");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 42, String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][1]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 51, "Z");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 51, String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
-      }
-    // select top right
-    if ((menuData.y == 0) && (menuData.x == 2)) {
+    // select row 0
+    if (menuData.y == 0) {
       display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
@@ -3313,7 +3277,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 51, "Z");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 51, String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
       }
-    // select row 2 center
+    // select row 2
     if (menuData.y == 2) {
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setColor(WHITE); display_2.fillRect(0, 26, display_2.getWidth(), 9); // item emphasis
@@ -3331,7 +3295,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 51, "Z");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 51, String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
       }
-    // select row 3 center
+    // select row 3
     if (menuData.y == 3) {
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setColor(WHITE); display_2.fillRect(0, 35, display_2.getWidth(), 9); // item emphasis
@@ -3349,7 +3313,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 51, "Z");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 51, String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
       }
-    // select row 4 center
+    // select row 4
     if (menuData.y == 4) {
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setColor(WHITE); display_2.fillRect(0, 44, display_2.getWidth(), 9); // item emphasis
@@ -3367,7 +3331,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 51, "Z");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 51, String(relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2]));
       }
-    // select row 5 center
+    // select row 5
     if (menuData.y == 5) {
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setColor(WHITE); display_2.fillRect(0, 53, display_2.getWidth(), 10); // item emphasis
@@ -3389,8 +3353,8 @@ void SSD_Display_2_Menu() {
 
   if (menuData.page == 1) {
     display_2.clear();
-    // select top center
-    if ((menuData.y == 0) && (menuData.x == 1)) {
+    // select row 0
+    if (menuData.y == 0) {
       display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "SATELLITE");
@@ -3405,39 +3369,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 48, "GPATT ");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 48, String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
       }
-    // select top left
-    if ((menuData.y == 0) && (menuData.x == 0)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "SATELLITE");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 28, "GNGGA ");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 28, String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 38, "GNRMC ");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 38, String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 48, "GPATT ");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 48, String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
-      }
-    // select top right
-    if ((menuData.y == 0) && (menuData.x == 2)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "SATELLITE");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 18, "SATCOM ");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 18, String(systemData.translate_enable_bool[0][systemData.satcom_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 28, "GNGGA ");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 28, String(systemData.translate_enable_bool[0][systemData.gngga_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 38, "GNRMC ");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 38, String(systemData.translate_enable_bool[0][systemData.gnrmc_enabled]));
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 48, "GPATT ");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 48, String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
-      }
-    // select row 1 center
+    // select row 1
     if (menuData.y == 1) {
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setColor(WHITE); display_2.fillRect(0, 20, display_2.getWidth(), 9); // item emphasis
@@ -3453,7 +3385,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 48, "GPATT ");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 48, String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
       }
-    // select row 2 center
+    // select row 2
     if (menuData.y == 2) {
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setColor(WHITE); display_2.fillRect(2, 30, display_2.getWidth(), 9); // item emphasis
@@ -3469,7 +3401,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 48, "GPATT ");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 48, String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
       }
-    // select row 3 center
+    // select row 3
     if (menuData.y == 3) {
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setColor(WHITE); display_2.fillRect(2, 40, display_2.getWidth(), 9); // item emphasis
@@ -3485,7 +3417,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 48, "GPATT ");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-2, 48, String(systemData.translate_enable_bool[0][systemData.gpatt_enabled]));
       }
-    // select row 4 center
+    // select row 4
     if (menuData.y == 4) {
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setColor(WHITE); display_2.fillRect(2, 50, display_2.getWidth(), 9); // item emphasis
@@ -3507,8 +3439,8 @@ void SSD_Display_2_Menu() {
 
   if (menuData.page == 2) {
     display_2.clear();
-    // select top center
-    if ((menuData.y == 0) && (menuData.x == 1)) {
+    // select row 0
+    if (menuData.y == 0) {
       display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
@@ -3516,25 +3448,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
       }
-    // select top left
-    if ((menuData.y == 0) && (menuData.x == 0)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
-      }
-    // select top right
-    if ((menuData.y == 0) && (menuData.x == 2)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 0, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "MATRIX " + String(systemData.translate_enable_bool[0][systemData.matrix_enabled]));
-      }
-    // select row 1 center
+    // select row 1
     if (menuData.y != 0) {
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setColor(WHITE); display_2.fillRect(0, 20, display_2.getWidth(), 9); // item emphasis
@@ -3548,8 +3462,8 @@ void SSD_Display_2_Menu() {
   
   if (menuData.page == 3) {
     display_2.clear();
-    // select top center
-    if ((menuData.y == 0) && (menuData.x == 1)) {
+    // select row 0
+    if (menuData.y == 0) {
       display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
@@ -3557,25 +3471,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "DISABLE RELAYS");
       }
-    // select top left
-    if ((menuData.y == 0) && (menuData.x == 0)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "DISABLE RELAYS");
-      }
-    // select top right
-    if ((menuData.y == 0) && (menuData.x == 2)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "DISABLE RELAYS");
-      }
-    // select row 1 center
+    // select row 1
     if (menuData.y != 0) {
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setColor(WHITE); display_2.fillRect(0, 20, display_2.getWidth(), 9); // item emphasis
@@ -3589,34 +3485,16 @@ void SSD_Display_2_Menu() {
     
   if (menuData.page == 4) {
     display_2.clear();
-    // select top center
-    if ((menuData.y == 0) && (menuData.x == 1)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "DEACTIVATE RELAYS");
+    // select row 0
+    if (menuData.y == 0) {
+    display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+    display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+    display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
+    display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+    display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+    display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "DEACTIVATE RELAYS");
       }
-    // select top left
-    if ((menuData.y == 0) && (menuData.x == 0)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "DEACTIVATE RELAYS");
-      }
-    // select top right
-    if ((menuData.y == 0) && (menuData.x == 2)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "DEACTIVATE RELAYS");
-      }
-    // select row 1 center
+    // select row 1
     if (menuData.y != 0) {
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setColor(WHITE); display_2.fillRect(0, 20, display_2.getWidth(), 9); // item emphasis
@@ -3630,34 +3508,16 @@ void SSD_Display_2_Menu() {
   
   if (menuData.page == 5) {
     display_2.clear();
-    // select top center
-    if ((menuData.y == 0) && (menuData.x == 1)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ENABLE RELAYS");
+    // select row 0
+    if (menuData.y == 0) {
+    display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+    display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+    display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
+    display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+    display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+    display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ENABLE RELAYS");
       }
-    // select top left
-    if ((menuData.y == 0) && (menuData.x == 0)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ENABLE RELAYS");
-      }
-    // select top right
-    if ((menuData.y == 0) && (menuData.x == 2)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ENABLE RELAYS");
-      }
-    // select row 1 center
+    // select row 1
     if (menuData.y != 0) {
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setColor(WHITE); display_2.fillRect(0, 20, display_2.getWidth(), 9); // item emphasis
@@ -3671,34 +3531,16 @@ void SSD_Display_2_Menu() {
 
   if (menuData.page == 6) {
     display_2.clear();
-    // select top center
-    if ((menuData.y == 0) && (menuData.x == 1)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ACTIVATE RELAYS");
+    // select row 0
+    if (menuData.y == 0) {
+    display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+    display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+    display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
+    display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+    display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+    display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ACTIVATE RELAYS");
       }
-    // select top left
-    if ((menuData.y == 0) && (menuData.x == 0)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ACTIVATE RELAYS");
-      }
-    // select top right
-    if ((menuData.y == 0) && (menuData.x == 2)) {
-      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
-      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "RELAYS");
-      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
-      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
-      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 20, "ACTIVATE RELAYS");
-      }
-    // select row 1 center
+    // select row 1
     if (menuData.y != 0) {
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
       display_2.setColor(WHITE); display_2.fillRect(0, 20, display_2.getWidth(), 9); // item emphasis
