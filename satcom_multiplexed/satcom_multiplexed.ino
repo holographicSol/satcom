@@ -4120,7 +4120,7 @@ void matrix_disable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {re
 //                                                                                                            MATRIX ENABLE ALL
 
 
-// enable all matrix entries. does not directly turn relays on, instead enables relays turning on automatically via matrix switch
+// enable all matrix entries. does not directly turn relays on, instead enables matrix switch automatically activating/deactivating relays.
 void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=1;}}
 
 
