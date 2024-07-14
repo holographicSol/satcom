@@ -145,13 +145,13 @@ SSD1306Wire   display_2(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 //                                                                                                                  SYSTEM DATA
 
 struct systemStruct {
-  bool satcom_enabled = true;
-  bool gngga_enabled = true;
-  bool gnrmc_enabled = true;
-  bool gpatt_enabled = true;
-  bool speed_enabled = true;
-  bool error_enabled = true;
-  bool debug_enabled = true;
+  bool satcom_enabled = false;
+  bool gngga_enabled = false;
+  bool gnrmc_enabled = false;
+  bool gpatt_enabled = false;
+  bool speed_enabled = false;
+  bool error_enabled = false;
+  bool debug_enabled = false;
   bool matrix_enabled = true;
   char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
 };
@@ -187,7 +187,7 @@ struct menuStruct {
   int numpad_key = NULL;
   bool select = false;
   int page = 2;
-  int page_max = 3;
+  int page_max = 4;
   int relay_select = 0;
   int relay_function_select = 0;
   int function_index = 0;
@@ -231,6 +231,10 @@ Serial1Struct serial1Data;
 //                                                                                                                  SDCARD DATA
 
 struct SDCardStruct {
+  char matrix_filename[56] = "MATRIX_0.SAVE";
+  char matrix_filepath[56] = "MATRIX/MATRIX_0.SAVE";
+  char system_dirs[2][56] = {"MATRIX", "SYSTEM"};
+  File root;
   unsigned long nbytes;
   unsigned long iter_token;
   char BUFFER[2048];
@@ -3475,7 +3479,6 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 42, String(relayData.relays_active_i));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 51, "ACTIVATE");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 51, String(relayData.relays_inactive_i));
-
       }
     // select row 1
     if (menuData.y == 1) {
@@ -3571,6 +3574,81 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 42, String(relayData.relays_active_i));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 51, "ACTIVATE");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 51, String(relayData.relays_inactive_i));
+      }
+  }
+
+  if (menuData.page == 3) {
+    display_2.clear();
+    // select row 0 matrix_filepath
+    if (menuData.y == 0) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), 10); // item emphasis: current file
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "FILE");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(sdcardData.matrix_filename));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "NEW");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "SAVE");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "LOAD");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 51, "DELETE");
+      }
+    if (menuData.y == 1) {menuData.y = 2;} // skip
+    if (menuData.y == 2) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), 10); // item emphasis: current file
+      display_2.setColor(WHITE); display_2.fillRect(0, 26, display_2.getWidth(), 10); // item emphasis
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "FILE");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(sdcardData.matrix_filename));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 24, "NEW");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "SAVE");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "LOAD");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 51, "DELETE");
+      }
+    if (menuData.y == 3) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), 10); // item emphasis: current file
+      display_2.setColor(WHITE); display_2.fillRect(0, 35, display_2.getWidth(), 10); // item emphasis
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "FILE");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(sdcardData.matrix_filename));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "NEW");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 33, "SAVE");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "LOAD");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 51, "DELETE");
+      }
+    if (menuData.y == 4) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), 10); // item emphasis: current file
+      display_2.setColor(WHITE); display_2.fillRect(0, 44, display_2.getWidth(), 10); // item emphasis
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "FILE");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(sdcardData.matrix_filename));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "NEW");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "SAVE");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 42, "LOAD");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 51, "DELETE");
+      }
+    if (menuData.y == 5) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), 10); // item emphasis: current file
+      display_2.setColor(WHITE); display_2.fillRect(0, 53, display_2.getWidth(), 10); // item emphasis
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "FILE");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 15, String(sdcardData.matrix_filename));
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 24, "NEW");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "SAVE");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "LOAD");
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 51, "DELETE");
       }
   }
 
@@ -3872,6 +3950,50 @@ bool sdcard_read_to_serial(char * file) {
     sdcardData.current_file.close(); return true;
   }
   else {sdcardData.current_file.close(); return false;}
+}
+
+void sdcard_mkdir(char * dir){
+  if (!sd.exists(dir)) {
+    Serial.println("[sdcard] attempting to create directory: " + String(dir));
+    if (!sd.mkdir(dir)) {Serial.println("[sdcard] failed to create directory: " + String(dir));}
+    else {Serial.println("[sdcard] found directory: " + String(dir));}}
+  else {Serial.println("[sdcard] directory already exists: " + String(dir));}
+}
+
+void sdcard_mkdirs() {for (int i = 0; i < 2; i++) {sdcard_mkdir(sdcardData.system_dirs[i]);}}
+
+void sdcard_calculate_filename(char * dir, char * name, char * ext) {
+  char tempname[1024];
+  char temppath[1024];
+  char temp_i[4];
+  for (int i = 0; i < 5; i++) {
+    memset(temppath, 0, 1024); strcpy(temppath, dir); strcat(temppath, name); strcat(temppath, "_"); itoa(i, temp_i, 10); strcat(temppath, temp_i); strcat(temppath, ext);
+    memset(tempname, 0, 1024); strcat(tempname, name); strcat(tempname, "_"); strcat(tempname, temp_i); strcat(tempname, ext);
+    Serial.println("[sdcard] calculating: " + String(temppath));
+    if (!sd.exists(temppath)) {
+      Serial.println("[sdcard] calculated new filename: " + String(temppath));
+      memset(sdcardData.matrix_filepath, 0, 56); strcpy(sdcardData.matrix_filepath, temppath);
+      memset(sdcardData.matrix_filename, 0, 56); strcpy(sdcardData.matrix_filename, tempname);
+      break;}
+    else {Serial.println("[sdcard] skipping filename: " + String(temppath));}
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                  ZERO MATRIX
+
+void sdcard_zero_matrix() {
+  // iterate over each relay matrix
+  for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
+    relayData.relays_enable[0][Ri] = 0;
+    for (int Fi = 0; Fi < relayData.MAX_RELAY_ELEMENTS; Fi++) {
+      memset(relayData.relays[Ri][Fi], 0, 56);
+      strcpy(relayData.relays[Ri][Fi], "$NONE");
+      relayData.relays_data[Ri][Fi][0] = 0.0;
+      relayData.relays_data[Ri][Fi][1] = 0.0;
+      relayData.relays_data[Ri][Fi][2] = 0.0;
+    }
+  }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -4198,7 +4320,9 @@ void setup() {
   //                                                                                                               SETUP SDCARD
 
   init_sdcard();
-  sdcard_load_matrix("matrix.txt");
+
+  sdcard_mkdirs();
+  sdcard_load_matrix(sdcardData.matrix_filepath);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -4920,6 +5044,14 @@ void menuSelect() {
     if (menuData.y == 4) {relays_deactivate_all();}
     if (menuData.y == 5) {relays_activate_all();}
   }
+  // page 3 only sdcard_calculate_filename
+  if (menuData.page == 3) {
+    // new
+    if (menuData.y == 2) {sdcard_calculate_filename("MATRIX/", "MATRIX", ".SAVE"); sdcard_zero_matrix();}
+    if (menuData.y == 3) {sdcard_save_matrix(sdcardData.matrix_filepath);}
+    if (menuData.y == 4) {}
+    if (menuData.y == 5) {}
+  }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -5117,21 +5249,21 @@ void readRXD_0() {
     //                                                                                         SDCARD: SERIAL PRINT MATRIX FILE
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_READ_MATRIX") == 0) {
-      sdcard_read_to_serial("matrix.txt");
+      sdcard_read_to_serial(sdcardData.matrix_filepath);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                            SDCARD: SAVE MATRIX TO SDCARD
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_SAVE_MATRIX") == 0) {
-      sdcard_save_matrix("matrix.txt");
+      sdcard_save_matrix(sdcardData.matrix_filepath);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
     //                                                                                          SDCARD: LOAD MATRIX FROM SDCARD
 
     else if (strcmp(serial0Data.BUFFER, "$SDCARD_LOAD_MATRIX") == 0) {
-      sdcard_load_matrix("matrix.txt");
+      sdcard_load_matrix(sdcardData.matrix_filepath);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
