@@ -39,7 +39,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                          Headless / Standalone / Serial / Remote
 
 
-                                                          Wiring
+                                              Wiring (Keyestudio ESP32 Dev Board)
                                   WTGPS300P TX               --> ESP32 io26 as RXD (5v)
                                   TCA9548A i2C Multiplexer   --> ESP32 i2C (3.3v. ensure 3.3 not 5v)
                                   x6 SSD1306 (blue & yellow) --> TCA9548A i2C Multiplexer (wrired from sda/sdc 7 down)
