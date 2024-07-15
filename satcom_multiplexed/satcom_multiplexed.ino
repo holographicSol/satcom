@@ -5792,7 +5792,7 @@ void loop() {
 void ISR_RIGHT() {
   if ((debounce_t0_right - debounce_t1_right) > debounce_p0_right) {
     debounce_t1_right = debounce_t0_right;
-    Serial.println("[isr] menu right");
+    // Serial.println("[isr] menu right");
     if (menuData.page < 10) {menuData.isr_i = ISR_RIGHT_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_RIGHT_KEY;}
   }
@@ -5801,7 +5801,7 @@ void ISR_RIGHT() {
 void ISR_LEFT() {
   if ((debounce_t0_left - debounce_t1_left) > debounce_p0_left) {
     debounce_t1_left = debounce_t0_left;
-    Serial.println("[isr] menu left");
+    // Serial.println("[isr] menu left");
     if (menuData.page < 10) {menuData.isr_i = ISR_LEFT_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_LEFT_KEY;}
   }
@@ -5810,7 +5810,7 @@ void ISR_LEFT() {
 void ISR_UP() {
   if ((debounce_t0_up - debounce_t1_up) > debounce_p0_up) {
     debounce_t1_up = debounce_t0_up;
-    Serial.println("[isr] menu up");
+    // Serial.println("[isr] menu up");
     if (menuData.page < 10) {menuData.isr_i = ISR_UP_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_UP_KEY;}
   }
@@ -5819,7 +5819,7 @@ void ISR_UP() {
 void ISR_DOWN() {
   if ((debounce_t0_down - debounce_t1_down) > debounce_p0_down) {
     debounce_t1_down = debounce_t0_down;
-    Serial.println("[isr] menu down");
+    // Serial.println("[isr] menu down");
     if (menuData.page < 10) {menuData.isr_i = ISR_DOWN_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_DOWN_KEY;}
   }
@@ -5828,7 +5828,7 @@ void ISR_DOWN() {
 void ISR_SELECT() {
   if ((debounce_t0_select - debounce_t1_select) > debounce_p0_select) {
     debounce_t1_select = debounce_t0_select;
-    Serial.println("[isr] menu select");
+    // Serial.println("[isr] menu select");
     if (menuData.page < 10) {menuData.isr_i = ISR_SELECT_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_SELECT_KEY;}
   }
