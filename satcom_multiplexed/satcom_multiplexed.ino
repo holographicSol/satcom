@@ -5705,15 +5705,12 @@ void processData() {
 //                                                                                                                    MAIN LOOP
 
 void loop() {
-
   // store current time to measure this loop time
   timeData.mainLoopTimeStart = millis();
-
+  // keep track of time in seconds
   time_counter();
-
   // check serial input commands
   readRXD_0();
-  
   // check satellite receiver
   readRXD_1();
 
@@ -5735,34 +5732,22 @@ void loop() {
   for performance/efficiency only do the following if data is received OR if there may be an issue receiving, this way the matrix
   switch can remain operational for data that is not received while also performing better overall. (tunable)
   */  
-
   if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 5)) {
     serial1Data.badrcv_i=0;
-
     // uncomment to update menu ui every loop. may be recommended to only update menu ui when required.
     SSD_Display_2_Menu();
-
     if (systemData.satcom_enabled == true) {extrapulatedSatData(); SSD_Display_SATCOM();} else {SSD_Display_SATCOM_Disabled();}
-
     if (systemData.gngga_enabled == true) {SSD_Display_GNGGA();} else {SSD_Display_GNGGA_Disabled();}
-
     if (systemData.gnrmc_enabled == true) {SSD_Display_GNRMC();} else {SSD_Display_GNRMC_Disabled();}
-
     if (systemData.gpatt_enabled == true) {SSD_Display_GPATT();} else {SSD_Display_GPATT_Disabled();}
-
     if (systemData.matrix_enabled == true) {matrixSwitch(); SSD_Display_MATRIX();} else {SSD_Display_MATRIX_Disabled();}
-  
   }
   else {serial1Data.badrcv_i++;}
-
   // keep track of overall enabled/disabled relays
   countRelaysEnabled();
-
   // keep track of overall active/inactive relays
   countRelaysActive();
-
   delay(10);
-
   // store time taken to complete
   timeData.mainLoopTimeTaken = millis() - timeData.mainLoopTimeStart;
 }
