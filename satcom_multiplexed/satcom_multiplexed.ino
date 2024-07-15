@@ -5732,7 +5732,7 @@ void loop() {
   // keep track of overall active/inactive relays
   countRelaysActive();
 
-  delay(1);
+  delay(10);
 
   // store time taken to complete
   timeData.mainLoopTimeTaken = millis() - timeData.mainLoopTimeStart;
