@@ -4025,10 +4025,16 @@ void sdcard_calculate_filename_previous(char * dir, char * name, char * ext) {
 
 void sdcard_delete_matrix(char * file) {
   if (sd.exists(file)) {
+    Serial.println("[sdcard] attempting to delete file: " + String(sdcardData.matrix_filepath));
     sd.remove(file);
     sdcard_calculate_filename_previous("MATRIX/", "MATRIX", ".SAVE");
     sdcard_load_matrix(sdcardData.matrix_filepath);
+    if (!sd.exists(file)) {
+      Serial.println("[sdcard] successfully deleted file: " + String(sdcardData.matrix_filepath));
+    }
+    else {Serial.println("[sdcard] failed to deleted file: " + String(sdcardData.matrix_filepath));}
   }
+  else {Serial.println("[sdcard] file does not exist: " + String(sdcardData.matrix_filepath));}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
