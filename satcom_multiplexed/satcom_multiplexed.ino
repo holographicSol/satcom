@@ -202,7 +202,7 @@ menuStruct menuData;
 struct Serial0Struct {
   unsigned long nbytes;
   unsigned long iter_token;
-  char BUFFER[2048];
+  char BUFFER[1024];
   char * token = strtok(BUFFER, ",");
   char data_0[56];
   char data_1[56];
@@ -221,7 +221,7 @@ Serial0Struct serial0Data;
 struct Serial1Struct {
   unsigned long nbytes;
   unsigned long iter_token;
-  char BUFFER[2048];
+  char BUFFER[1024];
   char * token = strtok(BUFFER, ",");
   bool rcv = false;
   unsigned long badrcv_i;
@@ -5343,7 +5343,7 @@ void readRXD_1() {
 
   if (Serial1.available() > 0) {
     
-    memset(serial1Data.BUFFER, 0, 2048);
+    memset(serial1Data.BUFFER, 0, 1024);
     serial1Data.nbytes = (Serial1.readBytesUntil('\n', serial1Data.BUFFER, sizeof(serial1Data.BUFFER)));
     // Serial.println(serial1Data.nbytes); // debug
 
@@ -5438,7 +5438,7 @@ void readRXD_0() {
 
   if ((Serial.available() > 0) && (menuData.menu_lock == false)){
     
-    memset(serial0Data.BUFFER, 0, 2048);
+    memset(serial0Data.BUFFER, 0, 1024);
     serial0Data.nbytes = (Serial.readBytesUntil('\n', serial0Data.BUFFER, sizeof(serial0Data.BUFFER)));
     // Serial.println(serial0Data.nbytes); // debug
 
