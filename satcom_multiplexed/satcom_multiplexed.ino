@@ -2022,6 +2022,7 @@ RelayStruct relayData;
 //                                                                                                                   GNGGA DATA
 
 struct GNGGAStruct {
+  char sentence[1024];
   char tag[56];                                                                                                           // <0> Log header
   char utc_time[56];                    unsigned long bad_utc_time_i;              bool bad_utc_time = true;              // <1> UTC time, the format is hhmmss.sss
   char latitude[56];                    unsigned long bad_latitude_i;              bool bad_latitude = true;              // <2> Latitude, the format is  ddmm.mmmmmmm
@@ -2051,24 +2052,8 @@ GNGGAStruct gnggaData;
 void GNGGA() {
   gnggaData.check_data = 0;
   memset(gnggaData.tag, 0, 56);
-  memset(gnggaData.utc_time, 0, 56);
-  memset(gnggaData.latitude, 0, 56);
-  memset(gnggaData.latitude_hemisphere, 0, 56);
-  memset(gnggaData.longitude, 0, 56);
-  memset(gnggaData.longitude_hemisphere, 0, 56);
-  memset(gnggaData.positioning_status, 0, 56);
-  memset(gnggaData.satellite_count_gngga, 0, 56);
-  memset(gnggaData.hdop_precision_factor, 0, 56);
-  memset(gnggaData.altitude, 0, 56);
-  memset(gnggaData.altitude_units, 0, 56);
-  memset(gnggaData.geoidal, 0, 56);
-  memset(gnggaData.geoidal_units, 0, 56);
-  memset(gnggaData.differential_delay, 0, 56);
-  memset(gnggaData.id, 0, 56);
-  memset(gnggaData.check_sum, 0, 56);
-  memset(gnggaData.temporary_data, 0, 56);
   serial1Data.iter_token = 0;
-  serial1Data.token = strtok(serial1Data.BUFFER, ",");
+  serial1Data.token = strtok(gnggaData.sentence, ",");
   while( serial1Data.token != NULL ) {
     if     (serial1Data.iter_token == 0)                                                               {strcpy(gnggaData.tag, "GNGGA");                            gnggaData.check_data++;}
     else if (serial1Data.iter_token ==1)  {if (val_utc_time(serial1Data.token) == true)                 {strcpy(gnggaData.utc_time, serial1Data.token);              gnggaData.check_data++; gnggaData.bad_utc_time = false;}              else {gnggaData.bad_utc_time_i++;              gnggaData.bad_utc_time = true;}}
@@ -2118,6 +2103,7 @@ void GNGGA() {
 //                                                                                                                   GNRMC DATA
 
 struct GNRMCStruct {
+  char sentence[1024];
   char tag[56];                                                                                                                            // <0> Log header
   char utc_time[56];                       unsigned long bad_utc_time_i;                     bool bad_utc_time = true;                     // <1> UTC time, the format is hhmmss.sss
   char positioning_status[56];             unsigned long bad_positioning_status_i;           bool bad_positioning_status = true;           // <2> Positioning status, A=effective positioning, V=invalid positioning
@@ -2143,22 +2129,8 @@ GNRMCStruct gnrmcData;
 
 void GNRMC() {
   gnrmcData.check_data = 0;
-  memset(gnrmcData.tag, 0, 56);
-  memset(gnrmcData.utc_time, 0, 56);
-  memset(gnrmcData.positioning_status, 0, 56);
-  memset(gnrmcData.latitude, 0, 56);
-  memset(gnrmcData.latitude_hemisphere, 0, 56);
-  memset(gnrmcData.longitude, 0, 56);
-  memset(gnrmcData.longitude_hemisphere, 0, 56);
-  memset(gnrmcData.ground_speed, 0, 56);
-  memset(gnrmcData.ground_heading, 0, 56);
-  memset(gnrmcData.utc_date, 0, 56);
-  memset(gnrmcData.installation_angle, 0, 56);
-  memset(gnrmcData.installation_angle_direction, 0, 56);
-  memset(gnrmcData.mode_indication, 0, 56);
-  memset(gnrmcData.check_sum, 0, 56);
   serial1Data.iter_token = 0;
-  serial1Data.token = strtok(serial1Data.BUFFER, ",");
+  serial1Data.token = strtok(gnrmcData.sentence, ",");
   while( serial1Data.token != NULL ) {
     if      (serial1Data.iter_token == 0)                                                                  {strcpy(gnrmcData.tag, "GNRMC");                                   gnrmcData.check_data++;}
     else if (serial1Data.iter_token ==1)  {if (val_utc_time(serial1Data.token) == true)                     {strcpy(gnrmcData.utc_time, serial1Data.token);                     gnrmcData.check_data++; gnrmcData.bad_utc_time = false;}                     else {gnrmcData.bad_utc_time_i++;                     gnrmcData.bad_utc_time = true;}}
@@ -2204,6 +2176,7 @@ void GNRMC() {
 //                                                                                                                   GPATT DATA
 
 struct GPATTStruct {
+  char sentence[1024];
   char tag[56];                                                                                      // <0> Log header
   char pitch[56];            unsigned long bad_pitch_i;            bool bad_pitch = true;            // <1> pitch angle
   char angle_channel_0[56];  unsigned long bad_angle_channel_0_i;  bool bad_angle_channel_0 = true;  // <2> P
@@ -2256,48 +2229,8 @@ GPATTStruct gpattData;
 
 void GPATT() {
   gpattData.check_data = 0;
-  memset(gpattData.tag, 0, 56);
-  memset(gpattData.pitch, 0, 56);
-  memset(gpattData.angle_channel_0, 0, 56);
-  memset(gpattData.roll, 0, 56);
-  memset(gpattData.angle_channel_1, 0, 56);
-  memset(gpattData.yaw, 0, 56);
-  memset(gpattData.angle_channel_2, 0, 56);
-  memset(gpattData.software_version, 0, 56);
-  memset(gpattData.version_channel, 0, 56);
-  memset(gpattData.product_id, 0, 56);
-  memset(gpattData.id_channel, 0, 56);
-  memset(gpattData.ins, 0, 56);
-  memset(gpattData.ins_channel, 0, 56);
-  memset(gpattData.hardware_version, 0, 56);
-  memset(gpattData.run_state_flag, 0, 56);
-  memset(gpattData.mis_angle_num, 0, 56);
-  memset(gpattData.custom_logo_0, 0, 56);
-  memset(gpattData.custom_logo_1, 0, 56);
-  memset(gpattData.custom_logo_2, 0, 56);
-  memset(gpattData.static_flag, 0, 56);
-  memset(gpattData.user_code, 0, 56);
-  memset(gpattData.gst_data, 0, 56);
-  memset(gpattData.line_flag, 0, 56);
-  memset(gpattData.custom_logo_3, 0, 56);
-  memset(gpattData.mis_att_flag, 0, 56);
-  memset(gpattData.imu_kind, 0, 56);
-  memset(gpattData.ubi_car_kind, 0, 56);
-  memset(gpattData.mileage, 0, 56);
-  memset(gpattData.custom_logo_4, 0, 56);
-  memset(gpattData.custom_logo_5, 0, 56);
-  memset(gpattData.run_inetial_flag, 0, 56);
-  memset(gpattData.custom_logo_6, 0, 56);
-  memset(gpattData.custom_logo_7, 0, 56);
-  memset(gpattData.custom_logo_8, 0, 56);
-  memset(gpattData.speed_enable, 0, 56);
-  memset(gpattData.custom_logo_4, 0, 56);
-  memset(gpattData.custom_logo_5, 0, 56);
-  memset(gpattData.speed_num, 0, 56);
-  memset(gpattData.scalable, 0, 56);
-  memset(gpattData.check_sum, 0, 56);
   serial1Data.iter_token = 0;
-  serial1Data.token = strtok(serial1Data.BUFFER, ",");
+  serial1Data.token = strtok(gpattData.sentence, ",");
   while( serial1Data.token != NULL ) {
     if      (serial1Data.iter_token == 0)                                                             {strcpy(gpattData.tag, "GPATT");                       gpattData.check_data++;}
     else if (serial1Data.iter_token == 1) {if (val_pitch_gpatt(serial1Data.token) == true)             {strcpy(gpattData.pitch, serial1Data.token);            gpattData.check_data++; gpattData.bad_pitch = false;}            else {gpattData.bad_pitch_i++;            gpattData.bad_pitch = true;}}
@@ -2411,6 +2344,7 @@ status        ubi_state_kind
 */
 
 struct SPEEDStruct {
+  char sentence[1024];
   char tag[56];                                                                                                                          // <0> log header
   char utc_time[56];                         unsigned long bad_utc_time_i;                   bool bad_utc_time = true;                   // <1> utc time
   char speed[56];                            unsigned long bad_speed_i;                      bool bad_speed = true;                      // <2> ground speed: knots
@@ -2456,7 +2390,7 @@ void SPEED() {
   memset(speedData.ubi_state_value, 0, 56);
   memset(speedData.check_sum, 0, 56);
   serial1Data.iter_token = 0;
-  serial1Data.token = strtok(serial1Data.BUFFER, ",");
+  serial1Data.token = strtok(speedData.sentence, ",");
   while( serial1Data.token != NULL ) {
     if      (serial1Data.iter_token == 0)                                                                 {strcpy(speedData.tag, "SPEED");                                 speedData.check_data++;}
     else if (serial1Data.iter_token == 1)  {if (val_utc_time(serial1Data.token) == true)                   {strcpy(speedData.utc_time, serial1Data.token);                   speedData.check_data++; speedData.bad_utc_time = false;}                   else {speedData.bad_utc_time_i++;                   speedData.bad_utc_time = true;}}
@@ -2509,6 +2443,7 @@ void SPEED() {
 //                                                                                                                   ERROR DATA
 
 struct ERRORStruct {
+  char sentence[1024];
   char tag[56];                                                                              // <0> Log header
   char utc[56];            unsigned long bad_utc_i;             bool bad_utc = true;         // <1> utc time
   char code_flag[56];      unsigned long bad_code_flag_i;       bool bad_code_flag = true;   // <2> encryption chip: 1=problem, 0=normal
@@ -2537,7 +2472,7 @@ void ERROR() {
   memset(errorData.customize_1, 0, 56);
   memset(errorData.check_sum, 0, 56);
   serial1Data.iter_token = 0;
-  serial1Data.token = strtok(serial1Data.BUFFER, ",");
+  serial1Data.token = strtok(errorData.sentence, ",");
   while( serial1Data.token != NULL ) {
     if      (serial1Data.iter_token == 0)                                                 {strcpy(errorData.tag, "ERROR");                  errorData.check_data++;}
     else if (serial1Data.iter_token == 1) {if (val_utc_time(serial1Data.token) == true)    {strcpy(errorData.utc, serial1Data.token);         errorData.check_data++; errorData.bad_utc = false;}         else {errorData.bad_utc_i++;         errorData.bad_utc = true;}}
@@ -2571,6 +2506,7 @@ void ERROR() {
 //                                                                                                                   DEBUG DATA
 
 struct DEBUGStruct {
+  char sentence[1024];
   char tag[56];                                                                                 // <0> log header
   char ang_dget_flag[56];  unsigned long bad_ang_dget_flag_i;   bool bad_ang_dget_flag = true;  // <1> installation azimuth: 1=with azimuth, 0=without azimuth
   char fix_kind_flag[56];  unsigned long bad_fix_kind_flag_i;   bool bad_fix_kind_flag = true;  // <2> type of installed coordinate system
@@ -2640,7 +2576,7 @@ void DEBUG() {
   memset(debugData.custom_logo_5, 0, 56);
   memset(debugData.check_sum, 0, 56);
   serial1Data.iter_token = 0;
-  serial1Data.token = strtok(serial1Data.BUFFER, ",");
+  serial1Data.token = strtok(debugData.sentence, ",");
   while( serial1Data.token != NULL ) {
     if      (serial1Data.iter_token == 0)                                                     {strcpy(debugData.tag, "DEBUG");                     debugData.check_data++;}
     else if (serial1Data.iter_token == 1)  {if (val_ang_dget_flag(serial1Data.token) == true)  {strcpy(debugData.ang_dget_flag, serial1Data.token);  debugData.check_data++; debugData.bad_ang_dget_flag = false;}  else {debugData.bad_ang_dget_flag_i++;  debugData.bad_ang_dget_flag = true;}}
@@ -5433,13 +5369,12 @@ void readRXD_1() {
     
     if (systemData.gngga_enabled == true) {
       if (strncmp(serial1Data.BUFFER, "$GNGGA", 6) == 0) {
-        if ((serial1Data.nbytes == 94) || (serial1Data.nbytes == 90) ) {
-          serial1Data.rcv = true;
-          Serial.print(""); Serial.println(serial1Data.BUFFER);
-          gnggaData.valid_checksum = validateChecksum(serial1Data.BUFFER);
-          if (gnggaData.valid_checksum == true) {GNGGA();}
-          else {gnggaData.bad_checksum_validity++;}
-        }
+        serial1Data.rcv = true;
+        Serial.print(""); Serial.println(serial1Data.BUFFER);
+        strcpy(gnggaData.sentence, serial1Data.BUFFER);
+        gnggaData.valid_checksum = validateChecksum(gnggaData.sentence);
+        if (gnggaData.valid_checksum == true) {GNGGA();}
+        else {gnggaData.bad_checksum_validity++;}
       }
     }
 
@@ -5448,13 +5383,12 @@ void readRXD_1() {
 
     if (systemData.gnrmc_enabled == true) {
       if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
-        if ((serial1Data.nbytes == 78) || (serial1Data.nbytes == 80)) {
-          serial1Data.rcv = true;
-          Serial.print(""); Serial.println(serial1Data.BUFFER);
-          gnrmcData.valid_checksum = validateChecksum(serial1Data.BUFFER);
-          if (gnrmcData.valid_checksum == true) {GNRMC();}
-          else {gnrmcData.bad_checksum_validity++;}
-        }
+        serial1Data.rcv = true;
+        Serial.print(""); Serial.println(serial1Data.BUFFER);
+        strcpy(gnrmcData.sentence, serial1Data.BUFFER);
+        gnrmcData.valid_checksum = validateChecksum(gnrmcData.sentence);
+        if (gnrmcData.valid_checksum == true) {GNRMC();}
+        else {gnrmcData.bad_checksum_validity++;}
       }
     }
 
@@ -5463,13 +5397,12 @@ void readRXD_1() {
 
     if (systemData.gpatt_enabled == true) {
       if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
-        if ((serial1Data.nbytes == 136) || (serial1Data.nbytes == 189)) {
           serial1Data.rcv = true;
           Serial.print(""); Serial.println(serial1Data.BUFFER);
-          gpattData.valid_checksum = validateChecksum(serial1Data.BUFFER);
+          strcpy(gpattData.sentence, serial1Data.BUFFER);
+          gpattData.valid_checksum = validateChecksum(gpattData.sentence);
           if (gpattData.valid_checksum == true) {GPATT();}
           else {gpattData.bad_checksum_validity++;}
-        }
       }
     }
 
@@ -5661,6 +5594,23 @@ void readRXD_0() {
   }
 }
 
+void processData() {
+
+  gnggaData.valid_checksum = validateChecksum(gnggaData.sentence);
+  if (gnggaData.valid_checksum == true) {GNGGA();}
+  else {gnggaData.bad_checksum_validity++;}
+
+  gnrmcData.valid_checksum = validateChecksum(gnrmcData.sentence);
+  if (gnrmcData.valid_checksum == true) {GNRMC();}
+  else {gnrmcData.bad_checksum_validity++;}
+
+  gpattData.valid_checksum = validateChecksum(gpattData.sentence);
+  if (gpattData.valid_checksum == true) {GPATT();}
+  else {gpattData.bad_checksum_validity++;}
+
+
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                    MAIN LOOP
 
@@ -5672,8 +5622,8 @@ void loop() {
   time_counter();
 
   // check serial input commands
-  readRXD_0();
-
+  // readRXD_0();
+  
   // check satellite receiver
   readRXD_1();
 
