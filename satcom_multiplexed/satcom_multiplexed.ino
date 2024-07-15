@@ -5738,12 +5738,11 @@ void loop() {
   timeData.mainLoopTimeStart = millis();
   // keep track of time in seconds
   time_counter();
-  // check serial input commands
-  readRXD_0();
-  // check satellite receiver
-  readRXD_1();
 
-  // check input
+  // check serial input
+  readRXD_0();
+
+  // check button input
   int db0 = 50;
   int db1 = 50;
   if (menuData.isr_i == ISR_RIGHT_KEY) {delay(db0); menuRight(); menuData.isr_i=0; delay(db1);}
@@ -5756,6 +5755,9 @@ void loop() {
   if (menuData.isr_i == ISR_NPAD_UP_KEY) {delay(db0); numpadUp(); menuData.isr_i=0; delay(db1);}
   if (menuData.isr_i == ISR_NPAD_DOWN_KEY) {delay(db0); numpadDown(); menuData.isr_i=0; delay(db1);}
   if (menuData.isr_i == ISR_NPAD_SELECT_KEY) {delay(db0); numpadSelect(); menuData.isr_i=0; delay(db1);}
+
+  // check satellite receiver
+  readRXD_1();
 
   /*
   for performance/efficiency only do the following if data is received OR if there may be an issue receiving, this way the matrix
@@ -5772,11 +5774,13 @@ void loop() {
     if (systemData.matrix_enabled == true) {matrixSwitch(); SSD_Display_MATRIX();} else {SSD_Display_MATRIX_Disabled();}
   }
   else {serial1Data.badrcv_i++;}
+
   // keep track of overall enabled/disabled relays
   countRelaysEnabled();
   // keep track of overall active/inactive relays
   countRelaysActive();
-  delay(10);
+
+  delay(5);
   // store time taken to complete
   timeData.mainLoopTimeTaken = millis() - timeData.mainLoopTimeStart;
 
