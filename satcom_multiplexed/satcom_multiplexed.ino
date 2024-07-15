@@ -2372,23 +2372,6 @@ SPEEDStruct speedData;
 //                                                                                                                        SPEED
 
 void SPEED() {
-  memset(speedData.tag, 0, 56);
-  memset(speedData.utc_time, 0, 56);
-  memset(speedData.speed, 0, 56);
-  memset(speedData.status, 0, 56);
-  memset(speedData.acceleration_delimiter, 0, 56);
-  memset(speedData.acc_X, 0, 56);
-  memset(speedData.acc_Y, 0, 56);
-  memset(speedData.acc_Z, 0, 56);
-  memset(speedData.angular_velocity_delimiter, 0, 56);
-  memset(speedData.gyro_X, 0, 56);
-  memset(speedData.gyro_Y, 0, 56);
-  memset(speedData.gyro_Z, 0, 56);
-  memset(speedData.status_delimiter, 0, 56);
-  memset(speedData.ubi_state_flag, 0, 56);
-  memset(speedData.ubi_state_kind, 0, 56);
-  memset(speedData.ubi_state_value, 0, 56);
-  memset(speedData.check_sum, 0, 56);
   serial1Data.iter_token = 0;
   serial1Data.token = strtok(speedData.sentence, ",");
   while( serial1Data.token != NULL ) {
