@@ -154,13 +154,13 @@ struct systemStruct {
   bool debug_enabled = true;
   bool matrix_enabled = false;     // default: disabled
   bool autoresume_enabled = false; // default: disabled
-  bool output_satcom_enabled = true;
-  bool output_gngga_enabled = true;
-  bool output_gnrmc_enabled = true;
-  bool output_gpatt_enabled = true;
-  bool output_speed_enabled = true;
-  bool output_error_enabled = true;
-  bool output_debug_enabled = true;
+  bool output_satcom_enabled = false;
+  bool output_gngga_enabled = false;
+  bool output_gnrmc_enabled = false;
+  bool output_gpatt_enabled = false;
+  bool output_speed_enabled = false;
+  bool output_error_enabled = false;
+  bool output_debug_enabled = false;
   char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
 };
 systemStruct systemData;
@@ -4599,7 +4599,7 @@ void satcom_convert_coordinates_off() {satData.convert_coordinates = false;}
 void setup() {
 
   // --------------------------------------------------------------------------------------------------------------------------
-  //                                                                                                               SETUP SERIAL
+  //                                                                                                              SETUP: SERIAL
 
   Serial.begin(115200);
   Serial1.begin(115200); // ( RXD from WTGPS300P's TXD. io26 on ESP32 )
@@ -4607,12 +4607,12 @@ void setup() {
   delay(1000);
 
   // --------------------------------------------------------------------------------------------------------------------------
-  //                                                                                                                 SETUP WIRE
+  //                                                                                                                SETUP: WIRE
 
   Wire.begin();
 
   // --------------------------------------------------------------------------------------------------------------------------
-  //                                                                                                              SETUP DISPLAY
+  //                                                                                                             SETUP: DISPLAY
 
   tcaselect(2);
   initDisplay2();
@@ -4641,7 +4641,7 @@ void setup() {
   SSD_Display_Loading();
 
   // --------------------------------------------------------------------------------------------------------------------------
-  //                                                                                                               SETUP SDCARD
+  //                                                                                                              SETUP: SDCARD
 
   init_sdcard();
 
@@ -4651,6 +4651,12 @@ void setup() {
   // sdcard_save_system_configuration(sdcardData.sysconf, 3);
   sdcard_load_system_configuration(sdcardData.sysconf, 3);
   menuData.page = 2;
+
+  // --------------------------------------------------------------------------------------------------------------------------
+  //                                                                                                                 SETUP: ISR
+
+  attachInterrupt(34, ISR_RIGHT, FALLING);
+  attachInterrupt(33, ISR_LEFT, FALLING);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -5740,4 +5746,8 @@ void loop() {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 
+void ISR_RIGHT() {
+  Serial.println("[isr] menu right");
+  menuRight();
+}
 
