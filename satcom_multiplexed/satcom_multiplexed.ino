@@ -296,7 +296,7 @@ void tcaselect(uint8_t channel) {
 
 void initDisplay7() {
   display_7.init();
-  display_7.setContrast(255, 241);
+  display_7.setContrast(255);
   display_7.setFont(ArialMT_Plain_10);
   display_7.cls();
 }
@@ -306,7 +306,7 @@ void initDisplay7() {
 
 void initDisplay6() {
   display_6.init();
-  display_6.setContrast(255, 241);
+  display_6.setContrast(255);
   display_6.setFont(ArialMT_Plain_10);
   display_6.cls();
 }
@@ -316,7 +316,7 @@ void initDisplay6() {
 
 void initDisplay5() {
   display_5.init();
-  display_5.setContrast(255, 241);
+  display_5.setContrast(255);
   display_5.setFont(ArialMT_Plain_10);
   display_5.cls();
 }
@@ -326,7 +326,7 @@ void initDisplay5() {
 
 void initDisplay4() {
   display_4.init();
-  display_4.setContrast(255, 241);
+  display_4.setContrast(255);
   display_4.setFont(ArialMT_Plain_10);
   display_4.cls();
 }
@@ -337,7 +337,7 @@ void initDisplay4() {
 
 void initDisplay3() {
   display_3.init();
-  display_3.setContrast(255, 241);
+  display_3.setContrast(255);
   display_3.setFont(ArialMT_Plain_10);
   display_3.cls();
 }
@@ -347,7 +347,7 @@ void initDisplay3() {
 
 void initDisplay2() {
   display_2.init();
-  display_2.setContrast(255, 241);
+  display_2.setContrast(255);
   display_2.setFont(ArialMT_Plain_10);
   display_2.cls();
 }
@@ -2055,7 +2055,7 @@ void GNGGA() {
   serial1Data.iter_token = 0;
   serial1Data.token = strtok(gnggaData.sentence, ",");
   while( serial1Data.token != NULL ) {
-    if     (serial1Data.iter_token == 0)                                                               {strcpy(gnggaData.tag, "GNGGA");                            gnggaData.check_data++;}
+    if     (serial1Data.iter_token == 0)                                                                {strcpy(gnggaData.tag, "GNGGA");                             gnggaData.check_data++;}
     else if (serial1Data.iter_token ==1)  {if (val_utc_time(serial1Data.token) == true)                 {strcpy(gnggaData.utc_time, serial1Data.token);              gnggaData.check_data++; gnggaData.bad_utc_time = false;}              else {gnggaData.bad_utc_time_i++;              gnggaData.bad_utc_time = true;}}
     else if (serial1Data.iter_token ==2)  {if (val_latitude(serial1Data.token) == true)                 {strcpy(gnggaData.latitude, serial1Data.token);              gnggaData.check_data++; gnggaData.bad_latitude = false;}              else {gnggaData.bad_latitude_i++;              gnggaData.bad_latitude = true;}}
     else if (serial1Data.iter_token ==3)  {if (val_latitude_H(serial1Data.token) == true)               {strcpy(gnggaData.latitude_hemisphere, serial1Data.token);   gnggaData.check_data++; gnggaData.bad_latitude_hemisphere = false;}   else {gnggaData.bad_latitude_hemisphere_i++;   gnggaData.bad_latitude_hemisphere = true;}}
@@ -2132,7 +2132,7 @@ void GNRMC() {
   serial1Data.iter_token = 0;
   serial1Data.token = strtok(gnrmcData.sentence, ",");
   while( serial1Data.token != NULL ) {
-    if      (serial1Data.iter_token == 0)                                                                  {strcpy(gnrmcData.tag, "GNRMC");                                   gnrmcData.check_data++;}
+    if      (serial1Data.iter_token == 0)                                                                   {strcpy(gnrmcData.tag, "GNRMC");                                    gnrmcData.check_data++;}
     else if (serial1Data.iter_token ==1)  {if (val_utc_time(serial1Data.token) == true)                     {strcpy(gnrmcData.utc_time, serial1Data.token);                     gnrmcData.check_data++; gnrmcData.bad_utc_time = false;}                     else {gnrmcData.bad_utc_time_i++;                     gnrmcData.bad_utc_time = true;}}
     else if (serial1Data.iter_token ==2)  {if (val_positioning_status_gnrmc(serial1Data.token) == true)     {strcpy(gnrmcData.positioning_status, serial1Data.token);           gnrmcData.check_data++; gnrmcData.bad_positioning_status = false;}           else {gnrmcData.bad_positioning_status_i++;           gnrmcData.bad_positioning_status = true;}}
     else if (serial1Data.iter_token ==3)  {if (val_latitude(serial1Data.token) == true)                     {strcpy(gnrmcData.latitude, serial1Data.token);                     gnrmcData.check_data++; gnrmcData.bad_latitude = false;}                     else {gnrmcData.bad_latitude_i++;                     gnrmcData.bad_latitude = true;}}
@@ -2231,8 +2231,8 @@ void GPATT() {
   gpattData.check_data = 0;
   serial1Data.iter_token = 0;
   serial1Data.token = strtok(gpattData.sentence, ",");
-  while( serial1Data.token != NULL ) {
-    if      (serial1Data.iter_token == 0)                                                             {strcpy(gpattData.tag, "GPATT");                       gpattData.check_data++;}
+  while( serial1Data.token != NULL ) { 
+    if      (serial1Data.iter_token == 0)                                                              {strcpy(gpattData.tag, "GPATT");                        gpattData.check_data++;}
     else if (serial1Data.iter_token == 1) {if (val_pitch_gpatt(serial1Data.token) == true)             {strcpy(gpattData.pitch, serial1Data.token);            gpattData.check_data++; gpattData.bad_pitch = false;}            else {gpattData.bad_pitch_i++;            gpattData.bad_pitch = true;}}
     else if (serial1Data.iter_token == 2) {if (val_angle_channle_p_gpatt(serial1Data.token) == true)   {strcpy(gpattData.angle_channel_0, serial1Data.token);  gpattData.check_data++; gpattData.bad_angle_channel_0 = false;}  else {gpattData.bad_angle_channel_0_i++;  gpattData.bad_angle_channel_0 = true;}}
     else if (serial1Data.iter_token == 3) {if (val_roll_gpatt(serial1Data.token) == true)              {strcpy(gpattData.roll, serial1Data.token);             gpattData.check_data++; gpattData.bad_roll = false;}             else {gpattData.bad_roll_i++;             gpattData.bad_roll = true;}}
@@ -2375,7 +2375,7 @@ void SPEED() {
   serial1Data.iter_token = 0;
   serial1Data.token = strtok(speedData.sentence, ",");
   while( serial1Data.token != NULL ) {
-    if      (serial1Data.iter_token == 0)                                                                 {strcpy(speedData.tag, "SPEED");                                 speedData.check_data++;}
+    if      (serial1Data.iter_token == 0)                                                                  {strcpy(speedData.tag, "SPEED");                                  speedData.check_data++;}
     else if (serial1Data.iter_token == 1)  {if (val_utc_time(serial1Data.token) == true)                   {strcpy(speedData.utc_time, serial1Data.token);                   speedData.check_data++; speedData.bad_utc_time = false;}                   else {speedData.bad_utc_time_i++;                   speedData.bad_utc_time = true;}}
     else if (serial1Data.iter_token == 2)  {if (val_ground_speed(serial1Data.token) == true)               {strcpy(speedData.speed, serial1Data.token);                      speedData.check_data++; speedData.bad_speed = false;}                      else {speedData.bad_speed_i++;                      speedData.bad_speed = true;}}
     else if (serial1Data.iter_token == 3)  {if (val_speed_status(serial1Data.token) == true)               {strcpy(speedData.status, serial1Data.token);                     speedData.check_data++; speedData.bad_status = false;}                     else {speedData.bad_status_i++;                     speedData.bad_status = true;}}
@@ -2457,7 +2457,7 @@ void ERROR() {
   serial1Data.iter_token = 0;
   serial1Data.token = strtok(errorData.sentence, ",");
   while( serial1Data.token != NULL ) {
-    if      (serial1Data.iter_token == 0)                                                 {strcpy(errorData.tag, "ERROR");                  errorData.check_data++;}
+    if      (serial1Data.iter_token == 0)                                                  {strcpy(errorData.tag, "ERROR");                   errorData.check_data++;}
     else if (serial1Data.iter_token == 1) {if (val_utc_time(serial1Data.token) == true)    {strcpy(errorData.utc, serial1Data.token);         errorData.check_data++; errorData.bad_utc = false;}         else {errorData.bad_utc_i++;         errorData.bad_utc = true;}}
     else if (serial1Data.iter_token == 2) {if (val_code_flag(serial1Data.token) == true)   {strcpy(errorData.code_flag, serial1Data.token);   errorData.check_data++; errorData.bad_code_flag = false;}   else {errorData.bad_code_flag_i++;   errorData.bad_code_flag = true;}}
     else if (serial1Data.iter_token == 3) {if (val_gset_flag(serial1Data.token) == true)   {strcpy(errorData.gset_flag, serial1Data.token);   errorData.check_data++; errorData.bad_gset_flag = false;}   else {errorData.bad_gset_flag_i++;   errorData.bad_gset_flag = true;}}
@@ -2561,7 +2561,7 @@ void DEBUG() {
   serial1Data.iter_token = 0;
   serial1Data.token = strtok(debugData.sentence, ",");
   while( serial1Data.token != NULL ) {
-    if      (serial1Data.iter_token == 0)                                                     {strcpy(debugData.tag, "DEBUG");                     debugData.check_data++;}
+    if      (serial1Data.iter_token == 0)                                                      {strcpy(debugData.tag, "DEBUG");                      debugData.check_data++;}
     else if (serial1Data.iter_token == 1)  {if (val_ang_dget_flag(serial1Data.token) == true)  {strcpy(debugData.ang_dget_flag, serial1Data.token);  debugData.check_data++; debugData.bad_ang_dget_flag = false;}  else {debugData.bad_ang_dget_flag_i++;  debugData.bad_ang_dget_flag = true;}}
     else if (serial1Data.iter_token == 2)  {if (val_fix_kind_flag(serial1Data.token) == true)  {strcpy(debugData.fix_kind_flag, serial1Data.token);  debugData.check_data++; debugData.bad_fix_kind_flag = false;}  else {debugData.bad_fix_kind_flag_i++;  debugData.bad_fix_kind_flag = true;}}
     else if (serial1Data.iter_token == 3)  {if (val_ins_run_flag(serial1Data.token) == true)   {strcpy(debugData.ins_run_flag, serial1Data.token);   debugData.check_data++; debugData.bad_ins_run_flag = false;}   else {debugData.bad_ins_run_flag_i++;   debugData.bad_ins_run_flag = true;}}
