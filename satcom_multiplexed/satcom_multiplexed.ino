@@ -145,10 +145,10 @@ SSD1306Wire   display_2(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 //                                                                                                                  SYSTEM DATA
 
 struct systemStruct {
-  bool satcom_enabled = false;
-  bool gngga_enabled = false;
-  bool gnrmc_enabled = false;
-  bool gpatt_enabled = false;
+  bool satcom_enabled = true;
+  bool gngga_enabled = true;
+  bool gnrmc_enabled = true;
+  bool gpatt_enabled = true;
   bool speed_enabled = true;
   bool error_enabled = true;
   bool debug_enabled = true;
