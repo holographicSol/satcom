@@ -1268,11 +1268,11 @@ struct RelayStruct {
   Y: necessary if comparing to X.
   Z: necessary if comparing to X/Y in range.  
                 
-                0                   30
+                0
           0     1     2     
           X     Y     Z    
-  {  {   0.0,  0.0,  0.0   }       {0}          }
-                              Enabled/Disabled
+  {  {   0.0,  0.0,  0.0   } }
+
   */
   double relays_data[40][10][3] = {
     {
