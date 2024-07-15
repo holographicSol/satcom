@@ -2915,7 +2915,7 @@ void SSD_Display_2_Menu() {
 
   // numpad
   if (menuData.page == 10) {
-    menuData.menu_lock = false; // enable inout
+    menuData.menu_lock = false; // enable input
     display_2.clear();
     display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, String(menuData.input));
     // none selected.
@@ -3220,7 +3220,7 @@ void SSD_Display_2_Menu() {
   }
 
   if (menuData.page == 0) {
-    menuData.menu_lock = false; // enable inout
+    menuData.menu_lock = false; // enable input
     display_2.clear();
     // select row 0
     if (menuData.y == 0) {
@@ -3376,7 +3376,7 @@ void SSD_Display_2_Menu() {
   }
 
   if (menuData.page == 1) {
-    menuData.menu_lock = false; // enable inout
+    menuData.menu_lock = false; // enable input
     display_2.clear();
     // select row 0
     if (menuData.y == 0) {
@@ -3467,7 +3467,7 @@ void SSD_Display_2_Menu() {
   }
   
   if (menuData.page == 2) {
-    menuData.menu_lock = false; // enable inout
+    menuData.menu_lock = false; // enable input
     display_2.clear();
     // select row 0
     if (menuData.y == 0) {
@@ -3583,11 +3583,10 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 51, String(relayData.relays_inactive_i));
       }
   }
-
   if (menuData.page == 3) {
-    menuData.menu_lock = false; // enable inout
+    menuData.menu_lock = false; // enable input
     display_2.clear();
-    // select row 0 matrix_filepath
+    // select row 0
     if (menuData.y == 0) {
       display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
       display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
@@ -3664,6 +3663,18 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "SAVE");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "LOAD");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 51, "DELETE");
+      }
+
+  if (menuData.page == 4) {
+    menuData.menu_lock = false; // enable input
+    display_2.clear();
+    // select row 0
+    if (menuData.y == 0) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "STARTUP");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
       }
   }
   // file: loading
