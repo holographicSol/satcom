@@ -5345,6 +5345,7 @@ void readRXD_1() {
       if (strncmp(serial1Data.BUFFER, "$GNGGA", 6) == 0) {
         serial1Data.rcv = true;
         if (systemData.output_gngga_enabled == true) {Serial.println(serial1Data.BUFFER);}
+        memset(gnggaData.sentence, 0, 1024);
         strcpy(gnggaData.sentence, serial1Data.BUFFER);
         gnggaData.valid_checksum = validateChecksum(gnggaData.sentence);
         if (gnggaData.valid_checksum == true) {GNGGA();}
@@ -5359,6 +5360,7 @@ void readRXD_1() {
       if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
         serial1Data.rcv = true;
         if (systemData.output_gnrmc_enabled == true) {Serial.println(serial1Data.BUFFER);}
+        memset(gnrmcData.sentence, 0, 1024);
         strcpy(gnrmcData.sentence, serial1Data.BUFFER);
         gnrmcData.valid_checksum = validateChecksum(gnrmcData.sentence);
         if (gnrmcData.valid_checksum == true) {GNRMC();}
@@ -5373,6 +5375,7 @@ void readRXD_1() {
       if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
           serial1Data.rcv = true;
           if (systemData.output_gpatt_enabled == true) {Serial.println(serial1Data.BUFFER);}
+          memset(gpattData.sentence, 0, 1024);
           strcpy(gpattData.sentence, serial1Data.BUFFER);
           gpattData.valid_checksum = validateChecksum(gpattData.sentence);
           if (gpattData.valid_checksum == true) {GPATT();}
