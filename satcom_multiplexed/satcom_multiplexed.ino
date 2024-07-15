@@ -4115,7 +4115,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
       Serial.println("[sdcard] [reading] " + String(sdcardData.BUFFER));
 
       // check auto resume
-      if (strncmp(sdcardData.BUFFER, "AUTO_RESUME", 12) == 0) {
+      if (strncmp(sdcardData.BUFFER, "AUTO_RESUME", 11) == 0) {
         sdcardData.token = strtok(sdcardData.BUFFER, ",");
         Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
         sdcardData.token = strtok(NULL, ",");
