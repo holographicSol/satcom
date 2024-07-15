@@ -5751,3 +5751,8 @@ void ISR_RIGHT() {
   menuRight();
 }
 
+void ISR_LEFT() {
+  Serial.println("[isr] menu left");
+  menuLeft();
+}
+
