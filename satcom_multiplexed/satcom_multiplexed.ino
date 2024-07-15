@@ -95,6 +95,18 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 #define BTNDOWN   39
 #define BTNSELECT 36
 
+#define ISR_RIGHT_KEY  1
+#define ISR_LEFT_KEY   2
+#define ISR_UP_KEY     3
+#define ISR_DOWN_KEY   4
+#define ISR_SELECT_KEY 5
+
+#define ISR_NPAD_RIGHT_KEY  11
+#define ISR_NPAD_LEFT_KEY   12
+#define ISR_NPAD_UP_KEY     13
+#define ISR_NPAD_DOWN_KEY   14
+#define ISR_NPAD_SELECT_KEY 15
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       SDCARD
 #define SPI_DRIVER_SELECT 2  // Must be set in SdFat/SdFatConfig.h
@@ -5717,16 +5729,16 @@ void loop() {
   // check input
   int db0 = 50;
   int db1 = 50;
-  if (menuData.isr_i == 1) {delay(db0); menuRight(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == 2) {delay(db0); menuLeft(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == 3) {delay(db0); menuUp(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == 4) {delay(db0); menuDown(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == 5) {delay(db0); menuSelect(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == 11) {delay(db0); numpadRight(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == 12) {delay(db0); numpadLeft(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == 13) {delay(db0); numpadUp(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == 14) {delay(db0); numpadDown(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == 15) {delay(db0); numpadSelect(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == ISR_RIGHT_KEY) {delay(db0); menuRight(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == ISR_LEFT_KEY) {delay(db0); menuLeft(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == ISR_UP_KEY) {delay(db0); menuUp(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == ISR_DOWN_KEY) {delay(db0); menuDown(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == ISR_SELECT_KEY) {delay(db0); menuSelect(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == ISR_NPAD_RIGHT_KEY) {delay(db0); numpadRight(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == ISR_NPAD_LEFT_KEY) {delay(db0); numpadLeft(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == ISR_NPAD_UP_KEY) {delay(db0); numpadUp(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == ISR_NPAD_DOWN_KEY) {delay(db0); numpadDown(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == ISR_NPAD_SELECT_KEY) {delay(db0); numpadSelect(); menuData.isr_i=0; delay(db1);}
 
   /*
   for performance/efficiency only do the following if data is received OR if there may be an issue receiving, this way the matrix
@@ -5756,31 +5768,31 @@ void loop() {
 
 void ISR_RIGHT() {
   Serial.println("[isr] menu right");
-  if (menuData.page < 10) {menuData.isr_i = 1;}
-  else if (menuData.page == 10) {menuData.isr_i = 11;}
+  if (menuData.page < 10) {menuData.isr_i = ISR_RIGHT_KEY;}
+  else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_RIGHT_KEY;}
 }
 
 void ISR_LEFT() {
   Serial.println("[isr] menu left");
-  if (menuData.page < 10) {menuData.isr_i = 2;}
-  else if (menuData.page == 10) {menuData.isr_i = 12;}
+  if (menuData.page < 10) {menuData.isr_i = ISR_LEFT_KEY;}
+  else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_LEFT_KEY;}
 }
 
 void ISR_UP() {
   Serial.println("[isr] menu up");
-  if (menuData.page < 10) {menuData.isr_i = 3;}
-  else if (menuData.page == 10) {menuData.isr_i = 13;}
+  if (menuData.page < 10) {menuData.isr_i = ISR_UP_KEY;}
+  else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_UP_KEY;}
 }
 
 void ISR_DOWN() {
   Serial.println("[isr] menu down");
-  if (menuData.page < 10) {menuData.isr_i = 4;}
-  else if (menuData.page == 10) {menuData.isr_i = 14;}
+  if (menuData.page < 10) {menuData.isr_i = ISR_DOWN_KEY;}
+  else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_DOWN_KEY;}
 }
 
 void ISR_SELECT() {
   Serial.println("[isr] menu select");
-  if (menuData.page < 10) {menuData.isr_i = 5;}
-  else if (menuData.page == 10) {menuData.isr_i = 15;}
+  if (menuData.page < 10) {menuData.isr_i = ISR_SELECT_KEY;}
+  else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_SELECT_KEY;}
 }
 
