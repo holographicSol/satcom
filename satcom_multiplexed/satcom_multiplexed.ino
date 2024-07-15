@@ -3789,37 +3789,60 @@ void SSD_Display_Loading() {
   display_2.setTextAlignment(TEXT_ALIGN_CENTER);
   display_2.setColor(WHITE);
   display_2.clear();
-  display_2.drawString(display_2.getWidth()/2, 0, "[LOADING]");
+  display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+  display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+  display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "FILE");
+  display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "[  LOADING  ]");
   display_2.display();
+
   tcaselect(3);
   display_3.setTextAlignment(TEXT_ALIGN_CENTER);
   display_3.setColor(WHITE);
   display_3.clear();
-  display_3.drawString(display_3.getWidth()/2, 0, "[LOADING]");
+  display_3.setColor(WHITE); display_3.drawRect(0, 0, display_3.getWidth(), 15); // title border
+  display_3.setColor(WHITE); display_3.drawRect(0, 16, display_3.getWidth(), display_3.getHeight()-16); // content border
+  display_3.setTextAlignment(TEXT_ALIGN_CENTER); display_3.setColor(WHITE); display_3.drawString(display_3.getWidth()/2, 1, "MATRIX");
+  display_3.setTextAlignment(TEXT_ALIGN_CENTER); display_3.setColor(WHITE); display_3.drawString(display_3.getWidth()/2, 33, "[  LOADING  ]");
   display_3.display();
+
   tcaselect(4);
   display_4.setTextAlignment(TEXT_ALIGN_CENTER);
   display_4.setColor(WHITE);
   display_4.clear();
-  display_4.drawString(display_4.getWidth()/2, 0, "[LOADING]");
+  display_4.setColor(WHITE); display_4.drawRect(0, 0, display_4.getWidth(), 15); // title border
+  display_4.setColor(WHITE); display_4.drawRect(0, 16, display_4.getWidth(), display_4.getHeight()-16); // content border
+  display_4.setTextAlignment(TEXT_ALIGN_CENTER); display_4.setColor(WHITE); display_4.drawString(display_4.getWidth()/2, 1, "GPATT");
+  display_4.setTextAlignment(TEXT_ALIGN_CENTER); display_4.setColor(WHITE); display_4.drawString(display_4.getWidth()/2, 33, "[  LOADING  ]");
   display_4.display();
+
   tcaselect(5);
   display_5.setTextAlignment(TEXT_ALIGN_CENTER);
   display_5.setColor(WHITE);
   display_5.clear();
-  display_5.drawString(display_5.getWidth()/2, 0, "[LOADING]");
+  display_5.setColor(WHITE); display_5.drawRect(0, 0, display_5.getWidth(), 15); // title border
+  display_5.setColor(WHITE); display_5.drawRect(0, 16, display_5.getWidth(), display_5.getHeight()-16); // content border
+  display_5.setTextAlignment(TEXT_ALIGN_CENTER); display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()/2, 1, "SATCOM");
+  display_5.setTextAlignment(TEXT_ALIGN_CENTER); display_5.setColor(WHITE); display_5.drawString(display_5.getWidth()/2, 33, "[  LOADING  ]");
   display_5.display();
+
   tcaselect(6);
   display_6.setTextAlignment(TEXT_ALIGN_CENTER);
   display_6.setColor(WHITE);
   display_6.clear();
-  display_6.drawString(display_6.getWidth()/2, 0, "[LOADING]");
+  display_6.setColor(WHITE); display_6.drawRect(0, 0, display_6.getWidth(), 15); // title border
+  display_6.setColor(WHITE); display_6.drawRect(0, 16, display_6.getWidth(), display_6.getHeight()-16); // content border
+  display_6.setTextAlignment(TEXT_ALIGN_CENTER); display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()/2, 1, "GNGGA");
+  display_6.setTextAlignment(TEXT_ALIGN_CENTER); display_6.setColor(WHITE); display_6.drawString(display_6.getWidth()/2, 33, "[  LOADING  ]");
   display_6.display();
+
   tcaselect(7);
   display_7.setTextAlignment(TEXT_ALIGN_CENTER);
   display_7.setColor(WHITE);
   display_7.clear();
-  display_7.drawString(display_7.getWidth()/2, 0, "[LOADING]");
+  display_7.setColor(WHITE); display_7.drawRect(0, 0, display_7.getWidth(), 15); // title border
+  display_7.setColor(WHITE); display_7.drawRect(0, 16, display_7.getWidth(), display_7.getHeight()-16); // content border
+  display_7.setTextAlignment(TEXT_ALIGN_CENTER); display_7.setColor(WHITE); display_7.drawString(display_7.getWidth()/2, 1, "GNRMC");
+  display_7.setTextAlignment(TEXT_ALIGN_CENTER); display_7.setColor(WHITE); display_7.drawString(display_7.getWidth()/2, 33, "[  LOADING  ]");
   display_7.display();
 }
 
