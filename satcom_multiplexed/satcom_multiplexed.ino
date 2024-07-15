@@ -201,6 +201,7 @@ struct menuStruct {
   int relay_function_select = 0;
   int function_index = 0;
   bool menu_lock = false;
+  int isr_i = 0;
 };
 menuStruct menuData;
 
@@ -4657,6 +4658,11 @@ void setup() {
 
   attachInterrupt(34, ISR_RIGHT, FALLING);
   attachInterrupt(33, ISR_LEFT, FALLING);
+
+  attachInterrupt(32, ISR_UP, FALLING);
+
+  attachInterrupt(39, ISR_DOWN, FALLING);
+  attachInterrupt(36, ISR_SELECT, FALLING);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -5708,6 +5714,12 @@ void loop() {
   // check satellite receiver
   readRXD_1();
 
+  if (menuData.isr_i == 1) {menuData.isr_i=0; menuRight(); delay(10);}
+  if (menuData.isr_i == 2) {menuData.isr_i=0; menuLeft(); delay(10);}
+  if (menuData.isr_i == 3) {menuData.isr_i=0; menuUp(); delay(10);}
+  if (menuData.isr_i == 4) {menuData.isr_i=0; menuDown(); delay(10);}
+  if (menuData.isr_i == 5) {menuData.isr_i=0; menuSelect(); delay(10);}
+
   /*
   for performance/efficiency only do the following if data is received OR if there may be an issue receiving, this way the matrix
   switch can remain operational for data that is not received while also performing better overall. (tunable)
@@ -5748,11 +5760,26 @@ void loop() {
 
 void ISR_RIGHT() {
   Serial.println("[isr] menu right");
-  menuRight();
+  menuData.isr_i = 1;
 }
 
 void ISR_LEFT() {
   Serial.println("[isr] menu left");
-  menuLeft();
+  menuData.isr_i = 2;
+}
+
+void ISR_UP() {
+  Serial.println("[isr] menu up");
+  menuData.isr_i = 3;
+}
+
+void ISR_DOWN() {
+  Serial.println("[isr] menu down");
+  menuData.isr_i = 4;
+}
+
+void ISR_SELECT() {
+  Serial.println("[isr] menu select");
+  menuData.isr_i = 5;
 }
 
