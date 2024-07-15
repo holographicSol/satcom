@@ -5720,6 +5720,12 @@ void loop() {
   if (menuData.isr_i == 4) {menuData.isr_i=0; menuDown(); delay(50);}
   if (menuData.isr_i == 5) {menuData.isr_i=0; menuSelect(); delay(50);}
 
+  if (menuData.isr_i == 11) {menuData.isr_i=0; numpadRight(); delay(50);}
+  if (menuData.isr_i == 12) {menuData.isr_i=0; numpadLeft(); delay(50);}
+  if (menuData.isr_i == 13) {menuData.isr_i=0; numpadUp(); delay(50);}
+  if (menuData.isr_i == 14) {menuData.isr_i=0; numpadDown(); delay(50);}
+  if (menuData.isr_i == 15) {menuData.isr_i=0; numpadSelect(); delay(50);}
+
   /*
   for performance/efficiency only do the following if data is received OR if there may be an issue receiving, this way the matrix
   switch can remain operational for data that is not received while also performing better overall. (tunable)
@@ -5760,26 +5766,31 @@ void loop() {
 
 void ISR_RIGHT() {
   Serial.println("[isr] menu right");
-  menuData.isr_i = 1;
+  if (menuData.page < 10) {menuData.isr_i = 1;}
+  else if (menuData.page == 10) {menuData.isr_i = 11;}
 }
 
 void ISR_LEFT() {
   Serial.println("[isr] menu left");
-  menuData.isr_i = 2;
+  if (menuData.page < 10) {menuData.isr_i = 2;}
+  else if (menuData.page == 10) {menuData.isr_i = 12;}
 }
 
 void ISR_UP() {
   Serial.println("[isr] menu up");
-  menuData.isr_i = 3;
+  if (menuData.page < 10) {menuData.isr_i = 3;}
+  else if (menuData.page == 10) {menuData.isr_i = 13;}
 }
 
 void ISR_DOWN() {
   Serial.println("[isr] menu down");
-  menuData.isr_i = 4;
+  if (menuData.page < 10) {menuData.isr_i = 4;}
+  else if (menuData.page == 10) {menuData.isr_i = 14;}
 }
 
 void ISR_SELECT() {
   Serial.println("[isr] menu select");
-  menuData.isr_i = 5;
+  if (menuData.page < 10) {menuData.isr_i = 5;}
+  else if (menuData.page == 10) {menuData.isr_i = 15;}
 }
 
