@@ -3989,17 +3989,14 @@ bool sdcard_read_to_serial(char * file) {
 //                                                                                            SDCARD: SAVE SYSTEM CONFIGURATION
 
 void sdcard_save_system_configuration(char * file, int return_page) {
-
   // display activity
   menuData.page = 21;
   SSD_Display_2_Menu();
   Serial.println("[sdcard] attempting to save file: " + String(file));
-
   // sdcardData
   sdcardData.current_file = sd.open(file, FILE_WRITE);
   sdcardData.current_file.rewind();
   if (sdcardData.current_file) {
-
     // autostart
     memset(sdcardData.file_data, 0, 256);
     strcat(sdcardData.file_data, "AUTO_RESUME,");
@@ -4010,7 +4007,6 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println("");
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
-
     // matrix
     memset(sdcardData.file_data, 0, 256);
     strcat(sdcardData.file_data, "MATRIX_ENABLED,");
@@ -4021,7 +4017,6 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println("");
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
-
     // satcom
     memset(sdcardData.file_data, 0, 256);
     strcat(sdcardData.file_data, "SATCOM_ENABLED,");
@@ -4032,7 +4027,6 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println("");
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
-
     // gngga
     memset(sdcardData.file_data, 0, 256);
     strcat(sdcardData.file_data, "GNGGA_ENABLED,");
@@ -4043,7 +4037,6 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println("");
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
-
     // gnrmc
     memset(sdcardData.file_data, 0, 256);
     strcat(sdcardData.file_data, "GNRMC_ENABLED,");
@@ -4054,7 +4047,6 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println("");
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
-
     // gpatt
     memset(sdcardData.file_data, 0, 256);
     strcat(sdcardData.file_data, "GPATT_ENABLED,");
@@ -4065,7 +4057,7 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println("");
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
-
+    // complete
     sdcardData.current_file.close();
     Serial.println("[sdcard] saved file successfully: " + String(file));
     menuData.page = return_page;
@@ -4155,7 +4147,6 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
           }
         }
       }
-
     }
     sdcardData.current_file.close();
     Serial.println("[sdcard] loaded file successfully: " + String(file));
@@ -4288,37 +4279,30 @@ void zero_matrix() {
 //                                                                                                          SDCARD: LOAD MATRIX 
 
 bool sdcard_load_matrix(char * file) {
-
   // display activity
   menuData.page = 20;
   SSD_Display_2_Menu();
   Serial.println("[sdcard] attempting to load file: " + String(file));
-
   // open file to read
   sdcardData.current_file = sd.open(file); 
   if (sdcardData.current_file) {
     sdcardData.current_file.rewind();
     while (sdcardData.current_file.available()) {
-
       // read line
       sdcardData.SBUFFER = "";
       memset(sdcardData.BUFFER, 0, 2048);
       sdcardData.SBUFFER = sdcardData.current_file.readStringUntil('\n');
       sdcardData.SBUFFER.toCharArray(sdcardData.BUFFER, sdcardData.SBUFFER.length()+1);
       Serial.println("[sdcard] [reading] " + String(sdcardData.BUFFER));
-      
       if (strncmp(sdcardData.BUFFER, "r", 1) == 0) {
-
         // ensure cleared
         memset(sdcardData.data_0, 0, 56); memset(sdcardData.data_1, 0, 56); memset(sdcardData.data_2, 0, 56);
         memset(sdcardData.data_3, 0, 56); memset(sdcardData.data_4, 0, 56); memset(sdcardData.data_5, 0, 56);
         memset(sdcardData.data_6, 0, 56);
         validData.bool_data_0 = false;
         validData.bool_data_1 = false;
-
         // split line on delimiter
         sdcardData.token = strtok(sdcardData.BUFFER, ",");
-
         // relay index
         sdcardData.token = strtok(NULL, ",");
         strcpy(sdcardData.data_0, sdcardData.token);
@@ -4326,7 +4310,6 @@ bool sdcard_load_matrix(char * file) {
         Serial.println("[Ri] [PASS] " +String(sdcardData.data_0));
         }
         else {Serial.println("[Ri] [INVALID] " +String(sdcardData.data_0));}
-
         // relay function index
         sdcardData.token = strtok(NULL, ",");
         strcpy(sdcardData.data_1, sdcardData.token);
@@ -4334,16 +4317,14 @@ bool sdcard_load_matrix(char * file) {
           Serial.println("[Fi] [PASS] " +String(sdcardData.data_1));
         }
         else {Serial.println("[Fi] [INVALID] " +String(sdcardData.data_1));}
-        
-        if ((validData.bool_data_0 == true) && (validData.bool_data_1 == true)) {
 
+        if ((validData.bool_data_0 == true) && (validData.bool_data_1 == true)) {
           // relay function name
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_2, sdcardData.token);
           memset(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], 0, 56);
           strcpy(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], sdcardData.data_2);
           Serial.println("[Fn] [MATRIX] " +String(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)]));
-
           // relay function data: x
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_3, sdcardData.token);
@@ -4352,7 +4333,6 @@ bool sdcard_load_matrix(char * file) {
             Serial.println("[X]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0]));
           }
           else {Serial.println("[X] [INVALID] " + String(sdcardData.data_3));}
-
           // relay function data: y
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_4, sdcardData.token);
@@ -4361,7 +4341,6 @@ bool sdcard_load_matrix(char * file) {
             Serial.println("[Y]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1]));
           }
           else {Serial.println("[Y] [INVALID] " + String(sdcardData.data_4));}
-          
           // relay function data: z
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_5, sdcardData.token);
