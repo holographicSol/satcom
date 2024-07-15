@@ -5308,7 +5308,7 @@ void readRXD_0() {
 
   
 
-  if (Serial.available() > 0) {
+  if ((Serial.available() > 0) && (menuData.menu_lock == false)){
     
     memset(serial0Data.BUFFER, 0, 2048);
     serial0Data.nbytes = (Serial.readBytesUntil('\n', serial0Data.BUFFER, sizeof(serial0Data.BUFFER)));
