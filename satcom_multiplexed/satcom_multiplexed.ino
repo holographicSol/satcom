@@ -88,7 +88,12 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                      DEFINES
 
-#define TCAADDR 0x70
+#define TCAADDR   0x70
+#define BTNRIGHT  34
+#define BTNLEFT   33
+#define BTNUP     32
+#define BTNDOWN   39
+#define BTNSELECT 36
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       SDCARD
@@ -4656,13 +4661,11 @@ void setup() {
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                 SETUP: ISR
 
-  attachInterrupt(34, ISR_RIGHT, FALLING);
-  attachInterrupt(33, ISR_LEFT, FALLING);
-
-  attachInterrupt(32, ISR_UP, FALLING);
-
-  attachInterrupt(39, ISR_DOWN, FALLING);
-  attachInterrupt(36, ISR_SELECT, FALLING);
+  attachInterrupt(BTNRIGHT, ISR_RIGHT, FALLING);
+  attachInterrupt(BTNLEFT, ISR_LEFT, FALLING);
+  attachInterrupt(BTNUP, ISR_UP, FALLING);
+  attachInterrupt(BTNDOWN, ISR_DOWN, FALLING);
+  attachInterrupt(BTNSELECT, ISR_SELECT, FALLING);
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -5714,17 +5717,19 @@ void loop() {
   // check satellite receiver
   readRXD_1();
 
-  if (menuData.isr_i == 1) {menuData.isr_i=0; menuRight(); delay(50);}
-  if (menuData.isr_i == 2) {menuData.isr_i=0; menuLeft(); delay(50);}
-  if (menuData.isr_i == 3) {menuData.isr_i=0; menuUp(); delay(50);}
-  if (menuData.isr_i == 4) {menuData.isr_i=0; menuDown(); delay(50);}
-  if (menuData.isr_i == 5) {menuData.isr_i=0; menuSelect(); delay(50);}
-
-  if (menuData.isr_i == 11) {menuData.isr_i=0; numpadRight(); delay(50);}
-  if (menuData.isr_i == 12) {menuData.isr_i=0; numpadLeft(); delay(50);}
-  if (menuData.isr_i == 13) {menuData.isr_i=0; numpadUp(); delay(50);}
-  if (menuData.isr_i == 14) {menuData.isr_i=0; numpadDown(); delay(50);}
-  if (menuData.isr_i == 15) {menuData.isr_i=0; numpadSelect(); delay(50);}
+  // check input
+  int db0 = 50;
+  int db1 = 50;
+  if (menuData.isr_i == 1) {delay(db0); menuRight(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == 2) {delay(db0); menuLeft(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == 3) {delay(db0); menuUp(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == 4) {delay(db0); menuDown(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == 5) {delay(db0); menuSelect(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == 11) {delay(db0); numpadRight(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == 12) {delay(db0); numpadLeft(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == 13) {delay(db0); numpadUp(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == 14) {delay(db0); numpadDown(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == 15) {delay(db0); numpadSelect(); menuData.isr_i=0; delay(db1);}
 
   /*
   for performance/efficiency only do the following if data is received OR if there may be an issue receiving, this way the matrix
