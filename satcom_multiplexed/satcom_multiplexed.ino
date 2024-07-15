@@ -191,7 +191,7 @@ struct menuStruct {
   int relay_select = 0;
   int relay_function_select = 0;
   int function_index = 0;
-  
+  bool menu_lock = false;
 };
 menuStruct menuData;
 
@@ -2913,6 +2913,7 @@ void SSD_Display_2_Menu() {
 
   // numpad
   if (menuData.page == 10) {
+    menuData.menu_lock = false; // enable inout
     display_2.clear();
     display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, String(menuData.input));
     // none selected.
@@ -3217,6 +3218,7 @@ void SSD_Display_2_Menu() {
   }
 
   if (menuData.page == 0) {
+    menuData.menu_lock = false; // enable inout
     display_2.clear();
     // select row 0
     if (menuData.y == 0) {
@@ -3372,6 +3374,7 @@ void SSD_Display_2_Menu() {
   }
 
   if (menuData.page == 1) {
+    menuData.menu_lock = false; // enable inout
     display_2.clear();
     // select row 0
     if (menuData.y == 0) {
@@ -3462,6 +3465,7 @@ void SSD_Display_2_Menu() {
   }
   
   if (menuData.page == 2) {
+    menuData.menu_lock = false; // enable inout
     display_2.clear();
     // select row 0
     if (menuData.y == 0) {
@@ -3579,6 +3583,7 @@ void SSD_Display_2_Menu() {
   }
 
   if (menuData.page == 3) {
+    menuData.menu_lock = false; // enable inout
     display_2.clear();
     // select row 0 matrix_filepath
     if (menuData.y == 0) {
@@ -3658,6 +3663,24 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "LOAD");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 51, "DELETE");
       }
+  }
+  // file: loading
+  if (menuData.page == 20) {
+    menuData.menu_lock = true; // disable input on this page
+    display_2.clear();
+    display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+    display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+    display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "FILE");
+    display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "[  LOADING  ]");
+  }
+    // file: saving
+  if (menuData.page == 21) {
+    menuData.menu_lock = true; // disable input on this page
+    display_2.clear();
+    display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+    display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+    display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "FILE");
+    display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 33, "[  SAVING  ]");
   }
 
   display_2.display();
@@ -4066,6 +4089,9 @@ void zero_matrix() {
 
 bool sdcard_load_matrix(char * file) {
 
+  // display activity
+  menuData.page = 20;
+  SSD_Display_2_Menu();
   Serial.println("[sdcard] attempting to load file: " + String(file));
 
   // open file to read
@@ -4079,7 +4105,7 @@ bool sdcard_load_matrix(char * file) {
       memset(sdcardData.BUFFER, 0, 2048);
       sdcardData.SBUFFER = sdcardData.current_file.readStringUntil('\n');
       sdcardData.SBUFFER.toCharArray(sdcardData.BUFFER, sdcardData.SBUFFER.length()+1);
-      // Serial.println("[sdcard] [reading] " + String(sdcardData.BUFFER));
+      Serial.println("[sdcard] [reading] " + String(sdcardData.BUFFER));
       
       if (strncmp(sdcardData.BUFFER, "r", 1) == 0) {
 
@@ -4097,7 +4123,7 @@ bool sdcard_load_matrix(char * file) {
         sdcardData.token = strtok(NULL, ",");
         strcpy(sdcardData.data_0, sdcardData.token);
         if (is_all_digits(sdcardData.data_0) == true) {validData.bool_data_0 = true;
-        // Serial.println("[Ri] [PASS] " +String(sdcardData.data_0));
+        Serial.println("[Ri] [PASS] " +String(sdcardData.data_0));
         }
         else {Serial.println("[Ri] [INVALID] " +String(sdcardData.data_0));}
 
@@ -4105,7 +4131,7 @@ bool sdcard_load_matrix(char * file) {
         sdcardData.token = strtok(NULL, ",");
         strcpy(sdcardData.data_1, sdcardData.token);
         if (is_all_digits(sdcardData.data_1) == true) {validData.bool_data_1 = true;
-          // Serial.println("[Fi] [PASS] " +String(sdcardData.data_1));
+          Serial.println("[Fi] [PASS] " +String(sdcardData.data_1));
         }
         else {Serial.println("[Fi] [INVALID] " +String(sdcardData.data_1));}
         
@@ -4116,14 +4142,14 @@ bool sdcard_load_matrix(char * file) {
           strcpy(sdcardData.data_2, sdcardData.token);
           memset(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], 0, 56);
           strcpy(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)], sdcardData.data_2);
-          // Serial.println("[Fn] [MATRIX] " +String(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)]));
+          Serial.println("[Fn] [MATRIX] " +String(relayData.relays[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)]));
 
           // relay function data: x
           sdcardData.token = strtok(NULL, ",");
           strcpy(sdcardData.data_3, sdcardData.token);
           if (is_positive_negative_num(sdcardData.data_3) == true) {
             relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0] = atol(sdcardData.data_3);
-            // Serial.println("[X]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0]));
+            Serial.println("[X]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][0]));
           }
           else {Serial.println("[X] [INVALID] " + String(sdcardData.data_3));}
 
@@ -4132,7 +4158,7 @@ bool sdcard_load_matrix(char * file) {
           strcpy(sdcardData.data_4, sdcardData.token);
           if (is_positive_negative_num(sdcardData.data_4) == true) {
             relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1] = atol(sdcardData.data_4);
-            // Serial.println("[Y]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1]));
+            Serial.println("[Y]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][1]));
           }
           else {Serial.println("[Y] [INVALID] " + String(sdcardData.data_4));}
           
@@ -4141,7 +4167,7 @@ bool sdcard_load_matrix(char * file) {
           strcpy(sdcardData.data_5, sdcardData.token);
           if (is_positive_negative_num(sdcardData.data_5) == true) {
             relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2] = atol(sdcardData.data_5);
-            // Serial.println("[Z]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2]));
+            Serial.println("[Z]  [MATRIX] " +String(relayData.relays_data[atoi(sdcardData.data_0)][atoi(sdcardData.data_1)][2]));
           }
           else {Serial.println("[Z] [INVALID] " + String(sdcardData.data_5));}
         }
@@ -4154,22 +4180,29 @@ bool sdcard_load_matrix(char * file) {
         strcpy(sdcardData.data_6, sdcardData.token);
         if (is_all_digits(sdcardData.data_6) == true) {
           relayData.relays_enable[0][atoi(sdcardData.data_0)] = atoi(sdcardData.data_6);
-          // Serial.println("[E]  [MATRIX] " +String(relayData.relays_enable[0][atoi(sdcardData.data_0)]));
+          Serial.println("[E]  [MATRIX] " +String(relayData.relays_enable[0][atoi(sdcardData.data_0)]));
           }
         else {Serial.println("[E]  [INVALID] " +String(sdcardData.data_6));}
       }
     }
     sdcardData.current_file.close();
     Serial.println("[sdcard] loaded file successfully: " + String(file));
+    menuData.page = 3;
     return true;
   }
-  else {sdcardData.current_file.close(); Serial.println("[sdcard] failed to load file: " + String(file)); return false;}
+  else {sdcardData.current_file.close(); Serial.println("[sdcard] failed to load file: " + String(file)); menuData.page = 3; return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                  WRITE MATRIX DATA TO SDCARD 
 
 bool sdcard_save_matrix(char * file) {
+
+  // display activity
+  menuData.page = 21;
+  SSD_Display_2_Menu();
+  Serial.println("[sdcard] attempting to save file: " + String(file));
+
   // sdcardData
   sdcardData.current_file = sd.open(file, FILE_WRITE);
   sdcardData.current_file.rewind();
@@ -4223,9 +4256,11 @@ bool sdcard_save_matrix(char * file) {
       sdcardData.current_file.println("");
     }
     sdcardData.current_file.close();
+    Serial.println("[sdcard] saved file successfully: " + String(file));
+    menuData.page = 3;
     return true;
   }
-  else {sdcardData.current_file.close(); return false;}
+  else {sdcardData.current_file.close(); menuData.page = 3; Serial.println("[sdcard] failed to save file: " + String(file)); return false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -4398,6 +4433,8 @@ void setup() {
 
   sdcard_mkdirs();
   sdcard_load_matrix(sdcardData.matrix_filepath);
+
+  menuData.page = 2;
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
