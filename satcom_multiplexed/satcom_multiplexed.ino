@@ -176,6 +176,7 @@ struct sysDebugStruct {
   bool error_sentence = false;
   bool debug_sentence = false;
   bool serial_0_sentence = true;
+  bool validation = false;
 };
 sysDebugStruct sysDebugData;
 
@@ -375,16 +376,18 @@ validationStruct validData;
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          CHECKSUM VALIDATION
 
-int getCheckSum(char *string) {
-    int i;
-    int XOR;
-    int c;
-    for (XOR = 0, i = 0; i < strlen(string); i++) {
-      c = (unsigned char)string[i];
-      if (c == '*') break;
-      if (c != '$') XOR ^= c;
-    }
-    return XOR;
+int getCheckSum(char * string) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] getCheckSum: " + String(string));}
+  int i;
+  int XOR;
+  int c;
+  for (XOR = 0, i = 0; i < strlen(string); i++) {
+    c = (unsigned char)string[i];
+    if (c == '*') break;
+    if (c != '$') XOR ^= c;
+  }
+  if (sysDebugData.validation == true) {Serial.println("[connected] getCheckSum: " + String(XOR));}
+  return XOR;
 }
 
 uint8_t h2d(char hex) {if(hex > 0x39) hex -= 7; return(hex & 0xf);}
@@ -392,6 +395,7 @@ uint8_t h2d(char hex) {if(hex > 0x39) hex -= 7; return(hex & 0xf);}
 uint8_t h2d2(char h1, char h2) {return (h2d(h1)<<4) | h2d(h2);}
 
 bool validateChecksum(char * buffer) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] validateChecksum: " + String(buffer));}
   char gotSum[2];
   gotSum[0] = buffer[strlen(buffer) - 3];
   gotSum[1] = buffer[strlen(buffer) - 2];
@@ -412,24 +416,28 @@ the extra work, rather than assuming all elements will be what we expect every t
 
 
 bool count_digits(char * data, int expected) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] count_digits: " + String(data));}
   validData.valid_i = 0;
   for (int i = 0; i < strlen(data); i++) {if (isdigit(data[i]) == 1) {validData.valid_i++;}}
   if (validData.valid_i == expected) {return true;} else {return false;}
 }
 
 bool count_alpha(char * data, int expected) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] count_alpha: " + String(data));}
   validData.valid_i = 0;
   for (int i = 0; i < strlen(data); i++) {if (isalpha(data[i]) == 1) {validData.valid_i++;}}
   if (validData.valid_i == expected) {return true;} else {return false;}
 }
 
 bool is_all_digits(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] is_all_digits: " + String(data));}
   validData.valid_b = true;
   for (int i = 0; i < strlen(data); i++) {if (isdigit(data[i]) == 0) {validData.valid_b = false;}}
   return validData.valid_b;
 }
 
 bool is_all_digits_plus_char(char * data, char * find_char) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] is_all_digits_plus_char: " + String(data));}
   // designed to check all chars are digits except one period and is more general purpose than just accepting a period
   validData.valid_b = true;
   validData.find_char = strchr(data, * find_char);
@@ -439,6 +447,7 @@ bool is_all_digits_plus_char(char * data, char * find_char) {
 }
 
 bool is_positive_negative_num(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] is_positive_negative_num: " + String(data));}
   // designed to check all chars are digits except one period and the signed bit. allows positive/negative floats, doubles and ints
   // allow 1 period anywhere.
   // allow 1 - sign at index zero.
@@ -450,12 +459,14 @@ bool is_positive_negative_num(char * data) {
 }
 
 bool is_all_alpha(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] is_all_alpha: " + String(data));}
   validData.valid_b = true;
   for (int i = 0; i < strlen(data); i++) {if (isalpha(data[i]) == 0) {validData.valid_b = false;}}
   return validData.valid_b;
 }
 
 bool val_utc_time(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_utc_time: " + String(data));}
   bool check_pass = false;
   if (strlen(data) == 9) {
     if (data[6] == '.') {
@@ -468,6 +479,7 @@ bool val_utc_time(char * data) {
 }
 
 bool val_utc_date(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_utc_date: " + String(data));}
   bool check_pass = false;
   if (strlen(data) == 6) {
     if (is_all_digits(data) == true) {
@@ -478,6 +490,7 @@ bool val_utc_date(char * data) {
 }
 
 bool val_latitude(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_latitude: " + String(data));}
   bool check_pass = false;
   if (strlen(data) == 13) {
     if (data[4] == '.') {
@@ -492,6 +505,7 @@ bool val_latitude(char * data) {
 }
 
 bool val_longitude(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_longitude: " + String(data));}
   bool check_pass = false;
   if (strlen(data) == 14) {
     if (data[5] == '.') {
@@ -506,6 +520,7 @@ bool val_longitude(char * data) {
 }
 
 bool val_latitude_H(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_latitude_H: " + String(data));}
   bool check_pass = false;
   if (strlen(data) == 1) {
     if ((strcmp(data, "N") == 0) || (strcmp(data, "S") == 0)) {
@@ -516,6 +531,7 @@ bool val_latitude_H(char * data) {
 }
 
 bool val_longitude_H(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_longitude_H: " + String(data));}
   bool check_pass = false;
   if (strlen(data) == 1) {
     if ((strcmp(data, "E") == 0) || (strcmp(data, "W") == 0)) {
@@ -526,6 +542,7 @@ bool val_longitude_H(char * data) {
 }
 
 bool val_positioning_status_gngga(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_positioning_status_gngga: " + String(data));}
   bool check_pass = false;
   if (strlen(data) == 1) {
     if (is_all_digits(data) == true) {
@@ -538,6 +555,7 @@ bool val_positioning_status_gngga(char * data) {
 }
 
 bool val_satellite_count(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_satellite_count: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if (atoi(data) >= 0){
@@ -548,6 +566,7 @@ bool val_satellite_count(char * data) {
 }
 
 bool val_hdop_precision_factor(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_hdop_precision_factor: " + String(data));}
   bool check_pass = false;
   if (is_all_digits_plus_char(data, ".") == true) {
     if (atoi(data) >= 0){
@@ -558,6 +577,7 @@ bool val_hdop_precision_factor(char * data) {
 }
 
 bool val_altitude(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_altitude: " + String(data));}
   // account for decimal point
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
@@ -567,6 +587,7 @@ bool val_altitude(char * data) {
 }
 
 bool val_altitude_units(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_altitude_units: " + String(data));}
   bool check_pass = false;
   if (strlen(data) == 1) {
     if (strcmp(data, "M") == 0) {
@@ -577,6 +598,7 @@ bool val_altitude_units(char * data) {
 }
 
 bool val_geoidal(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_geoidal: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -585,6 +607,7 @@ bool val_geoidal(char * data) {
 }
 
 bool val_geoidal_units(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_geoidal_units: " + String(data));}
   bool check_pass = false;
   if (strlen(data) == 1) {
     if (strcmp(data, "M") == 0) {
@@ -595,6 +618,7 @@ bool val_geoidal_units(char * data) {
 }
 
 bool val_differential_delay(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_differential_delay: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -603,6 +627,7 @@ bool val_differential_delay(char * data) {
 }
 
 bool val_basestation_id(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_basestation_id: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if (strlen(data) == 4) {
@@ -613,6 +638,7 @@ bool val_basestation_id(char * data) {
 }
 
 bool val_positioning_status_gnrmc(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_positioning_status_gnrmc: " + String(data));}
   bool check_pass = false;
   if (strlen(data) == 1) {
     if ((strcmp(data, "A") == 0) || (strcmp(data, "V") == 0)) {
@@ -623,6 +649,7 @@ bool val_positioning_status_gnrmc(char * data) {
 }
 
 bool val_ground_speed(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ground_speed: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -631,6 +658,7 @@ bool val_ground_speed(char * data) {
 }
 
 bool val_ground_heading(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ground_heading: " + String(data));}
   bool check_pass = false;
   if (is_all_digits_plus_char(data, ".") == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 360)) {
@@ -642,6 +670,7 @@ bool val_ground_heading(char * data) {
 
 // todo
 bool val_installation_angle(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_installation_angle: " + String(data));}
   bool check_pass = false;
   if (is_all_digits_plus_char(data, ".") == true) {
     if (atoi(data) >= 0) {
@@ -652,6 +681,7 @@ bool val_installation_angle(char * data) {
 }
 
 bool val_installation_angle_direction(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_installation_angle_direction: " + String(data));}
   bool check_pass = false;
   if (strlen(data) == 1) {
     if ((strcmp(data, "E") == 0) || (strcmp(data, "W") == 0) || (strcmp(data, "M") == 0)) {
@@ -662,6 +692,7 @@ bool val_installation_angle_direction(char * data) {
 }
 
 bool val_mode_indication(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_mode_indication: " + String(data));}
   bool check_pass = false;
   if (strlen(data) == 1) {
     if ((strcmp(data, "A") == 0) || (strcmp(data, "D") == 0) || (strcmp(data, "E") == 0) || (strcmp(data, "N") == 0)) {
@@ -672,6 +703,7 @@ bool val_mode_indication(char * data) {
 }
 
 bool val_pitch_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_pitch_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -680,6 +712,7 @@ bool val_pitch_gpatt(char * data) {
 }
 
 bool val_roll_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_roll_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -688,6 +721,7 @@ bool val_roll_gpatt(char * data) {
 }
 
 bool val_yaw_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_yaw_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -696,30 +730,35 @@ bool val_yaw_gpatt(char * data) {
 }
 
 bool val_angle_channle_p_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_angle_channle_p_gpatt: " + String(data));}
   bool check_pass = false;
   if (strcmp(data, "p") == 0) {check_pass = true;}
   return check_pass;
 }
 
 bool val_angle_channle_r_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_angle_channle_r_gpatt: " + String(data));}
   bool check_pass = false;
   if (strcmp(data, "r") == 0) {check_pass = true;}
   return check_pass;
 }
 
 bool val_angle_channle_y_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_angle_channle_y_gpatt: " + String(data));}
   bool check_pass = false;
   if (strcmp(data, "y") == 0) {check_pass = true;}
   return check_pass;
 }
 
 bool val_version_channel_s_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_version_channel_s_gpatt: " + String(data));}
   bool check_pass = false;
   if (strcmp(data, "S") == 0) {check_pass = true;}
   return check_pass;
 }
 
 bool val_software_version_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_software_version_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if (atoi(data) == 20230219) {check_pass = true;}
@@ -728,18 +767,21 @@ bool val_software_version_gpatt(char * data) {
 }
 
 bool val_product_id_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_product_id_gpatt: " + String(data));}
   bool check_pass = false;
   if (strcmp(data, "003E009") == 0) {check_pass = true;}
   return check_pass;
 }
 
 bool val_id_channel_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_id_channel_gpatt: " + String(data));}
   bool check_pass = false;
   if (strcmp(data, "ID") == 0) {check_pass = true;}
   return check_pass;
 }
 
 bool val_ins_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ins_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
@@ -748,12 +790,14 @@ bool val_ins_gpatt(char * data) {
 }
 
 bool val_ins_channel_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ins_channel_gpatt: " + String(data));}
   bool check_pass = false;
   if (strcmp(data, "INS") == 0) {check_pass = true;}
   return check_pass;
 }
 
 bool val_hardware_version_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_hardware_version_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if (strcmp(data, "3335") == 0) {check_pass = true;}
@@ -762,6 +806,7 @@ bool val_hardware_version_gpatt(char * data) {
 }
 
 bool val_run_state_flag_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_run_state_flag_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((strcmp(data, "01") == 0) || (strcmp(data, "02") == 0) || (strcmp(data, "03") == 0)) {check_pass = true;}
@@ -771,6 +816,7 @@ bool val_run_state_flag_gpatt(char * data) {
 
 // todo
 bool val_mis_angle_num_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_mis_angle_num_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -779,6 +825,7 @@ bool val_mis_angle_num_gpatt(char * data) {
 }
 
 bool val_static_flag_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_static_flag_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
@@ -788,6 +835,7 @@ bool val_static_flag_gpatt(char * data) {
 
 // todo
 bool val_user_code_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_user_code_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_all_digits_plus_char(data, ".") == true) {
     if (atoi(data) >= 0) {check_pass = true;}
@@ -796,6 +844,7 @@ bool val_user_code_gpatt(char * data) {
 }
 
 bool val_gst_data_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_gst_data_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if (atoi(data) >= 0) {check_pass = true;}
@@ -804,6 +853,7 @@ bool val_gst_data_gpatt(char * data) {
 }
 
 bool val_line_flag_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_line_flag_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
@@ -812,6 +862,7 @@ bool val_line_flag_gpatt(char * data) {
 }
 
 bool val_mis_att_flag_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_mis_att_flag_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
@@ -820,6 +871,7 @@ bool val_mis_att_flag_gpatt(char * data) {
 }
 
 bool val_imu_kind_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_imu_kind_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 8)) {check_pass = true;}
@@ -828,6 +880,7 @@ bool val_imu_kind_gpatt(char * data) {
 }
 
 bool val_ubi_car_kind_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ubi_car_kind_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 1) && (atoi(data) <= 4)) {check_pass = true;}
@@ -836,6 +889,7 @@ bool val_ubi_car_kind_gpatt(char * data) {
 }
 
 bool val_mileage_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_mileage_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -844,6 +898,7 @@ bool val_mileage_gpatt(char * data) {
 }
 
 bool val_run_inetial_flag_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_run_inetial_flag_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 4)) {check_pass = true;}
@@ -852,6 +907,7 @@ bool val_run_inetial_flag_gpatt(char * data) {
 }
 
 bool val_speed_enable_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_speed_enable_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) == 0) || (atoi(data) == 1)) {check_pass = true;}
@@ -860,6 +916,7 @@ bool val_speed_enable_gpatt(char * data) {
 }
 
 bool val_speed_num_gpatt(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_speed_num_gpatt: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -868,6 +925,7 @@ bool val_speed_num_gpatt(char * data) {
 }
 
 bool val_speed_status(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_speed_status: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 2)) {check_pass = true;}
@@ -876,12 +934,14 @@ bool val_speed_status(char * data) {
 }
 
 bool val_accelleration_delimiter(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_accelleration_delimiter: " + String(data));}
   bool check_pass = false;
   if (strcmp(data, "A") == 0) {check_pass = true;}
   return check_pass;
 }
 
 bool val_axis_accelleration(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_axis_accelleration: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -890,12 +950,14 @@ bool val_axis_accelleration(char * data) {
 }
 
 bool val_angular_velocity_delimiter(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_angular_velocity_delimiter: " + String(data));}
   bool check_pass = false;
   if (strcmp(data, "G") == 0) {check_pass = true;}
   return check_pass;
 }
 
 bool val_gyro_angular_velocity(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_gyro_angular_velocity: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -904,12 +966,14 @@ bool val_gyro_angular_velocity(char * data) {
 }
 
 bool val_status_delimiter(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_status_delimiter: " + String(data));}
   bool check_pass = false;
   if (strcmp(data, "S") == 0) {check_pass = true;}
   return check_pass;
 }
 
 bool val_ubi_state_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ubi_state_flag: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
@@ -918,6 +982,7 @@ bool val_ubi_state_flag(char * data) {
 }
 
 bool val_ubi_state_kind_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ubi_state_kind_flag: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 8)) {check_pass = true;}
@@ -926,6 +991,7 @@ bool val_ubi_state_kind_flag(char * data) {
 }
 
 bool val_code_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_code_flag: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
@@ -934,6 +1000,7 @@ bool val_code_flag(char * data) {
 }
 
 bool val_gset_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_gset_flag: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
@@ -942,6 +1009,7 @@ bool val_gset_flag(char * data) {
 }
 
 bool val_sset_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_sset_flag: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
@@ -950,6 +1018,7 @@ bool val_sset_flag(char * data) {
 }
 
 bool val_ang_dget_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ang_dget_flag: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
@@ -958,6 +1027,7 @@ bool val_ang_dget_flag(char * data) {
 }
 
 bool val_ins_run_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ins_run_flag: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
@@ -966,6 +1036,7 @@ bool val_ins_run_flag(char * data) {
 }
 
 bool val_fix_kind_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_fix_kind_flag: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
@@ -974,6 +1045,7 @@ bool val_fix_kind_flag(char * data) {
 }
 
 bool val_fix_roll_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_fix_roll_flag: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -982,6 +1054,7 @@ bool val_fix_roll_flag(char * data) {
 }
 
 bool val_fix_pitch_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_fix_pitch_flag: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -990,6 +1063,7 @@ bool val_fix_pitch_flag(char * data) {
 }
 
 bool val_ubi_on_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ubi_on_flag: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 8)) {check_pass = true;}
@@ -998,6 +1072,7 @@ bool val_ubi_on_flag(char * data) {
 }
 
 bool val_ubi_kind_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ubi_kind_flag: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 2)) {check_pass = true;}
@@ -1006,6 +1081,7 @@ bool val_ubi_kind_flag(char * data) {
 }
 
 bool val_ubi_a_set(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ubi_a_set: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
   if ((atoi(data) >= 0) && (atoi(data) <= 19)) {check_pass = true;}
@@ -1014,6 +1090,7 @@ bool val_ubi_a_set(char * data) {
 }
 
 bool val_ubi_b_set(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ubi_b_set: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
   if ((atoi(data) >= 0) && (atoi(data) <= 19)) {check_pass = true;}
@@ -1022,6 +1099,7 @@ bool val_ubi_b_set(char * data) {
 }
 
 bool val_acc_X_data(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_acc_X_data: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -1030,6 +1108,7 @@ bool val_acc_X_data(char * data) {
 }
 
 bool val_acc_Y_data(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_acc_Y_data: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -1038,6 +1117,7 @@ bool val_acc_Y_data(char * data) {
 }
 
 bool val_gyro_Z_data(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_gyro_Z_data: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -1046,6 +1126,7 @@ bool val_gyro_Z_data(char * data) {
 }
 
 bool val_pitch_angle(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_pitch_angle: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -1054,6 +1135,7 @@ bool val_pitch_angle(char * data) {
 }
 
 bool val_roll_angle(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_roll_angle: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -1062,6 +1144,7 @@ bool val_roll_angle(char * data) {
 }
 
 bool val_yaw_angle(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_yaw_angle: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -1070,6 +1153,7 @@ bool val_yaw_angle(char * data) {
 }
 
 bool val_car_speed(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_car_speed: " + String(data));}
   bool check_pass = false;
   if (is_all_digits_plus_char(data, ".") == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 100)) {check_pass = true;}
@@ -1078,6 +1162,7 @@ bool val_car_speed(char * data) {
 }
 
 bool val_ins_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ins_flag: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
     if ((atoi(data) >= 0) && (atoi(data) <= 4)) {check_pass = true;}
@@ -1086,6 +1171,7 @@ bool val_ins_flag(char * data) {
 }
 
 bool val_ubi_num(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ubi_num: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -1094,6 +1180,7 @@ bool val_ubi_num(char * data) {
 }
 
 bool val_ubi_valid(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_ubi_valid: " + String(data));}
   bool check_pass = false;
   if (is_all_digits(data) == true) {
   if ((atoi(data) >= 0) && (atoi(data) <= 1)) {check_pass = true;}
@@ -1102,6 +1189,7 @@ bool val_ubi_valid(char * data) {
 }
 
 bool val_coll_T_data(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_coll_T_data: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -1110,6 +1198,7 @@ bool val_coll_T_data(char * data) {
 }
 
 bool val_coll_T_heading(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_coll_T_heading: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -1118,18 +1207,21 @@ bool val_coll_T_heading(char * data) {
 }
 
 bool val_custom_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_custom_flag: " + String(data));}
   bool check_pass = false;
   if (strlen(data) >= 1) {check_pass = true;}
   return check_pass;
 }
 
 bool val_checksum(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_checksum: " + String(data));}
   bool check_pass = false;
   if (strlen(data) == 3) {check_pass = true;}
   return check_pass;
 }
 
 bool val_scalable(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_scalable: " + String(data));}
   bool check_pass = false;
   if (strlen(data) >= 1) {check_pass = true;}
   return check_pass;
@@ -2037,12 +2129,14 @@ void GNGGA() {
     else if (serial1Data.iter_token ==11) {if (val_geoidal(serial1Data.token) == true)                  {memset(gnggaData.geoidal, 0, 56);               strcpy(gnggaData.geoidal, serial1Data.token);               gnggaData.check_data++; gnggaData.bad_geoidal = false;}               else {gnggaData.bad_geoidal_i++;               gnggaData.bad_geoidal = true;}}
     else if (serial1Data.iter_token ==12) {if (val_geoidal_units(serial1Data.token) == true)            {memset(gnggaData.geoidal_units, 0, 56);         strcpy(gnggaData.geoidal_units, serial1Data.token);         gnggaData.check_data++; gnggaData.bad_geoidal_units = false;}         else {gnggaData.bad_geoidal_units_i++;         gnggaData.bad_geoidal_units = true;}}
     else if (serial1Data.iter_token ==13) {if (val_differential_delay(serial1Data.token) == true)       {memset(gnggaData.differential_delay, 0, 56);    strcpy(gnggaData.differential_delay, serial1Data.token);    gnggaData.check_data++; gnggaData.bad_differential_delay = false;}    else {gnggaData.bad_differential_delay_i++;    gnggaData.bad_differential_delay = true;}}
-    else if (serial1Data.iter_token ==14) {
-      strcpy(gnggaData.temporary_data, strtok(serial1Data.token, "*"));
-      if (val_basestation_id(gnggaData.temporary_data) == true) {memset(gnggaData.id, 0, 56); strcpy(gnggaData.id, gnggaData.temporary_data); gnggaData.check_data++; gnggaData.bad_id = false;} else {gnggaData.bad_id_i++; gnggaData.bad_id = true;}
-      serial1Data.token = strtok(NULL, "*");
-      strcpy(gnggaData.temporary_data_1, strtok(serial1Data.token, "*"));
-      if (val_checksum(gnggaData.temporary_data_1) == true) {memset(gnggaData.check_sum, 0, 56); strcpy(gnggaData.check_sum, gnggaData.temporary_data_1); gnggaData.check_data++; gnggaData.bad_check_sum = false;} else {gnggaData.bad_check_sum_i++; gnggaData.bad_check_sum = true;}}
+    // else if (serial1Data.iter_token ==14) {
+    //   memset(gnggaData.temporary_data, 0, 56);
+    //   strcpy(gnggaData.temporary_data, strtok(serial1Data.token, "*"));
+    //   if (val_basestation_id(gnggaData.temporary_data) == true) {memset(gnggaData.id, 0, 56); strcpy(gnggaData.id, gnggaData.temporary_data); gnggaData.check_data++; gnggaData.bad_id = false;} else {gnggaData.bad_id_i++; gnggaData.bad_id = true;}
+    //   serial1Data.token = strtok(NULL, "*");
+    //   memset(gnggaData.temporary_data_1, 0, 56);
+    //   strcpy(gnggaData.temporary_data_1, strtok(serial1Data.token, "*"));
+    //   if (val_checksum(gnggaData.temporary_data_1) == true) {memset(gnggaData.check_sum, 0, 56); strcpy(gnggaData.check_sum, gnggaData.temporary_data_1); gnggaData.check_data++; gnggaData.bad_check_sum = false;} else {gnggaData.bad_check_sum_i++; gnggaData.bad_check_sum = true;}}
     serial1Data.token = strtok(NULL, ",");
     serial1Data.iter_token++;
   }
@@ -2112,12 +2206,14 @@ void GNRMC() {
     else if (serial1Data.iter_token ==9)  {if (val_utc_date(serial1Data.token) == true)                     {memset(gnrmcData.utc_date, 0, 56);                     strcpy(gnrmcData.utc_date, serial1Data.token);                     gnrmcData.check_data++; gnrmcData.bad_utc_date = false;}                     else {gnrmcData.bad_utc_date_i++;                     gnrmcData.bad_utc_date = true;}}
     else if (serial1Data.iter_token ==10) {if (val_installation_angle(serial1Data.token) == true)           {memset(gnrmcData.installation_angle, 0, 56);           strcpy(gnrmcData.installation_angle, serial1Data.token);           gnrmcData.check_data++; gnrmcData.bad_installation_angle = false;}           else {gnrmcData.bad_installation_angle_i++;           gnrmcData.bad_installation_angle = true;}}
     else if (serial1Data.iter_token ==11) {if (val_installation_angle_direction(serial1Data.token) == true) {memset(gnrmcData.installation_angle_direction, 0, 56); strcpy(gnrmcData.installation_angle_direction, serial1Data.token); gnrmcData.check_data++; gnrmcData.bad_installation_angle_direction = false;} else {gnrmcData.bad_installation_angle_direction_i++; gnrmcData.bad_installation_angle_direction = true;}}
-    else if (serial1Data.iter_token ==12) {
-      strcpy(gnrmcData.temporary_data, strtok(serial1Data.token, "*"));
-      if (val_mode_indication(gnrmcData.temporary_data) == true) {memset(gnrmcData.mode_indication, 0, 56); strcpy(gnrmcData.mode_indication, gnrmcData.temporary_data); gnrmcData.check_data++; gnrmcData.bad_mode_indication = false;} else {gnrmcData.bad_mode_indication_i++; gnrmcData.bad_mode_indication = true;}
-      serial1Data.token = strtok(NULL, "*");
-      strcpy(gnrmcData.temporary_data_1, strtok(serial1Data.token, "*"));
-      if (val_checksum(gnrmcData.temporary_data_1) == true) {memset(gnrmcData.check_sum, 0, 56); strcpy(gnrmcData.check_sum, gnrmcData.temporary_data_1); gnrmcData.check_data++; gnrmcData.bad_check_sum = false;} else {gnrmcData.bad_check_sum_i++; gnrmcData.bad_check_sum = true;}}
+    // else if (serial1Data.iter_token ==12) {
+    //   memset(gnggaData.temporary_data, 0, 56);
+    //   strcpy(gnrmcData.temporary_data, strtok(serial1Data.token, "*"));
+    //   if (val_mode_indication(gnrmcData.temporary_data) == true) {memset(gnrmcData.mode_indication, 0, 56); strcpy(gnrmcData.mode_indication, gnrmcData.temporary_data); gnrmcData.check_data++; gnrmcData.bad_mode_indication = false;} else {gnrmcData.bad_mode_indication_i++; gnrmcData.bad_mode_indication = true;}
+    //   serial1Data.token = strtok(NULL, "*");
+    //   memset(gnggaData.temporary_data_1, 0, 56);
+    //   strcpy(gnrmcData.temporary_data_1, strtok(serial1Data.token, "*"));
+    //   if (val_checksum(gnrmcData.temporary_data_1) == true) {memset(gnrmcData.check_sum, 0, 56); strcpy(gnrmcData.check_sum, gnrmcData.temporary_data_1); gnrmcData.check_data++; gnrmcData.bad_check_sum = false;} else {gnrmcData.bad_check_sum_i++; gnrmcData.bad_check_sum = true;}}
     serial1Data.token = strtok(NULL, ",");
     serial1Data.iter_token++;
   }
@@ -2239,12 +2335,14 @@ void GPATT() {
     else if (serial1Data.iter_token == 36) {if (val_custom_flag(serial1Data.token) == true)            {memset(gpattData.custom_logo_10, 0, 56); strcpy(gpattData.custom_logo_10, serial1Data.token);     gpattData.check_data++; gpattData.bad_custom_logo_10 = false;}   else {gpattData.bad_custom_logo_10_i++;   gpattData.bad_custom_logo_10 = true;}}
     else if (serial1Data.iter_token == 37) {if (val_custom_flag(serial1Data.token) == true)            {memset(gpattData.custom_logo_11, 0, 56); strcpy(gpattData.custom_logo_11, serial1Data.token);     gpattData.check_data++; gpattData.bad_custom_logo_11 = false;}   else {gpattData.bad_custom_logo_11_i++;   gpattData.bad_custom_logo_11 = true;}}
     else if (serial1Data.iter_token == 38) {if (val_speed_num_gpatt(serial1Data.token) == true)        {memset(gpattData.speed_num, 0, 56); strcpy(gpattData.speed_num, serial1Data.token);               gpattData.check_data++; gpattData.bad_speed_num = false;}        else {gpattData.bad_speed_num_i++;        gpattData.bad_speed_num = true;}}
-    else if (serial1Data.iter_token == 39) {
-      strcpy(gpattData.temporary_data, strtok(serial1Data.token, "*"));
-      if (val_scalable(gpattData.temporary_data) == true) {memset(gpattData.scalable, 0, 56); strcpy(gpattData.scalable, gpattData.temporary_data); gpattData.check_data++; gpattData.bad_scalable = false;} else {gpattData.bad_scalable_i++; gpattData.bad_scalable = true;}
-      serial1Data.token = strtok(NULL, "*");
-      strcpy(gpattData.temporary_data_1, strtok(serial1Data.token, "*"));
-      if (val_checksum(gpattData.temporary_data_1) == true) {memset(gpattData.check_sum, 0, 56); strcpy(gpattData.check_sum, gpattData.temporary_data_1); gpattData.check_data++; gpattData.bad_check_sum = false;} else {gpattData.bad_check_sum_i++; gpattData.bad_check_sum = true;}}
+    // else if (serial1Data.iter_token == 39) {
+    //   memset(gnggaData.temporary_data, 0, 56);
+    //   strcpy(gpattData.temporary_data, strtok(serial1Data.token, "*"));
+    //   if (val_scalable(gpattData.temporary_data) == true) {memset(gpattData.scalable, 0, 56); strcpy(gpattData.scalable, gpattData.temporary_data); gpattData.check_data++; gpattData.bad_scalable = false;} else {gpattData.bad_scalable_i++; gpattData.bad_scalable = true;}
+    //   serial1Data.token = strtok(NULL, "*");
+    //   memset(gnggaData.temporary_data_1, 0, 56);
+    //   strcpy(gpattData.temporary_data_1, strtok(serial1Data.token, "*"));
+    //   if (val_checksum(gpattData.temporary_data_1) == true) {memset(gpattData.check_sum, 0, 56); strcpy(gpattData.check_sum, gpattData.temporary_data_1); gpattData.check_data++; gpattData.bad_check_sum = false;} else {gpattData.bad_check_sum_i++; gpattData.bad_check_sum = true;}}
     serial1Data.token = strtok(NULL, ",");
     serial1Data.iter_token++;
   }
