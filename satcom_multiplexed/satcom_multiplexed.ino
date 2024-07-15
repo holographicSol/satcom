@@ -188,7 +188,7 @@ struct menuStruct {
   int numpad_key = NULL;
   bool select = false;
   int page = 2;
-  int page_max = 4;
+  int page_max = 5;
   int relay_select = 0;
   int relay_function_select = 0;
   int function_index = 0;
@@ -3664,6 +3664,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 42, "LOAD");
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()/2, 51, "DELETE");
       }
+  }
 
   if (menuData.page == 4) {
     menuData.menu_lock = false; // enable input
@@ -3675,8 +3676,22 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "STARTUP");
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 15, "AUTORUN");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, String(systemData.translate_enable_bool[0][systemData.autoresume_enabled]));
+      }
+    // select row 1
+    if (menuData.y == 1) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setColor(WHITE); display_2.fillRect(0, 16, display_2.getWidth(), 10); // item emphasis
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "STARTUP");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 15, "AUTORUN");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 15, String(systemData.translate_enable_bool[0][systemData.autoresume_enabled]));
       }
   }
+
   // file: loading
   if (menuData.page == 20) {
     menuData.menu_lock = true; // disable input on this page
@@ -5358,6 +5373,10 @@ void menuSelect() {
     if (menuData.y == 3) {sdcard_save_matrix(sdcardData.matrix_filepath);}
     if (menuData.y == 4) {sdcard_load_matrix(sdcardData.matrix_filepath);}
     if (menuData.y == 5) {sdcard_delete_matrix(sdcardData.matrix_filepath);}
+  }
+  // page 4 only
+  if (menuData.page == 4) {
+    if (menuData.y == 1) {if (systemData.autoresume_enabled == true) {systemData.autoresume_enabled = false; sdcard_save_system_configuration(sdcardData.sysconf, 4);} else {systemData.autoresume_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 4);}}
   }
 }
 
