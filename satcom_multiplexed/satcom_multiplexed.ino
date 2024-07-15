@@ -4040,7 +4040,8 @@ void sdcard_delete_matrix(char * file) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                  ZERO MATRIX
 
-void sdcard_zero_matrix() {
+void zero_matrix() {
+  Serial.println("[matrix] setting all matrix values to zero.");
   // iterate over each relay matrix
   for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
     relayData.relays_enable[0][Ri] = 0;
@@ -5118,7 +5119,7 @@ void menuSelect() {
   // page 3 only
   if (menuData.page == 3) {
     // new
-    if (menuData.y == 2) {sdcard_calculate_filename_create("MATRIX/", "MATRIX", ".SAVE"); sdcard_zero_matrix();}
+    if (menuData.y == 2) {sdcard_calculate_filename_create("MATRIX/", "MATRIX", ".SAVE"); zero_matrix();}
     if (menuData.y == 3) {sdcard_save_matrix(sdcardData.matrix_filepath);}
     if (menuData.y == 4) {sdcard_delete_matrix(sdcardData.matrix_filepath);}
     if (menuData.y == 5) {}
