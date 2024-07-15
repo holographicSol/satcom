@@ -154,6 +154,13 @@ struct systemStruct {
   bool debug_enabled = true;
   bool matrix_enabled = false;     // default: disabled
   bool autoresume_enabled = false; // default: disabled
+  bool output_satcom_enabled = true;
+  bool output_gngga_enabled = true;
+  bool output_gnrmc_enabled = true;
+  bool output_gpatt_enabled = true;
+  bool output_speed_enabled = true;
+  bool output_error_enabled = true;
+  bool output_debug_enabled = true;
   char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
 };
 systemStruct systemData;
@@ -2822,7 +2829,7 @@ void extrapulatedSatData() {
   satData.checksum_i = getCheckSum(satData.satcom_sentence);
   itoa(satData.checksum_i, satData.checksum_str, 10);
   strcat(satData.satcom_sentence, satData.checksum_str);
-  Serial.println(satData.satcom_sentence);
+  if (systemData.output_satcom_enabled == true) {Serial.println(satData.satcom_sentence);}
   }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -5353,7 +5360,7 @@ void readRXD_1() {
     if (systemData.gngga_enabled == true) {
       if (strncmp(serial1Data.BUFFER, "$GNGGA", 6) == 0) {
         serial1Data.rcv = true;
-        Serial.print(""); Serial.println(serial1Data.BUFFER);
+        if (systemData.output_gngga_enabled == true) {Serial.println(serial1Data.BUFFER);}
         strcpy(gnggaData.sentence, serial1Data.BUFFER);
         gnggaData.valid_checksum = validateChecksum(gnggaData.sentence);
         if (gnggaData.valid_checksum == true) {GNGGA();}
@@ -5367,7 +5374,7 @@ void readRXD_1() {
     if (systemData.gnrmc_enabled == true) {
       if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
         serial1Data.rcv = true;
-        Serial.print(""); Serial.println(serial1Data.BUFFER);
+        if (systemData.output_gnrmc_enabled == true) {Serial.println(serial1Data.BUFFER);}
         strcpy(gnrmcData.sentence, serial1Data.BUFFER);
         gnrmcData.valid_checksum = validateChecksum(gnrmcData.sentence);
         if (gnrmcData.valid_checksum == true) {GNRMC();}
@@ -5381,7 +5388,7 @@ void readRXD_1() {
     if (systemData.gpatt_enabled == true) {
       if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
           serial1Data.rcv = true;
-          Serial.print(""); Serial.println(serial1Data.BUFFER);
+          if (systemData.output_gpatt_enabled == true) {Serial.println(serial1Data.BUFFER);}
           strcpy(gpattData.sentence, serial1Data.BUFFER);
           gpattData.valid_checksum = validateChecksum(gpattData.sentence);
           if (gpattData.valid_checksum == true) {GPATT();}
@@ -5615,7 +5622,7 @@ void loop() {
   switch can remain operational for data that is not received while also performing better overall. (tunable)
   */  
 
-  if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 10)) {
+  if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 5)) {
     serial1Data.badrcv_i=0;
 
     // uncomment to update menu ui every loop. may be recommended to only update menu ui when required.
