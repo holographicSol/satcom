@@ -100,12 +100,29 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 #define ISR_UP_KEY     3
 #define ISR_DOWN_KEY   4
 #define ISR_SELECT_KEY 5
-
 #define ISR_NPAD_RIGHT_KEY  11
 #define ISR_NPAD_LEFT_KEY   12
 #define ISR_NPAD_UP_KEY     13
 #define ISR_NPAD_DOWN_KEY   14
 #define ISR_NPAD_SELECT_KEY 15
+
+
+// individual debounce times
+int           debounce_p0_right = 50;
+unsigned long debounce_t0_right;
+unsigned long debounce_t1_right;
+int           debounce_p0_left = 50;
+unsigned long debounce_t0_left;
+unsigned long debounce_t1_left;
+int           debounce_p0_up = 50;
+unsigned long debounce_t0_up;
+unsigned long debounce_t1_up;
+int           debounce_p0_down = 50;
+unsigned long debounce_t0_down;
+unsigned long debounce_t1_down;
+int           debounce_p0_select = 50;
+unsigned long debounce_t0_select;
+unsigned long debounce_t1_select;
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       SDCARD
@@ -5762,37 +5779,58 @@ void loop() {
   delay(10);
   // store time taken to complete
   timeData.mainLoopTimeTaken = millis() - timeData.mainLoopTimeStart;
+
+  debounce_t0_right = millis();
+  debounce_t0_left = millis();
+  debounce_t0_up = millis();
+  debounce_t0_down = millis();
+  debounce_t0_select = millis();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 
 void ISR_RIGHT() {
-  Serial.println("[isr] menu right");
-  if (menuData.page < 10) {menuData.isr_i = ISR_RIGHT_KEY;}
-  else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_RIGHT_KEY;}
+  if ((debounce_t0_right - debounce_t1_right) > debounce_p0_right) {
+    debounce_t1_right = debounce_t0_right;
+    Serial.println("[isr] menu right");
+    if (menuData.page < 10) {menuData.isr_i = ISR_RIGHT_KEY;}
+    else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_RIGHT_KEY;}
+  }
 }
 
 void ISR_LEFT() {
-  Serial.println("[isr] menu left");
-  if (menuData.page < 10) {menuData.isr_i = ISR_LEFT_KEY;}
-  else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_LEFT_KEY;}
+  if ((debounce_t0_left - debounce_t1_left) > debounce_p0_left) {
+    debounce_t1_left = debounce_t0_left;
+    Serial.println("[isr] menu left");
+    if (menuData.page < 10) {menuData.isr_i = ISR_LEFT_KEY;}
+    else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_LEFT_KEY;}
+  }
 }
 
 void ISR_UP() {
-  Serial.println("[isr] menu up");
-  if (menuData.page < 10) {menuData.isr_i = ISR_UP_KEY;}
-  else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_UP_KEY;}
+  if ((debounce_t0_up - debounce_t1_up) > debounce_p0_up) {
+    debounce_t1_up = debounce_t0_up;
+    Serial.println("[isr] menu up");
+    if (menuData.page < 10) {menuData.isr_i = ISR_UP_KEY;}
+    else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_UP_KEY;}
+  }
 }
 
 void ISR_DOWN() {
-  Serial.println("[isr] menu down");
-  if (menuData.page < 10) {menuData.isr_i = ISR_DOWN_KEY;}
-  else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_DOWN_KEY;}
+  if ((debounce_t0_down - debounce_t1_down) > debounce_p0_down) {
+    debounce_t1_down = debounce_t0_down;
+    Serial.println("[isr] menu down");
+    if (menuData.page < 10) {menuData.isr_i = ISR_DOWN_KEY;}
+    else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_DOWN_KEY;}
+  }
 }
 
 void ISR_SELECT() {
-  Serial.println("[isr] menu select");
-  if (menuData.page < 10) {menuData.isr_i = ISR_SELECT_KEY;}
-  else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_SELECT_KEY;}
+  if ((debounce_t0_select - debounce_t1_select) > debounce_p0_select) {
+    debounce_t1_select = debounce_t0_select;
+    Serial.println("[isr] menu select");
+    if (menuData.page < 10) {menuData.isr_i = ISR_SELECT_KEY;}
+    else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_SELECT_KEY;}
+  }
 }
 
