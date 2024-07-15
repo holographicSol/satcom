@@ -5714,11 +5714,11 @@ void loop() {
   // check satellite receiver
   readRXD_1();
 
-  if (menuData.isr_i == 1) {menuData.isr_i=0; menuRight(); delay(10);}
-  if (menuData.isr_i == 2) {menuData.isr_i=0; menuLeft(); delay(10);}
-  if (menuData.isr_i == 3) {menuData.isr_i=0; menuUp(); delay(10);}
-  if (menuData.isr_i == 4) {menuData.isr_i=0; menuDown(); delay(10);}
-  if (menuData.isr_i == 5) {menuData.isr_i=0; menuSelect(); delay(10);}
+  if (menuData.isr_i == 1) {menuData.isr_i=0; menuRight(); delay(50);}
+  if (menuData.isr_i == 2) {menuData.isr_i=0; menuLeft(); delay(50);}
+  if (menuData.isr_i == 3) {menuData.isr_i=0; menuUp(); delay(50);}
+  if (menuData.isr_i == 4) {menuData.isr_i=0; menuDown(); delay(50);}
+  if (menuData.isr_i == 5) {menuData.isr_i=0; menuSelect(); delay(50);}
 
   /*
   for performance/efficiency only do the following if data is received OR if there may be an issue receiving, this way the matrix
