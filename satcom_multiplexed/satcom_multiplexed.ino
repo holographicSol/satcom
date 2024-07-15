@@ -5605,7 +5605,7 @@ void loop() {
   time_counter();
 
   // check serial input commands
-  // readRXD_0();
+  readRXD_0();
   
   // check satellite receiver
   readRXD_1();
