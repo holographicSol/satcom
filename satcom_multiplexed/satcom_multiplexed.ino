@@ -8,6 +8,8 @@
 
                 Possible combinations example: 100 checks ^ 10 functions = 100,000,000,000,000,000,000 combinations.
                                                                            100 Quintillion.
+            Currently there are over 200 different checks that can be performed using just several small primitive functions and
+             currently each relays activation/deactivaion can occur based on up to 10 different checks resulting true or false. 
                                       
                           Wiring (Keyestudio ESP32 Dev Board):
                           WTGPS300P TX               --> ESP32 io26 as RXD (5v)
