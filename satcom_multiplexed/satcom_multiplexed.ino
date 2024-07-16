@@ -1414,7 +1414,7 @@ struct RelayStruct {
   Matrix containing sets of values per relay.
   X: use with/without  Y,Z.
   Y: necessary if comparing to X.
-  Z: necessary if comparing to X/Y in range.  
+  Z: necessary if checking X,Y in range of Z.  
                 
                 0
           0     1     2     
