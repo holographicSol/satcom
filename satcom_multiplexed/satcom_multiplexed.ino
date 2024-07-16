@@ -37,6 +37,9 @@
               The idea is that each relay is controlled by a compound of logic (limited by memory), and the logic itself
               is programmable before and after flashing. Allowing for a reusable and general purpose system for any future
               projects requiring such data. more advanced calculations are intended, such as emphemeris, astronomical etc.
+
+              The relays are currently simulated while the system is being built and the simulation is designed to be easily
+              relaceable by the actual relays themselves once the logic has been completed to a satisfactory degree.
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
