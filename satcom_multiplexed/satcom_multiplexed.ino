@@ -3725,7 +3725,8 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 15, "CONTINUE");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 15, String(systemData.translate_enable_bool[0][systemData.autoresume_enabled]));
       }
-      if (menuData.y >=2 ) {menuData.y = 0;}
+    // null unless more entries
+    if (menuData.y >=2 ) {menuData.y = 0;}
   }
 
   if (menuData.page == 5) {
@@ -3815,7 +3816,8 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 42, "FLIP");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 42, String(systemData.translate_enable_bool[0][systemData.display_flip_vertically]));
       }
-      if (menuData.y >=5 ) {menuData.y = 0;}
+    // null unless more entries
+    if (menuData.y >=5 ) {menuData.y = 0;}
   }
 
   if (menuData.page == 6) {
@@ -3905,7 +3907,8 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 42, "GPATT");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 42, String(systemData.translate_enable_bool[0][systemData.output_gpatt_enabled]));
       }
-      if (menuData.y >=5 ) {menuData.y = 0;}
+    // null unless more entries
+    if (menuData.y >=5 ) {menuData.y = 0;}
   }
 
   // file: loading
