@@ -8,11 +8,6 @@
 
                 Possible combinations example: 100 checks ^ 10 functions = 100,000,000,000,000,000,000 combinations.
                                                                            100 Quintillion.
-
-                                      Calibratable matrix for a wide range of applications.
-
-         Tested with WTGPS300P (WITMOTION) Satellite module this project receives data from satellites, sorts that data into
-     variables that can be used later, and creates new $ sentences containing new data, calculated from the data received.
                                       
                           Wiring (Keyestudio ESP32 Dev Board):
                           WTGPS300P TX               --> ESP32 io26 as RXD (5v)
