@@ -4679,7 +4679,7 @@ bool sdcard_load_matrix(char * file) {
           Serial.println("[Fi] [PASS] " +String(sdcardData.data_1));
         }
         else {Serial.println("[Fi] [INVALID] " +String(sdcardData.data_1));}
-
+        // continue if we have valid index numbers
         if ((validData.bool_data_0 == true) && (validData.bool_data_1 == true)) {
           // relay function name
           sdcardData.token = strtok(NULL, ",");
