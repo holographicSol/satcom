@@ -188,7 +188,7 @@ struct systemStruct {
   bool          display_dim = false;
   // auto off display
   bool display_auto_off = true; // defalut: enabled (burn-in protection)
-  int           display_auto_off_p0 = 10000;
+  int           display_auto_off_p0 = 20000;
   unsigned long display_auto_off_t0;
   unsigned long display_auto_off_t1;
   bool          display_on = true;
