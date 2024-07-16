@@ -44,6 +44,7 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                   TCA9548A i2C Multiplexer   --> ESP32 i2C (3.3v. ensure 3.3 not 5v)
                                   x6 SSD1306 (blue & yellow) --> TCA9548A i2C Multiplexer (wrired from sda/sdc 7 down)
                                   SDCARD Adapter HW-125      --> CS 05, SCK 18, MOSI 23, MISO 19, VCC 5v (Optional)
+                                  D-PAD                      --> right 34, left 33, up 32, down 39, select 36
 
 
                                                       SENTENCE $SATCOM
@@ -4743,7 +4744,6 @@ bool sdcard_save_matrix(char * file) {
   menuData.page = 21;
   SSD_Display_2_Menu();
   Serial.println("[sdcard] attempting to save file: " + String(file));
-
   // sdcardData
   sdcardData.current_file = sd.open(file, FILE_WRITE);
   sdcardData.current_file.rewind();
