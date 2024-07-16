@@ -3963,6 +3963,7 @@ void SSD_Display_2_Menu() {
 //                                                                                                                   DISPLAY: 3
 
 void SSD_Display_MATRIX() {
+  // this display currently reflects a simulated relay state (bool) and will ultimately reflect pin high/low state
   tcaselect(3);
   display_3.setTextAlignment(TEXT_ALIGN_CENTER);
   display_3.setColor(WHITE);
