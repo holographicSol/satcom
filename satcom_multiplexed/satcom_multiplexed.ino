@@ -149,14 +149,14 @@ FsFile file;
 #endif
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                       WIRING
+//                                                                                                                      DISPLAY
 
-SSD1306Wire   display_6(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
-SSD1306Wire   display_7(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
-SSD1306Wire   display_5(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
-SSD1306Wire   display_4(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
-SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
-SSD1306Wire   display_2(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
+SSD1306Wire   display_6(0x3c, SDA, SCL);
+SSD1306Wire   display_7(0x3c, SDA, SCL);
+SSD1306Wire   display_5(0x3c, SDA, SCL);
+SSD1306Wire   display_4(0x3c, SDA, SCL);
+SSD1306Wire   display_3(0x3c, SDA, SCL);
+SSD1306Wire   display_2(0x3c, SDA, SCL);
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                 DATA: SYSTEM
@@ -181,14 +181,14 @@ struct systemStruct {
   bool display_low_light = false;
   bool display_flip_vertically = false;
   // auto dim display
-  bool display_auto_dim = false; // defalut: enabled (dev disabled)
+  bool display_auto_dim = true; // defalut: enabled (burn-in protection)
   int           display_auto_dim_p0 = 3000;
   unsigned long display_auto_dim_t0;
   unsigned long display_auto_dim_t1;
   bool          display_dim = false;
   // auto off display
-  bool display_auto_off = false; // defalut: enabled (dev disabled)
-  int           display_auto_off_p0 = 5000;
+  bool display_auto_off = true; // defalut: enabled (burn-in protection)
+  int           display_auto_off_p0 = 10000;
   unsigned long display_auto_off_t0;
   unsigned long display_auto_off_t1;
   bool          display_on = true;
