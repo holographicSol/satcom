@@ -39,8 +39,8 @@
               projects requiring such data. more advanced calculations are intended, such as emphemeris, astronomical etc.
 
               The relays are currently simulated while the system is being built and the simulation is designed to be easily
-              relaceable by the actual relays themselves once the logic has been completed to a satisfactory degree. all
-              logic required to activate and deactivate relays is in place.
+              relaceable by the actual relays themselves once the logic has been completed to a satisfactory degree and currently
+              all logic required to activate and deactivate relays is in place. 
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
