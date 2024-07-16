@@ -46,8 +46,5 @@
 
 ---
 
-![plot](./resources/img_000.JPG)
-
----
 
 Pending documentation as SATCOM will require a handbook.
