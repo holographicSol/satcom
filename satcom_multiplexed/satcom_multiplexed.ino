@@ -4415,16 +4415,6 @@ void sdcard_save_system_configuration(char * file, int return_page) {
 
     memset(sdcardData.file_data, 0, 256);
     strcat(sdcardData.file_data, "DISPLAY_LOW_LIGHT,");
-    itoa(systemData.display_auto_dim, sdcardData.tmp, 10);
-    strcat(sdcardData.file_data, sdcardData.tmp);
-    strcat(sdcardData.file_data, ",");
-    Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
-    sdcardData.current_file.println("");
-    sdcardData.current_file.println(sdcardData.file_data);
-    sdcardData.current_file.println("");
-
-    memset(sdcardData.file_data, 0, 256);
-    strcat(sdcardData.file_data, "DISPLAY_AUTO_DIM,");
     itoa(systemData.display_low_light, sdcardData.tmp, 10);
     strcat(sdcardData.file_data, sdcardData.tmp);
     strcat(sdcardData.file_data, ",");
