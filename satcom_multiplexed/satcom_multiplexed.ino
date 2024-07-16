@@ -106,36 +106,6 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
 #define ISR_NPAD_DOWN_KEY   14
 #define ISR_NPAD_SELECT_KEY 15
 
-
-// individual debounce times
-int           debounce_p0_right = 50;
-unsigned long debounce_t0_right;
-unsigned long debounce_t1_right;
-int           debounce_p0_left = 50;
-unsigned long debounce_t0_left;
-unsigned long debounce_t1_left;
-int           debounce_p0_up = 50;
-unsigned long debounce_t0_up;
-unsigned long debounce_t1_up;
-int           debounce_p0_down = 50;
-unsigned long debounce_t0_down;
-unsigned long debounce_t1_down;
-int           debounce_p0_select = 50;
-unsigned long debounce_t0_select;
-unsigned long debounce_t1_select;
-
-// auto dim display
-int           display_auto_dim_p0 = 3000;
-unsigned long display_auto_dim_t0;
-unsigned long display_auto_dim_t1;
-bool          display_dim = false;
-
-// auto off display
-int           display_auto_off_p0 = 5000;
-unsigned long display_auto_off_t0;
-unsigned long display_auto_off_t1;
-bool          display_on = true;
-
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       SDCARD
 #define SPI_DRIVER_SELECT 2  // Must be set in SdFat/SdFatConfig.h
@@ -188,7 +158,7 @@ SSD1306Wire   display_3(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 
 SSD1306Wire   display_2(0x3c, SDA, SCL); // let SSD1306Wire wire up our SSD1306 on the i2C bus
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                  SYSTEM DATA
+//                                                                                                                 DATA: SYSTEM
 
 struct systemStruct {
   bool satcom_enabled = true;
@@ -207,16 +177,52 @@ struct systemStruct {
   bool output_speed_enabled = false;
   bool output_error_enabled = false;
   bool output_debug_enabled = false;
-  bool display_auto_dim = false; // defalut: enabled (dev disabled)
-  bool display_auto_off = false; // defalut: enabled (dev disabled)
   bool display_low_light = false;
   bool display_flip_vertically = false;
+  // auto dim display
+  bool display_auto_dim = false; // defalut: enabled (dev disabled)
+  int           display_auto_dim_p0 = 3000;
+  unsigned long display_auto_dim_t0;
+  unsigned long display_auto_dim_t1;
+  bool          display_dim = false;
+  // auto off display
+  bool display_auto_off = false; // defalut: enabled (dev disabled)
+  int           display_auto_off_p0 = 5000;
+  unsigned long display_auto_off_t0;
+  unsigned long display_auto_off_t1;
+  bool          display_on = true;
   char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
 };
 systemStruct systemData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   DEBUG DATA
+//                                                                                                               DATA: DEBOUNCE
+
+struct DebounceStruct {
+  int debounce_delay_0 = 50;
+  int debounce_delay_1 = 50;
+  int debounce_period = 50;
+  int           debounce_p0_right = debounce_period;
+  unsigned long debounce_t0_right;
+  unsigned long debounce_t1_right;
+  int           debounce_p0_left = debounce_period;
+  unsigned long debounce_t0_left;
+  unsigned long debounce_t1_left;
+  int           debounce_p0_up = debounce_period;
+  unsigned long debounce_t0_up;
+  unsigned long debounce_t1_up;
+  int           debounce_p0_down = debounce_period;
+  unsigned long debounce_t0_down;
+  unsigned long debounce_t1_down;
+  int           debounce_p0_select = debounce_period;
+  unsigned long debounce_t0_select;
+  unsigned long debounce_t1_select;
+
+};
+DebounceStruct debounceData;
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                  DATA: DEBUG
 
 struct sysDebugStruct {
   bool gngga_sentence = false;
@@ -231,7 +237,7 @@ struct sysDebugStruct {
 sysDebugStruct sysDebugData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    MENU DATA
+//                                                                                                                   DATA: MENU
 
 struct menuStruct {
   int y = 0;
@@ -256,7 +262,7 @@ struct menuStruct {
 menuStruct menuData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                SERIAL 0 DATA
+//                                                                                                               DATA: SERIAL 0
 
 struct Serial0Struct {
   unsigned long nbytes;
@@ -275,7 +281,7 @@ struct Serial0Struct {
 Serial0Struct serial0Data;
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                SERIAL 1 DATA
+//                                                                                                               DATA: SERIAL 1
 
 struct Serial1Struct {
   unsigned long nbytes;
@@ -288,7 +294,7 @@ struct Serial1Struct {
 Serial1Struct serial1Data;
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                  SDCARD DATA
+//                                                                                                                 DATA: SDCARD
 
 struct SDCardStruct {
   char sysconf[56] = "SYSTEM/SYSTEM.CONFIG";
@@ -322,7 +328,7 @@ struct SDCardStruct {
 SDCardStruct sdcardData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    TIME DATA
+//                                                                                                                   DATA: TIME
 
 struct TimeStruct {
   unsigned long ms0;
@@ -411,7 +417,7 @@ void initDisplay2() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                            VALIDATION STRUCT
+//                                                                                                             DATA: VALIDATION
 
 struct validationStruct {
   int  valid_i = 0;
@@ -424,7 +430,7 @@ struct validationStruct {
 validationStruct validData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                          CHECKSUM VALIDATION
+//                                                                                                         VALIDATION: CHECKSUM
 
 int getCheckSum(char * string) {
   if (sysDebugData.validation == true) {Serial.println("[connected] getCheckSum: " + String(string));}
@@ -455,7 +461,7 @@ bool validateChecksum(char * buffer) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                  SENTENCE ELEMENT VALIDATION
+//                                                                                                             VALIDATION: DATA
 
 /*
 checks can be ellaborated upon individually.
@@ -1278,7 +1284,7 @@ bool val_scalable(char * data) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                  RELAYS DATA
+//                                                                                                                 DATA: RELAYS
 
 struct RelayStruct {
 
@@ -2129,7 +2135,7 @@ char function_names[252][56] = {
 RelayStruct relayData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   GNGGA DATA
+//                                                                                                                  DATA: GNGGA
 
 struct GNGGAStruct {
   char sentence[2000];
@@ -2212,7 +2218,7 @@ void GNGGA() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   GNRMC DATA
+//                                                                                                                  DATA: GNRMC
 
 struct GNRMCStruct {
   char sentence[2000];
@@ -2287,7 +2293,7 @@ void GNRMC() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   GPATT DATA
+//                                                                                                                  DATA: GPATT
 
 struct GPATTStruct {
   char sentence[2000];
@@ -2442,7 +2448,7 @@ void GPATT() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   SPEED DATA
+//                                                                                                                  DATA: SPEED
 
 /*
 
@@ -2539,7 +2545,7 @@ void SPEED() {
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   ERROR DATA
+//                                                                                                                  DATA: ERROR
 
 struct ERRORStruct {
   char sentence[1024];
@@ -2602,7 +2608,7 @@ void ERROR() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   DEBUG DATA
+//                                                                                                                  DATA: DEBUG
 
 struct DEBUGStruct {
   char sentence[1024];
@@ -2749,7 +2755,7 @@ void DEBUG() {
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                          SATCOM DATA STRUCT
+//                                                                                                                 DATA: DATCOM
 
 struct SatDatatruct {
   char checksum_str[56];
@@ -2792,7 +2798,7 @@ struct SatDatatruct {
 SatDatatruct satData;
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                        CREATE COORDINTE DATA
+//                                                                                                       CONVERT COORDINTE DATA
 void calculateLocation(){
 
   // --------------------------------------------------------------------------------------------------------------------------
@@ -2873,7 +2879,7 @@ void calculateLocation(){
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                EXTRAPOLATE & DUMP EXTRA DATA
+//                                                                                                              SATCOM SENTENCE
 
 void extrapulatedSatData() {
 
@@ -2942,7 +2948,7 @@ void extrapulatedSatData() {
   }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    DISPLAY 2
+//                                                                                                                   DISPLAY: 2
 
 void SSD_Display_2_Menu() {
   tcaselect(2);
@@ -3934,7 +3940,7 @@ void SSD_Display_2_Menu() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    DISPLAY 3
+//                                                                                                                   DISPLAY: 3
 
 void SSD_Display_MATRIX() {
   tcaselect(3);
@@ -3973,7 +3979,7 @@ void SSD_Display_MATRIX_Disabled() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    DISPLAY 4
+//                                                                                                                   DISPLAY: 4
 
 void SSD_Display_GPATT() {
   tcaselect(4);
@@ -4007,7 +4013,7 @@ void SSD_Display_GPATT_Disabled() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    DISPLAY 5
+//                                                                                                                   DISPLAY: 5
 
 void SSD_Display_SATCOM() {
   tcaselect(5);
@@ -4041,7 +4047,7 @@ void SSD_Display_SATCOM_Disabled() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    DISPLAY 6
+//                                                                                                                   DISPLAY: 6
 
 void SSD_Display_GNGGA() {
   display_6.setColor(WHITE);
@@ -4077,7 +4083,7 @@ void SSD_Display_GNGGA_Disabled() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    DISPLAY 7
+//                                                                                                                   DISPLAY: 7
 
 void SSD_Display_GNRMC() {
   tcaselect(7);
@@ -4113,7 +4119,7 @@ void SSD_Display_GNRMC_Disabled() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                             DISPLAYS LOADING
+//                                                                                                             DISPLAY: LOADING
 
 void SSD_Display_Loading() {
   tcaselect(2);
@@ -4178,7 +4184,7 @@ void SSD_Display_Loading() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                         DISPLAYS: BRIGHTNESS
+//                                                                                                          DISPLAY: BRIGHTNESS
 
 /*
 there may be some disparity between the SSD306 panels at low brightness, possible reasons:
@@ -4201,7 +4207,7 @@ void displayBrightness(int c, int d, int e, int f, int g, int h) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                             DISPLAYS: ON/OFF
+//                                                                                                              DISPLAY: ON/OFF
 
 void displayOnOff(int c, int d, int e, int f, int g, int h) {
   if (c==1) {tcaselect(2); display_2.displayOn();} else {tcaselect(2); display_2.displayOff();}
@@ -4213,7 +4219,7 @@ void displayOnOff(int c, int d, int e, int f, int g, int h) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                    DISPLAYS: FLIP VERTICALLY
+//                                                                                                     DISPLAY: FLIP VERTICALLY
 
 /*
 may not be preferrable for SSD1306 panels that are yellow and blue (or other dual color) but may prove useful for other SSD1306 panels.
@@ -4393,20 +4399,17 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
   menuData.page = 20;
   SSD_Display_2_Menu();
   Serial.println("[sdcard] attempting to load file: " + String(file));
-
   // open file to read
   sdcardData.current_file = sd.open(file); 
   if (sdcardData.current_file) {
     sdcardData.current_file.rewind();
     while (sdcardData.current_file.available()) {
-
       // read line
       sdcardData.SBUFFER = "";
       memset(sdcardData.BUFFER, 0, 2048);
       sdcardData.SBUFFER = sdcardData.current_file.readStringUntil('\n');
       sdcardData.SBUFFER.toCharArray(sdcardData.BUFFER, sdcardData.SBUFFER.length()+1);
       Serial.println("[sdcard] [reading] " + String(sdcardData.BUFFER));
-
       // check auto resume
       if (strncmp(sdcardData.BUFFER, "AUTO_RESUME", 11) == 0) {
         sdcardData.token = strtok(sdcardData.BUFFER, ",");
@@ -4465,7 +4468,6 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.gpatt_enabled = false;} else {systemData.gpatt_enabled = true;}
           }
         }
-
         if (strncmp(sdcardData.BUFFER, "DISPLAY_AUTO_OFF", strlen("DISPLAY_AUTO_OFF")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
@@ -4475,7 +4477,6 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.display_auto_off = false;} else {systemData.display_auto_off = true;}
           }
         }
-
         if (strncmp(sdcardData.BUFFER, "DISPLAY_AUTO_DIM", strlen("DISPLAY_AUTO_DIM")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
@@ -4485,7 +4486,6 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.display_auto_dim = false;} else {systemData.display_auto_dim = true;}
           }
         }
-
         if (strncmp(sdcardData.BUFFER, "DISPLAY_LOW_LIGHT", strlen("DISPLAY_LOW_LIGHT")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
@@ -4495,7 +4495,6 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.display_low_light = false;} else {systemData.display_low_light = true;}
           }
         }
-
         if (strncmp(sdcardData.BUFFER, "DISPLAY_FLIP_VERTICALLY", strlen("DISPLAY_FLIP_VERTICALLY")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
@@ -4505,7 +4504,6 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.display_flip_vertically = false;} else {systemData.display_flip_vertically = true;}
           }
         }
-
       }
     }
     sdcardData.current_file.close();
@@ -4803,7 +4801,7 @@ bool sdcard_save_matrix(char * file) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                             MATRIX SET ENTRY
+//                                                                                                            MATRIX: SET ENTRY
 
 /*
                                         R F Function Name              X Y Z
@@ -4859,7 +4857,7 @@ void matrix_set_entry() {
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                          MATRIX ENABLE ENTRY
+//                                                                                                 MATRIX: ENABLE/DISABLE ENTRY
 
 void matrix_set_enabled(bool b) {
   Serial.println("[matrix_set_enabled] connected");
@@ -4881,7 +4879,7 @@ void matrix_set_enabled(bool b) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                           MATRIX DISABLE ALL
+//                                                                                                          MATRIX: DISABLE ALL
 
 /*
 disable all matrix entries. does not directly turn relays off. this allows for overriding the matrix switch without deactivating
@@ -4891,7 +4889,7 @@ explicitly configured and is not yet a feature. this is explicitly disable matri
 void matrix_disable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=0;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                            MATRIX ENABLE ALL
+//                                                                                                           MATRIX: ENABLE ALL
 
 
 // enable all matrix entries. does not directly turn relays on, instead enables matrix switch automatically activating/deactivating relays.
@@ -4911,12 +4909,12 @@ void relays_deactivate_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) 
 void relays_activate_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_bool[0][Ri]=1;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                   SATCOM CONVERT COORDINATES
-
+//                                                                                                   SATCOM: CONVERT COORDINATES
 
 // enable/disable coordinate conversion. performance/efficiency as required.
 void satcom_convert_coordinates_on()  {satData.convert_coordinates = true;}
 void satcom_convert_coordinates_off() {satData.convert_coordinates = false;}
+
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        SETUP
@@ -4988,7 +4986,7 @@ void setup() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                    MATRIX CHECKS: PRIMITIVES
+//                                                                                                           MATRIX: PRIMITIVES
 
 /*
 matrix switch requires all checks to return true for a relay to be active, therefore checks can be inverted as required, to return
@@ -5088,7 +5086,7 @@ bool SecondsTimer(unsigned long n0, unsigned long n1, int Ri) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                MATRIX SWITCH
+//                                                                                                               MATRIX: SWITCH
 
 void matrixSwitch() {
 
@@ -5126,12 +5124,12 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.default_enable_relay_function) == 0) {tmp_matrix[Fi] = 1;}
 
         // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                    SYSTEMS CHECKS: TIME DATA
+        //                                                                                                                    TIME DATA
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.SecondsTimer) == 0) {tmp_matrix[Fi] = SecondsTimer(relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1], Ri);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                       SYSTEMS CHECKS: SATCOM
+        //                                                                                                                       SATCOM
 
         // SATCOM: GNGGA
         else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesLatGNGGAOver) == 0) {tmp_matrix[Fi] = check_over_true(satData.location_latitude_gngga, relayData.relays_data[Ri][Fi][0]);}
@@ -5162,7 +5160,7 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.DegreesGNGGARange) == 0) {tmp_matrix[Fi] = iin_ranges_check_true(satData.location_latitude_gnrmc, relayData.relays_data[Ri][Fi][0], satData.location_longitude_gnrmc, relayData.relays_data[Ri][Fi][1], relayData.relays_data[Ri][Fi][2]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                        SYSTEMS CHECKS: GNGGA
+        //                                                                                                                        GNGGA
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.LatGNGGAOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnggaData.latitude), relayData.relays_data[Ri][Fi][0]);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.LatGNGGAUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnggaData.latitude), relayData.relays_data[Ri][Fi][0]);}
@@ -5202,7 +5200,7 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.AltitudeGNGGARange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(gnggaData.altitude), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                        SYSTEMS CHECKS: GNRMC
+        //                                                                                                                        GNRMC
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeGNRMCOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gnrmcData.utc_time), relayData.relays_data[Ri][Fi][0]);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeGNRMCUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gnrmcData.utc_time), relayData.relays_data[Ri][Fi][0]);}
@@ -5247,7 +5245,7 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ModeGNRMCN) == 0) {tmp_matrix[Fi] = check_strncmp_true(gnrmcData.mode_indication, "N", 1);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                        SYSTEMS CHECKS: GPATT
+        //                                                                                                                        GPATT
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.PitchGPATTOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(gpattData.pitch), relayData.relays_data[Ri][Fi][0]);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.PitchGPATTUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(gpattData.pitch), relayData.relays_data[Ri][Fi][0]);}
@@ -5289,7 +5287,7 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.StaticFlagGPATTEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.static_flag), relayData.relays_data[Ri][Fi][0]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                        SYSTEMS CHECKS: SPEED
+        //                                                                                                                        SPEED
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateValueOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0]);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateValueUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0]);}
@@ -5352,7 +5350,7 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.utc_time), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                        SYSTEMS CHECKS: ERROR
+        //                                                                                                                        ERROR
         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORGSetFlagEqual) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.gset_flag), relayData.relays_data[Ri][Fi][0]);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORSSetFlagEqual) == 0) {tmp_matrix[Fi] = check_under_true(atol(errorData.sset_flag), relayData.relays_data[Ri][Fi][0]);}
@@ -5365,7 +5363,7 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORUTCTimeRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                        SYSTEMS CHECKS: DEBUG
+        //                                                                                                                        DEBUG
         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTHeadingOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0]);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTHeadingUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0]);}
@@ -5445,7 +5443,7 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIKindFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_kind_flag), relayData.relays_data[Ri][Fi][0]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                     SYSTEMS CHECKS: VALIDITY
+        //                                                                                                                     VALIDITY
 
         /*
         intended to conditionally switch datasets, making it possible to continue performing the same task and or other tasks instead, but with the option of
@@ -5527,7 +5525,7 @@ void matrixSwitch() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                            MENU NAVIGATION: HELPER FUNCTIONS
+//                                                                                               MENU NAVIGATION: SUB-FUNCTIONS
 
 /*
 ideally allows each single line in menu navigation to be an exact, clear xy menu coordinate.
@@ -6037,17 +6035,17 @@ void DisplayAutoDim() {
   // check feature state
   if (systemData.display_auto_dim == true) {
     // store current time
-    display_auto_dim_t0 = millis();
+    systemData.display_auto_dim_t0 = millis();
     // check last set state
-    if (display_dim == false) {
+    if (systemData.display_dim == false) {
       // compare current time to previous time
-      if ((display_auto_dim_t0 - display_auto_dim_t1) > display_auto_dim_p0) {
+      if ((systemData.display_auto_dim_t0 - systemData.display_auto_dim_t1) > systemData.display_auto_dim_p0) {
         // set previous time
-        display_auto_dim_t1 = display_auto_dim_t0;
+        systemData.display_auto_dim_t1 = systemData.display_auto_dim_t0;
         // action
         displayBrightness(0,0,0,0,0,0);
         // set current state
-        display_dim = true;
+        systemData.display_dim = true;
       }
     }
   }
@@ -6057,17 +6055,17 @@ void DisplayAutoOff() {
   // check feature state
   if (systemData.display_auto_off == true) {
     // store current time
-    display_auto_off_t0 = millis();
+    systemData.display_auto_off_t0 = millis();
     // check last set state
-    if (display_on == true) {
+    if (systemData.display_on == true) {
       // compare current time to previous time
-      if ((display_auto_off_t0 - display_auto_off_t1) > display_auto_off_p0) {
+      if ((systemData.display_auto_off_t0 - systemData.display_auto_off_t1) > systemData.display_auto_off_p0) {
         // set previous time
-        display_auto_off_t1 = display_auto_off_t0;
+        systemData.display_auto_off_t1 = systemData.display_auto_off_t0;
         // action
         displayOnOff(0,0,0,0,0,0);
         // set current state
-        display_on = false;
+        systemData.display_on = false;
       }
     }
   }
@@ -6075,11 +6073,11 @@ void DisplayAutoOff() {
 
 void InterfaceWake() {
   // always update times when interfacing: stay awake
-  display_auto_off_t1=millis();
-  display_auto_dim_t1=millis();
+  systemData.display_auto_off_t1=millis();
+  systemData.display_auto_dim_t1=millis();
   // conditionally do the following when interacing: wakeup
-  if (display_on == false) {displayOnOff(1,1,1,1,1,1); display_on = true;}
-  if (display_dim == true) {displayBrightness(1,1,1,1,1,1); display_on = false;}
+  if (systemData.display_on == false) {displayOnOff(1,1,1,1,1,1); systemData.display_on = true;}
+  if (systemData.display_dim == true) {displayBrightness(1,1,1,1,1,1); systemData.display_on = false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -6095,19 +6093,17 @@ void loop() {
   readRXD_0();
 
   // check button input
-  int db0 = 50;
-  int db1 = 50;
   if (menuData.isr_i!=0) {InterfaceWake();}
-  if (menuData.isr_i == ISR_RIGHT_KEY) {delay(db0); menuRight(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == ISR_LEFT_KEY) {delay(db0); menuLeft(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == ISR_UP_KEY) {delay(db0); menuUp(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == ISR_DOWN_KEY) {delay(db0); menuDown(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == ISR_SELECT_KEY) {delay(db0); menuSelect(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == ISR_NPAD_RIGHT_KEY) {delay(db0); numpadRight(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == ISR_NPAD_LEFT_KEY) {delay(db0); numpadLeft(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == ISR_NPAD_UP_KEY) {delay(db0); numpadUp(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == ISR_NPAD_DOWN_KEY) {delay(db0); numpadDown(); menuData.isr_i=0; delay(db1);}
-  if (menuData.isr_i == ISR_NPAD_SELECT_KEY) {delay(db0); numpadSelect(); menuData.isr_i=0; delay(db1);}
+  if (menuData.isr_i == ISR_RIGHT_KEY) {delay(debounceData.debounce_delay_0); menuRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if (menuData.isr_i == ISR_LEFT_KEY) {delay(debounceData.debounce_delay_0); menuLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if (menuData.isr_i == ISR_UP_KEY) {delay(debounceData.debounce_delay_0); menuUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if (menuData.isr_i == ISR_DOWN_KEY) {delay(debounceData.debounce_delay_0); menuDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if (menuData.isr_i == ISR_SELECT_KEY) {delay(debounceData.debounce_delay_0); menuSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if (menuData.isr_i == ISR_NPAD_RIGHT_KEY) {delay(debounceData.debounce_delay_0); numpadRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if (menuData.isr_i == ISR_NPAD_LEFT_KEY) {delay(debounceData.debounce_delay_0); numpadLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if (menuData.isr_i == ISR_NPAD_UP_KEY) {delay(debounceData.debounce_delay_0); numpadUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if (menuData.isr_i == ISR_NPAD_DOWN_KEY) {delay(debounceData.debounce_delay_0); numpadDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if (menuData.isr_i == ISR_NPAD_SELECT_KEY) {delay(debounceData.debounce_delay_0); numpadSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
 
   // check wtgps300p input
   readRXD_1();
@@ -6122,11 +6118,11 @@ void loop() {
     // uncomment to update menu ui every loop. may be recommended to only update menu ui when required.
     SSD_Display_2_Menu();
 
-    if (systemData.satcom_enabled == true) {extrapulatedSatData(); if (display_on==true) {SSD_Display_SATCOM();}} else {SSD_Display_SATCOM_Disabled();}
-    if (systemData.gngga_enabled == true) {if (display_on==true) {SSD_Display_GNGGA();}} else {SSD_Display_GNGGA_Disabled();}
-    if (systemData.gnrmc_enabled == true) {if (display_on==true) {SSD_Display_GNRMC();}} else {SSD_Display_GNRMC_Disabled();}
-    if (systemData.gpatt_enabled == true) {if (display_on==true) {SSD_Display_GPATT();}} else {SSD_Display_GPATT_Disabled();}
-    if (systemData.matrix_enabled == true) {matrixSwitch(); if (display_on==true) {SSD_Display_MATRIX();}} else {SSD_Display_MATRIX_Disabled();}
+    if (systemData.satcom_enabled == true) {extrapulatedSatData(); if (systemData.display_on==true) {SSD_Display_SATCOM();}} else {SSD_Display_SATCOM_Disabled();}
+    if (systemData.gngga_enabled == true) {if (systemData.display_on==true) {SSD_Display_GNGGA();}} else {SSD_Display_GNGGA_Disabled();}
+    if (systemData.gnrmc_enabled == true) {if (systemData.display_on==true) {SSD_Display_GNRMC();}} else {SSD_Display_GNRMC_Disabled();}
+    if (systemData.gpatt_enabled == true) {if (systemData.display_on==true) {SSD_Display_GPATT();}} else {SSD_Display_GPATT_Disabled();}
+    if (systemData.matrix_enabled == true) {matrixSwitch(); if (systemData.display_on==true) {SSD_Display_MATRIX();}} else {SSD_Display_MATRIX_Disabled();}
   }
   else {serial1Data.badrcv_i++;}
 
@@ -6140,11 +6136,11 @@ void loop() {
   DisplayAutoDim();
   DisplayAutoOff();
 
-  debounce_t0_right = millis();
-  debounce_t0_left = millis();
-  debounce_t0_up = millis();
-  debounce_t0_down = millis();
-  debounce_t0_select = millis();
+  debounceData.debounce_t0_right = millis();
+  debounceData.debounce_t0_left = millis();
+  debounceData.debounce_t0_up = millis();
+  debounceData.debounce_t0_down = millis();
+  debounceData.debounce_t0_select = millis();
 
   // store time taken to complete
   timeData.mainLoopTimeTaken = millis() - timeData.mainLoopTimeStart;
@@ -6153,8 +6149,8 @@ void loop() {
 // ----------------------------------------------------------------------------------------------------------------------------
 
 void ISR_RIGHT() {
-  if ((debounce_t0_right - debounce_t1_right) > debounce_p0_right) {
-    debounce_t1_right = debounce_t0_right;
+  if ((debounceData.debounce_t0_right - debounceData.debounce_t1_right) > debounceData.debounce_p0_right) {
+    debounceData.debounce_t1_right = debounceData.debounce_t0_right;
     // Serial.println("[isr] menu right");
     if (menuData.page < 10) {menuData.isr_i = ISR_RIGHT_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_RIGHT_KEY;}
@@ -6162,8 +6158,8 @@ void ISR_RIGHT() {
 }
 
 void ISR_LEFT() {
-  if ((debounce_t0_left - debounce_t1_left) > debounce_p0_left) {
-    debounce_t1_left = debounce_t0_left;
+  if ((debounceData.debounce_t0_left - debounceData.debounce_t1_left) > debounceData.debounce_p0_left) {
+    debounceData.debounce_t1_left = debounceData.debounce_t0_left;
     // Serial.println("[isr] menu left");
     if (menuData.page < 10) {menuData.isr_i = ISR_LEFT_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_LEFT_KEY;}
@@ -6171,8 +6167,8 @@ void ISR_LEFT() {
 }
 
 void ISR_UP() {
-  if ((debounce_t0_up - debounce_t1_up) > debounce_p0_up) {
-    debounce_t1_up = debounce_t0_up;
+  if ((debounceData.debounce_t0_up - debounceData.debounce_t1_up) > debounceData.debounce_p0_up) {
+    debounceData.debounce_t1_up = debounceData.debounce_t0_up;
     // Serial.println("[isr] menu up");
     if (menuData.page < 10) {menuData.isr_i = ISR_UP_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_UP_KEY;}
@@ -6180,8 +6176,8 @@ void ISR_UP() {
 }
 
 void ISR_DOWN() {
-  if ((debounce_t0_down - debounce_t1_down) > debounce_p0_down) {
-    debounce_t1_down = debounce_t0_down;
+  if ((debounceData.debounce_t0_down - debounceData.debounce_t1_down) > debounceData.debounce_p0_down) {
+    debounceData.debounce_t1_down = debounceData.debounce_t0_down;
     // Serial.println("[isr] menu down");
     if (menuData.page < 10) {menuData.isr_i = ISR_DOWN_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_DOWN_KEY;}
@@ -6189,8 +6185,8 @@ void ISR_DOWN() {
 }
 
 void ISR_SELECT() {
-  if ((debounce_t0_select - debounce_t1_select) > debounce_p0_select) {
-    debounce_t1_select = debounce_t0_select;
+  if ((debounceData.debounce_t0_select - debounceData.debounce_t1_select) > debounceData.debounce_p0_select) {
+    debounceData.debounce_t1_select = debounceData.debounce_t0_select;
     // Serial.println("[isr] menu select");
     if (menuData.page < 10) {menuData.isr_i = ISR_SELECT_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_SELECT_KEY;}
