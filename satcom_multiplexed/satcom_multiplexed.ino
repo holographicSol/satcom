@@ -2945,6 +2945,62 @@ void extrapulatedSatData() {
   if (systemData.output_satcom_enabled == true) {Serial.println(satData.satcom_sentence);}
   }
 
+// ------------------------------------------------------------------------------------------------------------------------
+//                                                                                                        DISPLAY: AUTO DIM
+void DisplayAutoDim() {
+  // check feature state
+  if (systemData.display_auto_dim == true) {
+    // store current time
+    systemData.display_auto_dim_t0 = millis();
+    // check last set state
+    if (systemData.display_dim == false) {
+      // compare current time to previous time
+      if ((systemData.display_auto_dim_t0 - systemData.display_auto_dim_t1) > systemData.display_auto_dim_p0) {
+        // set previous time
+        systemData.display_auto_dim_t1 = systemData.display_auto_dim_t0;
+        // action
+        displayBrightness(0,0,0,0,0,0);
+        // set current state
+        systemData.display_dim = true;
+      }
+    }
+  }
+}
+
+// ------------------------------------------------------------------------------------------------------------------------
+//                                                                                                        DISPLAY: AUTO OFF
+
+void DisplayAutoOff() {
+  // check feature state
+  if (systemData.display_auto_off == true) {
+    // store current time
+    systemData.display_auto_off_t0 = millis();
+    // check last set state
+    if (systemData.display_on == true) {
+      // compare current time to previous time
+      if ((systemData.display_auto_off_t0 - systemData.display_auto_off_t1) > systemData.display_auto_off_p0) {
+        // set previous time
+        systemData.display_auto_off_t1 = systemData.display_auto_off_t0;
+        // action
+        displayOnOff(0,0,0,0,0,0);
+        // set current state
+        systemData.display_on = false;
+      }
+    }
+  }
+}
+
+// ------------------------------------------------------------------------------------------------------------------------
+//                                                                                                            DISPLAY: WAKE
+void InterfaceWake() {
+  // always update times when interfacing: stay awake
+  systemData.display_auto_off_t1=millis();
+  systemData.display_auto_dim_t1=millis();
+  // conditionally do the following when interacing: wakeup
+  if (systemData.display_on == false) {displayOnOff(1,1,1,1,1,1); systemData.display_on = true;}
+  if (systemData.display_dim == true) {displayBrightness(1,1,1,1,1,1); systemData.display_dim = false;}
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   DISPLAY: 2
 
@@ -4387,6 +4443,46 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
 
+    memset(sdcardData.file_data, 0, 256);
+    strcat(sdcardData.file_data, "OUTPUT_SATCOM_SENTENCE,");
+    itoa(systemData.output_satcom_enabled, sdcardData.tmp, 10);
+    strcat(sdcardData.file_data, sdcardData.tmp);
+    strcat(sdcardData.file_data, ",");
+    Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+    sdcardData.current_file.println("");
+    sdcardData.current_file.println(sdcardData.file_data);
+    sdcardData.current_file.println("");
+
+    memset(sdcardData.file_data, 0, 256);
+    strcat(sdcardData.file_data, "OUTPUT_GNGGA_SENTENCE,");
+    itoa(systemData.output_gngga_enabled, sdcardData.tmp, 10);
+    strcat(sdcardData.file_data, sdcardData.tmp);
+    strcat(sdcardData.file_data, ",");
+    Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+    sdcardData.current_file.println("");
+    sdcardData.current_file.println(sdcardData.file_data);
+    sdcardData.current_file.println("");
+
+    memset(sdcardData.file_data, 0, 256);
+    strcat(sdcardData.file_data, "OUTPUT_GNRMC_SENTENCE,");
+    itoa(systemData.output_gnrmc_enabled, sdcardData.tmp, 10);
+    strcat(sdcardData.file_data, sdcardData.tmp);
+    strcat(sdcardData.file_data, ",");
+    Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+    sdcardData.current_file.println("");
+    sdcardData.current_file.println(sdcardData.file_data);
+    sdcardData.current_file.println("");
+
+    memset(sdcardData.file_data, 0, 256);
+    strcat(sdcardData.file_data, "OUTPUT_GPATT_SENTENCE,");
+    itoa(systemData.output_gpatt_enabled, sdcardData.tmp, 10);
+    strcat(sdcardData.file_data, sdcardData.tmp);
+    strcat(sdcardData.file_data, ",");
+    Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+    sdcardData.current_file.println("");
+    sdcardData.current_file.println(sdcardData.file_data);
+    sdcardData.current_file.println("");
+
     // complete
     sdcardData.current_file.close();
     Serial.println("[sdcard] saved file successfully: " + String(file));
@@ -4507,6 +4603,42 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
           if (is_all_digits(sdcardData.token) == true) {
             Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
             if (atoi(sdcardData.token) == 0) {systemData.display_flip_vertically = false;} else {systemData.display_flip_vertically = true;}
+          }
+        }
+        if (strncmp(sdcardData.BUFFER, "OUTPUT_SATCOM_SENTENCE", strlen("OUTPUT_SATCOM_SENTENCE")) == 0) {
+          sdcardData.token = strtok(sdcardData.BUFFER, ",");
+          Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
+          sdcardData.token = strtok(NULL, ",");
+          if (is_all_digits(sdcardData.token) == true) {
+            Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
+            if (atoi(sdcardData.token) == 0) {systemData.output_satcom_enabled = false;} else {systemData.output_satcom_enabled = true;}
+          }
+        }
+        if (strncmp(sdcardData.BUFFER, "OUTPUT_GNGGA_SENTENCE", strlen("OUTPUT_GNGGA_SENTENCE")) == 0) {
+          sdcardData.token = strtok(sdcardData.BUFFER, ",");
+          Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
+          sdcardData.token = strtok(NULL, ",");
+          if (is_all_digits(sdcardData.token) == true) {
+            Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
+            if (atoi(sdcardData.token) == 0) {systemData.output_gngga_enabled = false;} else {systemData.output_gngga_enabled = true;}
+          }
+        }
+        if (strncmp(sdcardData.BUFFER, "OUTPUT_GNRMC_SENTENCE", strlen("OUTPUT_GNRMC_SENTENCE")) == 0) {
+          sdcardData.token = strtok(sdcardData.BUFFER, ",");
+          Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
+          sdcardData.token = strtok(NULL, ",");
+          if (is_all_digits(sdcardData.token) == true) {
+            Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
+            if (atoi(sdcardData.token) == 0) {systemData.output_gnrmc_enabled = false;} else {systemData.output_gnrmc_enabled = true;}
+          }
+        }
+        if (strncmp(sdcardData.BUFFER, "OUTPUT_GPATT_SENTENCE", strlen("OUTPUT_GPATT_SENTENCE")) == 0) {
+          sdcardData.token = strtok(sdcardData.BUFFER, ",");
+          Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
+          sdcardData.token = strtok(NULL, ",");
+          if (is_all_digits(sdcardData.token) == true) {
+            Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
+            if (atoi(sdcardData.token) == 0) {systemData.output_gpatt_enabled = false;} else {systemData.output_gpatt_enabled = true;}
           }
         }
       }
@@ -5651,17 +5783,17 @@ void menuSelect() {
   }
   // page 5 only 
   if (menuData.page == 5) {
-    if (menuData.y == 1) {if (systemData.display_auto_dim == true) {systemData.display_auto_dim = false;} else {systemData.display_auto_dim = true;}}
-    if (menuData.y == 2) {if (systemData.display_auto_off == true) {systemData.display_auto_off = false;} else {systemData.display_auto_off = true;}}
-    if (menuData.y == 3) {if (systemData.display_low_light == true) {systemData.display_low_light = false; displayBrightness(1,1,1,1,1,1);} else {systemData.display_low_light = true; displayBrightness(0,0,0,0,0,0);}}
-    if (menuData.y == 4) {if (systemData.display_flip_vertically == true) {systemData.display_flip_vertically = false; displayFlipVertically(1,1,1, 1,1,1);} else {systemData.display_flip_vertically = true; displayFlipVertically(0,0,0,0,0,0);} }
+    if (menuData.y == 1) {if (systemData.display_auto_dim == true) {systemData.display_auto_dim = false;} else {systemData.display_auto_dim = true; sdcard_save_system_configuration(sdcardData.sysconf, 5);}}
+    if (menuData.y == 2) {if (systemData.display_auto_off == true) {systemData.display_auto_off = false;} else {systemData.display_auto_off = true; sdcard_save_system_configuration(sdcardData.sysconf, 5);}}
+    if (menuData.y == 3) {if (systemData.display_low_light == true) {systemData.display_low_light = false; displayBrightness(1,1,1,1,1,1);} else {systemData.display_low_light = true; displayBrightness(0,0,0,0,0,0); sdcard_save_system_configuration(sdcardData.sysconf, 5);}}
+    if (menuData.y == 4) {if (systemData.display_flip_vertically == true) {systemData.display_flip_vertically = false; displayFlipVertically(1,1,1, 1,1,1);} else {systemData.display_flip_vertically = true; displayFlipVertically(0,0,0,0,0,0); sdcard_save_system_configuration(sdcardData.sysconf, 5);} }
   }
   // page 6 only
   if (menuData.page == 6) {
-    if (menuData.y == 1) {if (systemData.output_satcom_enabled == true) {systemData.output_satcom_enabled = false;} else {systemData.output_satcom_enabled = true;}}
-    if (menuData.y == 2) {if (systemData.output_gngga_enabled == true) {systemData.output_gngga_enabled = false;} else {systemData.output_gngga_enabled = true;}}
-    if (menuData.y == 3) {if (systemData.output_gnrmc_enabled == true) {systemData.output_gnrmc_enabled = false;} else {systemData.output_gnrmc_enabled = true;}}
-    if (menuData.y == 4) {if (systemData.output_gpatt_enabled == true) {systemData.output_gpatt_enabled = false;} else {systemData.output_gpatt_enabled = true;}}
+    if (menuData.y == 1) {if (systemData.output_satcom_enabled == true) {systemData.output_satcom_enabled = false;} else {systemData.output_satcom_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 6);}}
+    if (menuData.y == 2) {if (systemData.output_gngga_enabled == true) {systemData.output_gngga_enabled = false;} else {systemData.output_gngga_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 6);}}
+    if (menuData.y == 3) {if (systemData.output_gnrmc_enabled == true) {systemData.output_gnrmc_enabled = false;} else {systemData.output_gnrmc_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 6);}}
+    if (menuData.y == 4) {if (systemData.output_gpatt_enabled == true) {systemData.output_gpatt_enabled = false;} else {systemData.output_gpatt_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 6);}}
   }
 }
 
@@ -5943,71 +6075,6 @@ void readRXD_0() {
       Serial.println("[unknown] " + String(serial0Data.BUFFER));
     }
   }
-}
-
-void processData() {
-
-  gnggaData.valid_checksum = validateChecksum(gnggaData.sentence);
-  if (gnggaData.valid_checksum == true) {GNGGA();}
-  else {gnggaData.bad_checksum_validity++;}
-
-  gnrmcData.valid_checksum = validateChecksum(gnrmcData.sentence);
-  if (gnrmcData.valid_checksum == true) {GNRMC();}
-  else {gnrmcData.bad_checksum_validity++;}
-
-  gpattData.valid_checksum = validateChecksum(gpattData.sentence);
-  if (gpattData.valid_checksum == true) {GPATT();}
-  else {gpattData.bad_checksum_validity++;}
-}
-
-
-void DisplayAutoDim() {
-  // check feature state
-  if (systemData.display_auto_dim == true) {
-    // store current time
-    systemData.display_auto_dim_t0 = millis();
-    // check last set state
-    if (systemData.display_dim == false) {
-      // compare current time to previous time
-      if ((systemData.display_auto_dim_t0 - systemData.display_auto_dim_t1) > systemData.display_auto_dim_p0) {
-        // set previous time
-        systemData.display_auto_dim_t1 = systemData.display_auto_dim_t0;
-        // action
-        displayBrightness(0,0,0,0,0,0);
-        // set current state
-        systemData.display_dim = true;
-      }
-    }
-  }
-}
-
-void DisplayAutoOff() {
-  // check feature state
-  if (systemData.display_auto_off == true) {
-    // store current time
-    systemData.display_auto_off_t0 = millis();
-    // check last set state
-    if (systemData.display_on == true) {
-      // compare current time to previous time
-      if ((systemData.display_auto_off_t0 - systemData.display_auto_off_t1) > systemData.display_auto_off_p0) {
-        // set previous time
-        systemData.display_auto_off_t1 = systemData.display_auto_off_t0;
-        // action
-        displayOnOff(0,0,0,0,0,0);
-        // set current state
-        systemData.display_on = false;
-      }
-    }
-  }
-}
-
-void InterfaceWake() {
-  // always update times when interfacing: stay awake
-  systemData.display_auto_off_t1=millis();
-  systemData.display_auto_dim_t1=millis();
-  // conditionally do the following when interacing: wakeup
-  if (systemData.display_on == false) {displayOnOff(1,1,1,1,1,1); systemData.display_on = true;}
-  if (systemData.display_dim == true) {displayBrightness(1,1,1,1,1,1); systemData.display_dim = false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
