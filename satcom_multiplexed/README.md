@@ -16,58 +16,23 @@ Pending documentation as SATCOM will require a handbook.
 
 ---
 
-                                          SATCOM - Written by Benjamin Jack Cullen.
+                                           SATCOM - Written by Benjamin Jack Cullen.
 
-                                                                                                                       
-                                     Receives and Processes Transmissions from Satellites.
-                   Possible combinations example: 100 checks ^ 10 functions = 100,000,000,000,000,000,000 combinations.
-                                                                              (100 Quintillion)
-                                    Calibratable matrix for a wide range of applications.
-    A global location Sensor & Time Sensor. For projects requiring location data and or time to be positionally aware and syncronized.
-         Tested with WTGPS300 (WITMOTION) Satellite module this project receives data from satellites, sorts that data into
-     variables that can be used later, and creates new $ sentences containing new data, calculated from the data received.
+                                  A general purpose programmable satellite and inertial switch. 
 
+                Receives and Processes Transmissions from Satellites and makes the data available for calculations.
 
-                        Converts Latitude and Longitude from $ sentences into Decimal Latitude and Longitude.
-
- 
-                                                       Timestamps
-      A datetime string is created from GNGGA and GNRMC $ sentence information, forms a part of the new $SATCOM sentence
-                                                     
-
-                                             Timestamp Zero Satellite Periods
-  A Timestamp is created for keeping track of when the system last heard satellites, forms part of the new $SATCOM sentence
-                        
-
-                                                        Ranging
-Specified coordinates at specified meter/mile ranges. For location pinning, guidance, tracking, motion detection, autonomy  etc.
-                                  these values can be added to the new $SATCOM sentence.
-
-                                                
-                                                       Serial Dump
-   All extra calculated data is dumped in its own $SATCOM sentence along with the other $ sentences which are passed through
-        as they would be seen as if the WTGPS300 is plugged in via USB. Dumping more (sentences/information) and dumping in
-                                        a standard way and for generic use.
-
-                                        
-                                                       Compatibility
-                     To Be Potentially Anything And Function As A Hardware Plugin For Other Projects
-                                         Headless / Standalone / Serial / Remote
-
-
-                              Wiring for Optional Multiplexed OLED Displays (SSD1306 Monochromes)
-                                       WTGPS300 TX              --> ESP32 io26 as RXD
-                                       WTGPS300 VCC             --> ESP32 3.3/5v
-                                       TCA9548A i2C Multiplexer --> ESP32 i2C
-                                       x3 SSD1306               --> TCA9548A i2C Multiplexer
-
-                                       
-                                  Wiring for Optional MicroSD Card (ESP32 Keyestudio Dev Board)
-                                                  HW-125 MicroSDCard Module
-                                                        CS    ->  5
-                                                        MISO  ->  19
-                                                        MOSI  ->  23
-                                                        SCK   ->  18
+                Possible combinations example: 100 checks ^ 10 functions = 100,000,000,000,000,000,000 combinations.
+                                                                           100 Quintillion.
+            Currently there are over 200 different checks that can be performed using just several small primitive functions and
+             currently each relays activation/deactivaion can occur based on up to 10 different checks resulting true or false. 
+                                      
+                          Wiring (Keyestudio ESP32 Dev Board):
+                          WTGPS300P TX               --> ESP32 io26 as RXD (5v)
+                          TCA9548A i2C Multiplexer   --> ESP32 i2C (3.3v. ensure 3.3 not 5v or you will have periodic panel chaos)
+                          x6 SSD1306 (blue & yellow) --> TCA9548A i2C Multiplexer (wrired from sda/sdc 7 down)
+                          SDCARD Adapter HW-125      --> CS 05, SCK 18, MOSI 23, MISO 19, VCC 5v (Optional)
+                          D-PAD                      --> right 34, left 33, up 32, down 39, select 36
 
 
                                                       SENTENCE $SATCOM
@@ -79,17 +44,17 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                                DatetimeStamp                  Converted Latitude                                 
 
 
-                             Create More Values For $ Ssentences And Add More Satellite Hardware.
-          This sketch is a layer between a satellite module and other systems to provide a new sentence and or the above+.
+                        Ultimately this system is being built as a unit to turn on/off multiplexed relays (40+)
+                     where potentially anything can be plugged in such as simple modules or pre-programmed MCU's, 
+               making a foundation for other creative projects that may make use of such satellite and or inertial data.
+               The idea is that each relay is controlled by a compound of logic (limited by memory), and the logic itself
+               is programmable before and after flashing. Allowing for a reusable and general purpose system for any future
+               projects requiring such data. more advanced calculations are intended, such as emphemeris, astronomical etc. now
+               that the foundational data has been handled.
 
-            Ultimately this system is being built to turn on/off many multiplexed relays (40+) and will have a control panel.
-             The relays will be switching on/off other MCU's for modularity/performance/efficiency reasons, so that I have
-                               an interfaceble, programmable satellite utility system with logging.
-                                        Basically a big switch I can plug things into to.
-
-                            Time server to robots and flying machines, and everything in between.
-                       Some star and constellation calculations will be added soon that can be used at will
-                              along with any other data currently available to calculate with.
+               The relays are currently simulated while the system is being built and the simulation is designed to be easily
+               relaceable by the actual relays themselves once the logic has been completed to a satisfactory degree and currently
+               all logic required to activate and deactivate relays is in place. 
 
 ---
 
