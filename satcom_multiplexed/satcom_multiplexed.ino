@@ -5746,14 +5746,14 @@ void menuSelect() {
   }
   // page 1 only
   if (menuData.page == 1) {
-    if (menuData.y == 1) {if (systemData.satcom_enabled == true) {systemData.satcom_enabled = false; sdcard_save_system_configuration(sdcardData.sysconf, 1);} else {systemData.satcom_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 1);}}
-    if (menuData.y == 2) {if (systemData.gngga_enabled == true) {systemData.gngga_enabled = false; sdcard_save_system_configuration(sdcardData.sysconf, 1);} else {systemData.gngga_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 1);}}
-    if (menuData.y == 3) {if (systemData.gnrmc_enabled == true) {systemData.gnrmc_enabled = false; sdcard_save_system_configuration(sdcardData.sysconf, 1);} else {systemData.gnrmc_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 1);}}
-    if (menuData.y == 4) {if (systemData.gpatt_enabled == true) {systemData.gpatt_enabled = false; sdcard_save_system_configuration(sdcardData.sysconf, 1);} else {systemData.gpatt_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 1);}}
+    if (menuData.y == 1) {if (systemData.satcom_enabled == true) {systemData.satcom_enabled = false;} else {systemData.satcom_enabled = true;} sdcard_save_system_configuration(sdcardData.sysconf, 1);}
+    if (menuData.y == 2) {if (systemData.gngga_enabled == true) {systemData.gngga_enabled = false;} else {systemData.gngga_enabled = true;} sdcard_save_system_configuration(sdcardData.sysconf, 1);}
+    if (menuData.y == 3) {if (systemData.gnrmc_enabled == true) {systemData.gnrmc_enabled = false;} else {systemData.gnrmc_enabled = true;} sdcard_save_system_configuration(sdcardData.sysconf, 1);}
+    if (menuData.y == 4) {if (systemData.gpatt_enabled == true) {systemData.gpatt_enabled = false;} else {systemData.gpatt_enabled = true;} sdcard_save_system_configuration(sdcardData.sysconf, 1);}
   }
   // page 2 only
   if (menuData.page == 2) {
-    if (menuData.y == 1) {if (systemData.matrix_enabled == true) {systemData.matrix_enabled = false; sdcard_save_system_configuration(sdcardData.sysconf, 2);} else {systemData.matrix_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 2);}}
+    if (menuData.y == 1) {if (systemData.matrix_enabled == true) {systemData.matrix_enabled = false;} else {systemData.matrix_enabled = true;} sdcard_save_system_configuration(sdcardData.sysconf, 2);}
     if (menuData.y == 2) {matrix_disable_all();}
     if (menuData.y == 3) {matrix_enable_all();}
     if (menuData.y == 4) {relays_deactivate_all();}
@@ -5769,21 +5769,21 @@ void menuSelect() {
   }
   // page 4 only
   if (menuData.page == 4) {
-    if (menuData.y == 1) {if (systemData.autoresume_enabled == true) {systemData.autoresume_enabled = false; sdcard_save_system_configuration(sdcardData.sysconf, 4);} else {systemData.autoresume_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 4);}}
+    if (menuData.y == 1) {if (systemData.autoresume_enabled == true) {systemData.autoresume_enabled = false;} else {systemData.autoresume_enabled = true;} sdcard_save_system_configuration(sdcardData.sysconf, 4);}
   }
   // page 5 only 
   if (menuData.page == 5) {
-    if (menuData.y == 1) {if (systemData.display_auto_dim == true) {systemData.display_auto_dim = false;} else {systemData.display_auto_dim = true; sdcard_save_system_configuration(sdcardData.sysconf, 5);}}
-    if (menuData.y == 2) {if (systemData.display_auto_off == true) {systemData.display_auto_off = false;} else {systemData.display_auto_off = true; sdcard_save_system_configuration(sdcardData.sysconf, 5);}}
-    if (menuData.y == 3) {if (systemData.display_low_light == true) {systemData.display_low_light = false; displayBrightness(1,1,1,1,1,1);} else {systemData.display_low_light = true; displayBrightness(0,0,0,0,0,0); sdcard_save_system_configuration(sdcardData.sysconf, 5);}}
-    if (menuData.y == 4) {if (systemData.display_flip_vertically == true) {systemData.display_flip_vertically = false; displayFlipVertically(1,1,1, 1,1,1);} else {systemData.display_flip_vertically = true; displayFlipVertically(0,0,0,0,0,0); sdcard_save_system_configuration(sdcardData.sysconf, 5);} }
+    if (menuData.y == 1) {if (systemData.display_auto_dim == true) {systemData.display_auto_dim = false; } else {systemData.display_auto_dim = true;} sdcard_save_system_configuration(sdcardData.sysconf, 5);}
+    if (menuData.y == 2) {if (systemData.display_auto_off == true) {systemData.display_auto_off = false;} else {systemData.display_auto_off = true;} sdcard_save_system_configuration(sdcardData.sysconf, 5);}
+    if (menuData.y == 3) {if (systemData.display_low_light == true) {systemData.display_low_light = false; displayBrightness(1,1,1,1,1,1);} else {systemData.display_low_light = true; displayBrightness(0,0,0,0,0,0);} sdcard_save_system_configuration(sdcardData.sysconf, 5);}
+    if (menuData.y == 4) {if (systemData.display_flip_vertically == true) {systemData.display_flip_vertically = false; displayFlipVertically(1,1,1, 1,1,1);} else {systemData.display_flip_vertically = true; displayFlipVertically(0,0,0,0,0,0);} sdcard_save_system_configuration(sdcardData.sysconf, 5);}
   }
   // page 6 only
   if (menuData.page == 6) {
-    if (menuData.y == 1) {if (systemData.output_satcom_enabled == true) {systemData.output_satcom_enabled = false;} else {systemData.output_satcom_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 6);}}
-    if (menuData.y == 2) {if (systemData.output_gngga_enabled == true) {systemData.output_gngga_enabled = false;} else {systemData.output_gngga_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 6);}}
-    if (menuData.y == 3) {if (systemData.output_gnrmc_enabled == true) {systemData.output_gnrmc_enabled = false;} else {systemData.output_gnrmc_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 6);}}
-    if (menuData.y == 4) {if (systemData.output_gpatt_enabled == true) {systemData.output_gpatt_enabled = false;} else {systemData.output_gpatt_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 6);}}
+    if (menuData.y == 1) {if (systemData.output_satcom_enabled == true) {systemData.output_satcom_enabled = false;} else {systemData.output_satcom_enabled = true;} sdcard_save_system_configuration(sdcardData.sysconf, 6);}
+    if (menuData.y == 2) {if (systemData.output_gngga_enabled == true) {systemData.output_gngga_enabled = false;} else {systemData.output_gngga_enabled = true;} sdcard_save_system_configuration(sdcardData.sysconf, 6);}
+    if (menuData.y == 3) {if (systemData.output_gnrmc_enabled == true) {systemData.output_gnrmc_enabled = false;} else {systemData.output_gnrmc_enabled = true;} sdcard_save_system_configuration(sdcardData.sysconf, 6);}
+    if (menuData.y == 4) {if (systemData.output_gpatt_enabled == true) {systemData.output_gpatt_enabled = false;} else {systemData.output_gpatt_enabled = true;} sdcard_save_system_configuration(sdcardData.sysconf, 6);}
   }
 }
 
