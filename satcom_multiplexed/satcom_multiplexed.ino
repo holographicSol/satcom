@@ -5112,7 +5112,7 @@ void setup() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                           MATRIX: PRIMITIVES
+//                                                                                                  MATRIX FUNCTIONS: PRIMITIVES
 
 /*
 matrix switch requires all checks to return true for a relay to be active, therefore checks can be inverted as required, to return
@@ -5210,6 +5210,12 @@ bool SecondsTimer(unsigned long n0, unsigned long n1, int Ri) {
   else if ((timeData.seconds - relayData.relays_timing[0][Ri]) < n1) {return true;}
   else {return false;}
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                   MATRIX FUNCTIONS: ADVANCED
+
+// build astronomical caculations here
+
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                               MATRIX: SWITCH
