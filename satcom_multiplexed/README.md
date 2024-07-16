@@ -1,21 +1,5 @@
 ---
 
-SATCOM - A powerfull general purpose programmable, satellite controlled matrix switch.
-
----
-
-![plot](./resources/img_001.JPG)
-
----
-
-![plot](./resources/img_000.JPG)
-
----
-
-Pending documentation as SATCOM will require a handbook.
-
----
-
                                            SATCOM - Written by Benjamin Jack Cullen.
 
                                   A general purpose programmable satellite and inertial switch. 
@@ -58,6 +42,12 @@ Pending documentation as SATCOM will require a handbook.
 
 ---
 
-
+![plot](./resources/img_001.JPG)
 
 ---
+
+![plot](./resources/img_000.JPG)
+
+---
+
+Pending documentation as SATCOM will require a handbook.
