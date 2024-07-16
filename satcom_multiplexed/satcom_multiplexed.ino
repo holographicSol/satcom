@@ -67,9 +67,9 @@ Specified coordinates at specified meter/mile ranges. For location pinning, guid
                        Some star and constellation calculations will be added soon that can be used at will
                               along with any other data currently available to calculate with.
 
-                        WARNING! the burn in is for real. auto display dim/off is not yet implemented.
+         OLEDS can suffer from transient image persistence and burn in. it is recommended to use display auto sleep feature
 
-       This system operates perfectly as intended which is a lot of work. Ensure all wiring is correct and that devices are provided
+            A lot of work has gone into building this system. Ensure all wiring is correct and that devices are provided
        correct voltages, namely the multiplexer which for example if given a 5v rail instead of the recommended 3.3v rail, will
   cause problems such as ui menu system chaos. this is an electrical device, correct wiring is required for the system to work as intended.
 */
