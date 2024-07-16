@@ -6019,13 +6019,15 @@ void loop() {
   */  
   if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 5)) {
     serial1Data.badrcv_i=0;
+
     // uncomment to update menu ui every loop. may be recommended to only update menu ui when required.
     SSD_Display_2_Menu();
-    if (systemData.satcom_enabled == true) {extrapulatedSatData(); SSD_Display_SATCOM();} else {SSD_Display_SATCOM_Disabled();}
-    if (systemData.gngga_enabled == true) {SSD_Display_GNGGA();} else {SSD_Display_GNGGA_Disabled();}
-    if (systemData.gnrmc_enabled == true) {SSD_Display_GNRMC();} else {SSD_Display_GNRMC_Disabled();}
-    if (systemData.gpatt_enabled == true) {SSD_Display_GPATT();} else {SSD_Display_GPATT_Disabled();}
-    if (systemData.matrix_enabled == true) {matrixSwitch(); SSD_Display_MATRIX();} else {SSD_Display_MATRIX_Disabled();}
+
+    if (systemData.satcom_enabled == true) {extrapulatedSatData(); if (display_on==true) {SSD_Display_SATCOM();}} else {SSD_Display_SATCOM_Disabled();}
+    if (systemData.gngga_enabled == true) {if (display_on==true) {SSD_Display_GNGGA();}} else {SSD_Display_GNGGA_Disabled();}
+    if (systemData.gnrmc_enabled == true) {if (display_on==true) {SSD_Display_GNRMC();}} else {SSD_Display_GNRMC_Disabled();}
+    if (systemData.gpatt_enabled == true) {if (display_on==true) {SSD_Display_GPATT();}} else {SSD_Display_GPATT_Disabled();}
+    if (systemData.matrix_enabled == true) {matrixSwitch(); if (display_on==true) {SSD_Display_MATRIX();}} else {SSD_Display_MATRIX_Disabled();}
   }
   else {serial1Data.badrcv_i++;}
 
