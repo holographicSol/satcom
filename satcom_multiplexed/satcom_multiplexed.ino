@@ -1843,9 +1843,7 @@ char function_names[252][56] = {
         "error_invalid_check_data",
         "debug_invalid_check_data"
     };
-
     
-
   // todo: CamelCase and when necessary shorten function names below ready to be displayed
 
   // default and specifiable value to indicate a relay should not be activated/deactivated if all functions in relays expression are $NONE
