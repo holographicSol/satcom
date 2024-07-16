@@ -207,8 +207,8 @@ struct systemStruct {
   bool output_speed_enabled = false;
   bool output_error_enabled = false;
   bool output_debug_enabled = false;
-  bool display_auto_dim = false;
-  bool display_auto_off = false;
+  bool display_auto_dim = false; // defalut: enabled (dev disabled)
+  bool display_auto_off = false; // defalut: enabled (dev disabled)
   bool display_low_light = false;
   bool display_flip_vertically = false;
   char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
@@ -4172,7 +4172,7 @@ void sdcard_save_system_configuration(char * file, int return_page) {
   sdcardData.current_file = sd.open(file, FILE_WRITE);
   sdcardData.current_file.rewind();
   if (sdcardData.current_file) {
-    // autostart
+
     memset(sdcardData.file_data, 0, 256);
     strcat(sdcardData.file_data, "AUTO_RESUME,");
     itoa(systemData.autoresume_enabled, sdcardData.tmp, 10);
@@ -4182,7 +4182,7 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println("");
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
-    // matrix
+
     memset(sdcardData.file_data, 0, 256);
     strcat(sdcardData.file_data, "MATRIX_ENABLED,");
     itoa(systemData.matrix_enabled, sdcardData.tmp, 10);
@@ -4192,7 +4192,7 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println("");
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
-    // satcom
+
     memset(sdcardData.file_data, 0, 256);
     strcat(sdcardData.file_data, "SATCOM_ENABLED,");
     itoa(systemData.satcom_enabled, sdcardData.tmp, 10);
@@ -4202,7 +4202,7 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println("");
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
-    // gngga
+
     memset(sdcardData.file_data, 0, 256);
     strcat(sdcardData.file_data, "GNGGA_ENABLED,");
     itoa(systemData.gngga_enabled, sdcardData.tmp, 10);
@@ -4212,7 +4212,7 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println("");
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
-    // gnrmc
+
     memset(sdcardData.file_data, 0, 256);
     strcat(sdcardData.file_data, "GNRMC_ENABLED,");
     itoa(systemData.gnrmc_enabled, sdcardData.tmp, 10);
@@ -4222,7 +4222,7 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println("");
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
-    // gpatt
+
     memset(sdcardData.file_data, 0, 256);
     strcat(sdcardData.file_data, "GPATT_ENABLED,");
     itoa(systemData.gpatt_enabled, sdcardData.tmp, 10);
@@ -4232,6 +4232,57 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println("");
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
+
+    memset(sdcardData.file_data, 0, 256);
+    strcat(sdcardData.file_data, "DISPLAY_AUTO_OFF,");
+    itoa(systemData.display_auto_off, sdcardData.tmp, 10);
+    strcat(sdcardData.file_data, sdcardData.tmp);
+    strcat(sdcardData.file_data, ",");
+    Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+    sdcardData.current_file.println("");
+    sdcardData.current_file.println(sdcardData.file_data);
+    sdcardData.current_file.println("");
+
+    memset(sdcardData.file_data, 0, 256);
+    strcat(sdcardData.file_data, "DISPLAY_AUTO_DIM,");
+    itoa(systemData.display_auto_dim, sdcardData.tmp, 10);
+    strcat(sdcardData.file_data, sdcardData.tmp);
+    strcat(sdcardData.file_data, ",");
+    Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+    sdcardData.current_file.println("");
+    sdcardData.current_file.println(sdcardData.file_data);
+    sdcardData.current_file.println("");
+
+    memset(sdcardData.file_data, 0, 256);
+    strcat(sdcardData.file_data, "DISPLAY_LOW_LIGHT,");
+    itoa(systemData.display_auto_dim, sdcardData.tmp, 10);
+    strcat(sdcardData.file_data, sdcardData.tmp);
+    strcat(sdcardData.file_data, ",");
+    Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+    sdcardData.current_file.println("");
+    sdcardData.current_file.println(sdcardData.file_data);
+    sdcardData.current_file.println("");
+
+    memset(sdcardData.file_data, 0, 256);
+    strcat(sdcardData.file_data, "DISPLAY_AUTO_DIM,");
+    itoa(systemData.display_low_light, sdcardData.tmp, 10);
+    strcat(sdcardData.file_data, sdcardData.tmp);
+    strcat(sdcardData.file_data, ",");
+    Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+    sdcardData.current_file.println("");
+    sdcardData.current_file.println(sdcardData.file_data);
+    sdcardData.current_file.println("");
+
+    memset(sdcardData.file_data, 0, 256);
+    strcat(sdcardData.file_data, "DISPLAY_FLIP_VERTICALLY,");
+    itoa(systemData.display_flip_vertically, sdcardData.tmp, 10);
+    strcat(sdcardData.file_data, sdcardData.tmp);
+    strcat(sdcardData.file_data, ",");
+    Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+    sdcardData.current_file.println("");
+    sdcardData.current_file.println(sdcardData.file_data);
+    sdcardData.current_file.println("");
+
     // complete
     sdcardData.current_file.close();
     Serial.println("[sdcard] saved file successfully: " + String(file));
@@ -4276,7 +4327,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
       // continue to enable/disable only if auto resume is true
       if (systemData.autoresume_enabled == true) {
       
-        if (strncmp(sdcardData.BUFFER, "MATRIX_ENABLED", 14) == 0) {
+        if (strncmp(sdcardData.BUFFER, "MATRIX_ENABLED", strlen("MATRIX_ENABLED")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4285,7 +4336,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.matrix_enabled = false;} else {systemData.matrix_enabled = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "SATCOM_ENABLED", 14) == 0) {
+        if (strncmp(sdcardData.BUFFER, "SATCOM_ENABLED", strlen("SATCOM_ENABLED")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4294,7 +4345,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.satcom_enabled = false;} else {systemData.satcom_enabled = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "GNGGA_ENABLED", 13) == 0) {
+        if (strncmp(sdcardData.BUFFER, "GNGGA_ENABLED", strlen("GNGGA_ENABLED")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4303,7 +4354,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.gngga_enabled = false;} else {systemData.gngga_enabled = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "GNRMC_ENABLED", 13) == 0) {
+        if (strncmp(sdcardData.BUFFER, "GNRMC_ENABLED", strlen("GNRMC_ENABLED")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4312,7 +4363,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.gnrmc_enabled = false;} else {systemData.gnrmc_enabled = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "GPATT_ENABLED", 13) == 0) {
+        if (strncmp(sdcardData.BUFFER, "GPATT_ENABLED", strlen("GPATT_ENABLED")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4321,6 +4372,47 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.gpatt_enabled = false;} else {systemData.gpatt_enabled = true;}
           }
         }
+
+        if (strncmp(sdcardData.BUFFER, "DISPLAY_AUTO_OFF", strlen("DISPLAY_AUTO_OFF")) == 0) {
+          sdcardData.token = strtok(sdcardData.BUFFER, ",");
+          Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
+          sdcardData.token = strtok(NULL, ",");
+          if (is_all_digits(sdcardData.token) == true) {
+            Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
+            if (atoi(sdcardData.token) == 0) {systemData.display_auto_off = false;} else {systemData.display_auto_off = true;}
+          }
+        }
+
+        if (strncmp(sdcardData.BUFFER, "DISPLAY_AUTO_DIM", strlen("DISPLAY_AUTO_DIM")) == 0) {
+          sdcardData.token = strtok(sdcardData.BUFFER, ",");
+          Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
+          sdcardData.token = strtok(NULL, ",");
+          if (is_all_digits(sdcardData.token) == true) {
+            Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
+            if (atoi(sdcardData.token) == 0) {systemData.display_auto_dim = false;} else {systemData.display_auto_dim = true;}
+          }
+        }
+
+        if (strncmp(sdcardData.BUFFER, "DISPLAY_LOW_LIGHT", strlen("DISPLAY_LOW_LIGHT")) == 0) {
+          sdcardData.token = strtok(sdcardData.BUFFER, ",");
+          Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
+          sdcardData.token = strtok(NULL, ",");
+          if (is_all_digits(sdcardData.token) == true) {
+            Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
+            if (atoi(sdcardData.token) == 0) {systemData.display_low_light = false;} else {systemData.display_low_light = true;}
+          }
+        }
+
+        if (strncmp(sdcardData.BUFFER, "DISPLAY_FLIP_VERTICALLY", strlen("DISPLAY_FLIP_VERTICALLY")) == 0) {
+          sdcardData.token = strtok(sdcardData.BUFFER, ",");
+          Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
+          sdcardData.token = strtok(NULL, ",");
+          if (is_all_digits(sdcardData.token) == true) {
+            Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
+            if (atoi(sdcardData.token) == 0) {systemData.display_flip_vertically = false;} else {systemData.display_flip_vertically = true;}
+          }
+        }
+
       }
     }
     sdcardData.current_file.close();
