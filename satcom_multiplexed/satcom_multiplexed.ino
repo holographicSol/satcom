@@ -6007,7 +6007,7 @@ void InterfaceWake() {
   systemData.display_auto_dim_t1=millis();
   // conditionally do the following when interacing: wakeup
   if (systemData.display_on == false) {displayOnOff(1,1,1,1,1,1); systemData.display_on = true;}
-  if (systemData.display_dim == true) {displayBrightness(1,1,1,1,1,1); systemData.display_on = false;}
+  if (systemData.display_dim == true) {displayBrightness(1,1,1,1,1,1); systemData.display_dim = false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
