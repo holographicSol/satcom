@@ -5214,7 +5214,7 @@ bool SecondsTimer(unsigned long n0, unsigned long n1, int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                   MATRIX FUNCTIONS: ADVANCED
 
-// build astronomical caculations here
+// build astronomical, ephemeris and other caculations here
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
