@@ -124,6 +124,18 @@ int           debounce_p0_select = 50;
 unsigned long debounce_t0_select;
 unsigned long debounce_t1_select;
 
+// auto dim display
+int           display_auto_dim_p0 = 3000;
+unsigned long display_auto_dim_t0;
+unsigned long display_auto_dim_t1;
+bool          display_dim = false;
+
+// auto off display
+int           display_auto_off_p0 = 5000;
+unsigned long display_auto_off_t0;
+unsigned long display_auto_off_t1;
+bool          display_on = true;
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       SDCARD
 #define SPI_DRIVER_SELECT 2  // Must be set in SdFat/SdFatConfig.h
@@ -195,6 +207,10 @@ struct systemStruct {
   bool output_speed_enabled = false;
   bool output_error_enabled = false;
   bool output_debug_enabled = false;
+  bool display_auto_dim = false;
+  bool display_auto_off = false;
+  bool display_low_light = false;
+  bool display_flip_vertically = false;
   char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
 };
 systemStruct systemData;
@@ -230,7 +246,7 @@ struct menuStruct {
   int numpad_key = NULL;
   bool select = false;
   int page = 2;
-  int page_max = 5;
+  int page_max = 6;
   int relay_select = 0;
   int relay_function_select = 0;
   int function_index = 0;
@@ -315,7 +331,6 @@ struct TimeStruct {
   unsigned long seconds;
   unsigned long mainLoopTimeTaken;
   unsigned long mainLoopTimeStart;
-  unsigned long previous_seconds_ui;
 };
 TimeStruct timeData;
 
@@ -3713,6 +3728,96 @@ void SSD_Display_2_Menu() {
       if (menuData.y >=2 ) {menuData.y = 0;}
   }
 
+  if (menuData.page == 5) {
+    menuData.menu_lock = false; // enable input
+    display_2.clear();
+    // select row 0
+    if (menuData.y == 0) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "DISPLAY");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 15, "AUTO DIM");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, String(systemData.translate_enable_bool[0][systemData.display_auto_dim]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 24, "AUTO OFF");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 24, String(systemData.translate_enable_bool[0][systemData.display_auto_off]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 33, "LOW LIGHT");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 33, String(systemData.translate_enable_bool[0][systemData.display_low_light]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 42, "FLIP");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 42, String(systemData.translate_enable_bool[0][systemData.display_flip_vertically]));
+      }
+    // select row 1
+    if (menuData.y == 1) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setColor(WHITE); display_2.fillRect(0, 16, display_2.getWidth(), 10); // item emphasis
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "DISPLAY");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 15, "AUTO DIM");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 15, String(systemData.translate_enable_bool[0][systemData.display_auto_dim]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 24, "AUTO OFF");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 24, String(systemData.translate_enable_bool[0][systemData.display_auto_off]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 33, "LOW LIGHT");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 33, String(systemData.translate_enable_bool[0][systemData.display_low_light]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 42, "FLIP");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 42, String(systemData.translate_enable_bool[0][systemData.display_flip_vertically]));
+      }
+    // select row 2
+    if (menuData.y == 2) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setColor(WHITE); display_2.fillRect(0, 26, display_2.getWidth(), 9); // item emphasis
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "DISPLAY");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 15, "AUTO DIM");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, String(systemData.translate_enable_bool[0][systemData.display_auto_dim]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 24, "AUTO OFF");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 24, String(systemData.translate_enable_bool[0][systemData.display_auto_off]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 33, "LOW LIGHT");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 33, String(systemData.translate_enable_bool[0][systemData.display_low_light]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 42, "FLIP");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 42, String(systemData.translate_enable_bool[0][systemData.display_flip_vertically]));
+      }
+    // select row 3
+    if (menuData.y == 3) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setColor(WHITE); display_2.fillRect(0, 35, display_2.getWidth(), 9); // item emphasis
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "DISPLAY");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 15, "AUTO DIM");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, String(systemData.translate_enable_bool[0][systemData.display_auto_dim]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 24, "AUTO OFF");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 24, String(systemData.translate_enable_bool[0][systemData.display_auto_off]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 33, "LOW LIGHT");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 33, String(systemData.translate_enable_bool[0][systemData.display_low_light]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 42, "FLIP");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 42, String(systemData.translate_enable_bool[0][systemData.display_flip_vertically]));
+      }
+    // select row 4
+    if (menuData.y == 4) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setColor(WHITE); display_2.fillRect(0, 44, display_2.getWidth(), 9); // item emphasis
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "DISPLAY");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 15, "AUTO DIM");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, String(systemData.translate_enable_bool[0][systemData.display_auto_dim]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 24, "AUTO OFF");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 24, String(systemData.translate_enable_bool[0][systemData.display_auto_off]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 33, "LOW LIGHT");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 33, String(systemData.translate_enable_bool[0][systemData.display_low_light]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 42, "FLIP");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 42, String(systemData.translate_enable_bool[0][systemData.display_flip_vertically]));
+      }
+      if (menuData.y >=5 ) {menuData.y = 0;}
+  }
+
   // file: loading
   if (menuData.page == 20) {
     menuData.menu_lock = true; // disable input on this page
@@ -5431,6 +5536,14 @@ void menuSelect() {
   if (menuData.page == 4) {
     if (menuData.y == 1) {if (systemData.autoresume_enabled == true) {systemData.autoresume_enabled = false; sdcard_save_system_configuration(sdcardData.sysconf, 4);} else {systemData.autoresume_enabled = true; sdcard_save_system_configuration(sdcardData.sysconf, 4);}}
   }
+  // page 5 only 
+  if (menuData.page == 5) {
+    
+    if (menuData.y == 1) {if (systemData.display_auto_dim == true) {systemData.display_auto_dim = false;} else {systemData.display_auto_dim = true;}}
+    if (menuData.y == 2) {if (systemData.display_auto_off == true) {systemData.display_auto_off = false;} else {systemData.display_auto_off = true;}}
+    if (menuData.y == 3) {if (systemData.display_low_light == true) {systemData.display_low_light = false; displayBrightness(1,1,1,1,1,1);} else {systemData.display_low_light = true; displayBrightness(0,0,0,0,0,0);}}
+    if (menuData.y == 4) {if (systemData.display_flip_vertically == true) {systemData.display_flip_vertically = false; displayFlipVertically(1,1,1, 1,1,1);} else {systemData.display_flip_vertically = true; displayFlipVertically(0,0,0,0,0,0);} }
+  }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -5726,8 +5839,56 @@ void processData() {
   gpattData.valid_checksum = validateChecksum(gpattData.sentence);
   if (gpattData.valid_checksum == true) {GPATT();}
   else {gpattData.bad_checksum_validity++;}
+}
 
 
+void DisplayAutoDim() {
+  // check feature state
+  if (systemData.display_auto_dim == true) {
+    // store current time
+    display_auto_dim_t0 = millis();
+    // check last set state
+    if (display_dim == false) {
+      // compare current time to previous time
+      if ((display_auto_dim_t0 - display_auto_dim_t1) > display_auto_dim_p0) {
+        // set previous time
+        display_auto_dim_t1 = display_auto_dim_t0;
+        // action
+        displayBrightness(0,0,0,0,0,0);
+        // set current state
+        display_dim = true;
+      }
+    }
+  }
+}
+
+void DisplayAutoOff() {
+  // check feature state
+  if (systemData.display_auto_off == true) {
+    // store current time
+    display_auto_off_t0 = millis();
+    // check last set state
+    if (display_on == true) {
+      // compare current time to previous time
+      if ((display_auto_off_t0 - display_auto_off_t1) > display_auto_off_p0) {
+        // set previous time
+        display_auto_off_t1 = display_auto_off_t0;
+        // action
+        displayOnOff(0,0,0,0,0,0);
+        // set current state
+        display_on = false;
+      }
+    }
+  }
+}
+
+void InterfaceWake() {
+  // always update times when interfacing: stay awake
+  display_auto_off_t1=millis();
+  display_auto_dim_t1=millis();
+  // conditionally do the following when interacing: wakeup
+  if (display_on == false) {displayOnOff(1,1,1,1,1,1); display_on = true;}
+  if (display_dim == true) {displayBrightness(1,1,1,1,1,1); display_on = false;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -5745,6 +5906,7 @@ void loop() {
   // check button input
   int db0 = 50;
   int db1 = 50;
+  if (menuData.isr_i!=0) {InterfaceWake();}
   if (menuData.isr_i == ISR_RIGHT_KEY) {delay(db0); menuRight(); menuData.isr_i=0; delay(db1);}
   if (menuData.isr_i == ISR_LEFT_KEY) {delay(db0); menuLeft(); menuData.isr_i=0; delay(db1);}
   if (menuData.isr_i == ISR_UP_KEY) {delay(db0); menuUp(); menuData.isr_i=0; delay(db1);}
@@ -5756,7 +5918,7 @@ void loop() {
   if (menuData.isr_i == ISR_NPAD_DOWN_KEY) {delay(db0); numpadDown(); menuData.isr_i=0; delay(db1);}
   if (menuData.isr_i == ISR_NPAD_SELECT_KEY) {delay(db0); numpadSelect(); menuData.isr_i=0; delay(db1);}
 
-  // check satellite receiver
+  // check wtgps300p input
   readRXD_1();
 
   /*
@@ -5781,14 +5943,18 @@ void loop() {
   countRelaysActive();
 
   delay(5);
-  // store time taken to complete
-  timeData.mainLoopTimeTaken = millis() - timeData.mainLoopTimeStart;
+
+  DisplayAutoDim();
+  DisplayAutoOff();
 
   debounce_t0_right = millis();
   debounce_t0_left = millis();
   debounce_t0_up = millis();
   debounce_t0_down = millis();
   debounce_t0_select = millis();
+
+  // store time taken to complete
+  timeData.mainLoopTimeTaken = millis() - timeData.mainLoopTimeStart;
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
