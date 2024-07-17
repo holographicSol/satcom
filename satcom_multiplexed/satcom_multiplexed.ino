@@ -1558,7 +1558,8 @@ struct RelayStruct {
     // },
   };
 
-char function_names[254][56] = {
+  int FUNCTION_NAMES_MAX = 250;
+  char function_names[250][56] = {
         "$NONE",
         "$ENABLED",
         "SecondsTimer",
@@ -5117,7 +5118,7 @@ void setup() {
   init_sdcard();
 
   sdcard_mkdirs();
-  // sdcard_load_matrix(sdcardData.matrix_filepath);
+  sdcard_load_matrix(sdcardData.matrix_filepath);
   sdcard_load_system_configuration(sdcardData.sysconf, 3);
 
   // --------------------------------------------------------------------------------------------------------------------------
@@ -5676,7 +5677,7 @@ void previousPageFunction() {
 
 void scanFi() {
   // index current function name
-  for (int Fi = 0; Fi < 254; Fi++) {if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}
+  for (int Fi = 0; Fi < relayData.FUNCTION_NAMES_MAX; Fi++) {if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}
 }
 
 void selectRelayI() {
@@ -5699,7 +5700,7 @@ void selectEnableDisableRelay() {
 void nextRelayFunctionName() {
   // iterate through all available function names
   menuData.function_index++;
-  if (menuData.function_index > 254) {menuData.function_index=0;}
+  if (menuData.function_index > relayData.FUNCTION_NAMES_MAX) {menuData.function_index=0;}
   memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56);
   strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);
 }
@@ -5707,7 +5708,7 @@ void nextRelayFunctionName() {
 void previousRelayFunctionName() {
   // iterate through all available function names
   menuData.function_index--;
-  if (menuData.function_index <= -1) {menuData.function_index=254;}
+  if (menuData.function_index <= -1) {menuData.function_index=relayData.FUNCTION_NAMES_MAX-1;}
   memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56);
   strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);
 }
@@ -5723,7 +5724,7 @@ void selectRelayFunctionName() {
 
 void setRelayFunctionName() {
   // set the function name selected by select relay function name
-  if ((atoi(menuData.input) <= 254) && (atoi(menuData.input) >=0)) {
+  if ((atoi(menuData.input) < relayData.FUNCTION_NAMES_MAX) && (atoi(menuData.input) >=0)) {
     menuData.function_index=atoi(menuData.input);
     memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0 , 56);
     strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);
