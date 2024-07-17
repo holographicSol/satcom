@@ -174,7 +174,7 @@ systemStruct systemData;
 struct DebounceStruct {
   int debounce_delay_0 = 50;
   int debounce_delay_1 = 50;
-  int debounce_period = 100;
+  int debounce_period = 200;
   int           debounce_p0_right = debounce_period;
   unsigned long debounce_t0_right;
   unsigned long debounce_t1_right;
