@@ -174,7 +174,7 @@ systemStruct systemData;
 struct DebounceStruct {
   int debounce_delay_0 = 50;
   int debounce_delay_1 = 50;
-  int debounce_period = 50;
+  int debounce_period = 100;
   int           debounce_p0_right = debounce_period;
   unsigned long debounce_t0_right;
   unsigned long debounce_t1_right;
@@ -190,7 +190,7 @@ struct DebounceStruct {
   int           debounce_p0_select = debounce_period;
   unsigned long debounce_t0_select;
   unsigned long debounce_t1_select;
-
+  int previous_state = 0;
 };
 DebounceStruct debounceData;
 
@@ -6052,16 +6052,16 @@ void loop() {
 
   // check button input
   if (menuData.isr_i!=0) {InterfaceWake();}
-  if (menuData.isr_i == ISR_RIGHT_KEY) {delay(debounceData.debounce_delay_0); menuRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if (menuData.isr_i == ISR_LEFT_KEY) {delay(debounceData.debounce_delay_0); menuLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if (menuData.isr_i == ISR_UP_KEY) {delay(debounceData.debounce_delay_0); menuUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if (menuData.isr_i == ISR_DOWN_KEY) {delay(debounceData.debounce_delay_0); menuDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if (menuData.isr_i == ISR_SELECT_KEY) {delay(debounceData.debounce_delay_0); menuSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if (menuData.isr_i == ISR_NPAD_RIGHT_KEY) {delay(debounceData.debounce_delay_0); numpadRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if (menuData.isr_i == ISR_NPAD_LEFT_KEY) {delay(debounceData.debounce_delay_0); numpadLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if (menuData.isr_i == ISR_NPAD_UP_KEY) {delay(debounceData.debounce_delay_0); numpadUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if (menuData.isr_i == ISR_NPAD_DOWN_KEY) {delay(debounceData.debounce_delay_0); numpadDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if (menuData.isr_i == ISR_NPAD_SELECT_KEY) {delay(debounceData.debounce_delay_0); numpadSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_RIGHT_KEY) && (debounceData.previous_state == 0)) {debounceData.previous_state = 1; delay(debounceData.debounce_delay_0); menuRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_LEFT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_UP_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_DOWN_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_SELECT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_RIGHT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_LEFT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_UP_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_DOWN_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_SELECT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
 
   // check wtgps300p input
   readRXD_1();
@@ -6109,6 +6109,7 @@ void loop() {
 void ISR_RIGHT() {
   if ((debounceData.debounce_t0_right - debounceData.debounce_t1_right) > debounceData.debounce_p0_right) {
     debounceData.debounce_t1_right = debounceData.debounce_t0_right;
+     debounceData.previous_state = 0;
     // Serial.println("[isr] menu right");
     if (menuData.page < 10) {menuData.isr_i = ISR_RIGHT_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_RIGHT_KEY;}
@@ -6118,6 +6119,7 @@ void ISR_RIGHT() {
 void ISR_LEFT() {
   if ((debounceData.debounce_t0_left - debounceData.debounce_t1_left) > debounceData.debounce_p0_left) {
     debounceData.debounce_t1_left = debounceData.debounce_t0_left;
+     debounceData.previous_state = 0;
     // Serial.println("[isr] menu left");
     if (menuData.page < 10) {menuData.isr_i = ISR_LEFT_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_LEFT_KEY;}
@@ -6127,6 +6129,7 @@ void ISR_LEFT() {
 void ISR_UP() {
   if ((debounceData.debounce_t0_up - debounceData.debounce_t1_up) > debounceData.debounce_p0_up) {
     debounceData.debounce_t1_up = debounceData.debounce_t0_up;
+     debounceData.previous_state = 0;
     // Serial.println("[isr] menu up");
     if (menuData.page < 10) {menuData.isr_i = ISR_UP_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_UP_KEY;}
@@ -6136,6 +6139,7 @@ void ISR_UP() {
 void ISR_DOWN() {
   if ((debounceData.debounce_t0_down - debounceData.debounce_t1_down) > debounceData.debounce_p0_down) {
     debounceData.debounce_t1_down = debounceData.debounce_t0_down;
+     debounceData.previous_state = 0;
     // Serial.println("[isr] menu down");
     if (menuData.page < 10) {menuData.isr_i = ISR_DOWN_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_DOWN_KEY;}
@@ -6145,6 +6149,7 @@ void ISR_DOWN() {
 void ISR_SELECT() {
   if ((debounceData.debounce_t0_select - debounceData.debounce_t1_select) > debounceData.debounce_p0_select) {
     debounceData.debounce_t1_select = debounceData.debounce_t0_select;
+     debounceData.previous_state = 0;
     // Serial.println("[isr] menu select");
     if (menuData.page < 10) {menuData.isr_i = ISR_SELECT_KEY;}
     else if (menuData.page == 10) {menuData.isr_i = ISR_NPAD_SELECT_KEY;}
