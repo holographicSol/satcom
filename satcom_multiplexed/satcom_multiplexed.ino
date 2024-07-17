@@ -1434,8 +1434,8 @@ struct RelayStruct {
     },
   };
 
-  int FUNCTION_NAMES_MAX = 253;
-  char function_names[254][56] = 
+  int FUNCTION_NAMES_MAX = 257;
+  char function_names[258][56] = 
   {
     "$NONE",
     "$ENABLED",
@@ -1689,6 +1689,10 @@ struct RelayStruct {
     "SunriseTimeUnderGNGGA",
     "SunsetTimeOverGNGGA",
     "SunsetTimeUnderGNGGA",
+    "MoonriseTimeOverGNGGA",
+    "MoonriseTimeUnderGNGGA",
+    "MoonsetTimeOverGNGGA",
+    "MoonsetTimeUnderGNGGA",
     "MoonPhase",
   };
 
@@ -1956,6 +1960,10 @@ struct RelayStruct {
   char SunriseTimeUnderGNGGA[56] = "SunriseTimeUnderGNGGA";
   char SunsetTimeOverGNGGA[56]   = "SunsetTimeOverGNGGA";
   char SunsetTimeUnderGNGGA[56]  = "SunsetTimeUnderGNGGA";
+  char MoonriseTimeOverGNGGA[56]  = "MoonriseTimeOverGNGGA";
+  char MoonriseTimeUnderGNGGA[56] = "MoonriseTimeUnderGNGGA";
+  char MoonsetTimeOverGNGGA[56]   = "MoonsetTimeOverGNGGA";
+  char MoonsetTimeUnderGNGGA[56]  = "MoonsetTimeUnderGNGGA";
   char MoonPhase[56]             = "MoonPhase";
 
   // ----------------------------------------------------------------------------------------------------------------------------
@@ -5138,6 +5146,32 @@ double getSunsetTime(double latitude, double longitude, signed int tz, int year,
   return myAstro.getSunsetTime();
 }
 
+double getMoonriseTime(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+  myAstro.setLatLong(latitude, longitude);
+  myAstro.setTimeZone(tz);
+  myAstro.rejectDST();
+  myAstro.setGMTdate(year, month, day);
+  myAstro.setLocalTime(hour, minute, second);
+  myAstro.setGMTtime(hour, minute, second);
+  myAstro.doMoon();
+  myAstro.doMoonRiseSetTimes();
+  // Serial.println("Rise Time: " + String(myAstro.getMoonriseTime()));
+  return myAstro.getMoonriseTime();
+}
+
+double getMoonsetTime(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+  myAstro.setLatLong(latitude, longitude);
+  myAstro.setTimeZone(tz);
+  myAstro.rejectDST();
+  myAstro.setGMTdate(year, month, day);
+  myAstro.setLocalTime(hour, minute, second);
+  myAstro.setGMTtime(hour, minute, second);
+  myAstro.doMoon();
+  myAstro.doMoonRiseSetTimes();
+  // Serial.println("Set Time: " + String(myAstro.getMoonsetTime()));
+  return myAstro.getMoonsetTime();
+}
+
 double getMoonPhase(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
   /*
   0. New Moon
@@ -5492,6 +5526,50 @@ void matrixSwitch() {
                                                                                                                                          ), atof(satData.hours_minutes));}
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunsetTime(satData.location_latitude_gngga,
+                                                                                                                            satData.location_longitude_gngga,
+                                                                                                                            satData.timezone,
+                                                                                                                            atoi(satData.year_full),
+                                                                                                                            atoi(satData.month),
+                                                                                                                            atoi(satData.day),
+                                                                                                                            atoi(satData.hour),
+                                                                                                                            atoi(satData.minute),
+                                                                                                                            atoi(satData.second)
+                                                                                                                            ), atof(satData.hours_minutes));}
+        
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonriseTimeOverGNGGA) == 0) {tmp_matrix[Fi] = check_over_true(getMoonriseTime(satData.location_latitude_gngga,
+                                                                                                                                         satData.location_longitude_gngga,
+                                                                                                                                         satData.timezone,
+                                                                                                                                         atoi(satData.year_full),
+                                                                                                                                         atoi(satData.month),
+                                                                                                                                         atoi(satData.day),
+                                                                                                                                         atoi(satData.hour),
+                                                                                                                                         atoi(satData.minute),
+                                                                                                                                         atoi(satData.second)
+                                                                                                                                         ), atof(satData.hours_minutes));}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonriseTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getMoonriseTime(satData.location_latitude_gngga,
+                                                                                                                            satData.location_longitude_gngga,
+                                                                                                                            satData.timezone,
+                                                                                                                            atoi(satData.year_full),
+                                                                                                                            atoi(satData.month),
+                                                                                                                            atoi(satData.day),
+                                                                                                                            atoi(satData.hour),
+                                                                                                                            atoi(satData.minute),
+                                                                                                                            atoi(satData.second)
+                                                                                                                            ), atof(satData.hours_minutes));}
+                                                                                                                            
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonsetTimeOverGNGGA) == 0) {tmp_matrix[Fi] = check_over_true(getMoonsetTime(satData.location_latitude_gngga,
+                                                                                                                                         satData.location_longitude_gngga,
+                                                                                                                                         satData.timezone,
+                                                                                                                                         atoi(satData.year_full),
+                                                                                                                                         atoi(satData.month),
+                                                                                                                                         atoi(satData.day),
+                                                                                                                                         atoi(satData.hour),
+                                                                                                                                         atoi(satData.minute),
+                                                                                                                                         atoi(satData.second)
+                                                                                                                                         ), atof(satData.hours_minutes));}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonsetTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getMoonsetTime(satData.location_latitude_gngga,
                                                                                                                             satData.location_longitude_gngga,
                                                                                                                             satData.timezone,
                                                                                                                             atoi(satData.year_full),
