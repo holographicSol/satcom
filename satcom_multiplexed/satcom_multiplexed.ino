@@ -1432,8 +1432,8 @@ struct RelayStruct {
     },
   };
 
-  int FUNCTION_NAMES_MAX = 250;
-  char function_names[251][56] = 
+  int FUNCTION_NAMES_MAX = 252;
+  char function_names[253][56] = 
   {
     "$NONE",
     "$ENABLED",
@@ -1685,6 +1685,8 @@ struct RelayStruct {
     "debug_invalid_check_data",
     "SunriseTimeOverGNGGA",
     "SunriseTimeUnderGNGGA",
+    "SunsetTimeOverGNGGA",
+    "SunsetTimeUnderGNGGA",
   };
 
   // todo: CamelCase and when necessary shorten function names below ready to be displayed
@@ -1944,8 +1946,13 @@ struct RelayStruct {
   char GyroZDataEqual[56]         = "GyroZDataEqual";
   char GyroZDataRange[56]         = "GyroZDataRange";
 
+  // ----------------------------------------------------------------------------------------------------------------------------
+  //                                                                                                             SIDEREAL PLANETS
+
   char SunriseTimeOverGNGGA[56]        = "SunriseTimeOverGNGGA";
   char SunriseTimeUnderGNGGA[56]       = "SunriseTimeUnderGNGGA";
+  char SunsetTimeOverGNGGA[56]        = "SunsetTimeOverGNGGA";
+  char SunsetTimeUnderGNGGA[56]       = "SunsetTimeUnderGNGGA";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                VALIDITY DATA
@@ -5428,7 +5435,18 @@ void matrixSwitch() {
                                                                                                                                          atoi(satData.second)
                                                                                                                                          ), relayData.relays_data[Ri][Fi][0]);}
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunsetTime(satData.location_latitude_gngga,
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunriseTime(satData.location_latitude_gngga,
+                                                                                                                            satData.location_longitude_gngga,
+                                                                                                                            satData.timezone,
+                                                                                                                            atoi(satData.year_full),
+                                                                                                                            atoi(satData.month),
+                                                                                                                            atoi(satData.day),
+                                                                                                                            atoi(satData.hour),
+                                                                                                                            atoi(satData.minute),
+                                                                                                                            atoi(satData.second)
+                                                                                                                            ), relayData.relays_data[Ri][Fi][0]);}
+                                                                                                                            
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetTimeOverGNGGA) == 0) {tmp_matrix[Fi] = check_over_true(getSunsetTime(satData.location_latitude_gngga,
                                                                                                                                          satData.location_longitude_gngga,
                                                                                                                                          satData.timezone,
                                                                                                                                          atoi(satData.year_full),
@@ -5438,6 +5456,17 @@ void matrixSwitch() {
                                                                                                                                          atoi(satData.minute),
                                                                                                                                          atoi(satData.second)
                                                                                                                                          ), relayData.relays_data[Ri][Fi][0]);}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunsetTime(satData.location_latitude_gngga,
+                                                                                                                            satData.location_longitude_gngga,
+                                                                                                                            satData.timezone,
+                                                                                                                            atoi(satData.year_full),
+                                                                                                                            atoi(satData.month),
+                                                                                                                            atoi(satData.day),
+                                                                                                                            atoi(satData.hour),
+                                                                                                                            atoi(satData.minute),
+                                                                                                                            atoi(satData.second)
+                                                                                                                            ), relayData.relays_data[Ri][Fi][0]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                                     VALIDITY
