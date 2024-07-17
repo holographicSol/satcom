@@ -5244,7 +5244,7 @@ double getSunriseTime(double latitude, double longitude, signed int tz, int year
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doSun();
   myAstro.doSunRiseSetTimes();
-  Serial.println("Rise Time: " + String(myAstro.getSunriseTime()));
+  // Serial.println("Rise Time: " + String(myAstro.getSunriseTime()));
   return myAstro.getSunriseTime();
 }
 
@@ -5257,7 +5257,7 @@ double getSunsetTime(double latitude, double longitude, signed int tz, int year,
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doSun();
   myAstro.doSunRiseSetTimes();
-  Serial.println("Set Time: " + String(myAstro.getSunsetTime()));
+  // Serial.println("Set Time: " + String(myAstro.getSunsetTime()));
   return myAstro.getSunsetTime();
 }
 
