@@ -1434,8 +1434,8 @@ struct RelayStruct {
     },
   };
 
-  int FUNCTION_NAMES_MAX = 252;
-  char function_names[253][56] = 
+  int FUNCTION_NAMES_MAX = 253;
+  char function_names[254][56] = 
   {
     "$NONE",
     "$ENABLED",
@@ -1689,6 +1689,7 @@ struct RelayStruct {
     "SunriseTimeUnderGNGGA",
     "SunsetTimeOverGNGGA",
     "SunsetTimeUnderGNGGA",
+    "MoonPhase",
   };
 
   // todo: CamelCase and when necessary shorten function names below ready to be displayed
@@ -1951,10 +1952,11 @@ struct RelayStruct {
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                             SIDEREAL PLANETS
 
-  char SunriseTimeOverGNGGA[56]        = "SunriseTimeOverGNGGA";
-  char SunriseTimeUnderGNGGA[56]       = "SunriseTimeUnderGNGGA";
-  char SunsetTimeOverGNGGA[56]        = "SunsetTimeOverGNGGA";
-  char SunsetTimeUnderGNGGA[56]       = "SunsetTimeUnderGNGGA";
+  char SunriseTimeOverGNGGA[56]  = "SunriseTimeOverGNGGA";
+  char SunriseTimeUnderGNGGA[56] = "SunriseTimeUnderGNGGA";
+  char SunsetTimeOverGNGGA[56]   = "SunsetTimeOverGNGGA";
+  char SunsetTimeUnderGNGGA[56]  = "SunsetTimeUnderGNGGA";
+  char MoonPhase[56]             = "MoonPhase";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                VALIDITY DATA
@@ -5128,6 +5130,28 @@ double getSunsetTime(double latitude, double longitude, signed int tz, int year,
   return myAstro.getSunsetTime();
 }
 
+double getMoonPhase(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+    /*
+  0. New Moon
+  1. Waxing Crescent
+  2. First Quarter
+  3. Waxing Gibbous
+  4. Full Moon
+  5. Waning Gibbous
+  6. Third Quarter
+  7. Waning Crescent
+  */
+  myAstro.setLatLong(latitude, longitude);
+  myAstro.setTimeZone(tz);
+  myAstro.rejectDST();
+  myAstro.setGMTdate(year, month, day);
+  myAstro.setLocalTime(hour, minute, second);
+  myAstro.setGMTtime(hour, minute, second);
+  myAstro.doMoon();
+  // Serial.println("Moon Phase: " + String(myAstro.getMoonPhase()));
+  return myAstro.getMoonPhase();
+}
+
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                               MATRIX: SWITCH
@@ -5460,6 +5484,17 @@ void matrixSwitch() {
                                                                                                                                          ), relayData.relays_data[Ri][Fi][0]);}
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunsetTime(satData.location_latitude_gngga,
+                                                                                                                            satData.location_longitude_gngga,
+                                                                                                                            satData.timezone,
+                                                                                                                            atoi(satData.year_full),
+                                                                                                                            atoi(satData.month),
+                                                                                                                            atoi(satData.day),
+                                                                                                                            atoi(satData.hour),
+                                                                                                                            atoi(satData.minute),
+                                                                                                                            atoi(satData.second)
+                                                                                                                            ), relayData.relays_data[Ri][Fi][0]);}
+        
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonPhase) == 0) {tmp_matrix[Fi] = check_equal_true(getMoonPhase(satData.location_latitude_gngga,
                                                                                                                             satData.location_longitude_gngga,
                                                                                                                             satData.timezone,
                                                                                                                             atoi(satData.year_full),
