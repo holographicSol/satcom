@@ -51,6 +51,7 @@
 #include <OLEDDisplayUi.h> // ESP8266 and ESP32 OLED driver for SSD1306  https://github.com/ThingPulse/esp8266-oled-ssd1306
 #include <Timezone.h>      // Timezone                                   https://github.com/JChristensen/Timezone
 #include <SdFat.h>
+#include <SiderealPlanets.h> //                                          https://github.com/DavidArmstrong/SiderealPlanets
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                      DEFINES
@@ -145,7 +146,7 @@ struct systemStruct {
   bool output_error_enabled = false;
   bool output_debug_enabled = false;
   bool display_low_light = false;
-  bool display_flip_vertically = false;
+  bool display_flip_vertically = true;
   // auto dim display
   bool display_auto_dim = true; // defalut: enabled (burn-in protection)
   int           display_auto_dim_p0 = 3000;
@@ -5032,27 +5033,27 @@ void setup() {
 
   tcaselect(2);
   initDisplay2();
-  display_2.flipScreenVertically();
+  if (systemData.display_flip_vertically) {display_2.flipScreenVertically();}
 
   tcaselect(3);
   initDisplay3();
-  display_3.flipScreenVertically();
+  if (systemData.display_flip_vertically) {display_3.flipScreenVertically();}
 
   tcaselect(4);
   initDisplay4();
-  display_4.flipScreenVertically();
+  if (systemData.display_flip_vertically) {display_4.flipScreenVertically();}
 
   tcaselect(5);
   initDisplay5();
-  display_5.flipScreenVertically();
+  if (systemData.display_flip_vertically) {display_5.flipScreenVertically();}
 
   tcaselect(6);
   initDisplay6();
-  display_6.flipScreenVertically();
+  if (systemData.display_flip_vertically) {display_6.flipScreenVertically();}
 
   tcaselect(7);
   initDisplay7();
-  display_7.flipScreenVertically();
+  if (systemData.display_flip_vertically) {display_7.flipScreenVertically();}
 
   SSD_Display_Loading();
 
@@ -5063,8 +5064,6 @@ void setup() {
 
   sdcard_mkdirs();
   sdcard_load_matrix(sdcardData.matrix_filepath);
-
-  // sdcard_save_system_configuration(sdcardData.sysconf, 3);
   sdcard_load_system_configuration(sdcardData.sysconf, 3);
   menuData.page = 2;
 
@@ -5079,7 +5078,7 @@ void setup() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                  MATRIX FUNCTIONS: PRIMITIVES
+//                                                                                                 MATRIX FUNCTIONS: PRIMITIVES
 
 /*
 matrix switch requires all checks to return true for a relay to be active, therefore checks can be inverted as required, to return
@@ -5182,6 +5181,7 @@ bool SecondsTimer(unsigned long n0, unsigned long n1, int Ri) {
 //                                                                                                   MATRIX FUNCTIONS: ADVANCED
 
 // build astronomical, ephemeris and other caculations here
+
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
