@@ -5609,11 +5609,11 @@ void selectRelayFunctionName() {
   // select a relay function using the numpad 
   menuData.page = 10;
   memset(menuData.input, 0, 256);
-  Serial.println("a function_index " + String(menuData.function_index));
-  Serial.println("a input " + String(menuData.input));
+  // Serial.println("a function_index " + String(menuData.function_index));
+  // Serial.println("a input " + String(menuData.input));
   scanFi();
-  Serial.println("b function_index " + String(menuData.function_index));
-  Serial.println("b input " + String(menuData.input));
+  // Serial.println("b function_index " + String(menuData.function_index));
+  // Serial.println("b input " + String(menuData.input));
   itoa(menuData.function_index, menuData.input, 10);
   menuData.numpad_key=4;
 }
