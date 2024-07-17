@@ -1434,8 +1434,8 @@ struct RelayStruct {
     },
   };
 
-  int FUNCTION_NAMES_MAX = 257;
-  char function_names[258][56] = 
+  int FUNCTION_NAMES_MAX = 253;
+  char function_names[254][56] = 
   {
     "$NONE",
     "$ENABLED",
@@ -1685,14 +1685,10 @@ struct RelayStruct {
     "speed_invalid_check_data",
     "error_invalid_check_data",
     "debug_invalid_check_data",
-    "SunriseTimeOverGNGGA",
-    "SunriseTimeUnderGNGGA",
-    "SunsetTimeOverGNGGA",
-    "SunsetTimeUnderGNGGA",
-    "MoonriseTimeOverGNGGA",
-    "MoonriseTimeUnderGNGGA",
-    "MoonsetTimeOverGNGGA",
-    "MoonsetTimeUnderGNGGA",
+    "SunriseGNGGA",
+    "SunsetGNGGA",
+    "MoonriseGNGGA",
+    "MoonsetGNGGA",
     "MoonPhase",
   };
 
@@ -1956,14 +1952,10 @@ struct RelayStruct {
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                             SIDEREAL PLANETS
 
-  char SunriseTimeOverGNGGA[56]  = "SunriseTimeOverGNGGA";
-  char SunriseTimeUnderGNGGA[56] = "SunriseTimeUnderGNGGA";
-  char SunsetTimeOverGNGGA[56]   = "SunsetTimeOverGNGGA";
-  char SunsetTimeUnderGNGGA[56]  = "SunsetTimeUnderGNGGA";
-  char MoonriseTimeOverGNGGA[56]  = "MoonriseTimeOverGNGGA";
-  char MoonriseTimeUnderGNGGA[56] = "MoonriseTimeUnderGNGGA";
-  char MoonsetTimeOverGNGGA[56]   = "MoonsetTimeOverGNGGA";
-  char MoonsetTimeUnderGNGGA[56]  = "MoonsetTimeUnderGNGGA";
+  char SunriseTimeOverGNGGA[56]  = "SunriseGNGGA";
+  char SunsetTimeOverGNGGA[56]   = "SunsetGNGGA";
+  char MoonriseTimeOverGNGGA[56]  = "MoonriseGNGGA";
+  char MoonsetTimeOverGNGGA[56]   = "MoonsetGNGGA";
   char MoonPhase[56]             = "MoonPhase";
 
   // ----------------------------------------------------------------------------------------------------------------------------
@@ -5492,18 +5484,8 @@ void matrixSwitch() {
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                             SIDEREAL PLANETS
 
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseTimeOverGNGGA) == 0) {tmp_matrix[Fi] = check_over_true(getSunriseTime(satData.location_latitude_gngga,
-                                                                                                                                         satData.location_longitude_gngga,
-                                                                                                                                         satData.timezone,
-                                                                                                                                         atoi(satData.year_full),
-                                                                                                                                         atoi(satData.month),
-                                                                                                                                         atoi(satData.day),
-                                                                                                                                         atoi(satData.hour),
-                                                                                                                                         atoi(satData.minute),
-                                                                                                                                         atoi(satData.second)
-                                                                                                                                         ), atof(satData.hours_minutes));}
-
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunriseTime(satData.location_latitude_gngga,
+        // sunrise time less than current time
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunriseTime(satData.location_latitude_gngga,
                                                                                                                                         satData.location_longitude_gngga,
                                                                                                                                         satData.timezone,
                                                                                                                                         atoi(satData.year_full),
@@ -5513,8 +5495,8 @@ void matrixSwitch() {
                                                                                                                                         atoi(satData.minute),
                                                                                                                                         atoi(satData.second)
                                                                                                                                         ), atof(satData.hours_minutes));}
-                                                                                                                            
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetTimeOverGNGGA) == 0) {tmp_matrix[Fi] = check_over_true(getSunsetTime(satData.location_latitude_gngga,
+        // sunset time less than current time                                                                   
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunsetTime(satData.location_latitude_gngga,
                                                                                                                                         satData.location_longitude_gngga,
                                                                                                                                         satData.timezone,
                                                                                                                                         atoi(satData.year_full),
@@ -5524,8 +5506,8 @@ void matrixSwitch() {
                                                                                                                                         atoi(satData.minute),
                                                                                                                                         atoi(satData.second)
                                                                                                                                         ), atof(satData.hours_minutes));}
-
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunsetTime(satData.location_latitude_gngga,
+        // moonrise time less than current time
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getMoonriseTime(satData.location_latitude_gngga,
                                                                                                                                         satData.location_longitude_gngga,
                                                                                                                                         satData.timezone,
                                                                                                                                         atoi(satData.year_full),
@@ -5535,8 +5517,8 @@ void matrixSwitch() {
                                                                                                                                         atoi(satData.minute),
                                                                                                                                         atoi(satData.second)
                                                                                                                                         ), atof(satData.hours_minutes));}
-        
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonriseTimeOverGNGGA) == 0) {tmp_matrix[Fi] = check_over_true(getMoonriseTime(satData.location_latitude_gngga,
+        // moonset time less than current time
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getMoonsetTime(satData.location_latitude_gngga,
                                                                                                                                         satData.location_longitude_gngga,
                                                                                                                                         satData.timezone,
                                                                                                                                         atoi(satData.year_full),
@@ -5546,40 +5528,7 @@ void matrixSwitch() {
                                                                                                                                         atoi(satData.minute),
                                                                                                                                         atoi(satData.second)
                                                                                                                                         ), atof(satData.hours_minutes));}
-
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonriseTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getMoonriseTime(satData.location_latitude_gngga,
-                                                                                                                                        satData.location_longitude_gngga,
-                                                                                                                                        satData.timezone,
-                                                                                                                                        atoi(satData.year_full),
-                                                                                                                                        atoi(satData.month),
-                                                                                                                                        atoi(satData.day),
-                                                                                                                                        atoi(satData.hour),
-                                                                                                                                        atoi(satData.minute),
-                                                                                                                                        atoi(satData.second)
-                                                                                                                                        ), atof(satData.hours_minutes));}
-                                                                                                                            
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonsetTimeOverGNGGA) == 0) {tmp_matrix[Fi] = check_over_true(getMoonsetTime(satData.location_latitude_gngga,
-                                                                                                                                        satData.location_longitude_gngga,
-                                                                                                                                        satData.timezone,
-                                                                                                                                        atoi(satData.year_full),
-                                                                                                                                        atoi(satData.month),
-                                                                                                                                        atoi(satData.day),
-                                                                                                                                        atoi(satData.hour),
-                                                                                                                                        atoi(satData.minute),
-                                                                                                                                        atoi(satData.second)
-                                                                                                                                        ), atof(satData.hours_minutes));}
-
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonsetTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getMoonsetTime(satData.location_latitude_gngga,
-                                                                                                                                        satData.location_longitude_gngga,
-                                                                                                                                        satData.timezone,
-                                                                                                                                        atoi(satData.year_full),
-                                                                                                                                        atoi(satData.month),
-                                                                                                                                        atoi(satData.day),
-                                                                                                                                        atoi(satData.hour),
-                                                                                                                                        atoi(satData.minute),
-                                                                                                                                        atoi(satData.second)
-                                                                                                                                        ), atof(satData.hours_minutes));}
-        
+        // moonphase equal to x
         else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonPhase) == 0) {tmp_matrix[Fi] = check_equal_true(getMoonPhase(satData.location_latitude_gngga,
                                                                                                                                         satData.location_longitude_gngga,
                                                                                                                                         satData.timezone,
