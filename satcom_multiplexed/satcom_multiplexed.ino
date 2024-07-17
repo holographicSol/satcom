@@ -54,6 +54,11 @@
 #include <SiderealPlanets.h> //                                          https://github.com/DavidArmstrong/SiderealPlanets
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                             SIDEREAL PLANETS
+
+SiderealPlanets myAstro;
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                      DEFINES
 
 #define TCAADDR   0x70
@@ -1256,7 +1261,7 @@ bool val_scalable(char * data) {
 
 struct RelayStruct {
 
-  int MAX_RELAYS = 40;
+  int MAX_RELAYS = 20;
   int MAX_RELAY_ELEMENTS = 10;
 
   int relays_enabled_i = 0;
@@ -1264,34 +1269,34 @@ struct RelayStruct {
   int relays_active_i = 0;
   int relays_inactive_i = 0;
 
-  bool relays_bool[1][40] = {
+  bool relays_bool[1][20] = {
     {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      // 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      // 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       }
   };
 
-  int relays_enable[1][40] = {
+  int relays_enable[1][20] = {
     {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      // 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      // 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       }
   };
 
-  unsigned long relays_timing[1][40] = {
+  unsigned long relays_timing[1][20] = {
     {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      // 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      // 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       }
   };
   
-  char relays[40][10][100] = {
+  char relays[20][10][100] = {
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 1
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 2
@@ -1332,46 +1337,46 @@ struct RelayStruct {
      },
     {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 20
      },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 21
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 22
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 23
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 24
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 25
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 26
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 27
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 28
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 29
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 30
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 31
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 32
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 33
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 34
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 35
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 36
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 37
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 38
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 39
-     },
-    {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 40
-     },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 21
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 22
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 23
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 24
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 25
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 26
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 27
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 28
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 29
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 30
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 31
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 32
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 33
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 34
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 35
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 36
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 37
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 38
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 39
+    //  },
+    // {"$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", "$NONE", // 40
+    //  },
     };
 
 
@@ -1390,7 +1395,7 @@ struct RelayStruct {
   {  {   0.0,  0.0,  0.0   } }
 
   */
-  double relays_data[40][10][3] = {
+  double relays_data[20][10][3] = {
     {
       {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 1
       {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
@@ -1471,89 +1476,89 @@ struct RelayStruct {
       {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 20
       {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
     },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 21
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 22
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 23
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 24
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 25
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 26
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 27
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 28
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 29
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 30
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 31
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 32
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 33
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 34
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 35
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 36
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 37
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 38
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 39
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
-    {
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 40
-      {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
-    },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 21
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 22
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 23
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 24
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 25
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 26
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 27
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 28
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 29
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 30
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 31
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 32
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 33
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 34
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 35
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 36
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 37
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 38
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 39
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
+    // {
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, // 40
+    //   {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}
+    // },
   };
 
-char function_names[252][56] = {
+char function_names[254][56] = {
         "$NONE",
         "$ENABLED",
         "SecondsTimer",
@@ -1808,7 +1813,10 @@ char function_names[252][56] = {
         "gpatt_invalid_check_data",
         "speed_invalid_check_data",
         "error_invalid_check_data",
-        "debug_invalid_check_data"
+        "debug_invalid_check_data",
+
+        "SunriseTimeOverGNGGA",
+        "SunriseTimeUnderGNGGA",
     };
 
   // todo: CamelCase and when necessary shorten function names below ready to be displayed
@@ -2067,6 +2075,9 @@ char function_names[252][56] = {
   char GyroZDataUnder[56]         = "GyroZDataUnder";
   char GyroZDataEqual[56]         = "GyroZDataEqual";
   char GyroZDataRange[56]         = "GyroZDataRange";
+
+  char SunriseTimeOverGNGGA[56]        = "SunriseTimeOverGNGGA";
+  char SunriseTimeUnderGNGGA[56]       = "SunriseTimeUnderGNGGA";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                VALIDITY DATA
@@ -2759,6 +2770,14 @@ struct SatDatatruct {
   double secondsLong;                                              // used for converting absolute latitude and longitude
   double millisecondsLat;                                          // used for converting absolute latitude and longitude
   double millisecondsLong;                                         // used for converting absolute latitude and longitude
+  int timezone = 1;
+  char year_heads[56] = "20";
+  char year_full[56];
+  char month[56];
+  char day[56];
+  char hour[56];
+  char minute[56];
+  char second[56];
 };
 SatDatatruct satData;
 
@@ -2863,6 +2882,36 @@ void extrapulatedSatData() {
   strcat(satData.sat_time_stamp_string, gnggaData.utc_time);
   strcat(satData.satcom_sentence, satData.sat_time_stamp_string);
   strcat(satData.satcom_sentence, ",");
+
+  
+  memset(satData.year_full, 0, 56);
+  strcat(satData.year_full, satData.year_heads);
+  strncat(satData.year_full, &satData.sat_time_stamp_string[4], 1);
+  strncat(satData.year_full, &satData.sat_time_stamp_string[5], 1);
+
+  memset(satData.month, 0, 56);
+  strncat(satData.month, &satData.sat_time_stamp_string[2], 1);
+  strncat(satData.month, &satData.sat_time_stamp_string[3], 1);
+
+  memset(satData.day, 0, 56);
+  strncat(satData.day, &satData.sat_time_stamp_string[0], 1);
+  strncat(satData.day, &satData.sat_time_stamp_string[1], 1);
+
+  memset(satData.hour, 0, 56);
+  strncat(satData.hour, &satData.sat_time_stamp_string[6], 1);
+  strncat(satData.hour, &satData.sat_time_stamp_string[7], 1);
+
+  memset(satData.hour, 0, 56);
+  strncat(satData.hour, &satData.sat_time_stamp_string[6], 1);
+  strncat(satData.hour, &satData.sat_time_stamp_string[7], 1);
+
+  memset(satData.minute, 0, 56);
+  strncat(satData.minute, &satData.sat_time_stamp_string[8], 1);
+  strncat(satData.minute, &satData.sat_time_stamp_string[9], 1);
+
+  memset(satData.second, 0, 56);
+  strncat(satData.second, &satData.sat_time_stamp_string[10], 1);
+  strncat(satData.second, &satData.sat_time_stamp_string[11], 1);
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                       SATCOM SENTENCE: LAST KNOWN DOWNLINK
@@ -5029,6 +5078,11 @@ void setup() {
   Wire.begin();
 
   // --------------------------------------------------------------------------------------------------------------------------
+  //                                                                                                    SETUP: SIDEREAL PLANETS
+
+  myAstro.begin();
+
+  // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                             SETUP: DISPLAY
 
   tcaselect(2);
@@ -5063,9 +5117,8 @@ void setup() {
   init_sdcard();
 
   sdcard_mkdirs();
-  sdcard_load_matrix(sdcardData.matrix_filepath);
+  // sdcard_load_matrix(sdcardData.matrix_filepath);
   sdcard_load_system_configuration(sdcardData.sysconf, 3);
-  menuData.page = 2;
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                 SETUP: ISR
@@ -5182,6 +5235,31 @@ bool SecondsTimer(unsigned long n0, unsigned long n1, int Ri) {
 
 // build astronomical, ephemeris and other caculations here
 
+double getSunriseTime(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+  myAstro.setLatLong(latitude, longitude);
+  myAstro.setTimeZone(tz);
+  myAstro.rejectDST();
+  myAstro.setGMTdate(year, month, day);
+  myAstro.setLocalTime(hour, minute, second);
+  myAstro.setGMTtime(hour, minute, second);
+  myAstro.doSun();
+  myAstro.doSunRiseSetTimes();
+  Serial.println("Rise Time: " + String(myAstro.getSunriseTime()));
+  return myAstro.getSunriseTime();
+}
+
+double getSunsetTime(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+  myAstro.setLatLong(latitude, longitude);
+  myAstro.setTimeZone(tz);
+  myAstro.rejectDST();
+  myAstro.setGMTdate(year, month, day);
+  myAstro.setLocalTime(hour, minute, second);
+  myAstro.setGMTtime(hour, minute, second);
+  myAstro.doSun();
+  myAstro.doSunRiseSetTimes();
+  Serial.println("Set Time: " + String(myAstro.getSunsetTime()));
+  return myAstro.getSunsetTime();
+}
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -5195,7 +5273,7 @@ void matrixSwitch() {
   */
 
   // iterate over each relay matrix
-  for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
+  for (int Ri = 0; Ri < relayData.MAX_RELAYS-1; Ri++) {
 
     // Serial.println("[Ri] " + String(Ri) + " [E] " + String(relayData.relays_enable[0][Ri]));
     
@@ -5479,6 +5557,31 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIKindFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_kind_flag), relayData.relays_data[Ri][Fi][0]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                             SIDEREAL PLANETS
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseTimeOverGNGGA) == 0) {tmp_matrix[Fi] = check_over_true(getSunriseTime(satData.location_latitude_gngga,
+                                                                                                                                         satData.location_longitude_gngga,
+                                                                                                                                         satData.timezone,
+                                                                                                                                         atoi(satData.year_full),
+                                                                                                                                         atoi(satData.month),
+                                                                                                                                         atoi(satData.day),
+                                                                                                                                         atoi(satData.hour),
+                                                                                                                                         atoi(satData.minute),
+                                                                                                                                         atoi(satData.second)
+                                                                                                                                         ), relayData.relays_data[Ri][Fi][0]);}
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunsetTime(satData.location_latitude_gngga,
+                                                                                                                                         satData.location_longitude_gngga,
+                                                                                                                                         satData.timezone,
+                                                                                                                                         atoi(satData.year_full),
+                                                                                                                                         atoi(satData.month),
+                                                                                                                                         atoi(satData.day),
+                                                                                                                                         atoi(satData.hour),
+                                                                                                                                         atoi(satData.minute),
+                                                                                                                                         atoi(satData.second)
+                                                                                                                                         ), relayData.relays_data[Ri][Fi][0]);}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                                     VALIDITY
 
         /*
@@ -5573,7 +5676,7 @@ void previousPageFunction() {
 
 void scanFi() {
   // index current function name
-  for (int Fi = 0; Fi < 252; Fi++) {if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}
+  for (int Fi = 0; Fi < 254; Fi++) {if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}
 }
 
 void selectRelayI() {
@@ -5596,7 +5699,7 @@ void selectEnableDisableRelay() {
 void nextRelayFunctionName() {
   // iterate through all available function names
   menuData.function_index++;
-  if (menuData.function_index >= 252) {menuData.function_index=0;}
+  if (menuData.function_index > 254) {menuData.function_index=0;}
   memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56);
   strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);
 }
@@ -5604,7 +5707,7 @@ void nextRelayFunctionName() {
 void previousRelayFunctionName() {
   // iterate through all available function names
   menuData.function_index--;
-  if (menuData.function_index <= -1) {menuData.function_index=252;}
+  if (menuData.function_index <= -1) {menuData.function_index=254;}
   memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0, 56);
   strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);
 }
@@ -5620,7 +5723,7 @@ void selectRelayFunctionName() {
 
 void setRelayFunctionName() {
   // set the function name selected by select relay function name
-  if ((atoi(menuData.input) < 252) && (atoi(menuData.input) >=0)) {
+  if ((atoi(menuData.input) <= 254) && (atoi(menuData.input) >=0)) {
     menuData.function_index=atoi(menuData.input);
     memset(relayData.relays[menuData.relay_select][menuData.relay_function_select], 0 , 56);
     strcpy(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[menuData.function_index]);
