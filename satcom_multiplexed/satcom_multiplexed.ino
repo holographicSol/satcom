@@ -5111,7 +5111,7 @@ double getSunriseTime(double latitude, double longitude, signed int tz, int year
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doSun();
   myAstro.doSunRiseSetTimes();
-  // Serial.println("Rise Time: " + String(myAstro.getSunriseTime()));
+  Serial.println("Rise Time: " + String(myAstro.getSunriseTime()));
   return myAstro.getSunriseTime();
 }
 
@@ -5124,7 +5124,7 @@ double getSunsetTime(double latitude, double longitude, signed int tz, int year,
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doSun();
   myAstro.doSunRiseSetTimes();
-  // Serial.println("Set Time: " + String(myAstro.getSunsetTime()));
+  Serial.println("Set Time: " + String(myAstro.getSunsetTime()));
   return myAstro.getSunsetTime();
 }
 
@@ -5567,8 +5567,7 @@ void scanFi() {
   // index current function name
   for (int Fi = 0; Fi < relayData.FUNCTION_NAMES_MAX; Fi++) {
     // uncomment to debug
-    Serial.println("[A]" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]) + " --> [B] " + String(relayData.function_names[Fi]));
-
+    // Serial.println("[A]" + String(relayData.relays[menuData.relay_select][menuData.relay_function_select]) + " --> [B] " + String(relayData.function_names[Fi]));
     if (strcmp(relayData.relays[menuData.relay_select][menuData.relay_function_select], relayData.function_names[Fi]) == 0) {menuData.function_index=Fi;}}
 }
 
