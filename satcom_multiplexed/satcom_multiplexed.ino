@@ -172,6 +172,7 @@ systemStruct systemData;
 //                                                                                                               DATA: DEBOUNCE
 
 struct DebounceStruct {
+  // debounce_delay_0: before button function runs. debounce_delay_1: after button function runs. debounce_period: time to wait before allowing more input
   int debounce_delay_0 = 50;
   int debounce_delay_1 = 50;
   int debounce_period = 200;
