@@ -172,7 +172,8 @@ systemStruct systemData;
 //                                                                                                               DATA: DEBOUNCE
 
 struct DebounceStruct {
-  // debounce_delay_0: before button function runs. debounce_delay_1: after button function runs. debounce_period: time to wait before allowing more input
+  // debounce_delay_0: before button function runs. debounce_delay_1: after button function runs. debounce_period: time to wait before allowing more input.
+  // my unverified theory is that this debounce setup can be entirely tuned here and could be using much lower times if using better switches.
   int debounce_delay_0 = 50;
   int debounce_delay_1 = 50;
   int debounce_period = 200;
