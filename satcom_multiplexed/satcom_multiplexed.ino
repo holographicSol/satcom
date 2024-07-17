@@ -2657,6 +2657,7 @@ struct SatDatatruct {
   char hour[56];
   char minute[56];
   char second[56];
+  char hours_minutes[56];
 };
 SatDatatruct satData;
 
@@ -2791,6 +2792,11 @@ void extrapulatedSatData() {
   memset(satData.second, 0, 56);
   strncat(satData.second, &satData.sat_time_stamp_string[10], 1);
   strncat(satData.second, &satData.sat_time_stamp_string[11], 1);
+
+  memset(satData.hours_minutes, 0, 56);
+  strcat(satData.hours_minutes, satData.hour);
+  strcat(satData.hours_minutes, ".");
+  strcat(satData.hours_minutes, satData.minute);
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                       SATCOM SENTENCE: LAST KNOWN DOWNLINK
@@ -5032,6 +5038,7 @@ bool in_ranges_check_false(double x0, double x1, double y0, double y1, double r)
 }
 
 bool check_over_true(double n0, double n1) {
+  // Serial.println("comparing: n0 " + String(n0) + " > n1 " + String(n1));
   if (n0 > n1) {return true;}
   else {return false;}
 }
@@ -5042,6 +5049,7 @@ bool check_over_false(double n0, double n1) {
 }
 
 bool check_under_true(double n0, double n1) {
+  // Serial.println("comparing: n0 " + String(n0) + " < n1 " + String(n1));
   if (n0 < n1) {return true;}
   else {return false;}
 }
@@ -5131,7 +5139,7 @@ double getSunsetTime(double latitude, double longitude, signed int tz, int year,
 }
 
 double getMoonPhase(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
-    /*
+  /*
   0. New Moon
   1. Waxing Crescent
   2. First Quarter
@@ -5459,7 +5467,7 @@ void matrixSwitch() {
                                                                                                                                          atoi(satData.hour),
                                                                                                                                          atoi(satData.minute),
                                                                                                                                          atoi(satData.second)
-                                                                                                                                         ), relayData.relays_data[Ri][Fi][0]);}
+                                                                                                                                         ), atof(satData.hours_minutes));}
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunriseTime(satData.location_latitude_gngga,
                                                                                                                             satData.location_longitude_gngga,
@@ -5470,7 +5478,7 @@ void matrixSwitch() {
                                                                                                                             atoi(satData.hour),
                                                                                                                             atoi(satData.minute),
                                                                                                                             atoi(satData.second)
-                                                                                                                            ), relayData.relays_data[Ri][Fi][0]);}
+                                                                                                                            ), atof(satData.hours_minutes));}
                                                                                                                             
         else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetTimeOverGNGGA) == 0) {tmp_matrix[Fi] = check_over_true(getSunsetTime(satData.location_latitude_gngga,
                                                                                                                                          satData.location_longitude_gngga,
@@ -5481,7 +5489,7 @@ void matrixSwitch() {
                                                                                                                                          atoi(satData.hour),
                                                                                                                                          atoi(satData.minute),
                                                                                                                                          atoi(satData.second)
-                                                                                                                                         ), relayData.relays_data[Ri][Fi][0]);}
+                                                                                                                                         ), atof(satData.hours_minutes));}
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunsetTime(satData.location_latitude_gngga,
                                                                                                                             satData.location_longitude_gngga,
@@ -5492,7 +5500,7 @@ void matrixSwitch() {
                                                                                                                             atoi(satData.hour),
                                                                                                                             atoi(satData.minute),
                                                                                                                             atoi(satData.second)
-                                                                                                                            ), relayData.relays_data[Ri][Fi][0]);}
+                                                                                                                            ), atof(satData.hours_minutes));}
         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonPhase) == 0) {tmp_matrix[Fi] = check_equal_true(getMoonPhase(satData.location_latitude_gngga,
                                                                                                                             satData.location_longitude_gngga,
