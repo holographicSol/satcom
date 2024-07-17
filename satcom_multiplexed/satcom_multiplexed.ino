@@ -5504,92 +5504,92 @@ void matrixSwitch() {
                                                                                                                                          ), atof(satData.hours_minutes));}
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunriseTime(satData.location_latitude_gngga,
-                                                                                                                            satData.location_longitude_gngga,
-                                                                                                                            satData.timezone,
-                                                                                                                            atoi(satData.year_full),
-                                                                                                                            atoi(satData.month),
-                                                                                                                            atoi(satData.day),
-                                                                                                                            atoi(satData.hour),
-                                                                                                                            atoi(satData.minute),
-                                                                                                                            atoi(satData.second)
-                                                                                                                            ), atof(satData.hours_minutes));}
+                                                                                                                                        satData.location_longitude_gngga,
+                                                                                                                                        satData.timezone,
+                                                                                                                                        atoi(satData.year_full),
+                                                                                                                                        atoi(satData.month),
+                                                                                                                                        atoi(satData.day),
+                                                                                                                                        atoi(satData.hour),
+                                                                                                                                        atoi(satData.minute),
+                                                                                                                                        atoi(satData.second)
+                                                                                                                                        ), atof(satData.hours_minutes));}
                                                                                                                             
         else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetTimeOverGNGGA) == 0) {tmp_matrix[Fi] = check_over_true(getSunsetTime(satData.location_latitude_gngga,
-                                                                                                                                         satData.location_longitude_gngga,
-                                                                                                                                         satData.timezone,
-                                                                                                                                         atoi(satData.year_full),
-                                                                                                                                         atoi(satData.month),
-                                                                                                                                         atoi(satData.day),
-                                                                                                                                         atoi(satData.hour),
-                                                                                                                                         atoi(satData.minute),
-                                                                                                                                         atoi(satData.second)
-                                                                                                                                         ), atof(satData.hours_minutes));}
+                                                                                                                                        satData.location_longitude_gngga,
+                                                                                                                                        satData.timezone,
+                                                                                                                                        atoi(satData.year_full),
+                                                                                                                                        atoi(satData.month),
+                                                                                                                                        atoi(satData.day),
+                                                                                                                                        atoi(satData.hour),
+                                                                                                                                        atoi(satData.minute),
+                                                                                                                                        atoi(satData.second)
+                                                                                                                                        ), atof(satData.hours_minutes));}
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunsetTime(satData.location_latitude_gngga,
-                                                                                                                            satData.location_longitude_gngga,
-                                                                                                                            satData.timezone,
-                                                                                                                            atoi(satData.year_full),
-                                                                                                                            atoi(satData.month),
-                                                                                                                            atoi(satData.day),
-                                                                                                                            atoi(satData.hour),
-                                                                                                                            atoi(satData.minute),
-                                                                                                                            atoi(satData.second)
-                                                                                                                            ), atof(satData.hours_minutes));}
+                                                                                                                                        satData.location_longitude_gngga,
+                                                                                                                                        satData.timezone,
+                                                                                                                                        atoi(satData.year_full),
+                                                                                                                                        atoi(satData.month),
+                                                                                                                                        atoi(satData.day),
+                                                                                                                                        atoi(satData.hour),
+                                                                                                                                        atoi(satData.minute),
+                                                                                                                                        atoi(satData.second)
+                                                                                                                                        ), atof(satData.hours_minutes));}
         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonriseTimeOverGNGGA) == 0) {tmp_matrix[Fi] = check_over_true(getMoonriseTime(satData.location_latitude_gngga,
-                                                                                                                                         satData.location_longitude_gngga,
-                                                                                                                                         satData.timezone,
-                                                                                                                                         atoi(satData.year_full),
-                                                                                                                                         atoi(satData.month),
-                                                                                                                                         atoi(satData.day),
-                                                                                                                                         atoi(satData.hour),
-                                                                                                                                         atoi(satData.minute),
-                                                                                                                                         atoi(satData.second)
-                                                                                                                                         ), atof(satData.hours_minutes));}
+                                                                                                                                        satData.location_longitude_gngga,
+                                                                                                                                        satData.timezone,
+                                                                                                                                        atoi(satData.year_full),
+                                                                                                                                        atoi(satData.month),
+                                                                                                                                        atoi(satData.day),
+                                                                                                                                        atoi(satData.hour),
+                                                                                                                                        atoi(satData.minute),
+                                                                                                                                        atoi(satData.second)
+                                                                                                                                        ), atof(satData.hours_minutes));}
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonriseTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getMoonriseTime(satData.location_latitude_gngga,
-                                                                                                                            satData.location_longitude_gngga,
-                                                                                                                            satData.timezone,
-                                                                                                                            atoi(satData.year_full),
-                                                                                                                            atoi(satData.month),
-                                                                                                                            atoi(satData.day),
-                                                                                                                            atoi(satData.hour),
-                                                                                                                            atoi(satData.minute),
-                                                                                                                            atoi(satData.second)
-                                                                                                                            ), atof(satData.hours_minutes));}
+                                                                                                                                        satData.location_longitude_gngga,
+                                                                                                                                        satData.timezone,
+                                                                                                                                        atoi(satData.year_full),
+                                                                                                                                        atoi(satData.month),
+                                                                                                                                        atoi(satData.day),
+                                                                                                                                        atoi(satData.hour),
+                                                                                                                                        atoi(satData.minute),
+                                                                                                                                        atoi(satData.second)
+                                                                                                                                        ), atof(satData.hours_minutes));}
                                                                                                                             
         else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonsetTimeOverGNGGA) == 0) {tmp_matrix[Fi] = check_over_true(getMoonsetTime(satData.location_latitude_gngga,
-                                                                                                                                         satData.location_longitude_gngga,
-                                                                                                                                         satData.timezone,
-                                                                                                                                         atoi(satData.year_full),
-                                                                                                                                         atoi(satData.month),
-                                                                                                                                         atoi(satData.day),
-                                                                                                                                         atoi(satData.hour),
-                                                                                                                                         atoi(satData.minute),
-                                                                                                                                         atoi(satData.second)
-                                                                                                                                         ), atof(satData.hours_minutes));}
+                                                                                                                                        satData.location_longitude_gngga,
+                                                                                                                                        satData.timezone,
+                                                                                                                                        atoi(satData.year_full),
+                                                                                                                                        atoi(satData.month),
+                                                                                                                                        atoi(satData.day),
+                                                                                                                                        atoi(satData.hour),
+                                                                                                                                        atoi(satData.minute),
+                                                                                                                                        atoi(satData.second)
+                                                                                                                                        ), atof(satData.hours_minutes));}
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonsetTimeUnderGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getMoonsetTime(satData.location_latitude_gngga,
-                                                                                                                            satData.location_longitude_gngga,
-                                                                                                                            satData.timezone,
-                                                                                                                            atoi(satData.year_full),
-                                                                                                                            atoi(satData.month),
-                                                                                                                            atoi(satData.day),
-                                                                                                                            atoi(satData.hour),
-                                                                                                                            atoi(satData.minute),
-                                                                                                                            atoi(satData.second)
-                                                                                                                            ), atof(satData.hours_minutes));}
+                                                                                                                                        satData.location_longitude_gngga,
+                                                                                                                                        satData.timezone,
+                                                                                                                                        atoi(satData.year_full),
+                                                                                                                                        atoi(satData.month),
+                                                                                                                                        atoi(satData.day),
+                                                                                                                                        atoi(satData.hour),
+                                                                                                                                        atoi(satData.minute),
+                                                                                                                                        atoi(satData.second)
+                                                                                                                                        ), atof(satData.hours_minutes));}
         
         else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonPhase) == 0) {tmp_matrix[Fi] = check_equal_true(getMoonPhase(satData.location_latitude_gngga,
-                                                                                                                            satData.location_longitude_gngga,
-                                                                                                                            satData.timezone,
-                                                                                                                            atoi(satData.year_full),
-                                                                                                                            atoi(satData.month),
-                                                                                                                            atoi(satData.day),
-                                                                                                                            atoi(satData.hour),
-                                                                                                                            atoi(satData.minute),
-                                                                                                                            atoi(satData.second)
-                                                                                                                            ), relayData.relays_data[Ri][Fi][0]);}
+                                                                                                                                        satData.location_longitude_gngga,
+                                                                                                                                        satData.timezone,
+                                                                                                                                        atoi(satData.year_full),
+                                                                                                                                        atoi(satData.month),
+                                                                                                                                        atoi(satData.day),
+                                                                                                                                        atoi(satData.hour),
+                                                                                                                                        atoi(satData.minute),
+                                                                                                                                        atoi(satData.second)
+                                                                                                                                        ), relayData.relays_data[Ri][Fi][0]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                                     VALIDITY
