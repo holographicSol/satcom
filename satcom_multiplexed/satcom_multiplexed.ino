@@ -1952,11 +1952,11 @@ struct RelayStruct {
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                             SIDEREAL PLANETS
 
-  char SunriseTimeOverGNGGA[56]  = "SunriseGNGGA";
-  char SunsetTimeOverGNGGA[56]   = "SunsetGNGGA";
-  char MoonriseTimeOverGNGGA[56]  = "MoonriseGNGGA";
-  char MoonsetTimeOverGNGGA[56]   = "MoonsetGNGGA";
-  char MoonPhase[56]             = "MoonPhase";
+  char SunriseGNGGA[56]  = "SunriseGNGGA";
+  char SunsetGNGGA[56]   = "SunsetGNGGA";
+  char MoonriseGNGGA[56] = "MoonriseGNGGA";
+  char MoonsetGNGGA[56]  = "MoonsetGNGGA";
+  char MoonPhase[56]     = "MoonPhase";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                VALIDITY DATA
