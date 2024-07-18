@@ -5038,7 +5038,7 @@ bool in_ranges_check_false(double x0, double x1, double y0, double y1, double r)
 }
 
 bool check_over_true(double n0, double n1) {
-  Serial.println("comparing: n0 " + String(n0) + " > n1 " + String(n1));
+  // Serial.println("comparing: n0 " + String(n0) + " > n1 " + String(n1));
   if (n0 > n1) {return true;}
   else {return false;}
 }
@@ -5049,7 +5049,7 @@ bool check_over_false(double n0, double n1) {
 }
 
 bool check_under_true(double n0, double n1) {
-  Serial.println("comparing: n0 " + String(n0) + " < n1 " + String(n1));
+  // Serial.println("comparing: n0 " + String(n0) + " < n1 " + String(n1));
   if (n0 < n1) {return true;}
   else {return false;}
 }
