@@ -5891,18 +5891,21 @@ void numpadUp() {menuData.numpad_y--; if (menuData.numpad_y <= -1) {menuData.num
 void numpadRight() {menuData.numpad_x++; if (menuData.numpad_x >= menuData.menu_numpad_max_x0) {menuData.numpad_x=0;}}   // change numpad x coordinate
 void numpadLeft() {menuData.numpad_x--; if (menuData.numpad_x <= -1) {menuData.numpad_x=menuData.menu_numpad_max_x0-1;}} // change numpad x coordinate
 void numpadSelect() {
-  if ((menuData.numpad_y == 1) && (menuData.numpad_x == 0)) {strcat(menuData.input, "7");}
-  if ((menuData.numpad_y == 1) && (menuData.numpad_x == 1)) {strcat(menuData.input, "8");}
-  if ((menuData.numpad_y == 1) && (menuData.numpad_x == 2)) {strcat(menuData.input, "9");}
-  if ((menuData.numpad_y == 2) && (menuData.numpad_x == 0)) {strcat(menuData.input, "4");}
-  if ((menuData.numpad_y == 2) && (menuData.numpad_x == 1)) {strcat(menuData.input, "5");}
-  if ((menuData.numpad_y == 2) && (menuData.numpad_x == 2)) {strcat(menuData.input, "6");}
-  if ((menuData.numpad_y == 3) && (menuData.numpad_x == 0)) {strcat(menuData.input, "1");}
-  if ((menuData.numpad_y == 3) && (menuData.numpad_x == 1)) {strcat(menuData.input, "2");}
-  if ((menuData.numpad_y == 3) && (menuData.numpad_x == 2)) {strcat(menuData.input, "3");}
-  if ((menuData.numpad_y == 4) && (menuData.numpad_x == 0)) {strcat(menuData.input, "0");}
-  if ((menuData.numpad_y == 4) && (menuData.numpad_x == 1)) {strcat(menuData.input, ".");}
-  if ((menuData.numpad_y == 4) && (menuData.numpad_x == 2)) {strcat(menuData.input, "-");}
+  // limit input to max double
+  if ((strlen(menuData.input) <= 15) && (atoi(menuData.input) <= 179769313486232)) {
+    if ((menuData.numpad_y == 1) && (menuData.numpad_x == 0)) {strcat(menuData.input, "7");}
+    if ((menuData.numpad_y == 1) && (menuData.numpad_x == 1)) {strcat(menuData.input, "8");}
+    if ((menuData.numpad_y == 1) && (menuData.numpad_x == 2)) {strcat(menuData.input, "9");}
+    if ((menuData.numpad_y == 2) && (menuData.numpad_x == 0)) {strcat(menuData.input, "4");}
+    if ((menuData.numpad_y == 2) && (menuData.numpad_x == 1)) {strcat(menuData.input, "5");}
+    if ((menuData.numpad_y == 2) && (menuData.numpad_x == 2)) {strcat(menuData.input, "6");}
+    if ((menuData.numpad_y == 3) && (menuData.numpad_x == 0)) {strcat(menuData.input, "1");}
+    if ((menuData.numpad_y == 3) && (menuData.numpad_x == 1)) {strcat(menuData.input, "2");}
+    if ((menuData.numpad_y == 3) && (menuData.numpad_x == 2)) {strcat(menuData.input, "3");}
+    if ((menuData.numpad_y == 4) && (menuData.numpad_x == 0)) {strcat(menuData.input, "0");}
+    if ((menuData.numpad_y == 4) && (menuData.numpad_x == 1)) {strcat(menuData.input, ".");}
+    if ((menuData.numpad_y == 4) && (menuData.numpad_x == 2)) {strcat(menuData.input, "-");}
+  }
   // remove last char
   if (((menuData.numpad_y == 5) && (menuData.numpad_x == 1)) || ((menuData.numpad_y == 5) && (menuData.numpad_x == 2))) {menuData.input[strlen(menuData.input)-1] = '\0';}
   // set current relay index
