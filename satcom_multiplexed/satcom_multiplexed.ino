@@ -5839,10 +5839,10 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_check_data) == 0) {tmp_matrix[Fi] = check_equal_false(debugData.check_data, 29);}
       }
       
-      // Safety Layer: disengage if all entries are $NONE
+      // safety layer: disengage if all entries are $NONE
       if (count_none_function <= relayData.MAX_RELAY_ELEMENTS-1) {
 
-        // Default final bool default is true: if a single false is found then final bool should be set to false and remain false
+        // default final bool default is true: if a single false is found then final bool should be set to false and remain false
         bool final_bool = true;
 
         // debug (same as line below but with output)
