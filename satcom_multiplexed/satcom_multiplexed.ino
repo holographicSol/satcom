@@ -167,6 +167,13 @@ struct systemStruct {
   char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
   bool sidereal_track_sun = true;
   bool sidereal_track_moon = true;
+  bool sidereal_track_mercury = true;
+  bool sidereal_track_venus = true;
+  bool sidereal_track_mars = true;
+  bool sidereal_track_jupiter = true;
+  bool sidereal_track_saturn = true;
+  bool sidereal_track_uranus = true;
+  bool sidereal_track_neptune = true;
 };
 systemStruct systemData;
 
@@ -6365,7 +6372,69 @@ void loop() {
                                                           atoi(satData.hour),
                                                           atoi(satData.minute),
                                                           atoi(satData.second));}
-    
+    if (systemData.sidereal_track_mercury == true) {trackMercury(satData.location_latitude_gngga,
+                                                          satData.location_longitude_gngga,
+                                                          satData.timezone,
+                                                          atoi(satData.year_full),
+                                                          atoi(satData.month),
+                                                          atoi(satData.day),
+                                                          atoi(satData.hour),
+                                                          atoi(satData.minute),
+                                                          atoi(satData.second));}
+    if (systemData.sidereal_track_venus == true) {trackVenus(satData.location_latitude_gngga,
+                                                          satData.location_longitude_gngga,
+                                                          satData.timezone,
+                                                          atoi(satData.year_full),
+                                                          atoi(satData.month),
+                                                          atoi(satData.day),
+                                                          atoi(satData.hour),
+                                                          atoi(satData.minute),
+                                                          atoi(satData.second));}
+    if (systemData.sidereal_track_mars == true) {trackMars(satData.location_latitude_gngga,
+                                                          satData.location_longitude_gngga,
+                                                          satData.timezone,
+                                                          atoi(satData.year_full),
+                                                          atoi(satData.month),
+                                                          atoi(satData.day),
+                                                          atoi(satData.hour),
+                                                          atoi(satData.minute),
+                                                          atoi(satData.second));}
+    if (systemData.sidereal_track_jupiter == true) {trackJupiter(satData.location_latitude_gngga,
+                                                          satData.location_longitude_gngga,
+                                                          satData.timezone,
+                                                          atoi(satData.year_full),
+                                                          atoi(satData.month),
+                                                          atoi(satData.day),
+                                                          atoi(satData.hour),
+                                                          atoi(satData.minute),
+                                                          atoi(satData.second));}
+    if (systemData.sidereal_track_saturn == true) {trackSaturn(satData.location_latitude_gngga,
+                                                          satData.location_longitude_gngga,
+                                                          satData.timezone,
+                                                          atoi(satData.year_full),
+                                                          atoi(satData.month),
+                                                          atoi(satData.day),
+                                                          atoi(satData.hour),
+                                                          atoi(satData.minute),
+                                                          atoi(satData.second));}
+    if (systemData.sidereal_track_uranus == true) {trackUranus(satData.location_latitude_gngga,
+                                                          satData.location_longitude_gngga,
+                                                          satData.timezone,
+                                                          atoi(satData.year_full),
+                                                          atoi(satData.month),
+                                                          atoi(satData.day),
+                                                          atoi(satData.hour),
+                                                          atoi(satData.minute),
+                                                          atoi(satData.second));}
+    if (systemData.sidereal_track_neptune == true) {trackNeptune(satData.location_latitude_gngga,
+                                                          satData.location_longitude_gngga,
+                                                          satData.timezone,
+                                                          atoi(satData.year_full),
+                                                          atoi(satData.month),
+                                                          atoi(satData.day),
+                                                          atoi(satData.hour),
+                                                          atoi(satData.minute),
+                                                          atoi(satData.second));}
     // displays
     if (systemData.satcom_enabled == true) {extrapulatedSatData(); if (systemData.display_on==true) {SSD_Display_SATCOM();}} else {SSD_Display_SATCOM_Disabled();}
     if (systemData.gngga_enabled == true) {if (systemData.display_on==true) {SSD_Display_GNGGA();}} else {SSD_Display_GNGGA_Disabled();}
