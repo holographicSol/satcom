@@ -6527,7 +6527,7 @@ void MatrixSwitchTask(void *pvParameters) {
 
 void getSATCOMData(void *pvParameters) {
   while (1) {
-     delay(1);
+    delay(1);
     if (systemData.satcom_enabled == true) {extrapulatedSatData();}
   }
 }
@@ -6537,10 +6537,8 @@ void getSATCOMData(void *pvParameters) {
 
 void CountElements(void *pvParameters) {
   while (1) {
-     delay(1);
-    // keep track of overall enabled/disabled relays
+    delay(1);
     countRelaysEnabled();
-    // keep track of overall active/inactive relays
     countRelaysActive();
   }
 }
