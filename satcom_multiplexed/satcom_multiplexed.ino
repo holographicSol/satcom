@@ -5501,15 +5501,12 @@ void trackNeptune(double latitude, double longitude, signed int tz, int year, in
 void matrixSwitch() {
 
   /*
-  compound conditions are checked, each resulting in zero/one at the final_bool. This currently allows for sextillions of combinations with
-  the current data alone.
+  compound condition checks, each resulting in zero/one at the final_bool. allowing for sextillions of combinations with the current data
   */
 
   // iterate over each relay matrix
   for (int Ri = 0; Ri < relayData.MAX_RELAYS-1; Ri++) {
-
     // Serial.println("[Ri] " + String(Ri) + " [E] " + String(relayData.relays_enable[0][Ri]));
-    
     if (relayData.relays_enable[0][Ri] == 1) {
 
       // temporary switch must be zero each time
