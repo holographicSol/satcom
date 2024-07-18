@@ -6121,96 +6121,6 @@ void numpadSelect() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                   READ RXD 1
-
-void readRXD_1(void *pvParameters) {
-  while (1) {
-    if (Serial1.available() > 0) {
-      memset(serial1Data.BUFFER, 0, 2000);
-      serial1Data.nbytes = (Serial1.readBytesUntil('\n', serial1Data.BUFFER, sizeof(serial1Data.BUFFER)));
-      // Serial.println(serial1Data.nbytes); // debug
-
-      // ------------------------------------------------------------------------------------------------------------------------
-      //                                                                                                                    GNGGA
-      
-      if (systemData.gngga_enabled == true) {
-        if (strncmp(serial1Data.BUFFER, "$GNGGA", 6) == 0) {
-          if (systemData.output_gngga_enabled == true) {Serial.println(serial1Data.BUFFER);}
-          memset(gnggaData.sentence, 0, 2000);
-          strcpy(gnggaData.sentence, serial1Data.BUFFER);
-          gnggaData.valid_checksum = validateChecksum(gnggaData.sentence);
-          if (gnggaData.valid_checksum == true) {GNGGA();}
-          else {gnggaData.bad_checksum_validity++;}
-        }
-      }
-
-      // ------------------------------------------------------------------------------------------------------------------------
-      //                                                                                                                    GNRMC
-
-      if (systemData.gnrmc_enabled == true) {
-        if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
-          if (systemData.output_gnrmc_enabled == true) {Serial.println(serial1Data.BUFFER);}
-          memset(gnrmcData.sentence, 0, 2000);
-          strcpy(gnrmcData.sentence, serial1Data.BUFFER);
-          gnrmcData.valid_checksum = validateChecksum(gnrmcData.sentence);
-          if (gnrmcData.valid_checksum == true) {GNRMC();}
-          else {gnrmcData.bad_checksum_validity++;}
-        }
-      }
-
-      // ------------------------------------------------------------------------------------------------------------------------
-      //                                                                                                                    GPATT
-
-      if (systemData.gpatt_enabled == true) {
-        if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
-            if (systemData.output_gpatt_enabled == true) {Serial.println(serial1Data.BUFFER);}
-            memset(gpattData.sentence, 0, 2000);
-            strcpy(gpattData.sentence, serial1Data.BUFFER);
-            gpattData.valid_checksum = validateChecksum(gpattData.sentence);
-            if (gpattData.valid_checksum == true) {GPATT();}
-            else {gpattData.bad_checksum_validity++;}
-        }
-      }
-
-      // ------------------------------------------------------------------------------------------------------------------------
-      //                                                                                                                    SPEED
-
-      // if (systemData.speed_enabled == true) {
-      //   if (strncmp(serial1Data.BUFFER, "$SPEED", 6) == 0) {
-      //     Serial.print(""); Serial.println(serial1Data.BUFFER);
-      //     awaiting length checks: take a ride with the laptop
-      //     SPEED();
-      //   }
-      // }
-
-      // ------------------------------------------------------------------------------------------------------------------------
-      //                                                                                                                    ERROR
-
-      // if (systemData.error_enabled == true) {
-      //   if (strncmp(serial1Data.BUFFER, "$ERROR", 6) == 0) {
-      //     Serial.print(""); Serial.println(serial1Data.BUFFER);
-      //     awaiting length checks: take a ride with the laptop
-      //     ERROR();
-      //   }
-
-      // ------------------------------------------------------------------------------------------------------------------------
-      //                                                                                                                    DEBUG
-
-      // if (systemData.debug_enabled == true) {
-      //   if (strncmp(serial1Data.BUFFER, "$DEBUG", 6) == 0) {
-      //     Serial.print(""); Serial.println(serial1Data.BUFFER);
-      //     awaiting length checks: take a ride with the laptop
-      //     DEBUG();
-      //   }
-
-      // else {
-      //   Serial.println("[unknown] " + String(serial1Data.BUFFER));
-      // }
-    }
-  }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 0
 
 void readRXD_0(void *pvParameters) {
@@ -6357,6 +6267,179 @@ void readRXD_0(void *pvParameters) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                   READ RXD 1
+
+void readRXD_1(void *pvParameters) {
+  while (1) {
+    if (Serial1.available() > 0) {
+      memset(serial1Data.BUFFER, 0, 2000);
+      serial1Data.nbytes = (Serial1.readBytesUntil('\n', serial1Data.BUFFER, sizeof(serial1Data.BUFFER)));
+      // Serial.println(serial1Data.nbytes); // debug
+
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                                    GNGGA
+      
+      if (systemData.gngga_enabled == true) {
+        if (strncmp(serial1Data.BUFFER, "$GNGGA", 6) == 0) {
+          if (systemData.output_gngga_enabled == true) {Serial.println(serial1Data.BUFFER);}
+          memset(gnggaData.sentence, 0, 2000);
+          strcpy(gnggaData.sentence, serial1Data.BUFFER);
+          gnggaData.valid_checksum = validateChecksum(gnggaData.sentence);
+          if (gnggaData.valid_checksum == true) {GNGGA();}
+          else {gnggaData.bad_checksum_validity++;}
+        }
+      }
+
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                                    GNRMC
+
+      if (systemData.gnrmc_enabled == true) {
+        if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
+          if (systemData.output_gnrmc_enabled == true) {Serial.println(serial1Data.BUFFER);}
+          memset(gnrmcData.sentence, 0, 2000);
+          strcpy(gnrmcData.sentence, serial1Data.BUFFER);
+          gnrmcData.valid_checksum = validateChecksum(gnrmcData.sentence);
+          if (gnrmcData.valid_checksum == true) {GNRMC();}
+          else {gnrmcData.bad_checksum_validity++;}
+        }
+      }
+
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                                    GPATT
+
+      if (systemData.gpatt_enabled == true) {
+        if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
+            if (systemData.output_gpatt_enabled == true) {Serial.println(serial1Data.BUFFER);}
+            memset(gpattData.sentence, 0, 2000);
+            strcpy(gpattData.sentence, serial1Data.BUFFER);
+            gpattData.valid_checksum = validateChecksum(gpattData.sentence);
+            if (gpattData.valid_checksum == true) {GPATT();}
+            else {gpattData.bad_checksum_validity++;}
+        }
+      }
+
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                                    SPEED
+
+      // if (systemData.speed_enabled == true) {
+      //   if (strncmp(serial1Data.BUFFER, "$SPEED", 6) == 0) {
+      //     Serial.print(""); Serial.println(serial1Data.BUFFER);
+      //     awaiting length checks: take a ride with the laptop
+      //     SPEED();
+      //   }
+      // }
+
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                                    ERROR
+
+      // if (systemData.error_enabled == true) {
+      //   if (strncmp(serial1Data.BUFFER, "$ERROR", 6) == 0) {
+      //     Serial.print(""); Serial.println(serial1Data.BUFFER);
+      //     awaiting length checks: take a ride with the laptop
+      //     ERROR();
+      //   }
+
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                                    DEBUG
+
+      // if (systemData.debug_enabled == true) {
+      //   if (strncmp(serial1Data.BUFFER, "$DEBUG", 6) == 0) {
+      //     Serial.print(""); Serial.println(serial1Data.BUFFER);
+      //     awaiting length checks: take a ride with the laptop
+      //     DEBUG();
+      //   }
+
+      // else {
+      //   Serial.println("[unknown] " + String(serial1Data.BUFFER));
+      // }
+    }
+  }
+}
+
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    MAIN LOOP
+
+void loop() {
+
+  // store current time to measure this loop time
+  timeData.mainLoopTimeStart = micros();
+  // keep track of time in seconds
+  time_counter();
+
+  // check button input
+  if (menuData.isr_i!=0) {InterfaceWake();}
+  if ((menuData.isr_i == ISR_RIGHT_KEY) && (debounceData.previous_state == 0)) {debounceData.previous_state = 1; delay(debounceData.debounce_delay_0); menuRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_LEFT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_UP_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_DOWN_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_SELECT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_RIGHT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_LEFT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_UP_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_DOWN_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_SELECT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+
+  debounceData.debounce_t0_right = millis();
+  debounceData.debounce_t0_left = millis();
+  debounceData.debounce_t0_up = millis();
+  debounceData.debounce_t0_down = millis();
+  debounceData.debounce_t0_select = millis();
+
+  // store time taken to complete
+  timeData.mainLoopTimeTaken = micros() - timeData.mainLoopTimeStart;
+  if (timeData.mainLoopTimeTaken > timeData.mainLoopTimeTakenMax) {timeData.mainLoopTimeTakenMax = timeData.mainLoopTimeTaken;}
+  if (timeData.mainLoopTimeTaken < timeData.mainLoopTimeTakenMin) {timeData.mainLoopTimeTakenMin = timeData.mainLoopTimeTaken;}
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                          TASK: MATRIX SWITCH
+
+void MatrixSwitchTask(void *pvParameters) {
+  while (1) {
+     delay(1);
+    if (systemData.matrix_enabled == true) {matrixSwitch();}
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                 TASK: SATCOM
+
+void getSATCOMData(void *pvParameters) {
+  while (1) {
+    delay(1);
+    if (systemData.satcom_enabled == true) {extrapulatedSatData();}
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                       TASK: ELEMENTS COUNTER
+
+void CountElements(void *pvParameters) {
+  while (1) {
+    delay(1);
+    countRelaysEnabled();
+    countRelaysActive();
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                TASK: DISPLAY
+
+void Display(void *pvParameters) {
+  while (1) {
+     SSD_Display_2_Menu();
+    if (systemData.display_on==true) {SSD_Display_SATCOM();} else {SSD_Display_SATCOM_Disabled();}
+    if (systemData.display_on==true) {SSD_Display_GNGGA();}  else {SSD_Display_GNGGA_Disabled();}
+    if (systemData.display_on==true) {SSD_Display_GNRMC();}  else {SSD_Display_GNRMC_Disabled();}
+    if (systemData.display_on==true) {SSD_Display_GPATT();}  else {SSD_Display_GPATT_Disabled();}
+    if (systemData.display_on==true) {SSD_Display_MATRIX();} else {SSD_Display_MATRIX_Disabled();}
+    DisplayAutoDim();
+    DisplayAutoOff();
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 TASK: PLANETARY CALCULATIONS
 
 void trackPlanets(void *pvParameters) {
@@ -6444,88 +6527,6 @@ void trackPlanets(void *pvParameters) {
                                                           atoi(satData.minute),
                                                           atoi(satData.second));}
   }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                          TASK: MATRIX SWITCH
-
-void MatrixSwitchTask(void *pvParameters) {
-  while (1) {
-     delay(1);
-    if (systemData.matrix_enabled == true) {matrixSwitch();}
-  }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                 TASK: SATCOM
-
-void getSATCOMData(void *pvParameters) {
-  while (1) {
-    delay(1);
-    if (systemData.satcom_enabled == true) {extrapulatedSatData();}
-  }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                       TASK: ELEMENTS COUNTER
-
-void CountElements(void *pvParameters) {
-  while (1) {
-    delay(1);
-    countRelaysEnabled();
-    countRelaysActive();
-  }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                TASK: DISPLAY
-
-void Display(void *pvParameters) {
-  while (1) {
-     SSD_Display_2_Menu();
-    if (systemData.display_on==true) {SSD_Display_SATCOM();} else {SSD_Display_SATCOM_Disabled();}
-    if (systemData.display_on==true) {SSD_Display_GNGGA();}  else {SSD_Display_GNGGA_Disabled();}
-    if (systemData.display_on==true) {SSD_Display_GNRMC();}  else {SSD_Display_GNRMC_Disabled();}
-    if (systemData.display_on==true) {SSD_Display_GPATT();}  else {SSD_Display_GPATT_Disabled();}
-    if (systemData.display_on==true) {SSD_Display_MATRIX();} else {SSD_Display_MATRIX_Disabled();}
-    DisplayAutoDim();
-    DisplayAutoOff();
-  }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    MAIN LOOP
-
-void loop() {
-
-  // store current time to measure this loop time
-  timeData.mainLoopTimeStart = micros();
-  // keep track of time in seconds
-  time_counter();
-
-  // check button input
-  if (menuData.isr_i!=0) {InterfaceWake();}
-  if ((menuData.isr_i == ISR_RIGHT_KEY) && (debounceData.previous_state == 0)) {debounceData.previous_state = 1; delay(debounceData.debounce_delay_0); menuRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_LEFT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_UP_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_DOWN_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_SELECT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_NPAD_RIGHT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_NPAD_LEFT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_NPAD_UP_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_NPAD_DOWN_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_NPAD_SELECT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-
-  debounceData.debounce_t0_right = millis();
-  debounceData.debounce_t0_left = millis();
-  debounceData.debounce_t0_up = millis();
-  debounceData.debounce_t0_down = millis();
-  debounceData.debounce_t0_select = millis();
-
-  // store time taken to complete
-  timeData.mainLoopTimeTaken = micros() - timeData.mainLoopTimeStart;
-  if (timeData.mainLoopTimeTaken > timeData.mainLoopTimeTakenMax) {timeData.mainLoopTimeTakenMax = timeData.mainLoopTimeTaken;}
-  if (timeData.mainLoopTimeTaken < timeData.mainLoopTimeTakenMin) {timeData.mainLoopTimeTakenMin = timeData.mainLoopTimeTaken;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
