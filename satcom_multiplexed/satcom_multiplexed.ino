@@ -2630,8 +2630,8 @@ struct SatDatatruct {
   char last_sat_time_stamp_str[56]    = "00.00";                   // record last time satellites were seen
   bool convert_coordinates            = true;
   char coordinate_conversion_mode[10] = "GNGGA";                   // choose a sentence that degrees/decimal coordinates will be created from
-  double latitude_meter               = 0.0000100;                // one meter (tune)
-  double longitude_meter              = 0.0000100;                // one meter (tune)
+  double latitude_meter               = 0.0000100;                 // one meter (tune)
+  double longitude_meter              = 0.0000100;                 // one meter (tune)
   double latitude_mile                = latitude_meter  * 1609.34; // one mile
   double longitude_mile               = longitude_meter * 1609.34; // one mile
   double abs_latitude_gngga_0         = 0.0;                       // absolute latitude from $ sentence
