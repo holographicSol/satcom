@@ -343,7 +343,7 @@ TimeStruct timeData;
 
 void time_counter() {
   timeData.ms0 += timeData.mainLoopTimeTaken;
-  if (timeData.ms0 >= (timeData.ms1 + 1000)) {timeData.ms1 = timeData.ms0; timeData.seconds++;}
+  if (timeData.ms0 >= (timeData.ms1 + 1000000)) {timeData.ms1 = timeData.ms0; timeData.seconds++;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -3951,7 +3951,7 @@ void SSD_Display_MATRIX() {
                                                                                String(relayData.relays_bool[0][14])+"  "+String(relayData.relays_bool[0][15])+"  "+
                                                                                String(relayData.relays_bool[0][16])+"  "+String(relayData.relays_bool[0][17])+"  "+
                                                                                String(relayData.relays_bool[0][18])+"  "+String(relayData.relays_bool[0][19]));
-  // uncomment to benchmark main loop time in milliseconds
+  // uncomment to benchmark main loop time in micros
   // display_3.setColor(WHITE); display_3.drawString(display_3.getWidth()/2,38,"CL: " + String(timeData.mainLoopTimeTaken));
   // display_3.setColor(WHITE); display_3.drawString(display_3.getWidth()/2,48,"Min: " + String(timeData.mainLoopTimeTakenMin) + "  Max: " + String(timeData.mainLoopTimeTakenMax));
   display_3.display();
@@ -6525,7 +6525,7 @@ void Display(void *pvParameters) {
 void loop() {
 
   // store current time to measure this loop time
-  timeData.mainLoopTimeStart = millis();
+  timeData.mainLoopTimeStart = micros();
   // keep track of time in seconds
   time_counter();
 
@@ -6549,7 +6549,7 @@ void loop() {
   debounceData.debounce_t0_select = millis();
 
   // store time taken to complete
-  timeData.mainLoopTimeTaken = millis() - timeData.mainLoopTimeStart;
+  timeData.mainLoopTimeTaken = micros() - timeData.mainLoopTimeStart;
   if (timeData.mainLoopTimeTaken > timeData.mainLoopTimeTakenMax) {timeData.mainLoopTimeTakenMax = timeData.mainLoopTimeTaken;}
   if (timeData.mainLoopTimeTaken < timeData.mainLoopTimeTakenMin) {timeData.mainLoopTimeTakenMin = timeData.mainLoopTimeTaken;}
 }
