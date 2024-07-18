@@ -165,6 +165,8 @@ struct systemStruct {
   unsigned long display_auto_off_t1;
   bool          display_on = true;
   char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
+  bool sidereal_track_sun = true;
+  bool sidereal_track_moon = true;
 };
 systemStruct systemData;
 
@@ -1954,10 +1956,15 @@ struct RelayStruct {
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                             SIDEREAL PLANETS
 
+  // sun
   char DayTimeGNGGA[56]   = "DayTimeGNGGA";
   char NightTimeGNGGA[56] = "NightTimeGNGGA";
   char SunriseGNGGA[56]   = "SunriseGNGGA";
   char SunsetGNGGA[56]    = "SunsetGNGGA";
+
+  // moon
+  char MoonTrue[56]       = "MoonTrue";
+  char MoonFalse[56]      = "MoonFalse";
   char MoonriseGNGGA[56]  = "MoonriseGNGGA";
   char MoonsetGNGGA[56]   = "MoonsetGNGGA";
   char MoonPhase[56]      = "MoonPhase";
@@ -5116,9 +5123,27 @@ bool SecondsTimer(unsigned long n0, unsigned long n1, int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                   MATRIX FUNCTIONS: ADVANCED
 
+struct SiderealPlantetsStruct {
+  long sun_ra;
+  long sun_dec;
+  long sun_az;
+  long sun_alt;
+  long sun_r;
+  long sun_s;
+
+  long moon_ra;
+  long moon_dec;
+  long moon_az;
+  long moon_alt;
+  long moon_r;
+  long moon_s;
+  long moon_p;
+};
+SiderealPlantetsStruct planetData;
+
 // build astronomical, ephemeris and other caculations here
 
-double getSunriseTime(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+void trackSun(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
   myAstro.setLatLong(latitude, longitude);
   myAstro.setTimeZone(tz);
   myAstro.rejectDST();
@@ -5126,12 +5151,16 @@ double getSunriseTime(double latitude, double longitude, signed int tz, int year
   myAstro.setLocalTime(hour, minute, second);
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doSun();
+  planetData.sun_ra  = myAstro.getRAdec();
+  planetData.sun_dec = myAstro.getDeclinationDec();
+  planetData.sun_az  = myAstro.getAzimuth();
+  planetData.sun_alt = myAstro.getAltitude();
   myAstro.doSunRiseSetTimes();
-  // Serial.println("Rise Time: " + String(myAstro.getSunriseTime()));
-  return myAstro.getSunriseTime();
+  planetData.sun_r  = myAstro.getSunriseTime();
+  planetData.sun_s  = myAstro.getSunsetTime();
 }
 
-double getSunsetTime(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+void trackMoon(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
   myAstro.setLatLong(latitude, longitude);
   myAstro.setTimeZone(tz);
   myAstro.rejectDST();
@@ -5139,57 +5168,14 @@ double getSunsetTime(double latitude, double longitude, signed int tz, int year,
   myAstro.setLocalTime(hour, minute, second);
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doSun();
-  myAstro.doSunRiseSetTimes();
-  // Serial.println("Set Time: " + String(myAstro.getSunsetTime()));
-  return myAstro.getSunsetTime();
-}
-
-double getMoonriseTime(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
-  myAstro.setLatLong(latitude, longitude);
-  myAstro.setTimeZone(tz);
-  myAstro.rejectDST();
-  myAstro.setGMTdate(year, month, day);
-  myAstro.setLocalTime(hour, minute, second);
-  myAstro.setGMTtime(hour, minute, second);
-  myAstro.doMoon();
+  planetData.moon_ra  = myAstro.getRAdec();
+  planetData.moon_dec = myAstro.getDeclinationDec();
+  planetData.moon_az  = myAstro.getAzimuth();
+  planetData.moon_alt = myAstro.getAltitude();
   myAstro.doMoonRiseSetTimes();
-  // Serial.println("Rise Time: " + String(myAstro.getMoonriseTime()));
-  return myAstro.getMoonriseTime();
-}
-
-double getMoonsetTime(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
-  myAstro.setLatLong(latitude, longitude);
-  myAstro.setTimeZone(tz);
-  myAstro.rejectDST();
-  myAstro.setGMTdate(year, month, day);
-  myAstro.setLocalTime(hour, minute, second);
-  myAstro.setGMTtime(hour, minute, second);
-  myAstro.doMoon();
-  myAstro.doMoonRiseSetTimes();
-  // Serial.println("Set Time: " + String(myAstro.getMoonsetTime()));
-  return myAstro.getMoonsetTime();
-}
-
-double getMoonPhase(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
-  /*
-  0. New Moon
-  1. Waxing Crescent
-  2. First Quarter
-  3. Waxing Gibbous
-  4. Full Moon
-  5. Waning Gibbous
-  6. Third Quarter
-  7. Waning Crescent
-  */
-  myAstro.setLatLong(latitude, longitude);
-  myAstro.setTimeZone(tz);
-  myAstro.rejectDST();
-  myAstro.setGMTdate(year, month, day);
-  myAstro.setLocalTime(hour, minute, second);
-  myAstro.setGMTtime(hour, minute, second);
-  myAstro.doMoon();
-  // Serial.println("Moon Phase: " + String(myAstro.getMoonPhase()));
-  return myAstro.getMoonPhase();
+  planetData.moon_r  = myAstro.doMoonRiseSetTimes();
+  planetData.moon_s  = myAstro.getSunsetTime();
+  planetData.moon_p   = myAstro.getMoonPhase();
 }
 
 
@@ -5491,108 +5477,25 @@ void matrixSwitch() {
         //                                                                                                             SIDEREAL PLANETS
 
         // daytime: current time in range of sunrise and sunset
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.DayTimeGNGGA) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes),
-                                                                                                                       getSunriseTime(satData.location_latitude_gngga,
-                                                                                                                                        satData.location_longitude_gngga,
-                                                                                                                                        satData.timezone,
-                                                                                                                                        atoi(satData.year_full),
-                                                                                                                                        atoi(satData.month),
-                                                                                                                                        atoi(satData.day),
-                                                                                                                                        atoi(satData.hour),
-                                                                                                                                        atoi(satData.minute),
-                                                                                                                                        atoi(satData.second)
-                                                                                                                                        ),
-                                                                                                                       getSunsetTime(satData.location_latitude_gngga,
-                                                                                                                                        satData.location_longitude_gngga,
-                                                                                                                                        satData.timezone,
-                                                                                                                                        atoi(satData.year_full),
-                                                                                                                                        atoi(satData.month),
-                                                                                                                                        atoi(satData.day),
-                                                                                                                                        atoi(satData.hour),
-                                                                                                                                        atoi(satData.minute),
-                                                                                                                                        atoi(satData.second)
-                                                                                                                                        ));
-                                                                                                                                        }
-        
-        // nighttime: current time not in range of sunrise and sunset
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.NightTimeGNGGA) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes),
-                                                                                                                       getSunriseTime(satData.location_latitude_gngga,
-                                                                                                                                        satData.location_longitude_gngga,
-                                                                                                                                        satData.timezone,
-                                                                                                                                        atoi(satData.year_full),
-                                                                                                                                        atoi(satData.month),
-                                                                                                                                        atoi(satData.day),
-                                                                                                                                        atoi(satData.hour),
-                                                                                                                                        atoi(satData.minute),
-                                                                                                                                        atoi(satData.second)
-                                                                                                                                        ),
-                                                                                                                       getSunsetTime(satData.location_latitude_gngga,
-                                                                                                                                        satData.location_longitude_gngga,
-                                                                                                                                        satData.timezone,
-                                                                                                                                        atoi(satData.year_full),
-                                                                                                                                        atoi(satData.month),
-                                                                                                                                        atoi(satData.day),
-                                                                                                                                        atoi(satData.hour),
-                                                                                                                                        atoi(satData.minute),
-                                                                                                                                        atoi(satData.second)
-                                                                                                                                        ));
-                                                                                                                                        }
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DayTimeGNGGA) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), planetData.sun_r, planetData.sun_s);}
 
+        // nighttime: current time not in range of sunrise and sunset
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.NightTimeGNGGA) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), planetData.sun_r, planetData.sun_s);}
+        
         // sunrise time less than current time: true after sunrise until midnight
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunriseTime(satData.location_latitude_gngga,
-                                                                                                                                        satData.location_longitude_gngga,
-                                                                                                                                        satData.timezone,
-                                                                                                                                        atoi(satData.year_full),
-                                                                                                                                        atoi(satData.month),
-                                                                                                                                        atoi(satData.day),
-                                                                                                                                        atoi(satData.hour),
-                                                                                                                                        atoi(satData.minute),
-                                                                                                                                        atoi(satData.second)
-                                                                                                                                        ), atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(planetData.sun_r, atof(satData.hours_minutes));}
+
         // sunset time less than current time: true after sunset until midnight                                                                  
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunsetTime(satData.location_latitude_gngga,
-                                                                                                                                        satData.location_longitude_gngga,
-                                                                                                                                        satData.timezone,
-                                                                                                                                        atoi(satData.year_full),
-                                                                                                                                        atoi(satData.month),
-                                                                                                                                        atoi(satData.day),
-                                                                                                                                        atoi(satData.hour),
-                                                                                                                                        atoi(satData.minute),
-                                                                                                                                        atoi(satData.second)
-                                                                                                                                        ), atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(planetData.sun_s, atof(satData.hours_minutes));}
+
         // moonrise time less than current time: true after moonrise until midnight
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getMoonriseTime(satData.location_latitude_gngga,
-                                                                                                                                        satData.location_longitude_gngga,
-                                                                                                                                        satData.timezone,
-                                                                                                                                        atoi(satData.year_full),
-                                                                                                                                        atoi(satData.month),
-                                                                                                                                        atoi(satData.day),
-                                                                                                                                        atoi(satData.hour),
-                                                                                                                                        atoi(satData.minute),
-                                                                                                                                        atoi(satData.second)
-                                                                                                                                        ), atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(planetData.moon_r, atof(satData.hours_minutes));}
+
         // moonset time less than current time: true after moonset until midnight
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getMoonsetTime(satData.location_latitude_gngga,
-                                                                                                                                        satData.location_longitude_gngga,
-                                                                                                                                        satData.timezone,
-                                                                                                                                        atoi(satData.year_full),
-                                                                                                                                        atoi(satData.month),
-                                                                                                                                        atoi(satData.day),
-                                                                                                                                        atoi(satData.hour),
-                                                                                                                                        atoi(satData.minute),
-                                                                                                                                        atoi(satData.second)
-                                                                                                                                        ), atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(planetData.moon_s, atof(satData.hours_minutes));}
+
         // moonphase equal to x
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonPhase) == 0) {tmp_matrix[Fi] = check_equal_true(getMoonPhase(satData.location_latitude_gngga,
-                                                                                                                                        satData.location_longitude_gngga,
-                                                                                                                                        satData.timezone,
-                                                                                                                                        atoi(satData.year_full),
-                                                                                                                                        atoi(satData.month),
-                                                                                                                                        atoi(satData.day),
-                                                                                                                                        atoi(satData.hour),
-                                                                                                                                        atoi(satData.minute),
-                                                                                                                                        atoi(satData.second)
-                                                                                                                                        ), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonPhase) == 0) {tmp_matrix[Fi] = check_equal_true(planetData.moon_p, relayData.relays_data[Ri][Fi][0]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                                     VALIDITY
@@ -6204,6 +6107,27 @@ void loop() {
     // uncomment to update menu ui every loop. may be recommended to only update menu ui when required.
     SSD_Display_2_Menu();
 
+    // sidereal planets
+    if (systemData.sidereal_track_sun == true) {trackSun(satData.location_latitude_gngga,
+                                                          satData.location_longitude_gngga,
+                                                          satData.timezone,
+                                                          atoi(satData.year_full),
+                                                          atoi(satData.month),
+                                                          atoi(satData.day),
+                                                          atoi(satData.hour),
+                                                          atoi(satData.minute),
+                                                          atoi(satData.second));}
+    if (systemData.sidereal_track_sun == true) {trackMoon(satData.location_latitude_gngga,
+                                                          satData.location_longitude_gngga,
+                                                          satData.timezone,
+                                                          atoi(satData.year_full),
+                                                          atoi(satData.month),
+                                                          atoi(satData.day),
+                                                          atoi(satData.hour),
+                                                          atoi(satData.minute),
+                                                          atoi(satData.second));}
+    
+    // displays
     if (systemData.satcom_enabled == true) {extrapulatedSatData(); if (systemData.display_on==true) {SSD_Display_SATCOM();}} else {SSD_Display_SATCOM_Disabled();}
     if (systemData.gngga_enabled == true) {if (systemData.display_on==true) {SSD_Display_GNGGA();}} else {SSD_Display_GNGGA_Disabled();}
     if (systemData.gnrmc_enabled == true) {if (systemData.display_on==true) {SSD_Display_GNRMC();}} else {SSD_Display_GNRMC_Disabled();}
