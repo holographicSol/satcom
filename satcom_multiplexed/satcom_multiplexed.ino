@@ -5138,6 +5138,13 @@ struct SiderealPlantetsStruct {
   long moon_r;
   long moon_s;
   long moon_p;
+
+  long mercury_ra;
+  long mercury_dec;
+  long mercury_az;
+  long mercury_alt;
+  long mercury_r;
+  long mercury_s;
 };
 SiderealPlantetsStruct planetData;
 
@@ -5153,6 +5160,7 @@ void trackSun(double latitude, double longitude, signed int tz, int year, int mo
   myAstro.doSun();
   planetData.sun_ra  = myAstro.getRAdec();
   planetData.sun_dec = myAstro.getDeclinationDec();
+  myAstro.doRAdec2AltAz();
   planetData.sun_az  = myAstro.getAzimuth();
   planetData.sun_alt = myAstro.getAltitude();
   myAstro.doSunRiseSetTimes();
@@ -5170,12 +5178,28 @@ void trackMoon(double latitude, double longitude, signed int tz, int year, int m
   myAstro.doSun();
   planetData.moon_ra  = myAstro.getRAdec();
   planetData.moon_dec = myAstro.getDeclinationDec();
+  myAstro.doRAdec2AltAz();
   planetData.moon_az  = myAstro.getAzimuth();
   planetData.moon_alt = myAstro.getAltitude();
   myAstro.doMoonRiseSetTimes();
   planetData.moon_r  = myAstro.doMoonRiseSetTimes();
   planetData.moon_s  = myAstro.getSunsetTime();
   planetData.moon_p   = myAstro.getMoonPhase();
+}
+
+void trackMercury(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+  myAstro.setLatLong(latitude, longitude);
+  myAstro.setTimeZone(tz);
+  myAstro.rejectDST();
+  myAstro.setGMTdate(year, month, day);
+  myAstro.setLocalTime(hour, minute, second);
+  myAstro.setGMTtime(hour, minute, second);
+  myAstro.doMercury();
+  planetData.mercury_ra  = myAstro.getRAdec();
+  planetData.mercury_dec = myAstro.getDeclinationDec();
+  myAstro.doRAdec2AltAz();
+  planetData.mercury_az  = myAstro.getAzimuth();
+  planetData.mercury_alt = myAstro.getAltitude();
 }
 
 
