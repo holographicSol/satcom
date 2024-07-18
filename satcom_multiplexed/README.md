@@ -38,7 +38,10 @@
 
                The relays are currently simulated while the system is being built and the simulation is designed to be easily
                relaceable by the actual relays themselves once the logic has been completed to a satisfactory degree and currently
-               all logic required to activate and deactivate relays is in place. 
+               all logic required to activate and deactivate relays is in place.
+
+               Requires using modified SiderealPlanets library (hopefully thats okay as the modifications allow calculating rise/set
+               of potentially any celestial body as described in this paper: https://stjarnhimlen.se/comp/riset.html)
 
 ---
 
