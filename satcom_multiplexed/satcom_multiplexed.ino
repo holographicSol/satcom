@@ -6426,7 +6426,6 @@ void readRXD_0(void *pvParameters) {
 //                                                                                                 TASK: PLANETARY CALCULATIONS
 
 void trackPlanets(void *pvParameters) {
-  // sidereal planets
   while(1){
     delay(1000);
     if (systemData.sidereal_track_sun == true) {trackSun(satData.location_latitude_gngga,
