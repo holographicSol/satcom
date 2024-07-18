@@ -6390,7 +6390,6 @@ void trackPlanets(void *pvParameters) {
   // sidereal planets
   while(1){
     delay(1000);
-    Serial.println("[trackPlanets] Running on Core: " + String(xPortGetCoreID()));
     if (systemData.sidereal_track_sun == true) {trackSun(satData.location_latitude_gngga,
                                                           satData.location_longitude_gngga,
                                                           satData.timezone,
