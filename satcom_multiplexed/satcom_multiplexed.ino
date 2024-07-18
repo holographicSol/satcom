@@ -5145,6 +5145,12 @@ struct SiderealPlantetsStruct {
   long mercury_alt;
   long mercury_r;
   long mercury_s;
+  long mercury_helio_ecliptic_lat;
+  long mercury_helio_ecliptic_long;
+  long mercury_radius_vector;
+  long mercury_distance;
+  long mercury_ecliptic_lat;
+  long mercury_ecliptic_long;
 };
 SiderealPlantetsStruct planetData;
 
@@ -5200,6 +5206,12 @@ void trackMercury(double latitude, double longitude, signed int tz, int year, in
   myAstro.doRAdec2AltAz();
   planetData.mercury_az  = myAstro.getAzimuth();
   planetData.mercury_alt = myAstro.getAltitude();
+  planetData.mercury_helio_ecliptic_lat = myAstro.getHelioLat();
+  planetData.mercury_helio_ecliptic_long = myAstro.getHelioLong();
+  planetData.mercury_radius_vector = myAstro.getRadiusVec();
+  planetData.mercury_distance = myAstro.getDistance();
+  planetData.mercury_ecliptic_lat = myAstro.getEclipticLatitude();
+  planetData.mercury_ecliptic_long = myAstro.getEclipticLongitude();
 }
 
 
