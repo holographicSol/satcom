@@ -5275,7 +5275,7 @@ void trackMoon(double latitude, double longitude, signed int tz, int year, int m
   myAstro.doMoonRiseSetTimes();
   planetData.moon_r  = myAstro.doMoonRiseSetTimes();
   planetData.moon_s  = myAstro.getSunsetTime();
-  planetData.moon_p   = myAstro.getMoonPhase();
+  planetData.moon_p  = myAstro.getMoonPhase();
 }
 
 void trackMercury(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5297,6 +5297,9 @@ void trackMercury(double latitude, double longitude, signed int tz, int year, in
   planetData.mercury_distance = myAstro.getDistance();
   planetData.mercury_ecliptic_lat = myAstro.getEclipticLatitude();
   planetData.mercury_ecliptic_long = myAstro.getEclipticLongitude();
+  myAstro.doXRiseSetTimes();
+  planetData.mercury_r = myAstro.getRiseTime();
+  planetData.mercury_s = myAstro.getSetTime();
 }
 
 void trackVenus(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5318,6 +5321,9 @@ void trackVenus(double latitude, double longitude, signed int tz, int year, int 
   planetData.venus_distance = myAstro.getDistance();
   planetData.venus_ecliptic_lat = myAstro.getEclipticLatitude();
   planetData.venus_ecliptic_long = myAstro.getEclipticLongitude();
+  myAstro.doXRiseSetTimes();
+  planetData.venus_r = myAstro.getRiseTime();
+  planetData.venus_s = myAstro.getSetTime();
 }
 
 void trackMars(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5339,6 +5345,9 @@ void trackMars(double latitude, double longitude, signed int tz, int year, int m
   planetData.mars_distance = myAstro.getDistance();
   planetData.mars_ecliptic_lat = myAstro.getEclipticLatitude();
   planetData.mars_ecliptic_long = myAstro.getEclipticLongitude();
+  myAstro.doXRiseSetTimes();
+  planetData.mars_r = myAstro.getRiseTime();
+  planetData.mars_s = myAstro.getSetTime();
 }
 
 void trackJupiter(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5360,6 +5369,9 @@ void trackJupiter(double latitude, double longitude, signed int tz, int year, in
   planetData.jupiter_distance = myAstro.getDistance();
   planetData.jupiter_ecliptic_lat = myAstro.getEclipticLatitude();
   planetData.jupiter_ecliptic_long = myAstro.getEclipticLongitude();
+  myAstro.doXRiseSetTimes();
+  planetData.jupiter_r = myAstro.getRiseTime();
+  planetData.jupiter_s = myAstro.getSetTime();
 }
 
 void trackSaturn(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5381,6 +5393,9 @@ void trackSaturn(double latitude, double longitude, signed int tz, int year, int
   planetData.saturn_distance = myAstro.getDistance();
   planetData.saturn_ecliptic_lat = myAstro.getEclipticLatitude();
   planetData.saturn_ecliptic_long = myAstro.getEclipticLongitude();
+  myAstro.doXRiseSetTimes();
+  planetData.saturn_r = myAstro.getRiseTime();
+  planetData.saturn_s = myAstro.getSetTime();
 }
 
 void trackUranus(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5402,6 +5417,9 @@ void trackUranus(double latitude, double longitude, signed int tz, int year, int
   planetData.uranus_distance = myAstro.getDistance();
   planetData.uranus_ecliptic_lat = myAstro.getEclipticLatitude();
   planetData.uranus_ecliptic_long = myAstro.getEclipticLongitude();
+  myAstro.doXRiseSetTimes();
+  planetData.uranus_r = myAstro.getRiseTime();
+  planetData.uranus_s = myAstro.getSetTime();
 }
 
 void trackNeptune(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5423,6 +5441,9 @@ void trackNeptune(double latitude, double longitude, signed int tz, int year, in
   planetData.neptune_distance = myAstro.getDistance();
   planetData.neptune_ecliptic_lat = myAstro.getEclipticLatitude();
   planetData.neptune_ecliptic_long = myAstro.getEclipticLongitude();
+  myAstro.doXRiseSetTimes();
+  planetData.neptune_r = myAstro.getRiseTime();
+  planetData.neptune_s = myAstro.getSetTime();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
