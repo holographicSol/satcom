@@ -1434,8 +1434,8 @@ struct RelayStruct {
     },
   };
 
-  int FUNCTION_NAMES_MAX = 253;
-  char function_names[254][56] = 
+  int FUNCTION_NAMES_MAX = 255;
+  char function_names[256][56] = 
   {
     "$NONE",
     "$ENABLED",
@@ -1685,6 +1685,8 @@ struct RelayStruct {
     "speed_invalid_check_data",
     "error_invalid_check_data",
     "debug_invalid_check_data",
+    "DayTimeGNGGA",
+    "NightTimeGNGGA",
     "SunriseGNGGA",
     "SunsetGNGGA",
     "MoonriseGNGGA",
@@ -1952,11 +1954,13 @@ struct RelayStruct {
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                             SIDEREAL PLANETS
 
-  char SunriseGNGGA[56]  = "SunriseGNGGA";
-  char SunsetGNGGA[56]   = "SunsetGNGGA";
-  char MoonriseGNGGA[56] = "MoonriseGNGGA";
-  char MoonsetGNGGA[56]  = "MoonsetGNGGA";
-  char MoonPhase[56]     = "MoonPhase";
+  char DayTimeGNGGA[56]   = "DayTimeGNGGA";
+  char NightTimeGNGGA[56] = "NightTimeGNGGA";
+  char SunriseGNGGA[56]   = "SunriseGNGGA";
+  char SunsetGNGGA[56]    = "SunsetGNGGA";
+  char MoonriseGNGGA[56]  = "MoonriseGNGGA";
+  char MoonsetGNGGA[56]   = "MoonsetGNGGA";
+  char MoonPhase[56]      = "MoonPhase";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                VALIDITY DATA
@@ -5070,11 +5074,13 @@ bool check_equal_false(double n0, double n1) {
 }
 
 bool check_ge_and_le_true(double n0, double n1, double n2) {
+  // Serial.println("check_ge_and_le_true: n0 " + String(n0) + " >= n1 " + String(n1) + " && n0 " + String(n0) + " <= " + String(n2));
   if ((n0 >= n1) && (n0 <= n2)) {return true;}
   else {return false;}
 }
 
 bool check_ge_and_le_false(double n0, double n1, double n2) {
+  // Serial.println("check_ge_and_le_false: n0 " + String(n0) + " >= n1 " + String(n1) + " && n0 " + String(n0) + " <= " + String(n2));
   if ((n0 >= n1) && (n0 <= n2)) {return false;}
   else {return true;}
 }
@@ -5109,6 +5115,18 @@ bool SecondsTimer(unsigned long n0, unsigned long n1, int Ri) {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                   MATRIX FUNCTIONS: ADVANCED
+
+// // calculate if daytiem 
+// bool is_daytime_true(double sunrise, double sunset, double time) {
+//   if ((time >= sunrise) && (time <= sunset)) {return true;}
+//   else {return false;}
+// }
+
+// // calculate if night time: note this is easier than checking if time in range before and after midnight
+// bool is_daytime_false(double sunrise, double sunset, double time) {
+//   if ((time >= sunrise) && (time <= sunset)) {return false;}
+//   else {return true;}
+// }
 
 // build astronomical, ephemeris and other caculations here
 
@@ -5483,6 +5501,54 @@ void matrixSwitch() {
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                             SIDEREAL PLANETS
+
+        // daytime: current time in range of sunrise and sunset
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DayTimeGNGGA) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes),
+                                                                                                                       getSunriseTime(satData.location_latitude_gngga,
+                                                                                                                                        satData.location_longitude_gngga,
+                                                                                                                                        satData.timezone,
+                                                                                                                                        atoi(satData.year_full),
+                                                                                                                                        atoi(satData.month),
+                                                                                                                                        atoi(satData.day),
+                                                                                                                                        atoi(satData.hour),
+                                                                                                                                        atoi(satData.minute),
+                                                                                                                                        atoi(satData.second)
+                                                                                                                                        ),
+                                                                                                                       getSunsetTime(satData.location_latitude_gngga,
+                                                                                                                                        satData.location_longitude_gngga,
+                                                                                                                                        satData.timezone,
+                                                                                                                                        atoi(satData.year_full),
+                                                                                                                                        atoi(satData.month),
+                                                                                                                                        atoi(satData.day),
+                                                                                                                                        atoi(satData.hour),
+                                                                                                                                        atoi(satData.minute),
+                                                                                                                                        atoi(satData.second)
+                                                                                                                                        ));
+                                                                                                                                        }
+        
+        // nighttime: current time not in range of sunrise and sunset
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.NightTimeGNGGA) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes),
+                                                                                                                       getSunriseTime(satData.location_latitude_gngga,
+                                                                                                                                        satData.location_longitude_gngga,
+                                                                                                                                        satData.timezone,
+                                                                                                                                        atoi(satData.year_full),
+                                                                                                                                        atoi(satData.month),
+                                                                                                                                        atoi(satData.day),
+                                                                                                                                        atoi(satData.hour),
+                                                                                                                                        atoi(satData.minute),
+                                                                                                                                        atoi(satData.second)
+                                                                                                                                        ),
+                                                                                                                       getSunsetTime(satData.location_latitude_gngga,
+                                                                                                                                        satData.location_longitude_gngga,
+                                                                                                                                        satData.timezone,
+                                                                                                                                        atoi(satData.year_full),
+                                                                                                                                        atoi(satData.month),
+                                                                                                                                        atoi(satData.day),
+                                                                                                                                        atoi(satData.hour),
+                                                                                                                                        atoi(satData.minute),
+                                                                                                                                        atoi(satData.second)
+                                                                                                                                        ));
+                                                                                                                                        }
 
         // sunrise time less than current time: true after sunrise until midnight
         else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunriseTime(satData.location_latitude_gngga,
