@@ -1,6 +1,5 @@
-/* Sidereal Planets Library - Sun functions
- * Version 1.2.0 - February 17, 2023
- * Example7_Planets
+/* Sidereal Planets Library - Modified
+ example for rise/set other celestial bodies.
 */
 
 #include <SiderealPlanets.h>
