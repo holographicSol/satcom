@@ -92,7 +92,12 @@ SiderealPlanets myAstro;
 
 TaskHandle_t taskTrackPlanets; // create task handle
 TaskHandle_t taskDisplays; // create task handle
-TaskHandle_t taskDataHandling; // create task handle
+TaskHandle_t taskRXD_0; // create task handle
+TaskHandle_t taskRXD_1; // create task handle
+TaskHandle_t taskCountElements; // create task handle
+TaskHandle_t taskMatrixSwitchTask; // create task handle
+TaskHandle_t taskgetSATCOMData; // create task handle
+
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       SDCARD
@@ -287,8 +292,6 @@ struct Serial1Struct {
   unsigned long iter_token;
   char BUFFER[1024];
   char * token = strtok(BUFFER, ",");
-  bool rcv = false;
-  unsigned long badrcv_i;
 };
 Serial1Struct serial1Data;
 
@@ -307,8 +310,6 @@ struct SDCardStruct {
   char BUFFER[2048];
   String SBUFFER;
   char * token = strtok(BUFFER, ",");
-  bool rcv = false;
-  unsigned long badrcv_i;
   char data_0[56];
   char data_1[56];
   char data_2[56];
@@ -5059,12 +5060,52 @@ void setup() {
   );
 
   xTaskCreatePinnedToCore(
-    DataHandling,       // Function name of the task
-    "DataHandling",     // Name of the task (e.g. for debugging)
+    readRXD_0,       // Function name of the task
+    "readRXD_0",     // Name of the task (e.g. for debugging)
     4096,               // Stack size (bytes)
     NULL,               // Parameter to pass
     1,                  // Task priority
-    &taskDataHandling,  // Assign task handle
+    &taskRXD_0,  // Assign task handle
+    1
+  );
+
+  xTaskCreatePinnedToCore(
+    readRXD_1,       // Function name of the task
+    "readRXD_1",     // Name of the task (e.g. for debugging)
+    4096,               // Stack size (bytes)
+    NULL,               // Parameter to pass
+    1,                  // Task priority
+    &taskRXD_1,  // Assign task handle
+    1
+  );
+
+  xTaskCreatePinnedToCore(
+    CountElements,       // Function name of the task
+    "CountElements",     // Name of the task (e.g. for debugging)
+    4096,               // Stack size (bytes)
+    NULL,               // Parameter to pass
+    1,                  // Task priority
+    &taskCountElements,  // Assign task handle
+    1
+  );
+
+  xTaskCreatePinnedToCore(
+    MatrixSwitchTask,       // Function name of the task
+    "MatrixSwitchTask",     // Name of the task (e.g. for debugging)
+    4096,               // Stack size (bytes)
+    NULL,               // Parameter to pass
+    1,                  // Task priority
+    &taskMatrixSwitchTask,  // Assign task handle
+    1
+  );
+
+  xTaskCreatePinnedToCore(
+    getSATCOMData,       // Function name of the task
+    "getSATCOMData",     // Name of the task (e.g. for debugging)
+    4096,               // Stack size (bytes)
+    NULL,               // Parameter to pass
+    1,                  // Task priority
+    &taskgetSATCOMData,  // Assign task handle
     1
   );
 
@@ -6148,245 +6189,235 @@ void numpadSelect() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 1
 
-void readRXD_1() {
+void readRXD_1(void *pvParameters) {
+  while (1) {
+    if (Serial1.available() > 0) {
+      memset(serial1Data.BUFFER, 0, 2000);
+      serial1Data.nbytes = (Serial1.readBytesUntil('\n', serial1Data.BUFFER, sizeof(serial1Data.BUFFER)));
+      // Serial.println(serial1Data.nbytes); // debug
 
-  serial1Data.rcv = false;
-
-  if (Serial1.available() > 0) {
-    
-    memset(serial1Data.BUFFER, 0, 2000);
-    serial1Data.nbytes = (Serial1.readBytesUntil('\n', serial1Data.BUFFER, sizeof(serial1Data.BUFFER)));
-    // Serial.println(serial1Data.nbytes); // debug
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    GNGGA
-    
-    if (systemData.gngga_enabled == true) {
-      if (strncmp(serial1Data.BUFFER, "$GNGGA", 6) == 0) {
-        serial1Data.rcv = true;
-        if (systemData.output_gngga_enabled == true) {Serial.println(serial1Data.BUFFER);}
-        memset(gnggaData.sentence, 0, 2000);
-        strcpy(gnggaData.sentence, serial1Data.BUFFER);
-        gnggaData.valid_checksum = validateChecksum(gnggaData.sentence);
-        if (gnggaData.valid_checksum == true) {GNGGA();}
-        else {gnggaData.bad_checksum_validity++;}
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                                    GNGGA
+      
+      if (systemData.gngga_enabled == true) {
+        if (strncmp(serial1Data.BUFFER, "$GNGGA", 6) == 0) {
+          if (systemData.output_gngga_enabled == true) {Serial.println(serial1Data.BUFFER);}
+          memset(gnggaData.sentence, 0, 2000);
+          strcpy(gnggaData.sentence, serial1Data.BUFFER);
+          gnggaData.valid_checksum = validateChecksum(gnggaData.sentence);
+          if (gnggaData.valid_checksum == true) {GNGGA();}
+          else {gnggaData.bad_checksum_validity++;}
+        }
       }
-    }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    GNRMC
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                                    GNRMC
 
-    if (systemData.gnrmc_enabled == true) {
-      if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
-        serial1Data.rcv = true;
-        if (systemData.output_gnrmc_enabled == true) {Serial.println(serial1Data.BUFFER);}
-        memset(gnrmcData.sentence, 0, 2000);
-        strcpy(gnrmcData.sentence, serial1Data.BUFFER);
-        gnrmcData.valid_checksum = validateChecksum(gnrmcData.sentence);
-        if (gnrmcData.valid_checksum == true) {GNRMC();}
-        else {gnrmcData.bad_checksum_validity++;}
+      if (systemData.gnrmc_enabled == true) {
+        if (strncmp(serial1Data.BUFFER, "$GNRMC", 6) == 0) {
+          if (systemData.output_gnrmc_enabled == true) {Serial.println(serial1Data.BUFFER);}
+          memset(gnrmcData.sentence, 0, 2000);
+          strcpy(gnrmcData.sentence, serial1Data.BUFFER);
+          gnrmcData.valid_checksum = validateChecksum(gnrmcData.sentence);
+          if (gnrmcData.valid_checksum == true) {GNRMC();}
+          else {gnrmcData.bad_checksum_validity++;}
+        }
       }
-    }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    GPATT
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                                    GPATT
 
-    if (systemData.gpatt_enabled == true) {
-      if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
-          serial1Data.rcv = true;
-          if (systemData.output_gpatt_enabled == true) {Serial.println(serial1Data.BUFFER);}
-          memset(gpattData.sentence, 0, 2000);
-          strcpy(gpattData.sentence, serial1Data.BUFFER);
-          gpattData.valid_checksum = validateChecksum(gpattData.sentence);
-          if (gpattData.valid_checksum == true) {GPATT();}
-          else {gpattData.bad_checksum_validity++;}
+      if (systemData.gpatt_enabled == true) {
+        if (strncmp(serial1Data.BUFFER, "$GPATT", 6) == 0) {
+            if (systemData.output_gpatt_enabled == true) {Serial.println(serial1Data.BUFFER);}
+            memset(gpattData.sentence, 0, 2000);
+            strcpy(gpattData.sentence, serial1Data.BUFFER);
+            gpattData.valid_checksum = validateChecksum(gpattData.sentence);
+            if (gpattData.valid_checksum == true) {GPATT();}
+            else {gpattData.bad_checksum_validity++;}
+        }
       }
+
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                                    SPEED
+
+      // if (systemData.speed_enabled == true) {
+      //   if (strncmp(serial1Data.BUFFER, "$SPEED", 6) == 0) {
+      //     Serial.print(""); Serial.println(serial1Data.BUFFER);
+      //     awaiting length checks: take a ride with the laptop
+      //     SPEED();
+      //   }
+      // }
+
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                                    ERROR
+
+      // if (systemData.error_enabled == true) {
+      //   if (strncmp(serial1Data.BUFFER, "$ERROR", 6) == 0) {
+      //     Serial.print(""); Serial.println(serial1Data.BUFFER);
+      //     awaiting length checks: take a ride with the laptop
+      //     ERROR();
+      //   }
+
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                                    DEBUG
+
+      // if (systemData.debug_enabled == true) {
+      //   if (strncmp(serial1Data.BUFFER, "$DEBUG", 6) == 0) {
+      //     Serial.print(""); Serial.println(serial1Data.BUFFER);
+      //     awaiting length checks: take a ride with the laptop
+      //     DEBUG();
+      //   }
+
+      // else {
+      //   Serial.println("[unknown] " + String(serial1Data.BUFFER));
+      // }
     }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    SPEED
-
-    // if (systemData.speed_enabled == true) {
-    //   if (strncmp(serial1Data.BUFFER, "$SPEED", 6) == 0) {
-    //     serial1Data.rcv = true;
-    //     Serial.print(""); Serial.println(serial1Data.BUFFER);
-    //     awaiting length checks: take a ride with the laptop
-    //     SPEED();
-    //   }
-    // }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    ERROR
-
-    // if (systemData.error_enabled == true) {
-    //   if (strncmp(serial1Data.BUFFER, "$ERROR", 6) == 0) {
-    //     serial1Data.rcv = true;
-    //     Serial.print(""); Serial.println(serial1Data.BUFFER);
-    //     awaiting length checks: take a ride with the laptop
-    //     ERROR();
-    //   }
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                                    DEBUG
-
-    // if (systemData.debug_enabled == true) {
-    //   if (strncmp(serial1Data.BUFFER, "$DEBUG", 6) == 0) {
-    //     serial1Data.rcv = true;
-    //     Serial.print(""); Serial.println(serial1Data.BUFFER);
-    //     awaiting length checks: take a ride with the laptop
-    //     DEBUG();
-    //   }
-
-    // else {
-    //   Serial.println("[unknown] " + String(serial1Data.BUFFER));
-    // }
   }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                   READ RXD 0
 
-void readRXD_0() {
-
-  
-
-  if ((Serial.available() > 0) && (menuData.menu_lock == false)){
+void readRXD_0(void *pvParameters) {
+  while (1) {
     
-    memset(serial0Data.BUFFER, 0, 1024);
-    serial0Data.nbytes = (Serial.readBytesUntil('\n', serial0Data.BUFFER, sizeof(serial0Data.BUFFER)));
-    // Serial.println(serial0Data.nbytes); // debug
+    if ((Serial.available() > 0) && (menuData.menu_lock == false)){
+      
+      memset(serial0Data.BUFFER, 0, 1024);
+      serial0Data.nbytes = (Serial.readBytesUntil('\n', serial0Data.BUFFER, sizeof(serial0Data.BUFFER)));
+      // Serial.println(serial0Data.nbytes); // debug
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                        MATRIX: SET ENTRY
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                        MATRIX: SET ENTRY
 
-    if (strncmp(serial0Data.BUFFER, "$MATRIX_SET_ENTRY", 17) == 0) {
-      matrix_set_entry();
-    }
+      if (strncmp(serial0Data.BUFFER, "$MATRIX_SET_ENTRY", 17) == 0) {
+        matrix_set_entry();
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                             MATRIX: ENABLE/DISABLE ENTRY
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                             MATRIX: ENABLE/DISABLE ENTRY
 
-    else if (strncmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ENTRY", 19) == 0) {
-      matrix_set_enabled(true);
-    }
+      else if (strncmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ENTRY", 19) == 0) {
+        matrix_set_enabled(true);
+      }
 
-    else if (strncmp(serial0Data.BUFFER, "$MATRIX_DISABLE_ENTRY", 21) == 0) {
-      matrix_set_enabled(false);
-    }
+      else if (strncmp(serial0Data.BUFFER, "$MATRIX_DISABLE_ENTRY", 21) == 0) {
+        matrix_set_enabled(false);
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                      MATRIX: DISABLE ALL
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                      MATRIX: DISABLE ALL
 
-    else if (strcmp(serial0Data.BUFFER, "$MATRIX_DISABLE_ALL") == 0) {
-      matrix_disable_all();
-    }
+      else if (strcmp(serial0Data.BUFFER, "$MATRIX_DISABLE_ALL") == 0) {
+        matrix_disable_all();
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                       MATRIX: ENABLE ALL
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                       MATRIX: ENABLE ALL
 
-    else if (strcmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ALL") == 0) {
-      matrix_enable_all();
-    }
+      else if (strcmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ALL") == 0) {
+        matrix_enable_all();
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                               MATRIX: TURN ALL RELAYS ON
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                               MATRIX: TURN ALL RELAYS ON
 
-    else if (strcmp(serial0Data.BUFFER, "$MATRIX_RELAYS_ALL_ON") == 0) {
-      relays_activate_all();
-    }
+      else if (strcmp(serial0Data.BUFFER, "$MATRIX_RELAYS_ALL_ON") == 0) {
+        relays_activate_all();
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                              MATRIX: TURN ALL RELAYS OFF
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                              MATRIX: TURN ALL RELAYS OFF
 
-    else if (strcmp(serial0Data.BUFFER, "$MATRIX_RELAYS_ALL_OFF") == 0) {
-      relays_deactivate_all();
-    }
+      else if (strcmp(serial0Data.BUFFER, "$MATRIX_RELAYS_ALL_OFF") == 0) {
+        relays_deactivate_all();
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                         SDCARD: SERIAL PRINT MATRIX FILE
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                         SDCARD: SERIAL PRINT MATRIX FILE
 
-    else if (strcmp(serial0Data.BUFFER, "$SDCARD_READ_MATRIX") == 0) {
-      sdcard_read_to_serial(sdcardData.matrix_filepath);
-    }
+      else if (strcmp(serial0Data.BUFFER, "$SDCARD_READ_MATRIX") == 0) {
+        sdcard_read_to_serial(sdcardData.matrix_filepath);
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                            SDCARD: SAVE MATRIX TO SDCARD
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                            SDCARD: SAVE MATRIX TO SDCARD
 
-    else if (strcmp(serial0Data.BUFFER, "$SDCARD_SAVE_MATRIX") == 0) {
-      sdcard_save_matrix(sdcardData.matrix_filepath);
-    }
+      else if (strcmp(serial0Data.BUFFER, "$SDCARD_SAVE_MATRIX") == 0) {
+        sdcard_save_matrix(sdcardData.matrix_filepath);
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                          SDCARD: LOAD MATRIX FROM SDCARD
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                          SDCARD: LOAD MATRIX FROM SDCARD
 
-    else if (strcmp(serial0Data.BUFFER, "$SDCARD_LOAD_MATRIX") == 0) {
-      sdcard_load_matrix(sdcardData.matrix_filepath);
-    }
+      else if (strcmp(serial0Data.BUFFER, "$SDCARD_LOAD_MATRIX") == 0) {
+        sdcard_load_matrix(sdcardData.matrix_filepath);
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                              SATCOM: CONVERT COORDINATES
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                              SATCOM: CONVERT COORDINATES
 
-    else if (strcmp(serial0Data.BUFFER, "$SATCOM_CONVERT_COORDINATES_ON") == 0) {
-      satcom_convert_coordinates_on();
-    }
-    else if (strcmp(serial0Data.BUFFER, "$SATCOM_CONVERT_COORDINATES_OFF") == 0) {
-      satcom_convert_coordinates_off();
-    }
+      else if (strcmp(serial0Data.BUFFER, "$SATCOM_CONVERT_COORDINATES_ON") == 0) {
+        satcom_convert_coordinates_on();
+      }
+      else if (strcmp(serial0Data.BUFFER, "$SATCOM_CONVERT_COORDINATES_OFF") == 0) {
+        satcom_convert_coordinates_off();
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                      DISPLAY: BRIGHTNESS
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                      DISPLAY: BRIGHTNESS
 
-    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MAX") == 0) {
-      displayBrightness(1,1,1,1,1,1);
-    }
-    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MIN") == 0) {
-      displayBrightness(0,0,0,0,0,0);
-    }
+      else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MAX") == 0) {
+        displayBrightness(1,1,1,1,1,1);
+      }
+      else if (strcmp(serial0Data.BUFFER, "$DISPLAY_BRIGHTNESS_MIN") == 0) {
+        displayBrightness(0,0,0,0,0,0);
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                          DISPLAY: ON/OFF
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                          DISPLAY: ON/OFF
 
-    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_ON") == 0) {
-      displayOnOff(1,1,1, 1,1,1);
-    }
-    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_OFF") == 0) {
-      displayOnOff(0,0,0, 0,0,0);
-    }
+      else if (strcmp(serial0Data.BUFFER, "$DISPLAY_ON") == 0) {
+        displayOnOff(1,1,1, 1,1,1);
+      }
+      else if (strcmp(serial0Data.BUFFER, "$DISPLAY_OFF") == 0) {
+        displayOnOff(0,0,0, 0,0,0);
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                          DISPLAY: INVERT
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                          DISPLAY: INVERT
 
-    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_FLIP_VERTICALLY") == 0) {
-      displayFlipVertically(1,1,1, 1,1,1);
-    }
-    else if (strcmp(serial0Data.BUFFER, "$DISPLAY_NORMAL") == 0) {
-      displayFlipVertically(0,0,0, 0,0,0);
-    }
+      else if (strcmp(serial0Data.BUFFER, "$DISPLAY_FLIP_VERTICALLY") == 0) {
+        displayFlipVertically(1,1,1, 1,1,1);
+      }
+      else if (strcmp(serial0Data.BUFFER, "$DISPLAY_NORMAL") == 0) {
+        displayFlipVertically(0,0,0, 0,0,0);
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
-    //                                                                                                             SATCOM: MENU
+      // ------------------------------------------------------------------------------------------------------------------------
+      //                                                                                                             SATCOM: MENU
 
-    // any page less than 10
-    if (menuData.page < 10) {
-      if      (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {menuDown();}
-      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {menuUp();}
-      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {menuRight();}
-      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {menuLeft();}
-      else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {menuSelect();}
-    }
-    // numpad
-    else if (menuData.page == 10) {
-      if (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {numpadDown();}
-      else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {numpadUp();}
-      else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {numpadRight();}
-      else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {numpadLeft();}
-      else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {numpadSelect();}
-    }
+      if (menuData.page < 10) {
+        if      (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {menuDown();}
+        else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {menuUp();}
+        else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {menuRight();}
+        else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {menuLeft();}
+        else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {menuSelect();}
+      }
+      else if (menuData.page == 10) {
+        if (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {numpadDown();}
+        else if (strcmp(serial0Data.BUFFER, "$UP") == 0) {numpadUp();}
+        else if (strcmp(serial0Data.BUFFER, "$RIGHT") == 0) {numpadRight();}
+        else if (strcmp(serial0Data.BUFFER, "$LEFT") == 0) {numpadLeft();}
+        else if (strcmp(serial0Data.BUFFER, "$SELECT") == 0) {numpadSelect();}
+      }
 
-    // ------------------------------------------------------------------------------------------------------------------------
+      // ------------------------------------------------------------------------------------------------------------------------
 
-    else {
-      Serial.println("[unknown] " + String(serial0Data.BUFFER));
+      else {
+        Serial.println("[unknown] " + String(serial0Data.BUFFER));
+      }
     }
   }
 }
@@ -6483,18 +6514,31 @@ void trackPlanets(void *pvParameters) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                           TASK: CALCULATIONS
+//                                                                                                          TASK: MATRIX SWITCH
 
-void DataHandling(void *pvParameters) {
+void MatrixSwitchTask(void *pvParameters) {
   while (1) {
      delay(1);
-     // get data: check serial input
-    readRXD_0();
-     // get data: check wtgps300p input
-    readRXD_1();
-    // calculate data
-    if (systemData.satcom_enabled == true) {extrapulatedSatData();}
     if (systemData.matrix_enabled == true) {matrixSwitch();}
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                 TASK: SATCOM
+
+void getSATCOMData(void *pvParameters) {
+  while (1) {
+     delay(1);
+    if (systemData.satcom_enabled == true) {extrapulatedSatData();}
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                       TASK: ELEMENTS COUNTER
+
+void CountElements(void *pvParameters) {
+  while (1) {
+     delay(1);
     // keep track of overall enabled/disabled relays
     countRelaysEnabled();
     // keep track of overall active/inactive relays
@@ -6507,7 +6551,6 @@ void DataHandling(void *pvParameters) {
 
 void Display(void *pvParameters) {
   while (1) {
-     delay(1);
      SSD_Display_2_Menu();
     if (systemData.display_on==true) {SSD_Display_SATCOM();} else {SSD_Display_SATCOM_Disabled();}
     if (systemData.display_on==true) {SSD_Display_GNGGA();}  else {SSD_Display_GNGGA_Disabled();}
