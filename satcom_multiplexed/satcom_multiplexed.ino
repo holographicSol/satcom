@@ -2678,7 +2678,6 @@ void calculateLocation(){
   //                                                                                                GNGGA COORDINATE CONVERSION
 
   if (String(satData.coordinate_conversion_mode) == "GNGGA") {
-
     // convert GNGGA latitude
     satData.temp_latitude_gngga = satData.abs_latitude_gngga_0;
     satData.degreesLat = trunc(satData.temp_latitude_gngga / 100);
@@ -2694,7 +2693,6 @@ void calculateLocation(){
     }
     scanf("%f17", &satData.location_latitude_gngga);
     sprintf(satData.location_latitude_gngga_str, "%f", satData.location_latitude_gngga);
-
     // convert GNGGA longitude
     satData.temp_longitude_gngga = satData.abs_longitude_gngga_0;
     satData.degreesLong = trunc(satData.temp_longitude_gngga / 100);
@@ -2716,7 +2714,6 @@ void calculateLocation(){
   //                                                                                              GNRMC COORDINATE CONVERSION
 
   else if (String(satData.coordinate_conversion_mode) == "GNRMC") {
-
     // convert GNRMC latitude
     satData.temp_latitude_gnrmc = satData.abs_latitude_gnrmc_0;
     satData.degreesLat = trunc(satData.temp_latitude_gnrmc / 100);
@@ -2732,7 +2729,6 @@ void calculateLocation(){
     }
     scanf("%f17", &satData.location_latitude_gnrmc);
     sprintf(satData.location_latitude_gnrmc_str, "%f", satData.location_latitude_gnrmc);
-
     // convert GNRMC longitude
     satData.temp_longitude_gnrmc = satData.abs_longitude_gnrmc_0;
     satData.degreesLong = trunc(satData.temp_longitude_gnrmc / 100);
@@ -2771,7 +2767,6 @@ void extrapulatedSatData() {
   strcat(satData.sat_time_stamp_string, gnggaData.utc_time);
   strcat(satData.satcom_sentence, satData.sat_time_stamp_string);
   strcat(satData.satcom_sentence, ",");
-
   
   memset(satData.year_full, 0, 56);
   strcat(satData.year_full, satData.year_heads);
