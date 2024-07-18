@@ -6391,6 +6391,9 @@ void readRXD_0() {
   }
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                 TASK: PLANETARY CALCULATIONS
+
 void trackPlanets(void *pvParameters) {
   // sidereal planets
   while(1){
@@ -6479,6 +6482,9 @@ void trackPlanets(void *pvParameters) {
   }
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                           TASK: CALCULATIONS
+
 void DataHandling(void *pvParameters) {
   while (1) {
      delay(1);
@@ -6496,6 +6502,9 @@ void DataHandling(void *pvParameters) {
     countRelaysActive();
   }
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                TASK: DISPLAY
 
 void Display(void *pvParameters) {
   while (1) {
