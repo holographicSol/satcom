@@ -5813,15 +5813,6 @@ void matrixSwitch() {
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                                     VALIDITY
 
-        /*
-        intended to conditionally switch datasets, making it possible to continue performing the same task and or other tasks instead, but with the option of
-        relying on different data in the event data becomes unavailable/unreliable/etc. this can allow for fallback functions to be considered in the matrix switch.
-
-        example: if check_bool_true(checksum)  then A using data X is active/on and B is inactive/off
-                 if check_bool_false(checksum) then B using data Y is active/on and A is inactive/off
-                 A and B may even be plugged into the same endpoint, and now that endpoint is on/off predicated upon different data/conditions.
-        */
-        
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_valid_checksum) == 0) {tmp_matrix[Fi] = check_bool_true(gnggaData.valid_checksum);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_invalid_checksum) == 0) {tmp_matrix[Fi] = check_bool_false(gnggaData.valid_checksum);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_valid_checksum) == 0) {tmp_matrix[Fi] = check_bool_true(gnrmcData.valid_checksum);}
@@ -5848,10 +5839,10 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_check_data) == 0) {tmp_matrix[Fi] = check_equal_false(debugData.check_data, 29);}
       }
       
-      // Safety Layer: Disengage if all entries are $NONE
+      // Safety Layer: disengage if all entries are $NONE
       if (count_none_function <= relayData.MAX_RELAY_ELEMENTS-1) {
 
-        // Default final bool default is true: If a single false is found then final bool should be set to false and remain false
+        // Default final bool default is true: if a single false is found then final bool should be set to false and remain false
         bool final_bool = true;
 
         // debug (same as line below but with output)
@@ -5860,11 +5851,8 @@ void matrixSwitch() {
         for (int FC = 0; FC < relayData.MAX_RELAY_ELEMENTS-1; FC++) {if (tmp_matrix[FC] == 0) {final_bool = false; break;}}
 
         /*
-        Remember Always: why do you think you can trust this data? are you transmitting this data to yourelf (from satellite or not)?
-                         how critical are your system(s)?
-                         once you plug something into this, the 'satellites' are in control unless you have a way to override.
-
-        Activate/Deactivate relay with Ri mapped to pinN: pin number matrix required for relay selcection
+        WARNING: why do you think you can trust the data you are receiving?
+                 once you plug something into this, the 'satellites' are in control unless you have a way to override.
         */
 
         // debug (same as line below but with output)
