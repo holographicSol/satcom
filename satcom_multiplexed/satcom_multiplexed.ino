@@ -5116,18 +5116,6 @@ bool SecondsTimer(unsigned long n0, unsigned long n1, int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                   MATRIX FUNCTIONS: ADVANCED
 
-// // calculate if daytiem 
-// bool is_daytime_true(double sunrise, double sunset, double time) {
-//   if ((time >= sunrise) && (time <= sunset)) {return true;}
-//   else {return false;}
-// }
-
-// // calculate if night time: note this is easier than checking if time in range before and after midnight
-// bool is_daytime_false(double sunrise, double sunset, double time) {
-//   if ((time >= sunrise) && (time <= sunset)) {return false;}
-//   else {return true;}
-// }
-
 // build astronomical, ephemeris and other caculations here
 
 double getSunriseTime(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
