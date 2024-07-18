@@ -5040,72 +5040,72 @@ void setup() {
   //                                                                                                               SETUP: TASKS
 
   xTaskCreatePinnedToCore(
-    trackPlanets,       // Function name of the task
-    "TrackPlanets",     // Name of the task (e.g. for debugging)
-    4096,               // Stack size (bytes)
-    NULL,               // Parameter to pass
-    1,                  // Task priority
-    &taskTrackPlanets,   // Assign task handle
+    trackPlanets,      // Function name of the task
+    "TrackPlanets",    // Name of the task (e.g. for debugging)
+    4096,              // Stack size (bytes)
+    NULL,              // Parameter to pass
+    1,                 // Task priority
+    &taskTrackPlanets, // Assign task handle
     1
   );
     
   xTaskCreatePinnedToCore(
-    Display,            // Function name of the task
-    "Display",          // Name of the task (e.g. for debugging)
-    4096,               // Stack size (bytes)
-    NULL,               // Parameter to pass
-    1,                  // Task priority
-    &taskDisplays,      // Assign task handle
+    Display,       // Function name of the task
+    "Display",     // Name of the task (e.g. for debugging)
+    4096,          // Stack size (bytes)
+    NULL,          // Parameter to pass
+    1,             // Task priority
+    &taskDisplays, // Assign task handle
     0
   );
 
   xTaskCreatePinnedToCore(
-    readRXD_0,       // Function name of the task
-    "readRXD_0",     // Name of the task (e.g. for debugging)
-    4096,               // Stack size (bytes)
-    NULL,               // Parameter to pass
-    1,                  // Task priority
+    readRXD_0,   // Function name of the task
+    "readRXD_0", // Name of the task (e.g. for debugging)
+    4096,        // Stack size (bytes)
+    NULL,        // Parameter to pass
+    1,           // Task priority
     &taskRXD_0,  // Assign task handle
     1
   );
 
   xTaskCreatePinnedToCore(
-    readRXD_1,       // Function name of the task
-    "readRXD_1",     // Name of the task (e.g. for debugging)
-    4096,               // Stack size (bytes)
-    NULL,               // Parameter to pass
-    1,                  // Task priority
+    readRXD_1,   // Function name of the task
+    "readRXD_1", // Name of the task (e.g. for debugging)
+    4096,        // Stack size (bytes)
+    NULL,        // Parameter to pass
+    1,           // Task priority
     &taskRXD_1,  // Assign task handle
     1
   );
 
   xTaskCreatePinnedToCore(
-    CountElements,       // Function name of the task
-    "CountElements",     // Name of the task (e.g. for debugging)
+    CountElements,      // Function name of the task
+    "CountElements",    // Name of the task (e.g. for debugging)
     4096,               // Stack size (bytes)
     NULL,               // Parameter to pass
     1,                  // Task priority
-    &taskCountElements,  // Assign task handle
+    &taskCountElements, // Assign task handle
     1
   );
 
   xTaskCreatePinnedToCore(
-    MatrixSwitchTask,       // Function name of the task
-    "MatrixSwitchTask",     // Name of the task (e.g. for debugging)
-    4096,               // Stack size (bytes)
-    NULL,               // Parameter to pass
-    1,                  // Task priority
-    &taskMatrixSwitchTask,  // Assign task handle
+    MatrixSwitchTask,      // Function name of the task
+    "MatrixSwitchTask",    // Name of the task (e.g. for debugging)
+    4096,                  // Stack size (bytes)
+    NULL,                  // Parameter to pass
+    1,                     // Task priority
+    &taskMatrixSwitchTask, // Assign task handle
     1
   );
 
   xTaskCreatePinnedToCore(
-    getSATCOMData,       // Function name of the task
-    "getSATCOMData",     // Name of the task (e.g. for debugging)
+    getSATCOMData,      // Function name of the task
+    "getSATCOMData",    // Name of the task (e.g. for debugging)
     4096,               // Stack size (bytes)
     NULL,               // Parameter to pass
     1,                  // Task priority
-    &taskgetSATCOMData,  // Assign task handle
+    &taskgetSATCOMData, // Assign task handle
     1
   );
 
