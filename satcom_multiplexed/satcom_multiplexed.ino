@@ -186,7 +186,7 @@ struct systemStruct {
   unsigned long display_auto_dim_t0;
   unsigned long display_auto_dim_t1;
   bool          display_dim = false;
-  bool display_auto_off = true; // (burn-in protection)
+  bool display_auto_off = false; // (burn-in protection)
   int           display_auto_off_p0 = 20000;
   unsigned long display_auto_off_t0;
   unsigned long display_auto_off_t1;
@@ -6380,9 +6380,6 @@ void loop() {
   if ((menuData.isr_i == ISR_NPAD_DOWN_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
   if ((menuData.isr_i == ISR_NPAD_SELECT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
 
-  DisplayAutoDim();
-  DisplayAutoOff();
-
   debounceData.debounce_t0_right = millis();
   debounceData.debounce_t0_left = millis();
   debounceData.debounce_t0_up = millis();
@@ -6432,12 +6429,14 @@ void CountElements(void *pvParameters) {
 void Display(void *pvParameters) {
   while (1) {
      SSD_Display_2_Menu();
-        // displays
+    // displays
     if (systemData.satcom_enabled == true) {if (systemData.display_on==true) {SSD_Display_SATCOM();}} else {SSD_Display_SATCOM_Disabled();}
     if (systemData.gngga_enabled == true) {if (systemData.display_on==true) {SSD_Display_GNGGA();}} else {SSD_Display_GNGGA_Disabled();}
     if (systemData.gnrmc_enabled == true) {if (systemData.display_on==true) {SSD_Display_GNRMC();}} else {SSD_Display_GNRMC_Disabled();}
     if (systemData.gpatt_enabled == true) {if (systemData.display_on==true) {SSD_Display_GPATT();}} else {SSD_Display_GPATT_Disabled();}
     if (systemData.matrix_enabled == true) {if (systemData.display_on==true) {SSD_Display_MATRIX();}} else {SSD_Display_MATRIX_Disabled();}
+    // DisplayAutoDim();
+    // DisplayAutoOff();
   }
 }
 
