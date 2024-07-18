@@ -4146,17 +4146,6 @@ void SSD_Display_Loading() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                          DISPLAY: BRIGHTNESS
 
-/*
-there may be some disparity between the SSD306 panels at low brightness, possible reasons:
-inconsistent current through multiplexer (sda,sdc): checked. negative.
-inconsistent voltage through multiplexer (sda,sdc): checked. negative
-inconsistent vcc current: checked. negative.
-inconsistent vcc voltage: checked. negative.
-software library: pending checks.
-implementation here of software library: pending checks.
-currently recommended lowest settings: 150, 16.
-*/
-
 void displayBrightness(int c, int d, int e, int f, int g, int h) {
   if (c==1) {tcaselect(2); display_2.setContrast(255, 241);} else {tcaselect(2); display_2.setContrast(150, 16);}
   if (d==1) {tcaselect(3); display_3.setContrast(255, 241);} else {tcaselect(3); display_3.setContrast(150, 16);}
@@ -4372,7 +4361,6 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
 
-    // complete
     sdcardData.current_file.close();
     Serial.println("[sdcard] saved file successfully: " + String(file));
     menuData.page = return_page;
@@ -4736,7 +4724,6 @@ bool sdcard_load_matrix(char * file) {
         }
       }
       else if (strncmp(sdcardData.BUFFER, "e", 1) == 0) {
-        // Serial.println("[checking E]");
         sdcardData.token = strtok(sdcardData.BUFFER, ",");
         sdcardData.token = strtok(NULL, ",");
         sdcardData.token = strtok(NULL, ",");
@@ -4829,10 +4816,7 @@ bool sdcard_save_matrix(char * file) {
 //                                                                                                            MATRIX: SET ENTRY
 
 /*
-                                        R F Function Name              X Y Z
 example test command: $MATRIX_SET_ENTRY,0,0,SatelliteCountOver,1,0,0
-example test command: $MATRIX_SET_ENTRY,0,0,SatelliteCountOver,-1,0,0
-clear test command:   $MATRIX_SET_ENTRY,0,0,$NONE,0,0,0
 */
 
 void matrix_set_entry() {
@@ -4865,7 +4849,6 @@ void matrix_set_entry() {
     Serial.println("[serial0Data.data_4] "         + String(serial0Data.data_4));
     Serial.println("[serial0Data.data_5] "         + String(serial0Data.data_5));
   }
-  //                      [           RN          ][          FN            ][      VALUE        ]
   char *ptr;
   strcpy(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)], serial0Data.data_2);      // set function
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]=strtod(serial0Data.data_3, &ptr); // set function value x
@@ -5097,12 +5080,14 @@ true when otherwise a check would return false.
 
 // calculate if n0 in (+- range/2) of n1
 bool in_range_check_true(double n0, double n1, double r) {
+  // Serial.println("in_range_check_true: (n0 " + String(n0) + " >= n1 (" + String(n1) " - r/2 " + String(r/2) + ")) && (n0 " + String(n0) + " <= n1 (" + String(n1) " + r/2 " + String(r/2) + "))");
   if (n0  >=  n1 - r/2) {if (n0  <= n1 + r/2) {return true;}}
   else {return false;}
 }
 
 // calculate if n0 in (+- range/2) of n1
 bool in_range_check_false(double n0, double n1, double r) {
+  // Serial.println("in_range_check_false: (n0 " + String(n0) + " >= n1 (" + String(n1) " - r/2 " + String(r/2) + ")) && (n0 " + String(n0) + " <= n1 (" + String(n1) " + r/2 " + String(r/2) + "))");
   if (n0  >=  n1 - r/2) {if (n0  <= n1 + r/2) {return false;}}
   else {return true;}
 }
@@ -5120,33 +5105,37 @@ bool in_ranges_check_false(double x0, double x1, double y0, double y1, double r)
 }
 
 bool check_over_true(double n0, double n1) {
-  // Serial.println("comparing: n0 " + String(n0) + " > n1 " + String(n1));
+  // Serial.println("check_over_true: n0 " + String(n0) + " > n1 " + String(n1));
   if (n0 > n1) {return true;}
   else {return false;}
 }
 
 bool check_over_false(double n0, double n1) {
+  // Serial.println("check_over_false: n0 " + String(n0) + " > n1 " + String(n1));
   if (n0 > n1) {return false;}
   else {return true;}
 }
 
 bool check_under_true(double n0, double n1) {
-  // Serial.println("comparing: n0 " + String(n0) + " < n1 " + String(n1));
+  // Serial.println("check_under_true: n0 " + String(n0) + " < n1 " + String(n1));
   if (n0 < n1) {return true;}
   else {return false;}
 }
 
 bool check_under_false(double n0, double n1) {
+  // Serial.println("check_under_false: n0 " + String(n0) + " < n1 " + String(n1));
   if (n0 < n1) {return false;}
   else {return true;}
 }
 
 bool check_equal_true(double n0, double n1) {
+  // Serial.println("check_equal_true: n0 " + String(n0) + " == n1 " + String(n1));
   if (n0 == n1) {return true;}
   else {return false;}
 }
 
 bool check_equal_false(double n0, double n1) {
+  // Serial.println("check_equal_false: n0 " + String(n0) + " == n1 " + String(n1));
   if (n0 != n1) {return true;}
   else {return false;}
 }
@@ -5164,20 +5153,24 @@ bool check_ge_and_le_false(double n0, double n1, double n2) {
 }
 
 bool check_strncmp_true(char * c0, char * c1, int n) {
+  // Serial.println("check_strncmp_true: c0 " + String(c0) + " == c1 " + String(c1) + " (n=" + String(n) + ")");
   if (strncmp(c0, c1, n) == 0) {return true;}
   else {return false;}
 }
 
 bool check_strncmp_false(char * c0, char * c1, int n) {
+  // Serial.println("check_strncmp_false: c0 " + String(c0) + " == c1 " + String(c1) + " (n=" + String(n) + ")");
   if (strncmp(c0, c1, n) == 0) {return false;}
   else {return true;}
 }
 
 bool check_bool_true(bool _bool) {
+  // Serial.println("check_bool_true: String(_bool));
   if (_bool == true) {return true;} else {return false;}
 }
 
 bool check_bool_false(bool _bool) {
+  // Serial.println("check_bool_false: String(_bool));
   if (_bool == false) {return true;} else {return false;}
 }
 
@@ -5194,6 +5187,8 @@ bool SecondsTimer(unsigned long n0, unsigned long n1, int Ri) {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                   MATRIX FUNCTIONS: ADVANCED
 
+// build astronomical, ephemeris and other advanced caculations here
+
 struct SiderealPlantetsStruct {
   long sun_ra;
   long sun_dec;
@@ -5201,7 +5196,6 @@ struct SiderealPlantetsStruct {
   long sun_alt;
   long sun_r;
   long sun_s;
-
   long moon_ra;
   long moon_dec;
   long moon_az;
@@ -5209,7 +5203,6 @@ struct SiderealPlantetsStruct {
   long moon_r;
   long moon_s;
   long moon_p;
-
   long mercury_ra;
   long mercury_dec;
   long mercury_az;
@@ -5222,7 +5215,6 @@ struct SiderealPlantetsStruct {
   long mercury_distance;
   long mercury_ecliptic_lat;
   long mercury_ecliptic_long;
-
   long venus_ra;
   long venus_dec;
   long venus_az;
@@ -5235,7 +5227,6 @@ struct SiderealPlantetsStruct {
   long venus_distance;
   long venus_ecliptic_lat;
   long venus_ecliptic_long;
-
   long mars_ra;
   long mars_dec;
   long mars_az;
@@ -5248,7 +5239,6 @@ struct SiderealPlantetsStruct {
   long mars_distance;
   long mars_ecliptic_lat;
   long mars_ecliptic_long;
-
   long jupiter_ra;
   long jupiter_dec;
   long jupiter_az;
@@ -5261,7 +5251,6 @@ struct SiderealPlantetsStruct {
   long jupiter_distance;
   long jupiter_ecliptic_lat;
   long jupiter_ecliptic_long;
-
   long saturn_ra;
   long saturn_dec;
   long saturn_az;
@@ -5274,7 +5263,6 @@ struct SiderealPlantetsStruct {
   long saturn_distance;
   long saturn_ecliptic_lat;
   long saturn_ecliptic_long;
-
   long uranus_ra;
   long uranus_dec;
   long uranus_az;
@@ -5287,7 +5275,6 @@ struct SiderealPlantetsStruct {
   long uranus_distance;
   long uranus_ecliptic_lat;
   long uranus_ecliptic_long;
-
   long neptune_ra;
   long neptune_dec;
   long neptune_az;
@@ -5302,8 +5289,6 @@ struct SiderealPlantetsStruct {
   long neptune_ecliptic_long;
 };
 SiderealPlantetsStruct planetData;
-
-// build astronomical, ephemeris and other caculations here
 
 void trackSun(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
   myAstro.setLatLong(latitude, longitude);
