@@ -5038,7 +5038,7 @@ bool in_ranges_check_false(double x0, double x1, double y0, double y1, double r)
 }
 
 bool check_over_true(double n0, double n1) {
-  // Serial.println("comparing: n0 " + String(n0) + " > n1 " + String(n1));
+  Serial.println("comparing: n0 " + String(n0) + " > n1 " + String(n1));
   if (n0 > n1) {return true;}
   else {return false;}
 }
@@ -5049,7 +5049,7 @@ bool check_over_false(double n0, double n1) {
 }
 
 bool check_under_true(double n0, double n1) {
-  // Serial.println("comparing: n0 " + String(n0) + " < n1 " + String(n1));
+  Serial.println("comparing: n0 " + String(n0) + " < n1 " + String(n1));
   if (n0 < n1) {return true;}
   else {return false;}
 }
@@ -5484,7 +5484,7 @@ void matrixSwitch() {
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                             SIDEREAL PLANETS
 
-        // sunrise time less than current time
+        // sunrise time less than current time: true after sunrise until midnight
         else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunriseTime(satData.location_latitude_gngga,
                                                                                                                                         satData.location_longitude_gngga,
                                                                                                                                         satData.timezone,
@@ -5495,7 +5495,7 @@ void matrixSwitch() {
                                                                                                                                         atoi(satData.minute),
                                                                                                                                         atoi(satData.second)
                                                                                                                                         ), atof(satData.hours_minutes));}
-        // sunset time less than current time                                                                   
+        // sunset time less than current time: true after sunset until midnight                                                                  
         else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getSunsetTime(satData.location_latitude_gngga,
                                                                                                                                         satData.location_longitude_gngga,
                                                                                                                                         satData.timezone,
@@ -5506,7 +5506,7 @@ void matrixSwitch() {
                                                                                                                                         atoi(satData.minute),
                                                                                                                                         atoi(satData.second)
                                                                                                                                         ), atof(satData.hours_minutes));}
-        // moonrise time less than current time
+        // moonrise time less than current time: true after moonrise until midnight
         else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getMoonriseTime(satData.location_latitude_gngga,
                                                                                                                                         satData.location_longitude_gngga,
                                                                                                                                         satData.timezone,
@@ -5517,7 +5517,7 @@ void matrixSwitch() {
                                                                                                                                         atoi(satData.minute),
                                                                                                                                         atoi(satData.second)
                                                                                                                                         ), atof(satData.hours_minutes));}
-        // moonset time less than current time
+        // moonset time less than current time: true after moonset until midnight
         else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(getMoonsetTime(satData.location_latitude_gngga,
                                                                                                                                         satData.location_longitude_gngga,
                                                                                                                                         satData.timezone,
