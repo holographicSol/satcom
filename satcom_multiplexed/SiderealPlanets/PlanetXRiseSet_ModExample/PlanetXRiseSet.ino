@@ -6509,15 +6509,11 @@ void Display(void *pvParameters) {
   while (1) {
      delay(1);
      SSD_Display_2_Menu();
-    if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 5)) {
-      serial1Data.badrcv_i=0;
-      if (systemData.display_on==true) {SSD_Display_SATCOM();} else {SSD_Display_SATCOM_Disabled();}
-      if (systemData.display_on==true) {SSD_Display_GNGGA();}  else {SSD_Display_GNGGA_Disabled();}
-      if (systemData.display_on==true) {SSD_Display_GNRMC();}  else {SSD_Display_GNRMC_Disabled();}
-      if (systemData.display_on==true) {SSD_Display_GPATT();}  else {SSD_Display_GPATT_Disabled();}
-      if (systemData.display_on==true) {SSD_Display_MATRIX();} else {SSD_Display_MATRIX_Disabled();}
-    }
-    else {serial1Data.badrcv_i++;}
+    if (systemData.display_on==true) {SSD_Display_SATCOM();} else {SSD_Display_SATCOM_Disabled();}
+    if (systemData.display_on==true) {SSD_Display_GNGGA();}  else {SSD_Display_GNGGA_Disabled();}
+    if (systemData.display_on==true) {SSD_Display_GNRMC();}  else {SSD_Display_GNRMC_Disabled();}
+    if (systemData.display_on==true) {SSD_Display_GPATT();}  else {SSD_Display_GPATT_Disabled();}
+    if (systemData.display_on==true) {SSD_Display_MATRIX();} else {SSD_Display_MATRIX_Disabled();}
     DisplayAutoDim();
     DisplayAutoOff();
   }
