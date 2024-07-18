@@ -42,6 +42,10 @@
 
                Requires using modified SiderealPlanets library (hopefully thats okay as the modifications allow calculating rise/set
                of potentially any celestial body as described in this paper: https://stjarnhimlen.se/comp/riset.html)
+
+               Core pinning scheme:
+               Core 1: default core -> calculations.
+               Core 0: display and other.
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
