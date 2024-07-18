@@ -42,6 +42,11 @@
 
                Requires using modified SiderealPlanets library (hopefully thats okay as the modifications allow calculating rise/set
                of potentially any celestial body as described in this paper: https://stjarnhimlen.se/comp/riset.html)
+
+               Core pinning scheme:
+               Core 1: default core -> calculations.
+               Core 0: display and other.
+               (SecondTimer will need reworking due to the performance update)
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -81,6 +86,13 @@ SiderealPlanets myAstro;
 #define ISR_NPAD_UP_KEY     13
 #define ISR_NPAD_DOWN_KEY   14
 #define ISR_NPAD_SELECT_KEY 15
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                        TASKS
+
+TaskHandle_t taskTrackPlanets; // create task handle
+TaskHandle_t taskDisplays; // create task handle
+TaskHandle_t taskDataHandling; // create task handle
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                       SDCARD
@@ -324,6 +336,8 @@ struct TimeStruct {
   unsigned long seconds;
   unsigned long mainLoopTimeTaken;
   unsigned long mainLoopTimeStart;
+  unsigned long mainLoopTimeTakenMax;
+  unsigned long mainLoopTimeTakenMin;
 };
 TimeStruct timeData;
 
@@ -3937,6 +3951,9 @@ void SSD_Display_MATRIX() {
                                                                                String(relayData.relays_bool[0][14])+"  "+String(relayData.relays_bool[0][15])+"  "+
                                                                                String(relayData.relays_bool[0][16])+"  "+String(relayData.relays_bool[0][17])+"  "+
                                                                                String(relayData.relays_bool[0][18])+"  "+String(relayData.relays_bool[0][19]));
+  // uncomment to benchmark main loop time in milliseconds
+  // display_3.setColor(WHITE); display_3.drawString(display_3.getWidth()/2,38,"CL: " + String(timeData.mainLoopTimeTaken));
+  // display_3.setColor(WHITE); display_3.drawString(display_3.getWidth()/2,48,"Min: " + String(timeData.mainLoopTimeTakenMin) + "  Max: " + String(timeData.mainLoopTimeTakenMax));
   display_3.display();
 }
 
@@ -4968,6 +4985,8 @@ void setup() {
 
   delay(1000);
 
+  Serial.println("Running on Core: " + String(xPortGetCoreID()));
+
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                SETUP: WIRE
 
@@ -5015,6 +5034,39 @@ void setup() {
   sdcard_mkdirs();
   sdcard_load_matrix(sdcardData.matrix_filepath);
   sdcard_load_system_configuration(sdcardData.sysconf, 0);
+
+  // --------------------------------------------------------------------------------------------------------------------------
+  //                                                                                                               SETUP: TASKS
+
+  xTaskCreatePinnedToCore(
+    trackPlanets,       // Function name of the task
+    "TrackPlanets",     // Name of the task (e.g. for debugging)
+    4096,               // Stack size (bytes)
+    NULL,               // Parameter to pass
+    1,                  // Task priority
+    &taskTrackPlanets,   // Assign task handle
+    1
+  );
+    
+  xTaskCreatePinnedToCore(
+    Display,            // Function name of the task
+    "Display",          // Name of the task (e.g. for debugging)
+    4096,               // Stack size (bytes)
+    NULL,               // Parameter to pass
+    1,                  // Task priority
+    &taskDisplays,      // Assign task handle
+    0
+  );
+
+  xTaskCreatePinnedToCore(
+    DataHandling,       // Function name of the task
+    "DataHandling",     // Name of the task (e.g. for debugging)
+    4096,               // Stack size (bytes)
+    NULL,               // Parameter to pass
+    1,                  // Task priority
+    &taskDataHandling,  // Assign task handle
+    1
+  );
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                 SETUP: ISR
@@ -6340,44 +6392,12 @@ void readRXD_0() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                    MAIN LOOP
+//                                                                                                 TASK: PLANETARY CALCULATIONS
 
-void loop() {
-  // store current time to measure this loop time
-  timeData.mainLoopTimeStart = millis();
-  // keep track of time in seconds
-  time_counter();
-
-  // check serial input
-  readRXD_0();
-
-  // check button input
-  if (menuData.isr_i!=0) {InterfaceWake();}
-  if ((menuData.isr_i == ISR_RIGHT_KEY) && (debounceData.previous_state == 0)) {debounceData.previous_state = 1; delay(debounceData.debounce_delay_0); menuRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_LEFT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_UP_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_DOWN_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_SELECT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_NPAD_RIGHT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_NPAD_LEFT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_NPAD_UP_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_NPAD_DOWN_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-  if ((menuData.isr_i == ISR_NPAD_SELECT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
-
-  // check wtgps300p input
-  readRXD_1();
-
-  /*
-  for performance/efficiency only do the following if data is received OR if there may be an issue receiving, this way the matrix
-  switch can remain operational for data that is not received while also performing better overall. (tunable)
-  */  
-  if ((serial1Data.rcv == true) || (serial1Data.badrcv_i >= 5)) {
-    serial1Data.badrcv_i=0;
-
-    // uncomment to update menu ui every loop. may be recommended to only update menu ui when required.
-    SSD_Display_2_Menu();
-
-    // sidereal planets
+void trackPlanets(void *pvParameters) {
+  // sidereal planets
+  while(1){
+    delay(1000);
     if (systemData.sidereal_track_sun == true) {trackSun(satData.location_latitude_gngga,
                                                           satData.location_longitude_gngga,
                                                           satData.timezone,
@@ -6459,24 +6479,68 @@ void loop() {
                                                           atoi(satData.hour),
                                                           atoi(satData.minute),
                                                           atoi(satData.second));}
-    // displays
-    if (systemData.satcom_enabled == true) {extrapulatedSatData(); if (systemData.display_on==true) {SSD_Display_SATCOM();}} else {SSD_Display_SATCOM_Disabled();}
-    if (systemData.gngga_enabled == true) {if (systemData.display_on==true) {SSD_Display_GNGGA();}} else {SSD_Display_GNGGA_Disabled();}
-    if (systemData.gnrmc_enabled == true) {if (systemData.display_on==true) {SSD_Display_GNRMC();}} else {SSD_Display_GNRMC_Disabled();}
-    if (systemData.gpatt_enabled == true) {if (systemData.display_on==true) {SSD_Display_GPATT();}} else {SSD_Display_GPATT_Disabled();}
-    if (systemData.matrix_enabled == true) {matrixSwitch(); if (systemData.display_on==true) {SSD_Display_MATRIX();}} else {SSD_Display_MATRIX_Disabled();}
   }
-  else {serial1Data.badrcv_i++;}
+}
 
-  // keep track of overall enabled/disabled relays
-  countRelaysEnabled();
-  // keep track of overall active/inactive relays
-  countRelaysActive();
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                           TASK: CALCULATIONS
 
-  delay(5);
+void DataHandling(void *pvParameters) {
+  while (1) {
+     delay(1);
+     // get data: check serial input
+    readRXD_0();
+     // get data: check wtgps300p input
+    readRXD_1();
+    // calculate data
+    if (systemData.satcom_enabled == true) {extrapulatedSatData();}
+    if (systemData.matrix_enabled == true) {matrixSwitch();}
+    // keep track of overall enabled/disabled relays
+    countRelaysEnabled();
+    // keep track of overall active/inactive relays
+    countRelaysActive();
+  }
+}
 
-  DisplayAutoDim();
-  DisplayAutoOff();
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                TASK: DISPLAY
+
+void Display(void *pvParameters) {
+  while (1) {
+     delay(1);
+     SSD_Display_2_Menu();
+    if (systemData.display_on==true) {SSD_Display_SATCOM();} else {SSD_Display_SATCOM_Disabled();}
+    if (systemData.display_on==true) {SSD_Display_GNGGA();}  else {SSD_Display_GNGGA_Disabled();}
+    if (systemData.display_on==true) {SSD_Display_GNRMC();}  else {SSD_Display_GNRMC_Disabled();}
+    if (systemData.display_on==true) {SSD_Display_GPATT();}  else {SSD_Display_GPATT_Disabled();}
+    if (systemData.display_on==true) {SSD_Display_MATRIX();} else {SSD_Display_MATRIX_Disabled();}
+    DisplayAutoDim();
+    DisplayAutoOff();
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+//                                                                                                                    MAIN LOOP
+
+void loop() {
+
+  // store current time to measure this loop time
+  timeData.mainLoopTimeStart = millis();
+  // keep track of time in seconds
+  time_counter();
+
+  // check button input
+  if (menuData.isr_i!=0) {InterfaceWake();}
+  if ((menuData.isr_i == ISR_RIGHT_KEY) && (debounceData.previous_state == 0)) {debounceData.previous_state = 1; delay(debounceData.debounce_delay_0); menuRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_LEFT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_UP_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_DOWN_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_SELECT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); menuSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_RIGHT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadRight(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_LEFT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadLeft(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_UP_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadUp(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_DOWN_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
+  if ((menuData.isr_i == ISR_NPAD_SELECT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
 
   debounceData.debounce_t0_right = millis();
   debounceData.debounce_t0_left = millis();
@@ -6486,6 +6550,8 @@ void loop() {
 
   // store time taken to complete
   timeData.mainLoopTimeTaken = millis() - timeData.mainLoopTimeStart;
+  if (timeData.mainLoopTimeTaken > timeData.mainLoopTimeTakenMax) {timeData.mainLoopTimeTakenMax = timeData.mainLoopTimeTaken;}
+  if (timeData.mainLoopTimeTaken < timeData.mainLoopTimeTakenMin) {timeData.mainLoopTimeTakenMin = timeData.mainLoopTimeTaken;}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
