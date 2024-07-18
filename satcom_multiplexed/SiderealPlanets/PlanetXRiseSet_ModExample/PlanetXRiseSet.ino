@@ -123,7 +123,7 @@ void setup() {
 
   //--------------------------------------------------------------------------------------------------------------------
   // jupiter: RA and DEC
-  Serial.println("Computing Mars Parameters");
+  Serial.println("Computing Jupiter Parameters");
   myAstro.doJupiter();
   Serial.print("Geo Ecliptic Long: "); myAstro.printDegMinSecs(myAstro.getEclipticLongitude()); Serial.println("");
   Serial.print("RA: "); myAstro.printDegMinSecs(myAstro.getRAdec()); Serial.println("");
