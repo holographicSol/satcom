@@ -6537,8 +6537,6 @@ void loop() {
   if ((menuData.isr_i == ISR_NPAD_DOWN_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadDown(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
   if ((menuData.isr_i == ISR_NPAD_SELECT_KEY) && (debounceData.previous_state == 0)) {delay(debounceData.debounce_delay_0); numpadSelect(); menuData.isr_i=0; delay(debounceData.debounce_delay_1);}
 
-  // delay(5);
-
   debounceData.debounce_t0_right = millis();
   debounceData.debounce_t0_left = millis();
   debounceData.debounce_t0_up = millis();
