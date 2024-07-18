@@ -90,13 +90,13 @@ SiderealPlanets myAstro;
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                        TASKS
 
-TaskHandle_t taskTrackPlanets; // create task handle
-TaskHandle_t taskDisplays; // create task handle
-TaskHandle_t taskRXD_0; // create task handle
-TaskHandle_t taskRXD_1; // create task handle
-TaskHandle_t taskCountElements; // create task handle
-TaskHandle_t taskMatrixSwitchTask; // create task handle
-TaskHandle_t taskgetSATCOMData; // create task handle
+TaskHandle_t taskTrackPlanets;
+TaskHandle_t taskDisplays;
+TaskHandle_t taskRXD_0;
+TaskHandle_t taskRXD_1;
+TaskHandle_t taskCountElements;
+TaskHandle_t taskMatrixSwitchTask;
+TaskHandle_t taskgetSATCOMData;
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -143,12 +143,12 @@ FsFile file;
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                      DISPLAY
 
-SSD1306Wire   display_6(0x3c, SDA, SCL);
-SSD1306Wire   display_7(0x3c, SDA, SCL);
-SSD1306Wire   display_5(0x3c, SDA, SCL);
-SSD1306Wire   display_4(0x3c, SDA, SCL);
-SSD1306Wire   display_3(0x3c, SDA, SCL);
-SSD1306Wire   display_2(0x3c, SDA, SCL);
+SSD1306Wire display_6(0x3c, SDA, SCL);
+SSD1306Wire display_7(0x3c, SDA, SCL);
+SSD1306Wire display_5(0x3c, SDA, SCL);
+SSD1306Wire display_4(0x3c, SDA, SCL);
+SSD1306Wire display_3(0x3c, SDA, SCL);
+SSD1306Wire display_2(0x3c, SDA, SCL);
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                 DATA: SYSTEM
@@ -161,8 +161,8 @@ struct systemStruct {
   bool speed_enabled = true;
   bool error_enabled = true;
   bool debug_enabled = true;
-  bool matrix_enabled = false;     // default: disabled
-  bool autoresume_enabled = false; // default: disabled
+  bool matrix_enabled = false;
+  bool autoresume_enabled = false;
   bool output_satcom_enabled = false;
   bool output_gngga_enabled = false;
   bool output_gnrmc_enabled = false;
@@ -170,21 +170,6 @@ struct systemStruct {
   bool output_speed_enabled = false;
   bool output_error_enabled = false;
   bool output_debug_enabled = false;
-  bool display_low_light = false;
-  bool display_flip_vertically = true;
-  // auto dim display
-  bool display_auto_dim = true; // defalut: enabled (burn-in protection)
-  int           display_auto_dim_p0 = 3000;
-  unsigned long display_auto_dim_t0;
-  unsigned long display_auto_dim_t1;
-  bool          display_dim = false;
-  // auto off display
-  bool display_auto_off = true; // defalut: enabled (burn-in protection)
-  int           display_auto_off_p0 = 20000;
-  unsigned long display_auto_off_t0;
-  unsigned long display_auto_off_t1;
-  bool          display_on = true;
-  char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
   bool sidereal_track_sun = true;
   bool sidereal_track_moon = true;
   bool sidereal_track_mercury = true;
@@ -194,6 +179,19 @@ struct systemStruct {
   bool sidereal_track_saturn = true;
   bool sidereal_track_uranus = true;
   bool sidereal_track_neptune = true;
+  bool display_low_light = false;
+  bool display_flip_vertically = true;
+  bool display_auto_dim = true; // (burn-in protection)
+  int           display_auto_dim_p0 = 3000;
+  unsigned long display_auto_dim_t0;
+  unsigned long display_auto_dim_t1;
+  bool          display_dim = false;
+  bool display_auto_off = true; // (burn-in protection)
+  int           display_auto_off_p0 = 20000;
+  unsigned long display_auto_off_t0;
+  unsigned long display_auto_off_t1;
+  bool          display_on = true;
+  char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
 };
 systemStruct systemData;
 
@@ -202,7 +200,6 @@ systemStruct systemData;
 
 struct DebounceStruct {
   // debounce_delay_0: before button function runs. debounce_delay_1: after button function runs. debounce_period: time to wait before allowing more input.
-  // my unverified theory is that this debounce setup can be entirely tuned here and could be using much lower times if using better switches.
   int debounce_delay_0 = 50;
   int debounce_delay_1 = 50;
   int debounce_period = 200;
@@ -507,8 +504,8 @@ bool is_all_digits_plus_char(char * data, char * find_char) {
 bool is_positive_negative_num(char * data) {
   if (sysDebugData.validation == true) {Serial.println("[connected] is_positive_negative_num: " + String(data));}
   // designed to check all chars are digits except one period and the signed bit. allows positive/negative floats, doubles and ints
-  // allow 1 period anywhere.
-  // allow 1 - sign at index zero.
+  // allow one period anywhere.
+  // allow one minus (-) sign at index zero.
   validData.valid_b = true;
   validData.find_char = strchr(data, '.');
   validData.index = (int)(validData.find_char - data);
@@ -1302,21 +1299,21 @@ struct RelayStruct {
     {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      }
+    }
   };
 
   int relays_enable[1][20] = {
     {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      }
+    }
   };
 
   unsigned long relays_timing[1][20] = {
     {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      }
+    }
   };
   
   char relays[20][10][100] = {
@@ -1362,21 +1359,15 @@ struct RelayStruct {
      },
     };
 
-
   /*
-  Calibratable matrix. empty by default.
-  consider overhead for fallback logic (no/bad satellite data --> untrained INS --> other sensor floor).
-
   Matrix containing sets of values per relay.
   X: use with/without  Y,Z.
   Y: necessary if comparing to X.
   Z: necessary if checking X,Y in range of Z.  
-                
-                0
+
           0     1     2     
           X     Y     Z    
   {  {   0.0,  0.0,  0.0   } }
-
   */
   double relays_data[20][10][3] = {
     {
@@ -1721,16 +1712,12 @@ struct RelayStruct {
     "MoonPhase",
   };
 
-  // todo: CamelCase and when necessary shorten function names below ready to be displayed
-
   // default and specifiable value to indicate a relay should not be activated/deactivated if all functions in relays expression are $NONE
   char default_relay_function[56]          = "$NONE";
   char default_enable_relay_function[56]   = "$ENABLED";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                  SATCOM DATA
-
-  char SecondsTimer[56] = "SecondsTimer";
 
   char DegreesLatGNGGAOver[56]             = "DegreesLatGNGGAOver";
   char DegreesLatGNGGAUnder[56]            = "DegreesLatGNGGAUnder";
@@ -1979,15 +1966,18 @@ struct RelayStruct {
   char GyroZDataRange[56]         = "GyroZDataRange";
 
   // ----------------------------------------------------------------------------------------------------------------------------
+  //                                                                                                                            
+
+  char SecondsTimer[56] = "SecondsTimer";
+
+  // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                             SIDEREAL PLANETS
 
-  // sun
   char DayTimeGNGGA[56]   = "DayTimeGNGGA";
   char NightTimeGNGGA[56] = "NightTimeGNGGA";
   char SunriseGNGGA[56]   = "SunriseGNGGA";
   char SunsetGNGGA[56]    = "SunsetGNGGA";
 
-  // moon
   char MoonTrue[56]       = "MoonTrue";
   char MoonFalse[56]      = "MoonFalse";
   char MoonriseGNGGA[56]  = "MoonriseGNGGA";
@@ -2341,21 +2331,6 @@ void GPATT() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                  DATA: SPEED
 
-/*
-
-status        ubi_state_kind
-0             normal driving status
-1             normal acceleration state
-2             rapid acceleration state
-3             normal decceleration state
-4             rapid decceleration state
-5             emergency road status
-6             normal turning state
-7             sharp turn state
-8             abnormal posture
-
-*/
-
 struct SPEEDStruct {
   char sentence[1024];
   char tag[56];                                                                                                                          // <0> log header
@@ -2433,7 +2408,6 @@ void SPEED() {
     Serial.println("[speedData.check_data] "                 + String(speedData.check_data));
   }
 }
-
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                  DATA: ERROR
@@ -2644,9 +2618,8 @@ void DEBUG() {
   }
 }
 
-
 // ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                 DATA: DATCOM
+//                                                                                                                 DATA: SATCOM
 
 struct SatDatatruct {
   char checksum_str[56];
