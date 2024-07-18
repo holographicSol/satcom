@@ -28,7 +28,7 @@
                                DatetimeStamp                  Converted Latitude                                 
 
 
-                        Ultimately this system is being built as a unit to turn on/off multiplexed relays (40+)
+                        Ultimately this system is being built as a unit to turn on/off multiplexed relays,
                      where potentially anything can be plugged in such as simple modules or pre-programmed MCU's, 
                making a foundation for other creative projects that may make use of such satellite and or inertial data.
                The idea is that each relay is controlled by a compound of logic (limited by memory), and the logic itself
