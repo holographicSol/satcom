@@ -6488,14 +6488,13 @@ void trackPlanets(void *pvParameters) {
 void DataHandling(void *pvParameters) {
   while (1) {
      delay(1);
-     // check serial input
+     // get data: check serial input
     readRXD_0();
-     // check wtgps300p input
+     // get data: check wtgps300p input
     readRXD_1();
-
+    // calculate data
     if (systemData.satcom_enabled == true) {extrapulatedSatData();}
     if (systemData.matrix_enabled == true) {matrixSwitch();}
-
     // keep track of overall enabled/disabled relays
     countRelaysEnabled();
     // keep track of overall active/inactive relays
