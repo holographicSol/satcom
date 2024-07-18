@@ -46,6 +46,7 @@
                Core pinning scheme:
                Core 1: default core -> calculations.
                Core 0: display and other.
+               (SecondTimer will need reworking due to the performance update)
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
