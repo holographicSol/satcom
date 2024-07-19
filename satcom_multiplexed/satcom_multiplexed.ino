@@ -60,11 +60,13 @@
 #include <Timezone.h>      // Timezone                                   https://github.com/JChristensen/Timezone
 #include <SdFat.h>
 #include <SiderealPlanets.h> //                                          https://github.com/DavidArmstrong/SiderealPlanets
+#include <SiderealObjects.h>
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                             SIDEREAL PLANETS
 
-SiderealPlanets myAstro;
+SiderealPlanets myAstro;    // for calculating azimuth and altitude
+SiderealObjects myAstroObj; // for getting right ascension and declination of objects from star table
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                                      DEFINES
@@ -1983,6 +1985,22 @@ struct RelayStruct {
   char MoonriseGNGGA[56]  = "MoonriseGNGGA";
   char MoonsetGNGGA[56]   = "MoonsetGNGGA";
   char MoonPhase[56]      = "MoonPhase";
+
+  /*
+  char MercuryRA[56]        = "MercuryRA";
+  char MercuryDEC[56]       = "MercuryDEC";
+  char MercuryAZ[56]        = "MercuryAZ";
+  char MercuryALT[56]       = "MercuryALT";
+  char MercuryHelioELat[56] = "MercuryHelioELat";
+  char MercuryHelioELon[56] = "MercuryHelioELon";
+  char MercuryRV[56]        = "MercuryRV";
+  char MercuryDistance[56]  = "MercuryDistance";
+  char MercuryELat[56]      = "MercuryELat";
+  char MercuryELon[56]      = "MercuryELon";
+  char MercuryRise[56]      = "MercuryRise";
+  char MercurySet[56]       = "MercurySet";
+  */
+
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                VALIDITY DATA
@@ -5287,8 +5305,47 @@ struct SiderealPlantetsStruct {
   long neptune_distance;
   long neptune_ecliptic_lat;
   long neptune_ecliptic_long;
+  long x_az;
+  long x_alt;
+  long x_r;
+  long x_s;
+
+  char object_table[7][56] =
+  {
+    "Star Table",          // 0
+    "NGC Table",           // 1
+    "IC Table",            // 2
+    "Messier Table",       // 3
+    "Caldwell Table",      // 4
+    "Herschel 400 Table",  // 5
+    "Other Objects Table", // 6
+  };
+
 };
 SiderealPlantetsStruct planetData;
+
+void trackObject(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second,
+                 int object_table_i, int object_i) {
+  myAstro.setLatLong(latitude, longitude);
+  myAstro.setTimeZone(tz);
+  myAstro.rejectDST();
+  myAstro.setGMTdate(year, month, day);
+  myAstro.setLocalTime(hour, minute, second);
+  myAstro.setGMTtime(hour, minute, second);
+  if (object_table_i == 0) {myAstroObj.selectStarTable(object_i);}
+  if (object_table_i == 1) {myAstroObj.selectNGCTable(object_i);}
+  if (object_table_i == 2) {myAstroObj.selectICTable(object_i);}
+  if (object_table_i == 3) {myAstroObj.selectMessierTable(object_i);}
+  if (object_table_i == 4) {myAstroObj.selectCaldwellTable(object_i);}
+  if (object_table_i == 5) {myAstroObj.selectHershel400Table(object_i);}
+  if (object_table_i == 6) {myAstroObj.selectOtherObjectsTable(object_i);}
+  myAstro.setRAdec(myAstroObj.getRAdec(), myAstroObj.getDeclinationDec());
+  myAstro.doRAdec2AltAz();
+  planetData.x_az = myAstro.getAzimuth();
+  planetData.x_alt = myAstro.getAltitude();
+  planetData.x_r = myAstro.getRiseTime();
+  planetData.x_s = myAstro.getSetTime();
+}
 
 void trackSun(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
   myAstro.setLatLong(latitude, longitude);
