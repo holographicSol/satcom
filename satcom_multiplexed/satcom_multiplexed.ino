@@ -5305,11 +5305,14 @@ struct SiderealPlantetsStruct {
   long neptune_distance;
   long neptune_ecliptic_lat;
   long neptune_ecliptic_long;
+};
+SiderealPlantetsStruct siderealPlanetData;
+
+struct SiderealObjectStruct {
   long x_az;
   long x_alt;
   long x_r;
   long x_s;
-
   char object_table[7][56] =
   {
     "Star Table",          // 0
@@ -5320,9 +5323,8 @@ struct SiderealPlantetsStruct {
     "Herschel 400 Table",  // 5
     "Other Objects Table", // 6
   };
-
 };
-SiderealPlantetsStruct planetData;
+SiderealObjectStruct siderealObjectData;
 
 void trackObject(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second,
                  int object_table_i, int object_i) {
@@ -5341,10 +5343,10 @@ void trackObject(double latitude, double longitude, signed int tz, int year, int
   if (object_table_i == 6) {myAstroObj.selectOtherObjectsTable(object_i);}
   myAstro.setRAdec(myAstroObj.getRAdec(), myAstroObj.getDeclinationDec());
   myAstro.doRAdec2AltAz();
-  planetData.x_az = myAstro.getAzimuth();
-  planetData.x_alt = myAstro.getAltitude();
-  planetData.x_r = myAstro.getRiseTime();
-  planetData.x_s = myAstro.getSetTime();
+  siderealObjectData.x_az = myAstro.getAzimuth();
+  siderealObjectData.x_alt = myAstro.getAltitude();
+  siderealObjectData.x_r = myAstro.getRiseTime();
+  siderealObjectData.x_s = myAstro.getSetTime();
 }
 
 void trackSun(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5355,14 +5357,14 @@ void trackSun(double latitude, double longitude, signed int tz, int year, int mo
   myAstro.setLocalTime(hour, minute, second);
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doSun();
-  planetData.sun_ra  = myAstro.getRAdec();
-  planetData.sun_dec = myAstro.getDeclinationDec();
+  siderealPlanetData.sun_ra  = myAstro.getRAdec();
+  siderealPlanetData.sun_dec = myAstro.getDeclinationDec();
   myAstro.doRAdec2AltAz();
-  planetData.sun_az  = myAstro.getAzimuth();
-  planetData.sun_alt = myAstro.getAltitude();
+  siderealPlanetData.sun_az  = myAstro.getAzimuth();
+  siderealPlanetData.sun_alt = myAstro.getAltitude();
   myAstro.doSunRiseSetTimes();
-  planetData.sun_r  = myAstro.getSunriseTime();
-  planetData.sun_s  = myAstro.getSunsetTime();
+  siderealPlanetData.sun_r  = myAstro.getSunriseTime();
+  siderealPlanetData.sun_s  = myAstro.getSunsetTime();
 }
 
 void trackMoon(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5373,15 +5375,15 @@ void trackMoon(double latitude, double longitude, signed int tz, int year, int m
   myAstro.setLocalTime(hour, minute, second);
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doSun();
-  planetData.moon_ra  = myAstro.getRAdec();
-  planetData.moon_dec = myAstro.getDeclinationDec();
+  siderealPlanetData.moon_ra  = myAstro.getRAdec();
+  siderealPlanetData.moon_dec = myAstro.getDeclinationDec();
   myAstro.doRAdec2AltAz();
-  planetData.moon_az  = myAstro.getAzimuth();
-  planetData.moon_alt = myAstro.getAltitude();
+  siderealPlanetData.moon_az  = myAstro.getAzimuth();
+  siderealPlanetData.moon_alt = myAstro.getAltitude();
   myAstro.doMoonRiseSetTimes();
-  planetData.moon_r  = myAstro.doMoonRiseSetTimes();
-  planetData.moon_s  = myAstro.getSunsetTime();
-  planetData.moon_p  = myAstro.getMoonPhase();
+  siderealPlanetData.moon_r  = myAstro.doMoonRiseSetTimes();
+  siderealPlanetData.moon_s  = myAstro.getSunsetTime();
+  siderealPlanetData.moon_p  = myAstro.getMoonPhase();
 }
 
 void trackMercury(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5392,20 +5394,20 @@ void trackMercury(double latitude, double longitude, signed int tz, int year, in
   myAstro.setLocalTime(hour, minute, second);
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doMercury();
-  planetData.mercury_ra  = myAstro.getRAdec();
-  planetData.mercury_dec = myAstro.getDeclinationDec();
+  siderealPlanetData.mercury_ra  = myAstro.getRAdec();
+  siderealPlanetData.mercury_dec = myAstro.getDeclinationDec();
   myAstro.doRAdec2AltAz();
-  planetData.mercury_az  = myAstro.getAzimuth();
-  planetData.mercury_alt = myAstro.getAltitude();
-  planetData.mercury_helio_ecliptic_lat = myAstro.getHelioLat();
-  planetData.mercury_helio_ecliptic_long = myAstro.getHelioLong();
-  planetData.mercury_radius_vector = myAstro.getRadiusVec();
-  planetData.mercury_distance = myAstro.getDistance();
-  planetData.mercury_ecliptic_lat = myAstro.getEclipticLatitude();
-  planetData.mercury_ecliptic_long = myAstro.getEclipticLongitude();
+  siderealPlanetData.mercury_az  = myAstro.getAzimuth();
+  siderealPlanetData.mercury_alt = myAstro.getAltitude();
+  siderealPlanetData.mercury_helio_ecliptic_lat = myAstro.getHelioLat();
+  siderealPlanetData.mercury_helio_ecliptic_long = myAstro.getHelioLong();
+  siderealPlanetData.mercury_radius_vector = myAstro.getRadiusVec();
+  siderealPlanetData.mercury_distance = myAstro.getDistance();
+  siderealPlanetData.mercury_ecliptic_lat = myAstro.getEclipticLatitude();
+  siderealPlanetData.mercury_ecliptic_long = myAstro.getEclipticLongitude();
   myAstro.doXRiseSetTimes();
-  planetData.mercury_r = myAstro.getRiseTime();
-  planetData.mercury_s = myAstro.getSetTime();
+  siderealPlanetData.mercury_r = myAstro.getRiseTime();
+  siderealPlanetData.mercury_s = myAstro.getSetTime();
 }
 
 void trackVenus(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5416,20 +5418,20 @@ void trackVenus(double latitude, double longitude, signed int tz, int year, int 
   myAstro.setLocalTime(hour, minute, second);
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doVenus();
-  planetData.venus_ra  = myAstro.getRAdec();
-  planetData.venus_dec = myAstro.getDeclinationDec();
+  siderealPlanetData.venus_ra  = myAstro.getRAdec();
+  siderealPlanetData.venus_dec = myAstro.getDeclinationDec();
   myAstro.doRAdec2AltAz();
-  planetData.venus_az  = myAstro.getAzimuth();
-  planetData.venus_alt = myAstro.getAltitude();
-  planetData.venus_helio_ecliptic_lat = myAstro.getHelioLat();
-  planetData.venus_helio_ecliptic_long = myAstro.getHelioLong();
-  planetData.venus_radius_vector = myAstro.getRadiusVec();
-  planetData.venus_distance = myAstro.getDistance();
-  planetData.venus_ecliptic_lat = myAstro.getEclipticLatitude();
-  planetData.venus_ecliptic_long = myAstro.getEclipticLongitude();
+  siderealPlanetData.venus_az  = myAstro.getAzimuth();
+  siderealPlanetData.venus_alt = myAstro.getAltitude();
+  siderealPlanetData.venus_helio_ecliptic_lat = myAstro.getHelioLat();
+  siderealPlanetData.venus_helio_ecliptic_long = myAstro.getHelioLong();
+  siderealPlanetData.venus_radius_vector = myAstro.getRadiusVec();
+  siderealPlanetData.venus_distance = myAstro.getDistance();
+  siderealPlanetData.venus_ecliptic_lat = myAstro.getEclipticLatitude();
+  siderealPlanetData.venus_ecliptic_long = myAstro.getEclipticLongitude();
   myAstro.doXRiseSetTimes();
-  planetData.venus_r = myAstro.getRiseTime();
-  planetData.venus_s = myAstro.getSetTime();
+  siderealPlanetData.venus_r = myAstro.getRiseTime();
+  siderealPlanetData.venus_s = myAstro.getSetTime();
 }
 
 void trackMars(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5440,20 +5442,20 @@ void trackMars(double latitude, double longitude, signed int tz, int year, int m
   myAstro.setLocalTime(hour, minute, second);
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doMars();
-  planetData.mars_ra  = myAstro.getRAdec();
-  planetData.mars_dec = myAstro.getDeclinationDec();
+  siderealPlanetData.mars_ra  = myAstro.getRAdec();
+  siderealPlanetData.mars_dec = myAstro.getDeclinationDec();
   myAstro.doRAdec2AltAz();
-  planetData.mars_az  = myAstro.getAzimuth();
-  planetData.mars_alt = myAstro.getAltitude();
-  planetData.mars_helio_ecliptic_lat = myAstro.getHelioLat();
-  planetData.mars_helio_ecliptic_long = myAstro.getHelioLong();
-  planetData.mars_radius_vector = myAstro.getRadiusVec();
-  planetData.mars_distance = myAstro.getDistance();
-  planetData.mars_ecliptic_lat = myAstro.getEclipticLatitude();
-  planetData.mars_ecliptic_long = myAstro.getEclipticLongitude();
+  siderealPlanetData.mars_az  = myAstro.getAzimuth();
+  siderealPlanetData.mars_alt = myAstro.getAltitude();
+  siderealPlanetData.mars_helio_ecliptic_lat = myAstro.getHelioLat();
+  siderealPlanetData.mars_helio_ecliptic_long = myAstro.getHelioLong();
+  siderealPlanetData.mars_radius_vector = myAstro.getRadiusVec();
+  siderealPlanetData.mars_distance = myAstro.getDistance();
+  siderealPlanetData.mars_ecliptic_lat = myAstro.getEclipticLatitude();
+  siderealPlanetData.mars_ecliptic_long = myAstro.getEclipticLongitude();
   myAstro.doXRiseSetTimes();
-  planetData.mars_r = myAstro.getRiseTime();
-  planetData.mars_s = myAstro.getSetTime();
+  siderealPlanetData.mars_r = myAstro.getRiseTime();
+  siderealPlanetData.mars_s = myAstro.getSetTime();
 }
 
 void trackJupiter(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5464,20 +5466,20 @@ void trackJupiter(double latitude, double longitude, signed int tz, int year, in
   myAstro.setLocalTime(hour, minute, second);
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doJupiter();
-  planetData.jupiter_ra  = myAstro.getRAdec();
-  planetData.jupiter_dec = myAstro.getDeclinationDec();
+  siderealPlanetData.jupiter_ra  = myAstro.getRAdec();
+  siderealPlanetData.jupiter_dec = myAstro.getDeclinationDec();
   myAstro.doRAdec2AltAz();
-  planetData.jupiter_az  = myAstro.getAzimuth();
-  planetData.jupiter_alt = myAstro.getAltitude();
-  planetData.jupiter_helio_ecliptic_lat = myAstro.getHelioLat();
-  planetData.jupiter_helio_ecliptic_long = myAstro.getHelioLong();
-  planetData.jupiter_radius_vector = myAstro.getRadiusVec();
-  planetData.jupiter_distance = myAstro.getDistance();
-  planetData.jupiter_ecliptic_lat = myAstro.getEclipticLatitude();
-  planetData.jupiter_ecliptic_long = myAstro.getEclipticLongitude();
+  siderealPlanetData.jupiter_az  = myAstro.getAzimuth();
+  siderealPlanetData.jupiter_alt = myAstro.getAltitude();
+  siderealPlanetData.jupiter_helio_ecliptic_lat = myAstro.getHelioLat();
+  siderealPlanetData.jupiter_helio_ecliptic_long = myAstro.getHelioLong();
+  siderealPlanetData.jupiter_radius_vector = myAstro.getRadiusVec();
+  siderealPlanetData.jupiter_distance = myAstro.getDistance();
+  siderealPlanetData.jupiter_ecliptic_lat = myAstro.getEclipticLatitude();
+  siderealPlanetData.jupiter_ecliptic_long = myAstro.getEclipticLongitude();
   myAstro.doXRiseSetTimes();
-  planetData.jupiter_r = myAstro.getRiseTime();
-  planetData.jupiter_s = myAstro.getSetTime();
+  siderealPlanetData.jupiter_r = myAstro.getRiseTime();
+  siderealPlanetData.jupiter_s = myAstro.getSetTime();
 }
 
 void trackSaturn(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5488,20 +5490,20 @@ void trackSaturn(double latitude, double longitude, signed int tz, int year, int
   myAstro.setLocalTime(hour, minute, second);
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doSaturn();
-  planetData.saturn_ra  = myAstro.getRAdec();
-  planetData.saturn_dec = myAstro.getDeclinationDec();
+  siderealPlanetData.saturn_ra  = myAstro.getRAdec();
+  siderealPlanetData.saturn_dec = myAstro.getDeclinationDec();
   myAstro.doRAdec2AltAz();
-  planetData.saturn_az  = myAstro.getAzimuth();
-  planetData.saturn_alt = myAstro.getAltitude();
-  planetData.saturn_helio_ecliptic_lat = myAstro.getHelioLat();
-  planetData.saturn_helio_ecliptic_long = myAstro.getHelioLong();
-  planetData.saturn_radius_vector = myAstro.getRadiusVec();
-  planetData.saturn_distance = myAstro.getDistance();
-  planetData.saturn_ecliptic_lat = myAstro.getEclipticLatitude();
-  planetData.saturn_ecliptic_long = myAstro.getEclipticLongitude();
+  siderealPlanetData.saturn_az  = myAstro.getAzimuth();
+  siderealPlanetData.saturn_alt = myAstro.getAltitude();
+  siderealPlanetData.saturn_helio_ecliptic_lat = myAstro.getHelioLat();
+  siderealPlanetData.saturn_helio_ecliptic_long = myAstro.getHelioLong();
+  siderealPlanetData.saturn_radius_vector = myAstro.getRadiusVec();
+  siderealPlanetData.saturn_distance = myAstro.getDistance();
+  siderealPlanetData.saturn_ecliptic_lat = myAstro.getEclipticLatitude();
+  siderealPlanetData.saturn_ecliptic_long = myAstro.getEclipticLongitude();
   myAstro.doXRiseSetTimes();
-  planetData.saturn_r = myAstro.getRiseTime();
-  planetData.saturn_s = myAstro.getSetTime();
+  siderealPlanetData.saturn_r = myAstro.getRiseTime();
+  siderealPlanetData.saturn_s = myAstro.getSetTime();
 }
 
 void trackUranus(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5512,20 +5514,20 @@ void trackUranus(double latitude, double longitude, signed int tz, int year, int
   myAstro.setLocalTime(hour, minute, second);
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doUranus();
-  planetData.uranus_ra  = myAstro.getRAdec();
-  planetData.uranus_dec = myAstro.getDeclinationDec();
+  siderealPlanetData.uranus_ra  = myAstro.getRAdec();
+  siderealPlanetData.uranus_dec = myAstro.getDeclinationDec();
   myAstro.doRAdec2AltAz();
-  planetData.uranus_az  = myAstro.getAzimuth();
-  planetData.uranus_alt = myAstro.getAltitude();
-  planetData.uranus_helio_ecliptic_lat = myAstro.getHelioLat();
-  planetData.uranus_helio_ecliptic_long = myAstro.getHelioLong();
-  planetData.uranus_radius_vector = myAstro.getRadiusVec();
-  planetData.uranus_distance = myAstro.getDistance();
-  planetData.uranus_ecliptic_lat = myAstro.getEclipticLatitude();
-  planetData.uranus_ecliptic_long = myAstro.getEclipticLongitude();
+  siderealPlanetData.uranus_az  = myAstro.getAzimuth();
+  siderealPlanetData.uranus_alt = myAstro.getAltitude();
+  siderealPlanetData.uranus_helio_ecliptic_lat = myAstro.getHelioLat();
+  siderealPlanetData.uranus_helio_ecliptic_long = myAstro.getHelioLong();
+  siderealPlanetData.uranus_radius_vector = myAstro.getRadiusVec();
+  siderealPlanetData.uranus_distance = myAstro.getDistance();
+  siderealPlanetData.uranus_ecliptic_lat = myAstro.getEclipticLatitude();
+  siderealPlanetData.uranus_ecliptic_long = myAstro.getEclipticLongitude();
   myAstro.doXRiseSetTimes();
-  planetData.uranus_r = myAstro.getRiseTime();
-  planetData.uranus_s = myAstro.getSetTime();
+  siderealPlanetData.uranus_r = myAstro.getRiseTime();
+  siderealPlanetData.uranus_s = myAstro.getSetTime();
 }
 
 void trackNeptune(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
@@ -5536,20 +5538,20 @@ void trackNeptune(double latitude, double longitude, signed int tz, int year, in
   myAstro.setLocalTime(hour, minute, second);
   myAstro.setGMTtime(hour, minute, second);
   myAstro.doNeptune();
-  planetData.neptune_ra  = myAstro.getRAdec();
-  planetData.neptune_dec = myAstro.getDeclinationDec();
+  siderealPlanetData.neptune_ra  = myAstro.getRAdec();
+  siderealPlanetData.neptune_dec = myAstro.getDeclinationDec();
   myAstro.doRAdec2AltAz();
-  planetData.neptune_az  = myAstro.getAzimuth();
-  planetData.neptune_alt = myAstro.getAltitude();
-  planetData.neptune_helio_ecliptic_lat = myAstro.getHelioLat();
-  planetData.neptune_helio_ecliptic_long = myAstro.getHelioLong();
-  planetData.neptune_radius_vector = myAstro.getRadiusVec();
-  planetData.neptune_distance = myAstro.getDistance();
-  planetData.neptune_ecliptic_lat = myAstro.getEclipticLatitude();
-  planetData.neptune_ecliptic_long = myAstro.getEclipticLongitude();
+  siderealPlanetData.neptune_az  = myAstro.getAzimuth();
+  siderealPlanetData.neptune_alt = myAstro.getAltitude();
+  siderealPlanetData.neptune_helio_ecliptic_lat = myAstro.getHelioLat();
+  siderealPlanetData.neptune_helio_ecliptic_long = myAstro.getHelioLong();
+  siderealPlanetData.neptune_radius_vector = myAstro.getRadiusVec();
+  siderealPlanetData.neptune_distance = myAstro.getDistance();
+  siderealPlanetData.neptune_ecliptic_lat = myAstro.getEclipticLatitude();
+  siderealPlanetData.neptune_ecliptic_long = myAstro.getEclipticLongitude();
   myAstro.doXRiseSetTimes();
-  planetData.neptune_r = myAstro.getRiseTime();
-  planetData.neptune_s = myAstro.getSetTime();
+  siderealPlanetData.neptune_r = myAstro.getRiseTime();
+  siderealPlanetData.neptune_s = myAstro.getSetTime();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -5847,25 +5849,25 @@ void matrixSwitch() {
         //                                                                                                             SIDEREAL PLANETS
 
         // daytime: current time in range of sunrise and sunset
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.DayTimeGNGGA) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), planetData.sun_r, planetData.sun_s);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DayTimeGNGGA) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.sun_r, siderealPlanetData.sun_s);}
 
         // nighttime: current time not in range of sunrise and sunset
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.NightTimeGNGGA) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), planetData.sun_r, planetData.sun_s);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.NightTimeGNGGA) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.sun_r, siderealPlanetData.sun_s);}
         
         // sunrise time less than current time: true after sunrise until midnight
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(planetData.sun_r, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.sun_r, atof(satData.hours_minutes));}
 
         // sunset time less than current time: true after sunset until midnight                                                                  
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(planetData.sun_s, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.sun_s, atof(satData.hours_minutes));}
 
         // moonrise time less than current time: true after moonrise until midnight
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(planetData.moon_r, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.moon_r, atof(satData.hours_minutes));}
 
         // moonset time less than current time: true after moonset until midnight
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(planetData.moon_s, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.moon_s, atof(satData.hours_minutes));}
 
         // moonphase equal to x
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonPhase) == 0) {tmp_matrix[Fi] = check_equal_true(planetData.moon_p, relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonPhase) == 0) {tmp_matrix[Fi] = check_equal_true(siderealPlanetData.moon_p, relayData.relays_data[Ri][Fi][0]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                                     VALIDITY
