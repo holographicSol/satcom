@@ -19,7 +19,7 @@ void setup() {
   Serial.println("\n\n");
 
   // first set time and coordinate data
-  myAstro.setLatLong(51.45259, -2.58745);
+  myAstro.setLatLong(0.00, 0.00;
   myAstro.setTimeZone(1);
   // myAstro.rejectDST();
   myAstro.setGMTdate(2024,7,19);
