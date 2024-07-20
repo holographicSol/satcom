@@ -1101,8 +1101,8 @@ bool val_fix_kind_flag(char * data) {
   return check_pass;
 }
 
-bool val_fix_roll_flag(char * data) {
-  if (sysDebugData.validation == true) {Serial.println("[connected] val_fix_roll_flag: " + String(data));}
+bool val_fiobject_roll_flag(char * data) {
+  if (sysDebugData.validation == true) {Serial.println("[connected] val_fiobject_roll_flag: " + String(data));}
   bool check_pass = false;
   if (is_positive_negative_num(data) == true) {
     check_pass = true;
@@ -1289,8 +1289,8 @@ bool val_scalable(char * data) {
 
 struct RelayStruct {
 
-  int MAX_RELAYS = 20;
-  int MAX_RELAY_ELEMENTS = 10;
+  int MAobject_rELAYS = 20;
+  int MAobject_rELAY_ELEMENTS = 10;
 
   int relays_enabled_i = 0;
   int relays_disabled_i = 0;
@@ -2499,7 +2499,7 @@ struct DEBUGStruct {
   char ang_dget_flag[56];  unsigned long bad_ang_dget_flag_i;   bool bad_ang_dget_flag = true;  // <1> installation azimuth: 1=with azimuth, 0=without azimuth
   char fix_kind_flag[56];  unsigned long bad_fix_kind_flag_i;   bool bad_fix_kind_flag = true;  // <2> type of installed coordinate system
   char ins_run_flag[56];   unsigned long bad_ins_run_flag_i;    bool bad_ins_run_flag = true;   // <3> forced ins: 1=forced, 0=normal
-  char fix_roll_flag[56];  unsigned long bad_fix_roll_flag_i;   bool bad_fix_roll_flag = true;  // <4> installation roll angle
+  char fiobject_roll_flag[56];  unsigned long bad_fiobject_roll_flag_i;   bool bad_fiobject_roll_flag = true;  // <4> installation roll angle
   char fix_pitch_flag[56]; unsigned long bad_fix_pitch_flag_i;  bool bad_fix_pitch_flag = true; // <5> installation pitch angle
   char ubi_on_flag[56];    unsigned long bad_ubi_on_flag_i;     bool bad_ubi_on_flag = true;    // <6> 0 to 8
   char ubi_kind_flag[56];  unsigned long bad_ubi_kind_flag_i;   bool bad_ubi_kind_flag = true;  // <7> 0=none, 1=ubi event, 2=ubi alarm
@@ -2539,7 +2539,7 @@ void DEBUG() {
   memset(debugData.ang_dget_flag, 0, 56);
   memset(debugData.fix_kind_flag, 0, 56);
   memset(debugData.ins_run_flag, 0, 56);
-  memset(debugData.fix_roll_flag, 0, 56);
+  memset(debugData.fiobject_roll_flag, 0, 56);
   memset(debugData.fix_pitch_flag, 0, 56);
   memset(debugData.ubi_on_flag, 0, 56);
   memset(debugData.ubi_kind_flag, 0, 56);
@@ -2570,7 +2570,7 @@ void DEBUG() {
     else if (serial1Data.iter_token == 1)  {if (val_ang_dget_flag(serial1Data.token) == true)  {strcpy(debugData.ang_dget_flag, serial1Data.token);  debugData.check_data++; debugData.bad_ang_dget_flag = false;}  else {debugData.bad_ang_dget_flag_i++;  debugData.bad_ang_dget_flag = true;}}
     else if (serial1Data.iter_token == 2)  {if (val_fix_kind_flag(serial1Data.token) == true)  {strcpy(debugData.fix_kind_flag, serial1Data.token);  debugData.check_data++; debugData.bad_fix_kind_flag = false;}  else {debugData.bad_fix_kind_flag_i++;  debugData.bad_fix_kind_flag = true;}}
     else if (serial1Data.iter_token == 3)  {if (val_ins_run_flag(serial1Data.token) == true)   {strcpy(debugData.ins_run_flag, serial1Data.token);   debugData.check_data++; debugData.bad_ins_run_flag = false;}   else {debugData.bad_ins_run_flag_i++;   debugData.bad_ins_run_flag = true;}}
-    else if (serial1Data.iter_token == 4)  {if (val_fix_roll_flag(serial1Data.token) == true)  {strcpy(debugData.fix_roll_flag, serial1Data.token);  debugData.check_data++; debugData.bad_fix_roll_flag = false;}  else {debugData.bad_fix_roll_flag_i++;  debugData.bad_fix_roll_flag = true;}}
+    else if (serial1Data.iter_token == 4)  {if (val_fiobject_roll_flag(serial1Data.token) == true)  {strcpy(debugData.fiobject_roll_flag, serial1Data.token);  debugData.check_data++; debugData.bad_fiobject_roll_flag = false;}  else {debugData.bad_fiobject_roll_flag_i++;  debugData.bad_fiobject_roll_flag = true;}}
     else if (serial1Data.iter_token == 5)  {if (val_fix_pitch_flag(serial1Data.token) == true) {strcpy(debugData.fix_pitch_flag, serial1Data.token); debugData.check_data++; debugData.bad_fix_pitch_flag = false;} else {debugData.bad_fix_pitch_flag_i++; debugData.bad_fix_pitch_flag = true;}}
     else if (serial1Data.iter_token == 6)  {if (val_ubi_on_flag(serial1Data.token) == true)    {strcpy(debugData.ubi_on_flag, serial1Data.token);    debugData.check_data++; debugData.bad_ubi_on_flag = false;}    else {debugData.bad_ubi_on_flag_i++;    debugData.bad_ubi_on_flag = true;}}
     else if (serial1Data.iter_token == 7)  {if (val_ubi_kind_flag(serial1Data.token) == true)  {strcpy(debugData.ubi_kind_flag, serial1Data.token);  debugData.check_data++; debugData.bad_ubi_kind_flag = false;}  else {debugData.bad_ubi_kind_flag_i++;  debugData.bad_ubi_kind_flag = true;}}
@@ -2607,7 +2607,7 @@ void DEBUG() {
     Serial.println("[debugData.ang_dget_flag] "  + String(debugData.ang_dget_flag));
     Serial.println("[debugData.fix_kind_flag] "  + String(debugData.fix_kind_flag));
     Serial.println("[debugData.ins_run_flag] "   + String(debugData.ins_run_flag));
-    Serial.println("[debugData.fix_roll_flag] "  + String(debugData.fix_roll_flag));
+    Serial.println("[debugData.fiobject_roll_flag] "  + String(debugData.fiobject_roll_flag));
     Serial.println("[debugData.fix_pitch_flag] " + String(debugData.fix_pitch_flag));
     Serial.println("[debugData.ubi_on_flag] "    + String(debugData.ubi_on_flag));
     Serial.println("[debugData.ubi_kind_flag] "  + String(debugData.ubi_kind_flag));
@@ -4653,9 +4653,9 @@ void sdcard_delete_matrix(char * file) {
 void zero_matrix() {
   Serial.println("[matrix] setting all matrix values to zero.");
   // iterate over each relay matrix
-  for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
+  for (int Ri = 0; Ri < relayData.MAobject_rELAYS; Ri++) {
     relayData.relays_enable[0][Ri] = 0;
-    for (int Fi = 0; Fi < relayData.MAX_RELAY_ELEMENTS; Fi++) {
+    for (int Fi = 0; Fi < relayData.MAobject_rELAY_ELEMENTS; Fi++) {
       memset(relayData.relays[Ri][Fi], 0, 56);
       strcpy(relayData.relays[Ri][Fi], "$NONE");
       relayData.relays_data[Ri][Fi][0] = 0.0;
@@ -4774,8 +4774,8 @@ bool sdcard_save_matrix(char * file) {
   sdcardData.current_file = sd.open(file, FILE_WRITE);
   sdcardData.current_file.rewind();
   if (sdcardData.current_file) {
-    for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {
-      for (int Fi = 0; Fi < relayData.MAX_RELAY_ELEMENTS; Fi++) {
+    for (int Ri = 0; Ri < relayData.MAobject_rELAYS; Ri++) {
+      for (int Fi = 0; Fi < relayData.MAobject_rELAY_ELEMENTS; Fi++) {
         memset(sdcardData.file_data, 0 , 256);
         // tag: relay (r)
         strcat(sdcardData.file_data, sdcardData.tag_0); strcat(sdcardData.file_data, sdcardData.delim);
@@ -4834,11 +4834,11 @@ bool sdcard_save_matrix(char * file) {
 //                                                                                                            MATRIX: SET ENTRY
 
 /*
-example test command: $MATRIX_SET_ENTRY,0,0,SatelliteCountOver,1,0,0
+example test command: $MATRIobject_sET_ENTRY,0,0,SatelliteCountOver,1,0,0
 */
 
-void matrix_set_entry() {
-  Serial.println("[matrix_set_entry] connected");
+void matriobject_set_entry() {
+  Serial.println("[matriobject_set_entry] connected");
   serial0Data.check_data_R = 0;
   memset(serial0Data.data_0, 0, 56);
   memset(serial0Data.data_1, 0, 56);
@@ -4885,8 +4885,8 @@ void matrix_set_entry() {
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                 MATRIX: ENABLE/DISABLE ENTRY
 
-void matrix_set_enabled(bool b) {
-  Serial.println("[matrix_set_enabled] connected");
+void matriobject_set_enabled(bool b) {
+  Serial.println("[matriobject_set_enabled] connected");
   serial0Data.check_data_R = 0;
   memset(serial0Data.data_0, 0, 56);
   serial0Data.iter_token = 0;
@@ -4912,27 +4912,27 @@ disable all matrix entries. does not directly turn relays off. this allows for o
 anything that may be / should remain activated. automatically deactivating a relay when a relay is made disabled should be
 explicitly configured and is not yet a feature. this is explicitly disable matrix switch automatically activating/deactivating relays.
 */
-void matrix_disable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=0;}}
+void matrix_disable_all() {for (int Ri = 0; Ri < relayData.MAobject_rELAYS; Ri++) {relayData.relays_enable[0][Ri]=0;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                           MATRIX: ENABLE ALL
 
 
 // enable all matrix entries. does not directly turn relays on, instead enables matrix switch automatically activating/deactivating relays.
-void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_enable[0][Ri]=1;}}
+void matrix_enable_all() {for (int Ri = 0; Ri < relayData.MAobject_rELAYS; Ri++) {relayData.relays_enable[0][Ri]=1;}}
 
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                       MATRIX: ALL RELAYS OFF
 
 // turn all relays off. recommended to first disable matrix.
-void relays_deactivate_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_bool[0][Ri]=0;}}
+void relays_deactivate_all() {for (int Ri = 0; Ri < relayData.MAobject_rELAYS; Ri++) {relayData.relays_bool[0][Ri]=0;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                        MATRIX: ALL RELAYS ON
 
 // turn all relays on. recommended to first disable matrix.
-void relays_activate_all() {for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) {relayData.relays_bool[0][Ri]=1;}}
+void relays_activate_all() {for (int Ri = 0; Ri < relayData.MAobject_rELAYS; Ri++) {relayData.relays_bool[0][Ri]=1;}}
 
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                                   SATCOM: CONVERT COORDINATES
@@ -5196,7 +5196,7 @@ bool SecondsTimer(unsigned long n0, unsigned long n1, int Ri) {
   // max seconds 18446744073709551616 (584942417355.07202148 years)
   // n0: interval
   // n1: on time
-  // backend interface example for on 1sec/off 1sec: $MATRIX_SET_ENTRY,0,0,SecondsTimer,1,1,0
+  // backend interface example for on 1sec/off 1sec: $MATRIobject_sET_ENTRY,0,0,SecondsTimer,1,1,0
   if ((timeData.seconds - relayData.relays_timing[0][Ri]) > n0) {relayData.relays_timing[0][Ri] = timeData.seconds; return true;}
   else if ((timeData.seconds - relayData.relays_timing[0][Ri]) < n1) {return true;}
   else {return false;}
@@ -5311,12 +5311,12 @@ SiderealPlantetsStruct siderealPlanetData;
 struct SiderealObjectStruct {
   char object_name[56];
   char object_table_name[56];
-  int object_number;
-  int object_table_i;
-  long x_az;
-  long x_alt;
-  long x_r;
-  long x_s;
+  int  object_number;
+  int  object_table_i;
+  long object_az;
+  long object_alt;
+  long object_r;
+  long object_s;
   char object_table[7][56] =
   {
     "Star Table",          // 0
@@ -5347,10 +5347,10 @@ void trackObject(double latitude, double longitude, signed int tz, int year, int
   if (object_table_i == 6) {myAstroObj.selectOtherObjectsTable(object_i);}
   myAstro.setRAdec(myAstroObj.getRAdec(), myAstroObj.getDeclinationDec());
   myAstro.doRAdec2AltAz();
-  siderealObjectData.x_az = myAstro.getAzimuth();
-  siderealObjectData.x_alt = myAstro.getAltitude();
-  siderealObjectData.x_r = myAstro.getRiseTime();
-  siderealObjectData.x_s = myAstro.getSetTime();
+  siderealObjectData.object_az = myAstro.getAzimuth();
+  siderealObjectData.object_alt = myAstro.getAltitude();
+  siderealObjectData.object_r = myAstro.getRiseTime();
+  siderealObjectData.object_s = myAstro.getSetTime();
 }
 
 void IdentifyObject(signed int ra_h, int ra_m, double ra_sec, signed int dec_h, int dec_m, double dec_sec) {
@@ -5606,16 +5606,16 @@ void matrixSwitch() {
   */
 
   // iterate over each relay matrix
-  for (int Ri = 0; Ri < relayData.MAX_RELAYS-1; Ri++) {
+  for (int Ri = 0; Ri < relayData.MAobject_rELAYS-1; Ri++) {
     // Serial.println("[Ri] " + String(Ri) + " [E] " + String(relayData.relays_enable[0][Ri]));
     if (relayData.relays_enable[0][Ri] == 1) {
 
       // temporary switch must be zero each time
-      bool tmp_matrix[relayData.MAX_RELAY_ELEMENTS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+      bool tmp_matrix[relayData.MAobject_rELAY_ELEMENTS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
       int count_none_function = 0;
 
       // iterate over each function name in the current relay matrix
-      for (int Fi = 0; Fi < relayData.MAX_RELAY_ELEMENTS; Fi++) {
+      for (int Fi = 0; Fi < relayData.MAobject_rELAY_ELEMENTS; Fi++) {
 
         // uncomment to debug
         // Serial.println("[Ri] " + String(Ri));
@@ -5883,7 +5883,7 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZDataRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.gyro_Z_data), relayData.relays_data[Ri][Fi][0],relayData.relays_data[Ri][Fi][1]);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.AngDGetFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ang_dget_flag), relayData.relays_data[Ri][Fi][0]);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.INSRunFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ins_run_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.FixRollFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.fix_roll_flag), relayData.relays_data[Ri][Fi][0]);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.FixRollFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.fiobject_roll_flag), relayData.relays_data[Ri][Fi][0]);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.FixPitchFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.fix_pitch_flag), relayData.relays_data[Ri][Fi][0]);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIKindFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_kind_flag), relayData.relays_data[Ri][Fi][0]);}
 
@@ -5941,15 +5941,15 @@ void matrixSwitch() {
       }
       
       // safety layer: disengage if all entries are $NONE
-      if (count_none_function <= relayData.MAX_RELAY_ELEMENTS-1) {
+      if (count_none_function <= relayData.MAobject_rELAY_ELEMENTS-1) {
 
         // default final bool default is true: if a single false is found then final bool should be set to false and remain false
         bool final_bool = true;
 
         // debug (same as line below but with output)
-        // for (int FC = 0; FC < relayData.MAX_RELAY_ELEMENTS-1; FC++) {Serial.println("[tmp_matrix[FC]] " + String(tmp_matrix[FC])); if (tmp_matrix[FC] == 0) {final_bool = false;}}
+        // for (int FC = 0; FC < relayData.MAobject_rELAY_ELEMENTS-1; FC++) {Serial.println("[tmp_matrix[FC]] " + String(tmp_matrix[FC])); if (tmp_matrix[FC] == 0) {final_bool = false;}}
 
-        for (int FC = 0; FC < relayData.MAX_RELAY_ELEMENTS-1; FC++) {if (tmp_matrix[FC] == 0) {final_bool = false; break;}}
+        for (int FC = 0; FC < relayData.MAobject_rELAY_ELEMENTS-1; FC++) {if (tmp_matrix[FC] == 0) {final_bool = false; break;}}
 
         /*
         WARNING: why do you think you can trust the data you are receiving?
@@ -6008,7 +6008,7 @@ void selectRelayI() {
 void nextRelayFunctionI() {
   // add 1 to relay function select (iterate through a relays functions)
   menuData.relay_function_select++;
-  if (menuData.relay_function_select >= relayData.MAX_RELAY_ELEMENTS) {menuData.relay_function_select = 0;}
+  if (menuData.relay_function_select >= relayData.MAobject_rELAY_ELEMENTS) {menuData.relay_function_select = 0;}
 }
 
 void selectEnableDisableRelay() {
@@ -6078,13 +6078,13 @@ void selectRelayFunctionValueZ() {
 void countRelaysEnabled(){
   relayData.relays_enabled_i = 0;
   relayData.relays_disabled_i = 0;
-  for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) { if (relayData.relays_enable[0][Ri] == 1) {relayData.relays_enabled_i++;} else {relayData.relays_disabled_i++;} }
+  for (int Ri = 0; Ri < relayData.MAobject_rELAYS; Ri++) { if (relayData.relays_enable[0][Ri] == 1) {relayData.relays_enabled_i++;} else {relayData.relays_disabled_i++;} }
 }
 
 void countRelaysActive(){
   relayData.relays_active_i = 0;
   relayData.relays_inactive_i = 0;
-  for (int Ri = 0; Ri < relayData.MAX_RELAYS; Ri++) { if (relayData.relays_bool[0][Ri] == 1) {relayData.relays_active_i++;} else {relayData.relays_inactive_i++;} }
+  for (int Ri = 0; Ri < relayData.MAobject_rELAYS; Ri++) { if (relayData.relays_bool[0][Ri] == 1) {relayData.relays_active_i++;} else {relayData.relays_inactive_i++;} }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -6210,7 +6210,7 @@ void numpadSelect() {
   // remove last char
   if (((menuData.numpad_y == 5) && (menuData.numpad_x == 1)) || ((menuData.numpad_y == 5) && (menuData.numpad_x == 2))) {menuData.input[strlen(menuData.input)-1] = '\0';}
   // set current relay index
-  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==0)) {menuData.page = 0; if ((atoi(menuData.input) < relayData.MAX_RELAYS) && (atoi(menuData.input) >= 0)) {menuData.relay_select = atoi(menuData.input);}}
+  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==0)) {menuData.page = 0; if ((atoi(menuData.input) < relayData.MAobject_rELAYS) && (atoi(menuData.input) >= 0)) {menuData.relay_select = atoi(menuData.input);}}
   // set relay function value x
   if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==1)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][0] = strtod(menuData.input, &ptr);}
   // set relay function value y
@@ -6236,19 +6236,19 @@ void readRXD_0(void *pvParameters) {
       // ------------------------------------------------------------------------------------------------------------------------
       //                                                                                                        MATRIX: SET ENTRY
 
-      if (strncmp(serial0Data.BUFFER, "$MATRIX_SET_ENTRY", 17) == 0) {
-        matrix_set_entry();
+      if (strncmp(serial0Data.BUFFER, "$MATRIobject_sET_ENTRY", 17) == 0) {
+        matriobject_set_entry();
       }
 
       // ------------------------------------------------------------------------------------------------------------------------
       //                                                                                             MATRIX: ENABLE/DISABLE ENTRY
 
       else if (strncmp(serial0Data.BUFFER, "$MATRIX_ENABLE_ENTRY", 19) == 0) {
-        matrix_set_enabled(true);
+        matriobject_set_enabled(true);
       }
 
       else if (strncmp(serial0Data.BUFFER, "$MATRIX_DISABLE_ENTRY", 21) == 0) {
-        matrix_set_enabled(false);
+        matriobject_set_enabled(false);
       }
 
       // ------------------------------------------------------------------------------------------------------------------------
@@ -6268,14 +6268,14 @@ void readRXD_0(void *pvParameters) {
       // ------------------------------------------------------------------------------------------------------------------------
       //                                                                                               MATRIX: TURN ALL RELAYS ON
 
-      else if (strcmp(serial0Data.BUFFER, "$MATRIX_RELAYS_ALL_ON") == 0) {
+      else if (strcmp(serial0Data.BUFFER, "$MATRIobject_rELAYS_ALL_ON") == 0) {
         relays_activate_all();
       }
 
       // ------------------------------------------------------------------------------------------------------------------------
       //                                                                                              MATRIX: TURN ALL RELAYS OFF
 
-      else if (strcmp(serial0Data.BUFFER, "$MATRIX_RELAYS_ALL_OFF") == 0) {
+      else if (strcmp(serial0Data.BUFFER, "$MATRIobject_rELAYS_ALL_OFF") == 0) {
         relays_deactivate_all();
       }
 
