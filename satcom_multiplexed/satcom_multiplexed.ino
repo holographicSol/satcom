@@ -5350,13 +5350,14 @@ void trackObject(double latitude, double longitude, signed int tz, int year, int
   myAstro.doRAdec2AltAz();
   siderealObjectData.object_az = myAstro.getAzimuth();
   siderealObjectData.object_alt = myAstro.getAltitude();
-  siderealObjectData.object_mag = myAstroObj.getStarMagnitude();
   siderealObjectData.object_r = myAstro.getRiseTime();
   siderealObjectData.object_s = myAstro.getSetTime();
 }
 
 void IdentifyObject(signed int ra_h, int ra_m, double ra_sec, signed int dec_h, int dec_m, double dec_sec) {
   myAstroObj.setRAdec(myAstroObj.decimalDegrees(ra_h,ra_m,ra_sec), myAstroObj.decimalDegrees(dec_h,dec_m,dec_sec));
+  myAstro.doRAdec2AltAz();
+  siderealObjectData.object_mag = myAstroObj.getStarMagnitude();
   myAstroObj.identifyObject();
   switch(myAstroObj.getIdentifiedObjectTable()) {
     case(1):
