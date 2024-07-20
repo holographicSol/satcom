@@ -5362,7 +5362,7 @@ void IdentifyObject(double object_ra, double object_dec) {
   siderealObjectData.object_mag = myAstroObj.getStarMagnitude();
   myAstroObj.identifyObject();
   switch(myAstroObj.getIdentifiedObjectTable()) {
-    case(1):
+  case(1):
   siderealObjectData.object_table_i = 0; break;
 	case(2):
   siderealObjectData.object_table_i = 1; break;
