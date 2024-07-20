@@ -5309,6 +5309,9 @@ struct SiderealPlantetsStruct {
 SiderealPlantetsStruct siderealPlanetData;
 
 struct SiderealObjectStruct {
+  char object_name[56];
+  int object_number;
+  int object_table_i;
   long x_az;
   long x_alt;
   long x_r;
@@ -5318,10 +5321,10 @@ struct SiderealObjectStruct {
     "Star Table",          // 0
     "NGC Table",           // 1
     "IC Table",            // 2
-    "Messier Table",       // 3
-    "Caldwell Table",      // 4
-    "Herschel 400 Table",  // 5
-    "Other Objects Table", // 6
+    "Other Objects Table", // 3
+    "Messier Table",       // 4
+    "Caldwell Table",      // 5
+    "Herschel 400 Table",  // 6
   };
 };
 SiderealObjectStruct siderealObjectData;
@@ -5347,6 +5350,35 @@ void trackObject(double latitude, double longitude, signed int tz, int year, int
   siderealObjectData.x_alt = myAstro.getAltitude();
   siderealObjectData.x_r = myAstro.getRiseTime();
   siderealObjectData.x_s = myAstro.getSetTime();
+}
+
+void IdentifyObject(signed int ra_h, int ra_m, double ra_sec, signed int dec_h, int dec_m, double dec_sec) {
+  myAstroObj.setRAdec(myAstroObj.decimalDegrees(ra_h,ra_m,ra_sec), myAstroObj.decimalDegrees(dec_h,dec_m,dec_sec));
+  myAstroObj.identifyObject();
+  switch(myAstroObj.getIdentifiedObjectTable()) {
+    case(1):
+  siderealObjectData.object_table_i = 0; break;
+	case(2):
+  siderealObjectData.object_table_i = 1; break;
+	case(3):
+  siderealObjectData.object_table_i = 2;  break;
+	case(7):
+  siderealObjectData.object_table_i = 3;  break;
+  }
+  if (myAstroObj.getIdentifiedObjectTable() == 1) {
+    strcpy(siderealObjectData.object_name, myAstroObj.printStarName(myAstroObj.getIdentifiedObjectNumber()));
+    }
+  if (myAstroObj.getAltIdentifiedObjectTable()) {
+    switch(myAstroObj.getAltIdentifiedObjectTable()) {
+	  case(4):
+    siderealObjectData.object_table_i = 4;  break;
+	  case(5):
+    siderealObjectData.object_table_i = 5;  break;
+	  case(6):
+    siderealObjectData.object_table_i = 6;  break;
+    }
+  siderealObjectData.object_number = myAstroObj.getAltIdentifiedObjectNumber();
+  }
 }
 
 void trackSun(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
