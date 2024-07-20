@@ -5310,6 +5310,7 @@ SiderealPlantetsStruct siderealPlanetData;
 
 struct SiderealObjectStruct {
   char object_name[56];
+  char object_table_name[56];
   int object_number;
   int object_table_i;
   long x_az;
@@ -5366,6 +5367,11 @@ void IdentifyObject(signed int ra_h, int ra_m, double ra_sec, signed int dec_h, 
   siderealObjectData.object_table_i = 3;  break;
   }
   if (myAstroObj.getIdentifiedObjectTable() == 1) {
+    // set table name
+    memset(siderealObjectData.object_table_name, 0, 56);
+    strcpy(siderealObjectData.object_table_name, siderealObjectData.object_table[siderealObjectData.object_table_i]);
+    // set object id name
+    memset(siderealObjectData.object_name, 0, 56);
     strcpy(siderealObjectData.object_name, myAstroObj.printStarName(myAstroObj.getIdentifiedObjectNumber()));
     }
   if (myAstroObj.getAltIdentifiedObjectTable()) {
@@ -5377,6 +5383,10 @@ void IdentifyObject(signed int ra_h, int ra_m, double ra_sec, signed int dec_h, 
 	  case(6):
     siderealObjectData.object_table_i = 6;  break;
     }
+  // set table name
+  memset(siderealObjectData.object_table_name, 0, 56);
+  strcpy(siderealObjectData.object_table_name, siderealObjectData.object_table[siderealObjectData.object_table_i]);
+  // set object id number
   siderealObjectData.object_number = myAstroObj.getAltIdentifiedObjectNumber();
   }
 }
