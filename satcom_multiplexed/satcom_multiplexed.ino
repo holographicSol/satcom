@@ -5313,6 +5313,8 @@ struct SiderealObjectStruct {
   char object_table_name[56];
   int  object_number;
   int  object_table_i;
+  long object_ra;
+  long object_dec;
   long object_az;
   long object_alt;
   long object_mag;
@@ -5354,8 +5356,8 @@ void trackObject(double latitude, double longitude, signed int tz, int year, int
   siderealObjectData.object_s = myAstro.getSetTime();
 }
 
-void IdentifyObject(signed int ra_h, int ra_m, double ra_sec, signed int dec_h, int dec_m, double dec_sec) {
-  myAstroObj.setRAdec(myAstroObj.decimalDegrees(ra_h,ra_m,ra_sec), myAstroObj.decimalDegrees(dec_h,dec_m,dec_sec));
+void IdentifyObject(double object_ra, double object_dec) {
+  myAstroObj.setRAdec(object_ra, object_dec);
   myAstro.doRAdec2AltAz();
   siderealObjectData.object_mag = myAstroObj.getStarMagnitude();
   myAstroObj.identifyObject();
