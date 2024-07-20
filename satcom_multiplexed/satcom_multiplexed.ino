@@ -5315,6 +5315,7 @@ struct SiderealObjectStruct {
   int  object_table_i;
   long object_az;
   long object_alt;
+  long object_mag;
   long object_r;
   long object_s;
   char object_table[7][56] =
@@ -5349,6 +5350,7 @@ void trackObject(double latitude, double longitude, signed int tz, int year, int
   myAstro.doRAdec2AltAz();
   siderealObjectData.object_az = myAstro.getAzimuth();
   siderealObjectData.object_alt = myAstro.getAltitude();
+  siderealObjectData.object_mag = myAstroObj.getStarMagnitude();
   siderealObjectData.object_r = myAstro.getRiseTime();
   siderealObjectData.object_s = myAstro.getSetTime();
 }
