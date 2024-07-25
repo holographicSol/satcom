@@ -160,18 +160,12 @@ struct systemStruct {
   bool gngga_enabled = true;
   bool gnrmc_enabled = true;
   bool gpatt_enabled = true;
-  bool speed_enabled = true;
-  bool error_enabled = true;
-  bool debug_enabled = true;
   bool matrix_enabled = false;
   bool autoresume_enabled = false;
   bool output_satcom_enabled = false;
   bool output_gngga_enabled = false;
   bool output_gnrmc_enabled = false;
   bool output_gpatt_enabled = false;
-  bool output_speed_enabled = false;
-  bool output_error_enabled = false;
-  bool output_debug_enabled = false;
   bool sidereal_track_sun = true;
   bool sidereal_track_moon = true;
   bool sidereal_track_mercury = true;
@@ -231,9 +225,6 @@ struct sysDebugStruct {
   bool gngga_sentence = false;
   bool gnrmc_sentence = false;
   bool gpatt_sentence = false;
-  bool speed_sentence = false;
-  bool error_sentence = false;
-  bool debug_sentence = false;
   bool serial_0_sentence = true;
   bool validation = false;
 };
@@ -1454,8 +1445,8 @@ struct RelayStruct {
     },
   };
 
-  int FUNCTION_NAMES_MAX = 255;
-  char function_names[256][56] = 
+  int FUNCTION_NAMES_MAX = 199;
+  char function_names[199][56] = 
   {
     "$NONE",
     "$ENABLED",
@@ -1568,46 +1559,9 @@ struct RelayStruct {
     "PitchGPATTUnder",
     "PitchGPATTEqual",
     "PitchGPATTRange",
-    "UTCTimeSPEEDOver",
-    "UTCTimeSPEEDUnder",
-    "UTCTimeSPEEDEqual",
-    "UTCTimeSPEEDRange",
-    "GroundSpeedSPEEDOver",
-    "GroundSpeedSPEEDUnder",
-    "GroundSpeedSPEEDEqual",
-    "GroundSpeedSPEEDRange",
-    "StatusSPEEDOver",
-    "StatusSPEEDUnder",
-    "StatusSPEEDEqual",
-    "StatusSPEEDRange",
-    "AccXSPEEDOver",
-    "AccXSPEEDUnder",
-    "AccXSPEEDEqual",
-    "AccXSPEEDRange",
-    "AccYSPEEDOver",
-    "AccYSPEEDUnder",
-    "AccYSPEEDEqual",
-    "AccYSPEEDRange",
-    "AccZSPEEDOver",
-    "AccZSPEEDUnder",
-    "AccZSPEEDEqual",
-    "AccZSPEEDRange",
-    "GyroXSPEEDOver",
-    "GyroXSPEEDUnder",
-    "GyroXSPEEDEqual",
-    "GyroXSPEEDRange",
-    "GyroYSPEEDOver",
-    "GyroYSPEEDUnder",
-    "GyroYSPEEDEqual",
-    "GyroYSPEEDRange",
-    "GyroZSPEEDOver",
-    "GyroZSPEEDUnder",
-    "GyroZSPEEDEqual",
-    "GyroZSPEEDRange",
     "UBIStateFlagOver",
     "UBIStateFlagUnder",
     "UBIStateFlagEqual",
-    "GyroZSPEEDRange",
     "UBIStateKindOver",
     "UBIStateKindUnder",
     "UBIStateKindEqual",
@@ -1616,13 +1570,6 @@ struct RelayStruct {
     "UBIStateValueUnder",
     "UBIStateValueEqual",
     "UBIStateValueRange",
-    "ERRORUTCTimeOver",
-    "ERRORUTCTimeUnder",
-    "ERRORUTCTimeEqual",
-    "ERRORUTCTimeRange",
-    "ERRORCodeFlagEqual",
-    "ERRORGSetFlagEqual",
-    "ERRORSSetFlagEqual",
     "CollisionTHeadingOver",
     "CollisionTHeadingUnder",
     "CollisionTHeadingEqual",
@@ -1684,27 +1631,15 @@ struct RelayStruct {
     "gngga_valid_checksum",
     "gnrmc_valid_checksum",
     "gpatt_valid_checksum",
-    "speed_valid_checksum",
-    "error_valid_checksum",
-    "debug_valid_checksum",
     "gngga_invalid_checksum",
     "gnrmc_invalid_checksum",
     "gpatt_invalid_checksum",
-    "speed_invalid_checksum",
-    "error_invalid_checksum",
-    "debug_invalid_checksum",
     "gngga_valid_check_data",
     "gnrmc_valid_check_data",
     "gpatt_valid_check_data",
-    "speed_valid_check_data",
-    "error_valid_check_data",
-    "debug_valid_check_data",
     "gngga_invalid_check_data",
     "gnrmc_invalid_check_data",
     "gpatt_invalid_check_data",
-    "speed_invalid_check_data",
-    "error_invalid_check_data",
-    "debug_invalid_check_data",
     "DayTimeGNGGA",
     "NightTimeGNGGA",
     "SunriseGNGGA",
@@ -1843,131 +1778,6 @@ struct RelayStruct {
   char PitchGPATTRange[56]        = "PitchGPATTRange";
 
   // ----------------------------------------------------------------------------------------------------------------------------
-  //                                                                                                                   SPEED DATA
-
-  char UTCTimeSPEEDOver[56]      = "UTCTimeSPEEDOver";
-  char UTCTimeSPEEDUnder[56]     = "UTCTimeSPEEDUnder";
-  char UTCTimeSPEEDEqual[56]     = "UTCTimeSPEEDEqual";
-  char UTCTimeSPEEDRange[56]     = "UTCTimeSPEEDRange";
-  char GroundSpeedSPEEDOver[56]  = "GroundSpeedSPEEDOver";
-  char GroundSpeedSPEEDUnder[56] = "GroundSpeedSPEEDUnder";
-  char GroundSpeedSPEEDEqual[56] = "GroundSpeedSPEEDEqual";
-  char GroundSpeedSPEEDRange[56] = "GroundSpeedSPEEDRange";
-  char StatusSPEEDOver[56]       = "StatusSPEEDOver";
-  char StatusSPEEDUnder[56]      = "StatusSPEEDUnder";
-  char StatusSPEEDEqual[56]      = "StatusSPEEDEqual";
-  char StatusSPEEDRange[56]      = "StatusSPEEDRange";
-  char AccXSPEEDOver[56]         = "AccXSPEEDOver";
-  char AccXSPEEDUnder[56]        = "AccXSPEEDUnder";
-  char AccXSPEEDEqual[56]        = "AccXSPEEDEqual";
-  char AccXSPEEDRange[56]        = "AccXSPEEDRange";
-  char AccYSPEEDOver[56]         = "AccYSPEEDOver";
-  char AccYSPEEDUnder[56]        = "AccYSPEEDUnder";
-  char AccYSPEEDEqual[56]        = "AccYSPEEDEqual";
-  char AccYSPEEDRange[56]        = "AccYSPEEDRange";
-  char AccZSPEEDOver[56]         = "AccZSPEEDOver";
-  char AccZSPEEDUnder[56]        = "AccZSPEEDUnder";
-  char AccZSPEEDEqual[56]        = "AccZSPEEDEqual";
-  char AccZSPEEDRange[56]        = "AccZSPEEDRange";
-  char GyroXSPEEDOver[56]        = "GyroXSPEEDOver";
-  char GyroXSPEEDUnder[56]       = "GyroXSPEEDUnder";
-  char GyroXSPEEDEqual[56]       = "GyroXSPEEDEqual";
-  char GyroXSPEEDRange[56]       = "GyroXSPEEDRange";
-  char GyroYSPEEDOver[56]        = "GyroYSPEEDOver";
-  char GyroYSPEEDUnder[56]       = "GyroYSPEEDUnder";
-  char GyroYSPEEDEqual[56]       = "GyroYSPEEDEqual";
-  char GyroYSPEEDRange[56]       = "GyroYSPEEDRange";
-  char GyroZSPEEDOver[56]        = "GyroZSPEEDOver";
-  char GyroZSPEEDUnder[56]       = "GyroZSPEEDUnder";
-  char GyroZSPEEDEqual[56]       = "GyroZSPEEDEqual";
-  char GyroZSPEEDRange[56]       = "GyroZSPEEDRange";
-  char UBIStateFlagOver[56]      = "UBIStateFlagOver";
-  char UBIStateFlagUnder[56]     = "UBIStateFlagUnder";
-  char UBIStateFlagEqual[56]     = "UBIStateFlagEqual";
-  char UBIStateFlagRange[56]     = "GyroZSPEEDRange";
-  char UBIStateKindOver[56]      = "UBIStateKindOver";
-  char UBIStateKindUnder[56]     = "UBIStateKindUnder";
-  char UBIStateKindEqual[56]     = "UBIStateKindEqual";
-  char UBIStateKindRange[56]     = "UBIStateKindRange";
-  char UBIStateValueOver[56]     = "UBIStateValueOver";
-  char UBIStateValueUnder[56]    = "UBIStateValueUnder";
-  char UBIStateValueEqual[56]    = "UBIStateValueEqual";
-  char UBIStateValueRange[56]    = "UBIStateValueRange";
-
-  // ----------------------------------------------------------------------------------------------------------------------------
-  //                                                                                                                   ERROR DATA
-
-  char ERRORUTCTimeOver[56]   = "ERRORUTCTimeOver";
-  char ERRORUTCTimeUnder[56]  = "ERRORUTCTimeUnder";
-  char ERRORUTCTimeEqual[56]  = "ERRORUTCTimeEqual";
-  char ERRORUTCTimeRange[56]  = "ERRORUTCTimeRange";
-  char ERRORCodeFlagEqual[56] = "ERRORCodeFlagEqual";
-  char ERRORGSetFlagEqual[56] = "ERRORGSetFlagEqual";
-  char ERRORSSetFlagEqual[56] = "ERRORSSetFlagEqual";
-
-  // ----------------------------------------------------------------------------------------------------------------------------
-  //                                                                                                                   DEBUG DATA
-
-  char CollisionTHeadingOver[56]  = "CollisionTHeadingOver";
-  char CollisionTHeadingUnder[56] = "CollisionTHeadingUnder";
-  char CollisionTHeadingEqual[56] = "CollisionTHeadingEqual";
-  char CollisionTHeadingRange[56] = "CollisionTHeadingRange";
-  char CollisionTDataOver[56]     = "CollisionTDataOver";
-  char CollisionTDataUnder[56]    = "CollisionTDataUnder";
-  char CollisionTDataEqual[56]    = "CollisionTDataEqual";
-  char CollisionTDataRange[56]    = "CollisionTDataRange";
-  char UBIValidEqual[56]          = "UBIValidEqual";
-  char INSFlagOver[56]            = "INSFlagOver";
-  char INSFlagUnder[56]           = "INSFlagUnder";
-  char INSFlagEqual[56]           = "INSFlagEqual";
-  char INSFlagRange[56]           = "INSFlagRange";
-  char CarSpeedOver[56]           = "CarSpeedOver";
-  char CarSpeedUnder[56]          = "CarSpeedUnder";
-  char CarSpeedEqual[56]          = "CarSpeedEqual";
-  char CarSpeedRange[56]          = "CarSpeedRange";
-  char YawAngleOver[56]           = "YawAngleOver";
-  char YawAngleUnder[56]          = "YawAngleUnder";
-  char YawAngleEqual[56]          = "YawAngleEqual";
-  char YawAngleRange[56]          = "YawAngleRange";
-  char RollAngleOver[56]          = "RollAngleOver";
-  char RollAngleUnder[56]         = "RollAngleUnder";
-  char RollAngleEqual[56]         = "RollAngleEqual";
-  char RollAngleRange[56]         = "RollAngleRange";
-  char PitchAngleOver[56]         = "PitchAngleOver";
-  char PitchAngleUnder[56]        = "PitchAngleUnder";
-  char PitchAngleEqual[56]        = "PitchAngleEqual";
-  char PitchAngleRange[56]        = "PitchAngleRange";
-  char AngDGetFlagEqual[56]       = "AngDGetFlagEqual";
-  char INSRunFlagEqual[56]        = "INSRunFlagEqual";
-  char FixRollFlagEqual[56]       = "FixRollFlagEqual";
-  char FixPitchFlagEqual[56]      = "FixPitchFlagEqual";
-  char UBIKindFlagEqual[56]       = "UBIKindFlagEqual";
-  char UBIOnFlagOver[56]          = "UBIOnFlagOver";
-  char UBIOnFlagUnder[56]         = "UBIOnFlagUnder";
-  char UBIOnFlagEqual[56]         = "UBIOnFlagEqual";
-  char UBIOnFlagRange[56]         = "UBIOnFlagRange";
-  char UBIASetOver[56]            = "UBIASetOver";
-  char UBIASetUnder[56]           = "UBIASetUnder";
-  char UBIASetEqual[56]           = "UBIASetEqual";
-  char UBIASetRange[56]           = "UBIASetRange";
-  char UBIBSetOver[56]            = "UBIBSetOver";
-  char UBIBSetUnder[56]           = "UBIBSetUnder";
-  char UBIBSetEqual[56]           = "UBIBSetEqual";
-  char UBIBSetRange[56]           = "UBIBSetRange";
-  char AccXDataOver[56]           = "AccXDataOver";
-  char AccXDataUnder[56]          = "AccXDataUnder";
-  char AccXDataEqual[56]          = "AccXDataEqual";
-  char AccXDataRange[56]          = "AccXDataRange";
-  char AccYDataOver[56]           = "AccYDataOver";
-  char AccYDataUnder[56]          = "AccYDataUnder";
-  char AccYDataEqual[56]          = "AccYDataEqual";
-  char AccYDataRange[56]          = "AccYDataRange";
-  char GyroZDataOver[56]          = "GyroZDataOver";
-  char GyroZDataUnder[56]         = "GyroZDataUnder";
-  char GyroZDataEqual[56]         = "GyroZDataEqual";
-  char GyroZDataRange[56]         = "GyroZDataRange";
-
-  // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                            
 
   char SecondsTimer[56] = "SecondsTimer";
@@ -1986,50 +1796,21 @@ struct RelayStruct {
   char MoonsetGNGGA[56]   = "MoonsetGNGGA";
   char MoonPhase[56]      = "MoonPhase";
 
-  /*
-  char MercuryRA[56]        = "MercuryRA";
-  char MercuryDEC[56]       = "MercuryDEC";
-  char MercuryAZ[56]        = "MercuryAZ";
-  char MercuryALT[56]       = "MercuryALT";
-  char MercuryHelioELat[56] = "MercuryHelioELat";
-  char MercuryHelioELon[56] = "MercuryHelioELon";
-  char MercuryRV[56]        = "MercuryRV";
-  char MercuryDistance[56]  = "MercuryDistance";
-  char MercuryELat[56]      = "MercuryELat";
-  char MercuryELon[56]      = "MercuryELon";
-  char MercuryRise[56]      = "MercuryRise";
-  char MercurySet[56]       = "MercurySet";
-  */
-
-
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                VALIDITY DATA
 
   char gngga_valid_checksum[56] = "gngga_valid_checksum";
   char gnrmc_valid_checksum[56] = "gnrmc_valid_checksum";
   char gpatt_valid_checksum[56] = "gpatt_valid_checksum";
-  char speed_valid_checksum[56] = "speed_valid_checksum";
-  char error_valid_checksum[56] = "error_valid_checksum";
-  char debug_valid_checksum[56] = "debug_valid_checksum";
   char gngga_invalid_checksum[56] = "gngga_invalid_checksum";
   char gnrmc_invalid_checksum[56] = "gnrmc_invalid_checksum";
   char gpatt_invalid_checksum[56] = "gpatt_invalid_checksum";
-  char speed_invalid_checksum[56] = "speed_invalid_checksum";
-  char error_invalid_checksum[56] = "error_invalid_checksum";
-  char debug_invalid_checksum[56] = "debug_invalid_checksum";
   char gngga_valid_check_data[56] = "gngga_valid_check_data";
   char gnrmc_valid_check_data[56] = "gnrmc_valid_check_data";
   char gpatt_valid_check_data[56] = "gpatt_valid_check_data";
-  char speed_valid_check_data[56] = "speed_valid_check_data";
-  char error_valid_check_data[56] = "error_valid_check_data";
-  char debug_valid_check_data[56] = "debug_valid_check_data";
   char gngga_invalid_check_data[56] = "gngga_invalid_check_data";
   char gnrmc_invalid_check_data[56] = "gnrmc_invalid_check_data";
   char gpatt_invalid_check_data[56] = "gpatt_invalid_check_data";
-  char speed_invalid_check_data[56] = "speed_invalid_check_data";
-  char error_invalid_check_data[56] = "error_invalid_check_data";
-  char debug_invalid_check_data[56] = "debug_invalid_check_data";
-
 };
 RelayStruct relayData;
 
@@ -2343,296 +2124,6 @@ void GPATT() {
     Serial.println("[gpattData.scalable] "         + String(gpattData.scalable)); // intentionally unpopulated
     Serial.println("[gpattData.check_sum] "        + String(gpattData.check_sum));
     Serial.println("[gpattData.check_data] "        + String(gpattData.check_data));
-  }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                  DATA: SPEED
-
-struct SPEEDStruct {
-  char sentence[1024];
-  char tag[56];                                                                                                                          // <0> log header
-  char utc_time[56];                         unsigned long bad_utc_time_i;                   bool bad_utc_time = true;                   // <1> utc time
-  char speed[56];                            unsigned long bad_speed_i;                      bool bad_speed = true;                      // <2> ground speed: knots
-  char status[56];                           unsigned long bad_status_i;                     bool bad_status = true;                     // <3> 0=invalid data, 1=converging, 2=valid data
-  char acceleration_delimiter[56];           unsigned long bad_acceleration_delimiter_i;     bool bad_acceleration_delimiter = true;     // <4> represents acceleration
-  char acc_X[56];                            unsigned long bad_acc_X_i;                      bool bad_acc_X = true;                      // <5> x-axis acceleration
-  char acc_Y[56];                            unsigned long bad_acc_Y_i;                      bool bad_acc_Y = true;                      // <6> y-axis acceleration
-  char acc_Z[56];                            unsigned long bad_acc_Z_i;                      bool bad_acc_Z = true;                      // <7> z-axis acceleration
-  char angular_velocity_delimiter[56] = "0"; unsigned long bad_angular_velocity_delimiter_i; bool bad_angular_velocity_delimiter = true; // <8> represents angular velocity
-  char gyro_X[56];                           unsigned long bad_gyro_X_i;                     bool bad_gyro_X = true;                     // <9> x-axis angular velocity
-  char gyro_Y[56];                           unsigned long bad_gyro_Y_i;                     bool bad_gyro_Y = true;                     // <10> y-axis angular velocity
-  char gyro_Z[56];                           unsigned long bad_gyro_Z_i;                     bool bad_gyro_Z = true;                     // <11> z-axis angular velocity
-  char status_delimiter[56];                 unsigned long bad_status_delimiter_i;           bool bad_status_delimiter = true;           // <12> represents status
-  char ubi_state_flag[56];                   unsigned long bad_ubi_state_flag_i;             bool bad_ubi_state_flag = true;             // <13> 0=smooth driving, 1=unsteady driving
-  char ubi_state_kind[56];                   unsigned long bad_ubi_state_kind_i;             bool bad_ubi_state_kind = true;             // <14> status tyoe: see ubi_state_kind table
-  char ubi_state_value[56];                  unsigned long bad_ubi_state_value_i;            bool bad_ubi_state_value = true;            // <15> status threshold: see ubi_state_kind table
-  char check_sum[56];                        unsigned long bad_check_sum_i;                  bool bad_check_sum = true;                  // <16> XOR check value of all bytes starting from $ to *
-  int check_data = 0;                        unsigned long bad_checksum_validity;            bool valid_checksum = false;                // Checksum validity bool, counters and a counter for how many elements passed further testing (gnrmc check_data should result in 17)
-  char temporary_data[56];
-  char temporary_data_1[56];
-};
-SPEEDStruct speedData;
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                        SPEED
-
-void SPEED() {
-  serial1Data.iter_token = 0;
-  serial1Data.token = strtok(speedData.sentence, ",");
-  while( serial1Data.token != NULL ) {
-    if      (serial1Data.iter_token == 0)                                                                  {strcpy(speedData.tag, "SPEED");                                  speedData.check_data++;}
-    else if (serial1Data.iter_token == 1)  {if (val_utc_time(serial1Data.token) == true)                   {strcpy(speedData.utc_time, serial1Data.token);                   speedData.check_data++; speedData.bad_utc_time = false;}                   else {speedData.bad_utc_time_i++;                   speedData.bad_utc_time = true;}}
-    else if (serial1Data.iter_token == 2)  {if (val_ground_speed(serial1Data.token) == true)               {strcpy(speedData.speed, serial1Data.token);                      speedData.check_data++; speedData.bad_speed = false;}                      else {speedData.bad_speed_i++;                      speedData.bad_speed = true;}}
-    else if (serial1Data.iter_token == 3)  {if (val_speed_status(serial1Data.token) == true)               {strcpy(speedData.status, serial1Data.token);                     speedData.check_data++; speedData.bad_status = false;}                     else {speedData.bad_status_i++;                     speedData.bad_status = true;}}
-    else if (serial1Data.iter_token == 4)  {if (val_accelleration_delimiter(serial1Data.token) == true)    {strcpy(speedData.acceleration_delimiter, serial1Data.token);     speedData.check_data++; speedData.bad_acceleration_delimiter = false;}     else {speedData.bad_acceleration_delimiter_i++;     speedData.bad_acceleration_delimiter = true;}}
-    else if (serial1Data.iter_token == 5)  {if (val_axis_accelleration(serial1Data.token) == true)         {strcpy(speedData.acc_X, serial1Data.token);                      speedData.check_data++; speedData.bad_acc_X = false;}                      else {speedData.bad_acc_X_i++;                      speedData.bad_acc_X = true;}}
-    else if (serial1Data.iter_token == 6)  {if (val_axis_accelleration(serial1Data.token) == true)         {strcpy(speedData.acc_Y, serial1Data.token);                      speedData.check_data++; speedData.bad_acc_Y = false;}                      else {speedData.bad_acc_Y_i++;                      speedData.bad_acc_Y = true;}}
-    else if (serial1Data.iter_token == 7)  {if (val_axis_accelleration(serial1Data.token) == true)         {strcpy(speedData.acc_Z, serial1Data.token);                      speedData.check_data++; speedData.bad_acc_Z = false;}                      else {speedData.bad_acc_Z_i++;                      speedData.bad_acc_Z = true;}}
-    else if (serial1Data.iter_token == 8)  {if (val_angular_velocity_delimiter(serial1Data.token) == true) {strcpy(speedData.angular_velocity_delimiter, serial1Data.token); speedData.check_data++; speedData.bad_angular_velocity_delimiter = false;} else {speedData.bad_angular_velocity_delimiter_i++; speedData.bad_angular_velocity_delimiter = true;}}
-    else if (serial1Data.iter_token == 9)  {if (val_gyro_angular_velocity(serial1Data.token) == true)      {strcpy(speedData.gyro_X, serial1Data.token);                     speedData.check_data++; speedData.bad_gyro_X = false;}                     else {speedData.bad_gyro_X_i++;                     speedData.bad_gyro_X = true;}}
-    else if (serial1Data.iter_token == 10) {if (val_gyro_angular_velocity(serial1Data.token) == true)      {strcpy(speedData.gyro_Y, serial1Data.token);                     speedData.check_data++; speedData.bad_gyro_Y = false;}                     else {speedData.bad_gyro_Y_i++;                     speedData.bad_gyro_Y = true;}}
-    else if (serial1Data.iter_token == 11) {if (val_gyro_angular_velocity(serial1Data.token) == true)      {strcpy(speedData.gyro_Z, serial1Data.token);                     speedData.check_data++; speedData.bad_gyro_Z = false;}                     else {speedData.bad_gyro_Z_i++;                     speedData.bad_gyro_Z = true;}}
-    else if (serial1Data.iter_token == 12) {if (val_status_delimiter(serial1Data.token) == true)           {strcpy(speedData.status_delimiter, serial1Data.token);           speedData.check_data++; speedData.bad_status_delimiter = false;}           else {speedData.bad_status_delimiter_i++;           speedData.bad_status_delimiter = true;}}
-    else if (serial1Data.iter_token == 13) {if (val_ubi_state_flag(serial1Data.token) == true)             {strcpy(speedData.ubi_state_flag, serial1Data.token);             speedData.check_data++; speedData.bad_ubi_state_flag = false;}             else {speedData.bad_ubi_state_flag_i++;             speedData.bad_ubi_state_flag = true;}}
-    else if (serial1Data.iter_token == 14) {if (val_ubi_state_kind_flag(serial1Data.token) == true)        {strcpy(speedData.ubi_state_kind, serial1Data.token);             speedData.check_data++; speedData.bad_ubi_state_kind = false;}             else {speedData.bad_ubi_state_kind_i++;             speedData.bad_ubi_state_kind = true;}}
-    else if (serial1Data.iter_token == 15) {
-      strcpy(speedData.temporary_data, strtok(serial1Data.token, "*"));
-      if (val_scalable(speedData.temporary_data) == true)                                                  {strcpy(speedData.ubi_state_value, speedData.temporary_data);     speedData.check_data++; speedData.bad_ubi_state_value = false;}            else {speedData.bad_ubi_state_value_i++;            speedData.bad_ubi_state_value = true;}
-      serial1Data.token = strtok(NULL, "*");
-      strcpy(speedData.temporary_data_1, strtok(serial1Data.token, "*"));
-      if (val_checksum(speedData.temporary_data_1) == true)                                                {strcpy(speedData.check_sum, speedData.temporary_data_1);         speedData.check_data++; speedData.bad_check_sum = false;}                  else {speedData.bad_check_sum_i++;                  speedData.bad_check_sum = true;}}
-    serial1Data.token = strtok(NULL, ",");
-    serial1Data.iter_token++;
-  }
-  if (sysDebugData.speed_sentence == true) {
-    Serial.println("[speedData.tag] "                        + String(speedData.tag));
-    Serial.println("[speedData.utc_time] "                   + String(speedData.utc_time));
-    Serial.println("[speedData.speed] "                      + String(speedData.speed));
-    Serial.println("[speedData.status] "                     + String(speedData.status));
-    Serial.println("[speedData.acceleration_delimiter] "     + String(speedData.acceleration_delimiter));
-    Serial.println("[speedData.acc_X] "                      + String(speedData.acc_X));
-    Serial.println("[speedData.acc_Y] "                      + String(speedData.acc_Y));
-    Serial.println("[speedData.acc_Z] "                      + String(speedData.acc_Z));
-    Serial.println("[speedData.angular_velocity_delimiter] " + String(speedData.angular_velocity_delimiter));
-    Serial.println("[speedData.gyro_X] "                     + String(speedData.gyro_X));
-    Serial.println("[speedData.gyro_Y] "                     + String(speedData.gyro_Y));
-    Serial.println("[speedData.gyro_Z] "                     + String(speedData.gyro_Z));
-    Serial.println("[speedData.status_delimiter] "           + String(speedData.status_delimiter));
-    Serial.println("[speedData.ubi_state_flag] "             + String(speedData.ubi_state_flag));
-    Serial.println("[speedData.ubi_state_kind] "             + String(speedData.ubi_state_kind));
-    Serial.println("[speedData.ubi_state_value] "            + String(speedData.ubi_state_value));
-    Serial.println("[speedData.check_sum] "                  + String(speedData.check_sum));
-    Serial.println("[speedData.check_data] "                 + String(speedData.check_data));
-  }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                  DATA: ERROR
-
-struct ERRORStruct {
-  char sentence[1024];
-  char tag[56];                                                                              // <0> Log header
-  char utc[56];            unsigned long bad_utc_i;             bool bad_utc = true;         // <1> utc time
-  char code_flag[56];      unsigned long bad_code_flag_i;       bool bad_code_flag = true;   // <2> encryption chip: 1=problem, 0=normal
-  char gset_flag[56];      unsigned long bad_gset_flag_i;       bool bad_gset_flag = true;   // <3> positioning chip: 1=problem, 0=normal
-  char sset_flag[56];      unsigned long bad_sset_flag_i;       bool bad_sset_flag = true;   // <4> sensor chip: 1=problem, 0=normal
-  char customize_0[56];    unsigned long bad_customize_0_i;     bool bad_customize_0 = true; // <5> customize 0-20
-  char customize_1[56];    unsigned long bad_customize_1_i;     bool bad_customize_1 = true; // <6> customize float
-  char check_sum[56];      unsigned long bad_check_sum_i;       bool bad_check_sum = true;   // <7> XOR check value of all bytes starting from $ to *
-  int check_data = 0;      unsigned long bad_checksum_validity; bool valid_checksum = false; // Checksum validity bool, counters and a counter for how many elements passed further testing (gnrmc check_data should result in 8)
-  char temporary_data[56];
-  char temporary_data_1[56];
-};
-ERRORStruct errorData;
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                        ERROR
-
-void ERROR() {
-  errorData.check_data = 0;
-  memset(errorData.tag, 0, 56);
-  memset(errorData.utc, 0, 56);
-  memset(errorData.code_flag, 0, 56);
-  memset(errorData.gset_flag, 0, 56);
-  memset(errorData.sset_flag, 0, 56);
-  memset(errorData.customize_0, 0, 56);
-  memset(errorData.customize_1, 0, 56);
-  memset(errorData.check_sum, 0, 56);
-  serial1Data.iter_token = 0;
-  serial1Data.token = strtok(errorData.sentence, ",");
-  while( serial1Data.token != NULL ) {
-    if      (serial1Data.iter_token == 0)                                                  {strcpy(errorData.tag, "ERROR");                   errorData.check_data++;}
-    else if (serial1Data.iter_token == 1) {if (val_utc_time(serial1Data.token) == true)    {strcpy(errorData.utc, serial1Data.token);         errorData.check_data++; errorData.bad_utc = false;}         else {errorData.bad_utc_i++;         errorData.bad_utc = true;}}
-    else if (serial1Data.iter_token == 2) {if (val_code_flag(serial1Data.token) == true)   {strcpy(errorData.code_flag, serial1Data.token);   errorData.check_data++; errorData.bad_code_flag = false;}   else {errorData.bad_code_flag_i++;   errorData.bad_code_flag = true;}}
-    else if (serial1Data.iter_token == 3) {if (val_gset_flag(serial1Data.token) == true)   {strcpy(errorData.gset_flag, serial1Data.token);   errorData.check_data++; errorData.bad_gset_flag = false;}   else {errorData.bad_gset_flag_i++;   errorData.bad_gset_flag = true;}}
-    else if (serial1Data.iter_token == 4) {if (val_sset_flag(serial1Data.token) == true)   {strcpy(errorData.sset_flag, serial1Data.token);   errorData.check_data++; errorData.bad_sset_flag = false;}   else {errorData.bad_sset_flag_i++;   errorData.bad_sset_flag = true;}}
-    else if (serial1Data.iter_token == 5) {if (val_custom_flag(serial1Data.token) == true) {strcpy(errorData.customize_0, serial1Data.token); errorData.check_data++; errorData.bad_customize_0 = false;} else {errorData.bad_customize_0_i++; errorData.bad_customize_0 = true;}}
-    else if (serial1Data.iter_token == 6) {
-      strcpy(errorData.temporary_data, strtok(serial1Data.token, "*"));
-      if (val_scalable(errorData.temporary_data) == true)                                  {strcpy(errorData.customize_1, errorData.temporary_data); errorData.check_data++; errorData.bad_customize_1 = false;} else {errorData.bad_customize_1_i++; errorData.bad_customize_1 = true;}
-      serial1Data.token = strtok(NULL, "*");
-      strcpy(errorData.temporary_data_1, strtok(serial1Data.token, "*"));
-      if (val_checksum(errorData.temporary_data_1) == true)                                {strcpy(errorData.check_sum, errorData.temporary_data_1); errorData.check_data++; errorData.bad_check_sum = false;}   else {errorData.bad_check_sum_i++;   errorData.bad_check_sum = true;}}
-    serial1Data.token = strtok(NULL, ",");
-    serial1Data.iter_token++;
-  }
-  if (sysDebugData.error_sentence == true) {
-    Serial.println("[errorData.tag] "         + String(errorData.tag));
-    Serial.println("[errorData.utc] "         + String(errorData.utc));
-    Serial.println("[errorData.code_flag] "   + String(errorData.code_flag));
-    Serial.println("[errorData.gset_flag] "   + String(errorData.gset_flag));
-    Serial.println("[errorData.sset_flag] "   + String(errorData.sset_flag));
-    Serial.println("[errorData.customize_0] " + String(errorData.customize_0));
-    Serial.println("[errorData.customize_1] " + String(errorData.customize_1)); // intentionally unpopulated
-    Serial.println("[errorData.check_sum] "   + String(errorData.check_sum));
-    Serial.println("[errorData.check_data] "  + String(errorData.check_data));
-  }
-}
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                  DATA: DEBUG
-
-struct DEBUGStruct {
-  char sentence[1024];
-  char tag[56];                                                                                 // <0> log header
-  char ang_dget_flag[56];  unsigned long bad_ang_dget_flag_i;   bool bad_ang_dget_flag = true;  // <1> installation azimuth: 1=with azimuth, 0=without azimuth
-  char fix_kind_flag[56];  unsigned long bad_fix_kind_flag_i;   bool bad_fix_kind_flag = true;  // <2> type of installed coordinate system
-  char ins_run_flag[56];   unsigned long bad_ins_run_flag_i;    bool bad_ins_run_flag = true;   // <3> forced ins: 1=forced, 0=normal
-  char fiobject_roll_flag[56];  unsigned long bad_fiobject_roll_flag_i;   bool bad_fiobject_roll_flag = true;  // <4> installation roll angle
-  char fix_pitch_flag[56]; unsigned long bad_fix_pitch_flag_i;  bool bad_fix_pitch_flag = true; // <5> installation pitch angle
-  char ubi_on_flag[56];    unsigned long bad_ubi_on_flag_i;     bool bad_ubi_on_flag = true;    // <6> 0 to 8
-  char ubi_kind_flag[56];  unsigned long bad_ubi_kind_flag_i;   bool bad_ubi_kind_flag = true;  // <7> 0=none, 1=ubi event, 2=ubi alarm
-  char ubi_a_set[56];      unsigned long bad_ubi_a_set_i;       bool bad_ubi_a_set = true;      // <8> ubi a parameter setting value
-  char ubi_b_set[56];      unsigned long bad_ubi_b_set_i;       bool bad_ubi_b_set = true;      // <9> ubi b parameter setting value
-  char acc_X_data[56];     unsigned long bad_acc_X_data_i;      bool bad_acc_X_data = true;     // <10> vehicle longitudinal acceleration: 0.1m/s2
-  char acc_Y_data[56];     unsigned long bad_acc_Y_data_i;      bool bad_acc_Y_data = true;     // <11> vehicle lateral acceleration: 0.1m/s2
-  char gyro_Z_data[56];    unsigned long bad_gyro_Z_data_i;     bool bad_gyro_Z_data = true;    // <12> vehicle z axis angular velocity: degrees
-  char pitch_angle[56];    unsigned long bad_pitch_angle_i;     bool bad_pitch_angle = true;    // <13> vehicle pitch angle: degrees
-  char roll_angle[56];     unsigned long bad_roll_angle_i;      bool bad_roll_angle = true;     // <14> vehicle roll angle: degrees
-  char yaw_angle[56];      unsigned long bad_yaw_angle_i;       bool bad_yaw_angle = true;      // <15> vehicle direction change angle: degrees
-  char car_speed[56];      unsigned long bad_car_speed_i;       bool bad_car_speed = true;      // <16> vehicle speed: m/s
-  char ins_flag[56];       unsigned long bad_ins_flag_i;        bool bad_ins_flag = true;       // <17> intertial navigation convergence flag
-  char ubi_num[56];        unsigned long bad_ubi_num_i;         bool bad_ubi_num = true;        // <18> serial number
-  char ubi_valid[56];      unsigned long bad_ubi_valid_i;       bool bad_ubi_valid = true;      // <19> ubi valid flag: 1=valid, 0=invalid
-  char coll_T_data[56];    unsigned long bad_coll_T_data_i;     bool bad_coll_T_data = true;    // <20> collision factor
-  char coll_T_heading[56]; unsigned long bad_coll_T_heading_i;  bool bad_coll_T_heading = true; // <21> collision direction
-  char custom_logo_0[56];  unsigned long bad_custom_logo_0_i;   bool bad_custom_logo_0 = true;  // <22> 
-  char custom_logo_1[56];  unsigned long bad_custom_logo_1_i;   bool bad_custom_logo_1 = true;  // <23> 
-  char custom_logo_2[56];  unsigned long bad_custom_logo_2_i;   bool bad_custom_logo_2 = true;  // <24> 
-  char custom_logo_3[56];  unsigned long bad_custom_logo_3_i;   bool bad_custom_logo_3 = true;  // <25> 
-  char custom_logo_4[56];  unsigned long bad_custom_logo_4_i;   bool bad_custom_logo_4 = true;  // <26> 
-  char custom_logo_5[56];  unsigned long bad_custom_logo_5_i;   bool bad_custom_logo_5 = true;  // <27> 
-  char check_sum[56];      unsigned long bad_check_sum_i;       bool bad_check_sum = true;      // <28> XOR check value of all bytes starting from $ to *
-  int check_data = 0;      unsigned long bad_checksum_validity; bool valid_checksum = false;    // Checksum validity bool, counters and a counter for how many elements passed further testing (gnrmc check_data should result in 29)
-  char temporary_data[56];
-  char temporary_data_1[56];
-};
-DEBUGStruct debugData;
-
-// ----------------------------------------------------------------------------------------------------------------------------
-//                                                                                                                        DEBUG
-
-void DEBUG() {
-  debugData.check_data = 0;
-  memset(debugData.tag, 0, 56);
-  memset(debugData.ang_dget_flag, 0, 56);
-  memset(debugData.fix_kind_flag, 0, 56);
-  memset(debugData.ins_run_flag, 0, 56);
-  memset(debugData.fiobject_roll_flag, 0, 56);
-  memset(debugData.fix_pitch_flag, 0, 56);
-  memset(debugData.ubi_on_flag, 0, 56);
-  memset(debugData.ubi_kind_flag, 0, 56);
-  memset(debugData.ubi_a_set, 0, 56);
-  memset(debugData.ubi_b_set, 0, 56);
-  memset(debugData.acc_X_data, 0, 56);
-  memset(debugData.acc_Y_data, 0, 56);
-  memset(debugData.gyro_Z_data, 0, 56);
-  memset(debugData.pitch_angle, 0, 56);
-  memset(debugData.roll_angle, 0, 56);
-  memset(debugData.yaw_angle, 0, 56);
-  memset(debugData.car_speed, 0, 56);
-  memset(debugData.ins_flag, 0, 56);
-  memset(debugData.ubi_num, 0, 56);
-  memset(debugData.ubi_valid, 0, 56);
-  memset(debugData.coll_T_data, 0, 56);
-  memset(debugData.coll_T_heading, 0, 56);
-  memset(debugData.custom_logo_0, 0, 56);
-  memset(debugData.custom_logo_1, 0, 56);
-  memset(debugData.custom_logo_2, 0, 56);
-  memset(debugData.custom_logo_4, 0, 56);
-  memset(debugData.custom_logo_5, 0, 56);
-  memset(debugData.check_sum, 0, 56);
-  serial1Data.iter_token = 0;
-  serial1Data.token = strtok(debugData.sentence, ",");
-  while( serial1Data.token != NULL ) {
-    if      (serial1Data.iter_token == 0)                                                      {strcpy(debugData.tag, "DEBUG");                      debugData.check_data++;}
-    else if (serial1Data.iter_token == 1)  {if (val_ang_dget_flag(serial1Data.token) == true)  {strcpy(debugData.ang_dget_flag, serial1Data.token);  debugData.check_data++; debugData.bad_ang_dget_flag = false;}  else {debugData.bad_ang_dget_flag_i++;  debugData.bad_ang_dget_flag = true;}}
-    else if (serial1Data.iter_token == 2)  {if (val_fix_kind_flag(serial1Data.token) == true)  {strcpy(debugData.fix_kind_flag, serial1Data.token);  debugData.check_data++; debugData.bad_fix_kind_flag = false;}  else {debugData.bad_fix_kind_flag_i++;  debugData.bad_fix_kind_flag = true;}}
-    else if (serial1Data.iter_token == 3)  {if (val_ins_run_flag(serial1Data.token) == true)   {strcpy(debugData.ins_run_flag, serial1Data.token);   debugData.check_data++; debugData.bad_ins_run_flag = false;}   else {debugData.bad_ins_run_flag_i++;   debugData.bad_ins_run_flag = true;}}
-    else if (serial1Data.iter_token == 4)  {if (val_fiobject_roll_flag(serial1Data.token) == true)  {strcpy(debugData.fiobject_roll_flag, serial1Data.token);  debugData.check_data++; debugData.bad_fiobject_roll_flag = false;}  else {debugData.bad_fiobject_roll_flag_i++;  debugData.bad_fiobject_roll_flag = true;}}
-    else if (serial1Data.iter_token == 5)  {if (val_fix_pitch_flag(serial1Data.token) == true) {strcpy(debugData.fix_pitch_flag, serial1Data.token); debugData.check_data++; debugData.bad_fix_pitch_flag = false;} else {debugData.bad_fix_pitch_flag_i++; debugData.bad_fix_pitch_flag = true;}}
-    else if (serial1Data.iter_token == 6)  {if (val_ubi_on_flag(serial1Data.token) == true)    {strcpy(debugData.ubi_on_flag, serial1Data.token);    debugData.check_data++; debugData.bad_ubi_on_flag = false;}    else {debugData.bad_ubi_on_flag_i++;    debugData.bad_ubi_on_flag = true;}}
-    else if (serial1Data.iter_token == 7)  {if (val_ubi_kind_flag(serial1Data.token) == true)  {strcpy(debugData.ubi_kind_flag, serial1Data.token);  debugData.check_data++; debugData.bad_ubi_kind_flag = false;}  else {debugData.bad_ubi_kind_flag_i++;  debugData.bad_ubi_kind_flag = true;}}
-    else if (serial1Data.iter_token == 8)  {if (val_ubi_a_set(serial1Data.token) == true)      {strcpy(debugData.ubi_a_set, serial1Data.token);      debugData.check_data++; debugData.bad_ubi_a_set = false;}      else {debugData.bad_ubi_a_set_i++;      debugData.bad_ubi_a_set = true;}}
-    else if (serial1Data.iter_token == 9)  {if (val_ubi_b_set(serial1Data.token) == true)      {strcpy(debugData.ubi_b_set, serial1Data.token);      debugData.check_data++; debugData.bad_ubi_b_set = false;}      else {debugData.bad_ubi_b_set_i++;      debugData.bad_ubi_b_set = true;}}
-    else if (serial1Data.iter_token == 10) {if (val_acc_X_data(serial1Data.token) == true)     {strcpy(debugData.acc_X_data, serial1Data.token);     debugData.check_data++; debugData.bad_acc_X_data = false;}     else {debugData.bad_acc_X_data_i++;     debugData.bad_acc_X_data = true;}}
-    else if (serial1Data.iter_token == 11) {if (val_acc_Y_data(serial1Data.token) == true)     {strcpy(debugData.acc_Y_data, serial1Data.token);     debugData.check_data++; debugData.bad_acc_Y_data = false;}     else {debugData.bad_acc_Y_data_i++;     debugData.bad_acc_Y_data = true;}}
-    else if (serial1Data.iter_token == 12) {if (val_gyro_Z_data(serial1Data.token) == true)    {strcpy(debugData.gyro_Z_data, serial1Data.token);    debugData.check_data++; debugData.bad_gyro_Z_data = false;}    else {debugData.bad_gyro_Z_data_i++;    debugData.bad_gyro_Z_data = true;}}
-    else if (serial1Data.iter_token == 13) {if (val_pitch_angle(serial1Data.token) == true)    {strcpy(debugData.pitch_angle, serial1Data.token);    debugData.check_data++; debugData.bad_pitch_angle = false;}    else {debugData.bad_pitch_angle_i++;    debugData.bad_pitch_angle = true;}}
-    else if (serial1Data.iter_token == 14) {if (val_roll_angle(serial1Data.token) == true)     {strcpy(debugData.roll_angle, serial1Data.token);     debugData.check_data++; debugData.bad_roll_angle = false;}     else {debugData.bad_roll_angle_i++;     debugData.bad_roll_angle = true;}}
-    else if (serial1Data.iter_token == 15) {if (val_yaw_angle(serial1Data.token) == true)      {strcpy(debugData.yaw_angle, serial1Data.token);      debugData.check_data++; debugData.bad_yaw_angle = false;}      else {debugData.bad_yaw_angle_i++;      debugData.bad_yaw_angle = true;}}
-    else if (serial1Data.iter_token == 16) {if (val_car_speed(serial1Data.token) == true)      {strcpy(debugData.car_speed, serial1Data.token);      debugData.check_data++; debugData.bad_car_speed = false;}      else {debugData.bad_car_speed_i++;      debugData.bad_car_speed = true;}}
-    else if (serial1Data.iter_token == 17) {if (val_ins_flag(serial1Data.token) == true)       {strcpy(debugData.ins_flag, serial1Data.token);       debugData.check_data++; debugData.bad_ins_flag = false;}       else {debugData.bad_ins_flag_i++;       debugData.bad_ins_flag = true;}}
-    else if (serial1Data.iter_token == 18) {if (val_ubi_num(serial1Data.token) == true)        {strcpy(debugData.ubi_num, serial1Data.token);        debugData.check_data++; debugData.bad_ubi_num = false;}        else {debugData.bad_ubi_num_i++;        debugData.bad_ubi_num = true;}}
-    else if (serial1Data.iter_token == 19) {if (val_ubi_valid(serial1Data.token) == true)      {strcpy(debugData.ubi_valid, serial1Data.token);      debugData.check_data++; debugData.bad_ubi_valid = false;}      else {debugData.bad_ubi_valid_i++;      debugData.bad_ubi_valid = true;}}
-    else if (serial1Data.iter_token == 20) {if (val_coll_T_data(serial1Data.token) == true)    {strcpy(debugData.coll_T_data, serial1Data.token);    debugData.check_data++; debugData.bad_coll_T_data = false;}    else {debugData.bad_coll_T_data_i++;    debugData.bad_coll_T_data = true;}}
-    else if (serial1Data.iter_token == 21) {if (val_coll_T_heading(serial1Data.token) == true) {strcpy(debugData.coll_T_heading, serial1Data.token); debugData.check_data++; debugData.bad_coll_T_heading = false;} else {debugData.bad_coll_T_heading_i++; debugData.bad_coll_T_heading = true;}}
-    else if (serial1Data.iter_token == 22) {if (val_custom_flag(serial1Data.token) == true)    {strcpy(debugData.custom_logo_0, serial1Data.token);  debugData.check_data++; debugData.bad_custom_logo_0 = false;}  else {debugData.bad_custom_logo_0_i++;  debugData.bad_custom_logo_0 = true;}}
-    else if (serial1Data.iter_token == 23) {if (val_custom_flag(serial1Data.token) == true)    {strcpy(debugData.custom_logo_1, serial1Data.token);  debugData.check_data++; debugData.bad_custom_logo_1 = false;}  else {debugData.bad_custom_logo_1_i++;  debugData.bad_custom_logo_1 = true;}}
-    else if (serial1Data.iter_token == 24) {if (val_custom_flag(serial1Data.token) == true)    {strcpy(debugData.custom_logo_2, serial1Data.token);  debugData.check_data++; debugData.bad_custom_logo_2 = false;}  else {debugData.bad_custom_logo_2_i++;  debugData.bad_custom_logo_2 = true;}}
-    else if (serial1Data.iter_token == 25) {if (val_custom_flag(serial1Data.token) == true)    {strcpy(debugData.custom_logo_3, serial1Data.token);  debugData.check_data++; debugData.bad_custom_logo_3 = false;}  else {debugData.bad_custom_logo_3_i++;  debugData.bad_custom_logo_3 = true;}}
-    else if (serial1Data.iter_token == 26) {if (val_custom_flag(serial1Data.token) == true)    {strcpy(debugData.custom_logo_4, serial1Data.token);  debugData.check_data++; debugData.bad_custom_logo_4 = false;}  else {debugData.bad_custom_logo_4_i++;  debugData.bad_custom_logo_4 = true;}}
-    else if (serial1Data.iter_token == 27) {
-      strcpy(debugData.temporary_data, strtok(serial1Data.token, "*"));
-      if (val_scalable(debugData.temporary_data) == true)                                      {strcpy(debugData.custom_logo_5, debugData.temporary_data); debugData.check_data++; debugData.bad_custom_logo_5 = false;} else {debugData.bad_custom_logo_5_i++; debugData.bad_custom_logo_5 = true;}
-      serial1Data.token = strtok(NULL, "*");
-      strcpy(debugData.temporary_data_1, strtok(serial1Data.token, "*"));
-      if (val_checksum(debugData.temporary_data_1) == true)                                    {strcpy(debugData.check_sum, debugData.temporary_data_1); debugData.check_data++; debugData.bad_check_sum = false;}       else {debugData.bad_check_sum_i++; debugData.bad_check_sum = true;}}
-    serial1Data.token = strtok(NULL, ",");
-    serial1Data.iter_token++;
-  }
-  if (sysDebugData.debug_sentence == true) {
-    Serial.println("[debugData.tag] "            + String(debugData.tag));
-    Serial.println("[debugData.ang_dget_flag] "  + String(debugData.ang_dget_flag));
-    Serial.println("[debugData.fix_kind_flag] "  + String(debugData.fix_kind_flag));
-    Serial.println("[debugData.ins_run_flag] "   + String(debugData.ins_run_flag));
-    Serial.println("[debugData.fiobject_roll_flag] "  + String(debugData.fiobject_roll_flag));
-    Serial.println("[debugData.fix_pitch_flag] " + String(debugData.fix_pitch_flag));
-    Serial.println("[debugData.ubi_on_flag] "    + String(debugData.ubi_on_flag));
-    Serial.println("[debugData.ubi_kind_flag] "  + String(debugData.ubi_kind_flag));
-    Serial.println("[debugData.ubi_a_set] "      + String(debugData.ubi_a_set));
-    Serial.println("[debugData.ubi_b_set] "      + String(debugData.ubi_b_set));
-    Serial.println("[debugData.acc_X_data] "     + String(debugData.acc_X_data));
-    Serial.println("[debugData.acc_Y_data] "     + String(debugData.acc_Y_data));
-    Serial.println("[debugData.gyro_Z_data] "    + String(debugData.gyro_Z_data));
-    Serial.println("[debugData.pitch_angle] "    + String(debugData.pitch_angle));
-    Serial.println("[debugData.roll_angle] "     + String(debugData.roll_angle));
-    Serial.println("[debugData.yaw_angle] "      + String(debugData.yaw_angle));
-    Serial.println("[debugData.car_speed] "      + String(debugData.car_speed));
-    Serial.println("[debugData.ins_flag] "       + String(debugData.ins_flag));
-    Serial.println("[debugData.ubi_num] "        + String(debugData.ubi_num));
-    Serial.println("[debugData.ubi_valid] "      + String(debugData.ubi_valid));
-    Serial.println("[debugData.coll_T_data] "    + String(debugData.coll_T_data));
-    Serial.println("[debugData.coll_T_heading] " + String(debugData.coll_T_heading));
-    Serial.println("[debugData.custom_logo_0] "  + String(debugData.custom_logo_0));
-    Serial.println("[debugData.custom_logo_1] "  + String(debugData.custom_logo_1));
-    Serial.println("[debugData.custom_logo_2] "  + String(debugData.custom_logo_2));
-    Serial.println("[debugData.custom_logo_3] "  + String(debugData.custom_logo_3));
-    Serial.println("[debugData.custom_logo_4] "  + String(debugData.custom_logo_4));
-    Serial.println("[debugData.custom_logo_5] "  + String(debugData.custom_logo_5));
-    Serial.println("[debugData.check_sum] "      + String(debugData.check_sum));
-    Serial.println("[debugData.check_data] "     + String(debugData.check_data));
   }
 }
 
@@ -5320,7 +4811,7 @@ struct SiderealObjectStruct {
   long object_mag;
   long object_r;
   long object_s;
-  char object_table[7][56] =
+  char object_table[7][20] =
   {
     "Star Table",          // 0
     "NGC Table",           // 1
@@ -5768,131 +5259,6 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.StaticFlagGPATTEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.static_flag), relayData.relays_data[Ri][Fi][0]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                                        SPEED
-
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateValueOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateValueUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateValueEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateValueRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.ubi_state_value), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateKindOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.ubi_state_kind), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateKindUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.ubi_state_kind), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateKindEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.ubi_state_kind), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateKindRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.ubi_state_kind), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateFlagOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.ubi_state_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateFlagUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.ubi_state_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.ubi_state_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIStateFlagRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.ubi_state_flag), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.gyro_Z), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.gyro_Z), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.gyro_Z), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.gyro_Z), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroYSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.gyro_Y), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroYSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.gyro_Y), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroYSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.gyro_Y), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroYSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.gyro_Y), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroXSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.gyro_X), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroXSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.gyro_X), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroXSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.gyro_X), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroXSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.gyro_X), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccZSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.acc_Z), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccZSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.acc_Z), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccZSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.acc_Z), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccZSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.acc_Z), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.acc_Y), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.acc_Y), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.acc_Y), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.acc_Y), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.acc_X), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.acc_X), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.acc_X), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.acc_X), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.StatusSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.status), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.StatusSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.status), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.StatusSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.status), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.StatusSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.status), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GroundSpeedSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GroundSpeedSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GroundSpeedSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GroundSpeedSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.speed), relayData.relays_data[Ri][Fi][0],relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeSPEEDOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(speedData.utc_time), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeSPEEDUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(speedData.utc_time), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeSPEEDEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(speedData.utc_time), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UTCTimeSPEEDRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(speedData.utc_time), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-
-        // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                                        ERROR
-        
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORGSetFlagEqual) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.gset_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORSSetFlagEqual) == 0) {tmp_matrix[Fi] = check_under_true(atol(errorData.sset_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORCodeFlagEqual) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.code_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORUTCTimeOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORUTCTimeUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORUTCTimeEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.ERRORUTCTimeRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(errorData.utc), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-
-        // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                                        DEBUG
-        
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTHeadingOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTHeadingUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTHeadingEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTHeadingRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.coll_T_heading), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTDataOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.coll_T_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTDataUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.coll_T_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTDataEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.coll_T_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.CollisionTDataRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.coll_T_data), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIValidEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_valid), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.INSFlagOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.ins_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.INSFlagUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.ins_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.INSFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ins_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.INSFlagRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.ins_flag), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.CarSpeedOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.car_speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.CarSpeedUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.car_speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.CarSpeedEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.car_speed), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.CarSpeedRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.car_speed), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.YawAngleOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.yaw_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.YawAngleUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.yaw_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.YawAngleEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.yaw_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.YawAngleRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.yaw_angle), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.RollAngleOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.roll_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.RollAngleUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.roll_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.RollAngleEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.roll_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.RollAngleRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.roll_angle), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.PitchAngleOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.pitch_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.PitchAngleUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.pitch_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.PitchAngleEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.pitch_angle), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.PitchAngleRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.pitch_angle), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIOnFlagOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.ubi_on_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIOnFlagUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.ubi_on_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIOnFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_on_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIOnFlagRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.ubi_on_flag), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIASetOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.ubi_a_set), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIASetUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.ubi_a_set), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIASetEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_a_set), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIASetRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.ubi_a_set), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIBSetOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.ubi_b_set), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIBSetUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.ubi_b_set), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIBSetEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_b_set), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIBSetRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.ubi_b_set), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXDataOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.acc_X_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXDataUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.acc_X_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXDataEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.acc_X_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccXDataRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.acc_X_data), relayData.relays_data[Ri][Fi][0], relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYDataOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.acc_Y_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYDataUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.acc_Y_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYDataEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.acc_Y_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AccYDataRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.acc_Y_data), relayData.relays_data[Ri][Fi][0],relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZDataOver) == 0) {tmp_matrix[Fi] = check_over_true(atol(debugData.gyro_Z_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZDataUnder) == 0) {tmp_matrix[Fi] = check_under_true(atol(debugData.gyro_Z_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZDataEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.gyro_Z_data), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.GyroZDataRange) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atol(debugData.gyro_Z_data), relayData.relays_data[Ri][Fi][0],relayData.relays_data[Ri][Fi][1]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.AngDGetFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ang_dget_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.INSRunFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ins_run_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.FixRollFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.fiobject_roll_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.FixPitchFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.fix_pitch_flag), relayData.relays_data[Ri][Fi][0]);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.UBIKindFlagEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(debugData.ubi_kind_flag), relayData.relays_data[Ri][Fi][0]);}
-
-        // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                             SIDEREAL PLANETS
 
         // daytime: current time in range of sunrise and sunset
@@ -5925,24 +5291,12 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_invalid_checksum) == 0) {tmp_matrix[Fi] = check_bool_false(gnrmcData.valid_checksum);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_valid_checksum) == 0) {tmp_matrix[Fi] = check_bool_true(gpattData.valid_checksum);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_invalid_checksum) == 0) {tmp_matrix[Fi] = check_bool_false(gpattData.valid_checksum);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_valid_checksum) == 0) {tmp_matrix[Fi] = check_bool_true(speedData.valid_checksum);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_invalid_checksum) == 0) {tmp_matrix[Fi] = check_bool_false(speedData.valid_checksum);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.error_valid_checksum) == 0) {tmp_matrix[Fi] = check_bool_true(errorData.valid_checksum);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.error_invalid_checksum) == 0) {tmp_matrix[Fi] = check_bool_false(errorData.valid_checksum);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_valid_checksum) == 0) {tmp_matrix[Fi] = check_bool_true(debugData.valid_checksum);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_checksum) == 0) {tmp_matrix[Fi] = check_bool_false(debugData.valid_checksum);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_valid_check_data) == 0) {tmp_matrix[Fi] = check_equal_true(gnggaData.check_data, 16);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gngga_invalid_check_data) == 0) {tmp_matrix[Fi] = check_equal_false(gnggaData.check_data, 16);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_valid_check_data) == 0) {tmp_matrix[Fi] = check_equal_true(gnrmcData.check_data, 14);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gnrmc_invalid_check_data) == 0) {tmp_matrix[Fi] = check_equal_false(gnrmcData.check_data, 14);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_valid_check_data) == 0) {tmp_matrix[Fi] = check_equal_true(gpattData.check_data, 41);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.gpatt_invalid_check_data) == 0) {tmp_matrix[Fi] = check_equal_false(gpattData.check_data, 41);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_valid_check_data) == 0) {tmp_matrix[Fi] = check_equal_true(speedData.check_data, 17);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.speed_invalid_check_data) == 0) {tmp_matrix[Fi] = check_equal_false(speedData.check_data, 17);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.error_valid_check_data) == 0) {tmp_matrix[Fi] = check_equal_true(errorData.check_data, 8);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.error_invalid_check_data) == 0) {tmp_matrix[Fi] = check_equal_false(errorData.check_data, 8);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_valid_check_data) == 0) {tmp_matrix[Fi] = check_equal_true(debugData.check_data, 29);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.debug_invalid_check_data) == 0) {tmp_matrix[Fi] = check_equal_false(debugData.check_data, 29);}
       }
       
       // safety layer: disengage if all entries are $NONE
@@ -6423,37 +5777,6 @@ void readRXD_1(void *pvParameters) {
             else {gpattData.bad_checksum_validity++;}
         }
       }
-
-      // ------------------------------------------------------------------------------------------------------------------------
-      //                                                                                                                    SPEED
-
-      // if (systemData.speed_enabled == true) {
-      //   if (strncmp(serial1Data.BUFFER, "$SPEED", 6) == 0) {
-      //     Serial.print(""); Serial.println(serial1Data.BUFFER);
-      //     awaiting length checks: take a ride with the laptop
-      //     SPEED();
-      //   }
-      // }
-
-      // ------------------------------------------------------------------------------------------------------------------------
-      //                                                                                                                    ERROR
-
-      // if (systemData.error_enabled == true) {
-      //   if (strncmp(serial1Data.BUFFER, "$ERROR", 6) == 0) {
-      //     Serial.print(""); Serial.println(serial1Data.BUFFER);
-      //     awaiting length checks: take a ride with the laptop
-      //     ERROR();
-      //   }
-
-      // ------------------------------------------------------------------------------------------------------------------------
-      //                                                                                                                    DEBUG
-
-      // if (systemData.debug_enabled == true) {
-      //   if (strncmp(serial1Data.BUFFER, "$DEBUG", 6) == 0) {
-      //     Serial.print(""); Serial.println(serial1Data.BUFFER);
-      //     awaiting length checks: take a ride with the laptop
-      //     DEBUG();
-      //   }
 
       // else {
       //   Serial.println("[unknown] " + String(serial1Data.BUFFER));
