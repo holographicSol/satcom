@@ -4674,12 +4674,12 @@ bool check_strncmp_false(char * c0, char * c1, int n) {
 }
 
 bool check_bool_true(bool _bool) {
-  // Serial.println("check_bool_true: String(_bool));
+  // Serial.println("check_bool_true: " + String(_bool));
   if (_bool == true) {return true;} else {return false;}
 }
 
 bool check_bool_false(bool _bool) {
-  // Serial.println("check_bool_false: String(_bool));
+  // Serial.println("check_bool_false: " + String(_bool));
   if (_bool == false) {return true;} else {return false;}
 }
 
