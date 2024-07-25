@@ -34,7 +34,8 @@
                The idea is that each relay is controlled by a compound of logic (limited by memory), and the logic itself
                is programmable before and after flashing. Allowing for a reusable and general purpose system for any future
                projects requiring such data. more advanced calculations are intended, such as emphemeris, astronomical etc. now
-               that the foundational data has been handled.
+               that the foundational data has been handled. Then finally when fitted with relays, this system can be a self
+               contained unit, behaving as a switch for other devices. Robots and flying machines and everything in between.
 
                The relays are currently simulated while the system is being built and the simulation is designed to be easily
                relaceable by the actual relays themselves once the logic has been completed to a satisfactory degree and currently
@@ -46,7 +47,6 @@
                Core pinning scheme:
                Core 1: default core -> calculations.
                Core 0: display and other.
-               (SecondTimer will need reworking due to the performance update)
 */
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -4256,7 +4256,6 @@ bool sdcard_load_matrix(char * file) {
 //                                                                                                          SDCARD: SAVE MATRIX
 
 bool sdcard_save_matrix(char * file) {
-
   // display activity
   menuData.page = 21;
   SSD_Display_2_Menu();
