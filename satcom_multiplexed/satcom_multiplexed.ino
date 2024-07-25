@@ -4325,7 +4325,7 @@ bool sdcard_save_matrix(char * file) {
 //                                                                                                            MATRIX: SET ENTRY
 
 /*
-example test command: $MATRIobject_sET_ENTRY,0,0,SatelliteCountOver,1,0,0
+example test command: $MATRIX_SET_ENTRY,0,0,SatelliteCountOver,1,0,0
 */
 
 void matriobject_set_entry() {
@@ -4363,7 +4363,6 @@ void matriobject_set_entry() {
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][0]=strtod(serial0Data.data_3, &ptr); // set function value x
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][1]=strtod(serial0Data.data_4, &ptr); // set function value y
   relayData.relays_data[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)][2]=strtod(serial0Data.data_5, &ptr); // set function value z
-
   Serial.println("[Ri] " +String(serial0Data.data_0));
   Serial.println("[Fi] " +String(serial0Data.data_1));
   Serial.println("[Fn] " +String(relayData.relays[atoi(serial0Data.data_0)][atoi(serial0Data.data_1)]));
@@ -4491,7 +4490,6 @@ void setup() {
   //                                                                                                              SETUP: SDCARD
 
   init_sdcard();
-
   sdcard_mkdirs();
   sdcard_load_matrix(sdcardData.matrix_filepath);
   sdcard_load_system_configuration(sdcardData.sysconf, 0);
