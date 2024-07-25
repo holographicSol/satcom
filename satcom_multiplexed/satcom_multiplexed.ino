@@ -5593,7 +5593,7 @@ void readRXD_0(void *pvParameters) {
       // ------------------------------------------------------------------------------------------------------------------------
       //                                                                                                        MATRIX: SET ENTRY
 
-      if (strncmp(serial0Data.BUFFER, "$MATRIobject_sET_ENTRY", 17) == 0) {
+      if (strncmp(serial0Data.BUFFER, "$MATRIX_SET_ENTRY", 17) == 0) {
         matriobject_set_entry();
       }
 
@@ -5625,14 +5625,14 @@ void readRXD_0(void *pvParameters) {
       // ------------------------------------------------------------------------------------------------------------------------
       //                                                                                               MATRIX: TURN ALL RELAYS ON
 
-      else if (strcmp(serial0Data.BUFFER, "$MATRIobject_rELAYS_ALL_ON") == 0) {
+      else if (strcmp(serial0Data.BUFFER, "$MATRIX_RELAYS_ALL_ON") == 0) {
         relays_activate_all();
       }
 
       // ------------------------------------------------------------------------------------------------------------------------
       //                                                                                              MATRIX: TURN ALL RELAYS OFF
 
-      else if (strcmp(serial0Data.BUFFER, "$MATRIobject_rELAYS_ALL_OFF") == 0) {
+      else if (strcmp(serial0Data.BUFFER, "$MATRIX_RELAYS_ALL_OFF") == 0) {
         relays_deactivate_all();
       }
 
