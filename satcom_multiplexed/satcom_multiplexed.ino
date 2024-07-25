@@ -5700,7 +5700,7 @@ void readRXD_0(void *pvParameters) {
       }
 
       // ------------------------------------------------------------------------------------------------------------------------
-      //                                                                                                             SATCOM: MENU
+      //                                                                                                         NAVIGATION: MENU
 
       if (menuData.page < 10) {
         if      (strcmp(serial0Data.BUFFER, "$DOWN") == 0) {menuDown();}
