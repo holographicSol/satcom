@@ -1815,8 +1815,8 @@ struct RelayStruct {
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                             SIDEREAL PLANETS
 
-  char SunAzimuth[56]  = "SunAZInRange";
-  char SunAltitude[56] = "SunALTInRange";
+  char SunAzimuth[56]  = "SunAzimuth";
+  char SunAltitude[56] = "SunAltitude";
   char DayTime[56]   = "DayTime";
   char NightTime[56] = "NightTime";
   char Sunrise[56]   = "Sunrise";
