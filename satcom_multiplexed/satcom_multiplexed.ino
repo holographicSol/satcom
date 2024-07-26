@@ -2377,44 +2377,45 @@ void extrapulatedSatData() {
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                   SATCOM SENTENCE: TIMESTAMP FROM SAT TIME
 
-  memset(satData.sat_time_stamp_string, 0, 56);
-  strcat(satData.sat_time_stamp_string, gnrmcData.utc_date);
-  strcat(satData.sat_time_stamp_string, gnggaData.utc_time);
-  strcat(satData.satcom_sentence, satData.sat_time_stamp_string);
+  char temp_sat_time_stamp_string[56];
+  memset(temp_sat_time_stamp_string, 0, 56);
+  strcat(temp_sat_time_stamp_string, gnrmcData.utc_date);
+  strcat(temp_sat_time_stamp_string, gnggaData.utc_time);
+  strcat(satData.satcom_sentence, temp_sat_time_stamp_string);
   strcat(satData.satcom_sentence, ",");
   
   memset(satData.year_full, 0, 56);
   strcat(satData.year_full, satData.year_heads);
-  strncat(satData.year_full, &satData.sat_time_stamp_string[4], 1);
-  strncat(satData.year_full, &satData.sat_time_stamp_string[5], 1);
+  strncat(satData.year_full, &temp_sat_time_stamp_string[4], 1);
+  strncat(satData.year_full, &temp_sat_time_stamp_string[5], 1);
 
   memset(satData.month, 0, 56);
-  strncat(satData.month, &satData.sat_time_stamp_string[2], 1);
-  strncat(satData.month, &satData.sat_time_stamp_string[3], 1);
+  strncat(satData.month, &temp_sat_time_stamp_string[2], 1);
+  strncat(satData.month, &temp_sat_time_stamp_string[3], 1);
 
   memset(satData.day, 0, 56);
-  strncat(satData.day, &satData.sat_time_stamp_string[0], 1);
-  strncat(satData.day, &satData.sat_time_stamp_string[1], 1);
+  strncat(satData.day, &temp_sat_time_stamp_string[0], 1);
+  strncat(satData.day, &temp_sat_time_stamp_string[1], 1);
 
   memset(satData.hour, 0, 56);
-  strncat(satData.hour, &satData.sat_time_stamp_string[6], 1);
-  strncat(satData.hour, &satData.sat_time_stamp_string[7], 1);
+  strncat(satData.hour, &temp_sat_time_stamp_string[6], 1);
+  strncat(satData.hour, &temp_sat_time_stamp_string[7], 1);
 
   memset(satData.hour, 0, 56);
-  strncat(satData.hour, &satData.sat_time_stamp_string[6], 1);
-  strncat(satData.hour, &satData.sat_time_stamp_string[7], 1);
+  strncat(satData.hour, &temp_sat_time_stamp_string[6], 1);
+  strncat(satData.hour, &temp_sat_time_stamp_string[7], 1);
 
   memset(satData.minute, 0, 56);
-  strncat(satData.minute, &satData.sat_time_stamp_string[8], 1);
-  strncat(satData.minute, &satData.sat_time_stamp_string[9], 1);
+  strncat(satData.minute, &temp_sat_time_stamp_string[8], 1);
+  strncat(satData.minute, &temp_sat_time_stamp_string[9], 1);
 
   memset(satData.second, 0, 56);
-  strncat(satData.second, &satData.sat_time_stamp_string[10], 1);
-  strncat(satData.second, &satData.sat_time_stamp_string[11], 1);
+  strncat(satData.second, &temp_sat_time_stamp_string[10], 1);
+  strncat(satData.second, &temp_sat_time_stamp_string[11], 1);
 
   memset(satData.millisecond, 0, 56);
-  strncat(satData.millisecond, &satData.sat_time_stamp_string[13], 1);
-  strncat(satData.millisecond, &satData.sat_time_stamp_string[14], 1);
+  strncat(satData.millisecond, &temp_sat_time_stamp_string[13], 1);
+  strncat(satData.millisecond, &temp_sat_time_stamp_string[14], 1);
 
   // store hour ready for timezone conversion
   int temp_hour = atoi(satData.hour);
