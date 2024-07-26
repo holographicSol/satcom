@@ -166,6 +166,7 @@ struct systemStruct {
   bool output_gngga_enabled = false;
   bool output_gnrmc_enabled = false;
   bool output_gpatt_enabled = false;
+
   bool sidereal_track_sun = true;
   bool sidereal_track_moon = true;
   bool sidereal_track_mercury = true;
@@ -175,6 +176,7 @@ struct systemStruct {
   bool sidereal_track_saturn = true;
   bool sidereal_track_uranus = true;
   bool sidereal_track_neptune = true;
+  
   bool display_low_light = false;
   bool display_flip_vertically = true;
   bool display_auto_dim = true; // (burn-in protection)
@@ -2270,6 +2272,7 @@ struct SatDatatruct {
   double millisecondsLat;                                          // used for converting absolute latitude and longitude
   double millisecondsLong;                                         // used for converting absolute latitude and longitude
   int timezone = 1;
+  bool timezone_flag = 0; // 0: add hours to time, 1: deduct hours from time
   char year_heads[56] = "20";
   char year_full[56];
   char month[56];
@@ -2277,6 +2280,7 @@ struct SatDatatruct {
   char hour[56];
   char minute[56];
   char second[56];
+  char millisecond[56];
   char hours_minutes[56];
 };
 SatDatatruct satData;
@@ -2408,10 +2412,38 @@ void extrapulatedSatData() {
   strncat(satData.second, &satData.sat_time_stamp_string[10], 1);
   strncat(satData.second, &satData.sat_time_stamp_string[11], 1);
 
+  memset(satData.millisecond, 0, 56);
+  strncat(satData.millisecond, &satData.sat_time_stamp_string[13], 1);
+  strncat(satData.millisecond, &satData.sat_time_stamp_string[14], 1);
+
+  // store hour ready for timezone conversion
+  int temp_hour = atoi(satData.hour);
+  // add hour(s)
+  if (satData.timezone_flag == 0) {for (int i = 0; i < satData.timezone; i++) {if (temp_hour < 24) {temp_hour++;} else {temp_hour=0;}}}
+  // deduct hour(s)
+  else if (satData.timezone_flag == 1) {for (int i = 0; i < satData.timezone; i++) {if (temp_hour > 0) {temp_hour--;} else {temp_hour=23;}}}
+  // initialize space for hour string
+  char temp_hour_str[56];
+  memset(satData.hour, 0, 56);
+  // reconstruct hours with leading zero
+  if (temp_hour < 10) {strcat(satData.hour, "0"); itoa(temp_hour, temp_hour_str, 10); strcat(satData.hour, temp_hour_str);}
+  // reconstruct hours without modification
+  else {itoa(temp_hour, satData.hour, 10);}
+
+  // store hours.minutes
   memset(satData.hours_minutes, 0, 56);
   strcat(satData.hours_minutes, satData.hour);
   strcat(satData.hours_minutes, ".");
   strcat(satData.hours_minutes, satData.minute);
+
+  // reconstruct satcom datetime timestamp
+  memset(satData.sat_time_stamp_string, 0, 56);
+  strcat(satData.sat_time_stamp_string, gnrmcData.utc_date);
+  strcat(satData.sat_time_stamp_string, satData.hour);
+  strcat(satData.sat_time_stamp_string, satData.minute);
+  strcat(satData.sat_time_stamp_string, satData.second);
+  strcat(satData.sat_time_stamp_string, ".");
+  strcat(satData.sat_time_stamp_string, satData.millisecond);
 
   // --------------------------------------------------------------------------------------------------------------------------
   //                                                                                       SATCOM SENTENCE: LAST KNOWN DOWNLINK
