@@ -1447,8 +1447,8 @@ struct RelayStruct {
     },
   };
 
-  int FUNCTION_NAMES_MAX = 199;
-  char function_names[199][56] = 
+  int FUNCTION_NAMES_MAX = 227;
+  char function_names[227][56] = 
   {
     "$NONE",
     "$ENABLED",
@@ -1642,13 +1642,41 @@ struct RelayStruct {
     "gngga_invalid_check_data",
     "gnrmc_invalid_check_data",
     "gpatt_invalid_check_data",
-    "DayTimeGNGGA",
-    "NightTimeGNGGA",
-    "SunriseGNGGA",
-    "SunsetGNGGA",
-    "MoonriseGNGGA",
-    "MoonsetGNGGA",
+    "DayTime",
+    "NightTime",
+    "Sunrise",
+    "Sunset",
+    "Moonrise",
+    "Moonset",
     "MoonPhase",
+    "MercuryUp",
+    "MercuryDown",
+    "MercuryRise",
+    "MercurySet",
+    "VenusUp",
+    "VenusDown",
+    "VenusRise",
+    "VenusSet",
+    "MarsUp",
+    "MarsDown",
+    "MarsRise",
+    "MarsSet",
+    "JupiterUp",
+    "JupiterDown",
+    "JupiterRise",
+    "JupiterSet",
+    "SaturnUp",
+    "SaturnDown",
+    "SaturnRise",
+    "SaturnSet",
+    "UranusUp",
+    "UranusDown",
+    "UranusRise",
+    "UranusSet",
+    "NeptuneUp",
+    "NeptuneDown",
+    "NeptuneRise",
+    "NeptuneSet"
   };
 
   // default and specifiable value to indicate a relay should not be activated/deactivated if all functions in relays expression are $NONE
@@ -1787,16 +1815,51 @@ struct RelayStruct {
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                             SIDEREAL PLANETS
 
-  char DayTimeGNGGA[56]   = "DayTimeGNGGA";
-  char NightTimeGNGGA[56] = "NightTimeGNGGA";
-  char SunriseGNGGA[56]   = "SunriseGNGGA";
-  char SunsetGNGGA[56]    = "SunsetGNGGA";
+  char DayTime[56]   = "DayTime";
+  char NightTime[56] = "NightTime";
+  char Sunrise[56]   = "Sunrise";
+  char Sunset[56]    = "Sunset";
 
-  char MoonTrue[56]       = "MoonTrue";
-  char MoonFalse[56]      = "MoonFalse";
-  char MoonriseGNGGA[56]  = "MoonriseGNGGA";
-  char MoonsetGNGGA[56]   = "MoonsetGNGGA";
-  char MoonPhase[56]      = "MoonPhase";
+  char MoonUp[56]    = "MoonUp";
+  char MoonDown[56]  = "MoonDown";
+  char Moonrise[56]  = "Moonrise";
+  char Moonset[56]   = "Moonset";
+  char MoonPhase[56] = "MoonPhase";
+
+  char MercuryUp[56]    = "MercuryUp";
+  char MercuryDown[56]  = "MercuryDown";
+  char MercuryRise[56]  = "MercuryRise";
+  char MercurySet[56]   = "MercurySet";
+
+  char VenusUp[56]    = "VenusUp";
+  char VenusDown[56]  = "VenusDown";
+  char VenusRise[56]  = "VenusRise";
+  char VenusSet[56]   = "VenusSet";
+
+  char MarsUp[56]    = "MarsUp";
+  char MarsDown[56]  = "MarsDown";
+  char MarsRise[56]  = "MarsRise";
+  char MarsSet[56]   = "MarsSet";
+
+  char JupiterUp[56]    = "JupiterUp";
+  char JupiterDown[56]  = "JupiterDown";
+  char JupiterRise[56]  = "JupiterRise";
+  char JupiterSet[56]   = "JupiterSet";
+
+  char SaturnUp[56]    = "SaturnUp";
+  char SaturnDown[56]  = "SaturnDown";
+  char SaturnRise[56]  = "SaturnRise";
+  char SaturnSet[56]   = "SaturnSet";
+
+  char UranusUp[56]    = "UranusUp";
+  char UranusDown[56]  = "UranusDown";
+  char UranusRise[56]  = "UranusRise";
+  char UranusSet[56]   = "UranusSet";
+
+  char NeptuneUp[56]    = "NeptuneUp";
+  char NeptuneDown[56]  = "NeptuneDown";
+  char NeptuneRise[56]  = "NeptuneRise";
+  char NeptuneSet[56]   = "NeptuneSet";
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                VALIDITY DATA
@@ -5259,28 +5322,81 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.StaticFlagGPATTEqual) == 0) {tmp_matrix[Fi] = check_equal_true(atol(gpattData.static_flag), relayData.relays_data[Ri][Fi][0]);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                             SIDEREAL PLANETS
+        //                                                                                                           SIDEREAL TIME: SUN
 
         // daytime: current time in range of sunrise and sunset
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.DayTimeGNGGA) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.sun_r, siderealPlanetData.sun_s);}
-
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.DayTime) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.sun_r, siderealPlanetData.sun_s);}
         // nighttime: current time not in range of sunrise and sunset
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.NightTimeGNGGA) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.sun_r, siderealPlanetData.sun_s);}
-        
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.NightTime) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.sun_r, siderealPlanetData.sun_s);}
         // sunrise time less than current time: true after sunrise until midnight
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.sun_r, atof(satData.hours_minutes));}
-
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.Sunrise) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.sun_r, atof(satData.hours_minutes));}
         // sunset time less than current time: true after sunset until midnight                                                                  
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.SunsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.sun_s, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.Sunset) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.sun_s, atof(satData.hours_minutes));}
 
-        // moonrise time less than current time: true after moonrise until midnight
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonriseGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.moon_r, atof(satData.hours_minutes));}
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                          SIDEREAL TIME: MOON
 
-        // moonset time less than current time: true after moonset until midnight
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonsetGNGGA) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.moon_s, atof(satData.hours_minutes));}
-
-        // moonphase equal to x
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.Moonrise) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.moon_r, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.Moonset) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.moon_s, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonUp) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.moon_r, siderealPlanetData.moon_s);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonDown) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.moon_r, siderealPlanetData.moon_s);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.MoonPhase) == 0) {tmp_matrix[Fi] = check_equal_true(siderealPlanetData.moon_p, relayData.relays_data[Ri][Fi][0]);}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                       SIDEREAL TIME: MERCURY
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MercuryRise) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.mercury_r, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MercurySet) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.mercury_s, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MercuryUp) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.mercury_r, siderealPlanetData.mercury_s);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MercuryDown) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.mercury_r, siderealPlanetData.mercury_s);}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                         SIDEREAL TIME: VENUS
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.VenusRise) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.venus_r, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.VenusSet) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.venus_s, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.VenusUp) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.venus_r, siderealPlanetData.venus_s);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.VenusDown) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.venus_r, siderealPlanetData.venus_s);}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                          SIDEREAL TIME: MARS
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MarsRise) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.mars_r, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MarsSet) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.mars_s, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MarsUp) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.mars_r, siderealPlanetData.mars_s);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.MarsDown) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.mars_r, siderealPlanetData.mars_s);}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                       SIDEREAL TIME: JUPITER
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.JupiterRise) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.jupiter_r, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.JupiterSet) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.jupiter_s, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.JupiterUp) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.jupiter_r, siderealPlanetData.jupiter_s);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.JupiterDown) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.jupiter_r, siderealPlanetData.jupiter_s);}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                        SIDEREAL TIME: SATURN
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SaturnRise) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.saturn_r, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SaturnSet) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.saturn_s, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SaturnUp) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.saturn_r, siderealPlanetData.saturn_s);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.SaturnDown) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.saturn_r, siderealPlanetData.saturn_s);}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                       SIDEREAL TIME: NEPTUNE
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.NeptuneRise) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.neptune_r, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.NeptuneSet) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.neptune_s, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.NeptuneUp) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.neptune_r, siderealPlanetData.neptune_s);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.NeptuneDown) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.neptune_r, siderealPlanetData.neptune_s);}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                        SIDEREAL TIME: URANUS
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UranusRise) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.uranus_r, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UranusSet) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.uranus_s, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UranusUp) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.uranus_r, siderealPlanetData.uranus_s);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.UranusDown) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.uranus_r, siderealPlanetData.uranus_s);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                                     VALIDITY
