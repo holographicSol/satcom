@@ -1815,51 +1815,70 @@ struct RelayStruct {
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                             SIDEREAL PLANETS
 
+  char SunAzimuth[56]  = "SunAZInRange";
+  char SunAltitude[56] = "SunALTInRange";
   char DayTime[56]   = "DayTime";
   char NightTime[56] = "NightTime";
   char Sunrise[56]   = "Sunrise";
   char Sunset[56]    = "Sunset";
 
+  char MoonAzimuth[56]  = "MoonAzimuth";
+  char MoonAltitude[56] = "MoonAltitude";
   char MoonUp[56]    = "MoonUp";
   char MoonDown[56]  = "MoonDown";
   char Moonrise[56]  = "Moonrise";
   char Moonset[56]   = "Moonset";
   char MoonPhase[56] = "MoonPhase";
 
+  char MercuryAzimuth[56]  = "MercuryAzimuth";
+  char MercuryAltitude[56] = "MercuryAltitude";
   char MercuryUp[56]    = "MercuryUp";
   char MercuryDown[56]  = "MercuryDown";
   char MercuryRise[56]  = "MercuryRise";
   char MercurySet[56]   = "MercurySet";
 
+  char VenusAzimuth[56]  = "VenusAzimuth";
+  char VenusAltitude[56] = "VenusAltitude";
   char VenusUp[56]    = "VenusUp";
   char VenusDown[56]  = "VenusDown";
   char VenusRise[56]  = "VenusRise";
   char VenusSet[56]   = "VenusSet";
 
+  char MarsAzimuth[56]  = "MarsAzimuth";
+  char MarsAltitude[56] = "MarsAltitude";
   char MarsUp[56]    = "MarsUp";
   char MarsDown[56]  = "MarsDown";
   char MarsRise[56]  = "MarsRise";
   char MarsSet[56]   = "MarsSet";
 
+  char JupiterAzimuth[56]  = "JupiterAzimuth";
+  char JupiterAltitude[56] = "JupiterAltitude";
   char JupiterUp[56]    = "JupiterUp";
   char JupiterDown[56]  = "JupiterDown";
   char JupiterRise[56]  = "JupiterRise";
   char JupiterSet[56]   = "JupiterSet";
 
+  char SaturnAzimuth[56]  = "SaturnAzimuth";
+  char SaturnAltitude[56] = "SaturnAltitude";
   char SaturnUp[56]    = "SaturnUp";
   char SaturnDown[56]  = "SaturnDown";
   char SaturnRise[56]  = "SaturnRise";
   char SaturnSet[56]   = "SaturnSet";
 
+  char UranusAzimuth[56]  = "UranusAzimuth";
+  char UranusAltitude[56] = "UranusAltitude";
   char UranusUp[56]    = "UranusUp";
   char UranusDown[56]  = "UranusDown";
   char UranusRise[56]  = "UranusRise";
   char UranusSet[56]   = "UranusSet";
 
+  char NeptuneAzimuth[56]  = "NeptuneAzimuth";
+  char NeptuneAltitude[56] = "NeptuneAltitude";
   char NeptuneUp[56]    = "NeptuneUp";
   char NeptuneDown[56]  = "NeptuneDown";
   char NeptuneRise[56]  = "NeptuneRise";
   char NeptuneSet[56]   = "NeptuneSet";
+  
 
   // ----------------------------------------------------------------------------------------------------------------------------
   //                                                                                                                VALIDITY DATA
@@ -4874,6 +4893,7 @@ struct SiderealObjectStruct {
   long object_mag;
   long object_r;
   long object_s;
+  double objects_data[609][7];
   char object_table[7][20] =
   {
     "Star Table",          // 0
