@@ -332,9 +332,11 @@ TimeStruct timeData;
 
 void time_counter() {
   timeData.ms0 += timeData.mainLoopTimeTaken;
-  if (timeData.ms0 >= 1000000) {
+  Serial.println("timeData.ms0: " + String(timeData.ms0));
+  if (timeData.ms0 >= (1000000)) {
     timeData.ms0 = 0;
     timeData.seconds++;
+    Serial.println("timeData.seconds: " + String(timeData.seconds));
     }
 }
 
