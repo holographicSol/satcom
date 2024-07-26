@@ -5383,20 +5383,20 @@ void matrixSwitch() {
         else if (strcmp(relayData.relays[Ri][Fi], relayData.SaturnDown) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.saturn_r, siderealPlanetData.saturn_s);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
-        //                                                                                                       SIDEREAL TIME: NEPTUNE
-
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.NeptuneRise) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.neptune_r, atof(satData.hours_minutes));}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.NeptuneSet) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.neptune_s, atof(satData.hours_minutes));}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.NeptuneUp) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.neptune_r, siderealPlanetData.neptune_s);}
-        else if (strcmp(relayData.relays[Ri][Fi], relayData.NeptuneDown) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.neptune_r, siderealPlanetData.neptune_s);}
-
-        // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                        SIDEREAL TIME: URANUS
 
         else if (strcmp(relayData.relays[Ri][Fi], relayData.UranusRise) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.uranus_r, atof(satData.hours_minutes));}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.UranusSet) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.uranus_s, atof(satData.hours_minutes));}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.UranusUp) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.uranus_r, siderealPlanetData.uranus_s);}
         else if (strcmp(relayData.relays[Ri][Fi], relayData.UranusDown) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.uranus_r, siderealPlanetData.uranus_s);}
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+        //                                                                                                       SIDEREAL TIME: NEPTUNE
+
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.NeptuneRise) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.neptune_r, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.NeptuneSet) == 0) {tmp_matrix[Fi] = check_under_true(siderealPlanetData.neptune_s, atof(satData.hours_minutes));}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.NeptuneUp) == 0) {tmp_matrix[Fi] = check_ge_and_le_true(atof(satData.hours_minutes), siderealPlanetData.neptune_r, siderealPlanetData.neptune_s);}
+        else if (strcmp(relayData.relays[Ri][Fi], relayData.NeptuneDown) == 0) {tmp_matrix[Fi] = check_ge_and_le_false(atof(satData.hours_minutes), siderealPlanetData.neptune_r, siderealPlanetData.neptune_s);}
 
         // ----------------------------------------------------------------------------------------------------------------------------
         //                                                                                                                     VALIDITY
