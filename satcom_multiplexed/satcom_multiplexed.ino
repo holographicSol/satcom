@@ -322,8 +322,6 @@ SDCardStruct sdcardData;
 
 struct TimeStruct {
   unsigned long ms0;
-  unsigned long ms1;
-  unsigned long milliseconds;
   unsigned long seconds;
   unsigned long mainLoopTimeTaken;
   unsigned long mainLoopTimeStart;
@@ -334,7 +332,10 @@ TimeStruct timeData;
 
 void time_counter() {
   timeData.ms0 += timeData.mainLoopTimeTaken;
-  if (timeData.ms0 >= (timeData.ms1 + 1000000)) {timeData.ms1 = timeData.ms0; timeData.seconds++;}
+  if (timeData.ms0 >= 1000000) {
+    timeData.ms0 = 0;
+    timeData.seconds++;
+    }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
