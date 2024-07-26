@@ -321,22 +321,21 @@ SDCardStruct sdcardData;
 //                                                                                                                   DATA: TIME
 
 struct TimeStruct {
-  unsigned long ms0;
   unsigned long seconds;
   unsigned long mainLoopTimeTaken;
   unsigned long mainLoopTimeStart;
   unsigned long mainLoopTimeTakenMax;
   unsigned long mainLoopTimeTakenMin;
+  unsigned long t0;
+  unsigned long t1;
 };
 TimeStruct timeData;
 
 void time_counter() {
-  timeData.ms0 += timeData.mainLoopTimeTaken;
-  Serial.println("timeData.ms0: " + String(timeData.ms0));
-  if (timeData.ms0 >= (1000000)) {
-    timeData.ms0 = 0;
+  timeData.t0 = micros();
+  if (timeData.t0 > (timeData.t1+1000000)) {
+    timeData.t1 = timeData.t0;
     timeData.seconds++;
-    Serial.println("timeData.seconds: " + String(timeData.seconds));
     }
 }
 
@@ -5794,8 +5793,6 @@ void loop() {
 
   // store current time to measure this loop time
   timeData.mainLoopTimeStart = micros();
-  // keep track of time in seconds
-  time_counter();
 
   // check button input
   if (menuData.isr_i!=0) {InterfaceWake();}
@@ -5820,6 +5817,9 @@ void loop() {
   timeData.mainLoopTimeTaken = micros() - timeData.mainLoopTimeStart;
   if (timeData.mainLoopTimeTaken > timeData.mainLoopTimeTakenMax) {timeData.mainLoopTimeTakenMax = timeData.mainLoopTimeTaken;}
   if (timeData.mainLoopTimeTaken < timeData.mainLoopTimeTakenMin) {timeData.mainLoopTimeTakenMin = timeData.mainLoopTimeTaken;}
+
+  // keep track of time in seconds
+  time_counter();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
