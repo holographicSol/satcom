@@ -2275,7 +2275,7 @@ struct SatDatatruct {
   // this system intends to be correct regardless of geopolitical variables, by illiminating those variables. this allows the systems data to be objectively correct long into the future. no maps, no geopolitics.
   int utc_offset = 0;       // can be used to offset hours (+/-) from UTC and can also be used to account for daylight saving. notice this is not called timezone or daylight saving.
   bool utc_offset_flag = 0; // 0: add hours to time, 1: deduct hours from time
-  char year_prefix[56] = "20"; // WTGPS300P does not provide full year in yyyy format. this char array is a temporary effort due to some libraries requiring a year in yyyy format. (fix it).
+  char year_prefix[56] = "20"; // inline with trying to keep everything simple, this value is intended to require one ammendment every 100 years. 
   char year_full[56];
   char month[56];
   char day[56];
