@@ -4229,13 +4229,14 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.output_gpatt_enabled = false;} else {systemData.output_gpatt_enabled = true;}
           }
         }
-        else if (strncmp(sdcardData.BUFFER, "UTC_OFFSET", strlen("UTC_OFFSET")) == 0) {
+        else if (strncmp(sdcardData.BUFFER, "UTC_OFFSET,", strlen("UTC_OFFSET,")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
           if (is_all_digits(sdcardData.token) == true) {
             Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
             satData.utc_offset = atoi(sdcardData.token);
+            Serial.println("utc offset: " + String(satData.utc_offset));
           }
         }
         else if (strncmp(sdcardData.BUFFER, "UTC_OFFSET_FLAG", strlen("UTC_OFFSET_FLAG")) == 0) {
