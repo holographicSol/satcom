@@ -2271,8 +2271,8 @@ struct SatDatatruct {
   double secondsLong;                                              // used for converting absolute latitude and longitude
   double millisecondsLat;                                          // used for converting absolute latitude and longitude
   double millisecondsLong;                                         // used for converting absolute latitude and longitude
-  int timezone = 1;
-  bool timezone_flag = 0; // 0: add hours to time, 1: deduct hours from time
+  int utc_offset = 0;       // can be used to offset hours (+/-) from UTC and can also be used to account for daylight saving.
+  bool utc_offset_flag = 0; // 0: add hours to time, 1: deduct hours from time
   char year_heads[56] = "20";
   char year_full[56];
   char month[56];
@@ -2420,9 +2420,9 @@ void extrapulatedSatData() {
   // store hour ready for timezone conversion
   int temp_hour = atoi(satData.hour);
   // add hour(s)
-  if (satData.timezone_flag == 0) {for (int i = 0; i < satData.timezone; i++) {if (temp_hour < 24) {temp_hour++;} else {temp_hour=0;}}}
+  if (satData.utc_offset_flag == 0) {for (int i = 0; i < satData.utc_offset; i++) {if (temp_hour < 24) {temp_hour++;} else {temp_hour=0;}}}
   // deduct hour(s)
-  else if (satData.timezone_flag == 1) {for (int i = 0; i < satData.timezone; i++) {if (temp_hour > 0) {temp_hour--;} else {temp_hour=23;}}}
+  else if (satData.utc_offset_flag == 1) {for (int i = 0; i < satData.utc_offset; i++) {if (temp_hour > 0) {temp_hour--;} else {temp_hour=23;}}}
   // initialize space for hour string
   char temp_hour_str[56];
   memset(satData.hour, 0, 56);
@@ -4958,10 +4958,10 @@ struct SiderealObjectStruct {
 };
 SiderealObjectStruct siderealObjectData;
 
-void trackObject(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second,
+void trackObject(double latitude, double longitude, int year, int month, int day, int hour, int minute, int second,
                  int object_table_i, int object_i) {
   myAstro.setLatLong(latitude, longitude);
-  myAstro.setTimeZone(tz);
+  // myAstro.setTimeZone(tz);
   myAstro.rejectDST();
   myAstro.setGMTdate(year, month, day);
   myAstro.setLocalTime(hour, minute, second);
@@ -5021,9 +5021,8 @@ void IdentifyObject(double object_ra, double object_dec) {
   }
 }
 
-void trackSun(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+void trackSun(double latitude, double longitude, int year, int month, int day, int hour, int minute, int second) {
   myAstro.setLatLong(latitude, longitude);
-  myAstro.setTimeZone(tz);
   myAstro.rejectDST();
   myAstro.setGMTdate(year, month, day);
   myAstro.setLocalTime(hour, minute, second);
@@ -5039,9 +5038,8 @@ void trackSun(double latitude, double longitude, signed int tz, int year, int mo
   siderealPlanetData.sun_s  = myAstro.getSunsetTime();
 }
 
-void trackMoon(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+void trackMoon(double latitude, double longitude, int year, int month, int day, int hour, int minute, int second) {
   myAstro.setLatLong(latitude, longitude);
-  myAstro.setTimeZone(tz);
   myAstro.rejectDST();
   myAstro.setGMTdate(year, month, day);
   myAstro.setLocalTime(hour, minute, second);
@@ -5058,9 +5056,8 @@ void trackMoon(double latitude, double longitude, signed int tz, int year, int m
   siderealPlanetData.moon_p  = myAstro.getMoonPhase();
 }
 
-void trackMercury(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+void trackMercury(double latitude, double longitude, int year, int month, int day, int hour, int minute, int second) {
   myAstro.setLatLong(latitude, longitude);
-  myAstro.setTimeZone(tz);
   myAstro.rejectDST();
   myAstro.setGMTdate(year, month, day);
   myAstro.setLocalTime(hour, minute, second);
@@ -5082,9 +5079,8 @@ void trackMercury(double latitude, double longitude, signed int tz, int year, in
   siderealPlanetData.mercury_s = myAstro.getSetTime();
 }
 
-void trackVenus(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+void trackVenus(double latitude, double longitude, int year, int month, int day, int hour, int minute, int second) {
   myAstro.setLatLong(latitude, longitude);
-  myAstro.setTimeZone(tz);
   myAstro.rejectDST();
   myAstro.setGMTdate(year, month, day);
   myAstro.setLocalTime(hour, minute, second);
@@ -5106,9 +5102,8 @@ void trackVenus(double latitude, double longitude, signed int tz, int year, int 
   siderealPlanetData.venus_s = myAstro.getSetTime();
 }
 
-void trackMars(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+void trackMars(double latitude, double longitude, int year, int month, int day, int hour, int minute, int second) {
   myAstro.setLatLong(latitude, longitude);
-  myAstro.setTimeZone(tz);
   myAstro.rejectDST();
   myAstro.setGMTdate(year, month, day);
   myAstro.setLocalTime(hour, minute, second);
@@ -5130,9 +5125,8 @@ void trackMars(double latitude, double longitude, signed int tz, int year, int m
   siderealPlanetData.mars_s = myAstro.getSetTime();
 }
 
-void trackJupiter(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+void trackJupiter(double latitude, double longitude, int year, int month, int day, int hour, int minute, int second) {
   myAstro.setLatLong(latitude, longitude);
-  myAstro.setTimeZone(tz);
   myAstro.rejectDST();
   myAstro.setGMTdate(year, month, day);
   myAstro.setLocalTime(hour, minute, second);
@@ -5154,9 +5148,8 @@ void trackJupiter(double latitude, double longitude, signed int tz, int year, in
   siderealPlanetData.jupiter_s = myAstro.getSetTime();
 }
 
-void trackSaturn(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+void trackSaturn(double latitude, double longitude, int year, int month, int day, int hour, int minute, int second) {
   myAstro.setLatLong(latitude, longitude);
-  myAstro.setTimeZone(tz);
   myAstro.rejectDST();
   myAstro.setGMTdate(year, month, day);
   myAstro.setLocalTime(hour, minute, second);
@@ -5178,9 +5171,8 @@ void trackSaturn(double latitude, double longitude, signed int tz, int year, int
   siderealPlanetData.saturn_s = myAstro.getSetTime();
 }
 
-void trackUranus(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+void trackUranus(double latitude, double longitude, int year, int month, int day, int hour, int minute, int second) {
   myAstro.setLatLong(latitude, longitude);
-  myAstro.setTimeZone(tz);
   myAstro.rejectDST();
   myAstro.setGMTdate(year, month, day);
   myAstro.setLocalTime(hour, minute, second);
@@ -5202,9 +5194,8 @@ void trackUranus(double latitude, double longitude, signed int tz, int year, int
   siderealPlanetData.uranus_s = myAstro.getSetTime();
 }
 
-void trackNeptune(double latitude, double longitude, signed int tz, int year, int month, int day, int hour, int minute, int second) {
+void trackNeptune(double latitude, double longitude, int year, int month, int day, int hour, int minute, int second) {
   myAstro.setLatLong(latitude, longitude);
-  myAstro.setTimeZone(tz);
   myAstro.rejectDST();
   myAstro.setGMTdate(year, month, day);
   myAstro.setLocalTime(hour, minute, second);
@@ -6085,7 +6076,6 @@ void trackPlanets(void *pvParameters) {
     delay(1000);
     if (systemData.sidereal_track_sun == true) {trackSun(satData.location_latitude_gngga,
                                                           satData.location_longitude_gngga,
-                                                          satData.timezone,
                                                           atoi(satData.year_full),
                                                           atoi(satData.month),
                                                           atoi(satData.day),
@@ -6094,7 +6084,6 @@ void trackPlanets(void *pvParameters) {
                                                           atoi(satData.second));}
     if (systemData.sidereal_track_moon == true) {trackMoon(satData.location_latitude_gngga,
                                                           satData.location_longitude_gngga,
-                                                          satData.timezone,
                                                           atoi(satData.year_full),
                                                           atoi(satData.month),
                                                           atoi(satData.day),
@@ -6103,7 +6092,6 @@ void trackPlanets(void *pvParameters) {
                                                           atoi(satData.second));}
     if (systemData.sidereal_track_mercury == true) {trackMercury(satData.location_latitude_gngga,
                                                           satData.location_longitude_gngga,
-                                                          satData.timezone,
                                                           atoi(satData.year_full),
                                                           atoi(satData.month),
                                                           atoi(satData.day),
@@ -6112,7 +6100,6 @@ void trackPlanets(void *pvParameters) {
                                                           atoi(satData.second));}
     if (systemData.sidereal_track_venus == true) {trackVenus(satData.location_latitude_gngga,
                                                           satData.location_longitude_gngga,
-                                                          satData.timezone,
                                                           atoi(satData.year_full),
                                                           atoi(satData.month),
                                                           atoi(satData.day),
@@ -6121,7 +6108,6 @@ void trackPlanets(void *pvParameters) {
                                                           atoi(satData.second));}
     if (systemData.sidereal_track_mars == true) {trackMars(satData.location_latitude_gngga,
                                                           satData.location_longitude_gngga,
-                                                          satData.timezone,
                                                           atoi(satData.year_full),
                                                           atoi(satData.month),
                                                           atoi(satData.day),
@@ -6130,7 +6116,6 @@ void trackPlanets(void *pvParameters) {
                                                           atoi(satData.second));}
     if (systemData.sidereal_track_jupiter == true) {trackJupiter(satData.location_latitude_gngga,
                                                           satData.location_longitude_gngga,
-                                                          satData.timezone,
                                                           atoi(satData.year_full),
                                                           atoi(satData.month),
                                                           atoi(satData.day),
@@ -6139,7 +6124,6 @@ void trackPlanets(void *pvParameters) {
                                                           atoi(satData.second));}
     if (systemData.sidereal_track_saturn == true) {trackSaturn(satData.location_latitude_gngga,
                                                           satData.location_longitude_gngga,
-                                                          satData.timezone,
                                                           atoi(satData.year_full),
                                                           atoi(satData.month),
                                                           atoi(satData.day),
@@ -6148,7 +6132,6 @@ void trackPlanets(void *pvParameters) {
                                                           atoi(satData.second));}
     if (systemData.sidereal_track_uranus == true) {trackUranus(satData.location_latitude_gngga,
                                                           satData.location_longitude_gngga,
-                                                          satData.timezone,
                                                           atoi(satData.year_full),
                                                           atoi(satData.month),
                                                           atoi(satData.day),
@@ -6157,7 +6140,6 @@ void trackPlanets(void *pvParameters) {
                                                           atoi(satData.second));}
     if (systemData.sidereal_track_neptune == true) {trackNeptune(satData.location_latitude_gngga,
                                                           satData.location_longitude_gngga,
-                                                          satData.timezone,
                                                           atoi(satData.year_full),
                                                           atoi(satData.month),
                                                           atoi(satData.day),
