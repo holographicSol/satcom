@@ -2275,7 +2275,7 @@ struct SatDatatruct {
   // this system intends to be correct regardless of geopolitical variables, by illiminating those variables. this allows the systems data to be objectively correct long into the future. no maps, no geopolitics.
   int utc_offset = 0;       // can be used to offset hours (+/-) from UTC and can also be used to account for daylight saving. notice this is not called timezone or daylight saving.
   bool utc_offset_flag = 0; // 0: add hours to time, 1: deduct hours from time
-  char year_heads[56] = "20";
+  char year_prefix[56] = "20"; // WTGPS300P does not provide full year in yyyy format. this char array is a temporary effort due to some libraries requiring a year in yyyy format. (fix it).
   char year_full[56];
   char month[56];
   char day[56];
@@ -2387,7 +2387,7 @@ void extrapulatedSatData() {
   strcat(satData.satcom_sentence, ",");
   
   memset(satData.year_full, 0, 56);
-  strcat(satData.year_full, satData.year_heads);
+  strcat(satData.year_full, satData.year_prefix);
   strncat(satData.year_full, &temp_sat_time_stamp_string[4], 1);
   strncat(satData.year_full, &temp_sat_time_stamp_string[5], 1);
 
@@ -3519,7 +3519,7 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 42, String(systemData.translate_enable_bool[0][systemData.output_gpatt_enabled]));
       }
     // null unless more entries
-    if (menuData.y >=5 ) {menuData.y = 0;}
+    if (menuData.y >= 5) {menuData.y = 0;}
   }
 
   if (menuData.page == 7) {
@@ -3536,6 +3536,8 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, String(satData.utc_offset));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 24, "OFFSET FLAG");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 24, String(systemData.translate_plus_minus[0][satData.utc_offset_flag]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 33, "YEAR PREFIX");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 33, String(satData.year_prefix));
       }
     // select row 1
     if (menuData.y == 1) {
@@ -3549,6 +3551,8 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 15, String(satData.utc_offset));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 24, "OFFSET FLAG");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 24, String(systemData.translate_plus_minus[0][satData.utc_offset_flag]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 33, "YEAR PREFIX");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 33, String(satData.year_prefix));
       }
     // select row 2
     if (menuData.y == 2) {
@@ -3562,9 +3566,26 @@ void SSD_Display_2_Menu() {
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, String(satData.utc_offset));
       display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 24, "OFFSET FLAG");
       display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 24, String(systemData.translate_plus_minus[0][satData.utc_offset_flag]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 33, "YEAR PREFIX");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 33, String(satData.year_prefix));
+      }
+    // select row 3
+    if (menuData.y == 3) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setColor(WHITE); display_2.fillRect(0, 35, display_2.getWidth(), 9); // item emphasis
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "TIME");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 15, "UTC OFFSET");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, String(satData.utc_offset));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 24, "OFFSET FLAG");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 24, String(systemData.translate_plus_minus[0][satData.utc_offset_flag]));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 33, "YEAR PREFIX");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 33, String(satData.year_prefix));
       }
     // null unless more entries
-    if (menuData.y >=3 ) {menuData.y = 0;}
+    if (menuData.y >= 4) {menuData.y = 0;}
   }
 
   // file: loading
@@ -4072,6 +4093,15 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
 
+    memset(sdcardData.file_data, 0, 256);
+    strcat(sdcardData.file_data, "YEAR_PREFIX,");
+    strcat(sdcardData.file_data, satData.year_prefix);
+    strcat(sdcardData.file_data, ",");
+    Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+    sdcardData.current_file.println("");
+    sdcardData.current_file.println(sdcardData.file_data);
+    sdcardData.current_file.println("");
+
     sdcardData.current_file.close();
     Serial.println("[sdcard] saved file successfully: " + String(file));
     menuData.page = return_page;
@@ -4236,7 +4266,6 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
           if (is_all_digits(sdcardData.token) == true) {
             Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
             satData.utc_offset = atoi(sdcardData.token);
-            Serial.println("utc offset: " + String(satData.utc_offset));
           }
         }
         else if (strncmp(sdcardData.BUFFER, "UTC_OFFSET_FLAG", strlen("UTC_OFFSET_FLAG")) == 0) {
@@ -4246,6 +4275,16 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
           if (is_all_digits(sdcardData.token) == true) {
             Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
             if (atoi(sdcardData.token) == 0) {satData.utc_offset_flag = false;} else {satData.utc_offset_flag = true;}
+          }
+        }
+        else if (strncmp(sdcardData.BUFFER, "YEAR_PREFIX", strlen("YEAR_PREFIX")) == 0) {
+          sdcardData.token = strtok(sdcardData.BUFFER, ",");
+          Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
+          sdcardData.token = strtok(NULL, ",");
+          if (is_all_digits(sdcardData.token) == true) {
+            Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
+            memset(satData.year_prefix, 0, 256);
+            strcat(satData.year_prefix, sdcardData.token);
           }
         }
         
@@ -5731,6 +5770,18 @@ void countRelaysActive(){
   for (int Ri = 0; Ri < relayData.MAobject_rELAYS; Ri++) { if (relayData.relays_bool[0][Ri] == 1) {relayData.relays_active_i++;} else {relayData.relays_inactive_i++;} }
 }
 
+void selectYearPrefix() {
+  // use numpad to specify year prefix
+  menuData.page = 10;
+  memset(menuData.input, 0, 256);
+  menuData.numpad_key=5;
+}
+
+void setYearPrefix() {
+  memset(satData.year_prefix, 0, 56);
+  strcpy(satData.year_prefix, menuData.input);
+}
+
 // ----------------------------------------------------------------------------------------------------------------------------
 //                                                                                              MENU NAVIGATION: MAIN FUNCTIONS
 
@@ -5830,6 +5881,7 @@ void menuSelect() {
   // page 7 only
   if (menuData.page == 7) {
     if (menuData.y == 2) {if (satData.utc_offset_flag == false) {satData.utc_offset_flag = true;} else {satData.utc_offset_flag = false;} sdcard_save_system_configuration(sdcardData.sysconf, 7);}
+    if (menuData.y == 3) {selectYearPrefix();}
   }
 }
 
@@ -5867,7 +5919,9 @@ void numpadSelect() {
   // set relay function value z
   if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==3)) {menuData.page = 0; char *ptr; relayData.relays_data[menuData.relay_select][menuData.relay_function_select][2] = strtod(menuData.input, &ptr);}
   // set relay function name by code/index.
-   if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==4)) {menuData.page = 0; setRelayFunctionName();}
+  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==4)) {menuData.page = 0; setRelayFunctionName();}
+  // set year prefix
+  if ((menuData.numpad_y == 5) && (menuData.numpad_x == 0) && (menuData.numpad_key==5)) {setYearPrefix(); sdcard_save_system_configuration(sdcardData.sysconf, 7);}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
