@@ -57,7 +57,6 @@
 #include <Wire.h>
 #include <SSD1306Wire.h>   // SSD1306Wire                                https://gitlab.com/alexpr0/ssd1306wire
 #include <OLEDDisplayUi.h> // ESP8266 and ESP32 OLED driver for SSD1306  https://github.com/ThingPulse/esp8266-oled-ssd1306
-#include <Timezone.h>      // Timezone                                   https://github.com/JChristensen/Timezone
 #include <SdFat.h>
 #include <SiderealPlanets.h> //                                          https://github.com/DavidArmstrong/SiderealPlanets
 #include <SiderealObjects.h>
@@ -190,6 +189,7 @@ struct systemStruct {
   unsigned long display_auto_off_t1;
   bool          display_on = true;
   char translate_enable_bool[1][2][56] = { {"DISABLED", "ENABLED"} };
+  char translate_plus_minus[1][2][56]  = { {"ADD", "DEDUCT"} };
 };
 systemStruct systemData;
 
@@ -2248,9 +2248,9 @@ struct SatDatatruct {
   double latitude_mile                = latitude_meter  * 1609.34; // one mile
   double longitude_mile               = longitude_meter * 1609.34; // one mile
   double abs_latitude_gngga_0         = 0.0;                       // absolute latitude from $ sentence
-  double abs_longitude_gngga_0        = 0.0;                       // absolute longditude $ sentence
-  double abs_latitude_gnrmc_0         = 0.0;                       // absolute latitude $ sentence
-  double abs_longitude_gnrmc_0        = 0.0;                       // absolute longditude $ sentence
+  double abs_longitude_gngga_0        = 0.0;                       // absolute longditude from $ sentence
+  double abs_latitude_gnrmc_0         = 0.0;                       // absolute latitude from $ sentence
+  double abs_longitude_gnrmc_0        = 0.0;                       // absolute longditude from $ sentence
   double temp_latitude_gngga;                                      // degrees converted from absolute
   double temp_longitude_gngga;                                     // degrees converted from absolute
   double temp_latitude_gnrmc;                                      // degrees converted from absolute
@@ -2273,7 +2273,7 @@ struct SatDatatruct {
   double millisecondsLong;                                         // used for converting absolute latitude and longitude
   // timezones and daylight saving are subject to geopolitics are therefore subject to change. it may be preferrable to set offset manually, and an automatic option might be added but may be unpreferrable.
   // this system intends to be correct regardless of geopolitical variables, by illiminating those variables. this allows the systems data to be objectively correct long into the future. no maps, no geopolitics.
-  int utc_offset = 1;       // can be used to offset hours (+/-) from UTC and can also be used to account for daylight saving. notice this is not called timezone or daylight saving.
+  int utc_offset = 0;       // can be used to offset hours (+/-) from UTC and can also be used to account for daylight saving. notice this is not called timezone or daylight saving.
   bool utc_offset_flag = 0; // 0: add hours to time, 1: deduct hours from time
   char year_heads[56] = "20";
   char year_full[56];
@@ -3522,6 +3522,51 @@ void SSD_Display_2_Menu() {
     if (menuData.y >=5 ) {menuData.y = 0;}
   }
 
+  if (menuData.page == 7) {
+    menuData.menu_lock = false; // enable input
+    display_2.clear();
+    // select row 0
+    if (menuData.y == 0) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "TIME");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 15, "UTC OFFSET");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, String(satData.utc_offset));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 24, "FLAG");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 24, String(systemData.translate_plus_minus[0][satData.utc_offset_flag]));
+      }
+    // select row 1
+    if (menuData.y == 1) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setColor(WHITE); display_2.fillRect(0, 16, display_2.getWidth(), 10); // item emphasis
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "TIME");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 15, "UTC OFFSET");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 15, String(satData.utc_offset));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 24, "FLAG");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 24, String(systemData.translate_plus_minus[0][satData.utc_offset_flag]));
+      }
+    // select row 2
+    if (menuData.y == 2) {
+      display_2.setColor(WHITE); display_2.drawRect(0, 0, display_2.getWidth(), 15); // title border
+      display_2.setColor(WHITE); display_2.drawRect(0, 16, display_2.getWidth(), display_2.getHeight()-16); // content border
+      display_2.setColor(WHITE); display_2.fillRect(0, 26, display_2.getWidth(), 9); // item emphasis
+      display_2.setTextAlignment(TEXT_ALIGN_CENTER); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()/2, 1, "TIME");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 1, "<");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 1, ">");
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(WHITE); display_2.drawString(4, 15, "UTC OFFSET");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(WHITE); display_2.drawString(display_2.getWidth()-4, 15, String(satData.utc_offset));
+      display_2.setTextAlignment(TEXT_ALIGN_LEFT); display_2.setColor(BLACK); display_2.drawString(4, 24, "FLAG");
+      display_2.setTextAlignment(TEXT_ALIGN_RIGHT); display_2.setColor(BLACK); display_2.drawString(display_2.getWidth()-4, 24, String(systemData.translate_plus_minus[0][satData.utc_offset_flag]));
+      }
+    // null unless more entries
+    if (menuData.y >=3 ) {menuData.y = 0;}
+  }
+
   // file: loading
   if (menuData.page == 20) {
     menuData.menu_lock = true; // disable input on this page
@@ -4007,6 +4052,26 @@ void sdcard_save_system_configuration(char * file, int return_page) {
     sdcardData.current_file.println(sdcardData.file_data);
     sdcardData.current_file.println("");
 
+    memset(sdcardData.file_data, 0, 256);
+    strcat(sdcardData.file_data, "UTC_OFFSET,");
+    itoa(satData.utc_offset, sdcardData.tmp, 10);
+    strcat(sdcardData.file_data, sdcardData.tmp);
+    strcat(sdcardData.file_data, ",");
+    Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+    sdcardData.current_file.println("");
+    sdcardData.current_file.println(sdcardData.file_data);
+    sdcardData.current_file.println("");
+
+    memset(sdcardData.file_data, 0, 256);
+    strcat(sdcardData.file_data, "UTC_OFFSET_FLAG,");
+    itoa(satData.utc_offset_flag, sdcardData.tmp, 10);
+    strcat(sdcardData.file_data, sdcardData.tmp);
+    strcat(sdcardData.file_data, ",");
+    Serial.println("[sdcard] [writing] " + String(sdcardData.file_data));
+    sdcardData.current_file.println("");
+    sdcardData.current_file.println(sdcardData.file_data);
+    sdcardData.current_file.println("");
+
     sdcardData.current_file.close();
     Serial.println("[sdcard] saved file successfully: " + String(file));
     menuData.page = return_page;
@@ -4056,7 +4121,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.matrix_enabled = false;} else {systemData.matrix_enabled = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "SATCOM_ENABLED", strlen("SATCOM_ENABLED")) == 0) {
+        else if (strncmp(sdcardData.BUFFER, "SATCOM_ENABLED", strlen("SATCOM_ENABLED")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4065,7 +4130,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.satcom_enabled = false;} else {systemData.satcom_enabled = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "GNGGA_ENABLED", strlen("GNGGA_ENABLED")) == 0) {
+        else if (strncmp(sdcardData.BUFFER, "GNGGA_ENABLED", strlen("GNGGA_ENABLED")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4074,7 +4139,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.gngga_enabled = false;} else {systemData.gngga_enabled = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "GNRMC_ENABLED", strlen("GNRMC_ENABLED")) == 0) {
+        else if (strncmp(sdcardData.BUFFER, "GNRMC_ENABLED", strlen("GNRMC_ENABLED")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4083,7 +4148,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.gnrmc_enabled = false;} else {systemData.gnrmc_enabled = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "GPATT_ENABLED", strlen("GPATT_ENABLED")) == 0) {
+        else if (strncmp(sdcardData.BUFFER, "GPATT_ENABLED", strlen("GPATT_ENABLED")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4092,7 +4157,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.gpatt_enabled = false;} else {systemData.gpatt_enabled = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "DISPLAY_AUTO_OFF", strlen("DISPLAY_AUTO_OFF")) == 0) {
+        else if (strncmp(sdcardData.BUFFER, "DISPLAY_AUTO_OFF", strlen("DISPLAY_AUTO_OFF")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4101,7 +4166,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.display_auto_off = false;} else {systemData.display_auto_off = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "DISPLAY_AUTO_DIM", strlen("DISPLAY_AUTO_DIM")) == 0) {
+        else if (strncmp(sdcardData.BUFFER, "DISPLAY_AUTO_DIM", strlen("DISPLAY_AUTO_DIM")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4110,7 +4175,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.display_auto_dim = false;} else {systemData.display_auto_dim = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "DISPLAY_LOW_LIGHT", strlen("DISPLAY_LOW_LIGHT")) == 0) {
+        else if (strncmp(sdcardData.BUFFER, "DISPLAY_LOW_LIGHT", strlen("DISPLAY_LOW_LIGHT")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4119,7 +4184,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.display_low_light = false;} else {systemData.display_low_light = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "DISPLAY_FLIP_VERTICALLY", strlen("DISPLAY_FLIP_VERTICALLY")) == 0) {
+        else if (strncmp(sdcardData.BUFFER, "DISPLAY_FLIP_VERTICALLY", strlen("DISPLAY_FLIP_VERTICALLY")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4128,7 +4193,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.display_flip_vertically = false;} else {systemData.display_flip_vertically = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "OUTPUT_SATCOM_SENTENCE", strlen("OUTPUT_SATCOM_SENTENCE")) == 0) {
+        else if (strncmp(sdcardData.BUFFER, "OUTPUT_SATCOM_SENTENCE", strlen("OUTPUT_SATCOM_SENTENCE")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4137,7 +4202,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.output_satcom_enabled = false;} else {systemData.output_satcom_enabled = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "OUTPUT_GNGGA_SENTENCE", strlen("OUTPUT_GNGGA_SENTENCE")) == 0) {
+        else if (strncmp(sdcardData.BUFFER, "OUTPUT_GNGGA_SENTENCE", strlen("OUTPUT_GNGGA_SENTENCE")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4146,7 +4211,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.output_gngga_enabled = false;} else {systemData.output_gngga_enabled = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "OUTPUT_GNRMC_SENTENCE", strlen("OUTPUT_GNRMC_SENTENCE")) == 0) {
+        else if (strncmp(sdcardData.BUFFER, "OUTPUT_GNRMC_SENTENCE", strlen("OUTPUT_GNRMC_SENTENCE")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4155,7 +4220,7 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.output_gnrmc_enabled = false;} else {systemData.output_gnrmc_enabled = true;}
           }
         }
-        if (strncmp(sdcardData.BUFFER, "OUTPUT_GPATT_SENTENCE", strlen("OUTPUT_GPATT_SENTENCE")) == 0) {
+        else if (strncmp(sdcardData.BUFFER, "OUTPUT_GPATT_SENTENCE", strlen("OUTPUT_GPATT_SENTENCE")) == 0) {
           sdcardData.token = strtok(sdcardData.BUFFER, ",");
           Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
           sdcardData.token = strtok(NULL, ",");
@@ -4164,6 +4229,25 @@ bool sdcard_load_system_configuration(char * file, int return_page) {
             if (atoi(sdcardData.token) == 0) {systemData.output_gpatt_enabled = false;} else {systemData.output_gpatt_enabled = true;}
           }
         }
+        else if (strncmp(sdcardData.BUFFER, "UTC_OFFSET", strlen("UTC_OFFSET")) == 0) {
+          sdcardData.token = strtok(sdcardData.BUFFER, ",");
+          Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
+          sdcardData.token = strtok(NULL, ",");
+          if (is_all_digits(sdcardData.token) == true) {
+            Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
+            satData.utc_offset = atoi(sdcardData.token);
+          }
+        }
+        else if (strncmp(sdcardData.BUFFER, "UTC_OFFSET_FLAG", strlen("UTC_OFFSET_FLAG")) == 0) {
+          sdcardData.token = strtok(sdcardData.BUFFER, ",");
+          Serial.println("[sdcard] system configuration: " + String(sdcardData.token));
+          sdcardData.token = strtok(NULL, ",");
+          if (is_all_digits(sdcardData.token) == true) {
+            Serial.println("[sdcard] system configuration setting: " + String(sdcardData.token));
+            if (atoi(sdcardData.token) == 0) {satData.utc_offset_flag = false;} else {satData.utc_offset_flag = true;}
+          }
+        }
+        
       }
     }
     sdcardData.current_file.close();
@@ -5667,17 +5751,18 @@ void menuUp() {
 
 void menuRight() {
   // page 0: iterate to next relay function name.
-  if ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); nextRelayFunctionName();}
-  if ((menuData.page == 3) && (menuData.y == 1)) {sdcard_calculate_filename_next("MATRIX/", "MATRIX", ".SAVE");}
-
+  if      ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); nextRelayFunctionName();}
+  else if ((menuData.page == 3) && (menuData.y == 1)) {sdcard_calculate_filename_next("MATRIX/", "MATRIX", ".SAVE");}
+  else if ((menuData.page == 7) && (menuData.y == 1)) {satData.utc_offset++; if (satData.utc_offset > 23) {satData.utc_offset=0;} sdcard_save_system_configuration(sdcardData.sysconf, 7);}
   // change x coordinate
   else {nextPageFunction();}
 }
 
 void menuLeft() {
   // page 0: iterate to previous relay function name.
-  if ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); previousRelayFunctionName();}
-  if ((menuData.page == 3) && (menuData.y == 1)) {sdcard_calculate_filename_previous("MATRIX/", "MATRIX", ".SAVE");}
+  if      ((menuData.page == 0) && (menuData.y == 2)) {scanFi(); previousRelayFunctionName();}
+  else if ((menuData.page == 3) && (menuData.y == 1)) {sdcard_calculate_filename_previous("MATRIX/", "MATRIX", ".SAVE");}
+  else if ((menuData.page == 7) && (menuData.y == 1)) {satData.utc_offset--; if (satData.utc_offset < 0) {satData.utc_offset=23;} sdcard_save_system_configuration(sdcardData.sysconf, 7);}
   // change x coordinate
   else {previousPageFunction();}
 }
@@ -5740,6 +5825,10 @@ void menuSelect() {
     if (menuData.y == 2) {if (systemData.output_gngga_enabled == true) {systemData.output_gngga_enabled = false;} else {systemData.output_gngga_enabled = true;} sdcard_save_system_configuration(sdcardData.sysconf, 6);}
     if (menuData.y == 3) {if (systemData.output_gnrmc_enabled == true) {systemData.output_gnrmc_enabled = false;} else {systemData.output_gnrmc_enabled = true;} sdcard_save_system_configuration(sdcardData.sysconf, 6);}
     if (menuData.y == 4) {if (systemData.output_gpatt_enabled == true) {systemData.output_gpatt_enabled = false;} else {systemData.output_gpatt_enabled = true;} sdcard_save_system_configuration(sdcardData.sysconf, 6);}
+  }
+  // page 7 only
+  if (menuData.page == 7) {
+    if (menuData.y == 2) {if (satData.utc_offset_flag == false) {satData.utc_offset_flag = true;} else {satData.utc_offset_flag = false;} sdcard_save_system_configuration(sdcardData.sysconf, 7);}
   }
 }
 
