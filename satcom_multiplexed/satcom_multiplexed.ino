@@ -2273,7 +2273,7 @@ struct SatDatatruct {
   double millisecondsLong;                                         // used for converting absolute latitude and longitude
   // timezones and daylight saving are subject to geopolitics are therefore subject to change. it may be preferrable to set offset manually, and an automatic option might be added but may be unpreferrable.
   // this system intends to be correct regardless of geopolitical variables, by illiminating those variables. this allows the systems data to be objectively correct long into the future. no maps, no geopolitics.
-  int utc_offset = 1;       // can be used to offset hours (+/-) from UTC and can also be used to account for daylight saving.
+  int utc_offset = 1;       // can be used to offset hours (+/-) from UTC and can also be used to account for daylight saving. notice this is not called timezone or daylight saving.
   bool utc_offset_flag = 0; // 0: add hours to time, 1: deduct hours from time
   char year_heads[56] = "20";
   char year_full[56];
