@@ -2275,7 +2275,7 @@ struct SatDatatruct {
   // this system intends to be correct regardless of geopolitical variables, by illiminating those variables. this allows the systems data to be objectively correct long into the future. no maps, no geopolitics.
   int utc_offset = 0;       // can be used to offset hours (+/-) from UTC and can also be used to account for daylight saving. notice this is not called timezone or daylight saving.
   bool utc_offset_flag = 0; // 0: add hours to time, 1: deduct hours from time
-  char year_prefix[56] = "20"; // inline with trying to keep everything simple, this value is intended to require one ammendment every 100 years. 
+  char year_prefix[56] = "20"; // inline with trying to keep everything simple, this value is intended to require one ammendment every 100 years.
   char year_full[56];
   char month[56];
   char day[56];
@@ -6202,6 +6202,7 @@ void CountElements(void *pvParameters) {
 
 void Display(void *pvParameters) {
   while (1) {
+    delay(5);
      SSD_Display_2_Menu();
     // displays
     if (systemData.satcom_enabled == true) {if (systemData.display_on==true) {SSD_Display_SATCOM();}} else {SSD_Display_SATCOM_Disabled();}
