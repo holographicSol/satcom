@@ -15,3 +15,4 @@ and embed a function that does just that.. But what about next time we need to w
 not only time, but time and or other GPS data? Start again? No thank you. This is a programmable system that intends
 to utilize each and every element of an NMEA sentence including INS data, that can be used for an infinite number of projects
 weather standalone (with a relay hat responding to zeros and ones) or as a hardware module (sending zeros and ones over serial).
+So that we can just tell this system what we need and it delivers.
